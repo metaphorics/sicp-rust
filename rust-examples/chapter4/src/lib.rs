@@ -6,8 +6,8 @@
 //! - Nondeterministic computing (backtracking)
 //! - Logic programming (pattern matching, unification)
 
-// Placeholder modules - to be implemented
-// pub mod section_4_1;  // Metacircular Evaluator
-// pub mod section_4_2;  // Lazy Evaluation
-// pub mod section_4_3;  // Nondeterministic Computing
-// pub mod section_4_4;  // Logic Programming
+// Implemented modules
+pub mod section_4_1; // Metacircular Evaluator
+pub mod section_4_2; // Lazy Evaluation
+pub mod section_4_3; // Nondeterministic Computing
+pub mod section_4_4; // Logic Programming

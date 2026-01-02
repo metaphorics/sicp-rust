@@ -8,8 +8,8 @@
 //! - Compilation (targeting WASM)
 
 // Placeholder modules - to be implemented
-// pub mod section_5_1;  // Register Machines
-// pub mod section_5_2;  // Simulator
-// pub mod section_5_3;  // Storage and GC
-// pub mod section_5_4;  // Explicit-Control Evaluator
-// pub mod section_5_5;  // Compilation
+pub mod section_5_1; // Register Machines
+pub mod section_5_2; // Simulator
+pub mod section_5_3; // Storage and GC
+pub mod section_5_4; // Explicit-Control Evaluator
+pub mod section_5_5; // Compilation

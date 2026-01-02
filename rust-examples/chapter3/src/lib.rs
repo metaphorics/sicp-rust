@@ -7,9 +7,9 @@
 //! - Concurrency (fearless concurrency)
 //! - Streams (iterators, async)
 
-// Placeholder modules - to be implemented
-// pub mod section_3_1;  // Assignment and Local State
-// pub mod section_3_2;  // Environment Model
-// pub mod section_3_3;  // Mutable Data
-// pub mod section_3_4;  // Concurrency
-// pub mod section_3_5;  // Streams
+// Modules
+pub mod section_3_1; // Assignment and Local State
+pub mod section_3_2; // Environment Model
+pub mod section_3_3; // Mutable Data
+pub mod section_3_4; // Concurrency: Time Is of the Essence
+pub mod section_3_5; // Streams

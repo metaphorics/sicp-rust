@@ -2516,6 +2516,18 @@ distinguishable:
 @end lisp
 
 @noindent
+@b{Rust:}
+@example
+fn square(x: i64) -> i64 @{
+    x * x
+@}
+
+fn square(y: i64) -> i64 @{
+    y * y
+@}
+@end example
+
+@noindent
 This principle---that the meaning of a procedure should be independent of the
 parameter names used by its author---seems on the surface to be self-evident,
 but its consequences are profound.  The simplest consequence is that the
@@ -2527,6 +2539,14 @@ square-root procedure:
 (define (good-enough? guess x)
   (< (abs (- (square guess) x)) 0.001))
 @end lisp
+
+@noindent
+@b{Rust:}
+@example
+fn good_enough(guess: f64, x: f64) -> bool @{
+    (guess.powi(2) - x).abs() < 0.001
+@}
+@end example
 
 @noindent
 The intention of the author of @code{good-enough?} is to determine if the
@@ -10293,9 +10313,43 @@ numbers, we can express the differentiation rules as the following procedure:
           (make-product 
            (deriv (multiplier exp) var)
            (multiplicand exp))))
-        (else (error "unknown expression 
+        (else (error "unknown expression
                       type: DERIV" exp))))
 @end lisp
+
+@noindent
+@b{Rust:}
+@example
+enum Expr @{
+    Const(f64),
+    Var(&'static str),
+    Sum(Box<Expr>, Box<Expr>),
+    Product(Box<Expr>, Box<Expr>),
+@}
+
+use Expr::*;
+
+fn deriv(exp: &Expr, var: &str) -> Expr @{
+    match exp @{
+        Const(_) => Const(0.0),
+        Var(v) => if *v == var @{ Const(1.0) @} else @{ Const(0.0) @},
+        Sum(a, b) => Sum(
+            Box::new(deriv(a, var)),
+            Box::new(deriv(b, var))
+        ),
+        Product(m1, m2) => Sum(
+            Box::new(Product(
+                m1.clone(),
+                Box::new(deriv(m2, var))
+            )),
+            Box::new(Product(
+                Box::new(deriv(m1, var)),
+                m2.clone()
+            ))
+        ),
+    @}
+@}
+@end example
 
 @noindent
 This @code{deriv} procedure incorporates the complete differentiation
@@ -10647,15 +10701,30 @@ resulting procedure:
 
 @lisp
 (define (intersection-set set1 set2)
-  (cond ((or (null? set1) (null? set2)) 
+  (cond ((or (null? set1) (null? set2))
          '())
         ((element-of-set? (car set1) set2)
          (cons (car set1)
-               (intersection-set (cdr set1) 
+               (intersection-set (cdr set1)
                                  set2)))
-        (else (intersection-set (cdr set1) 
+        (else (intersection-set (cdr set1)
                                 set2))))
 @end lisp
+
+@noindent
+@b{Rust:}
+@example
+fn element_of_set<T: PartialEq>(x: &T, set: &[T]) -> bool @{
+    set.iter().any(|elem| elem == x)
+@}
+
+fn intersection_set<T: PartialEq + Clone>(set1: &[T], set2: &[T]) -> Vec<T> @{
+    set1.iter()
+        .filter(|&x| element_of_set(x, set2))
+        .cloned()
+        .collect()
+@}
+@end example
 
 @noindent
 In designing a representation, one of the issues we should be concerned with is
@@ -14566,6 +14635,28 @@ and @code{withdraw}:
 @end lisp
 
 @noindent
+@b{Rust:}
+@example
+use std::cell::RefCell;
+
+thread_local! @{
+    static BALANCE: RefCell<i64> = RefCell::new(100);
+@}
+
+fn withdraw(amount: i64) -> Result<i64, &'static str> @{
+    BALANCE.with(|balance| @{
+        let mut b = balance.borrow_mut();
+        if *b >= amount @{
+            *b -= amount;
+            Ok(*b)
+        @} else @{
+            Err("Insufficient funds")
+        @}
+    @})
+@}
+@end example
+
+@noindent
 Decrementing @code{balance} is accomplished by the expression
 
 @lisp
@@ -14689,6 +14780,32 @@ evaluation in @ref{3.2}.  (See also @ref{Exercise 3.10}.)}
 @end lisp
 
 @noindent
+@b{Rust:}
+@example
+use std::cell::RefCell;
+use std::rc::Rc;
+
+fn make_withdraw(initial: i64) -> impl FnMut(i64) -> Result<i64, &'static str> @{
+    let balance = Rc::new(RefCell::new(initial));
+    move |amount| @{
+        let mut b = balance.borrow_mut();
+        if *b >= amount @{
+            *b -= amount;
+            Ok(*b)
+        @} else @{
+            Err("Insufficient funds")
+        @}
+    @}
+@}
+
+// Usage:
+let mut w1 = make_withdraw(100);
+let mut w2 = make_withdraw(100);
+assert_eq!(w1(50), Ok(50));  // w1 balance: 50
+assert_eq!(w2(70), Ok(30));  // w2 balance: 30 (independent)
+@end example
+
+@noindent
 @code{Make-withdraw} can be used as follows to create two objects @code{W1} and
 @code{W2}:
 
@@ -14736,6 +14853,36 @@ thus we can represent simple bank accounts.  Here is a procedure that returns a
                  MAKE-ACCOUNT" m))))
   dispatch)
 @end lisp
+
+@noindent
+@b{Rust:}
+@example
+use std::cell::RefCell;
+
+enum Message @{ Withdraw(i64), Deposit(i64) @}
+
+struct Account @{ balance: RefCell<i64> @}
+
+impl Account @{
+    fn new(initial: i64) -> Self @{
+        Account @{ balance: RefCell::new(initial) @}
+    @}
+
+    fn call(&self, msg: Message) -> Result<i64, &'static str> @{
+        match msg @{
+            Message::Withdraw(amt) => @{
+                let mut b = self.balance.borrow_mut();
+                if *b >= amt @{ *b -= amt; Ok(*b) @}
+                else @{ Err("Insufficient funds") @}
+            @}
+            Message::Deposit(amt) => @{
+                *self.balance.borrow_mut() += amt;
+                Ok(*self.balance.borrow())
+            @}
+        @}
+    @}
+@}
+@end example
 
 @noindent
 Each call to @code{make-account} sets up an environment with a local state
@@ -19632,6 +19779,31 @@ As an example of how this is used, consider
 @end lisp
 
 @noindent
+@b{Rust:} Rust's type system prevents data races at compile time:
+@example
+use std::sync::@{Arc, Mutex@};
+use std::thread;
+
+let x = Arc::new(Mutex::new(10_i64));
+let x1 = Arc::clone(&x);
+let x2 = Arc::clone(&x);
+
+let h1 = thread::spawn(move || @{
+    let mut val = x1.lock().unwrap();
+    *val = *val * *val;  // Mutex ensures exclusive access
+@});
+
+let h2 = thread::spawn(move || @{
+    let mut val = x2.lock().unwrap();
+    *val += 1;
+@});
+
+h1.join().unwrap();
+h2.join().unwrap();
+// Result is always 101 or 121 - no race conditions!
+@end example
+
+@noindent
 This creates two concurrent processes---@math{P_1}, which sets @code{x} to
 @code{x} times @code{x}, and @math{P_2}, which increments @code{x}.  After
 execution is complete, @code{x} will be left with one of five possible values,
@@ -20867,10 +21039,37 @@ integers:
 
 @lisp
 (define (integers-starting-from n)
-  (cons-stream 
+  (cons-stream
    n (integers-starting-from (+ n 1))))
 (define integers (integers-starting-from 1))
 @end lisp
+
+@noindent
+@b{Rust (using Iterator):}
+@example
+// Infinite stream of integers
+struct IntegersFrom @{
+    current: i64,
+@}
+
+impl IntegersFrom @{
+    fn new(start: i64) -> Self @{
+        IntegersFrom @{ current: start @}
+    @}
+@}
+
+impl Iterator for IntegersFrom @{
+    type Item = i64;
+
+    fn next(&mut self) -> Option<Self::Item> @{
+        let value = self.current;
+        self.current += 1;
+        Some(value)
+    @}
+@}
+
+// Usage: let integers = IntegersFrom::new(1);
+@end example
 
 @noindent
 This makes sense because @code{integers} will be a pair whose @code{car} is 1
@@ -23359,6 +23558,42 @@ Here is the definition of @code{eval}:
 @end lisp
 
 @noindent
+@b{Rust:} Pattern matching on an enum provides exhaustive dispatch:
+@example
+fn eval(exp: &Expr, env: &Environment) -> Result<Value, EvalError> @{
+    match exp @{
+        Expr::Number(n) => Ok(Value::Number(*n)),
+        Expr::Bool(b) => Ok(Value::Bool(*b)),
+        Expr::Symbol(s) => env.lookup(s),
+        Expr::Quote(e) => Ok(Value::from_expr(e)),
+        Expr::If @{ test, conseq, alt @} => @{
+            if eval(test, env)?.is_truthy() @{
+                eval(conseq, env)
+            @} else @{
+                eval(alt, env)
+            @}
+        @}
+        Expr::Lambda @{ params, body @} => @{
+            Ok(Value::Closure @{ params: params.clone(),
+                                body: body.clone(),
+                                env: env.clone() @})
+        @}
+        Expr::Define @{ name, value @} => @{
+            let val = eval(value, env)?;
+            env.define(name, val);
+            Ok(Value::Void)
+        @}
+        Expr::Application @{ operator, operands @} => @{
+            let proc = eval(operator, env)?;
+            let args: Result<Vec<_>, _> =
+                operands.iter().map(|e| eval(e, env)).collect();
+            apply(&proc, &args?)
+        @}
+    @}
+@}
+@end example
+
+@noindent
 For clarity, @code{eval} has been implemented as a case analysis using
 @code{cond}.  The disadvantage of this is that our procedure handles only a few
 distinguishable types of expressions, and no new ones can be defined without
@@ -23400,6 +23635,21 @@ the definition of @code{apply}:
                  type: APPLY" 
                 procedure))))
 @end lisp
+
+@noindent
+@b{Rust:}
+@example
+fn apply(procedure: &Value, arguments: &[Value]) -> Result<Value, EvalError> @{
+    match procedure @{
+        Value::Primitive(f) => f(arguments),
+        Value::Closure @{ params, body, env @} => @{
+            let new_env = env.extend(params, arguments);
+            eval_sequence(body, &new_env)
+        @}
+        _ => Err(EvalError::NotAProcedure),
+    @}
+@}
+@end example
 
 @subsubheading Procedure arguments
 
@@ -31098,6 +31348,26 @@ Thus, the @abbr{GCD} machine is described as follows:
 @end lisp
 
 @noindent
+@b{Rust:}
+@example
+use Instruction::*;
+use Source::*;
+use Target::*;
+
+vec![
+    // test-b
+    Test(Op("=".into(), vec![Reg("b".into()), Const(0)])),
+    Branch("gcd-done".into()),
+    Assign("t".into(), Op("rem".into(),
+        vec![Reg("a".into()), Reg("b".into())])),
+    Assign("a".into(), Reg("b".into())),
+    Assign("b".into(), Reg("t".into())),
+    Goto(Label("test-b".into())),
+    // gcd-done
+]
+@end example
+
+@noindent
 This form of description is easier to read than the kind illustrated in
 @ref{Figure 5.3}, but it also has disadvantages:
 
@@ -31166,6 +31436,24 @@ sequence by the instruction
 @lisp
 (perform (op print) (reg a))
 @end lisp
+
+@noindent
+@b{Rust:}
+@example
+Instruction::Perform(Source::Op(
+    "print".into(),
+    vec![Source::Reg("a".into())]
+))
+@end example
+
+@noindent
+@b{Rust:}
+@example
+Instruction::Perform(Source::Op(
+    "print".into(),
+    vec![Source::Reg("a".into())]
+))
+@end example
 
 @noindent
 @ref{Figure 5.4} shows the data paths and controller for the new @abbr{GCD}
@@ -31289,6 +31577,13 @@ instructions that contains a loop, as shown in @ref{Figure 5.6}.
 +-----+           |  |      /   \
 |  t  +-------*---|--*-----|  <  |
 +-----+       |   |         \___/
+
+@noindent
+@b{Rust:}
+@example
+Assign("a".into(), Reg("b".into()))
+@end example
+
    ^          V   V
    |        ---------
   (X) t<-d   \  -  /
@@ -31307,6 +31602,14 @@ instructions that contains a loop, as shown in @ref{Figure 5.6}.
 |    |                     V       |
 |    |   +------+         / \ no   |
 |    +-->| t<-a +------->< < >-----+
+
+@noindent
+@b{Rust:}
+@example
+Assign("t".into(), Op("rem".into(),
+    vec![Reg("a".into()), Reg("b".into())]))
+@end example
+
 |        +------+         \ /
 |                          | yes
 |      +-------------------+
@@ -31349,6 +31652,28 @@ instructions that contains a loop, as shown in @ref{Figure 5.6}.
    (goto (label test-b))
  gcd-done)
 @end lisp
+
+@noindent
+@b{Rust:}
+@example
+vec![
+    // test-b
+    Test(Op("=".into(), vec![Reg("b".into()), Const(0)])),
+    Branch("gcd-done".into()),
+    Assign("t".into(), Reg("a".into())),
+    // rem-loop
+    Test(Op("<".into(), vec![Reg("t".into()), Reg("b".into())])),
+    Branch("rem-done".into()),
+    Assign("t".into(), Op("-".into(),
+        vec![Reg("t".into()), Reg("b".into())])),
+    Goto(Label("rem-loop".into())),
+    // rem-done
+    Assign("a".into(), Reg("b".into())),
+    Assign("b".into(), Reg("t".into())),
+    Goto(Label("test-b".into())),
+    // gcd-done
+]
+@end example
 
 @end quotation
 
@@ -32092,6 +32417,32 @@ in Scheme, because we will simulate low-level machine instructions, such as
 
 @quotation
 @strong{@anchor{Exercise 5.7}Exercise 5.7:} Use the simulator to test the
+
+@noindent
+@b{Rust (recursive factorial machine):}
+@example
+vec![
+    Assign("continue".into(), Source::Label("fact-done".into())),
+    // fact-loop
+    Test(Op("=".into(), vec![Reg("n".into()), Const(1)])),
+    Branch("base-case".into()),
+    Save("continue".into()),
+    Save("n".into()),
+    Assign("n".into(), Op("-".into(), vec![Reg("n".into()), Const(1)])),
+    Assign("continue".into(), Source::Label("after-fact".into())),
+    Goto(Label("fact-loop".into())),
+    // after-fact
+    Restore("n".into()),
+    Restore("continue".into()),
+    Assign("val".into(), Op("*".into(),
+        vec![Reg("n".into()), Reg("val".into())])),
+    Goto(Reg("continue".into())),
+    // base-case
+    Assign("val".into(), Const(1)),
+    Goto(Reg("continue".into())),
+]
+@end example
+
 machines you designed in @ref{Exercise 5.4}.
 @end quotation
 
@@ -32207,6 +32558,38 @@ stack, to @code{pop} the top item off the stack and return it, and to
 The following procedures are used to access stacks:
 
 @lisp
+
+@noindent
+@b{Rust (fibonacci machine):}
+@example
+vec![
+    Assign("continue".into(), Source::Label("fib-done".into())),
+    // fib-loop
+    Test(Op("<".into(), vec![Reg("n".into()), Const(2)])),
+    Branch("immediate-answer".into()),
+    Save("continue".into()),
+    Assign("continue".into(), Source::Label("afterfib-n-1".into())),
+    Save("n".into()),
+    Assign("n".into(), Op("-".into(), vec![Reg("n".into()), Const(1)])),
+    Goto(Label("fib-loop".into())),
+    // afterfib-n-1
+    Restore("n".into()),
+    Save("val".into()),
+    Assign("n".into(), Op("-".into(), vec![Reg("n".into()), Const(2)])),
+    Assign("continue".into(), Source::Label("afterfib-n-2".into())),
+    Goto(Label("fib-loop".into())),
+    // afterfib-n-2
+    Restore("n".into()),
+    Restore("continue".into()),
+    Assign("val".into(), Op("+".into(),
+        vec![Reg("val".into()), Reg("n".into())])),
+    Goto(Reg("continue".into())),
+    // immediate-answer
+    Assign("val".into(), Reg("n".into())),
+    Goto(Reg("continue".into())),
+]
+@end example
+
 (define (pop stack) (stack 'pop))
 (define (push stack value)
   ((stack 'push) value))
@@ -32734,6 +33117,19 @@ branch destination (if the branch is taken) or else just advances the @code{pc}
 enforces this.  Notice also that the label is looked up at assembly time, not
 each time the @code{branch} instruction is simulated.
 
+
+@noindent
+@b{Rust (machine execution):}
+@example
+pub fn run(&mut self) @{
+    self.pc = 0;
+    while self.pc < self.instructions.len() @{
+        let instruction = self.instructions[self.pc].clone();
+        self.execute(&instruction);
+    @}
+@}
+@end example
+
 @lisp
 (define 
   (make-branch 
@@ -32884,6 +33280,22 @@ determined by
 (define (constant-exp-value exp)
   (cadr exp))
 (define (label-exp? exp)
+
+@noindent
+@b{Rust (register access):}
+@example
+pub fn get_register(&self, name: &str) -> Value @{
+    *self.registers.get(name)
+        .unwrap_or_else(|| panic!("Unknown register: @{@}", name))
+@}
+
+pub fn set_register(&mut self, name: &str, value: Value) @{
+    if let Some(reg) = self.registers.get_mut(name) @{
+        *reg = value;
+    @}
+@}
+@end example
+
   (tagged-list? exp 'label))
 (define (label-exp-label exp) 
   (cadr exp))
@@ -33384,6 +33796,29 @@ pointers only if we are careful never to store the same number in more than one
 location.}  To deal with numbers that are too large to be represented in the
 fixed amount of space allocated for a single pointer, we could use a distinct
 @newterm{bignum} data type, for which the pointer designates a list in which
+
+@noindent
+@b{Rust (memory structure):}
+@example
+pub struct Memory @{
+    pub the_cars: Vec<Value>,
+    pub the_cdrs: Vec<Value>,
+    pub free: usize,
+    capacity: usize,
+@}
+
+impl Memory @{
+    pub fn new(capacity: usize) -> Self @{
+        Memory @{
+            the_cars: vec![Value::Nil; capacity],
+            the_cdrs: vec![Value::Nil; capacity],
+            free: 0,
+            capacity,
+        @}
+    @}
+@}
+@end example
+
 the parts of the number are stored.@footnote{This is just like writing a number
 as a sequence of digits, except that each ``digit'' is a number between 0 and
 the largest number that can be stored in a single pointer.}
@@ -33533,6 +33968,25 @@ Similarly, @code{(restore ⟨@var{reg}⟩)} can be implemented as
 
 @noindent
 and @code{(perform (op initialize-stack))} can be implemented as
+
+
+@noindent
+@b{Rust (car/cdr operations):}
+@example
+pub fn car(&self, pair: &Value) -> Result<&Value, &'static str> @{
+    match pair @{
+        Value::Pair(index) => Ok(&self.the_cars[*index]),
+        _ => Err("Not a pair"),
+    @}
+@}
+
+pub fn cdr(&self, pair: &Value) -> Result<&Value, &'static str> @{
+    match pair @{
+        Value::Pair(index) => Ok(&self.the_cdrs[*index]),
+        _ => Err("Not a pair"),
+    @}
+@}
+@end example
 
 @lisp
 (assign the-stack (const ()))
@@ -33829,6 +34283,39 @@ reassign-root
   (goto (label gc-loop))
 @end lisp
 
+
+@noindent
+@b{Rust (stop-and-copy GC relocate):}
+@example
+fn relocate(&mut self, value: Value) -> Result<Value, &'static str> @{
+    match value @{
+        Value::Pair(old_index) => @{
+            // Check if already relocated (broken heart)
+            if let Value::BrokenHeart(new_index) =
+                self.working.the_cars[old_index] @{
+                return Ok(Value::Pair(new_index));
+            @}
+
+            // Copy to new memory
+            let car = self.working.the_cars[old_index].clone();
+            let cdr = self.working.the_cdrs[old_index].clone();
+            let new_index = self.free_space.free;
+
+            self.free_space.the_cars[new_index] = car;
+            self.free_space.the_cdrs[new_index] = cdr;
+            self.free_space.free += 1;
+
+            // Mark with broken heart
+            self.working.the_cars[old_index] =
+                Value::BrokenHeart(new_index);
+
+            Ok(Value::Pair(new_index))
+        @}
+        _ => Ok(value),  // Non-pairs unchanged
+    @}
+@}
+@end example
+
 @noindent
 In the main loop of the garbage collector we must determine whether there are
 any more objects to be scanned.  We do this by testing whether the @code{scan}
@@ -33851,6 +34338,38 @@ gc-loop
   (assign relocate-continue 
           (label update-car))
   (goto (label relocate-old-result-in-new))
+
+@noindent
+@b{Rust (GC structure):}
+@example
+pub struct StopAndCopyGC @{
+    working: Memory,
+    free_space: Memory,
+    roots: Vec<Value>,
+@}
+
+impl StopAndCopyGC @{
+    pub fn collect(&mut self) -> Result<(), &'static str> @{
+        self.free_space = Memory::new(self.working.capacity);
+        let mut scan = 0;
+
+        // Relocate roots
+        for root in &mut self.roots @{
+            *root = self.relocate(root.clone())?;
+        @}
+
+        // Scan and relocate
+        while scan < self.free_space.free @{
+            // ... relocate car/cdr ...
+            scan += 1;
+        @}
+
+        std::mem::swap(&mut self.working, &mut self.free_space);
+        Ok(())
+    @}
+@}
+@end example
+
 @end lisp
 
 @noindent
@@ -34952,6 +35471,39 @@ Summarize your experiments by filling in the following table with the
 appropriate expressions in terms of @math{n}:
 @ifinfo
 
+@noindent
+@b{Rust (evaluator core):}
+@example
+pub fn eval(expr: &Expr, env: Rc<Environment>) -> Result<Value, String> @{
+    match expr @{
+        Expr::Number(n) => Ok(Value::Number(*n)),
+        Expr::Symbol(name) => env.borrow().lookup(name)
+            .ok_or_else(|| format!("Unbound variable: @{@}", name)),
+        Expr::Lambda @{ params, body @} => Ok(Value::Procedure @{
+            params: params.clone(),
+            body: body.clone(),
+            env: env.clone(),
+        @}),
+        Expr::If @{ predicate, consequent, alternative @} => @{
+            if eval(predicate, env.clone())?.is_true() @{
+                eval(consequent, env)
+            @} else @{
+                eval(alternative, env)
+            @}
+        @}
+        Expr::Application @{ operator, operands @} => @{
+            let proc = eval(operator, env.clone())?;
+            let args: Result<Vec<_>, _> = operands.iter()
+                .map(|e| eval(e, env.clone()))
+                .collect();
+            apply(proc, args?)
+        @}
+        // ... other cases ...
+    @}
+@}
+@end example
+
+
 @example
                Maximum depth       Number of pushes
 
@@ -35151,6 +35703,23 @@ Our compiler is much like our interpreter, both in its structure and in the
 function it performs.  Accordingly, the mechanisms used by the compiler for
 analyzing expressions will be similar to those used by the interpreter.
 Moreover, to make it easy to interface compiled and interpreted code, we will
+
+@noindent
+@b{Rust (environment extension):}
+@example
+pub fn extend(
+    parent: Rc<Environment>,
+    params: &[String],
+    args: &[Value]
+) -> Rc<Environment> @{
+    let mut env = EnvFrame::new(Some(parent));
+    for (param, arg) in params.iter().zip(args.iter()) @{
+        env.define(param.clone(), arg.clone());
+    @}
+    Rc::new(RefCell::new(env))
+@}
+@end example
+
 design the compiler to generate code that obeys the same conventions of
 register usage as the interpreter: The environment will be kept in the
 @code{env} register, argument lists will be accumulated in @code{argl}, a
@@ -35363,6 +35932,28 @@ evaluating
 @lisp
 (append-instruction-sequences ⟨@var{seq₁}⟩ ⟨@var{seq₂}⟩)
 @end lisp
+
+@noindent
+@b{Rust (append instruction sequences):}
+@example
+pub fn append_instruction_sequences(
+    seq1: InstructionSeq,
+    seq2: InstructionSeq
+) -> InstructionSeq @{
+    let mut needs = seq1.needs.clone();
+    needs.extend(
+        seq2.needs.difference(&seq1.modifies).cloned()
+    );
+
+    let mut modifies = seq1.modifies.clone();
+    modifies.extend(seq2.modifies.iter().cloned());
+
+    let mut statements = seq1.statements;
+    statements.extend(seq2.statements);
+
+    InstructionSeq @{ needs, modifies, statements @}
+@}
+@end example
 
 @noindent
 produces the sequence
@@ -36329,6 +36920,20 @@ Suppose instead that we had handled the case of a procedure call with a linkage
 of @code{return} and a target of @code{val} as shown above for a non-@code{val}
 target.  This would destroy tail recursion.  Our system would still give the
 same value for any expression.  But each time we called a procedure, we would
+
+@noindent
+@b{Rust (compiler registers):}
+@example
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub enum Register @{
+    Env,       // Environment register
+    Proc,      // Procedure register
+    Val,       // Value register
+    Argl,      // Argument list register
+    Continue,  // Continuation register
+@}
+@end example
+
 save @code{continue} and return after the call to undo the (useless) save.
 These extra saves would accumulate during a nest of procedure
 calls.@footnote{Making a compiler generate tail-recursive code might seem like
@@ -36729,6 +37334,29 @@ after-if3
 The predicate @code{(= n 1)} is a procedure call.  This looks up the operator
 (the symbol @code{=}) and places this value in @code{proc}.  It then assembles
 the arguments @code{1} and the value of @code{n} into @code{argl}.  Then it
+
+@noindent
+@b{Rust (compile dispatch):}
+@example
+pub fn compile(
+    expr: &Expr,
+    target: Register,
+    linkage: Linkage
+) -> InstructionSeq @{
+    match expr @{
+        Expr::Number(n) => compile_self_evaluating(*n, target, linkage),
+        Expr::Symbol(name) => compile_variable(name, target, linkage),
+        Expr::Lambda @{ params, body @} =>
+            compile_lambda(params, body, target, linkage),
+        Expr::If @{ predicate, consequent, alternative @} =>
+            compile_if(predicate, consequent, alternative, target, linkage),
+        Expr::Application @{ operator, operands @} =>
+            compile_application(operator, operands, target, linkage),
+        // ... other cases ...
+    @}
+@}
+@end example
+
 tests whether @code{proc} contains a primitive or a compound procedure, and
 dispatches to a primitive branch or a compound branch accordingly.  Both
 branches resume at the @code{after-call} label.  The requirements to preserve
@@ -37029,6 +37657,42 @@ after-call17
   (assign argl (op list) (reg val))
   (restore proc)
   (test (op primitive-procedure?)
+
+@noindent
+@b{Rust (preserving optimization):}
+@example
+pub fn preserving(
+    regs: Vec<Register>,
+    seq1: InstructionSeq,
+    seq2: InstructionSeq
+) -> InstructionSeq @{
+    if regs.is_empty() @{
+        return append_instruction_sequences(seq1, seq2);
+    @}
+
+    let first = regs[0];
+    let rest = regs[1..].to_vec();
+
+    if !seq2.needs.contains(&first) || seq1.modifies.contains(&first) @{
+        preserving(rest, seq1, seq2)
+    @} else @{
+        let save = make_instruction_sequence(
+            vec![],
+            vec![],
+            vec![Instruction::Save @{ register: first @}]
+        );
+        let restore = make_instruction_sequence(
+            vec![],
+            vec![],
+            vec![Instruction::Restore @{ register: first @}]
+        );
+        preserving(rest,
+            append_instruction_sequences(save, seq1),
+            append_instruction_sequences(seq2, restore))
+    @}
+@}
+@end example
+
         (reg proc))
   (branch (label primitive-branch22))
 compiled-branch21
