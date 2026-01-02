@@ -16,7 +16,7 @@ JS = $(DIR)js/*.js              # javascript libraries
 CONV = texi2any lib/Texinfo/Convert/HTML.pm     # Texinfo converter scripts
 MATH = get-math.js put-math.js mathcell.xhtml   # LaTeX -> MathML converter
 HIGHL = $(DIR)js/highlight/
-PRETTY = $(HIGHL)prettify.js $(HIGHL)lang-lisp.js batch-prettify.js
+PRETTY = $(HIGHL)prettify.js $(HIGHL)lang-lisp.js $(HIGHL)lang-rust.js batch-prettify-node.js
 COVER = index.in.xhtml $(DIR)fig/coverpage.std.svg $(DIR)fig/bookwheel.jpg
 THUMB = $(DIR)fig/cover.png     # thumbnail cover image
 SHELL = /bin/bash
@@ -60,8 +60,8 @@ $(NEXUS): $(SRC) $(CONV) $(MATH) $(PRETTY) exercises.texi figures.texi
 	./put-math.js db.json $(HTML); \
 	echo "done."
 
-	@echo -n "Syntax highlighting Scheme code..."; \
-	./batch-prettify.js $(HTML); \
+	@echo -n "Syntax highlighting code..."; \
+	node ./batch-prettify-node.js $(HTML); \
 	echo "done."
 
 	@# Add xml declaration
@@ -104,4 +104,10 @@ $(GOAL): $(META) $(THUMB) $(FIG) $(CSS) $(FONT) mimetype META-INF/* LICENSE
 	  index.xhtml $(DIR)css/* $(DIR)fig/* ; \
 	echo "done."
 
-.PHONY: all epub html
+# Rust examples testing
+test-rust:
+	@echo "Testing Rust examples..."; \
+	cd rust-examples && cargo test --workspace; \
+	echo "done."
+
+.PHONY: all epub html test-rust

@@ -1169,14 +1169,14 @@ same rules allow us to build procedures to manipulate compound data as well.
 @subsection Expressions
 
 One easy way to get started at programming is to examine some typical
-interactions with an interpreter for the Scheme dialect of Lisp.  Imagine that
+interactions with the Rust REPL (Read-Eval-Print Loop).  Imagine that
 you are sitting at a computer terminal.  You type an @newterm{expression}, and
 the interpreter responds by displaying the result of its @newterm{evaluating}
 that expression.
 
 One kind of primitive expression you might type is a number.  (More precisely,
 the expression that you type consists of the numerals that represent the number
-in base 10.)  If you present Lisp with a number
+in base 10.)  If you present Rust with a number
 
 @lisp
 486
@@ -1193,71 +1193,69 @@ characters.}
 @end lisp
 
 @noindent
-Expressions representing numbers may be combined with an expression
-representing a primitive procedure (such as @code{+} or @code{*}) to form a
-compound expression that represents the application of the procedure to those
+Expressions representing numbers may be combined with operators
+(such as @code{+} or @code{*}) to form a
+compound expression that represents the application of the operator to those
 numbers.  For @w{example}:
 
 @lisp
-(+ 137 349)
-@i{486}
+137 + 349
+// => 486
 
-(- 1000 334)
-@i{666}
+1000 - 334
+// => 666
 
-(* 5 99)
-@i{495}
+5 * 99
+// => 495
 
-(/ 10 5)
-@i{2}
+10 / 5
+// => 2
 
-(+ 2.7 10)
-@i{12.7}
+2.7 + 10.0
+// => 12.7
 @end lisp
 
 @noindent
-Expressions such as these, formed by delimiting a list of expressions within
-parentheses in order to denote procedure application, are called
-@newterm{combinations}.  The leftmost element in the list is called the
-@newterm{operator}, and the other elements are called @newterm{operands}.  The
-value of a combination is obtained by applying the procedure specified by the
-operator to the @newterm{arguments} that are the values of the operands.
+Expressions such as these, which combine operators with operands, are called
+@newterm{compound expressions}.  Rust uses standard mathematical @newterm{infix notation},
+where the operator appears between its operands.  The
+value of a compound expression is obtained by applying the operator to the
+@newterm{arguments} that are the values of the operands.
 
-The convention of placing the operator to the left of the operands is known as
-@newterm{prefix notation}, and it may be somewhat confusing at first because it
-departs significantly from the customary mathematical convention.  Prefix
-notation has several advantages, however.  One of them is that it can
-accommodate procedures that may take an arbitrary number of arguments, as in
+This convention of placing the operator between operands is known as
+@newterm{infix notation}, which follows customary mathematical convention.
+Infix notation works naturally with binary operators, and can be extended
+to handle multiple operands through chaining, as in
 the following examples:
 
 @lisp
-(+ 21 35 12 7)
-@i{75}
+21 + 35 + 12 + 7
+// => 75
 
-(* 25 4 12)
-@i{1200}
+25 * 4 * 12
+// => 1200
 @end lisp
 
 @noindent
-No ambiguity can arise, because the operator is always the leftmost element and
-the entire combination is delimited by the parentheses.
+No ambiguity can arise, because Rust follows standard operator precedence rules
+(multiplication and division before addition and subtraction), and parentheses can
+be used to override the default precedence.
 
-A second advantage of prefix notation is that it extends in a straightforward
-way to allow combinations to be @i{nested}, that is, to have combinations whose
-elements are themselves combinations:
+Infix notation extends naturally to allow expressions to be @i{nested}, that is,
+to have compound expressions whose operands are themselves compound expressions:
 
 @lisp
-(+ (* 3 5) (- 10 6))
-@i{19}
+(3 * 5) + (10 - 6)
+// => 19
 @end lisp
 
 @noindent
 There is no limit (in principle) to the depth of such nesting and to the
-overall complexity of the expressions that the Lisp interpreter can evaluate.
+overall complexity of the expressions that Rust can evaluate.
 It is we humans who get confused by still relatively simple expressions such as
 
 @lisp
-(+ (* 3 (+ (* 2 4) (+ 3 5))) (+ (- 10 7) 6))
+(3 * ((2 * 4) + (3 + 5))) + ((10 - 7) + 6)
 @end lisp
 
 @noindent
@@ -1265,33 +1263,29 @@ which the interpreter would readily evaluate to be 57.  We can help ourselves
 by writing such an expression in the form
 
 @lisp
-(+ (* 3
-      (+ (* 2 4)
-         (+ 3 5)))
-   (+ (- 10 7)
-      6))
+(3 * ((2 * 4) +
+      (3 + 5))) +
+((10 - 7) + 6)
 @end lisp
 
 @noindent
 following a formatting convention known as @newterm{pretty-printing}, in which
-each long combination is written so that the operands are aligned vertically.
+each long expression is written so that the operands are aligned vertically.
 The resulting indentations display clearly the structure of the
-expression.@footnote{Lisp systems typically provide features to aid the user in
-formatting expressions.  Two especially useful features are one that
-automatically indents to the proper pretty-print position whenever a new line
-is started and one that highlights the matching left parenthesis whenever a
-right parenthesis is typed.}
+expression.@footnote{Rust development tools typically provide features to aid the user in
+formatting expressions.  Two especially useful features are automatic formatting
+with tools like @code{rustfmt}, and syntax highlighting that helps visually
+parse complex nested expressions with matching parentheses.}
 
 Even with complex expressions, the interpreter always operates in the same
 basic cycle: It reads an expression from the terminal, evaluates the
 expression, and prints the result.  This mode of operation is often expressed
 by saying that the interpreter runs in a @newterm{read-eval-print loop}.
 Observe in particular that it is not necessary to explicitly instruct the
-interpreter to print the value of the expression.@footnote{Lisp obeys the
-convention that every expression has a value. This convention, together with
-the old reputation of Lisp as an inefficient language, is the source of the
-quip by Alan Perlis (paraphrasing Oscar Wilde) that ``Lisp programmers know the
-value of everything but the cost of nothing.''}
+interpreter to print the value of the expression.@footnote{Rust obeys the
+convention that every expression has a value. This is a fundamental principle
+in Rust's design, where nearly everything is an expression that evaluates to
+a value, including blocks, @code{if} statements, and @code{match} expressions.}
 
 @node	1.1.2, 1.1.3, 1.1.1, 1.1
 @subsection Naming and the Environment
@@ -1300,10 +1294,10 @@ A critical aspect of a programming language is the means it provides for using
 names to refer to computational objects.  We say that the name identifies a
 @newterm{variable} whose @newterm{value} is the object.
 
-In the Scheme dialect of Lisp, we name things with @code{define}.  Typing
+In Rust, we name things with @code{let} bindings.  Typing
 
 @lisp
-(define size 2)
+let size = 2;
 @end lisp
 
 @noindent
@@ -1315,41 +1309,41 @@ value 2 by name:
 
 @lisp
 size
-@i{2}
+// => 2
 
-(* 5 size)
-@i{10}
+5 * size
+// => 10
 @end lisp
 
 @noindent
-Here are further examples of the use of @code{define}:
+Here are further examples of the use of @code{let}:
 
 @lisp
-(define pi 3.14159)
-(define radius 10)
+let pi = 3.14159;
+let radius = 10;
 
-(* pi (* radius radius))
-@i{314.159}
+pi * (radius * radius)
+// => 314.159
 
-(define circumference (* 2 pi radius))
+let circumference = 2 * pi * radius;
 
 circumference
-@i{62.8318}
+// => 62.8318
 @end lisp
 
 @noindent
-@code{Define} is our language's simplest means of abstraction, for it allows us
+@code{let} bindings are our language's simplest means of abstraction, for they allow us
 to use simple names to refer to the results of compound operations, such as the
 @code{circumference} computed above.  In general, computational objects may
 have very complex structures, and it would be extremely inconvenient to have to
 remember and repeat their details each time we want to use them.  Indeed,
 complex programs are constructed by building, step by step, computational
-objects of increasing complexity. The interpreter makes this step-by-step
+objects of increasing complexity. The REPL (Read-Eval-Print Loop) makes this step-by-step
 program construction particularly convenient because name-object associations
 can be created incrementally in successive interactions.  This feature
 encourages the incremental development and testing of programs and is largely
-responsible for the fact that a Lisp program usually consists of a large number
-of relatively simple procedures.
+responsible for the fact that a Rust program usually consists of a large number
+of relatively simple functions.
 
 It should be clear that the possibility of associating values with symbols and
 later retrieving them means that the interpreter must maintain some sort of
@@ -1507,7 +1501,7 @@ cancer of the semicolon.''}
 @node	1.1.4, 1.1.5, 1.1.3, 1.1
 @subsection Compound Procedures
 
-We have identified in Lisp some of the elements that must appear in any
+We have identified in Rust some of the elements that must appear in any
 powerful programming language:
 
 @itemize @bullet
@@ -1534,16 +1528,20 @@ We begin by examining how to express the idea of ``squaring.''  We might say,
 language as
 
 @lisp
-(define (square x) (* x x))
+fn square(x: i64) -> i64 { x * x }
 @end lisp
 
 @noindent
 We can understand this in the following way:
 
 @example
-(define (square x)    (*       x       x))
-  |      |      |      |       |       |
- To square something, multiply it by itself.
+fn square(x: i64) -> i64 @{ x   *   x @}
+|    |    |         |      |   |   |
+|    |    |         |       To multiply
+|    |    |         Return type (64-bit integer)
+|    |    Parameter with type annotation
+|    Function name
+Function definition keyword
 @end example
 
 @noindent
@@ -1562,7 +1560,7 @@ procedures that have already been created.  We will see how to do this in
 The general form of a procedure definition is
 
 @lisp
-(define (⟨@var{name}⟩ ⟨@var{formal parameters}⟩) ⟨@var{body}⟩)
+fn ⟨@var{name}⟩(⟨@var{formal parameters}⟩) -> ⟨@var{return type}⟩ @{ ⟨@var{body}⟩ @}
 @end lisp
 
 @noindent
@@ -1570,13 +1568,15 @@ The @code{⟨}@var{name}@code{⟩} is a symbol to be associated with the procedu
 the environment.@footnote{Throughout this book, we will describe the general
 syntax of expressions by using italic symbols delimited by angle
 brackets---e.g., @code{⟨}@var{name}@code{⟩}---to denote the ``slots'' in the expression to be
-filled in when such an expression is actually used.} The @code{⟨}@var{@w{formal} @w{parameters}}@code{⟩} 
+filled in when such an expression is actually used.} The @code{⟨}@var{@w{formal} @w{parameters}}@code{⟩}
 are the names used within the body of the procedure to refer to
-the corresponding arguments of the procedure.  The @code{⟨}@var{body}@code{⟩} is an
+the corresponding arguments of the procedure, each with its type annotation.
+The @code{⟨}@var{@w{return} @w{type}}@code{⟩} specifies the type of value the procedure will return.
+The @code{⟨}@var{body}@code{⟩} is an
 expression that will yield the value of the procedure application when the
 formal parameters are replaced by the actual arguments to which the procedure
 is applied.@footnote{More generally, the body of the procedure can be a
-sequence of expressions.  In this case, the interpreter evaluates each
+sequence of expressions.  In this case, the compiler evaluates each
 expression in the sequence in turn and returns the value of the final
 expression as the value of the procedure application.}  The @code{⟨}@var{name}@code{⟩} and
 the @code{⟨}@var{formal parameters}@code{⟩} are grouped within parentheses, just as they
@@ -1585,13 +1585,13 @@ would be in an actual call to the procedure being defined.
 Having defined @code{square}, we can now use it:
 
 @lisp
-(square 21)
+square(21)
 @i{441}
 
-(square (+ 2 5))
+square(2 + 5)
 @i{49}
 
-(square (square 3))
+square(square(3))
 @i{81}
 @end lisp
 
@@ -1600,38 +1600,40 @@ We can also use @code{square} as a building block in defining other procedures.
 For example, @math{x^2 + y^2} can be expressed as
 
 @lisp
-(+ (square x) (square y))
+square(x) + square(y)
 @end lisp
 
 @noindent
-We can easily define a procedure @code{sum-of-squares} that, given any two
+We can easily define a procedure @code{sum_of_squares} that, given any two
 numbers as arguments, produces the sum of their squares:
 
 @lisp
-(define (sum-of-squares x y)
-  (+ (square x) (square y)))
+fn sum_of_squares(x: i64, y: i64) -> i64 {
+    square(x) + square(y)
+}
 
-(sum-of-squares 3 4)
+sum_of_squares(3, 4)
 @i{25}
 @end lisp
 
 @noindent
-Now we can use @code{sum-of-squares} as a building block in constructing
+Now we can use @code{sum_of_squares} as a building block in constructing
 further procedures:
 
 @lisp
-(define (f a)
-  (sum-of-squares (+ a 1) (* a 2)))
+fn f(a: i64) -> i64 {
+    sum_of_squares(a + 1, a * 2)
+}
 
-(f 5)
+f(5)
 @i{136}
 @end lisp
 
 @noindent
 Compound procedures are used in exactly the same way as primitive procedures.
 Indeed, one could not tell by looking at the definition of
-@code{sum-of-squares} given above whether @code{square} was built into the
-interpreter, like @code{+} and @code{*}, or defined as a compound procedure.
+@code{sum_of_squares} given above whether @code{square} was built into the
+language, like @code{+} and @code{*}, or defined as a compound procedure.
 
 @node	1.1.5, 1.1.6, 1.1.4, 1.1
 @subsection The Substitution Model for Procedure Application
@@ -1849,96 +1851,104 @@ actions in the different cases according to the rule
 
 @end tex
 This construct is called a @newterm{case analysis}, and there is a special form
-in Lisp for notating such a case analysis.  It is called @code{cond} (which
-stands for ``conditional''), and it is used as follows:
+in Rust for notating such a case analysis.  It can be expressed using @code{if/else if/else}
+chains as follows:
 
 @lisp
-(define (abs x)
-  (cond ((> x 0) x)
-        ((= x 0) 0)
-        ((< x 0) (- x))))
+fn abs(x: i64) -> i64 {
+    if x > 0 {
+        x
+    } else if x == 0 {
+        0
+    } else {
+        -x
+    }
+}
 @end lisp
 
 @noindent
 The general form of a conditional expression is
 
 @lisp
-(cond (⟨@var{p₁}⟩ ⟨@var{e₁}⟩)
-      (⟨@var{p₂}⟩ ⟨@var{e₂}⟩)
-      @r{…}
-      (⟨@var{pₙ}⟩ ⟨@var{eₙ}⟩))
+if ⟨@var{p₁}⟩ {
+    ⟨@var{e₁}⟩
+} else if ⟨@var{p₂}⟩ {
+    ⟨@var{e₂}⟩
+}
+@r{…}
+else {
+    ⟨@var{eₙ}⟩
+}
 @end lisp
 
 @noindent
-consisting of the symbol @code{cond} followed by parenthesized pairs of
-expressions
-
-@lisp
-(⟨@var{p}⟩ ⟨@var{e}⟩)
-@end lisp
-
-@noindent
-called @newterm{clauses}. The first expression in each pair is a
+consisting of the keyword @code{if} followed by a condition and a block,
+optionally followed by @code{else if} branches and a final @code{else} branch.
+Each conditional expression is a
 @newterm{predicate}---that is, an expression whose value is interpreted as
 either true or false.@footnote{``Interpreted as either true or false'' means
-this: In Scheme, there are two distinguished values that are denoted by the
-constants @code{#t} and @code{#f}.  When the interpreter checks a predicate's
-value, it interprets @code{#f} as false.  Any other value is treated as true.
-(Thus, providing @code{#t} is logically unnecessary, but it is convenient.)  In
-this book we will use names @code{true} and @code{false}, which are associated
-with the values @code{#t} and @code{#f} respectively.}
+this: In Rust, there are two distinguished values of type @code{bool} denoted by the
+constants @code{true} and @code{false}.  When the compiler checks a predicate's
+value, it interprets @code{false} as false and @code{true} as true. Unlike Scheme,
+Rust requires predicates to be explicitly of type @code{bool} and does not
+implicitly convert other values to boolean.}
 
 Conditional expressions are evaluated as follows.  The predicate @math{{⟨p_1⟩}} is
 evaluated first.  If its value is false, then @math{{⟨p_2⟩}} is evaluated.  If
 @math{{⟨p_2⟩}}'s value is also false, then @math{{⟨p_3⟩}} is evaluated.  This process
 continues until a predicate is found whose value is true, in which case the
-interpreter returns the value of the corresponding @newterm{consequent expression} 
-@math{{⟨e⟩}} of the clause as the value of the conditional expression.
-If none of the @math{{⟨p⟩}}'s is found to be true, the value of the @code{cond} is
-undefined.
+interpreter returns the value of the corresponding @newterm{consequent expression}
+@math{{⟨e⟩}} as the value of the conditional expression.
+If none of the @math{{⟨p⟩}}'s is found to be true and there is a final @code{else}
+branch, that branch's value is returned.
 
-The word @newterm{predicate} is used for procedures that return true or false,
+The word @newterm{predicate} is used for functions that return true or false,
 as well as for expressions that evaluate to true or false.  The absolute-value
-procedure @code{abs} makes use of the primitive predicates @code{>}, @code{<},
-and @code{=}.@footnote{@code{Abs} also uses the ``minus'' operator @code{-},
-which, when used with a single operand, as in @code{(- x)}, indicates
+function @code{abs} makes use of the primitive predicates @code{>}, @code{<},
+and @code{==}.@footnote{@code{Abs} also uses the ``minus'' operator @code{-},
+which, when used as a unary prefix operator, as in @code{-x}, indicates
 negation.} These take two numbers as arguments and test whether the first
 number is, respectively, greater than, less than, or equal to the second
 number, returning true or false accordingly.
 
-Another way to write the absolute-value procedure is
+Another way to write the absolute-value function is
 
 @lisp
-(define (abs x)
-  (cond ((< x 0) (- x))
-        (else x)))
+fn abs(x: i64) -> i64 {
+    if x < 0 {
+        -x
+    } else {
+        x
+    }
+}
 @end lisp
 
 @noindent
-which could be expressed in English as ``If @math{x} is less than zero return 
-@math{{-x}}; otherwise return @math{x}.''  @code{Else} is a special symbol that can be
-used in place of the @math{{⟨p⟩}} in the final clause of a @code{cond}.  This
-causes the @code{cond} to return as its value the value of the corresponding
-@math{{⟨e⟩}} whenever all previous clauses have been bypassed.  In fact, any
-expression that always evaluates to a true value could be used as the @math{{⟨p⟩}}
-here.
+which could be expressed in English as ``If @math{x} is less than zero return
+@math{{-x}}; otherwise return @math{x}.''  @code{else} is a keyword in Rust that
+provides the default branch of a conditional.  This
+causes the conditional to return as its value the value of the
+@code{else} block whenever all previous conditions have been false.
 
-Here is yet another way to write the absolute-value procedure:
+Here is yet another way to write the absolute-value function:
 
 @lisp
-(define (abs x)
-  (if (< x 0)
-      (- x)
-      x))
+fn abs(x: i64) -> i64 {
+    if x < 0 {
+        -x
+    } else {
+        x
+    }
+}
 @end lisp
 
 @noindent
-This uses the special form @code{if}, a restricted type of conditional that can
+This uses the @code{if} expression, which can
 be used when there are precisely two cases in the case analysis.  The general
 form of an @code{if} expression is
 
 @lisp
-(if ⟨@var{predicate}⟩ ⟨@var{consequent}⟩ ⟨@var{alternative}⟩)
+if ⟨@var{predicate}⟩ { ⟨@var{consequent}⟩ } else { ⟨@var{alternative}⟩ }
 @end lisp
 
 @noindent
@@ -1946,108 +1956,117 @@ To evaluate an @code{if} expression, the interpreter starts by evaluating the
 @code{⟨}@var{predicate}@code{⟩} part of the expression.  If the @code{⟨}@var{predicate}@code{⟩} evaluates
 to a true value, the interpreter then evaluates the @code{⟨}@var{consequent}@code{⟩} and
 returns its value.  Otherwise it evaluates the @code{⟨}@var{alternative}@code{⟩} and returns
-its value.@footnote{A minor difference between @code{if} and @code{cond} is
-that the @code{⟨}@var{e}@code{⟩} part of each @code{cond} clause may be a sequence of
-expressions.  If the corresponding @code{⟨}@var{p}@code{⟩} is found to be true, the
-expressions @code{⟨}@var{e}@code{⟩} are evaluated in sequence and the value of the final
-expression in the sequence is returned as the value of the @code{cond}.  In an
-@code{if} expression, however, the @code{⟨}@var{consequent}@code{⟩} and @code{⟨}@var{alternative}@code{⟩}
-must be single expressions.}
+its value.@footnote{In Rust, both the @code{⟨}@var{consequent}@code{⟩} and
+@code{⟨}@var{alternative}@code{⟩} blocks can contain sequences of statements.
+If a block contains multiple statements, they are evaluated in sequence and
+the value of the final expression (without a semicolon) in the block is
+returned as the value of the block.}
 
-In addition to primitive predicates such as @code{<}, @code{=}, and @code{>},
+In addition to primitive predicates such as @code{<}, @code{==}, and @code{>},
 there are logical composition operations, which enable us to construct compound
 predicates.  The three most frequently used are these:
 
 @itemize @bullet
 
 @item
-@code{(and ⟨@var{e₁}⟩ @r{…} ⟨@var{eₙ}⟩)}
+@code{⟨@var{e₁}⟩ && @r{…} && ⟨@var{eₙ}⟩}
 
 The interpreter evaluates the expressions @code{⟨}@var{e}@code{⟩} one at a time, in
 left-to-right order.  If any @code{⟨}@var{e}@code{⟩} evaluates to false, the value of the
-@code{and} expression is false, and the rest of the @code{⟨}@var{e}@code{⟩}'s are not
+@code{&&} expression is false, and the rest of the @code{⟨}@var{e}@code{⟩}'s are not
 evaluated.  If all @code{⟨}@var{e}@code{⟩}'s evaluate to true values, the value of the
-@code{and} expression is the value of the last one.
+@code{&&} expression is true.
 
 @item
-@code{(or ⟨@var{e₁}⟩ @r{…} ⟨@var{eₙ}⟩)}
+@code{⟨@var{e₁}⟩ || @r{…} || ⟨@var{eₙ}⟩}
 
 The interpreter evaluates the expressions @code{⟨}@var{e}@code{⟩} one at a time, in
-left-to-right order.  If any @code{⟨}@var{e}@code{⟩} evaluates to a true value, that value is
-returned as the value of the @code{or} expression, and the rest of the
+left-to-right order.  If any @code{⟨}@var{e}@code{⟩} evaluates to a true value, true is
+returned as the value of the @code{||} expression, and the rest of the
 @code{⟨}@var{e}@code{⟩}'s are not evaluated.  If all @code{⟨}@var{e}@code{⟩}'s evaluate to false, the value
-of the @code{or} expression is false.
+of the @code{||} expression is false.
 
 @item
-@code{(not ⟨@var{e}⟩)}
+@code{!⟨@var{e}⟩}
 
-The value of a @code{not} expression is true when the expression @code{⟨}@var{e}@code{⟩}
+The value of a @code{!} expression is true when the expression @code{⟨}@var{e}@code{⟩}
 evaluates to false, and false otherwise.
 
 @end itemize
 
 @noindent
-Notice that @code{and} and @code{or} are special forms, not procedures, because
-the subexpressions are not necessarily all evaluated.  @code{Not} is an
-ordinary procedure.
+Notice that @code{&&} and @code{||} use short-circuit evaluation, meaning
+the subexpressions are not necessarily all evaluated.  @code{!} is an
+ordinary operator that always evaluates its operand.
 
 As an example of how these are used, the condition that a number @math{x} be in
 the range @math{5 < x < 10} may be expressed as
 
 @lisp
-(and (> x 5) (< x 10))
+x > 5 && x < 10
 @end lisp
 
 @noindent
 As another example, we can define a predicate to test whether one number is
-greater than or equal to another as 
+greater than or equal to another as
 
 @lisp
-(define (>= x y) 
-  (or (> x y) (= x y)))
+fn gte(x: i64, y: i64) -> bool {
+    x > y || x == y
+}
 @end lisp
 
 @noindent
-or alternatively as 
+or alternatively as
 
 @lisp
-(define (>= x y) 
-  (not (< x y)))
+fn gte(x: i64, y: i64) -> bool {
+    !(x < y)
+}
 @end lisp
 
 @quotation
 @strong{@anchor{Exercise 1.1}Exercise 1.1:} Below is a sequence of expressions.
-What is the result printed by the interpreter in response to each expression?
+What is the result printed by the compiler in response to each expression?
 Assume that the sequence is to be evaluated in the order in which it is
 presented.
 
 @lisp
 10
-(+ 5 3 4)
-(- 9 1)
-(/ 6 2)
-(+ (* 2 4) (- 4 6))
-(define a 3)
-(define b (+ a 1))
-(+ a b (* a b))
-(= a b)
-(if (and (> b a) (< b (* a b)))
+5 + 3 + 4
+9 - 1
+6 / 2
+2 * 4 + (4 - 6)
+let a = 3;
+let b = a + 1;
+a + b + a * b
+a == b
+if b > a && b < a * b {
     b
-    a)
-(cond ((= a 4) 6)
-      ((= b 4) (+ 6 7 a))
-      (else 25))
-(+ 2 (if (> b a) b a))
-(* (cond ((> a b) a)
-         ((< a b) b)
-         (else -1))
-   (+ a 1))
+} else {
+    a
+}
+if a == 4 {
+    6
+} else if b == 4 {
+    6 + 7 + a
+} else {
+    25
+}
+2 + if b > a { b } else { a }
+(if a > b {
+    a
+} else if a < b {
+    b
+} else {
+    -1
+}) * (a + 1)
 @end lisp
 @end quotation
 
 @quotation
 @strong{@anchor{Exercise 1.2}Exercise 1.2:} Translate the following expression
-into prefix form:
+into Rust:
 @ifinfo
 
 @example
@@ -2068,47 +2087,57 @@ into prefix form:
 @end quotation
 
 @quotation
-@strong{@anchor{Exercise 1.3}Exercise 1.3:} Define a procedure that takes three
+@strong{@anchor{Exercise 1.3}Exercise 1.3:} Define a function that takes three
 numbers as arguments and returns the sum of the squares of the two larger
 numbers.
 @end quotation
 
 @quotation
 @strong{@anchor{Exercise 1.4}Exercise 1.4:} Observe that our model of
-evaluation allows for combinations whose operators are compound expressions.
-Use this observation to describe the behavior of the following procedure:
+evaluation allows for choosing between different operations based on conditions.
+Use this observation to describe the behavior of the following function:
 
 @lisp
-(define (a-plus-abs-b a b)
-  ((if (> b 0) + -) a b))
+fn a_plus_abs_b(a: i64, b: i64) -> i64 {
+    if b > 0 {
+        a + b
+    } else {
+        a - b
+    }
+}
 @end lisp
 @end quotation
 
 @quotation
 @strong{@anchor{Exercise 1.5}Exercise 1.5:} Ben Bitdiddle has invented a test
-to determine whether the interpreter he is faced with is using
+to determine whether the compiler he is faced with is using
 applicative-order evaluation or normal-order evaluation.  He defines the
-following two procedures:
+following two functions:
 
 @lisp
-(define (p) (p))
+fn p() -> i64 {
+    p()
+}
 
-(define (test x y) 
-  (if (= x 0) 
-      0 
-      y))
+fn test(x: i64, y: i64) -> i64 {
+    if x == 0 {
+        0
+    } else {
+        y
+    }
+}
 @end lisp
 
 Then he evaluates the expression
 
 @lisp
-(test 0 (p))
+test(0, p())
 @end lisp
 
-What behavior will Ben observe with an interpreter that uses applicative-order
-evaluation?  What behavior will he observe with an interpreter that uses
+What behavior will Ben observe with a compiler that uses applicative-order
+evaluation?  What behavior will he observe with a compiler that uses
 normal-order evaluation?  Explain your answer.  (Assume that the evaluation
-rule for the special form @code{if} is the same whether the interpreter is
+rule for @code{if} is the same whether the compiler is
 using normal or applicative order: The predicate expression is evaluated first,
 and the result determines whether to evaluate the consequent or the alternative
 expression.)
@@ -2149,9 +2178,10 @@ actually find the square root of a given number.  It will not help matters to
 rephrase this definition in pseudo-Lisp:
 
 @lisp
-(define (sqrt x)
-  (the y (and (>= y 0) 
-              (= (square y) x))))
+fn sqrt(x: f64) -> f64 {
+    // the y such that y >= 0 and y.powi(2) == x
+    unimplemented!("declarative definition")
+}
 @end lisp
 
 @noindent
@@ -2216,10 +2246,13 @@ done; if not, we must repeat the process with an improved guess.  We write this
 basic strategy as a procedure:
 
 @lisp
-(define (sqrt-iter guess x)
-  (if (good-enough? guess x)
-      guess
-      (sqrt-iter (improve guess x) x)))
+fn sqrt_iter(guess: f64, x: f64) -> f64 {
+    if good_enough(guess, x) {
+        guess
+    } else {
+        sqrt_iter(improve(guess, x), x)
+    }
+}
 @end lisp
 
 @noindent
@@ -2227,16 +2260,18 @@ A guess is improved by averaging it with the quotient of the radicand and the
 old guess:
 
 @lisp
-(define (improve guess x)
-  (average guess (/ x guess)))
+fn improve(guess: f64, x: f64) -> f64 {
+    average(guess, x / guess)
+}
 @end lisp
 
 @noindent
 where
 
 @lisp
-(define (average x y) 
-  (/ (+ x y) 2))
+fn average(x: f64, y: f64) -> f64 {
+    (x + y) / 2.0
+}
 @end lisp
 
 @noindent
@@ -2250,8 +2285,9 @@ This is just a stylistic convention.  As far as the interpreter is concerned,
 the question mark is just an ordinary character.}
 
 @lisp
-(define (good-enough? guess x)
-  (< (abs (- (square guess) x)) 0.001))
+fn good_enough(guess: f64, x: f64) -> bool {
+    (guess.powi(2) - x).abs() < 0.001
+}
 @end lisp
 
 @noindent
@@ -2270,8 +2306,9 @@ numbers and decimals always yield decimals, so starting with an initial guess
 of 1.0 forces all subsequent values to be decimals.}
 
 @lisp
-(define (sqrt x)
-  (sqrt-iter 1.0 x))
+fn sqrt(x: f64) -> f64 {
+    sqrt_iter(1.0, x)
+}
 @end lisp
 
 @noindent
@@ -2279,17 +2316,17 @@ If we type these definitions to the interpreter, we can use @code{sqrt} just as
 we can use any procedure:
 
 @lisp
-(sqrt 9)
-@i{3.00009155413138}
+sqrt(9.0)
+// => 3.00009155413138
 
-(sqrt (+ 100 37))
-@i{11.704699917758145}
+sqrt(100.0 + 37.0)
+// => 11.704699917758145
 
-(sqrt (+ (sqrt 2) (sqrt 3)))
-@i{1.7739279023207892}
+sqrt(sqrt(2.0) + sqrt(3.0))
+// => 1.7739279023207892
 
-(square (sqrt 1000))
-@i{1000.000369924366}
+square(sqrt(1000.0))
+// => 1000.000369924366
 @end lisp
 
 @noindent
@@ -2312,30 +2349,33 @@ Eva Lu Ator claims this can indeed be done, and she defines a new version of
 @code{if}:
 
 @lisp
-(define (new-if predicate 
-                then-clause 
-                else-clause)
-  (cond (predicate then-clause)
-        (else else-clause)))
+fn new_if(predicate: bool, then_clause: f64, else_clause: f64) -> f64 {
+    if predicate {
+        then_clause
+    } else {
+        else_clause
+    }
+}
 @end lisp
 
 Eva demonstrates the program for Alyssa:
 
 @lisp
-(new-if (= 2 3) 0 5)
-@i{5}
+new_if(2 == 3, 0.0, 5.0)
+// => 5.0
 
-(new-if (= 1 1) 0 5)
-@i{0}
+new_if(1 == 1, 0.0, 5.0)
+// => 0.0
 @end lisp
 
 Delighted, Alyssa uses @code{new-if} to rewrite the square-root program:
 
 @lisp
-(define (sqrt-iter guess x)
-  (new-if (good-enough? guess x)
-          guess
-          (sqrt-iter (improve guess x) x)))
+fn sqrt_iter(guess: f64, x: f64) -> f64 {
+    new_if(good_enough(guess, x),
+           guess,
+           sqrt_iter(improve(guess, x), x))
+}
 @end lisp
 
 What happens when Alyssa attempts to use this to compute square roots?
@@ -2718,10 +2758,13 @@ result by @math{n}.  If we add the stipulation that 1! is equal to 1, this
 observation translates directly into a procedure:
 
 @lisp
-(define (factorial n)
-  (if (= n 1) 
-      1 
-      (* n (factorial (- n 1)))))
+fn factorial(n: u64) -> u64 {
+    if n == 1 {
+        1
+    } else {
+        n * factorial(n - 1)
+    }
+}
 @end lisp
 
 @noindent
@@ -2780,28 +2823,33 @@ structure introduced in the last section to hide the definition of
 @code{fact-iter}:
 
 @lisp
-(define (factorial n)
-  (define (iter product counter)
-    (if (> counter n)
-        product
-        (iter (* counter product)
-              (+ counter 1))))
-  (iter 1 1))
+fn factorial(n: u64) -> u64 {
+    fn iter(product: u64, counter: u64, max_count: u64) -> u64 {
+        if counter > max_count {
+            product
+        } else {
+            iter(counter * product, counter + 1, max_count)
+        }
+    }
+    iter(1, 1, n)
+}
 @end lisp
 
 We avoided doing this here so as to minimize the number of things to think
 about at once.}
 
 @lisp
-(define (factorial n) 
-  (fact-iter 1 1 n))
+fn factorial(n: u64) -> u64 {
+    fact_iter(1, 1, n)
+}
 
-(define (fact-iter product counter max-count)
-  (if (> counter max-count)
-      product
-      (fact-iter (* counter product)
-                 (+ counter 1)
-                 max-count)))
+fn fact_iter(product: u64, counter: u64, max_count: u64) -> u64 {
+    if counter > max_count {
+        product
+    } else {
+        fact_iter(counter * product, counter + 1, max_count)
+    }
+}
 @end lisp
 
 @noindent
@@ -2895,19 +2943,24 @@ variables, and an interpreter need keep track of only three variables in order
 to execute the process.
 
 One reason that the distinction between process and procedure may be confusing
-is that most implementations of common languages (including Ada, Pascal, and C)
-are designed in such a way that the interpretation of any recursive procedure
-consumes an amount of memory that grows with the number of procedure calls,
-even when the process described is, in principle, iterative.  As a consequence,
-these languages can describe iterative processes only by resorting to
-special-purpose ``looping constructs'' such as @code{do}, @code{repeat},
-@code{until}, @code{for}, and @code{while}.  The implementation of Scheme we
-shall consider in @ref{Chapter 5} does not share this defect.  It will execute
-an iterative process in constant space, even if the iterative process is
-described by a recursive procedure.  An implementation with this property is
-called @newterm{tail-recursive}.  With a tail-recursive implementation,
-iteration can be expressed using the ordinary procedure call mechanism, so that
-special iteration constructs are useful only as syntactic sugar.@footnote{Tail
+is that most implementations of common languages (including Ada, Pascal, C, and
+Rust) are designed in such a way that the interpretation of any recursive
+procedure consumes an amount of memory that grows with the number of procedure
+calls, even when the process described is, in principle, iterative.  As a
+consequence, these languages can describe iterative processes only by resorting
+to special-purpose ``looping constructs'' such as @code{do}, @code{repeat},
+@code{until}, @code{for}, and @code{while}.  In Rust, while the LLVM compiler
+backend may optimize tail calls in some cases, tail-call optimization is not
+guaranteed by the language specification.  Therefore, for truly constant-space
+iterative processes, Rust programmers typically use @code{loop}, @code{while},
+or @code{for} constructs rather than relying on recursive function calls.  The
+implementation of Scheme we shall consider in @ref{Chapter 5} does not share
+this defect.  It will execute an iterative process in constant space, even if
+the iterative process is described by a recursive procedure.  An implementation
+with this property is called @newterm{tail-recursive}.  With a tail-recursive
+implementation, iteration can be expressed using the ordinary procedure call
+mechanism, so that special iteration constructs are useful only as syntactic
+sugar.@footnote{Tail
 recursion has long been known as a compiler optimization trick.  A coherent
 semantic basis for tail recursion was provided by Carl @ref{Hewitt (1977)}, who
 explained it in terms of the ``message-passing'' model of computation that we
@@ -2924,19 +2977,25 @@ procedures @code{inc}, which increments its argument by 1, and @code{dec},
 which decrements its argument by 1.
 
 @lisp
-(define (+ a b)
-  (if (= a 0) 
-      b 
-      (inc (+ (dec a) b))))
+fn add(a: u64, b: u64) -> u64 {
+    if a == 0 {
+        b
+    } else {
+        inc(add(dec(a), b))
+    }
+}
 
-(define (+ a b)
-  (if (= a 0) 
-      b 
-      (+ (dec a) (inc b))))
+fn add(a: u64, b: u64) -> u64 {
+    if a == 0 {
+        b
+    } else {
+        add(dec(a), inc(b))
+    }
+}
 @end lisp
 
 Using the substitution model, illustrate the process generated by each
-procedure in evaluating @code{(+ 4 5)}.  Are these processes iterative or
+procedure in evaluating @code{add(4, 5)}.  Are these processes iterative or
 recursive?
 @end quotation
 
@@ -2945,35 +3004,40 @@ recursive?
 a mathematical function called Ackermann's function.
 
 @lisp
-(define (A x y)
-  (cond ((= y 0) 0)
-        ((= x 0) (* 2 y))
-        ((= y 1) 2)
-        (else (A (- x 1)
-                 (A x (- y 1))))))
+fn a(x: u64, y: u64) -> u64 {
+    if y == 0 {
+        0
+    } else if x == 0 {
+        2 * y
+    } else if y == 1 {
+        2
+    } else {
+        a(x - 1, a(x, y - 1))
+    }
+}
 @end lisp
 
 What are the values of the following expressions?
 
 @lisp
-(A 1 10)
-(A 2 4)
-(A 3 3)
+a(1, 10)
+a(2, 4)
+a(3, 3)
 @end lisp
 
-Consider the following procedures, where @code{A} is the procedure
+Consider the following procedures, where @code{a} is the procedure
 defined above:
 
 @lisp
-(define (f n) (A 0 n))
-(define (g n) (A 1 n))
-(define (h n) (A 2 n))
-(define (k n) (* 5 n n))
+fn f(n: u64) -> u64 { a(0, n) }
+fn g(n: u64) -> u64 { a(1, n) }
+fn h(n: u64) -> u64 { a(2, n) }
+fn k(n: u64) -> u64 { 5 * n * n }
 @end lisp
 
 Give concise mathematical definitions for the functions computed by the
 procedures @code{f}, @code{g}, and @code{h} for positive integer values of
-@math{n}.  For example, @code{(k n)} computes @math{{5n^2}}.
+@math{n}.  For example, @code{k(n)} computes @math{{5n^2}}.
 @end quotation
 
 @node	1.2.2, 1.2.3, 1.2.1, 1.2
@@ -3017,11 +3081,15 @@ We can immediately translate this definition into a recursive procedure for
 computing Fibonacci numbers:
 
 @lisp
-(define (fib n)
-  (cond ((= n 0) 0)
-        ((= n 1) 1)
-        (else (+ (fib (- n 1))
-                 (fib (- n 2))))))
+fn fib(n: u64) -> u64 {
+    if n == 0 {
+        0
+    } else if n == 1 {
+        1
+    } else {
+        fib(n - 1) + fib(n - 2)
+    }
+}
 @end lisp
 
 @noindent
@@ -3146,13 +3214,17 @@ It is not hard to show that, after applying this transformation @math{n} times,
 the procedure
 
 @lisp
-(define (fib n) 
-  (fib-iter 1 0 n))
+fn fib(n: u64) -> u64 {
+    fib_iter(1, 0, n)
+}
 
-(define (fib-iter a b count)
-  (if (= count 0)
-      b
-      (fib-iter (+ a b) a (- count 1))))
+fn fib_iter(a: u64, b: u64, count: u64) -> u64 {
+    if count == 0 {
+        b
+    } else {
+        fib_iter(a + b, a, count - 1)
+    }
+}
 @end lisp
 
 @noindent
@@ -3234,26 +3306,36 @@ If @math{n} is 0, we should count that as 0 ways to make change.
 We can easily translate this description into a recursive procedure:
 
 @lisp
-(define (count-change amount)
-  (cc amount 5))
+fn count_change(amount: i64) -> u64 {
+    cc(amount, 5)
+}
 
-(define (cc amount kinds-of-coins)
-  (cond ((= amount 0) 1)
-        ((or (< amount 0) 
-             (= kinds-of-coins 0)) 
-         0)
-        (else 
-         (+ (cc amount (- kinds-of-coins 1))
-            (cc (- amount (first-denomination 
-                           kinds-of-coins))
-                kinds-of-coins)))))
+fn cc(amount: i64, kinds_of_coins: u64) -> u64 {
+    if amount == 0 {
+        1
+    } else if amount < 0 || kinds_of_coins == 0 {
+        0
+    } else {
+        cc(amount, kinds_of_coins - 1) +
+        cc(amount - first_denomination(kinds_of_coins), kinds_of_coins)
+    }
+}
 
-(define (first-denomination kinds-of-coins)
-  (cond ((= kinds-of-coins 1) 1)
-        ((= kinds-of-coins 2) 5)
-        ((= kinds-of-coins 3) 10)
-        ((= kinds-of-coins 4) 25)
-        ((= kinds-of-coins 5) 50)))
+fn first_denomination(kinds_of_coins: u64) -> i64 {
+    if kinds_of_coins == 1 {
+        1
+    } else if kinds_of_coins == 2 {
+        5
+    } else if kinds_of_coins == 3 {
+        10
+    } else if kinds_of_coins == 4 {
+        25
+    } else if kinds_of_coins == 5 {
+        50
+    } else {
+        0
+    }
+}
 @end lisp
 
 @noindent
@@ -3264,7 +3346,7 @@ order would do as well.)  We can now answer our original question about
 changing a dollar:
 
 @lisp
-(count-change 100)
+count_change(100)
 @i{292}
 @end lisp
 
@@ -3479,10 +3561,13 @@ b^0 = 1
 which translates readily into the procedure
 
 @lisp
-(define (expt b n)
-  (if (= n 0) 
-      1 
-      (* b (expt b (- n 1)))))
+fn expt(b: u64, n: u64) -> u64 {
+    if n == 0 {
+        1
+    } else {
+        b * expt(b, n - 1)
+    }
+}
 @end lisp
 
 @noindent
@@ -3491,15 +3576,17 @@ This is a linear recursive process, which requires @math{{\Theta(n)}} steps and
 equivalent linear iteration:
 
 @lisp
-(define (expt b n) 
-  (expt-iter b n 1))
+fn expt(b: u64, n: u64) -> u64 {
+    expt_iter(b, n, 1)
+}
 
-(define (expt-iter b counter product)
-  (if (= counter 0)
-      product
-      (expt-iter b
-                 (- counter 1)
-                 (* b product))))
+fn expt_iter(b: u64, counter: u64, product: u64) -> u64 {
+    if counter == 0 {
+        product
+    } else {
+        expt_iter(b, counter - 1, b * product)
+    }
+}
 @end lisp
 
 @noindent
@@ -3569,13 +3656,16 @@ b^n = b * b^(n - 1)  if n is odd
 We can express this method as a procedure:
 
 @lisp
-(define (fast-expt b n)
-  (cond ((= n 0) 
-         1)
-        ((even? n) 
-         (square (fast-expt b (/ n 2))))
-        (else 
-         (* b (fast-expt b (- n 1))))))
+fn fast_expt(b: u64, n: u64) -> u64 {
+    if n == 0 {
+        1
+    } else if n % 2 == 0 {
+        let half = fast_expt(b, n / 2);
+        half * half
+    } else {
+        b * fast_expt(b, n - 1)
+    }
+}
 @end lisp
 
 @noindent
@@ -3583,8 +3673,9 @@ where the predicate to test whether an integer is even is defined in terms of
 the primitive procedure @code{remainder} by
 
 @lisp
-(define (even? n)
-  (= (remainder n 2) 0))
+fn is_even(n: u64) -> bool {
+    n % 2 == 0
+}
 @end lisp
 
 @noindent
@@ -3640,10 +3731,13 @@ it is assumed that our language can only add, not multiply) is analogous to the
 @code{expt} procedure:
 
 @lisp
-(define (* a b)
-  (if (= b 0)
-      0
-      (+ a (* a (- b 1)))))
+fn multiply(a: u64, b: u64) -> u64 {
+    if b == 0 {
+        0
+    } else {
+        a + multiply(a, b - 1)
+    }
+}
 @end lisp
 
 This algorithm takes a number of steps that is linear in @code{b}.  Now suppose
@@ -3760,13 +3854,16 @@ surely older, but, as Knuth explains, Euclid's algorithm is the oldest known to
 have been presented as a general algorithm, rather than as a set of illustrative
 examples.}
 
-It is easy to express Euclid's Algorithm as a procedure:
+It is easy to express Euclid's Algorithm as a function:
 
 @lisp
-(define (gcd a b)
-  (if (= b 0)
-      a
-      (gcd b (remainder a b))))
+fn gcd(a: u64, b: u64) -> u64 {
+    if b == 0 {
+        a
+    } else {
+        gcd(b, a % b)
+    }
+}
 @end lisp
 
 @noindent
@@ -3848,20 +3945,23 @@ straightforward way, by testing @math{n} for divisibility by successive integers
 starting with 2.
 
 @lisp
-(define (smallest-divisor n)
-  (find-divisor n 2))
+fn smallest_divisor(n: u64) -> u64 {
+    find_divisor(n, 2)
+}
 
-(define (find-divisor n test-divisor)
-  (cond ((> (square test-divisor) n) 
-         n)
-        ((divides? test-divisor n) 
-         test-divisor)
-        (else (find-divisor 
-               n 
-               (+ test-divisor 1)))))
+fn find_divisor(n: u64, test_divisor: u64) -> u64 {
+    if square(test_divisor) > n {
+        n
+    } else if divides(test_divisor, n) {
+        test_divisor
+    } else {
+        find_divisor(n, test_divisor + 1)
+    }
+}
 
-(define (divides? a b)
-  (= (remainder b a) 0))
+fn divides(a: u64, b: u64) -> bool {
+    b % a == 0
+}
 @end lisp
 
 @noindent
@@ -3869,8 +3969,9 @@ We can test whether a number is prime as follows: @math{n} is prime if and only 
 @math{n} is its own smallest divisor.
 
 @lisp
-(define (prime? n)
-  (= n (smallest-divisor n)))
+fn is_prime(n: u64) -> bool {
+    n == smallest_divisor(n)
+}
 @end lisp
 
 @noindent
@@ -3927,16 +4028,15 @@ To implement the Fermat test, we need a procedure that computes the exponential
 of a number modulo another number:
 
 @lisp
-(define (expmod base exp m)
-  (cond ((= exp 0) 1)
-        ((even? exp)
-         (remainder 
-          (square (expmod base (/ exp 2) m))
-          m))
-        (else
-         (remainder 
-          (* base (expmod base (- exp 1) m))
-          m))))
+fn expmod(base: u64, exp: u64, m: u64) -> u64 {
+    if exp == 0 {
+        1
+    } else if is_even(exp) {
+        square(expmod(base, exp / 2, m)) % m
+    } else {
+        (base * expmod(base, exp - 1, m)) % m
+    }
+}
 @end lisp
 
 @noindent
@@ -3962,10 +4062,15 @@ input.  Hence, to obtain a random number between 1 and @math{{n-1}}, we call
 @code{random} with an input of @math{{n-1}} and add 1 to the result:
 
 @lisp
-(define (fermat-test n)
-  (define (try-it a)
-    (= (expmod a n n) a))
-  (try-it (+ 1 (random (- n 1)))))
+fn fermat_test(n: u64) -> bool {
+    fn try_it(a: u64, n: u64) -> bool {
+        expmod(a, n, n) == a
+    }
+    // Note: Using rand crate's random() function
+    // In Rust: use rand::Rng; let a = rand::thread_rng().gen_range(1..n);
+    let a = 1 + (rand::random::<u64>() % (n - 1));
+    try_it(a, n)
+}
 @end lisp
 
 @noindent
@@ -3974,11 +4079,15 @@ a parameter.  Its value is true if the test succeeds every time, and false
 otherwise.
 
 @lisp
-(define (fast-prime? n times)
-  (cond ((= times 0) true)
-        ((fermat-test n) 
-         (fast-prime? n (- times 1)))
-        (else false)))
+fn fast_prime(n: u64, times: u64) -> bool {
+    if times == 0 {
+        true
+    } else if fermat_test(n) {
+        fast_prime(n, times - 1)
+    } else {
+        false
+    }
+}
 @end lisp
 
 @subsubheading Probabilistic methods
@@ -4053,23 +4162,26 @@ with an integer @math{n}, prints @math{n} and checks to see if @math{n} is prime
 time used in performing the test.
 
 @lisp
-(define (timed-prime-test n)
-  (newline)
-  (display n)
-  (start-prime-test n (runtime)))
+fn timed_prime_test(n: u64) {
+    println!();
+    print!("{}", n);
+    start_prime_test(n, Instant::now());
+}
 @end lisp
 
 @lisp
-(define (start-prime-test n start-time)
-  (if (prime? n)
-      (report-prime (- (runtime) 
-                       start-time))))
+fn start_prime_test(n: u64, start_time: Instant) {
+    if is_prime(n) {
+        report_prime(start_time.elapsed());
+    }
+}
 @end lisp
 
 @lisp
-(define (report-prime elapsed-time)
-  (display " *** ")
-  (display elapsed-time))
+fn report_prime(elapsed_time: Duration) {
+    print!(" *** ");
+    print!("{:?}", elapsed_time);
+}
 @end lisp
 
 Using this procedure, write a procedure @code{search-for-primes} that checks
@@ -4119,8 +4231,9 @@ we went to a lot of extra work in writing @code{expmod}.  After all, she says,
 since we already know how to compute exponentials, we could have simply written
 
 @lisp
-(define (expmod base exp m)
-  (remainder (fast-expt base exp) m))
+fn expmod(base: u64, exp: u64, m: u64) -> u64 {
+    fast_expt(base, exp) % m
+}
 @end lisp
 
 Is she correct?  Would this procedure serve as well for our fast prime tester?
@@ -4136,18 +4249,15 @@ the @code{expmod} procedure to use an explicit multiplication, rather than
 calling @code{square}:
 
 @lisp
-(define (expmod base exp m)
-  (cond ((= exp 0) 1)
-        ((even? exp)
-         (remainder 
-          (* (expmod base (/ exp 2) m)
-             (expmod base (/ exp 2) m))
-          m))
-        (else
-         (remainder 
-          (* base 
-             (expmod base (- exp 1) m))
-          m))))
+fn expmod(base: u64, exp: u64, m: u64) -> u64 {
+    if exp == 0 {
+        1
+    } else if is_even(exp) {
+        (expmod(base, exp / 2, m) * expmod(base, exp / 2, m)) % m
+    } else {
+        (base * expmod(base, exp - 1, m)) % m
+    }
+}
 @end lisp
 
 ``I don't see what difference that could make,'' says Louis.  @w{``I do.''}  says
@@ -4196,7 +4306,9 @@ compound operations on numbers independent of the particular numbers.  For
 example, when we
 
 @lisp
-(define (cube x) (* x x x))
+fn cube(x: i64) -> i64 {
+    x * x * x
+}
 @end lisp
 
 @noindent
@@ -4205,9 +4317,9 @@ method for obtaining the cube of any number.  Of course we could get along
 without ever defining this procedure, by always writing expressions such as
 
 @lisp
-(* 3 3 3)
-(* x x x)
-(* y y y)
+3 * 3 * 3
+x * x * x
+y * y * y
 @end lisp
 
 @noindent
@@ -4246,21 +4358,26 @@ Consider the following three procedures.  The first computes the sum of the
 integers from @code{a} through @code{b}:
 
 @lisp
-(define (sum-integers a b)
-  (if (> a b) 
-      0 
-      (+ a (sum-integers (+ a 1) b))))
+fn sum_integers(a: i64, b: i64) -> i64 {
+    if a > b {
+        0
+    } else {
+        a + sum_integers(a + 1, b)
+    }
+}
 @end lisp
 
 @noindent
 The second computes the sum of the cubes of the integers in the given range:
 
 @lisp
-(define (sum-cubes a b)
-  (if (> a b) 
-      0 
-      (+ (cube a) 
-         (sum-cubes (+ a 1) b))))
+fn sum_cubes(a: i64, b: i64) -> i64 {
+    if a > b {
+        0
+    } else {
+        cube(a) + sum_cubes(a + 1, b)
+    }
+}
 @end lisp
 
 @noindent
@@ -4290,11 +4407,13 @@ is due to Leibniz.  We'll see how to use this as the basis for some
 fancy numerical tricks in @ref{3.5.3}.}
 
 @lisp
-(define (pi-sum a b)
-  (if (> a b)
-      0
-      (+ (/ 1.0 (* a (+ a 2))) 
-         (pi-sum (+ a 4) b))))
+fn pi_sum(a: i64, b: i64) -> f64 {
+    if a > b {
+        0.0
+    } else {
+        1.0 / (a as f64 * (a as f64 + 2.0)) + pi_sum(a + 4, b)
+    }
+}
 @end lisp
 
 @noindent
@@ -4305,11 +4424,13 @@ that provides the next value of @code{a}.  We could generate each of the
 procedures by filling in slots in the same template:
 
 @lisp
-(define (⟨@var{name}⟩ a b)
-  (if (> a b)
-      0
-      (+ (⟨@var{term}⟩ a) 
-         (⟨@var{name}⟩ (⟨@var{next}⟩ a) b))))
+fn ⟨@var{name}⟩(a: i64, b: i64) -> i64 {
+    if a > b {
+        0
+    } else {
+        ⟨@var{term}⟩(a) + ⟨@var{name}⟩(⟨@var{next}⟩(a), b)
+    }
+}
 @end lisp
 
 @noindent
@@ -4349,32 +4470,45 @@ readily in our procedural language by taking the common template shown above
 and transforming the ``slots'' into formal parameters:
 
 @lisp
-(define (sum term a next b)
-  (if (> a b)
-      0
-      (+ (term a)
-         (sum term (next a) next b))))
+fn sum<F, N>(term: F, a: i64, next: N, b: i64) -> i64
+where
+    F: Fn(i64) -> i64,
+    N: Fn(i64) -> i64,
+{
+    if a > b {
+        0
+    } else {
+        term(a) + sum(term, next(a), next, b)
+    }
+}
 @end lisp
 
 @noindent
 Notice that @code{sum} takes as its arguments the lower and upper bounds
 @code{a} and @code{b} together with the procedures @code{term} and @code{next}.
+In Rust, we use generic type parameters @code{F} and @code{N} with trait bounds
+@code{Fn(i64) -> i64} to specify that these parameters are functions that take
+an @code{i64} and return an @code{i64}. The @code{Fn} trait represents functions
+and closures that can be called multiple times without consuming themselves.
 We can use @code{sum} just as we would any procedure.  For example, we can use
 it (along with a procedure @code{inc} that increments its argument by 1) to
 define @code{sum-cubes}:
 
 @lisp
-(define (inc n) (+ n 1))
+fn inc(n: i64) -> i64 {
+    n + 1
+}
 
-(define (sum-cubes a b)
-  (sum cube a inc b))
+fn sum_cubes(a: i64, b: i64) -> i64 {
+    sum(cube, a, inc, b)
+}
 @end lisp
 
 @noindent
 Using this, we can compute the sum of the cubes of the integers from 1 to 10:
 
 @lisp
-(sum-cubes 1 10)
+sum_cubes(1, 10)
 @i{3025}
 @end lisp
 
@@ -4383,41 +4517,48 @@ With the aid of an identity procedure to compute the term, we can define
 @code{sum-integers} in terms of @code{sum}:
 
 @lisp
-(define (identity x) x)
+fn identity(x: i64) -> i64 {
+    x
+}
 
-(define (sum-integers a b)
-  (sum identity a inc b))
+fn sum_integers(a: i64, b: i64) -> i64 {
+    sum(identity, a, inc, b)
+}
 @end lisp
 
 @noindent
 Then we can add up the integers from 1 to 10:
 
 @lisp
-(sum-integers 1 10)
+sum_integers(1, 10)
 @i{55}
 @end lisp
 
 @noindent
 We can also define @code{pi-sum} in the same way:@footnote{Notice that we have
 used block structure (@ref{1.1.8}) to embed the definitions of
-@code{pi-next} and @code{pi-term} within @code{pi-sum}, since these procedures
-are unlikely to be useful for any other purpose.  We will see how to get rid of
-them altogether in @ref{1.3.2}.}
+@code{pi_next} and @code{pi_term} within @code{pi_sum}, since these procedures
+are unlikely to be useful for any other purpose. In Rust, we define these as
+local functions within the outer function. We will see how to get rid of
+them altogether using closures in @ref{1.3.2}.}
 
 @lisp
-(define (pi-sum a b)
-  (define (pi-term x)
-    (/ 1.0 (* x (+ x 2))))
-  (define (pi-next x)
-    (+ x 4))
-  (sum pi-term a pi-next b))
+fn pi_sum(a: i64, b: i64) -> f64 {
+    fn pi_term(x: i64) -> f64 {
+        1.0 / (x as f64 * (x as f64 + 2.0))
+    }
+    fn pi_next(x: i64) -> i64 {
+        x + 4
+    }
+    sum(pi_term, a, pi_next, b) as f64
+}
 @end lisp
 
 @noindent
 Using these procedures, we can compute an approximation to @math{\pi}:
 
 @lisp
-(* 8 (pi-sum 1 1000))
+8.0 * pi_sum(1, 1000)
 @i{3.139592655589783}
 @end lisp
 
@@ -4451,20 +4592,43 @@ formula
 for small values of @math{{dx}}.  We can express this directly as a procedure:
 
 @lisp
-(define (integral f a b dx)
-  (define (add-dx x) (+ x dx))
-  (* (sum f (+ a (/ dx 2.0)) add-dx b) 
-     dx))
+fn integral<F>(f: F, a: f64, b: f64, dx: f64) -> f64
+where
+    F: Fn(f64) -> f64,
+{
+    fn sum_f64<F, N>(term: F, a: f64, next: N, b: f64) -> f64
+    where
+        F: Fn(f64) -> f64,
+        N: Fn(f64) -> f64,
+    {
+        if a > b {
+            0.0
+        } else {
+            term(a) + sum_f64(term, next(a), next, b)
+        }
+    }
 
-(integral cube 0 1 0.01)
+    let add_dx = |x| x + dx;
+    sum_f64(f, a + dx / 2.0, add_dx, b) * dx
+}
+
+integral(|x| x * x * x, 0.0, 1.0, 0.01)
 @i{.24998750000000042}
 
-(integral cube 0 1 0.001)
+integral(|x| x * x * x, 0.0, 1.0, 0.001)
 @i{.249999875000001}
 @end lisp
 
 @noindent
 (The exact value of the integral of @code{cube} between 0 and 1 is 1/4.)
+
+Note that in the @code{integral} function, we use Rust's closure syntax to define
+@code{add_dx}: the expression @code{|x| x + dx} creates a closure that captures
+the @code{dx} variable from the enclosing scope. The vertical bars @code{|...|}
+enclose the parameter list, and the expression after them is the closure body.
+We also pass a closure @code{|x| x * x * x} directly as an argument to
+@code{integral}, demonstrating that closures can be created inline without
+naming them.
 
 @quotation
 @strong{@anchor{Exercise 1.29}Exercise 1.29:} Simpson's Rule is a more accurate
@@ -4505,12 +4669,24 @@ is performed iteratively.  Show how to do this by filling in the missing
 expressions in the following definition:
 
 @lisp
-(define (sum term a next b)
-  (define (iter a result)
-    (if ⟨??⟩
-        ⟨??⟩
-        (iter ⟨??⟩ ⟨??⟩)))
-  (iter ⟨??⟩ ⟨??⟩))
+fn sum<F, N>(term: F, a: i64, next: N, b: i64) -> i64
+where
+    F: Fn(i64) -> i64,
+    N: Fn(i64) -> i64,
+{
+    fn iter<F, N>(term: &F, next: &N, a: i64, b: i64, result: i64) -> i64
+    where
+        F: Fn(i64) -> i64,
+        N: Fn(i64) -> i64,
+    {
+        if ⟨??⟩ {
+            ⟨??⟩
+        } else {
+            iter(term, next, ⟨??⟩, b, ⟨??⟩)
+        }
+    }
+    iter(&term, &next, ⟨??⟩, b, ⟨??⟩)
+}
 @end lisp
 @end quotation
 
@@ -4619,110 +4795,112 @@ prime to @math{n} (i.e., all positive integers @math{{i < n}} such that
 @end quotation
 
 @node	1.3.2, 1.3.3, 1.3.1, 1.3
-@subsection Constructing Procedures Using @code{Lambda}
+@subsection Constructing Procedures Using Closures
 
 In using @code{sum} as in @ref{1.3.1}, it seems terribly awkward to
-have to define trivial procedures such as @code{pi-term} and @code{pi-next}
+have to define trivial procedures such as @code{pi_term} and @code{pi_next}
 just so we can use them as arguments to our higher-order procedure.  Rather
-than define @code{pi-next} and @code{pi-term}, it would be more convenient to
+than define @code{pi_next} and @code{pi_term}, it would be more convenient to
 have a way to directly specify ``the procedure that returns its input
 incremented by 4'' and ``the procedure that returns the reciprocal of its input
-times its input plus 2.''  We can do this by introducing the special form
-@code{lambda}, which creates procedures.  Using @code{lambda} we can describe
+times its input plus 2.''  We can do this by using Rust\'s @newterm{closure}
+syntax, which creates anonymous functions.  Using closures we can describe
 what we want as
 
 @lisp
-(lambda (x) (+ x 4))
+|x| x + 4
 @end lisp
 
 @noindent
 and
 
 @lisp
-(lambda (x) (/ 1.0 (* x (+ x 2))))
+|x| 1.0 / (x * (x + 2.0))
 @end lisp
 
 @noindent
-Then our @code{pi-sum} procedure can be expressed without defining any
+Then our @code{pi_sum} procedure can be expressed without defining any
 auxiliary procedures as
 
 @lisp
-(define (pi-sum a b)
-  (sum (lambda (x) (/ 1.0 (* x (+ x 2))))
-       a
-       (lambda (x) (+ x 4))
-       b))
+fn pi_sum(a: i32, b: i32) -> f64 {
+    sum(|x| 1.0 / (x as f64 * (x as f64 + 2.0)),
+        a,
+        |x| x + 4,
+        b)
+}
 @end lisp
 
 @noindent
-Again using @code{lambda}, we can write the @code{integral} procedure without
-having to define the auxiliary procedure @code{add-dx}:
+Again using closures, we can write the @code{integral} procedure without
+having to define the auxiliary procedure @code{add_dx}:
 
 @lisp
-(define (integral f a b dx)
-  (* (sum f (+ a (/ dx 2.0))
-            (lambda (x) (+ x dx))
-            b)
-     dx))
+fn integral<F>(f: F, a: f64, b: f64, dx: f64) -> f64
+where
+    F: Fn(f64) -> f64,
+{
+    sum(f, a + dx / 2.0, |x| x + dx, b) * dx
+}
 @end lisp
 
 @noindent
-In general, @code{lambda} is used to create procedures in the same way as
-@code{define}, except that no name is specified for the procedure:
+In general, closures are used to create anonymous functions in the same way as
+@code{fn}, except that no name is specified for the function:
 
 @lisp
-(lambda (⟨@var{formal-parameters}⟩) ⟨@var{body}⟩)
+|⟨@var{formal-parameters}⟩| ⟨@var{body}⟩
 @end lisp
 
 @noindent
-The resulting procedure is just as much a procedure as one that is created
-using @code{define}.  The only difference is that it has not been associated
+The resulting closure is just as much a function as one that is created
+using @code{fn}.  The only difference is that it has not been associated
 with any name in the environment.  In fact,
 
 @lisp
-(define (plus4 x) (+ x 4))
+fn plus4(x: i32) -> i32 { x + 4 }
 @end lisp
 
 @noindent
 is equivalent to
 
 @lisp
-(define plus4 (lambda (x) (+ x 4)))
+let plus4 = |x: i32| x + 4;
 @end lisp
 
 @noindent
-We can read a @code{lambda} expression as follows:
+We can read a closure expression as follows:
 
 @example
-(lambda                     (x)     (+   x     4))
-    |                        |       |   |     |
-the procedure of an argument x that adds x and 4
+|       x       |       x   +     4
+|       |       |       |   |     |
+the function of an argument x that adds x and 4
 @end example
 
 @noindent
-Like any expression that has a procedure as its value, a @code{lambda}
-expression can be used as the operator in a combination such as
+Like any expression that has a function as its value, a closure
+expression can be used immediately such as
 
 @lisp
-((lambda (x y z) (+ x y (square z))) 1 2 3)
+(|x, y, z| x + y + square(z))(1, 2, 3)
 @i{12}
 @end lisp
 
 @noindent
-or, more generally, in any context where we would normally use a procedure
-name.@footnote{It would be clearer and less intimidating to people learning
-Lisp if a name more obvious than @code{lambda}, such as @code{make-procedure},
-were used.  But the convention is firmly entrenched.  The notation is adopted
-from the λ-calculus, a mathematical formalism introduced by the
-mathematical logician Alonzo @ref{Church (1941)}.  Church developed the 
-λ-calculus to provide a rigorous foundation for studying the 
-notions of function
-and function application.  The λ-calculus has become a basic tool
-for mathematical investigations of the semantics of programming languages.}
+or, more generally, in any context where we would normally use a function
+name.@footnote{Rust\'s closure syntax is inspired by languages like Ruby and
+Smalltalk, and ultimately traces back to the λ-calculus, a mathematical
+formalism introduced by the mathematical logician Alonzo @ref{Church (1941)}.
+Church developed the λ-calculus to provide a rigorous foundation for
+studying the notions of function and function application.  The λ-calculus
+has become a basic tool for mathematical investigations of the semantics of
+programming languages.  An important feature of Rust closures is that they
+can @newterm{capture} variables from their enclosing environment, creating
+a closure over those variables.}
 
 @subsubheading Using @code{let} to create local variables
 
-Another use of @code{lambda} is in creating local variables.  We often need
+In Rust, the @code{let} keyword is used to create local variables.  We often need
 local variables in our procedures other than those that have been bound as
 formal parameters.  For example, suppose we wish to compute the function
 @ifinfo
@@ -4769,53 +4947,47 @@ quantities like @math{a} and @math{b}.  One way to accomplish this is to use an
 auxiliary procedure to bind the local variables:
 
 @lisp
-(define (f x y)
-  (define (f-helper a b)
-    (+ (* x (square a))
-       (* y b)
-       (* a b)))
-  (f-helper (+ 1 (* x y)) 
-            (- 1 y)))
+fn f(x: f64, y: f64) -> f64 {
+    fn f_helper(x: f64, y: f64, a: f64, b: f64) -> f64 {
+        x * square(a) + y * b + a * b
+    }
+    f_helper(x, y, 1.0 + x * y, 1.0 - y)
+}
 @end lisp
 
 @noindent
-Of course, we could use a @code{lambda} expression to specify an anonymous
-procedure for binding our local variables.  The body of @code{f} then becomes a
-single call to that procedure:
+Of course, we could use a closure to specify an anonymous
+function for binding our local variables.  The body of @code{f} then becomes a
+single call to that closure:
 
 @lisp
-(define (f x y)
-  ((lambda (a b)
-     (+ (* x (square a)) 
-        (* y b) 
-        (* a b)))
-   (+ 1 (* x y))
-   (- 1 y)))
+fn f(x: f64, y: f64) -> f64 {
+    (|a, b| x * square(a) + y * b + a * b)(1.0 + x * y, 1.0 - y)
+}
 @end lisp
 
 @noindent
-This construct is so useful that there is a special form called @code{let} to
-make its use more convenient.  Using @code{let}, the @code{f} procedure could
+In Rust, @code{let} bindings are a natural and convenient way to create
+local variables.  Using @code{let}, the @code{f} procedure could
 be written as
 
 @lisp
-(define (f x y)
-  (let ((a (+ 1 (* x y)))
-        (b (- 1 y)))
-    (+ (* x (square a))
-       (* y b)
-       (* a b))))
+fn f(x: f64, y: f64) -> f64 {
+    let a = 1.0 + x * y;
+    let b = 1.0 - y;
+    x * square(a) + y * b + a * b
+}
 @end lisp
 
 @noindent
-The general form of a @code{let} expression is
+The general form of a @code{let} binding in Rust is
 
 @lisp
-(let ((⟨@var{var₁}⟩ ⟨@var{exp₁}⟩)
-      (⟨@var{var₂}⟩ ⟨@var{exp₂}⟩)
-      @r{…}
-      (⟨@var{varₙ}⟩ ⟨@var{expₙ}⟩))
-  ⟨@var{body}⟩)
+let ⟨@var{var₁}⟩ = ⟨@var{exp₁}⟩;
+let ⟨@var{var₂}⟩ = ⟨@var{exp₂}⟩;
+@r{…}
+let ⟨@var{varₙ}⟩ = ⟨@var{expₙ}⟩;
+⟨@var{body}⟩
 @end lisp
 
 @noindent
@@ -4830,27 +5002,23 @@ let ⟨@var{var₁}⟩ @r{have the value} ⟨@var{exp₁}⟩ @r{and}
 @end example
 
 @noindent
-The first part of the @code{let} expression is a list of name-expression pairs.
-When the @code{let} is evaluated, each name is associated with the value of the
-corresponding expression.  The body of the @code{let} is evaluated with these
-names bound as local variables.  The way this happens is that the @code{let}
-expression is interpreted as an alternate syntax for
+Each @code{let} binding associates a name with the value of the
+corresponding expression.  The body of the function is evaluated with these
+names bound as local variables.  In Rust, @code{let} bindings are evaluated
+sequentially, which means each binding can use the values of previous bindings.
+This is similar to using immediately-invoked closures:
 
 @lisp
-((lambda (⟨@var{var₁}⟩ @r{…} ⟨@var{varₙ}⟩)
-   ⟨@var{body}⟩)
- ⟨@var{exp₁}⟩
- @r{…}
- ⟨@var{expₙ}⟩)
+(|⟨@var{var₁}⟩, @r{…}, ⟨@var{varₙ}⟩| ⟨@var{body}⟩)(⟨@var{exp₁}⟩, @r{…}, ⟨@var{expₙ}⟩)
 @end lisp
 
 @noindent
-No new mechanism is required in the interpreter in order to provide local
-variables.  A @code{let} expression is simply syntactic sugar for the
-underlying @code{lambda} application.
+While Rust\'s @code{let} is a fundamental language construct rather than
+syntactic sugar, the conceptual relationship to closures helps understand
+how local variables create scoped bindings.
 
-We can see from this equivalence that the scope of a variable specified by a
-@code{let} expression is the body of the @code{let}.  This implies that:
+The scope of a variable specified by a
+@code{let} binding is from the point of binding to the end of the enclosing block.  This implies that:
 
 @itemize @bullet
 
@@ -4860,76 +5028,84 @@ are to be used.  For example, if the value of @code{x} is 5, the value of the
 expression
 
 @lisp
-(+ (let ((x 3))
-     (+ x (* x 10)))
-   x)
+{
+    let inner_result = {
+        let x = 3;
+        x + x * 10
+    };
+    inner_result + x
+}
 @end lisp
 
 @noindent
-is 38.  Here, the @code{x} in the body of the @code{let} is 3, so the value of
-the @code{let} expression is 33.  On the other hand, the @code{x} that is the
+is 38.  Here, the @code{x} in the inner block is 3, so the value of
+the inner expression is 33.  On the other hand, the @code{x} that is the
 second argument to the outermost @code{+} is still 5.
 
 @item
-The variables' values are computed outside the @code{let}.  This matters when
+In Rust, @code{let} bindings are evaluated sequentially.  This matters when
 the expressions that provide the values for the local variables depend upon
 variables having the same names as the local variables themselves.  For
 example, if the value of @code{x} is 2, the expression
 
 @lisp
-(let ((x 3)
-      (y (+ x 2)))
-  (* x y))
+{
+    let x = 3;
+    let y = x + 2;
+    x * y
+}
 @end lisp
 
 @noindent
-will have the value 12 because, inside the body of the @code{let}, @code{x}
-will be 3 and @code{y} will be 4 (which is the outer @code{x} plus 2).
+will have the value 15 because @code{y} uses the new value of @code{x} (which is 3),
+so @code{y} will be 5, and @code{x} * @code{y} = 15.  This is different from
+Scheme\'s @code{let}, where all bindings are evaluated before any are bound.
 
 @end itemize
 
 @noindent
-Sometimes we can use internal definitions to get the same effect as with
-@code{let}.  For example, we could have defined the procedure @code{f} above as
+In Rust, @code{let} bindings are the natural way to define local variables
+within a function.  For example, the procedure @code{f} above was written as
 
 @lisp
-(define (f x y)
-  (define a 
-    (+ 1 (* x y)))
-  (define b (- 1 y))
-  (+ (* x (square a))
-     (* y b)
-     (* a b)))
+fn f(x: f64, y: f64) -> f64 {
+    let a = 1.0 + x * y;
+    let b = 1.0 - y;
+    x * square(a) + y * b + a * b
+}
 @end lisp
 
 @noindent
-We prefer, however, to use @code{let} in situations like this and to use
-internal @code{define} only for internal procedures.@footnote{Understanding
-internal definitions well enough to be sure a program means what we intend it
-to mean requires a more elaborate model of the evaluation process than we have
-presented in this chapter.  The subtleties do not arise with internal
-definitions of procedures, however.  We will return to this issue in 
-@ref{4.1.6}, after we learn more about evaluation.}
+We use @code{let} bindings for local variables and values, while we use
+internal @code{fn} definitions only for internal helper functions.@footnote{Rust\'s
+@code{let} bindings are evaluated sequentially in the order they appear, which
+makes the evaluation model straightforward.  Each binding is evaluated using
+the environment that includes all previous bindings in the same scope.}
 
 @quotation
-@strong{@anchor{Exercise 1.34}Exercise 1.34:} Suppose we define the procedure
+@strong{@anchor{Exercise 1.34}Exercise 1.34:} Suppose we define the function
 
 @lisp
-(define (f g) (g 2))
+fn f<F>(g: F) -> i32
+where
+    F: Fn(i32) -> i32,
+{
+    g(2)
+}
 @end lisp
 
 Then we have
 
 @lisp
-(f square)
+f(square)
 @i{4}
 
-(f (lambda (z) (* z (+ z 1))))
+f(|z| z * (z + 1))
 @i{6}
 @end lisp
 
-What happens if we (perversely) ask the interpreter to evaluate the combination
-@code{(f f)}?  Explain.
+What happens if we (perversely) ask the compiler to evaluate the call
+@code{f(f)}?  Explain.
 @end quotation
 
 @node	1.3.3, 1.3.4, 1.3.2, 1.3
@@ -4964,18 +5140,24 @@ size of the interval we will consider ``small enough'').  Here is a procedure
 that implements this strategy:
 
 @lisp
-(define (search f neg-point pos-point)
-  (let ((midpoint 
-         (average neg-point pos-point)))
-    (if (close-enough? neg-point pos-point)
+fn search<F>(f: F, neg_point: f64, pos_point: f64) -> f64
+where
+    F: Fn(f64) -> f64,
+{
+    let midpoint = average(neg_point, pos_point);
+    if close_enough(neg_point, pos_point) {
         midpoint
-        (let ((test-value (f midpoint)))
-          (cond 
-           ((positive? test-value)
-            (search f neg-point midpoint))
-           ((negative? test-value)
-            (search f midpoint pos-point))
-           (else midpoint))))))
+    } else {
+        let test_value = f(midpoint);
+        if test_value > 0.0 {
+            search(f, neg_point, midpoint)
+        } else if test_value < 0.0 {
+            search(f, midpoint, pos_point)
+        } else {
+            midpoint
+        }
+    }
+}
 @end lisp
 
 @noindent
@@ -5000,8 +5182,9 @@ very subtle consideration, requiring help from a numerical analyst or some
 other kind of magician.}
 
 @lisp
-(define (close-enough? x y) 
-  (< (abs (- x y)) 0.001))
+fn close_enough(x: f64, y: f64) -> bool {
+    (x - y).abs() < 0.001
+}
 @end lisp
 
 @noindent
@@ -5016,18 +5199,20 @@ error.@footnote{This can be accomplished using @code{error}, which takes as
 arguments a number of items that are printed as error messages.}
 
 @lisp
-(define (half-interval-method f a b)
-  (let ((a-value (f a))
-        (b-value (f b)))
-    (cond ((and (negative? a-value) 
-                (positive? b-value))
-           (search f a b))
-          ((and (negative? b-value) 
-                (positive? a-value))
-           (search f b a))
-          (else
-           (error "Values are not of 
-                   opposite sign" a b)))))
+fn half_interval_method<F>(f: F, a: f64, b: f64) -> f64
+where
+    F: Fn(f64) -> f64,
+{
+    let a_value = f(a);
+    let b_value = f(b);
+    if a_value < 0.0 && b_value > 0.0 {
+        search(f, a, b)
+    } else if b_value < 0.0 && a_value > 0.0 {
+        search(f, b, a)
+    } else {
+        panic!("Values are not of opposite sign {} {}", a, b)
+    }
+}
 @end lisp
 
 @noindent
@@ -5035,7 +5220,7 @@ The following example uses the half-interval method to approximate @math{\pi} as
 the root between 2 and 4 of @math{{\sin x = 0}}:
 
 @lisp
-(half-interval-method sin 2.0 4.0)
+half_interval_method(f64::sin, 2.0, 4.0)
 @i{3.14111328125}
 @end lisp
 
@@ -5044,10 +5229,11 @@ Here is another example, using the half-interval method to search for a root of
 the equation @math{{x^3 - 2x - 3 = 0}} between 1 and 2:
 
 @lisp
-(half-interval-method 
- (lambda (x) (- (* x x x) (* 2 x) 3))
- 1.0
- 2.0)
+half_interval_method(
+    |x| x * x * x - 2.0 * x - 3.0,
+    1.0,
+    2.0
+)
 @i{1.89306640625}
 @end lisp
 
@@ -5080,18 +5266,28 @@ the function repeatedly until we find two successive values whose difference is
 less than some prescribed tolerance:
 
 @lisp
-(define tolerance 0.00001)
+const TOLERANCE: f64 = 0.00001;
 
-(define (fixed-point f first-guess)
-  (define (close-enough? v1 v2)
-    (< (abs (- v1 v2)) 
-       tolerance))
-  (define (try guess)
-    (let ((next (f guess)))
-      (if (close-enough? guess next)
-          next
-          (try next))))
-  (try first-guess))
+fn fixed_point<F>(f: F, first_guess: f64) -> f64
+where
+    F: Fn(f64) -> f64,
+{
+    fn close_enough(v1: f64, v2: f64) -> bool {
+        (v1 - v2).abs() < TOLERANCE
+    }
+    fn try_guess<F>(f: &F, guess: f64) -> f64
+    where
+        F: Fn(f64) -> f64,
+    {
+        let next = f(guess);
+        if close_enough(guess, next) {
+            next
+        } else {
+            try_guess(f, next)
+        }
+    }
+    try_guess(&f, first_guess)
+}
 @end lisp
 
 @noindent
@@ -5101,7 +5297,7 @@ during a boring lecture: Set your calculator to radians mode and then
 repeatedly press the @code{cos} button until you obtain the fixed point.}
 
 @lisp
-(fixed-point cos 1.0)
+fixed_point(f64::cos, 1.0)
 @i{.7390822985224023}
 @end lisp
 
@@ -5110,8 +5306,7 @@ Similarly, we can find a solution to the equation
 @math{{y = \sin y + \cos y}}:
 
 @lisp
-(fixed-point (lambda (y) (+ (sin y) (cos y)))
-             1.0)
+fixed_point(|y| y.sin() + y.cos(), 1.0)
 @i{1.2587315962971173}
 @end lisp
 
@@ -5129,9 +5324,9 @@ that is, the function whose value at @math{y} is @math{{x / y}}.} @math{{y \maps
 and we can therefore try to compute square roots as
 
 @lisp
-(define (sqrt x)
-  (fixed-point (lambda (y) (/ x y))
-               1.0))
+fn sqrt(x: f64) -> f64 {
+    fixed_point(|y| x / y, 1.0)
+}
 @end lisp
 
 @noindent
@@ -5151,10 +5346,9 @@ guesses is simply the process of looking for a fixed point of
 @math{y \mapsto {{1\over2}(y + x / y)}}: 
 
 @lisp
-(define (sqrt x)
-  (fixed-point 
-   (lambda (y) (average y (/ x y)))
-   1.0))
+fn sqrt(x: f64) -> f64 {
+    fixed_point(|y| average(y, x / y), 1.0)
+}
 @end lisp
 
 @noindent
@@ -5328,16 +5522,26 @@ average of @math{x} and @math{{f(x)}}.
 We can express the idea of average damping by means of the following procedure:
 
 @lisp
-(define (average-damp f)
-  (lambda (x) 
-    (average x (f x))))
+fn average_damp<F>(f: F) -> impl Fn(f64) -> f64
+where
+    F: Fn(f64) -> f64 + 'static,
+{
+    move |x| average(x, f(x))
+}
 @end lisp
 
 @noindent
+In Rust, returning a closure requires using @code{impl Fn} as the return type.
+The @code{move} keyword captures @code{f} by value, transferring ownership into
+the returned closure. This is necessary because the closure outlives the function
+scope. The @code{'static} lifetime bound ensures @code{f} doesn't contain references
+with limited lifetimes.
+
+@noindent
 @code{Average-damp} is a procedure that takes as its argument a procedure
-@code{f} and returns as its value a procedure (produced by the @code{lambda})
+@code{f} and returns as its value a procedure (produced by the closure)
 that, when applied to a number @code{x}, produces the average of @code{x} and
-@code{(f x)}.  For example, applying @code{average-damp} to the @code{square}
+@code{f(x)}.  For example, applying @code{average-damp} to the @code{square}
 procedure produces a procedure whose value at some number @math{x} is the average
 of @math{x} and @math{x^2}.  Applying this resulting procedure to 10 returns the
 average of 10 and 100, or 55:@footnote{Observe that this is a combination whose
@@ -5347,8 +5551,8 @@ begin to see the real need for such combinations---when applying a procedure
 that is obtained as the value returned by a higher-order procedure.}
 
 @lisp
-((average-damp square) 10)
-@i{55}
+average_damp(square)(10.0)
+// 55.0
 @end lisp
 
 @noindent
@@ -5356,11 +5560,12 @@ Using @code{average-damp}, we can reformulate the square-root procedure as
 follows:
 
 @lisp
-(define (sqrt x)
-  (fixed-point 
-   (average-damp 
-    (lambda (y) (/ x y)))
-   1.0))
+fn sqrt(x: f64) -> f64 {
+    fixed_point(
+        average_damp(move |y| x / y),
+        1.0,
+    )
+}
 @end lisp
 
 @noindent
@@ -5380,12 +5585,12 @@ square-root procedure to one that extracts cube roots:@footnote{See
 @ref{Exercise 1.45} for a further generalization.}
 
 @lisp
-(define (cube-root x)
-  (fixed-point 
-   (average-damp 
-    (lambda (y) 
-      (/ x (square y))))
-   1.0))
+fn cube_root(x: f64) -> f64 {
+    fixed_point(
+        average_damp(move |y| x / square(y)),
+        1.0,
+    )
+}
 @end lisp
 
 @subsubheading Newton's method
@@ -5456,17 +5661,14 @@ Thus, we can express the idea of derivative (taking @math{{dx}} to be, say,
 0.00001) as the procedure
 
 @lisp
-(define (deriv g)
-  (lambda (x)
-    (/ (- (g (+ x dx)) (g x))
-       dx)))
-@end lisp
+const DX: f64 = 0.00001;
 
-@noindent
-along with the definition
-
-@lisp
-(define dx 0.00001)
+fn deriv<G>(g: G) -> impl Fn(f64) -> f64
+where
+    G: Fn(f64) -> f64 + 'static,
+{
+    move |x| (g(x + DX) - g(x)) / DX
+}
 @end lisp
 
 @noindent
@@ -5475,10 +5677,12 @@ argument and returns a procedure as value.  For example, to approximate the
 derivative of @math{{x \mapsto x^3}} at 5 (whose exact value is 75) we can evaluate
 
 @lisp
-(define (cube x) (* x x x))
+fn cube(x: f64) -> f64 {
+    x * x * x
+}
 
-((deriv cube) 5)
-@i{75.00014999664018}
+deriv(cube)(5.0)
+// 75.00014999664018
 @end lisp
 
 @noindent
@@ -5486,15 +5690,26 @@ With the aid of @code{deriv}, we can express Newton's method as a fixed-point
 process:
 
 @lisp
-(define (newton-transform g)
-  (lambda (x)
-    (- x (/ (g x) 
-            ((deriv g) x)))))
+fn newton_transform<G>(g: G) -> impl Fn(f64) -> f64
+where
+    G: Fn(f64) -> f64 + Clone + 'static,
+{
+    let g_clone = g.clone();
+    move |x| x - (g(x) / deriv(g_clone.clone())(x))
+}
 
-(define (newtons-method g guess)
-  (fixed-point (newton-transform g) 
-               guess))
+fn newtons_method<G>(g: G, guess: f64) -> f64
+where
+    G: Fn(f64) -> f64 + Clone + 'static,
+{
+    fixed_point(newton_transform(g), guess)
+}
 @end lisp
+
+@noindent
+Here, @code{newton_transform} requires @code{G: Clone} because we need to use
+@code{g} both directly and pass it to @code{deriv}. We clone @code{g} to satisfy
+Rust's ownership rules.
 
 @noindent
 The @code{newton-transform} procedure expresses the formula at the beginning of
@@ -5509,11 +5724,9 @@ from any starting point.}
 This provides yet another form of the square-root procedure:
 
 @lisp
-(define (sqrt x)
-  (newtons-method 
-   (lambda (y) 
-     (- (square y) x)) 
-   1.0))
+fn sqrt(x: f64) -> f64 {
+    newtons_method(move |y| square(y) - x, 1.0)
+}
 @end lisp
 
 @subsubheading Abstractions and first-class procedures
@@ -5526,10 +5739,21 @@ begins with a function and finds a fixed point of some transformation of the
 function.  We can express this general idea itself as a procedure:
 
 @lisp
-(define (fixed-point-of-transform 
-         g transform guess)
-  (fixed-point (transform g) guess))
+fn fixed_point_of_transform<G, T, F>(g: G, transform: T, guess: f64) -> f64
+where
+    G: Fn(f64) -> f64 + 'static,
+    T: Fn(G) -> F,
+    F: Fn(f64) -> f64,
+{
+    fixed_point(transform(g), guess)
+}
 @end lisp
+
+@noindent
+This function takes a function @code{g}, a @code{transform} that converts one
+function into another, and an initial @code{guess}. The generic parameters
+@code{G}, @code{T}, and @code{F} allow flexible composition of different function
+transformations.
 
 @noindent
 This very general procedure takes as its arguments a procedure @code{g} that
@@ -5541,11 +5765,9 @@ this section (where we look for a fixed point of the average-damped version of
 @math{{y \mapsto x / y}}) as an instance of this general method:
 
 @lisp
-(define (sqrt x)
-  (fixed-point-of-transform 
-   (lambda (y) (/ x y))
-   average-damp
-   1.0))
+fn sqrt(x: f64) -> f64 {
+    fixed_point_of_transform(move |y| x / y, average_damp, 1.0)
+}
 @end lisp
 
 @noindent
@@ -5554,11 +5776,9 @@ Similarly, we can express the second square-root computation from this section
 transform of @math{{y \mapsto y^2 - x}}) as
 
 @lisp
-(define (sqrt x)
-  (fixed-point-of-transform 
-   (lambda (y) (- (square y) x))
-   newton-transform
-   1.0))
+fn sqrt(x: f64) -> f64 {
+    fixed_point_of_transform(move |y| square(y) - x, newton_transform, 1.0)
+}
 @end lisp
 
 @noindent
@@ -5619,23 +5839,43 @@ that can be used together with the @code{newtons-method} procedure in
 expressions of the form
 
 @lisp
-(newtons-method (cubic a b c) 1)
+newtons_method(cubic(a, b, c), 1.0)
 @end lisp
 
 @noindent
 to approximate zeros of the cubic @math{{x^3 + ax^2 + bx + c}}.
+
+@lisp
+fn cubic(a: f64, b: f64, c: f64) -> impl Fn(f64) -> f64 {
+    move |x| x.powi(3) + a * x.powi(2) + b * x + c
+}
+@end lisp
 @end quotation
 
 @quotation
 @strong{@anchor{Exercise 1.41}Exercise 1.41:} Define a procedure @code{double}
 that takes a procedure of one argument as argument and returns a procedure that
 applies the original procedure twice.  For example, if @code{inc} is a
-procedure that adds 1 to its argument, then @code{(double inc)} should be a
+procedure that adds 1 to its argument, then @code{double(inc)} should be a
 procedure that adds 2.  What value is returned by
 
 @lisp
-(((double (double double)) inc) 5)
+double(double(double))(inc)(5)
 @end lisp
+
+@lisp
+fn double<F, T>(f: F) -> impl Fn(T) -> T
+where
+    F: Fn(T) -> T + Clone + 'static,
+    T: 'static,
+{
+    move |x| f(f(x))
+}
+@end lisp
+
+@noindent
+In Rust, @code{double} is polymorphic over type @code{T}, allowing it to work
+with any type. The @code{Clone} bound is required because we apply @code{f} twice.
 @end quotation
 
 @quotation
@@ -5646,9 +5886,27 @@ to be the function @math{{x \mapsto f(g(x))}}.  Define a procedure
 procedure that adds 1 to its argument,
 
 @lisp
-((compose square inc) 6)
-@i{49}
+compose(square, inc)(6)
+// 49
 @end lisp
+
+@lisp
+fn compose<F, G, T, U, V>(f: F, g: G) -> impl Fn(T) -> V
+where
+    F: Fn(U) -> V + 'static,
+    G: Fn(T) -> U + 'static,
+    T: 'static,
+    U: 'static,
+    V: 'static,
+{
+    move |x| f(g(x))
+}
+@end lisp
+
+@noindent
+Function composition in Rust requires three type parameters: @code{T} (input type),
+@code{U} (intermediate type), and @code{V} (output type). This allows composing
+functions with different input and output types.
 @end quotation
 
 @quotation
@@ -5665,11 +5923,31 @@ the procedure that computes the @math{n^{\text{th}}} repeated application of @ma
 procedure should be able to be used as follows:
 
 @lisp
-((repeated square 2) 5)
-@i{625}
+repeated(square, 2)(5.0)
+// 625.0
 @end lisp
 
 Hint: You may find it convenient to use @code{compose} from @ref{Exercise 1.42}.
+
+@lisp
+fn repeated<F, T>(f: F, n: usize) -> impl Fn(T) -> T
+where
+    F: Fn(T) -> T + Clone + 'static,
+    T: Clone + 'static,
+{
+    move |x| {
+        let mut result = x;
+        for _ in 0..n {
+            result = f(result);
+        }
+        result
+    }
+}
+@end lisp
+
+@noindent
+The @code{repeated} function applies @code{f} exactly @code{n} times to the input.
+Both @code{F} and @code{T} require @code{Clone} to allow multiple applications.
 @end quotation
 
 @quotation
@@ -5951,25 +6229,25 @@ available as procedures:
 @itemize @bullet
 
 @item
-@code{(make-rat ⟨@var{n}⟩ ⟨@var{d}⟩)} returns the rational number whose numerator 
-is the integer @code{⟨@var{n}⟩} and whose denominator is the integer 
+@code{Rational::new(⟨@var{n}⟩, ⟨@var{d}⟩)} returns the rational number whose numerator
+is the integer @code{⟨@var{n}⟩} and whose denominator is the integer
 @code{⟨@var{d}⟩}.
 
 @item
-@code{(numer ⟨@var{x}⟩)} returns the numerator of the rational number 
+@code{⟨@var{x}⟩.num()} returns the numerator of the rational number
 @code{⟨@var{x}⟩}.
 
 @item
-@code{(denom ⟨@var{x}⟩)} returns the denominator of the rational number 
+@code{⟨@var{x}⟩.denom()} returns the denominator of the rational number
 @code{⟨@var{x}⟩}.
 
 @end itemize
 
 @noindent
 We are using here a powerful strategy of synthesis: @newterm{wishful thinking}.
-We haven't yet said how a rational number is represented, or how the procedures
-@code{numer}, @code{denom}, and @code{make-rat} should be implemented.  Even
-so, if we did have these three procedures, we could then add, subtract,
+We haven't yet said how a rational number is represented, or how the methods
+@code{num}, @code{denom}, and @code{new} should be implemented.  Even
+so, if we did have these three methods, we could then add, subtract,
 multiply, divide, and test equality by using the following relations:
 @ifinfo
 
@@ -6011,196 +6289,222 @@ d_1   d_2
 \]
 @end tex
 @noindent
-We can express these rules as procedures:
+We can express these rules as functions:
 
-@lisp
-(define (add-rat x y)
-  (make-rat (+ (* (numer x) (denom y))
-               (* (numer y) (denom x)))
-            (* (denom x) (denom y))))
+@example
+fn add_rat(x: &Rational, y: &Rational) -> Rational @{
+    Rational::new(
+        x.num() * y.denom() + y.num() * x.denom(),
+        x.denom() * y.denom()
+    )
+@}
 
-(define (sub-rat x y)
-  (make-rat (- (* (numer x) (denom y))
-               (* (numer y) (denom x)))
-            (* (denom x) (denom y))))
+fn sub_rat(x: &Rational, y: &Rational) -> Rational @{
+    Rational::new(
+        x.num() * y.denom() - y.num() * x.denom(),
+        x.denom() * y.denom()
+    )
+@}
 
-(define (mul-rat x y)
-  (make-rat (* (numer x) (numer y))
-            (* (denom x) (denom y))))
+fn mul_rat(x: &Rational, y: &Rational) -> Rational @{
+    Rational::new(
+        x.num() * y.num(),
+        x.denom() * y.denom()
+    )
+@}
 
-(define (div-rat x y)
-  (make-rat (* (numer x) (denom y))
-            (* (denom x) (numer y))))
+fn div_rat(x: &Rational, y: &Rational) -> Rational @{
+    Rational::new(
+        x.num() * y.denom(),
+        x.denom() * y.num()
+    )
+@}
 
-(define (equal-rat? x y)
-  (= (* (numer x) (denom y))
-     (* (numer y) (denom x))))
-@end lisp
+fn equal_rat(x: &Rational, y: &Rational) -> bool @{
+    x.num() * y.denom() == y.num() * x.denom()
+@}
+@end example
 
 @noindent
 Now we have the operations on rational numbers defined in terms of the selector
-and constructor procedures @code{numer}, @code{denom}, and @code{make-rat}.
+and constructor methods @code{num}, @code{denom}, and @code{new}.
 But we haven't yet defined these.  What we need is some way to glue together a
 numerator and a denominator to form a rational number.
 
 @subsubheading Pairs
 
-To enable us to implement the concrete level of our data abstraction, our
-language provides a compound structure called a @newterm{pair}, which can be
-constructed with the primitive procedure @code{cons}.  This procedure takes two
-arguments and returns a compound data object that contains the two arguments as
-parts.  Given a pair, we can extract the parts using the primitive procedures
-@code{car} and @code{cdr}.@footnote{The name @code{cons} stands for
-``construct.''  The names @code{car} and @code{cdr} derive from the original
+To enable us to implement the concrete level of our data abstraction, Rust
+provides a compound structure called a @newterm{tuple}, which can be
+constructed using parentheses with comma-separated values.  A tuple takes two
+(or more) values and returns a compound data object that contains those values as
+parts.  Given a pair (2-tuple), we can extract the parts using pattern matching
+or field access with @code{.0} and @code{.1}.@footnote{In Scheme and Lisp, the names @code{cons}, @code{car}, and @code{cdr} derive from the original
 implementation of Lisp on the IBM 704.  That machine had an addressing scheme
 that allowed one to reference the ``address'' and ``decrement'' parts of a
 memory location.  @code{Car} stands for ``Contents of Address part of
 Register'' and @code{cdr} (pronounced ``could-er'') stands for ``Contents of
-Decrement part of Register.''} Thus, we can use @code{cons}, @code{car}, and
-@code{cdr} as follows:
+Decrement part of Register.'' Rust uses tuples and structs instead, with numeric
+field access or named fields.} Thus, we can use tuples as follows:
 
-@lisp
-(define x (cons 1 2))
+@example
+let x = (1, 2);
 
-(car x)
-@i{1}
+x.0
+// 1
 
-(cdr x)
-@i{2}
-@end lisp
+x.1
+// 2
+@end example
 
 @noindent
 Notice that a pair is a data object that can be given a name and manipulated,
-just like a primitive data object.  Moreover, @code{cons} can be used to form
+just like a primitive data object.  Moreover, tuples can be used to form
 pairs whose elements are pairs, and so on:
 
-@lisp
-(define x (cons 1 2))
-(define y (cons 3 4))
-(define z (cons x y))
+@example
+let x = (1, 2);
+let y = (3, 4);
+let z = (x, y);
 
-(car (car z))
-@i{1}
+z.0.0
+// 1
 
-(car (cdr z))
-@i{3}
-@end lisp
+z.1.0
+// 3
+@end example
 
 @noindent
 In @ref{2.2} we will see how this ability to combine pairs means that
-pairs can be used as general-purpose building blocks to create all sorts of
-complex data structures.  The single compound-data primitive @newterm{pair},
-implemented by the procedures @code{cons}, @code{car}, and @code{cdr}, is the
-only glue we need.  Data objects constructed from pairs are called
+tuples and structs can be used as general-purpose building blocks to create all sorts of
+complex data structures.  The compound-data primitives @newterm{tuples} and
+@newterm{structs} are the primary tools we need.  Data objects constructed from these
+are the foundation of Rust's type system and can represent
 @newterm{list-structured} data.
 
 @subsubheading Representing rational numbers
 
-Pairs offer a natural way to complete the rational-number system.  Simply
-represent a rational number as a pair of two integers: a numerator and a
-denominator.  Then @code{make-rat}, @code{numer}, and @code{denom} are readily
-implemented as follows:@footnote{Another way to define the selectors and
-constructor is
+A struct offers a natural way to complete the rational-number system.  Simply
+represent a rational number as a struct with two integer fields: a numerator and a
+denominator.  Then @code{Rational::new}, @code{num}, and @code{denom} are readily
+implemented as follows:@footnote{We could also use a simple tuple @code{(i64, i64)}
+to represent rational numbers, which would be more lightweight:
 
-@lisp
-(define make-rat cons)
-(define numer car)
-(define denom cdr)
-@end lisp
+@example
+fn make_rat(n: i64, d: i64) -> (i64, i64) @{ (n, d) @}
+fn numer(x: (i64, i64)) -> i64 @{ x.0 @}
+fn denom(x: (i64, i64)) -> i64 @{ x.1 @}
+@end example
 
-The first definition associates the name @code{make-rat} with the value of the
-expression @code{cons}, which is the primitive procedure that constructs pairs.
-Thus @code{make-rat} and @code{cons} are names for the same primitive
-constructor.
+However, using a named struct provides better type safety and clearer intent.
+The Rust type system will prevent us from accidentally using a tuple representing
+something else (like a point) as a rational number.  Named structs also provide
+better documentation and can implement traits for custom behavior.}
 
-Defining selectors and constructors in this way is efficient: Instead of
-@code{make-rat} @emph{calling} @code{cons}, @code{make-rat} @emph{is}
-@code{cons}, so there is only one procedure called, not two, when
-@code{make-rat} is called.  On the other hand, doing this defeats debugging
-aids that trace procedure calls or put breakpoints on procedure calls: You may
-want to watch @code{make-rat} being called, but you certainly don't want to
-watch every call to @code{cons}.
+@example
+struct Rational @{
+    num: i64,
+    denom: i64,
+@}
 
-We have chosen not to use this style of definition in this book.}
+impl Rational @{
+    fn new(n: i64, d: i64) -> Self @{
+        Rational @{ num: n, denom: d @}
+    @}
 
-@lisp
-(define (make-rat n d) (cons n d))
-(define (numer x) (car x))
-(define (denom x) (cdr x))
-@end lisp
+    fn num(&self) -> i64 @{
+        self.num
+    @}
+
+    fn denom(&self) -> i64 @{
+        self.denom
+    @}
+@}
+@end example
 
 @noindent
 Also, in order to display the results of our computations, we can print
 rational numbers by printing the numerator, a slash, and the
-denominator:@footnote{@code{Display} is the Scheme primitive for printing data.
-The Scheme primitive @code{newline} starts a new line for printing.  Neither of
-these procedures returns a useful value, so in the uses of @code{print-rat}
-below, we show only what @code{print-rat} prints, not what the interpreter
-prints as the value returned by @code{print-rat}.}
+denominator:@footnote{In Rust, we implement the @code{Display} trait to provide
+custom formatting for our types. The @code{println!} macro uses this trait to
+print values.  The @code{Display} implementation does not return a useful value
+(it returns @code{Result<(), fmt::Error>}), so in the uses of printing
+below, we show only what is printed, not what the expression evaluates to.}
 
-@lisp
-(define (print-rat x)
-  (newline)
-  (display (numer x))
-  (display "/")
-  (display (denom x)))
-@end lisp
+@example
+use std::fmt;
+
+impl fmt::Display for Rational @{
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result @{
+        write!(f, "@{@}/@{@}", self.num, self.denom)
+    @}
+@}
+@end example
 
 @noindent
-Now we can try our rational-number procedures:
+Now we can try our rational-number functions:
 
-@lisp
-(define one-half (make-rat 1 2))
-(print-rat one-half)
-@i{1/2}
+@example
+let one_half = Rational::new(1, 2);
+println!("@{@}", one_half);
+// 1/2
 
-(define one-third (make-rat 1 3))
-(print-rat
- (add-rat one-half one-third))
-@i{5/6}
+let one_third = Rational::new(1, 3);
+println!("@{@}", add_rat(&one_half, &one_third));
+// 5/6
 
-(print-rat
- (mul-rat one-half one-third))
-@i{1/6}
+println!("@{@}", mul_rat(&one_half, &one_third));
+// 1/6
 
-(print-rat
- (add-rat one-third one-third))
-@i{6/9}
-@end lisp
+println!("@{@}", add_rat(&one_third, &one_third));
+// 6/9
+@end example
 
 @noindent
 As the final example shows, our rational-number implementation does not reduce
 rational numbers to lowest terms.  We can remedy this by changing
-@code{make-rat}. If we have a @code{gcd} procedure like the one in 
+@code{new}. If we have a @code{gcd} function like the one in
 @ref{1.2.5} that produces the greatest common divisor of two integers, we can
 use @code{gcd} to reduce the numerator and the denominator to lowest terms
-before constructing the pair:
+before constructing the value:
 
-@lisp
-(define (make-rat n d)
-  (let ((g (gcd n d)))
-    (cons (/ n g) 
-          (/ d g))))
-@end lisp
+@example
+fn gcd(a: i64, b: i64) -> i64 @{
+    if b == 0 @{
+        a.abs()
+    @} else @{
+        gcd(b, a % b)
+    @}
+@}
+
+impl Rational @{
+    fn new(n: i64, d: i64) -> Self @{
+        let g = gcd(n, d);
+        Rational @{
+            num: n / g,
+            denom: d / g,
+        @}
+    @}
+    // ... other methods ...
+@}
+@end example
 
 @noindent
 Now we have
 
-@lisp
-(print-rat 
- (add-rat one-third one-third))
-@i{2/3}
-@end lisp
+@example
+println!("@{@}", add_rat(&one_third, &one_third));
+// 2/3
+@end example
 
 @noindent
 as desired.  This modification was accomplished by changing the constructor
-@code{make-rat} without changing any of the procedures (such as @code{add-rat}
-and @code{mul-rat}) that implement the actual operations.
+@code{new} without changing any of the functions (such as @code{add_rat}
+and @code{mul_rat}) that implement the actual operations.
 
 @quotation
 @strong{@anchor{Exercise 2.1}Exercise 2.1:} Define a better version of
-@code{make-rat} that handles both positive and negative arguments.
-@code{Make-rat} should normalize the sign so that if the rational number is
+@code{Rational::new} that handles both positive and negative arguments.
+@code{new} should normalize the sign so that if the rational number is
 positive, both the numerator and denominator are positive, and if the rational
 number is negative, only the numerator is negative.
 @end quotation
@@ -6211,26 +6515,26 @@ number is negative, only the numerator is negative.
 Before continuing with more examples of compound data and data abstraction, let
 us consider some of the issues raised by the rational-number example.  We
 defined the rational-number operations in terms of a constructor
-@code{make-rat} and selectors @code{numer} and @code{denom}.  In general, the
+@code{Rational::new} and methods @code{num} and @code{denom}.  In general, the
 underlying idea of data abstraction is to identify for each type of data object
 a basic set of operations in terms of which all manipulations of data objects
 of that type will be expressed, and then to use only those operations in
 manipulating the data.
 
-We can envision the structure of the rational-number system as shown in 
-@ref{Figure 2.1}.  The horizontal lines represent @newterm{abstraction barriers} 
+We can envision the structure of the rational-number system as shown in
+@ref{Figure 2.1}.  The horizontal lines represent @newterm{abstraction barriers}
 that isolate different ``levels'' of the system.  At each level, the
 barrier separates the programs (above) that use the data abstraction from the
 programs (below) that implement the data abstraction.  Programs that use
-rational numbers manipulate them solely in terms of the procedures supplied
-``for public use'' by the rational-number package: @code{add-rat},
-@code{sub-rat}, @code{mul-rat}, @code{div-rat}, and @code{equal-rat?}. These,
-in turn, are implemented solely in terms of the constructor and selectors
-@code{make-rat}, @code{numer}, and @code{denom}, which themselves are
-implemented in terms of pairs.  The details of how pairs are implemented are
-irrelevant to the rest of the rational-number package so long as pairs can be
-manipulated by the use of @code{cons}, @code{car}, and @code{cdr}.  In effect,
-procedures at each level are the interfaces that define the abstraction
+rational numbers manipulate them solely in terms of the functions supplied
+``for public use'' by the rational-number module: @code{add_rat},
+@code{sub_rat}, @code{mul_rat}, @code{div_rat}, and @code{equal_rat}. These,
+in turn, are implemented solely in terms of the constructor and methods
+@code{Rational::new}, @code{num}, and @code{denom}, which themselves are
+implemented using struct fields.  The details of how the struct is implemented are
+irrelevant to the rest of the rational-number module so long as the struct can be
+manipulated through its public interface.  In effect,
+functions and methods at each level are the interfaces that define the abstraction
 barriers and connect the different levels.
 
 @float
@@ -6279,20 +6583,25 @@ few program modules.
 For example, an alternate way to address the problem of reducing rational
 numbers to lowest terms is to perform the reduction whenever we access the
 parts of a rational number, rather than when we construct it.  This leads to
-different constructor and selector procedures:
+different constructor and accessor methods:
 
-@lisp
-(define (make-rat n d)
-  (cons n d))
+@example
+impl Rational @{
+    fn new(n: i64, d: i64) -> Self @{
+        Rational @{ num: n, denom: d @}
+    @}
 
-(define (numer x)
-  (let ((g (gcd (car x) (cdr x))))
-    (/ (car x) g)))
+    fn num(&self) -> i64 @{
+        let g = gcd(self.num, self.denom);
+        self.num / g
+    @}
 
-(define (denom x)
-  (let ((g (gcd (car x) (cdr x))))
-    (/ (cdr x) g)))
-@end lisp
+    fn denom(&self) -> i64 @{
+        let g = gcd(self.num, self.denom);
+        self.denom / g
+    @}
+@}
+@end example
 
 @noindent
 The difference between this implementation and the previous one lies in when we
@@ -6301,7 +6610,7 @@ the numerators and denominators of the same rational numbers many times, it
 would be preferable to compute the @code{gcd} when the rational numbers are
 constructed.  If not, we may be better off waiting until access time to compute
 the @code{gcd}.  In any case, when we change from one representation to the
-other, the procedures @code{add-rat}, @code{sub-rat}, and so on do not have to
+other, the functions @code{add_rat}, @code{sub_rat}, and so on do not have to
 be modified at all.
 
 Constraining the dependence on the representation to a few interface procedures
@@ -6316,76 +6625,76 @@ the system.
 @quotation
 @strong{@anchor{Exercise 2.2}Exercise 2.2:} Consider the problem of
 representing line segments in a plane.  Each segment is represented as a pair
-of points: a starting point and an ending point.  Define a constructor
-@code{make-segment} and selectors @code{start-segment} and @code{end-segment}
+of points: a starting point and an ending point.  Define a @code{Segment} struct
+and methods @code{start} and @code{end}
 that define the representation of segments in terms of points.  Furthermore, a
 point can be represented as a pair of numbers: the @math{x} coordinate and the
-@math{y} coordinate.  Accordingly, specify a constructor @code{make-point} and
-selectors @code{x-point} and @code{y-point} that define this representation.
-Finally, using your selectors and constructors, define a procedure
-@code{midpoint-segment} that takes a line segment as argument and returns its
+@math{y} coordinate.  Accordingly, define a @code{Point} struct with fields
+@code{x} and @code{y} that define this representation.
+Finally, using your structs and methods, define a function
+@code{midpoint_segment} that takes a line segment as argument and returns its
 midpoint (the point whose coordinates are the average of the coordinates of the
-endpoints).  To try your procedures, you'll need a way to print points:
+endpoints).  To try your implementation, you'll need a way to print points:
 
-@lisp
-(define (print-point p)
-  (newline)
-  (display "(")
-  (display (x-point p))
-  (display ",")
-  (display (y-point p))
-  (display ")"))
-@end lisp
+@example
+use std::fmt;
+
+impl fmt::Display for Point @{
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result @{
+        write!(f, "(@{@}, @{@})", self.x, self.y)
+    @}
+@}
+@end example
 @end quotation
 
 @quotation
 @strong{@anchor{Exercise 2.3}Exercise 2.3:} Implement a representation for
 rectangles in a plane.  (Hint: You may want to make use of @ref{Exercise 2.2}.)
-In terms of your constructors and selectors, create procedures that compute the
+In terms of your struct and methods, create functions that compute the
 perimeter and the area of a given rectangle.  Now implement a different
-representation for rectangles.  Can you design your system with suitable
-abstraction barriers, so that the same perimeter and area procedures will work
-using either representation?
+representation for rectangles (perhaps using a trait).  Can you design your system with suitable
+abstraction barriers, so that the same perimeter and area functions will work
+with either representation?
 @end quotation
 
 @node	2.1.3, 2.1.4, 2.1.2, 2.1
 @subsection What Is Meant by Data?
 
 We began the rational-number implementation in @ref{2.1.1} by
-implementing the rational-number operations @code{add-rat}, @code{sub-rat}, and
-so on in terms of three unspecified procedures: @code{make-rat}, @code{numer},
+implementing the rational-number operations @code{add_rat}, @code{sub_rat}, and
+so on in terms of three unspecified functions: @code{Rational::new}, @code{num},
 and @code{denom}.  At that point, we could think of the operations as being
 defined in terms of data objects---numerators, denominators, and rational
-numbers---whose behavior was specified by the latter three procedures.
+numbers---whose behavior was specified by the latter three functions.
 
 But exactly what is meant by @newterm{data}?  It is not enough to say
-``whatever is implemented by the given selectors and constructors.''  Clearly,
-not every arbitrary set of three procedures can serve as an appropriate basis
+``whatever is implemented by the given methods and constructors.''  Clearly,
+not every arbitrary set of three functions can serve as an appropriate basis
 for the rational-number implementation.  We need to guarantee that, if we
 construct a rational number @code{x} from a pair of integers @code{n} and
-@code{d}, then extracting the @code{numer} and the @code{denom} of @code{x} and
+@code{d}, then extracting the @code{num} and the @code{denom} of @code{x} and
 dividing them should yield the same result as dividing @code{n} by @code{d}.
-In other words, @code{make-rat}, @code{numer}, and @code{denom} must satisfy
+In other words, @code{Rational::new}, @code{num}, and @code{denom} must satisfy
 the condition that, for any integer @code{n} and any non-zero integer @code{d},
-if @code{x} is @code{(make-rat n d)}, then
+if @code{x} is @code{Rational::new(n, d)}, then
 @ifinfo
 
 @example
-(numer x)    n
+x.num()      n
 --------- = ---
-(denom x)    d
+x.denom()    d
 @end example
 
 @end ifinfo
 @tex
 \[ % :31:
-  {\text{(numer x)} \over \text{(denom x)}} = {{\text{n} \over \text{d}}.}   \]
+  {\text{x.num()} \over \text{x.denom()}} = {{\text{n} \over \text{d}}.}   \]
 @end tex
-In fact, this is the only condition @code{make-rat}, @code{numer}, and
+In fact, this is the only condition @code{Rational::new}, @code{num}, and
 @code{denom} must fulfill in order to form a suitable basis for a
 rational-number representation.  In general, we can think of data as defined by
-some collection of selectors and constructors, together with specified
-conditions that these procedures must fulfill in order to be a valid
+some collection of methods and constructors, together with specified
+conditions that these functions must fulfill in order to be a valid
 representation.@footnote{Surprisingly, this idea is very difficult to formulate
 rigorously. There are two approaches to giving such a formulation.  One,
 pioneered by C. A. R. @ref{Hoare (1972)}, is known as the method of @newterm{abstract models}.  
@@ -6408,60 +6717,69 @@ by @ref{Liskov and Zilles (1975)}.}
 This point of view can serve to define not only ``high-level'' data objects,
 such as rational numbers, but lower-level objects as well.  Consider the notion
 of a pair, which we used in order to define our rational numbers.  We never
-actually said what a pair was, only that the language supplied procedures
-@code{cons}, @code{car}, and @code{cdr} for operating on pairs.  But the only
-thing we need to know about these three operations is that if we glue two
-objects together using @code{cons} we can retrieve the objects using @code{car}
-and @code{cdr}.  That is, the operations satisfy the condition that, for any
-objects @code{x} and @code{y}, if @code{z} is @code{(cons x y)} then @code{(car
-z)} is @code{x} and @code{(cdr z)} is @code{y}.  Indeed, we mentioned that
-these three procedures are included as primitives in our language.  However,
-any triple of procedures that satisfies the above condition can be used as the
+actually said what a pair was, only that Rust provides tuples and structs
+for operating on pairs.  But the only
+thing we need to know about pairs is that if we glue two
+objects together we can retrieve the objects later.  That is, the operations satisfy the condition that, for any
+objects @code{x} and @code{y}, if @code{z} is @code{(x, y)} then @code{z.0}
+is @code{x} and @code{z.1} is @code{y}.  Indeed, tuples are primitives in Rust.  However,
+any implementation that satisfies the above condition can be used as the
 basis for implementing pairs.  This point is illustrated strikingly by the fact
-that we could implement @code{cons}, @code{car}, and @code{cdr} without using
-any data structures at all but only using procedures.  Here are the
+that we could implement pair operations without using
+any data structures at all but only using closures.  Here are the
 definitions:
 
-@lisp
-(define (cons x y)
-  (define (dispatch m)
-    (cond ((= m 0) x)
-          ((= m 1) y)
-          (else 
-           (error "Argument not 0 or 1:
-                   CONS" m))))
-  dispatch)
+@example
+fn cons<T: 'static, U: 'static>(x: T, y: U) -> Box<dyn Fn(i32) -> Box<dyn std::any::Any>> @{
+    Box::new(move |m| @{
+        match m @{
+            0 => Box::new(x.clone()) as Box<dyn std::any::Any>,
+            1 => Box::new(y.clone()) as Box<dyn std::any::Any>,
+            _ => panic!("Argument not 0 or 1: CONS"),
+        @}
+    @})
+@}
 
-(define (car z) (z 0))
-(define (cdr z) (z 1))
-@end lisp
+fn car<T: 'static>(z: &dyn Fn(i32) -> Box<dyn std::any::Any>) -> T
+where
+    T: Clone + 'static,
+@{
+    *z(0).downcast::<T>().unwrap()
+@}
+
+fn cdr<U: 'static>(z: &dyn Fn(i32) -> Box<dyn std::any::Any>) -> U
+where
+    U: Clone + 'static,
+@{
+    *z(1).downcast::<U>().unwrap()
+@}
+@end example
 
 @noindent
-This use of procedures corresponds to nothing like our intuitive notion of what
+This use of closures corresponds to nothing like our intuitive notion of what
 data should be.  Nevertheless, all we need to do to show that this is a valid
-way to represent pairs is to verify that these procedures satisfy the condition
+way to represent pairs is to verify that these functions satisfy the condition
 given above.
 
-The subtle point to notice is that the value returned by @code{(cons x y)} is a
-procedure---namely the internally defined procedure @code{dispatch}, which
+The subtle point to notice is that the value returned by @code{cons(x, y)} is a
+closure---namely a function that captures @code{x} and @code{y}, which
 takes one argument and returns either @code{x} or @code{y} depending on whether
-the argument is 0 or 1.  Correspondingly, @code{(car z)} is defined to apply
-@code{z} to 0.  Hence, if @code{z} is the procedure formed by @code{(cons x
+the argument is 0 or 1.  Correspondingly, @code{car(z)} is defined to apply
+@code{z} to 0.  Hence, if @code{z} is the closure formed by @code{cons(x,
 y)}, then @code{z} applied to 0 will yield @code{x}. Thus, we have shown that
-@code{(car (cons x y))} yields @code{x}, as desired.  Similarly, @code{(cdr
-(cons x y))} applies the procedure returned by @code{(cons x y)} to 1, which
+@code{car(cons(x, y))} yields @code{x}, as desired.  Similarly, @code{cdr(cons(x, y))} applies the closure returned by @code{cons(x, y)} to 1, which
 returns @code{y}.  Therefore, this procedural implementation of pairs is a
 valid implementation, and if we access pairs using only @code{cons},
 @code{car}, and @code{cdr} we cannot distinguish this implementation from one
-that uses ``real'' data structures.
+that uses tuples or structs.
 
-The point of exhibiting the procedural representation of pairs is not that our
-language works this way (Scheme, and Lisp systems in general, implement pairs
-directly, for efficiency reasons) but that it could work this way.  The
-procedural representation, although obscure, is a perfectly adequate way to
+The point of exhibiting the procedural representation of pairs is not that Rust
+works this way (Rust implements tuples and structs
+directly, for efficiency and type safety reasons) but that it could work this way.  The
+procedural representation, although obscure and requiring dynamic typing, is a perfectly adequate way to
 represent pairs, since it fulfills the only conditions that pairs need to
 fulfill.  This example also demonstrates that the ability to manipulate
-procedures as objects automatically provides the ability to represent compound
+closures as values automatically provides the ability to represent compound
 data.  This may seem a curiosity now, but procedural representations of data
 will play a central role in our programming repertoire.  This style of
 programming is often called @newterm{message passing}, and we will be using it
@@ -6470,16 +6788,20 @@ simulation.
 
 @quotation
 @strong{@anchor{Exercise 2.4}Exercise 2.4:} Here is an alternative procedural
-representation of pairs.  For this representation, verify that @code{(car (cons
-x y))} yields @code{x} for any objects @code{x} and @code{y}.
+representation of pairs using closures.  For this representation, verify that @code{car(cons(x, y))} yields @code{x} for any objects @code{x} and @code{y}.
 
-@lisp
-(define (cons x y) 
-  (lambda (m) (m x y)))
+@example
+// Simplified version using generics and closures
+type Pair<T> = Box<dyn Fn(Box<dyn Fn(T, T) -> T>) -> T>;
 
-(define (car z) 
-  (z (lambda (p q) p)))
-@end lisp
+fn cons<T: Clone + 'static>(x: T, y: T) -> Pair<T> @{
+    Box::new(move |m| m(x.clone(), y.clone()))
+@}
+
+fn car<T: Clone + 'static>(z: &Pair<T>) -> T @{
+    z(Box::new(|p, _q| p))
+@}
+@end example
 
 What is the corresponding definition of @code{cdr}? (Hint: To verify that this
 works, make use of the substitution model of @ref{1.1.5}.)
@@ -6495,25 +6817,34 @@ Give the corresponding definitions of the procedures @code{cons},
 
 @quotation
 @strong{@anchor{Exercise 2.6}Exercise 2.6:} In case representing pairs as
-procedures wasn't mind-boggling enough, consider that, in a language that can
-manipulate procedures, we can get by without numbers (at least insofar as
+closures wasn't mind-boggling enough, consider that, in a language that can
+manipulate closures, we can get by without numbers (at least insofar as
 nonnegative integers are concerned) by implementing 0 and the operation of
 adding 1 as
 
-@lisp
-(define zero (lambda (f) (lambda (x) x)))
+@example
+// Church numerals in Rust (simplified)
+type ChurchNum<T> = Box<dyn Fn(Box<dyn Fn(T) -> T>) -> Box<dyn Fn(T) -> T>>;
 
-(define (add-1 n)
-  (lambda (f) (lambda (x) (f ((n f) x)))))
-@end lisp
+fn zero<T: 'static>() -> ChurchNum<T> @{
+    Box::new(|_f| Box::new(|x| x))
+@}
+
+fn add_1<T: 'static>(n: ChurchNum<T>) -> ChurchNum<T> @{
+    Box::new(move |f| @{
+        let nf = n(f.clone());
+        Box::new(move |x| f(nf(x)))
+    @})
+@}
+@end example
 
 This representation is known as @newterm{Church numerals}, after its inventor,
 Alonzo Church, the logician who invented the λ-calculus.
 
 Define @code{one} and @code{two} directly (not in terms of @code{zero} and
-@code{add-1}).  (Hint: Use substitution to evaluate @code{(add-1 zero)}).  Give
-a direct definition of the addition procedure @code{+} (not in terms of
-repeated application of @code{add-1}).
+@code{add_1}).  (Hint: Use substitution to evaluate @code{add_1(zero())}).  Give
+a direct definition of the addition function @code{add} (not in terms of
+repeated application of @code{add_1}).
 @end quotation
 
 @node	2.1.4, 2.2, Chapter 2, 2.1
@@ -6565,13 +6896,14 @@ adding two intervals.  She reasons that the minimum value the sum could be is
 the sum of the two lower bounds and the maximum value it could be is the sum of
 the two upper bounds:
 
-@lisp
-(define (add-interval x y)
-  (make-interval (+ (lower-bound x) 
-                    (lower-bound y))
-                 (+ (upper-bound x) 
-                    (upper-bound y))))
-@end lisp
+@example
+fn add_interval(x: &Interval, y: &Interval) -> Interval @{
+    Interval::new(
+        x.lower_bound() + y.lower_bound(),
+        x.upper_bound() + y.upper_bound()
+    )
+@}
+@end example
 
 @noindent
 Alyssa also works out the product of two intervals by finding the minimum and
@@ -6579,41 +6911,53 @@ the maximum of the products of the bounds and using them as the bounds of the
 resulting interval.  (@code{Min} and @code{max} are primitives that find the
 minimum or maximum of any number of arguments.)
 
-@lisp
-(define (mul-interval x y)
-  (let ((p1 (* (lower-bound x) 
-               (lower-bound y)))
-        (p2 (* (lower-bound x) 
-               (upper-bound y)))
-        (p3 (* (upper-bound x) 
-               (lower-bound y)))
-        (p4 (* (upper-bound x) 
-               (upper-bound y))))
-    (make-interval (min p1 p2 p3 p4)
-                   (max p1 p2 p3 p4))))
-@end lisp
+@example
+fn mul_interval(x: &Interval, y: &Interval) -> Interval @{
+    let p1 = x.lower_bound() * y.lower_bound();
+    let p2 = x.lower_bound() * y.upper_bound();
+    let p3 = x.upper_bound() * y.lower_bound();
+    let p4 = x.upper_bound() * y.upper_bound();
+    Interval::new(
+        p1.min(p2).min(p3).min(p4),
+        p1.max(p2).max(p3).max(p4)
+    )
+@}
+@end example
 
 @noindent
 To divide two intervals, Alyssa multiplies the first by the reciprocal of the
 second.  Note that the bounds of the reciprocal interval are the reciprocal of
 the upper bound and the reciprocal of the lower bound, in that order.
 
-@lisp
-(define (div-interval x y)
-  (mul-interval x 
-                (make-interval 
-                 (/ 1.0 (upper-bound y)) 
-                 (/ 1.0 (lower-bound y)))))
-@end lisp
+@example
+fn div_interval(x: &Interval, y: &Interval) -> Interval @{
+    mul_interval(
+        x,
+        &Interval::new(
+            1.0 / y.upper_bound(),
+            1.0 / y.lower_bound()
+        )
+    )
+@}
+@end example
 
 @quotation
 @strong{@anchor{Exercise 2.7}Exercise 2.7:} Alyssa's program is incomplete
 because she has not specified the implementation of the interval abstraction.
 Here is a definition of the interval constructor:
 
-@lisp
-(define (make-interval a b) (cons a b))
-@end lisp
+@example
+struct Interval @{
+    lower: f64,
+    upper: f64,
+@}
+
+impl Interval @{
+    fn new(a: f64, b: f64) -> Self @{
+        Interval @{ lower: a, upper: b @}
+    @}
+@}
+@end example
 
 Define selectors @code{upper-bound} and @code{lower-bound} to complete the
 implementation.
@@ -6658,20 +7002,21 @@ example, he wants to work with intervals such as 3.5 @math{\pm} 0.15 rather than
 [3.35, 3.65].  Alyssa returns to her desk and fixes this problem by supplying
 an alternate constructor and alternate selectors:
 
-@lisp
-(define (make-center-width c w)
-  (make-interval (- c w) (+ c w)))
+@example
+impl Interval @{
+    fn from_center_width(c: f64, w: f64) -> Self @{
+        Interval::new(c - w, c + w)
+    @}
 
-(define (center i)
-  (/ (+ (lower-bound i) 
-        (upper-bound i)) 
-     2))
+    fn center(&self) -> f64 @{
+        (self.lower_bound() + self.upper_bound()) / 2.0
+    @}
 
-(define (width i)
-  (/ (- (upper-bound i) 
-        (lower-bound i)) 
-     2))
-@end lisp
+    fn width(&self) -> f64 @{
+        (self.upper_bound() - self.lower_bound()) / 2.0
+    @}
+@}
+@end example
 
 Unfortunately, most of Alyssa's users are engineers.  Real engineering
 situations usually involve measurements with only a small uncertainty, measured
@@ -6731,20 +7076,25 @@ and
 He has written the following two programs, each of which computes the
 parallel-resistors formula differently:
 
-@lisp
-(define (par1 r1 r2)
-  (div-interval 
-   (mul-interval r1 r2)
-   (add-interval r1 r2)))
+@example
+fn par1(r1: &Interval, r2: &Interval) -> Interval @{
+    div_interval(
+        &mul_interval(r1, r2),
+        &add_interval(r1, r2)
+    )
+@}
 
-(define (par2 r1 r2)
-  (let ((one (make-interval 1 1)))
-    (div-interval 
-     one
-     (add-interval 
-      (div-interval one r1) 
-      (div-interval one r2)))))
-@end lisp
+fn par2(r1: &Interval, r2: &Interval) -> Interval @{
+    let one = Interval::new(1.0, 1.0);
+    div_interval(
+        &one,
+        &add_interval(
+            &div_interval(&one, r1),
+            &div_interval(&one, r2)
+        )
+    )
+@}
+@end example
 
 Lem complains that Alyssa's program gives different answers for the two ways of
 computing. This is a serious complaint.
@@ -11459,18 +11809,16 @@ real and imaginary parts, and @code{make-from-mag-ang} returns a complex number
 with specified magnitude and angle.  These procedures have the property that,
 for any complex number @code{z}, both
 
-@lisp
-(make-from-real-imag (real-part z) 
-                     (imag-part z))
-@end lisp
+@example
+make_from_real_imag(z.real_part(), z.imag_part())
+@end example
 
 @noindent
 and
 
-@lisp
-(make-from-mag-ang (magnitude z) 
-                   (angle z))
-@end lisp
+@example
+make_from_mag_ang(z.magnitude(), z.angle())
+@end example
 
 @noindent
 produce complex numbers that are equal to @code{z}.
@@ -11482,27 +11830,31 @@ shown in the formulas above, we can add and subtract complex numbers in terms
 of real and imaginary parts while multiplying and dividing complex numbers in
 terms of magnitudes and angles:
 
-@lisp
-(define (add-complex z1 z2)
-  (make-from-real-imag 
-   (+ (real-part z1) (real-part z2))
-   (+ (imag-part z1) (imag-part z2))))
+@example
+fn add_complex(z1: &impl ComplexOps, z2: &impl ComplexOps) -> Complex @{
+    make_from_real_imag(
+        z1.real_part() + z2.real_part(),
+        z1.imag_part() + z2.imag_part())
+@}
 
-(define (sub-complex z1 z2)
-  (make-from-real-imag 
-   (- (real-part z1) (real-part z2))
-   (- (imag-part z1) (imag-part z2))))
+fn sub_complex(z1: &impl ComplexOps, z2: &impl ComplexOps) -> Complex @{
+    make_from_real_imag(
+        z1.real_part() - z2.real_part(),
+        z1.imag_part() - z2.imag_part())
+@}
 
-(define (mul-complex z1 z2)
-  (make-from-mag-ang 
-   (* (magnitude z1) (magnitude z2))
-   (+ (angle z1) (angle z2))))
+fn mul_complex(z1: &impl ComplexOps, z2: &impl ComplexOps) -> Complex @{
+    make_from_mag_ang(
+        z1.magnitude() * z2.magnitude(),
+        z1.angle() + z2.angle())
+@}
 
-(define (div-complex z1 z2)
-  (make-from-mag-ang 
-   (/ (magnitude z1) (magnitude z2))
-   (- (angle z1) (angle z2))))
-@end lisp
+fn div_complex(z1: &impl ComplexOps, z2: &impl ComplexOps) -> Complex @{
+    make_from_mag_ang(
+        z1.magnitude() / z2.magnitude(),
+        z1.angle() - z2.angle())
+@}
+@end example
 
 @noindent
 To complete the complex-number package, we must choose a representation and we
@@ -11550,23 +11902,34 @@ arguments @math{y} and @math{x} and to return the angle whose tangent is @math{{
 The signs of the arguments determine the quadrant of the angle.}  Ben's
 representation is therefore given by the following selectors and constructors:
 
-@lisp
-(define (real-part z) (car z))
-(define (imag-part z) (cdr z))
+@example
+// Ben's rectangular representation
+struct Rectangular @{
+    x: f64,
+    y: f64,
+@}
 
-(define (magnitude z)
-  (sqrt (+ (square (real-part z)) 
-           (square (imag-part z)))))
+impl Rectangular @{
+    fn real_part(&self) -> f64 @{ self.x @}
+    fn imag_part(&self) -> f64 @{ self.y @}
 
-(define (angle z)
-  (atan (imag-part z) (real-part z)))
+    fn magnitude(&self) -> f64 @{
+        (self.real_part().powi(2) + self.imag_part().powi(2)).sqrt()
+    @}
 
-(define (make-from-real-imag x y) 
-  (cons x y))
+    fn angle(&self) -> f64 @{
+        self.imag_part().atan2(self.real_part())
+    @}
 
-(define (make-from-mag-ang r a)
-  (cons (* r (cos a)) (* r (sin a))))
-@end lisp
+    fn make_from_real_imag(x: f64, y: f64) -> Self @{
+        Rectangular @{ x, y @}
+    @}
+
+    fn make_from_mag_ang(r: f64, a: f64) -> Self @{
+        Rectangular @{ x: r * a.cos(), y: r * a.sin() @}
+    @}
+@}
+@end example
 
 @noindent
 Alyssa, in contrast, chooses to represent complex numbers in polar form.  For
@@ -11574,23 +11937,37 @@ her, selecting the magnitude and angle is straightforward, but she has to use
 the trigonometric relations to obtain the real and imaginary parts.  Alyssa's
 representation is:
 
-@lisp
-(define (real-part z)
-  (* (magnitude z) (cos (angle z))))
+@example
+// Alyssa's polar representation
+struct Polar @{
+    r: f64,
+    angle: f64,
+@}
 
-(define (imag-part z)
-  (* (magnitude z) (sin (angle z))))
+impl Polar @{
+    fn real_part(&self) -> f64 @{
+        self.magnitude() * self.angle().cos()
+    @}
 
-(define (magnitude z) (car z))
-(define (angle z) (cdr z))
+    fn imag_part(&self) -> f64 @{
+        self.magnitude() * self.angle().sin()
+    @}
 
-(define (make-from-real-imag x y)
-  (cons (sqrt (+ (square x) (square y)))
-        (atan y x)))
+    fn magnitude(&self) -> f64 @{ self.r @}
+    fn angle(&self) -> f64 @{ self.angle @}
 
-(define (make-from-mag-ang r a) 
-  (cons r a))
-@end lisp
+    fn make_from_real_imag(x: f64, y: f64) -> Self @{
+        Polar @{
+            r: (x.powi(2) + y.powi(2)).sqrt(),
+            angle: y.atan2(x),
+        @}
+    @}
+
+    fn make_from_mag_ang(r: f64, a: f64) -> Self @{
+        Polar @{ r, angle: a @}
+    @}
+@}
+@end example
 
 @noindent
 The discipline of data abstraction ensures that the same implementation of
@@ -11630,34 +12007,46 @@ complex number).  We will also postulate a procedure @code{attach-tag} that
 takes a tag and contents and produces a tagged data object.  A straightforward
 way to implement this is to use ordinary list structure:
 
-@lisp
-(define (attach-tag type-tag contents)
-  (cons type-tag contents))
+@example
+// Tagged data using Rust enums
+enum Complex @{
+    Rectangular(f64, f64),  // (x, y)
+    Polar(f64, f64),        // (r, angle)
+@}
 
-(define (type-tag datum)
-  (if (pair? datum)
-      (car datum)
-      (error "Bad tagged datum: 
-              TYPE-TAG" datum)))
+impl Complex @{
+    // Pattern matching automatically handles type tags
+    fn type_tag(&self) -> &str @{
+        match self @{
+            Complex::Rectangular(_, _) => "rectangular",
+            Complex::Polar(_, _) => "polar",
+        @}
+    @}
 
-(define (contents datum)
-  (if (pair? datum)
-      (cdr datum)
-      (error "Bad tagged datum: 
-              CONTENTS" datum)))
-@end lisp
+    fn contents(&self) -> (f64, f64) @{
+        match self @{
+            Complex::Rectangular(x, y) => (*x, *y),
+            Complex::Polar(r, a) => (*r, *a),
+        @}
+    @}
+@}
+@end example
 
 @noindent
 Using these procedures, we can define predicates @code{rectangular?}  and
 @code{polar?}, which recognize rectangular and polar numbers, respectively:
 
-@lisp
-(define (rectangular? z)
-  (eq? (type-tag z) 'rectangular))
+@example
+impl Complex @{
+    fn is_rectangular(&self) -> bool @{
+        matches!(self, Complex::Rectangular(_, _))
+    @}
 
-(define (polar? z)
-  (eq? (type-tag z) 'polar))
-@end lisp
+    fn is_polar(&self) -> bool @{
+        matches!(self, Complex::Polar(_, _))
+    @}
+@}
+@end example
 
 @noindent
 With type tags, Ben and Alyssa can now modify their code so that their two
@@ -11725,39 +12114,46 @@ or Alyssa's @code{real-part-polar}.  In either case, we use @code{contents} to
 extract the bare, untagged datum and send this to the rectangular or polar
 procedure as required:
 
-@lisp
-(define (real-part z)
-  (cond ((rectangular? z)
-         (real-part-rectangular (contents z)))
-        ((polar? z)
-         (real-part-polar (contents z)))
-        (else (error "Unknown type: 
-               REAL-PART" z))))
+@example
+// Generic selectors using pattern matching
+trait ComplexOps @{
+    fn real_part(&self) -> f64;
+    fn imag_part(&self) -> f64;
+    fn magnitude(&self) -> f64;
+    fn angle(&self) -> f64;
+@}
 
-(define (imag-part z)
-  (cond ((rectangular? z)
-         (imag-part-rectangular (contents z)))
-        ((polar? z)
-         (imag-part-polar (contents z)))
-        (else (error "Unknown type: 
-               IMAG-PART" z))))
+impl ComplexOps for Complex @{
+    fn real_part(&self) -> f64 @{
+        match self @{
+            Complex::Rectangular(x, _y) => *x,
+            Complex::Polar(r, a) => r * a.cos(),
+        @}
+    @}
 
-(define (magnitude z)
-  (cond ((rectangular? z)
-         (magnitude-rectangular (contents z)))
-        ((polar? z)
-         (magnitude-polar (contents z)))
-        (else (error "Unknown type: 
-               MAGNITUDE" z))))
+    fn imag_part(&self) -> f64 @{
+        match self @{
+            Complex::Rectangular(_x, y) => *y,
+            Complex::Polar(r, a) => r * a.sin(),
+        @}
+    @}
 
-(define (angle z)
-  (cond ((rectangular? z)
-         (angle-rectangular (contents z)))
-        ((polar? z)
-         (angle-polar (contents z)))
-        (else (error "Unknown type: 
-               ANGLE" z))))
-@end lisp
+    fn magnitude(&self) -> f64 @{
+        match self @{
+            Complex::Rectangular(x, y) =>
+                (x.powi(2) + y.powi(2)).sqrt(),
+            Complex::Polar(r, _a) => *r,
+        @}
+    @}
+
+    fn angle(&self) -> f64 @{
+        match self @{
+            Complex::Rectangular(x, y) => y.atan2(*x),
+            Complex::Polar(_r, a) => *a,
+        @}
+    @}
+@}
+@end example
 
 @noindent
 To implement the complex-number arithmetic operations, we can use the same
@@ -11951,35 +12347,37 @@ he did originally.  He defines a collection of procedures, or a
 entries to the table that tell the system how to operate on rectangular
 numbers.  This is accomplished by calling the following procedure:
 
-@lisp
-(define (install-rectangular-package)
-  @r{;; internal procedures}
-  (define (real-part z) (car z))
-  (define (imag-part z) (cdr z))
-  (define (make-from-real-imag x y) 
-    (cons x y))
-  (define (magnitude z)
-    (sqrt (+ (square (real-part z))
-             (square (imag-part z)))))
-  (define (angle z)
-    (atan (imag-part z) (real-part z)))
-  (define (make-from-mag-ang r a)
-    (cons (* r (cos a)) (* r (sin a))))
-  @r{;; interface to the rest of the system}
-  (define (tag x) 
-    (attach-tag 'rectangular x))
-  (put 'real-part '(rectangular) real-part)
-  (put 'imag-part '(rectangular) imag-part)
-  (put 'magnitude '(rectangular) magnitude)
-  (put 'angle '(rectangular) angle)
-  (put 'make-from-real-imag 'rectangular
-       (lambda (x y) 
-         (tag (make-from-real-imag x y))))
-  (put 'make-from-mag-ang 'rectangular
-       (lambda (r a) 
-         (tag (make-from-mag-ang r a))))
-  'done)
-@end lisp
+@example
+fn install_rectangular_package(table: &mut OperationTable) @{
+    // internal procedures
+    fn real_part(x: f64, _y: f64) -> f64 @{ x @}
+    fn imag_part(_x: f64, y: f64) -> f64 @{ y @}
+
+    fn magnitude(x: f64, y: f64) -> f64 @{
+        (x.powi(2) + y.powi(2)).sqrt()
+    @}
+
+    fn angle(x: f64, y: f64) -> f64 @{
+        y.atan2(x)
+    @}
+
+    // interface to the rest of the system
+    table.put("real-part", "rectangular",
+        Box::new(real_part));
+    table.put("imag-part", "rectangular",
+        Box::new(imag_part));
+    table.put("magnitude", "rectangular",
+        Box::new(magnitude));
+    table.put("angle", "rectangular",
+        Box::new(angle));
+
+    table.put_constructor("make-from-real-imag", "rectangular",
+        Box::new(|x, y| Complex::Rectangular(x, y)));
+
+    table.put_constructor("make-from-mag-ang", "rectangular",
+        Box::new(|r, a| Complex::Rectangular(r * a.cos(), r * a.sin())));
+@}
+@end example
 
 @noindent
 Notice that the internal procedures here are the same procedures from 
@@ -12000,33 +12398,38 @@ Ben's internally defined constructors, except that they attach the tag.
 
 Alyssa's polar package is analogous:
 
-@lisp
-(define (install-polar-package)
-  @r{;; internal procedures}
-  (define (magnitude z) (car z))
-  (define (angle z) (cdr z))
-  (define (make-from-mag-ang r a) (cons r a))
-  (define (real-part z)
-    (* (magnitude z) (cos (angle z))))
-  (define (imag-part z)
-    (* (magnitude z) (sin (angle z))))
-  (define (make-from-real-imag x y)
-    (cons (sqrt (+ (square x) (square y)))
-          (atan y x)))
-  @r{;; interface to the rest of the system}
-  (define (tag x) (attach-tag 'polar x))
-  (put 'real-part '(polar) real-part)
-  (put 'imag-part '(polar) imag-part)
-  (put 'magnitude '(polar) magnitude)
-  (put 'angle '(polar) angle)
-  (put 'make-from-real-imag 'polar
-       (lambda (x y) 
-         (tag (make-from-real-imag x y))))
-  (put 'make-from-mag-ang 'polar
-       (lambda (r a) 
-         (tag (make-from-mag-ang r a))))
-  'done)
-@end lisp
+@example
+fn install_polar_package(table: &mut OperationTable) @{
+    // internal procedures
+    fn magnitude(r: f64, _angle: f64) -> f64 @{ r @}
+    fn angle(_r: f64, angle: f64) -> f64 @{ angle @}
+
+    fn real_part(r: f64, angle: f64) -> f64 @{
+        r * angle.cos()
+    @}
+
+    fn imag_part(r: f64, angle: f64) -> f64 @{
+        r * angle.sin()
+    @}
+
+    // interface to the rest of the system
+    table.put("real-part", "polar",
+        Box::new(real_part));
+    table.put("imag-part", "polar",
+        Box::new(imag_part));
+    table.put("magnitude", "polar",
+        Box::new(magnitude));
+    table.put("angle", "polar",
+        Box::new(angle));
+
+    table.put_constructor("make-from-real-imag", "polar",
+        Box::new(|x, y| Complex::Polar(
+            (x.powi(2) + y.powi(2)).sqrt(), y.atan2(x))));
+
+    table.put_constructor("make-from-mag-ang", "polar",
+        Box::new(|r, a| Complex::Polar(r, a)));
+@}
+@end example
 
 @noindent
 Even though Ben and Alyssa both still use their original procedures defined
@@ -12055,31 +12458,40 @@ procedure, using the elements in the list as arguments.  For example,
 @noindent
 returns 10.}
 
-@lisp
-(define (apply-generic op . args)
-  (let ((type-tags (map type-tag args)))
-    (let ((proc (get op type-tags)))
-      (if proc
-          (apply proc (map contents args))
-          (error
-            "No method for these types: 
-             APPLY-GENERIC"
-            (list op type-tags))))))
-@end lisp
+@example
+fn apply_generic(op: &str, z: &Complex,
+                 table: &OperationTable) -> f64 @{
+    let type_tag = z.type_tag();
+    let contents = z.contents();
+
+    if let Some(proc) = table.get(op, type_tag) @{
+        proc(contents.0, contents.1)
+    @} else @{
+        panic!("No method for type: @{@} (@{@})", op, type_tag)
+    @}
+@}
+@end example
 
 @noindent
 Using @code{apply-generic}, we can define our generic selectors as follows:
 
-@lisp
-(define (real-part z) 
-  (apply-generic 'real-part z))
-(define (imag-part z) 
-  (apply-generic 'imag-part z))
-(define (magnitude z) 
-  (apply-generic 'magnitude z))
-(define (angle z) 
-  (apply-generic 'angle z))
-@end lisp
+@example
+fn real_part(z: &Complex, table: &OperationTable) -> f64 @{
+    apply_generic("real-part", z, table)
+@}
+
+fn imag_part(z: &Complex, table: &OperationTable) -> f64 @{
+    apply_generic("imag-part", z, table)
+@}
+
+fn magnitude(z: &Complex, table: &OperationTable) -> f64 @{
+    apply_generic("magnitude", z, table)
+@}
+
+fn angle(z: &Complex, table: &OperationTable) -> f64 @{
+    apply_generic("angle", z, table)
+@}
+@end example
 
 @noindent
 Observe that these do not change at all if a new representation is added to the
@@ -12248,19 +12660,19 @@ number, is represented as a procedure that takes as input the required
 operation name and performs the operation indicated.  In such a discipline,
 @code{make-from-real-imag} could be written as
 
-@lisp
-(define (make-from-real-imag x y)
-  (define (dispatch op)
-    (cond ((eq? op 'real-part) x)
-          ((eq? op 'imag-part) y)
-          ((eq? op 'magnitude)
-           (sqrt (+ (square x) (square y))))
-          ((eq? op 'angle) (atan y x))
-          (else
-           (error "Unknown op: 
-            MAKE-FROM-REAL-IMAG" op))))
-  dispatch)
-@end lisp
+@example
+fn make_from_real_imag(x: f64, y: f64) -> Box<dyn Fn(&str) -> f64> @{
+    Box::new(move |op: &str| @{
+        match op @{
+            "real-part" => x,
+            "imag-part" => y,
+            "magnitude" => (x.powi(2) + y.powi(2)).sqrt(),
+            "angle" => y.atan2(x),
+            _ => panic!("Unknown op: MAKE-FROM-REAL-IMAG @{@}", op),
+        @}
+    @})
+@}
+@end example
 
 @noindent
 The corresponding @code{apply-generic} procedure, which applies a generic
@@ -12268,9 +12680,11 @@ operation to an argument, now simply feeds the operation's name to the data
 object and lets the object do the work:@footnote{One limitation of this
 organization is it permits only generic procedures of one argument.}
 
-@lisp
-(define (apply-generic op arg) (arg op))
-@end lisp
+@example
+fn apply_generic(op: &str, arg: &Box<dyn Fn(&str) -> f64>) -> f64 @{
+    arg(op)
+@}
+@end example
 
 @noindent
 Note that the value returned by @code{make-from-real-imag} is a procedure---the
@@ -12389,12 +12803,30 @@ according to the data type of its arguments.
 
 The generic arithmetic procedures are defined as follows:
 
-@lisp
-(define (add x y) (apply-generic 'add x y))
-(define (sub x y) (apply-generic 'sub x y))
-(define (mul x y) (apply-generic 'mul x y))
-(define (div x y) (apply-generic 'div x y))
-@end lisp
+@example
+// In Rust, generic operations use trait dispatch instead of apply-generic
+// The Add, Sub, Mul, Div traits provide operator overloading
+
+impl Add for Number @{
+    type Output = Number;
+    fn add(self, other: Number) -> Number @{
+        match (self, other) @{
+            (Number::SchemeNumber(a), Number::SchemeNumber(b)) =>
+                Number::SchemeNumber(a + b),
+            (Number::Rational(a), Number::Rational(b)) =>
+                Number::Rational(a + b),
+            (Number::Complex(a), Number::Complex(b)) =>
+                Number::Complex(a + b),
+            // Mixed types use coercion (see section 2.5.2)
+            (a, b) => @{
+                let (a_c, b_c) = coerce_to_common(a, b);
+                a_c + b_c
+            @}
+        @}
+    @}
+@}
+// Similar implementations for Sub, Mul, Div
+@end example
 
 @noindent
 We begin by installing a package for handling @newterm{ordinary} numbers, that
@@ -12405,31 +12837,29 @@ to handle the untagged numbers).  Since these operations each take two
 arguments, they are installed in the table keyed by the list
 @code{(scheme-number scheme-number)}:
 
-@lisp
-(define (install-scheme-number-package)
-  (define (tag x)
-    (attach-tag 'scheme-number x))
-  (put 'add '(scheme-number scheme-number)
-       (lambda (x y) (tag (+ x y))))
-  (put 'sub '(scheme-number scheme-number)
-       (lambda (x y) (tag (- x y))))
-  (put 'mul '(scheme-number scheme-number)
-       (lambda (x y) (tag (* x y))))
-  (put 'div '(scheme-number scheme-number)
-       (lambda (x y) (tag (/ x y))))
-  (put 'make 'scheme-number
-       (lambda (x) (tag x)))
-  'done)
-@end lisp
+@example
+// In Rust, we use an enum variant instead of tagging
+// The Number enum already provides type discrimination
+
+#[derive(Debug, Clone, PartialEq)]
+pub enum Number @{
+    SchemeNumber(i64),   // Tagged with variant name
+    Rational(Rational),
+    Complex(Complex),
+@}
+
+// Arithmetic operations are implemented via trait impls
+// (shown above - Add, Sub, Mul, Div traits)
+
+// Constructor function
+pub fn make_scheme_number(n: i64) -> Number @{
+    Number::SchemeNumber(n)
+@}
+@end example
 
 @noindent
-Users of the Scheme-number package will create (tagged) ordinary numbers by
-means of the procedure:
-
-@lisp
-(define (make-scheme-number n)
-  ((get 'make 'scheme-number) n))
-@end lisp
+Users of the Number package will create ordinary numbers by
+calling the constructor:
 
 @noindent
 Now that the framework of the generic arithmetic system is in place, we can

@@ -1,0 +1,12 @@
+[package]
+name = "sicp-chapter4"
+version = "0.1.0"
+description = "SICP Chapter 4: Metalinguistic Abstraction"
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+
+[dependencies]
+
+[dev-dependencies]
+proptest.workspace = true

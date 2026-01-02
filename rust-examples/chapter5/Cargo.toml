@@ -1,0 +1,12 @@
+[package]
+name = "sicp-chapter5"
+version = "0.1.0"
+description = "SICP Chapter 5: Computing with Register Machines"
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+
+[dependencies]
+
+[dev-dependencies]
+proptest.workspace = true
