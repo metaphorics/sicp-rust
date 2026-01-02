@@ -6097,40 +6097,44 @@ power of our programming language.  Consider the idea of forming a
 a procedure that would accept @math{a}, @math{b}, @math{x}, and @math{y} as
 arguments and return the value of @math{{ax + by}}.  This
 presents no difficulty if the arguments are to be numbers, because we
-can readily define the procedure
+can readily define the function
 
-@lisp
-(define (linear-combination a b x y)
-  (+ (* a x) (* b y)))
-@end lisp
+@example
+fn linear_combination(a: i64, b: i64, x: i64, y: i64) -> i64 @{
+    a * x + b * y
+@}
+@end example
 
 @noindent
 But suppose we are not concerned only with numbers.  Suppose we would like to
 express, in procedural terms, the idea that one can form linear combinations
 whenever addition and multiplication are defined---for rational numbers,
 complex numbers, polynomials, or whatever.  We could express this as a
-procedure of the form
+function using trait bounds:
 
-@lisp
-(define (linear-combination a b x y)
-  (add (mul a x) (mul b y)))
-@end lisp
+@example
+use std::ops::@{Add, Mul@};
+
+fn linear_combination<T>(a: T, b: T, x: T, y: T) -> T
+where
+    T: Add<Output = T> + Mul<Output = T> + Copy,
+@{
+    a * x + b * y
+@}
+@end example
 
 @noindent
-where @code{add} and @code{mul} are not the primitive procedures @code{+} and
-@code{*} but rather more complex things that will perform the appropriate
-operations for whatever kinds of data we pass in as the arguments @code{a},
-@code{b}, @code{x}, and @code{y}. The key point is that the only thing
-@code{linear-combination} should need to know about @code{a}, @code{b},
-@code{x}, and @code{y} is that the procedures @code{add} and @code{mul} will
-perform the appropriate manipulations.  From the perspective of the procedure
-@code{linear-combination}, it is irrelevant what @code{a}, @code{b}, @code{x},
-and @code{y} are and even more irrelevant how they might happen to be
+Here, the trait bounds @code{Add<Output = T> + Mul<Output = T>} specify that
+@code{T} must support addition and multiplication operations. The key point is
+that @code{linear_combination} only needs to know that @code{T} implements
+these traits---the function works for any type that does, whether integers,
+floating-point numbers, rational numbers, complex numbers, or polynomials.
+From the perspective of the function, it is irrelevant what @code{a}, @code{b},
+@code{x}, and @code{y} are and even more irrelevant how they might happen to be
 represented in terms of more primitive data.  This same example shows why it is
 important that our programming language provide the ability to manipulate
-compound objects directly: Without this, there is no way for a procedure such
-as @code{linear-combination} to pass its arguments along to @code{add} and
-@code{mul} without having to know their detailed structure.@footnote{The
+compound objects directly: Without this, there is no way for a function such
+as @code{linear_combination} to work generically over different types.@footnote{The
 ability to directly manipulate procedures provides an analogous increase in the
 expressive power of a programming language.  For example, in 
 @ref{1.3.1} we introduced the @code{sum} procedure, which takes a procedure
@@ -7283,17 +7287,13 @@ straightforward representation is illustrated in @ref{Figure 2.4}, where the
 sequence 1, 2, 3, 4 is represented as a chain of pairs.  The @code{car} of each
 pair is the corresponding item in the chain, and the @code{cdr} of the pair is
 the next pair in the chain.  The @code{cdr} of the final pair signals the end
-of the sequence by pointing to a distinguished value that is not a pair,
-represented in box-and-pointer diagrams as a diagonal line and in programs as
-the value of the variable @code{nil}.  The entire sequence is constructed by
-nested @code{cons} operations:
+of the sequence by indicating the end with an empty slice or by using a
+fixed-length collection. In Rust, we use @code{Vec} for dynamic sequences:
 
-@lisp
-(cons 1
-      (cons 2
-            (cons 3
-                  (cons 4 nil))))
-@end lisp
+@example
+// In Rust, we use Vec for sequences
+vec![1, 2, 3, 4]
+@end example
 
 @float
 @anchor{Figure 2.4}
@@ -7320,83 +7320,55 @@ nested @code{cons} operations:
 @end float
 
 @noindent
-Such a sequence of pairs, formed by nested @code{cons}es, is called a
-@newterm{list}, and Scheme provides a primitive called @code{list} to help in
-constructing lists.@footnote{In this book, we use @newterm{list} to mean a
-chain of pairs terminated by the end-of-list marker.  In contrast, the term
-@newterm{list structure} refers to any data structure made out of pairs, not
-just to lists.}  The above sequence could be produced by @code{(list 1 2 3 4)}.
-In general,
+In Rust, such a sequence is called a @newterm{vector}, created with the
+@code{vec!} macro.@footnote{Rust's @code{Vec<T>} is a growable array stored on
+the heap.  Unlike Scheme's linked lists, vectors provide O(1) indexed access
+but O(n) insertion at the front.  For linked-list semantics, Rust provides
+@code{LinkedList<T>}, though vectors are preferred for most use cases due to
+better cache locality.}  The above sequence is written as:
 
-@lisp
-(list ⟨@var{a₁}⟩ ⟨@var{a₂}⟩ @r{…} ⟨@var{aₙ}⟩)
-@end lisp
-
-@noindent
-is equivalent to
-
-@lisp
-(cons ⟨@var{a₁}⟩
-      (cons ⟨@var{a₂}⟩
-            (cons @r{…}
-                  (cons ⟨@var{aₙ}⟩
-                        nil)@r{…})))
-@end lisp
+@example
+let one_through_four = vec![1, 2, 3, 4];
+@end example
 
 @noindent
-Lisp systems conventionally print lists by printing the sequence of elements,
-enclosed in parentheses.  Thus, the data object in @ref{Figure 2.4} is printed
-as @code{(1 2 3 4)}:
+Rust displays vectors using debug formatting:
 
-@lisp
-(define one-through-four (list 1 2 3 4))
+@example
+let one_through_four = vec![1, 2, 3, 4];
 
-one-through-four
-@i{(1 2 3 4)}
-@end lisp
+println!("@{:?@}", one_through_four);
+// => [1, 2, 3, 4]
+@end example
 
 @noindent
-Be careful not to confuse the expression @code{(list 1 2 3 4)} with the list
-@code{(1 2 3 4)}, which is the result obtained when the expression is
-evaluated.  Attempting to evaluate the expression @code{(1 2 3 4)} will signal
-an error when the interpreter tries to apply the procedure @code{1} to
-arguments @code{2}, @code{3}, @code{4}.
+We can think of @code{first()} or indexing with @code{[0]} as selecting the first item in the
+list, and of @code{&list[1..]} as selecting the sublist consisting of all but the first
+item.  For prepending an element, we can use @code{concat} or build a new vector:@footnote{In
+Rust, indexing a vector or slice is straightforward: @code{list[0]} gets the
+first element, @code{list[1]} gets the second, and so on.  Slicing with
+@code{&list[1..]} returns a reference to all elements after the first.}
 
-We can think of @code{car} as selecting the first item in the list, and of
-@code{cdr} as selecting the sublist consisting of all but the first item.
-Nested applications of @code{car} and @code{cdr} can be used to extract the
-second, third, and subsequent items in the list.@footnote{Since nested
-applications of @code{car} and @code{cdr} are cumbersome to write, Lisp
-dialects provide abbreviations for them---for instance,
+@example
+let one_through_four = vec![1, 2, 3, 4];
 
-@lisp
-(cadr ⟨@var{arg}⟩) = (car (cdr ⟨@var{arg}⟩))
-@end lisp
+one_through_four[0]
+// => 1
 
-The names of all such procedures start with @code{c} and end with @code{r}.
-Each @code{a} between them stands for a @code{car} operation and each @code{d}
-for a @code{cdr} operation, to be applied in the same order in which they
-appear in the name.  The names @code{car} and @code{cdr} persist because simple
-combinations like @code{cadr} are pronounceable.} The constructor @code{cons}
-makes a list like the original one, but with an additional item at the
-beginning.
+&one_through_four[1..]
+// => [2, 3, 4]
 
-@lisp
-(car one-through-four)
-@i{1}
+one_through_four[1]  // second element
+// => 2
 
-(cdr one-through-four)
-@i{(2 3 4)}
+// Prepend 10 to create new vector
+[vec![10], one_through_four.clone()].concat()
+// => [10, 1, 2, 3, 4]
 
-(car (cdr one-through-four))
-@i{2}
-
-(cons 10 one-through-four)
-@i{(10 1 2 3 4)}
-
-(cons 5 one-through-four)
-@i{(5 1 2 3 4)}
-@end lisp
+// Or using iterators
+std::iter::once(5).chain(one_through_four.iter().copied()).collect::<Vec<_>>()
+// => [5, 1, 2, 3, 4]
+@end example
 
 @noindent
 The value of @code{nil}, used to terminate the chain of pairs, can be thought
@@ -7426,46 +7398,54 @@ The method for computing @code{list-ref} is the following:
 @itemize @bullet
 
 @item
-For @math{{n = 0}}, @code{list-ref} should return the @code{car} of the list.
+For @math{{n = 0}}, we return the first element of the list.
 
 @item
-Otherwise, @code{list-ref} should return  the @math{{(n - 1)}}-st item of the
-@code{cdr} of the list.
+Otherwise, we return the @math{{(n - 1)}}-st item of the
+rest of the list.
 
 @end itemize
 
-@lisp
-(define (list-ref items n)
-  (if (= n 0)
-      (car items)
-      (list-ref (cdr items) 
-                (- n 1))))
+@noindent
+In Rust, vectors provide direct indexing, so we simply use @code{items[n]}:
 
-(define squares 
-  (list 1 4 9 16 25))
+@example
+fn list_ref<T: Clone>(items: &[T], n: usize) -> T @{
+    items[n].clone()
+@}
 
-(list-ref squares 3)
-@i{16}
-@end lisp
+let squares = vec![1, 4, 9, 16, 25];
+
+list_ref(&squares, 3)
+// => 16
+
+// Or simply use indexing directly:
+squares[3]
+// => 16
+@end example
 
 @noindent
-Often we @code{cdr} down the whole list.  To aid in this, Scheme includes a
-primitive predicate @code{null?}, which tests whether its argument is the empty
-list.  The procedure @code{length}, which returns the number of items in a
-list, illustrates this typical pattern of use:
+To get the length of a list, Rust provides the @code{len()} method.
+Here's a recursive implementation that mirrors the Scheme version:
 
-@lisp
-(define (length items)
-  (if (null? items)
-      0
-      (+ 1 (length (cdr items)))))
+@example
+fn length<T>(items: &[T]) -> usize @{
+    if items.is_empty() @{
+        0
+    @} else @{
+        1 + length(&items[1..])
+    @}
+@}
 
-(define odds
-  (list 1 3 5 7))
+let odds = vec![1, 3, 5, 7];
 
-(length odds)
-@i{4}
-@end lisp
+length(&odds)
+// => 4
+
+// Or simply use the built-in method:
+odds.len()
+// => 4
+@end example
 
 @noindent
 The @code{length} procedure implements a simple recursive plan. The reduction
@@ -7490,75 +7470,73 @@ The @code{length} of the empty list is 0.
 @end itemize
 
 @noindent
-We could also compute @code{length} in an iterative style:
+We could also compute @code{length} in an iterative style using @code{fold}:
 
-@lisp
-(define (length items)
-  (define (length-iter a count)
-    (if (null? a)
-        count
-        (length-iter (cdr a) 
-                     (+ 1 count))))
-  (length-iter items 0))
-@end lisp
+@example
+fn length_iter<T>(items: &[T]) -> usize @{
+    items.iter().fold(0, |count, _| count + 1)
+@}
+@end example
 
 @noindent
-Another conventional programming technique is to ``@code{cons} up'' an answer
-list while @code{cdr}ing down a list, as in the procedure @code{append}, which
+Another conventional programming technique is to build up an answer
+vector while iterating through a list, as in concatenation, which
 takes two lists as arguments and combines their elements to make a new list:
 
-@lisp
-(append squares odds)
-@i{(1 4 9 16 25 1 3 5 7)}
+@example
+let squares = vec![1, 4, 9, 16, 25];
+let odds = vec![1, 3, 5, 7];
 
-(append odds squares)
-@i{(1 3 5 7 1 4 9 16 25)}
-@end lisp
+[squares.clone(), odds.clone()].concat()
+// => [1, 4, 9, 16, 25, 1, 3, 5, 7]
+
+[odds.clone(), squares.clone()].concat()
+// => [1, 3, 5, 7, 1, 4, 9, 16, 25]
+@end example
 
 @noindent
-@code{Append} is also implemented using a recursive plan.  To @code{append}
-lists @code{list1} and @code{list2}, do the following:
+Here's a recursive implementation that mirrors the Scheme version:
 
-@itemize @bullet
-
-@item
-If @code{list1} is the empty list, then the result is just @code{list2}.
-
-@item
-Otherwise, @code{append} the @code{cdr} of @code{list1} and @code{list2}, and
-@code{cons} the @code{car} of @code{list1} onto the result:
-
-@end itemize
-
-@lisp
-(define (append list1 list2)
-  (if (null? list1)
-      list2
-      (cons (car list1) 
-            (append (cdr list1) 
-                    list2))))
-@end lisp
+@example
+fn append<T: Clone>(list1: &[T], list2: &[T]) -> Vec<T> @{
+    if list1.is_empty() @{
+        list2.to_vec()
+    @} else @{
+        let mut result = vec![list1[0].clone()];
+        result.extend(append(&list1[1..], list2));
+        result
+    @}
+@}
+@end example
 
 @quotation
-@strong{@anchor{Exercise 2.17}Exercise 2.17:} Define a procedure
-@code{last-pair} that returns the list that contains only the last element of a
+@strong{@anchor{Exercise 2.17}Exercise 2.17:} Define a function
+@code{last_element} that returns the last element of a
 given (nonempty) list:
 
-@lisp
-(last-pair (list 23 72 149 34))
-@i{(34)}
-@end lisp
+@example
+fn last_element<T: Clone>(items: &[T]) -> T @{
+    items.last().unwrap().clone()
+@}
+
+last_element(&vec![23, 72, 149, 34])
+// => 34
+@end example
 @end quotation
 
 @quotation
-@strong{@anchor{Exercise 2.18}Exercise 2.18:} Define a procedure @code{reverse}
+@strong{@anchor{Exercise 2.18}Exercise 2.18:} Define a function @code{reverse}
 that takes a list as argument and returns a list of the same elements in
 reverse order:
 
-@lisp
-(reverse (list 1 4 9 16 25))
-@i{(25 16 9 4 1)}
-@end lisp
+@example
+fn reverse<T: Clone>(items: &[T]) -> Vec<T> @{
+    items.iter().rev().cloned().collect()
+@}
+
+reverse(&vec![1, 4, 9, 16, 25])
+// => [25, 16, 9, 4, 1]
+@end example
 @end quotation
 
 @quotation
@@ -7571,182 +7549,171 @@ knowledge of the currency is distributed partly into the procedure
 (which knows that there are five kinds of U.S. coins).  It would be nicer to be
 able to supply a list of coins to be used for making change.
 
-We want to rewrite the procedure @code{cc} so that its second argument is a
-list of the values of the coins to use rather than an integer specifying which
-coins to use.  We could then have lists that defined each kind of currency:
+We want to rewrite the function @code{cc} so that its second argument is a
+slice of the values of the coins to use rather than an integer specifying which
+coins to use.  We could then have arrays that defined each kind of currency:
 
-@lisp
-(define us-coins 
-  (list 50 25 10 5 1))
-
-(define uk-coins 
-  (list 100 50 20 10 5 2 1 0.5))
-@end lisp
+@example
+const US_COINS: &[i32] = &[50, 25, 10, 5, 1];
+const UK_COINS: &[i32] = &[100, 50, 20, 10, 5, 2, 1];
+@end example
 
 We could then call @code{cc} as follows:
 
-@lisp
-(cc 100 us-coins)
-@i{292}
-@end lisp
+@example
+cc(100, US_COINS)
+// => 292
+@end example
 
 To do this will require changing the program @code{cc} somewhat.  It will still
 have the same form, but it will access its second argument differently, as
 follows:
 
-@lisp
-(define (cc amount coin-values)
-  (cond ((= amount 0) 
-         1)
-        ((or (< amount 0) 
-             (no-more? coin-values)) 
-         0)
-        (else
-         (+ (cc 
-             amount
-             (except-first-denomination 
-              coin-values))
-            (cc 
-             (- amount
-                (first-denomination 
-                 coin-values))
-             coin-values)))))
-@end lisp
+@example
+fn cc(amount: i32, coin_values: &[i32]) -> i32 @{
+    if amount == 0 @{
+        1
+    @} else if amount < 0 || coin_values.is_empty() @{
+        0
+    @} else @{
+        cc(amount, &coin_values[1..])  // except first denomination
+            + cc(amount - coin_values[0], coin_values)  // first denomination
+    @}
+@}
+@end example
 
-Define the procedures @code{first-denomination},
-@code{except-first-denomination} and @code{no-more?} in terms of primitive
-operations on list structures.  Does the order of the list @code{coin-values}
+In Rust, @code{coin_values[0]} gives the first denomination,
+@code{&coin_values[1..]} gives all except the first, and
+@code{coin_values.is_empty()} tests if there are no more coins.
+Does the order of the slice @code{coin_values}
 affect the answer produced by @code{cc}?  Why or why not?
 @end quotation
 
 @quotation
-@strong{@anchor{Exercise 2.20}Exercise 2.20:} The procedures @code{+},
-@code{*}, and @code{list} take arbitrary numbers of arguments. One way to
-define such procedures is to use @code{define} with @newterm{dotted-tail notation}.  
-In a procedure definition, a parameter list that has a dot before
-the last parameter name indicates that, when the procedure is called, the
-initial parameters (if any) will have as values the initial arguments, as
-usual, but the final parameter's value will be a @newterm{list} of any
-remaining arguments.  For instance, given the definition
+@strong{@anchor{Exercise 2.20}Exercise 2.20:} Functions like @code{sum} and
+@code{product} take arbitrary numbers of arguments. In Rust, we handle this
+with slices or iterators.  For instance, given the definition
 
-@lisp
-(define (f x y . z) ⟨@var{body}⟩)
-@end lisp
+@example
+fn f(x: i32, y: i32, rest: &[i32]) @{ /* body */ @}
+@end example
 
 @noindent
-the procedure @code{f} can be called with two or more arguments.  If we
-evaluate
+the function @code{f} can be called with a slice for the remaining arguments.
+If we call
 
-@lisp
-(f 1 2 3 4 5 6)
-@end lisp
+@example
+f(1, 2, &[3, 4, 5, 6])
+@end example
 
 @noindent
 then in the body of @code{f}, @code{x} will be 1, @code{y} will be 2, and
-@code{z} will be the list @code{(3 4 5 6)}.  Given the definition
+@code{rest} will be the slice @code{[3, 4, 5, 6]}.  Given the definition
 
-@lisp
-(define (g . w) ⟨@var{body}⟩)
-@end lisp
-
-@noindent
-the procedure @code{g} can be called with zero or more arguments.  If we
-evaluate
-
-@lisp
-(g 1 2 3 4 5 6)
-@end lisp
+@example
+fn g(args: &[i32]) @{ /* body */ @}
+@end example
 
 @noindent
-then in the body of @code{g}, @code{w} will be the list @code{(1 2 3 4 5
-6)}.@footnote{To define @code{f} and @code{g} using @code{lambda} we would
-write
+the function @code{g} can be called with zero or more arguments in a slice.
+If we call
 
-@lisp
-(define f (lambda (x y . z) ⟨@var{body}⟩))
-(define g (lambda w ⟨@var{body}⟩))
-@end lisp
-}
+@example
+g(&[1, 2, 3, 4, 5, 6])
+@end example
 
-Use this notation to write a procedure @code{same-parity} that takes one or
-more integers and returns a list of all the arguments that have the same
-even-odd parity as the first argument.  For example,
+@noindent
+then in the body of @code{g}, @code{args} will be the slice @code{[1, 2, 3, 4, 5, 6]}.
 
-@lisp
-(same-parity 1 2 3 4 5 6 7)
-@i{(1 3 5 7)}
+Use slices and iterator methods to write a function @code{same_parity} that takes a
+slice of integers and returns a vector of all elements that have the same
+even-odd parity as the first element.  For example,
 
-(same-parity 2 3 4 5 6 7)
-@i{(2 4 6)}
-@end lisp
+@example
+fn same_parity(items: &[i32]) -> Vec<i32> @{
+    let first = items[0];
+    let parity = first % 2;
+    items.iter()
+        .filter(|&&x| x % 2 == parity)
+        .copied()
+        .collect()
+@}
+
+same_parity(&[1, 2, 3, 4, 5, 6, 7])
+// => [1, 3, 5, 7]
+
+same_parity(&[2, 3, 4, 5, 6, 7])
+// => [2, 4, 6]
+@end example
 @end quotation
 
 @subsubheading Mapping over lists
 
 One extremely useful operation is to apply some transformation to each element
 in a list and generate the list of results.  For instance, the following
-procedure scales each number in a list by a given factor:
+function scales each number in a list by a given factor:
 
-@lisp
-(define (scale-list items factor)
-  (if (null? items)
-      nil
-      (cons (* (car items) factor)
-            (scale-list (cdr items) 
-                        factor))))
+@example
+fn scale_list(items: &[i32], factor: i32) -> Vec<i32> @{
+    if items.is_empty() @{
+        vec![]
+    @} else @{
+        let mut result = vec![items[0] * factor];
+        result.extend(scale_list(&items[1..], factor));
+        result
+    @}
+@}
 
-(scale-list (list 1 2 3 4 5) 10)
-@i{(10 20 30 40 50)}
-@end lisp
+scale_list(&[1, 2, 3, 4, 5], 10)
+// => [10, 20, 30, 40, 50]
+@end example
 
 @noindent
 We can abstract this general idea and capture it as a common pattern expressed
-as a higher-order procedure, just as in @ref{1.3}.  The higher-order
-procedure here is called @code{map}.  @code{Map} takes as arguments a procedure
-of one argument and a list, and returns a list of the results produced by
-applying the procedure to each element in the list:@footnote{@anchor{Footnote 78}
-Scheme standardly provides a @code{map} procedure that
-is more general than the one described here.  This more general @code{map}
-takes a procedure of @math{n} arguments, together with @math{n} lists, and applies
-the procedure to all the first elements of the lists, all the second elements
-of the lists, and so on, returning a list of the results.  For example:
+as a higher-order function, just as in @ref{1.3}.  The higher-order
+operation here is the @code{map} iterator adapter.  @code{map} takes a closure
+and returns an iterator that applies the closure to each element:@footnote{
+Rust's @code{Iterator::map} is lazy---it doesn't compute values until consumed.
+For parallel mapping over multiple iterators, use @code{zip}:
 
-@lisp
-(map + 
-     (list 1 2 3) 
-     (list 40 50 60) 
-     (list 700 800 900))
-@i{(741 852 963)}
+@example
+let a = [1, 2, 3];
+let b = [40, 50, 60];
+let c = [700, 800, 900];
 
-(map (lambda (x y) (+ x (* 2 y)))
-     (list 1 2 3)
-     (list 4 5 6))
-@i{(9 12 15)}
-@end lisp
+a.iter().zip(b.iter()).zip(c.iter())
+    .map(|((&x, &y), &z)| x + y + z)
+    .collect::<Vec<_>>()
+// => [741, 852, 963]
+
+a.iter().zip(b.iter())
+    .map(|(&x, &y)| x + 2 * y)
+    .collect::<Vec<_>>()
+// => [9, 12, 15]
+@end example
 }
 
-@lisp
-(define (map proc items)
-  (if (null? items)
-      nil
-      (cons (proc (car items))
-            (map proc (cdr items)))))
+@example
+// Rust provides map as an iterator method
+vec![-10.0, 2.5, -11.6, 17.0].iter()
+    .map(|x| x.abs())
+    .collect::<Vec<_>>()
+// => [10.0, 2.5, 11.6, 17.0]
 
-(map abs (list -10 2.5 -11.6 17))
-@i{(10 2.5 11.6 17)}
-
-(map (lambda (x) (* x x)) (list 1 2 3 4))
-@i{(1 4 9 16)}
-@end lisp
+vec![1, 2, 3, 4].iter()
+    .map(|x| x * x)
+    .collect::<Vec<_>>()
+// => [1, 4, 9, 16]
+@end example
 
 @noindent
-Now we can give a new definition of @code{scale-list} in terms of @code{map}:
+Now we can give a cleaner definition of @code{scale_list} using @code{map}:
 
-@lisp
-(define (scale-list items factor)
-  (map (lambda (x) (* x factor))
-       items))
-@end lisp
+@example
+fn scale_list(items: &[i32], factor: i32) -> Vec<i32> @{
+    items.iter().map(|x| x * factor).collect()
+@}
+@end example
 
 @noindent
 @code{Map} is an important construct, not only because it captures a common
@@ -7767,99 +7734,119 @@ sequences to sequences.  Section @ref{2.2.3} expands on this use of sequences
 as a framework for organizing programs.
 
 @quotation
-@strong{@anchor{Exercise 2.21}Exercise 2.21:} The procedure @code{square-list}
-takes a list of numbers as argument and returns a list of the squares of those
+@strong{@anchor{Exercise 2.21}Exercise 2.21:} The function @code{square_list}
+takes a slice of numbers as argument and returns a vector of the squares of those
 numbers.
 
-@lisp
-(square-list (list 1 2 3 4))
-@i{(1 4 9 16)}
-@end lisp
+@example
+square_list(&[1, 2, 3, 4])
+// => [1, 4, 9, 16]
+@end example
 
-Here are two different definitions of @code{square-list}.  Complete both of
+Here are two different definitions of @code{square_list}.  Complete both of
 them by filling in the missing expressions:
 
-@lisp
-(define (square-list items)
-  (if (null? items)
-      nil
-      (cons ⟨??⟩ ⟨??⟩)))
+@example
+fn square_list(items: &[i32]) -> Vec<i32> @{
+    if items.is_empty() @{
+        vec![]
+    @} else @{
+        let mut result = vec![/* ?? */];
+        result.extend(/* ?? */);
+        result
+    @}
+@}
 
-(define (square-list items)
-  (map ⟨??⟩ ⟨??⟩))
-@end lisp
+fn square_list(items: &[i32]) -> Vec<i32> @{
+    items.iter().map(/* ?? */).collect()
+@}
+@end example
 @end quotation
 
 @quotation
 @strong{@anchor{Exercise 2.22}Exercise 2.22:} Louis Reasoner tries to rewrite
-the first @code{square-list} procedure of @ref{Exercise 2.21} so that it
+the first @code{square_list} function of @ref{Exercise 2.21} so that it
 evolves an iterative process:
 
-@lisp
-(define (square-list items)
-  (define (iter things answer)
-    (if (null? things)
-        answer
-        (iter (cdr things)
-              (cons (square (car things))
-                    answer))))
-  (iter items nil))
-@end lisp
+@example
+fn square_list(items: &[i32]) -> Vec<i32> @{
+    fn iter(things: &[i32], mut answer: Vec<i32>) -> Vec<i32> @{
+        if things.is_empty() @{
+            answer
+        @} else @{
+            answer.insert(0, things[0] * things[0]);  // prepend
+            iter(&things[1..], answer)
+        @}
+    @}
+    iter(items, vec![])
+@}
+@end example
 
-Unfortunately, defining @code{square-list} this way produces the answer list in
+Unfortunately, defining @code{square_list} this way produces the answer list in
 the reverse order of the one desired.  Why?
 
-Louis then tries to fix his bug by interchanging the arguments to @code{cons}:
+Louis then tries to fix his bug by pushing to the end instead:
 
-@lisp
-(define (square-list items)
-  (define (iter things answer)
-    (if (null? things)
-        answer
-        (iter (cdr things)
-              (cons answer
-                    (square 
-                     (car things))))))
-  (iter items nil))
-@end lisp
+@example
+fn square_list(items: &[i32]) -> Vec<i32> @{
+    fn iter(things: &[i32], mut answer: Vec<i32>) -> Vec<i32> @{
+        if things.is_empty() @{
+            answer
+        @} else @{
+            answer.push(things[0] * things[0]);  // append
+            iter(&things[1..], answer)
+        @}
+    @}
+    iter(items, vec![])
+@}
+@end example
 
-This doesn't work either.  Explain.
+This actually works in Rust! But if we were constrained to only prepend, explain
+why the original approach produces reversed output.
 @end quotation
 
 @quotation
-@strong{@anchor{Exercise 2.23}Exercise 2.23:} The procedure @code{for-each} is
-similar to @code{map}.  It takes as arguments a procedure and a list of
-elements.  However, rather than forming a list of the results, @code{for-each}
-just applies the procedure to each of the elements in turn, from left to right.
-The values returned by applying the procedure to the elements are not used at
-all---@code{for-each} is used with procedures that perform an action, such as
+@strong{@anchor{Exercise 2.23}Exercise 2.23:} Rust's @code{for_each} iterator method is
+similar to @code{map}.  It takes a closure and applies it to each element in turn.
+However, rather than producing an iterator of results, @code{for_each}
+just applies the closure for its side effects.
+@code{for_each} is used with closures that perform an action, such as
 printing.  For example,
 
-@lisp
-(for-each 
- (lambda (x) (newline) (display x))
- (list 57 321 88))
+@example
+[57, 321, 88].iter().for_each(|x| println!("@{@}", x));
+// Output:
+// 57
+// 321
+// 88
+@end example
 
-@i{57}
-@i{321}
-@i{88}
-@end lisp
-
-The value returned by the call to @code{for-each} (not illustrated above) can
-be something arbitrary, such as true.  Give an implementation of
-@code{for-each}.
+Implement a function @code{for_each} that takes a closure and a slice,
+applying the closure to each element.
 @end quotation
 
 @node	2.2.2, 2.2.3, 2.2.1, 2.2
 @subsection Hierarchical Structures
 
-The representation of sequences in terms of lists generalizes naturally to
+The representation of sequences in terms of vectors generalizes naturally to
 represent sequences whose elements may themselves be sequences.  For example,
-we can regard the object @code{((1 2) 3 4)} constructed by
+we can represent nested data using Rust's @code{enum} types or nested vectors:
 
-@lisp
-(cons (list 1 2) (list 3 4))
-@end lisp
+@example
+// Using nested vectors (dynamic)
+let nested: Vec<Vec<i32>> = vec![vec![1, 2], vec![3, 4]];
+
+// Or using an enum for mixed structures
+#[derive(Debug)]
+enum NestedList @{
+    Elem(i32),
+    List(Vec<NestedList>),
+@}
+use NestedList::*;
+
+let x = List(vec![List(vec![Elem(1), Elem(2)]), Elem(3), Elem(4)]);
+// Represents ((1 2) 3 4)
+@end example
 
 @noindent
 as a list of three items, the first of which is itself a list, @code{(1 2)}.
@@ -7930,32 +7917,46 @@ shows the structure in @ref{Figure 2.5} viewed as a tree.
 Recursion is a natural tool for dealing with tree structures, since we can
 often reduce operations on trees to operations on their branches, which reduce
 in turn to operations on the branches of the branches, and so on, until we
-reach the leaves of the tree.  As an example, compare the @code{length}
-procedure of @ref{2.2.1} with the @code{count-leaves} procedure, which
+reach the leaves of the tree.  As an example, compare vector's @code{len()}
+method with the @code{count_leaves} function, which
 returns the total number of leaves of a tree:
 
-@lisp
-(define x (cons (list 1 2) (list 3 4)))
-@end lisp
+@example
+use NestedList::*;
 
-@lisp
-(length x)
-@i{3}
-@end lisp
+// x = ((1 2) 3 4)
+let x = List(vec![List(vec![Elem(1), Elem(2)]), Elem(3), Elem(4)]);
 
-@lisp
-(count-leaves x)
-@i{4}
+// length of top level (3 items)
+fn length(list: &NestedList) -> usize @{
+    match list @{
+        Elem(_) => 1,
+        List(items) => items.len(),
+    @}
+@}
 
-(list x x)
-@i{(((1 2) 3 4) ((1 2) 3 4))}
+length(&x)
+// => 3
 
-(length (list x x))
-@i{2}
+fn count_leaves(tree: &NestedList) -> usize @{
+    match tree @{
+        Elem(_) => 1,
+        List(items) => items.iter().map(count_leaves).sum(),
+    @}
+@}
 
-(count-leaves (list x x))
-@i{8}
-@end lisp
+count_leaves(&x)
+// => 4
+
+// (list x x) = (((1 2) 3 4) ((1 2) 3 4))
+let xx = List(vec![x.clone(), x.clone()]);
+
+length(&xx)
+// => 2
+
+count_leaves(&xx)
+// => 8
+@end example
 
 @noindent
 To implement @code{count-leaves}, recall the recursive plan for computing
@@ -8007,126 +8008,152 @@ case:
 @end itemize
 
 @noindent
-To aid in writing recursive procedures on trees, Scheme provides the primitive
-predicate @code{pair?}, which tests whether its argument is a pair.  Here is
-the complete procedure:@footnote{The order of the first two clauses in the
-@code{cond} matters, since the empty list satisfies @code{null?} and also is
-not a pair.}
+To aid in writing recursive functions on trees, Rust provides pattern matching
+on enum variants.  Here is the complete function:
 
-@lisp
-(define (count-leaves x)
-  (cond ((null? x) 0)
-        ((not (pair? x)) 1)
-        (else (+ (count-leaves (car x))
-                 (count-leaves (cdr x))))))
-@end lisp
+@example
+fn count_leaves(tree: &NestedList) -> usize @{
+    match tree @{
+        Elem(_) => 1,
+        List(items) if items.is_empty() => 0,
+        List(items) => items.iter().map(count_leaves).sum(),
+    @}
+@}
+@end example
 
 @quotation
-@strong{@anchor{Exercise 2.24}Exercise 2.24:} Suppose we evaluate the
-expression @code{(list 1 (list 2 (list 3 4)))}.  Give the result printed by the
-interpreter, the corresponding box-and-pointer structure, and the
+@strong{@anchor{Exercise 2.24}Exercise 2.24:} Suppose we create
+@code{List(vec![Elem(1), List(vec![Elem(2), List(vec![Elem(3), Elem(4)])])])}.
+Give the result printed by debug formatting, the corresponding structure, and the
 interpretation of this as a tree (as in @ref{Figure 2.6}).
 @end quotation
 
 @quotation
-@strong{@anchor{Exercise 2.25}Exercise 2.25:} Give combinations of @code{car}s
-and @code{cdr}s that will pick 7 from each of the following lists:
+@strong{@anchor{Exercise 2.25}Exercise 2.25:} Give combinations of indexing
+that will pick 7 from each of the following structures:
 
-@lisp
-(1 3 (5 7) 9)
-((7))
-(1 (2 (3 (4 (5 (6 7))))))
-@end lisp
+@example
+// (1 3 (5 7) 9) as nested vector
+let a: Vec<Vec<i32>> = vec![vec![1], vec![3], vec![5, 7], vec![9]];
+// How to get 7?
+
+// ((7))
+let b = vec![vec![7]];
+// How to get 7?
+
+// Deeply nested
+let c = vec![1, vec![2, vec![3, vec![4, vec![5, vec![6, 7]]]]]];
+// (Requires NestedList enum for mixed types)
+@end example
 @end quotation
 
 @quotation
 @strong{@anchor{Exercise 2.26}Exercise 2.26:} Suppose we define @code{x} and
-@code{y} to be two lists:
+@code{y} to be two vectors:
 
-@lisp
-(define x (list 1 2 3))
-(define y (list 4 5 6))
-@end lisp
+@example
+let x = vec![1, 2, 3];
+let y = vec![4, 5, 6];
+@end example
 
-What result is printed by the interpreter in response to evaluating each of the
-following expressions:
+What result is produced by evaluating each of the following expressions:
 
-@lisp
-(append x y)
-(cons x y)
-(list x y)
-@end lisp
+@example
+[x.clone(), y.clone()].concat()  // append
+// => ?
+
+vec![x.clone(), y.clone()]       // as nested
+// => ?
+
+// What's the difference?
+@end example
 @end quotation
 
 @quotation
 @strong{@anchor{Exercise 2.27}Exercise 2.27:} Modify your @code{reverse}
-procedure of @ref{Exercise 2.18} to produce a @code{deep-reverse} procedure
-that takes a list as argument and returns as its value the list with its
-elements reversed and with all sublists deep-reversed as well.  For example,
+function of @ref{Exercise 2.18} to produce a @code{deep_reverse} function
+that takes a tree as argument and returns as its value the tree with its
+elements reversed and with all subtrees deep-reversed as well.  For example,
 
-@lisp
-(define x 
-  (list (list 1 2) (list 3 4)))
+@example
+// x = ((1 2) (3 4))
+let x = List(vec![
+    List(vec![Elem(1), Elem(2)]),
+    List(vec![Elem(3), Elem(4)])
+]);
 
-x
-@i{((1 2) (3 4))}
+// reverse: ((3 4) (1 2))
+// deep_reverse: ((4 3) (2 1))
 
-(reverse x)
-@i{((3 4) (1 2))}
-
-(deep-reverse x)
-@i{((4 3) (2 1))}
-@end lisp
+fn deep_reverse(tree: &NestedList) -> NestedList @{
+    match tree @{
+        Elem(n) => Elem(*n),
+        List(items) => List(
+            items.iter()
+                .rev()
+                .map(deep_reverse)
+                .collect()
+        ),
+    @}
+@}
+@end example
 @end quotation
 
 @quotation
-@strong{@anchor{Exercise 2.28}Exercise 2.28:} Write a procedure @code{fringe}
-that takes as argument a tree (represented as a list) and returns a list whose
+@strong{@anchor{Exercise 2.28}Exercise 2.28:} Write a function @code{fringe}
+that takes a tree and returns a vector whose
 elements are all the leaves of the tree arranged in left-to-right order.  For
 example,
 
-@lisp
-(define x 
-  (list (list 1 2) (list 3 4)))
+@example
+fn fringe(tree: &NestedList) -> Vec<i32> @{
+    match tree @{
+        Elem(n) => vec![*n],
+        List(items) => items.iter().flat_map(fringe).collect(),
+    @}
+@}
 
-(fringe x)
-@i{(1 2 3 4)}
+// x = ((1 2) (3 4))
+fringe(&x)
+// => [1, 2, 3, 4]
 
-(fringe (list x x))
-@i{(1 2 3 4 1 2 3 4)}
-@end lisp
+fringe(&List(vec![x.clone(), x.clone()]))
+// => [1, 2, 3, 4, 1, 2, 3, 4]
+@end example
 @end quotation
 
 @quotation
 @strong{@anchor{Exercise 2.29}Exercise 2.29:} A binary mobile consists of two
 branches, a left branch and a right branch.  Each branch is a rod of a certain
 length, from which hangs either a weight or another binary mobile.  We can
-represent a binary mobile using compound data by constructing it from two
-branches (for example, using @code{list}):
+represent a binary mobile using Rust structs and enums:
 
-@lisp
-(define (make-mobile left right)
-  (list left right))
-@end lisp
+@example
+struct Mobile @{
+    left: Branch,
+    right: Branch,
+@}
 
-A branch is constructed from a @code{length} (which must be a number) together
-with a @code{structure}, which may be either a number (representing a simple
-weight) or another mobile:
+struct Branch @{
+    length: f64,
+    structure: Structure,
+@}
 
-@lisp
-(define (make-branch length structure)
-  (list length structure))
-@end lisp
+enum Structure @{
+    Weight(f64),
+    SubMobile(Box<Mobile>),
+@}
+@end example
 
 @enumerate a
 
 @item
-Write the corresponding selectors @code{left-branch} and @code{right-branch},
-which return the branches of a mobile, and @code{branch-length} and
-@code{branch-structure}, which return the components of a branch.
+The selectors are automatically available as struct field access:
+@code{mobile.left}, @code{mobile.right}, @code{branch.length}, and
+@code{branch.structure}.
 
 @item
-Using your selectors, define a procedure @code{total-weight} that returns the
+Using pattern matching, define a function @code{total_weight} that returns the
 total weight of a mobile.
 
 @item
@@ -8134,22 +8161,13 @@ A mobile is said to be @newterm{balanced} if the torque applied by its top-left
 branch is equal to that applied by its top-right branch (that is, if the length
 of the left rod multiplied by the weight hanging from that rod is equal to the
 corresponding product for the right side) and if each of the submobiles hanging
-off its branches is balanced. Design a predicate that tests whether a binary
+off its branches is balanced. Design a function that tests whether a binary
 mobile is balanced.
 
 @item
-Suppose we change the representation of mobiles so that the constructors are
-
-@lisp
-(define (make-mobile left right)
-  (cons left right))
-
-(define (make-branch length structure)
-  (cons length structure))
-@end lisp
-
-How much do you need to change your programs to convert to the new
-representation?
+In Rust, changing from a struct with two fields to a tuple struct requires
+updating all field access from @code{.left/.right} to @code{.0/.1}. How does
+Rust's struct system compare to Scheme's approach?
 
 @end enumerate
 @end quotation
@@ -8158,93 +8176,92 @@ representation?
 
 Just as @code{map} is a powerful abstraction for dealing with sequences,
 @code{map} together with recursion is a powerful abstraction for dealing with
-trees.  For instance, the @code{scale-tree} procedure, analogous to
-@code{scale-list} of @ref{2.2.1}, takes as arguments a numeric factor
+trees.  For instance, the @code{scale_tree} function, analogous to
+@code{scale_list} of @ref{2.2.1}, takes as arguments a numeric factor
 and a tree whose leaves are numbers.  It returns a tree of the same shape,
 where each number is multiplied by the factor.  The recursive plan for
-@code{scale-tree} is similar to the one for @code{count-leaves}:
+@code{scale_tree} is similar to the one for @code{count_leaves}:
 
-@lisp
-(define (scale-tree tree factor)
-  (cond ((null? tree) nil)
-        ((not (pair? tree)) 
-         (* tree factor))
-        (else
-         (cons (scale-tree (car tree) 
-                           factor)
-               (scale-tree (cdr tree) 
-                           factor)))))
+@example
+fn scale_tree(tree: &NestedList, factor: i32) -> NestedList @{
+    match tree @{
+        Elem(n) => Elem(n * factor),
+        List(items) => List(
+            items.iter()
+                .map(|t| scale_tree(t, factor))
+                .collect()
+        ),
+    @}
+@}
 
-(scale-tree (list 1 
-                  (list 2 (list 3 4) 5) 
-                  (list 6 7))
-            10)
+// (1 (2 (3 4) 5) (6 7))
+let tree = List(vec![
+    Elem(1),
+    List(vec![Elem(2), List(vec![Elem(3), Elem(4)]), Elem(5)]),
+    List(vec![Elem(6), Elem(7)])
+]);
 
-@i{(10 (20 (30 40) 50) (60 70))}
-@end lisp
-
-@noindent
-Another way to implement @code{scale-tree} is to regard the tree as a sequence
-of sub-trees and use @code{map}.  We map over the sequence, scaling each
-sub-tree in turn, and return the list of results.  In the base case, where the
-tree is a leaf, we simply multiply by the factor:
-
-@lisp
-(define (scale-tree tree factor)
-  (map (lambda (sub-tree)
-         (if (pair? sub-tree)
-             (scale-tree sub-tree factor)
-             (* sub-tree factor)))
-       tree))
-@end lisp
+scale_tree(&tree, 10)
+// => (10 (20 (30 40) 50) (60 70))
+@end example
 
 @noindent
-Many tree operations can be implemented by similar combinations of sequence
-operations and recursion.
+This implementation uses pattern matching to handle both leaves (which are scaled
+directly) and branches (which recursively scale their children). The iterator's
+@code{map} method applies the scaling transformation to each subtree.
+
+@noindent
+Many tree operations can be implemented by similar combinations of iterator
+methods and recursion.
 
 @quotation
-@strong{@anchor{Exercise 2.30}Exercise 2.30:} Define a procedure
-@code{square-tree} analogous to the @code{square-list} procedure of
-@ref{Exercise 2.21}.  That is, @code{square-tree} should behave as follows:
+@strong{@anchor{Exercise 2.30}Exercise 2.30:} Define a function
+@code{square_tree} analogous to the @code{square_list} function of
+@ref{Exercise 2.21}.  That is, @code{square_tree} should behave as follows:
 
-@lisp
-(square-tree
- (list 1
-       (list 2 (list 3 4) 5)
-       (list 6 7)))
-@i{(1 (4 (9 16) 25) (36 49))}
-@end lisp
+@example
+// (1 (2 (3 4) 5) (6 7))
+square_tree(&tree)
+// => (1 (4 (9 16) 25) (36 49))
+@end example
 
-Define @code{square-tree} both directly (i.e., without using any higher-order
-procedures) and also by using @code{map} and recursion.
+Define @code{square_tree} both directly (i.e., without using @code{map})
+and also by using @code{map} and recursion.
 @end quotation
 
 @quotation
 @strong{@anchor{Exercise 2.31}Exercise 2.31:} Abstract your answer to
-@ref{Exercise 2.30} to produce a procedure @code{tree-map} with the property
-that @code{square-tree} could be defined as
+@ref{Exercise 2.30} to produce a function @code{tree_map} with the property
+that @code{square_tree} could be defined as
 
-@lisp
-(define (square-tree tree) 
-  (tree-map square tree))
-@end lisp
+@example
+fn square_tree(tree: &NestedList) -> NestedList @{
+    tree_map(|n| n * n, tree)
+@}
+@end example
 @end quotation
 
 @quotation
-@strong{@anchor{Exercise 2.32}Exercise 2.32:} We can represent a set as a list
+@strong{@anchor{Exercise 2.32}Exercise 2.32:} We can represent a set as a vector
 of distinct elements, and we can represent the set of all subsets of the set as
-a list of lists.  For example, if the set is @code{(1 2 3)}, then the set of
-all subsets is @code{(() (3) (2) (2 3) (1) (1 3) (1 2) (1 2 3))}.  Complete the
-following definition of a procedure that generates the set of subsets of a set
+a vector of vectors.  For example, if the set is @code{[1, 2, 3]}, then the set of
+all subsets is @code{[[], [3], [2], [2, 3], [1], [1, 3], [1, 2], [1, 2, 3]]}.
+Complete the following definition of a function that generates the set of subsets
 and give a clear explanation of why it works:
 
-@lisp
-(define (subsets s)
-  (if (null? s)
-      (list nil)
-      (let ((rest (subsets (cdr s))))
-        (append rest (map ⟨??⟩ rest)))))
-@end lisp
+@example
+fn subsets(s: &[i32]) -> Vec<Vec<i32>> @{
+    if s.is_empty() @{
+        vec![vec![]]
+    @} else @{
+        let rest = subsets(&s[1..]);
+        let with_first: Vec<Vec<i32>> = rest.iter()
+            .map(|subset| /* ?? */)
+            .collect();
+        [rest, with_first].concat()
+    @}
+@}
+@end example
 @end quotation
 
 @node	2.2.3, 2.2.4, 2.2.2, 2.2
@@ -8265,33 +8282,30 @@ structures.  Consider, for example, the following procedure, analogous to the
 @code{count-leaves} procedure of @ref{2.2.2}, which takes a tree as
 argument and computes the sum of the squares of the leaves that are odd:
 
-@lisp
-(define (sum-odd-squares tree)
-  (cond ((null? tree) 0)
-        ((not (pair? tree))
-         (if (odd? tree) (square tree) 0))
-        (else (+ (sum-odd-squares 
-                  (car tree))
-                 (sum-odd-squares 
-                  (cdr tree))))))
-@end lisp
+@example
+fn sum_odd_squares(tree: &NestedList) -> i32 @{
+    match tree @{
+        Elem(n) => if n % 2 != 0 @{ n * n @} else @{ 0 @},
+        List(items) => items.iter()
+            .map(sum_odd_squares)
+            .sum(),
+    @}
+@}
+@end example
 
 @noindent
 On the surface, this procedure is very different from the following one, which
 constructs a list of all the even Fibonacci numbers @math{{\text{Fib}(k)}}, where
 @math{k} is less than or equal to a given integer @math{n}:
 
-@lisp
-(define (even-fibs n)
-  (define (next k)
-    (if (> k n)
-        nil
-        (let ((f (fib k)))
-          (if (even? f)
-              (cons f (next (+ k 1)))
-              (next (+ k 1))))))
-  (next 0))
-@end lisp
+@example
+fn even_fibs(n: u32) -> Vec<u64> @{
+    (0..=n)
+        .map(fib)
+        .filter(|f| f % 2 == 0)
+        .collect()
+@}
+@end example
 
 @noindent
 Despite the fact that these two procedures are structurally very different, a
@@ -8397,71 +8411,83 @@ list operations to implement the processing at each of the stages.  For
 instance, we can implement the mapping stages of the signal-flow diagrams using
 the @code{map} procedure from @ref{2.2.1}:
 
-@lisp
-(map square (list 1 2 3 4 5))
-@i{(1 4 9 16 25)}
-@end lisp
+@example
+vec![1, 2, 3, 4, 5].iter().map(|x| x * x).collect::<Vec<_>>()
+// => [1, 4, 9, 16, 25]
+@end example
 
 @noindent
 Filtering a sequence to select only those elements that satisfy a given
 predicate is accomplished by
 
-@lisp
-(define (filter predicate sequence)
-  (cond ((null? sequence) nil)
-        ((predicate (car sequence))
-         (cons (car sequence)
-               (filter predicate 
-                       (cdr sequence))))
-        (else  (filter predicate 
-                       (cdr sequence)))))
-@end lisp
+@example
+// In Rust, filter is a built-in iterator adapter:
+// sequence.iter().filter(predicate).collect()
+
+// Here's the explicit recursive version for comparison:
+fn filter<T: Clone>(predicate: impl Fn(&T) -> bool, sequence: &[T]) -> Vec<T> @{
+    match sequence @{
+        [] => vec![],
+        [first, rest @ ..] => @{
+            let mut result = filter(&predicate, rest);
+            if predicate(first) @{
+                result.insert(0, first.clone());
+            @}
+            result
+        @}
+    @}
+@}
+@end example
 
 @noindent
 For example,
 
-@lisp
-(filter odd? (list 1 2 3 4 5))
-@i{(1 3 5)}
-@end lisp
+@example
+vec![1, 2, 3, 4, 5].iter().filter(|&x| x % 2 != 0).collect::<Vec<_>>()
+// => [1, 3, 5]
+@end example
 
 @noindent
 Accumulations can be implemented by
 
-@lisp
-(define (accumulate op initial sequence)
-  (if (null? sequence)
-      initial
-      (op (car sequence)
-          (accumulate op 
-                      initial 
-                      (cdr sequence)))))
+@example
+// In Rust, accumulate is called fold (left-fold) or rfold (right-fold).
+// The Scheme version above is a right-fold.
 
-(accumulate + 0 (list 1 2 3 4 5))
-@i{15}
-(accumulate * 1 (list 1 2 3 4 5))
-@i{120}
-(accumulate cons nil (list 1 2 3 4 5))
-@i{(1 2 3 4 5)}
-@end lisp
+fn accumulate<T, R>(
+    op: impl Fn(T, R) -> R,
+    initial: R,
+    sequence: impl DoubleEndedIterator<Item = T>,
+) -> R @{
+    sequence.rfold(initial, |acc, x| op(x, acc))
+@}
+
+vec![1, 2, 3, 4, 5].iter().fold(0, |acc, x| acc + x)
+// => 15
+
+vec![1, 2, 3, 4, 5].iter().fold(1, |acc, x| acc * x)
+// => 120
+
+// For collect-like behavior, use collect directly:
+vec![1, 2, 3, 4, 5].iter().cloned().collect::<Vec<_>>()
+// => [1, 2, 3, 4, 5]
+@end example
 
 @noindent
 All that remains to implement signal-flow diagrams is to enumerate the sequence
 of elements to be processed.  For @code{even-fibs}, we need to generate the
 sequence of integers in a given range, which we can do as follows:
 
-@lisp
-(define (enumerate-interval low high)
-  (if (> low high)
-      nil
-      (cons low 
-            (enumerate-interval 
-             (+ low 1) 
-             high))))
+@example
+// In Rust, use range syntax directly:
+(2..=7).collect::<Vec<_>>()
+// => [2, 3, 4, 5, 6, 7]
 
-(enumerate-interval 2 7)
-@i{(2 3 4 5 6 7)}
-@end lisp
+// Or as a function for the explicit pattern:
+fn enumerate_interval(low: i32, high: i32) -> Vec<i32> @{
+    (low..=high).collect()
+@}
+@end example
 
 @noindent
 To enumerate the leaves of a tree, we can use@footnote{This is, in fact,
@@ -8469,17 +8495,20 @@ precisely the @code{fringe} procedure from @ref{Exercise 2.28}.  Here we've
 renamed it to emphasize that it is part of a family of general
 sequence-manipulation procedures.}
 
-@lisp
-(define (enumerate-tree tree)
-  (cond ((null? tree) nil)
-        ((not (pair? tree)) (list tree))
-        (else (append 
-               (enumerate-tree (car tree))
-               (enumerate-tree (cdr tree))))))
+@example
+fn enumerate_tree(tree: &NestedList) -> Vec<i32> @{
+    match tree @{
+        Elem(n) => vec![*n],
+        List(items) => items.iter()
+            .flat_map(enumerate_tree)
+            .collect(),
+    @}
+@}
 
-(enumerate-tree (list 1 (list 2 (list 3 4)) 5))
-@i{(1 2 3 4 5)}
-@end lisp
+// List(vec![Elem(1), List(vec![Elem(2), List(vec![Elem(3), Elem(4)])]), Elem(5)])
+enumerate_tree(&tree)
+// => [1, 2, 3, 4, 5]
+@end example
 
 @noindent
 Now we can reformulate @code{sum-odd-squares} and @code{even-fibs} as in the
@@ -8487,30 +8516,29 @@ signal-flow diagrams.  For @code{sum-odd-squares}, we enumerate the sequence of
 leaves of the tree, filter this to keep only the odd numbers in the sequence,
 square each element, and sum the results:
 
-@lisp
-(define (sum-odd-squares tree)
-  (accumulate 
-   +
-   0
-   (map square
-        (filter odd?
-                (enumerate-tree tree)))))
-@end lisp
+@example
+fn sum_odd_squares(tree: &NestedList) -> i32 @{
+    enumerate_tree(tree)
+        .into_iter()
+        .filter(|x| x % 2 != 0)
+        .map(|x| x * x)
+        .sum()
+@}
+@end example
 
 @noindent
 For @code{even-fibs}, we enumerate the integers from 0 to @math{n}, generate the
 Fibonacci number for each of these integers, filter the resulting sequence to
 keep only the even elements, and accumulate the results into a list:
 
-@lisp
-(define (even-fibs n)
-  (accumulate 
-   cons
-   nil
-   (filter even?
-           (map fib
-                (enumerate-interval 0 n)))))
-@end lisp
+@example
+fn even_fibs(n: u32) -> Vec<u64> @{
+    (0..=n)
+        .map(fib)
+        .filter(|f| f % 2 == 0)
+        .collect()
+@}
+@end example
 
 @noindent
 The value of expressing programs as sequence operations is that this helps us
@@ -8528,36 +8556,33 @@ match.  For instance, we can reuse pieces from the @code{sum-odd-squares} and
 @code{even-fibs} procedures in a program that constructs a list of the squares
 of the first @math{{n + 1}} Fibonacci numbers:
 
-@lisp
-(define (list-fib-squares n)
-  (accumulate 
-   cons
-   nil
-   (map square
-        (map fib
-             (enumerate-interval 0 n)))))
+@example
+fn list_fib_squares(n: u32) -> Vec<u64> @{
+    (0..=n)
+        .map(fib)
+        .map(|f| f * f)
+        .collect()
+@}
 
-(list-fib-squares 10)
-@i{(0 1 1 4 9 25 64 169 441 1156 3025)}
-@end lisp
+list_fib_squares(10)
+// => [0, 1, 1, 4, 9, 25, 64, 169, 441, 1156, 3025]
+@end example
 
 @noindent
 We can rearrange the pieces and use them in computing the product of the squares of the odd
 integers in a sequence:
 
-@lisp
-(define 
-  (product-of-squares-of-odd-elements
-   sequence)
-  (accumulate 
-   *
-   1
-   (map square (filter odd? sequence))))
+@example
+fn product_of_squares_of_odd_elements(sequence: &[i64]) -> i64 @{
+    sequence.iter()
+        .filter(|&x| x % 2 != 0)
+        .map(|x| x * x)
+        .product()
+@}
 
-(product-of-squares-of-odd-elements 
- (list 1 2 3 4 5))
-@i{225}
-@end lisp
+product_of_squares_of_odd_elements(&[1, 2, 3, 4, 5])
+// => 225  (1*1 * 3*3 * 5*5 = 1 * 9 * 25)
+@end example
 
 @noindent
 We can also formulate conventional data-processing applications in terms of
@@ -8567,16 +8592,15 @@ selector @code{salary} that returns the salary of a record, and a predicate
 @code{programmer?} that tests if a record is for a programmer.  Then we can
 write
 
-@lisp
-(define 
-  (salary-of-highest-paid-programmer
-   records)
-  (accumulate 
-   max
-   0
-   (map salary
-        (filter programmer? records))))
-@end lisp
+@example
+fn salary_of_highest_paid_programmer(records: &[Employee]) -> u64 @{
+    records.iter()
+        .filter(|r| r.is_programmer())
+        .map(|r| r.salary())
+        .max()
+        .unwrap_or(0)
+@}
+@end example
 
 @noindent
 These examples give just a hint of the vast range of operations that can be
@@ -8605,17 +8629,31 @@ sequence-processing paradigm to admit infinite sequences.
 to complete the following definitions of some basic list-manipulation
 operations as accumulations:
 
-@lisp
-(define (map p sequence)
-  (accumulate (lambda (x y) ⟨??⟩) 
-              nil sequence))
+@example
+// Fill in the blanks using fold/rfold:
 
-(define (append seq1 seq2)
-  (accumulate cons ⟨??⟩ ⟨??⟩))
+fn map_via_fold<T, R>(
+    p: impl Fn(&T) -> R,
+    sequence: &[T],
+) -> Vec<R> @{
+    sequence.iter().rfold(vec![], |mut acc, x| @{
+        acc.insert(0, p(x));  // ⟨??⟩ = prepend p(x) to result
+        acc
+    @})
+@}
 
-(define (length sequence)
-  (accumulate ⟨??⟩ 0 sequence))
-@end lisp
+fn append_via_fold<T: Clone>(seq1: &[T], seq2: &[T]) -> Vec<T> @{
+    seq1.iter().cloned()
+        .rfold(seq2.to_vec(), |mut acc, x| @{  // ⟨??⟩ = seq2, seq1
+            acc.insert(0, x);
+            acc
+        @})
+@}
+
+fn length_via_fold<T>(sequence: &[T]) -> usize @{
+    sequence.iter().fold(0, |acc, _| acc + 1)  // ⟨??⟩ = |acc, _| acc + 1
+@}
+@end example
 @end quotation
 
 @quotation
@@ -8669,32 +8707,39 @@ Fill in the following template to produce a procedure that evaluates a
 polynomial using Horner's rule.  Assume that the coefficients of the polynomial
 are arranged in a sequence, from @math{a_0} through @math{a_n}.
 
-@lisp
-(define 
-  (horner-eval x coefficient-sequence)
-  (accumulate 
-   (lambda (this-coeff higher-terms)
-     ⟨??⟩)
-   0
-   coefficient-sequence))
-@end lisp
+@example
+fn horner_eval(x: f64, coefficients: &[f64]) -> f64 @{
+    coefficients.iter().rfold(0.0, |higher_terms, &this_coeff| @{
+        this_coeff + x * higher_terms  // ⟨??⟩
+    @})
+@}
+@end example
 
 For example, to compute @math{{1 + 3x} + {5x^3 + x^5}} at @math{{x = 2}} you
 would evaluate
 
-@lisp
-(horner-eval 2 (list 1 3 0 5 0 1))
-@end lisp
+@example
+horner_eval(2.0, &[1.0, 3.0, 0.0, 5.0, 0.0, 1.0])
+// => 79.0
+@end example
 @end quotation
 
 @quotation
 @strong{@anchor{Exercise 2.35}Exercise 2.35:} Redefine @code{count-leaves} from
 @ref{2.2.2} as an accumulation:
 
-@lisp
-(define (count-leaves t)
-  (accumulate ⟨??⟩ ⟨??⟩ (map ⟨??⟩ ⟨??⟩)))
-@end lisp
+@example
+fn count_leaves(t: &NestedList) -> usize @{
+    // Using iterator combinators:
+    enumerate_tree(t).len()  // enumerate flattens, then count
+
+    // Or more explicitly via fold:
+    // match t @{
+    //     Elem(_) => 1,
+    //     List(items) => items.iter().map(count_leaves).sum(),
+    // @}
+@}
+@end example
 @end quotation
 
 @quotation
@@ -8709,13 +8754,25 @@ sequence containing four sequences, @code{((1 2 3) (4 5 6) (7 8 9) (10 11
 @code{(22 26 30)}.  Fill in the missing expressions in the following definition
 of @code{accumulate-n}:
 
-@lisp
-(define (accumulate-n op init seqs)
-  (if (null? (car seqs))
-      nil
-      (cons (accumulate op init ⟨??⟩)
-            (accumulate-n op init ⟨??⟩))))
-@end lisp
+@example
+fn accumulate_n<T: Clone + Default>(
+    op: impl Fn(T, T) -> T + Copy,
+    init: T,
+    seqs: &[Vec<T>],
+) -> Vec<T> @{
+    if seqs[0].is_empty() @{
+        return vec![];
+    @}
+    let firsts: Vec<T> = seqs.iter().map(|s| s[0].clone()).collect();
+    let rests: Vec<Vec<T>> = seqs.iter().map(|s| s[1..].to_vec()).collect();
+
+    let mut result = vec![firsts.into_iter().fold(init.clone(), &op)];
+    result.extend(accumulate_n(op, init, &rests));
+    result
+@}
+// ⟨??⟩ = seqs.iter().map(|s| s[0]) for first elements
+// ⟨??⟩ = seqs.iter().map(|s| &s[1..]) for rest of each sequence
+@end example
 @end quotation
 
 @quotation
@@ -8781,26 +8838,40 @@ any book on matrix algebra) are the following:
 We can define the dot product as@footnote{This definition uses the extended
 version of @code{map} described in @ref{Footnote 78}.}
 
-@lisp
-(define (dot-product v w)
-  (accumulate + 0 (map * v w)))
-@end lisp
+@example
+fn dot_product(v: &[f64], w: &[f64]) -> f64 @{
+    v.iter().zip(w.iter()).map(|(a, b)| a * b).sum()
+@}
+@end example
 
 Fill in the missing expressions in the following procedures for computing the
 other matrix operations.  (The procedure @code{accumulate-n} is defined in
 @ref{Exercise 2.36}.)
 
-@lisp
-(define (matrix-*-vector m v)
-  (map ⟨??⟩ m))
+@example
+type Matrix = Vec<Vec<f64>>;
+type Vector = Vec<f64>;
 
-(define (transpose mat)
-  (accumulate-n ⟨??⟩ ⟨??⟩ mat))
+fn matrix_times_vector(m: &Matrix, v: &Vector) -> Vector @{
+    m.iter()
+        .map(|row| dot_product(row, v))  // ⟨??⟩ = |row| dot_product(row, v)
+        .collect()
+@}
 
-(define (matrix-*-matrix m n)
-  (let ((cols (transpose n)))
-    (map ⟨??⟩ m)))
-@end lisp
+fn transpose(mat: &Matrix) -> Matrix @{
+    (0..mat[0].len())
+        .map(|col| mat.iter().map(|row| row[col]).collect())
+        .collect()  // ⟨??⟩ = cons, nil (collect columns)
+@}
+
+fn matrix_times_matrix(m: &Matrix, n: &Matrix) -> Matrix @{
+    let cols = transpose(n);
+    m.iter()
+        .map(|row| matrix_times_vector(&cols, row))  // ⟨??⟩
+        .map(|v| v.into_iter().collect())
+        .collect()
+@}
+@end example
 @end quotation
 
 @quotation
@@ -8810,15 +8881,20 @@ the sequence with the result of combining all the elements to the right.  There
 is also a @code{fold-left}, which is similar to @code{fold-right}, except that
 it combines elements working in the opposite direction:
 
-@lisp
-(define (fold-left op initial sequence)
-  (define (iter result rest)
-    (if (null? rest)
-        result
-        (iter (op result (car rest))
-              (cdr rest))))
-  (iter initial sequence))
-@end lisp
+@example
+// In Rust, this is the standard fold method:
+fn fold_left<T, R>(
+    op: impl Fn(R, T) -> R,
+    initial: R,
+    sequence: impl Iterator<Item = T>,
+) -> R @{
+    sequence.fold(initial, op)
+@}
+
+// The standard library provides both:
+// .fold()  - left fold, consumes iterator left-to-right
+// .rfold() - right fold, consumes iterator right-to-left
+@end example
 
 What are the values of
 
