@@ -236,7 +236,7 @@ Procedures and the Processes They Generate
 Formulating Abstractions with Higher-Order Procedures
 
 * 1.3.1::            Procedures as Arguments
-* 1.3.2::            Constructing Procedures Using @code{Lambda}
+* 1.3.2::            Constructing Procedures Using Closures
 * 1.3.3::            Procedures as General Methods
 * 1.3.4::            Procedures as Returned Values
 
@@ -2098,8 +2098,8 @@ rephrase this definition in pseudo-Rust:
 
 @example
 fn sqrt(x: f64) -> f64 @{
-    // the y such that y >= 0 and y.powi(2) == x
-    unimplemented!("declarative definition")
+    // the y such that y >= 0.0 && square(y) == x
+    unimplemented!()
 @}
 @end example
 
@@ -2136,7 +2136,7 @@ root) by averaging @math{y} with @math{{x / y}}.@footnote{This square-root algor
 is actually a special case of Newton's method, which is a general technique for
 finding roots of equations.  The square-root algorithm itself was developed by
 Heron of Alexandria in the first century @abbr{A.D.}  We will see how to
-express the general Newton's method as a Lisp procedure in @ref{1.3.4}.} 
+express the general Newton's method as a Rust procedure in @ref{1.3.4}.} 
 For example, we can compute the square root of 2 as follows.
 Suppose our initial guess is 1:
 
@@ -2198,10 +2198,11 @@ We also have to say what we mean by ``good enough.''  The following will do for
 illustration, but it is not really a very good test.  (See @ref{Exercise 1.7}.)  
 The idea is to improve the answer until it is close
 enough so that its square differs from the radicand by less than a
-predetermined tolerance (here 0.001):@footnote{We will usually give predicates
-names ending with question marks, to help us remember that they are predicates.
-This is just a stylistic convention.  As far as the interpreter is concerned,
-the question mark is just an ordinary character.}
+predetermined tolerance (here 0.001):@footnote{In Lisp, it is common to give
+predicates names ending with question marks (e.g., @code{good_enough}).
+In Rust, the convention is to use a verb prefix like @code{is_} or simply use a
+descriptive name that implies a boolean return value. Question marks are not
+allowed in Rust identifiers; they are reserved for the @code{?} operator.}
 
 @example
 fn good_enough(guess: f64, x: f64) -> bool @{
@@ -2211,18 +2212,13 @@ fn good_enough(guess: f64, x: f64) -> bool @{
 
 @noindent
 Finally, we need a way to get started.  For instance, we can always guess that
-the square root of any number is 1:@footnote{Observe that we express our
-initial guess as 1.0 rather than 1.  This would not make any difference in many
-Lisp implementations.  @abbr{MIT} Scheme, however, distinguishes between
-exact integers and decimal values, and dividing two integers produces a
-rational number rather than a decimal.  For example, dividing 10 by 6 yields
-5/3, while dividing 10.0 by 6.0 yields 1.6666666666666667.  (We will learn how
-to implement arithmetic on rational numbers in @ref{2.1.1}.)  If we
-start with an initial guess of 1 in our square-root program, and @math{x} is an
-exact integer, all subsequent values produced in the square-root computation
-will be rational numbers rather than decimals.  Mixed operations on rational
-numbers and decimals always yield decimals, so starting with an initial guess
-of 1.0 forces all subsequent values to be decimals.}
+the square root of any number is 1.0:@footnote{Observe that we express our initial guess as 1.0 rather than 1.
+In Rust, this distinction is critical because @code{1} is an integer (@code{i32})
+and @code{1.0} is a floating-point number (@code{f64}). Rust does not support
+implicit type conversion (coercion) between integers and floats. If we used
+@code{1}, we would get a compilation error when trying to use it in functions
+expecting @code{f64}. In Scheme, the distinction often led to exact rational
+arithmetic versus inexact decimal arithmetic.}
 
 @example
 fn sqrt(x: f64) -> f64 @{
@@ -2287,7 +2283,7 @@ new_if(1 == 1, 0.0, 5.0)
 // => 0.0
 @end example
 
-Delighted, Alyssa uses @code{new-if} to rewrite the square-root program:
+Delighted, Alyssa uses @code{new_if} to rewrite the square-root program:
 
 @example
 fn sqrt_iter(guess: f64, x: f64) -> f64 @{
@@ -2302,13 +2298,13 @@ Explain.
 @end quotation
 
 @quotation
-@strong{@anchor{Exercise 1.7}Exercise 1.7:} The @code{good-enough?} test used
+@strong{@anchor{Exercise 1.7}Exercise 1.7:} The @code{good_enough} test used
 in computing square roots will not be very effective for finding the square
 roots of very small numbers.  Also, in real computers, arithmetic operations
 are almost always performed with limited precision.  This makes our test
 inadequate for very large numbers.  Explain these statements, with examples
 showing how the test fails for small and large numbers.  An alternative
-strategy for implementing @code{good-enough?} is to watch how @code{guess}
+strategy for implementing @code{good_enough} is to watch how @code{guess}
 changes from one iteration to the next and to stop when the change is a very
 small fraction of the guess.  Design a square-root procedure that uses this
 kind of end test.  Does this work better for small and large numbers?
@@ -2346,7 +2342,7 @@ procedures.)
 @subsection Procedures as Black-Box Abstractions
 
 @code{Sqrt} is our first example of a process defined by a set of mutually
-defined procedures.  Notice that the definition of @code{sqrt-iter} is
+defined procedures.  Notice that the definition of @code{sqrt_iter} is
 @newterm{recursive}; that is, the procedure is defined in terms of itself.  The
 idea of being able to define a procedure in terms of itself may be disturbing;
 it may seem unclear how such a ``circular'' definition could make sense at all,
@@ -2388,12 +2384,12 @@ dividing the program into parts.  After all, we could take any large program
 and divide it into parts---the first ten lines, the next ten lines, the next
 ten lines, and so on.  Rather, it is crucial that each procedure accomplishes
 an identifiable task that can be used as a module in defining other procedures.
-For example, when we define the @code{good-enough?} procedure in terms of
+For example, when we define the @code{good_enough} procedure in terms of
 @code{square}, we are able to regard the @code{square} procedure as a ``black
 box.''  We are not at that moment concerned with @emph{how} the procedure
 computes its result, only with the fact that it computes the square.  The
 details of how the square is computed can be suppressed, to be considered at a
-later time.  Indeed, as far as the @code{good-enough?} procedure is concerned,
+later time.  Indeed, as far as the @code{good_enough} procedure is concerned,
 @code{square} is not quite a procedure but rather an abstraction of a
 procedure, a so-called @newterm{procedural abstraction}.  At this level of
 abstraction, any procedure that computes the square is equally good.
@@ -2431,13 +2427,6 @@ formal parameters.  Thus, the following procedures should not be
 distinguishable:
 
 @example
-fn square(x: i64) -> i64 @{ x * x @}
-fn square(y: i64) -> i64 @{ y * y @}
-@end example
-
-@noindent
-@b{Rust:}
-@example
 fn square(x: i64) -> i64 @{
     x * x
 @}
@@ -2452,7 +2441,7 @@ This principle---that the meaning of a procedure should be independent of the
 parameter names used by its author---seems on the surface to be self-evident,
 but its consequences are profound.  The simplest consequence is that the
 parameter names of a procedure must be local to the body of the procedure.  For
-example, we used @code{square} in the definition of @code{good-enough?} in our
+example, we used @code{square} in the definition of @code{good_enough} in our
 square-root procedure:
 
 @example
@@ -2462,30 +2451,22 @@ fn good_enough(guess: f64, x: f64) -> bool @{
 @end example
 
 @noindent
-@b{Rust:}
-@example
-fn good_enough(guess: f64, x: f64) -> bool @{
-    (guess.powi(2) - x).abs() < 0.001
-@}
-@end example
-
-@noindent
-The intention of the author of @code{good-enough?} is to determine if the
+The intention of the author of @code{good_enough} is to determine if the
 square of the first argument is within a given tolerance of the second
-argument.  We see that the author of @code{good-enough?} used the name
+argument.  We see that the author of @code{good_enough} used the name
 @code{guess} to refer to the first argument and @code{x} to refer to the second
 argument.  The argument of @code{square} is @code{guess}.  If the author of
 @code{square} used @code{x} (as above) to refer to that argument, we see that
-the @code{x} in @code{good-enough?} must be a different @code{x} than the one
+the @code{x} in @code{good_enough} must be a different @code{x} than the one
 in @code{square}.  Running the procedure @code{square} must not affect the
-value of @code{x} that is used by @code{good-enough?}, because that value of
-@code{x} may be needed by @code{good-enough?} after @code{square} is done
+value of @code{x} that is used by @code{good_enough}, because that value of
+@code{x} may be needed by @code{good_enough} after @code{square} is done
 computing.
 
 If the parameters were not local to the bodies of their respective procedures,
 then the parameter @code{x} in @code{square} could be confused with the
-parameter @code{x} in @code{good-enough?}, and the behavior of
-@code{good-enough?} would depend upon which version of @code{square} we used.
+parameter @code{x} in @code{good_enough}, and the behavior of
+@code{good_enough} would depend upon which version of @code{square} we used.
 Thus, @code{square} would not be the black box we desired.
 
 A formal parameter of a procedure has a very special role in the procedure
@@ -2501,14 +2482,14 @@ The set of expressions for which a binding defines a name is called the
 declared as the formal parameters of the procedure have the body of the
 procedure as their scope.
 
-In the definition of @code{good-enough?} above, @code{guess} and @code{x} are
+In the definition of @code{good_enough} above, @code{guess} and @code{x} are
 bound variables but @code{<}, @code{-}, @code{abs}, and @code{square} are free.
-The meaning of @code{good-enough?} should be independent of the names we choose
+The meaning of @code{good_enough} should be independent of the names we choose
 for @code{guess} and @code{x} so long as they are distinct and different from
 @code{<}, @code{-}, @code{abs}, and @code{square}.  (If we renamed @code{guess}
 to @code{abs} we would have introduced a bug by @newterm{capturing} the
 variable @code{abs}.  It would have changed from free to bound.)  The meaning
-of @code{good-enough?} is not independent of the names of its free variables,
+of @code{good_enough} is not independent of the names of its free variables,
 however.  It surely depends upon the fact (external to this definition) that
 the symbol @code{abs} names a procedure for computing the absolute value of a
 number.  @code{Good-enough?} will compute a different function if we substitute
@@ -2546,17 +2527,17 @@ fn improve(guess: f64, x: f64) -> f64 @{
 @noindent
 The problem with this program is that the only procedure that is important to
 users of @code{sqrt} is @code{sqrt}.  The other procedures (@code{sqrt-iter},
-@code{good-enough?}, and @code{improve}) only clutter up their minds.  They may
-not define any other procedure called @code{good-enough?} as part of another
+@code{good_enough}, and @code{improve}) only clutter up their minds.  They may
+not define any other procedure called @code{good_enough} as part of another
 program to work together with the square-root program, because @code{sqrt}
 needs it.  The problem is especially severe in the construction of large
 systems by many separate programmers.  For example, in the construction of a
 large library of numerical procedures, many numerical functions are computed as
 successive approximations and thus might have procedures named
-@code{good-enough?} and @code{improve} as auxiliary procedures.  We would like
+@code{good_enough} and @code{improve} as auxiliary procedures.  We would like
 to localize the subprocedures, hiding them inside @code{sqrt} so that
 @code{sqrt} could coexist with other successive approximations, each having its
-own private @code{good-enough?} procedure.  To make this possible, we allow a
+own private @code{good_enough} procedure.  To make this possible, we allow a
 procedure to have internal definitions that are local to that procedure.  For
 example, in the square-root problem we can write
 
@@ -2584,7 +2565,7 @@ Such nesting of definitions, called @newterm{block structure}, is basically the
 right solution to the simplest name-packaging problem.  But there is a better
 idea lurking here.  In addition to internalizing the definitions of the
 auxiliary procedures, we can simplify them.  Since @code{x} is bound in the
-definition of @code{sqrt}, the procedures @code{good-enough?}, @code{improve},
+definition of @code{sqrt}, the procedures @code{good_enough}, @code{improve},
 and @code{sqrt-iter}, which are defined internally to @code{sqrt}, are in the
 scope of @code{x}.  Thus, it is not necessary to pass @code{x} explicitly to
 each of these procedures.  Instead, we allow @code{x} to be a free variable in
@@ -2776,7 +2757,7 @@ exceeds @math{n}.
 Once again, we can recast our description as a procedure for computing
 factorials:@footnote{In a real program we would probably use the block
 structure introduced in the last section to hide the definition of
-@code{fact-iter}:
+@code{fact_iter}:
 
 @example
 fn factorial(n: u64) -> u64 @{
@@ -2819,14 +2800,14 @@ computing 6!, as shown in @ref{Figure 1.4}.
 @strong{Figure 1.4:} A linear iterative process for computing 6!.
 
 @example
-(factorial 6)   -----.
-(fact-iter   1 1 6)  |
-(fact-iter   1 2 6)  |
-(fact-iter   2 3 6)  |
-(fact-iter   6 4 6)  |
-(fact-iter  24 5 6)  |
-(fact-iter 120 6 6)  |
-(fact-iter 720 7 6)  V
+factorial(6)        -----.
+fact_iter(1, 1, 6)       |
+fact_iter(1, 2, 6)       |
+fact_iter(2, 3, 6)       |
+fact_iter(6, 4, 6)       |
+fact_iter(24, 5, 6)      |
+fact_iter(120, 6, 6)     |
+fact_iter(720, 7, 6)     V
 720
 @end example
 @end quotation
@@ -2861,7 +2842,7 @@ needed to keep track of it, grows linearly with @math{n} (is proportional to
 
 By contrast, the second process does not grow and shrink.  At each step, all we
 need to keep track of, for any @math{n}, are the current values of the variables
-@code{product}, @code{counter}, and @code{max-count}.  We call this an
+@code{product}, @code{counter}, and @code{max_count}.  We call this an
 @newterm{iterative process}.  In general, an iterative process is one whose
 state can be summarized by a fixed number of @newterm{state variables},
 together with a fixed rule that describes how the state variables should be
@@ -2893,7 +2874,7 @@ directly or indirectly) to the procedure itself.  But when we describe a
 process as following a pattern that is, say, linearly recursive, we are
 speaking about how the process evolves, not about the syntax of how a procedure
 is written.  It may seem disturbing that we refer to a recursive procedure such
-as @code{fact-iter} as generating an iterative process.  However, the process
+as @code{fact_iter} as generating an iterative process.  However, the process
 really is iterative: Its state is captured completely by its three state
 variables, and an interpreter need keep track of only three variables in order
 to execute the process.
@@ -3049,9 +3030,9 @@ fn fib(n: u64) -> u64 @{
 @end example
 
 @noindent
-Consider the pattern of this computation.  To compute @code{(fib 5)}, we
-compute @code{(fib 4)} and @code{(fib 3)}.  To compute @code{(fib 4)}, we
-compute @code{(fib 3)} and @code{(fib 2)}.  In general, the evolved process
+Consider the pattern of this computation.  To compute @code{fib(5)}, we
+compute @code{fib(4)} and @code{fib(3)}.  To compute @code{fib(4)}, we
+compute @code{fib(3)} and @code{fib(2)}.  In general, the evolved process
 looks like a tree, as shown in @ref{Figure 1.5}.  Notice that the branches
 split into two at each level (except at the bottom); this reflects the fact
 that the @code{fib} procedure calls itself twice each time it is invoked.
@@ -3059,7 +3040,7 @@ that the @code{fib} procedure calls itself twice each time it is invoked.
 @float
 @anchor{Figure 1.5}
 @ifinfo
-@strong{Figure 1.5:} The tree-recursive process generated in computing @code{(fib 5)}.
+@strong{Figure 1.5:} The tree-recursive process generated in computing @code{fib(5)}.
 
 @example
 
@@ -3085,7 +3066,7 @@ V     /  . \   . 1  .  . 1  .  . 0  .  . 1  .  . 0  ..
 @end ifinfo
 @iftex
 @image{fig/chap1/Fig1.5d,147mm,,,.std.svg}
-@caption{@strong{Figure 1.5:} The tree-recursive process generated in computing @code{(fib 5)}.}
+@caption{@strong{Figure 1.5:} The tree-recursive process generated in computing @code{fib(5)}.}
 @end iftex
 @end float
 
@@ -3093,9 +3074,9 @@ V     /  . \   . 1  .  . 1  .  . 0  .  . 1  .  . 0  ..
 This procedure is instructive as a prototypical tree recursion, but it is a
 terrible way to compute Fibonacci numbers because it does so much redundant
 computation.  Notice in @ref{Figure 1.5} that the entire computation of
-@code{(fib 3)}---almost half the work---is duplicated.  In fact, it is not hard
-to show that the number of times the procedure will compute @code{(fib 1)} or
-@code{(fib 0)} (the number of leaves in the above tree, in general) is
+@code{fib(3)}---almost half the work---is duplicated.  In fact, it is not hard
+to show that the number of times the procedure will compute @code{fib(1)} or
+@code{fib(0)} (the number of leaves in the above tree, in general) is
 precisely @math{{\text{Fib}(n+1)}}.  To get an idea of how bad this is, one can
 show that the value of @math{{\text{Fib}(n)}} grows exponentially with @math{n}.  More
 precisely (see @ref{Exercise 1.13}), @math{{\text{Fib}(n)}} is the closest integer
@@ -3290,7 +3271,7 @@ fn first_denomination(kinds_of_coins: u64) -> i64 @{
 @end example
 
 @noindent
-(The @code{first-denomination} procedure takes as input the number of kinds of
+(The @code{first_denomination} procedure takes as input the number of kinds of
 coins available and returns the denomination of the first kind.  Here we are
 thinking of the coins as arranged in order from largest to smallest, but any
 order would do as well.)  We can now answer our original question about
@@ -3318,7 +3299,7 @@ in the table, in which case we avoid performing the redundant computation.
 This strategy, known as @newterm{tabulation} or @newterm{memoization}, can be
 implemented in a straightforward way.  Tabulation can sometimes be used to
 transform processes that require an exponential number of steps (such as
-@code{count-change}) into processes whose space and time requirements grow
+@code{count_change}) into processes whose space and time requirements grow
 linearly with the input.  See @ref{Exercise 3.27}.}
 
 @quotation
@@ -3427,7 +3408,7 @@ constant amount.
 
 @quotation
 @strong{@anchor{Exercise 1.14}Exercise 1.14:} Draw the tree illustrating the
-process generated by the @code{count-change} procedure of @ref{1.2.2}
+process generated by the @code{count_change} procedure of @ref{1.2.2}
 in making change for 11 cents.  What are the orders of growth of the space and
 number of steps used by this process as the amount to be changed increases?
 @end quotation
@@ -3475,13 +3456,13 @@ fn sine(angle: f64) -> f64 @{
 @enumerate a
 
 @item
-How many times is the procedure @code{p} applied when @code{(sine 12.15)} is
+How many times is the procedure @code{p} applied when @code{sine(12.15)} is
 evaluated?
 
 @item
 What is the order of growth in space and number of steps (as a function of
 @math{a}) used by the process generated by the @code{sine} procedure when
-@code{(sine a)} is evaluated?
+@code{sine(a)} is evaluated?
 
 @end enumerate
 @end quotation
@@ -3873,10 +3854,10 @@ example, consider the iterative @code{gcd} procedure given above.  Suppose we
 were to interpret this procedure using normal-order evaluation, as discussed in
 @ref{1.1.5}.  (The normal-order-evaluation rule for @code{if} is
 described in @ref{Exercise 1.5}.)  Using the substitution method (for normal
-order), illustrate the process generated in evaluating @code{(gcd 206 40)} and
+order), illustrate the process generated in evaluating @code{gcd(206, 40)} and
 indicate the @code{remainder} operations that are actually performed.  How many
 @code{remainder} operations are actually performed in the normal-order
-evaluation of @code{(gcd 206 40)}?  In the applicative-order evaluation?
+evaluation of @code{gcd(206, 40)}?  In the applicative-order evaluation?
 @end quotation
 
 @node	1.2.6, 1.3, 1.1, 1.2
@@ -3929,7 +3910,7 @@ fn is_prime(n: u64) -> bool @{
 @end example
 
 @noindent
-The end test for @code{find-divisor} is based on the fact that if @math{n} is not
+The end test for @code{find_divisor} is based on the fact that if @math{n} is not
 prime it must have a divisor less than or equal to
 @math{\sqrt{n}}.@footnote{If @math{d} is a divisor of @math{n}, then so is
 @math{{n \,/\, d}}.  But @math{d} and @math{{n \,/\, d}} cannot both be greater than
@@ -4010,9 +3991,9 @@ computation without ever having to deal with numbers much larger than @math{m}.
 The Fermat test is performed by choosing at random a number @math{a} between 1 and
 @math{{n-1}} inclusive and checking whether the remainder modulo @math{n} of the
 @math{n^{\text{th}}} power of @math{a} is equal to @math{a}.  The random number @math{a} is chosen
-using the procedure @code{random}, which we assume is included as a primitive
-in Scheme. @code{Random} returns a nonnegative integer less than its integer
-input.  Hence, to obtain a random number between 1 and @math{{n-1}}, we call
+using a procedure @code{random}, which we assume is available in our environment
+(in Rust, this would typically come from the @code{rand} crate).
+@code{Random} returns a nonnegative integer less than its integer input.  Hence, to obtain a random number between 1 and @math{{n-1}}, we call
 @code{random} with an input of @math{{n-1}} and add 1 to the result:
 
 @example
@@ -4101,7 +4082,7 @@ now turns out to have important practical applications to cryptography,
 electronic funds transfer, and information retrieval.}
 
 @quotation
-@strong{@anchor{Exercise 1.21}Exercise 1.21:} Use the @code{smallest-divisor}
+@strong{@anchor{Exercise 1.21}Exercise 1.21:} Use the @code{smallest_divisor}
 procedure to find the smallest divisor of each of the following numbers: 199,
 1999, 19999.
 @end quotation
@@ -4110,7 +4091,7 @@ procedure to find the smallest divisor of each of the following numbers: 199,
 @strong{@anchor{Exercise 1.22}Exercise 1.22:} Most Lisp implementations include
 a primitive called @code{runtime} that returns an integer that specifies the
 amount of time the system has been running (measured, for example, in
-microseconds).  The following @code{timed-prime-test} procedure, when called
+microseconds).  The following @code{timed_prime_test} procedure, when called
 with an integer @math{n}, prints @math{n} and checks to see if @math{n} is prime.  If
 @math{n} is prime, the procedure prints three asterisks followed by the amount of
 time used in performing the test.
@@ -4138,7 +4119,7 @@ fn report_prime(elapsed_time: Duration) @{
 @}
 @end example
 
-Using this procedure, write a procedure @code{search-for-primes} that checks
+Using this procedure, write a procedure @code{search_for_primes} that checks
 the primality of consecutive odd integers in a specified range.  Use your
 procedure to find the three smallest primes larger than 1000; larger than
 10,000; larger than 100,000; larger than 1,000,000.  Note the time needed to
@@ -4152,17 +4133,17 @@ proportional to the number of steps required for the computation?
 @end quotation
 
 @quotation
-@strong{@anchor{Exercise 1.23}Exercise 1.23:} The @code{smallest-divisor}
+@strong{@anchor{Exercise 1.23}Exercise 1.23:} The @code{smallest_divisor}
 procedure shown at the start of this section does lots of needless testing:
 After it checks to see if the number is divisible by 2 there is no point in
 checking to see if it is divisible by any larger even numbers.  This suggests
 that the values used for @code{test-divisor} should not be 2, 3, 4, 5, 6,
 @dots{}, but rather 2, 3, 5, 7, 9, @dots{}.  To implement this change, define a
 procedure @code{next} that returns 3 if its input is equal to 2 and otherwise
-returns its input plus 2.  Modify the @code{smallest-divisor} procedure to use
+returns its input plus 2.  Modify the @code{smallest_divisor} procedure to use
 @code{(next test-divisor)} instead of @code{(+ test-divisor 1)}.  With
-@code{timed-prime-test} incorporating this modified version of
-@code{smallest-divisor}, run the test for each of the 12 primes found in
+@code{timed_prime_test} incorporating this modified version of
+@code{smallest_divisor}, run the test for each of the 12 primes found in
 @ref{Exercise 1.22}.  Since this modification halves the number of test steps,
 you should expect it to run about twice as fast.  Is this expectation
 confirmed?  If not, what is the observed ratio of the speeds of the two
@@ -4171,8 +4152,8 @@ algorithms, and how do you explain the fact that it is different from 2?
 
 @quotation
 @strong{@anchor{Exercise 1.24}Exercise 1.24:} Modify the
-@code{timed-prime-test} procedure of @ref{Exercise 1.22} to use
-@code{fast-prime?} (the Fermat method), and test each of the 12 primes you
+@code{timed_prime_test} procedure of @ref{Exercise 1.22} to use
+@code{fast_prime} (the Fermat method), and test each of the 12 primes you
 found in that exercise.  Since the Fermat test has @math{{\Theta(\log n)}}
 growth, how would you expect the time to test primes near 1,000,000 to
 compare with the time needed to test primes near 1000?  Do your data bear this
@@ -4196,8 +4177,8 @@ Explain.
 
 @quotation
 @strong{@anchor{Exercise 1.26}Exercise 1.26:} Louis Reasoner is having great
-difficulty doing @ref{Exercise 1.24}.  His @code{fast-prime?} test seems to run
-more slowly than his @code{prime?} test.  Louis calls his friend Eva Lu Ator
+difficulty doing @ref{Exercise 1.24}.  His @code{fast_prime} test seems to run
+more slowly than his @code{is_prime} test.  Louis calls his friend Eva Lu Ator
 over to help.  When they examine Louis's code, they find that he has rewritten
 the @code{expmod} procedure to use an explicit multiplication, rather than
 calling @code{square}:
@@ -4300,7 +4281,7 @@ expressive power of our language.
 
 @menu
 * 1.3.1::            Procedures as Arguments
-* 1.3.2::            Constructing Procedures Using @code{Lambda}
+* 1.3.2::            Constructing Procedures Using Closures
 * 1.3.3::            Procedures as General Methods
 * 1.3.4::            Procedures as Returned Values
 @end menu
@@ -4446,7 +4427,7 @@ an @code{i64} and return an @code{i64}. The @code{Fn} trait represents functions
 and closures that can be called multiple times without consuming themselves.
 We can use @code{sum} just as we would any procedure.  For example, we can use
 it (along with a procedure @code{inc} that increments its argument by 1) to
-define @code{sum-cubes}:
+define @code{sum_cubes}:
 
 @example
 fn inc(n: i64) -> i64 @{
@@ -4468,7 +4449,7 @@ sum_cubes(1, 10)
 
 @noindent
 With the aid of an identity procedure to compute the term, we can define
-@code{sum-integers} in terms of @code{sum}:
+@code{sum_integers} in terms of @code{sum}:
 
 @example
 fn identity(x: i64) -> i64 @{
@@ -4489,7 +4470,7 @@ sum_integers(1, 10)
 @end example
 
 @noindent
-We can also define @code{pi-sum} in the same way:@footnote{Notice that we have
+We can also define @code{pi_sum} in the same way:@footnote{Notice that we have
 used block structure (@ref{1.1.8}) to embed the definitions of
 @code{pi_next} and @code{pi_term} within @code{pi_sum}, since these procedures
 are unlikely to be useful for any other purpose. In Rust, we define these as
@@ -4728,16 +4709,16 @@ write one that generates a recursive process.
 general version of @code{accumulate} (@ref{Exercise 1.32}) by introducing the
 notion of a @newterm{filter} on the terms to be combined.  That is, combine
 only those terms derived from values in the range that satisfy a specified
-condition.  The resulting @code{filtered-accumulate} abstraction takes the same
+condition.  The resulting @code{filtered_accumulate} abstraction takes the same
 arguments as accumulate, together with an additional predicate of one argument
-that specifies the filter.  Write @code{filtered-accumulate} as a procedure.
-Show how to express the following using @code{filtered-accumulate}:
+that specifies the filter.  Write @code{filtered_accumulate} as a procedure.
+Show how to express the following using @code{filtered_accumulate}:
 
 @enumerate a
 
 @item
 the sum of the squares of the prime numbers in the interval @math{a} to @math{b}
-(assuming that you have a @code{prime?} predicate already written)
+(assuming that you have a @code{is_prime} predicate already written)
 
 @item
 the product of all the positive integers less than @math{n} that are relatively
@@ -5213,7 +5194,7 @@ f(x), f(f(x)), f(f(f(x))), ...
 @end tex
 @noindent
 until the value does not change very much.  Using this idea, we can devise a
-procedure @code{fixed-point} that takes as inputs a function and an initial
+procedure @code{fixed_point} that takes as inputs a function and an initial
 guess and produces an approximation to a fixed point of the function.  We apply
 the function repeatedly until we find two successive values whose difference is
 less than some prescribed tolerance:
@@ -5320,18 +5301,18 @@ averaging successive approximations to a solution, a technique that we call
 @strong{@anchor{Exercise 1.35}Exercise 1.35:} Show that the golden ratio
 @math{\varphi} (@ref{1.2.2}) is a fixed point of the transformation 
 @math{{x \mapsto 1 + 1 / x}}, and use this fact to compute @math{\varphi} by means 
-of the @code{fixed-point} procedure.
+of the @code{fixed_point} procedure.
 @end quotation
 
 @quotation
-@strong{@anchor{Exercise 1.36}Exercise 1.36:} Modify @code{fixed-point} so that
+@strong{@anchor{Exercise 1.36}Exercise 1.36:} Modify @code{fixed_point} so that
 it prints the sequence of approximations it generates, using the @code{newline}
 and @code{display} primitives shown in @ref{Exercise 1.22}.  Then find a
 solution to @math{{x^x = 1000}} by finding a fixed point of @math{x \mapsto
 {\log(1000) / \log(x)}}.  (Use Scheme's primitive @code{log}
 procedure, which computes natural logarithms.)  Compare the number of steps
 this takes with and without average damping.  (Note that you cannot start
-@code{fixed-point} with a guess of 1, as this would cause division by
+@code{fixed_point} with a guess of 1, as this would cause division by
 @math{{\log(1) = 0}}.)
 @end quotation
 
@@ -5392,7 +5373,7 @@ D_1 + -----------
 @end tex
 Suppose that @code{n} and @code{d} are procedures of one argument (the term
 index @math{i}) that return the @math{N_i} and @math{D_i} of the terms of the
-continued fraction.  Define a procedure @code{cont-frac} such that evaluating
+continued fraction.  Define a procedure @code{cont_frac} such that evaluating
 @code{(cont-frac n d k)} computes the value of the @math{k}-term finite continued
 fraction.  Check your procedure by approximating @math{{1 / \varphi}} using
 
@@ -5405,7 +5386,7 @@ for successive values of @code{k}.  How large must you make @code{k} in order
 to get an approximation that is accurate to 4 decimal places?
 
 @item
-If your @code{cont-frac} procedure generates a recursive process, write one
+If your @code{cont_frac} procedure generates a recursive process, write one
 that generates an iterative process.  If it generates an iterative process,
 write one that generates a recursive process.
 
@@ -5418,7 +5399,7 @@ Leonhard Euler published a memoir @cite{De Fractionibus Continuis}, which
 included a continued fraction expansion for @math{{e - 2}}, where @math{e} is the base
 of the natural logarithms.  In this fraction, the @math{N_i} are all 1, and
 the @math{D_i} are successively 1, 2, 1, 1, 4, 1, 1, 6, 1, 1, 8, @dots{}.
-Write a program that uses your @code{cont-frac} procedure from @ref{Exercise 1.37} 
+Write a program that uses your @code{cont_frac} procedure from @ref{Exercise 1.37} 
 to approximate @math{e}, based on Euler's expansion.
 @end quotation
 
@@ -5448,7 +5429,7 @@ tan x = ---------------
 
 @end tex
 @noindent
-where @math{x} is in radians.  Define a procedure @code{(tan-cf x k)} that
+where @math{x} is in radians.  Define a procedure @code{(tan_cf x k)} that
 computes an approximation to the tangent function based on Lambert's formula.
 @code{k} specifies the number of terms to compute, as in @ref{Exercise 1.37}.
 @end quotation
@@ -5492,7 +5473,7 @@ with limited lifetimes.
 @code{Average-damp} is a procedure that takes as its argument a procedure
 @code{f} and returns as its value a procedure (produced by the closure)
 that, when applied to a number @code{x}, produces the average of @code{x} and
-@code{f(x)}.  For example, applying @code{average-damp} to the @code{square}
+@code{f(x)}.  For example, applying @code{average_damp} to the @code{square}
 procedure produces a procedure whose value at some number @math{x} is the average
 of @math{x} and @math{x^2}.  Applying this resulting procedure to 10 returns the
 average of 10 and 100, or 55:@footnote{Observe that this is a combination whose
@@ -5507,7 +5488,7 @@ average_damp(square)(10.0)
 @end example
 
 @noindent
-Using @code{average-damp}, we can reformulate the square-root procedure as
+Using @code{average_damp}, we can reformulate the square-root procedure as
 follows:
 
 @example
@@ -5623,7 +5604,7 @@ where
 @end example
 
 @noindent
-Like @code{average-damp}, @code{deriv} is a procedure that takes a procedure as
+Like @code{average_damp}, @code{deriv} is a procedure that takes a procedure as
 argument and returns a procedure as value.  For example, to approximate the
 derivative of @math{{x \mapsto x^3}} at 5 (whose exact value is 75) we can evaluate
 
@@ -5663,8 +5644,8 @@ Here, @code{newton_transform} requires @code{G: Clone} because we need to use
 Rust's ownership rules.
 
 @noindent
-The @code{newton-transform} procedure expresses the formula at the beginning of
-this section, and @code{newtons-method} is readily defined in terms of this.
+The @code{newton_transform} procedure expresses the formula at the beginning of
+this section, and @code{newtons_method} is readily defined in terms of this.
 It takes as arguments a procedure that computes the function for which we want
 to find a zero, together with an initial guess.  For instance, to find the
 square root of @math{x}, we can use Newton's method to find a zero of the function
@@ -5786,7 +5767,7 @@ environment.}
 
 @quotation
 @strong{@anchor{Exercise 1.40}Exercise 1.40:} Define a procedure @code{cubic}
-that can be used together with the @code{newtons-method} procedure in
+that can be used together with the @code{newtons_method} procedure in
 expressions of the form
 
 @example
@@ -5928,7 +5909,7 @@ we average damp twice (i.e., use the average damp of the average damp of
 to determine how many average damps are required to compute @math{n^{\text{th}}} roots as a
 fixed-point search based upon repeated average damping of @math{{y \mapsto x / y^{\kern0.1em n-1}}}.  
 Use this to implement a simple procedure for computing
-@math{n^{\text{th}}} roots using @code{fixed-point}, @code{average-damp}, and the
+@math{n^{\text{th}}} roots using @code{fixed_point}, @code{average_damp}, and the
 @code{repeated} procedure of @ref{Exercise 1.43}.  Assume that any arithmetic
 operations you need are available as primitives.
 @end quotation
@@ -5940,13 +5921,13 @@ strategy known as @newterm{iterative improvement}.  Iterative improvement says
 that, to compute something, we start with an initial guess for the answer, test
 if the guess is good enough, and otherwise improve the guess and continue the
 process using the improved guess as the new guess.  Write a procedure
-@code{iterative-improve} that takes two procedures as arguments: a method for
+@code{iterative_improve} that takes two procedures as arguments: a method for
 telling whether a guess is good enough and a method for improving a guess.
 @code{Iterative-improve} should return as its value a procedure that takes a
 guess as argument and keeps improving the guess until it is good enough.
 Rewrite the @code{sqrt} procedure of @ref{1.1.7} and the
-@code{fixed-point} procedure of @ref{1.3.3} in terms of
-@code{iterative-improve}.
+@code{fixed_point} procedure of @ref{1.3.3} in terms of
+@code{iterative_improve}.
 @end quotation
 
 @node    Chapter 2, 2.1, 1.3, Top
@@ -5967,7 +5948,7 @@ We concentrated in @ref{Chapter 1} on computational processes and on the role
 of procedures in program design.  We saw how to use primitive data (numbers)
 and primitive operations (arithmetic operations), how to combine procedures to
 form compound procedures through composition, conditionals, and the use of
-parameters, and how to abstract procedures by using @code{define}.  We saw that
+parameters, and how to abstract procedures by using definition.  We saw that
 a procedure can be regarded as a pattern for the local evolution of a process,
 and we classified, reasoned about, and performed simple algorithmic analyses of
 some common patterns for processes as embodied in procedures.  We also saw that
@@ -5996,11 +5977,11 @@ compound data objects enables us to deal with data at a higher conceptual level
 than that of the primitive data objects of the language.
 
 Consider the task of designing a system to perform arithmetic with rational
-numbers.  We could imagine an operation @code{add-rat} that takes two rational
+numbers.  We could imagine an operation @code{add_rat} that takes two rational
 numbers and produces their sum.  In terms of simple data, a rational number can
 be thought of as two integers: a numerator and a denominator.  Thus, we could
 design a program in which each rational number would be represented by two
-integers (a numerator and a denominator) and where @code{add-rat} would be
+integers (a numerator and a denominator) and where @code{add_rat} would be
 implemented by two procedures (one producing the numerator of the sum and one
 producing the denominator).  But this would be awkward, because we would then
 need to explicitly keep track of which numerators corresponded to which
@@ -6846,7 +6827,7 @@ range of the result.
 Alyssa postulates the existence of an abstract object called an ``interval''
 that has two endpoints: a lower bound and an upper bound.  She also presumes
 that, given the endpoints of an interval, she can construct the interval using
-the data constructor @code{make-interval}.  Alyssa first writes a procedure for
+the data constructor @code{Interval::new}.  Alyssa first writes a procedure for
 adding two intervals.  She reasons that the minimum value the sum could be is
 the sum of the two lower bounds and the maximum value it could be is the sum of
 the two upper bounds:
@@ -6914,14 +6895,14 @@ impl Interval @{
 @}
 @end example
 
-Define selectors @code{upper-bound} and @code{lower-bound} to complete the
+Define selectors @code{upper_bound} and @code{lower_bound} to complete the
 implementation.
 @end quotation
 
 @quotation
 @strong{@anchor{Exercise 2.8}Exercise 2.8:} Using reasoning analogous to
 Alyssa's, describe how the difference of two intervals may be computed.  Define
-a corresponding subtraction procedure, called @code{sub-interval}.
+a corresponding subtraction procedure, called @code{sub_interval}.
 @end quotation
 
 @quotation
@@ -6946,7 +6927,7 @@ check for this condition and to signal an error if it occurs.
 @quotation
 @strong{@anchor{Exercise 2.11}Exercise 2.11:} In passing, Ben also cryptically
 comments: ``By testing the signs of the endpoints of the intervals, it is
-possible to break @code{mul-interval} into nine cases, only one of which
+possible to break @code{mul_interval} into nine cases, only one of which
 requires more than two multiplications.''  Rewrite this procedure using Ben's
 suggestion.
 
@@ -7476,7 +7457,7 @@ program of @ref{1.2.2}.  It would be nice to be able to easily change
 the currency used by the program, so that we could compute the number of ways
 to change a British pound, for example.  As the program is written, the
 knowledge of the currency is distributed partly into the procedure
-@code{first-denomination} and partly into the procedure @code{count-change}
+@code{first_denomination} and partly into the procedure @code{count_change}
 (which knows that there are five kinds of U.S. coins).  It would be nicer to be
 able to supply a list of coins to be used for making change.
 
@@ -9192,7 +9173,7 @@ composed of repeated elements that are shifted and scaled.@footnote{The picture
 language is based on the language Peter Henderson created to construct images
 like M.C. Escher's ``Square Limit'' woodcut (see @ref{Henderson 1982}).  The woodcut
 incorporates a repeated scaled pattern, similar to the arrangements drawn using
-the @code{square-limit} procedure in this section.} In this language, the data
+the @code{square_limit} procedure in this section.} In this language, the data
 objects being combined are represented as procedures rather than as list
 structure.  Just as @code{cons}, which satisfies the closure property, allowed
 us to easily build arbitrarily complicated list structure, the operations in
@@ -9328,8 +9309,8 @@ the left half of the frame and the second painter's image in the right half of
 the frame.  Similarly, @code{below} takes two painters and produces a compound
 painter that draws the first painter's image below the second painter's image.
 Some operations transform a single painter to produce a new painter.  For
-example, @code{flip-vert} takes a painter and produces a painter that draws its
-image upside-down, and @code{flip-horiz} produces a painter that draws the
+example, @code{flip_vert} takes a painter and produces a painter that draws its
+image upside-down, and @code{flip_horiz} produces a painter that draws the
 original painter's image left-to-right reversed.
 
 @ref{Figure 2.12} shows the drawing of a painter called
@@ -9412,7 +9393,7 @@ fn right_split(painter: &Painter, n: usize) -> Painter @{
 @anchor{Figure 2.13}
 @ifinfo
 @quotation
-@strong{Figure 2.13:} Recursive plans for @code{right-split} and @code{corner-split}.
+@strong{Figure 2.13:} Recursive plans for @code{right_split} and @code{corner_split}.
 
 @example
 +-------------+-------------+    +------+------+-------------+
@@ -9436,7 +9417,7 @@ fn right_split(painter: &Painter, n: usize) -> Painter @{
 @end ifinfo
 @iftex
 @image{fig/chap2/Fig2.13a,132mm,,,.std.svg}
-@caption{@strong{Figure 2.13:} Recursive plans for @code{right-split} and @code{corner-split}.}
+@caption{@strong{Figure 2.13:} Recursive plans for @code{right_split} and @code{corner_split}.}
 @end iftex
 @end float
 
@@ -9467,9 +9448,9 @@ fn corner_split(painter: &Painter, n: usize) -> Painter @{
 @ifinfo
 @quotation
 @strong{Figure 2.14:} The recursive operations
-@code{right-split} and @code{corner-split} applied to the painters @code{wave}
-and @code{rogers}.  Combining four @code{corner-split} figures produces
-symmetric @code{square-limit} designs as shown in @ref{Figure 2.9}.
+@code{right_split} and @code{corner_split} applied to the painters @code{wave}
+and @code{rogers}.  Combining four @code{corner_split} figures produces
+symmetric @code{square_limit} designs as shown in @ref{Figure 2.9}.
 
 [two graphic images not included]
 
@@ -9486,12 +9467,12 @@ corner_split(&wave, 4)       corner_split(&rogers, 4)
 @end ifinfo
 @iftex
 @image{fig/chap2/Fig2.14b,136mm,,,.std.svg}
-@caption{@strong{Figure 2.14:} The recursive operations @code{right-split} and @code{corner-split} applied to the painters @code{wave} and @code{rogers}.  Combining four @code{corner-split} figures produces symmetric @code{square-limit} designs as shown in @ref{Figure 2.9}.}
+@caption{@strong{Figure 2.14:} The recursive operations @code{right_split} and @code{corner_split} applied to the painters @code{wave} and @code{rogers}.  Combining four @code{corner_split} figures produces symmetric @code{square_limit} designs as shown in @ref{Figure 2.9}.}
 @end iftex
 @end float
 
-By placing four copies of a @code{corner-split} appropriately, we obtain a
-pattern called @code{square-limit}, whose application to @code{wave} and
+By placing four copies of a @code{corner_split} appropriately, we obtain a
+pattern called @code{square_limit}, whose application to @code{wave} and
 @code{rogers} is shown in @ref{Figure 2.9}:
 
 @example
@@ -9504,8 +9485,8 @@ fn square_limit(painter: &Painter, n: usize) -> Painter @{
 
 @quotation
 @strong{@anchor{Exercise 2.44}Exercise 2.44:} Define the procedure
-@code{up-split} used by @code{corner-split}.  It is similar to
-@code{right-split}, except that it switches the roles of @code{below} and
+@code{up_split} used by @code{corner_split}.  It is similar to
+@code{right_split}, except that it switches the roles of @code{below} and
 @code{beside}.
 @end quotation
 
@@ -9517,7 +9498,7 @@ we can view the painter operations as elements to manipulate and can write
 means of combination for these elements---procedures that take painter
 operations as arguments and create new painter operations.
 
-For example, @code{flipped-pairs} and @code{square-limit} each arrange four
+For example, @code{flipped_pairs} and @code{square_limit} each arrange four
 copies of a painter's image in a square pattern; they differ only in how they
 orient the copies.  One way to abstract this pattern of painter combination is
 with the following procedure, which takes four one-argument painter operations
@@ -9545,7 +9526,7 @@ where
 @end example
 
 @noindent
-Then @code{flipped-pairs} can be defined in terms of @code{square-of-four} as
+Then @code{flipped_pairs} can be defined in terms of @code{square_of_four} as
 follows:@footnote{Equivalently, we could write
 
 @example
@@ -9561,7 +9542,7 @@ fn flipped_pairs(painter: &Painter) -> Painter @{
 @end example
 
 @noindent
-and @code{square-limit} can be expressed as@footnote{@code{Rotate180} rotates a
+and @code{square_limit} can be expressed as@footnote{@code{Rotate180} rotates a
 painter by 180 degrees (see @ref{Exercise 2.50}).  Instead of @code{rotate180}
 we could say @code{(compose flip-vert flip-horiz)}, using the @code{compose}
 procedure from @ref{Exercise 1.42}.}
@@ -9575,7 +9556,7 @@ fn square_limit(painter: &Painter, n: usize) -> Painter @{
 
 @quotation
 @strong{@anchor{Exercise 2.45}Exercise 2.45:} @code{Right-split} and
-@code{up-split} can be expressed as instances of a general splitting operation.
+@code{up_split} can be expressed as instances of a general splitting operation.
 Define a procedure @code{split} with the property that evaluating
 
 @example
@@ -9584,7 +9565,7 @@ let up_split = split(below, beside);
 @end example
 
 @noindent
-produces procedures @code{right-split} and @code{up-split} with the same
+produces procedures @code{right_split} and @code{up_split} with the same
 behaviors as the ones already defined.
 @end quotation
 
@@ -9601,9 +9582,9 @@ more general parallelogram.
 @ref{Figure 2.15} shows a frame and its associated vectors.
 In accordance with data abstraction, we need not be specific yet about how
 frames are represented, other than to say that there is a constructor
-@code{make-frame}, which takes three vectors and produces a frame, and three
-corresponding selectors @code{origin-frame}, @code{edge1-frame}, and
-@code{edge2-frame} (see @ref{Exercise 2.47}).
+@code{Frame::new}, which takes three vectors and produces a frame, and three
+corresponding selectors @code{origin_frame}, @code{edge1_frame}, and
+@code{edge2_frame} (see @ref{Exercise 2.47}).
 
 @float
 @anchor{Figure 2.15}
@@ -9674,7 +9655,7 @@ fn frame_coord_map(frame: &Frame) -> impl Fn(Vec2) -> Vec2 + '_ @{
 @end example
 
 @noindent
-Observe that applying @code{frame-coord-map} to a frame returns a procedure
+Observe that applying @code{frame_coord_map} to a frame returns a procedure
 that, given a vector, returns a vector.  If the argument vector is in the unit
 square, the result vector will be in the frame.  For example,
 
@@ -9693,10 +9674,10 @@ a_frame.origin
 @strong{@anchor{Exercise 2.46}Exercise 2.46:} A two-dimensional vector @math{\bf v}
 running from the origin to a point can be represented as a pair consisting of
 an @math{x}-coordinate and a @math{y}-coordinate.  Implement a data abstraction for
-vectors by giving a constructor @code{make-vect} and corresponding selectors
-@code{xcor-vect} and @code{ycor-vect}.  In terms of your selectors and
-constructor, implement procedures @code{add-vect}, @code{sub-vect}, and
-@code{scale-vect} that perform the operations vector addition, vector
+vectors by giving a constructor @code{Vec2::new} and corresponding selectors
+@code{xcor_vect} and @code{ycor_vect}.  In terms of your selectors and
+constructor, implement procedures @code{add_vect}, @code{sub_vect}, and
+@code{scale_vect} that perform the operations vector addition, vector
 subtraction, and multiplying a vector by a scalar:
 @ifinfo
 
@@ -9751,7 +9732,7 @@ in @code{f} by calling @code{p} with @code{f} as argument.
 
 The details of how primitive painters are implemented depend on the particular
 characteristics of the graphics system and the type of image to be drawn.  For
-instance, suppose we have a procedure @code{draw-line} that draws a line on the
+instance, suppose we have a procedure @code{draw_line} that draws a line on the
 screen between two specified points.  Then we can create painters for line
 drawings, such as the @code{wave} painter in @ref{Figure 2.10}, from lists of
 line segments as follows:@footnote{@code{Segments->painter} uses the
@@ -9800,11 +9781,11 @@ plane can be represented as a pair of vectors---the vector running from the
 origin to the start-point of the segment, and the vector running from the
 origin to the end-point of the segment.  Use your vector representation from
 @ref{Exercise 2.46} to define a representation for segments with a constructor
-@code{make-segment} and selectors @code{start-segment} and @code{end-segment}.
+@code{Segment::new} and selectors @code{start_segment} and @code{end_segment}.
 @end quotation
 
 @quotation
-@strong{@anchor{Exercise 2.49}Exercise 2.49:} Use @code{segments->painter}
+@strong{@anchor{Exercise 2.49}Exercise 2.49:} Use @code{segments_to_painter}
 to define the following primitive painters:
 
 @enumerate a
@@ -9827,18 +9808,18 @@ The @code{wave} painter.
 
 @subsubheading Transforming and combining painters
 
-An operation on painters (such as @code{flip-vert} or @code{beside}) works by
+An operation on painters (such as @code{flip_vert} or @code{beside}) works by
 creating a painter that invokes the original painters with respect to frames
-derived from the argument frame.  Thus, for example, @code{flip-vert} doesn't
+derived from the argument frame.  Thus, for example, @code{flip_vert} doesn't
 have to know how a painter works in order to flip it---it just has to know how
 to turn a frame upside down: The flipped painter just uses the original
 painter, but in the inverted frame.
 
-Painter operations are based on the procedure @code{transform-painter}, which
+Painter operations are based on the procedure @code{transform_painter}, which
 takes as arguments a painter and information on how to transform a frame and
 produces a new painter.  The transformed painter, when called on a frame,
 transforms the frame and calls the original painter on the transformed frame.
-The arguments to @code{transform-painter} are points (represented as vectors)
+The arguments to @code{transform_painter} are points (represented as vectors)
 that specify the corners of the new frame: When mapped into the frame, the
 first point specifies the new frame's origin and the other two specify the ends
 of its edge vectors.  Thus, arguments within the unit square specify a frame
@@ -9879,7 +9860,7 @@ fn flip_vert(painter: Painter) -> Painter @{
 @end example
 
 @noindent
-Using @code{transform-painter}, we can easily define new transformations.
+Using @code{transform_painter}, we can easily define new transformations.
 For example, we can define a painter that shrinks its image to the
 upper-right quarter of the frame it is given:
 
@@ -9913,7 +9894,7 @@ fn rotate90(painter: Painter) -> Painter @{
 @noindent
 or squash images towards the center of the frame:@footnote{The diamond-shaped
 images in @ref{Figure 2.10} and @ref{Figure 2.11} were created with
-@code{squash-inwards} applied to @code{wave} and @code{rogers}.}
+@code{squash_inwards} applied to @code{wave} and @code{rogers}.}
 
 @example
 fn squash_inwards(painter: Painter) -> Painter @{
@@ -9966,7 +9947,7 @@ designated frame.
 
 @quotation
 @strong{@anchor{Exercise 2.50}Exercise 2.50:} Define the transformation
-@code{flip-horiz}, which flips painters horizontally, and transformations that
+@code{flip_horiz}, which flips painters horizontally, and transformations that
 rotate painters counterclockwise by 180 degrees and 270 degrees.
 @end quotation
 
@@ -10012,12 +9993,12 @@ languages appropriate for describing network interconnections, and so on.
 As a tiny example of stratification, our picture language uses primitive
 elements (primitive painters) that are created using a language that specifies
 points and lines to provide the lists of line segments for
-@code{segments->painter}, or the shading details for a painter like
+@code{segments_to_painter}, or the shading details for a painter like
 @code{rogers}.  The bulk of our description of the picture language focused on
 combining these primitives, using geometric combiners such as @code{beside} and
 @code{below}.  We also worked at a higher level, regarding @code{beside} and
 @code{below} as primitives to be manipulated in a language whose operations,
-such as @code{square-of-four}, capture common patterns of combining geometric
+such as @code{square_of_four}, capture common patterns of combining geometric
 combiners.
 
 Stratified design helps make programs @newterm{robust}, that is, it makes it
@@ -10025,9 +10006,9 @@ likely that small changes in a specification will require correspondingly small
 changes in the program.  For instance, suppose we wanted to change the image
 based on @code{wave} shown in @ref{Figure 2.9}.  We could work at the lowest
 level to change the detailed appearance of the @code{wave} element; we could
-work at the middle level to change the way @code{corner-split} replicates the
+work at the middle level to change the way @code{corner_split} replicates the
 @code{wave}; we could work at the highest level to change how
-@code{square-limit} arranges the four copies of the corner.  In general, each
+@code{square_limit} arranges the four copies of the corner.  In general, each
 level of a stratified design provides a different vocabulary for expressing the
 characteristics of the system, and a different kind of ability to change it.
 
@@ -10043,12 +10024,12 @@ Add some segments to the primitive @code{wave} painter of @ref{Exercise 2.49}
 (to add a smile, for example).
 
 @item
-Change the pattern constructed by @code{corner-split} (for example, by using
-only one copy of the @code{up-split} and @code{right-split} images instead of
+Change the pattern constructed by @code{corner_split} (for example, by using
+only one copy of the @code{up_split} and @code{right_split} images instead of
 two).
 
 @item
-Modify the version of @code{square-limit} that uses @code{square-of-four} so as
+Modify the version of @code{square_limit} that uses @code{square_of_four} so as
 to assemble the corners in a different pattern.  (For example, you might make
 the big Mr. Rogers look outward from each corner of the square.)
 
@@ -10373,16 +10354,16 @@ already have procedures to implement the following selectors, constructors, and
 predicates:
 
 @example
-(variable? e)          @r{Is @code{e} a variable?}
-(same-variable? v1 v2) @r{Are @code{v1} and @code{v2} the same variable?}
-(sum? e)               @r{Is @code{e} a sum?}
-(addend e)             @r{Addend of the sum @code{e}.}
-(augend e)             @r{Augend of the sum @code{e}.}
-(make-sum a1 a2)       @r{Construct the sum of @code{a1} and @code{a2}.}
-(product? e)           @r{Is @code{e} a product?}
-(multiplier e)         @r{Multiplier of the product @code{e}.}
-(multiplicand e)       @r{Multiplicand of the product @code{e}.}
-(make-product m1 m2)   @r{Construct the product of @code{m1} and @code{m2}.}
+is_variable(e)         @r{Is @code{e} a variable?}
+same_variable(v1, v2)  @r{Are @code{v1} and @code{v2} the same variable?}
+is_sum(e)              @r{Is @code{e} a sum?}
+addend(e)              @r{Addend of the sum @code{e}.}
+augend(e)              @r{Augend of the sum @code{e}.}
+make_sum(a1, a2)       @r{Construct the sum of @code{a1} and @code{a2}.}
+is_product(e)          @r{Is @code{e} a product?}
+multiplier(e)          @r{Multiplier of the product @code{e}.}
+multiplicand(e)        @r{Multiplicand of the product @code{e}.}
+make_product(m1, m2)   @r{Construct the product of @code{m1} and @code{m2}.}
 @end example
 
 @noindent
@@ -10476,7 +10457,7 @@ fn make_product(m1: Expr, m2: Expr) -> Expr @{
 @end example
 
 @item
-In Rust, predicates like @code{sum?} and selectors like @code{addend} are
+In Rust, predicates like @code{is_sum} and selectors like @code{addend} are
 replaced by pattern matching.  A sum is identified by the @code{Sum} variant,
 and its components are extracted directly in the match arm:
 
@@ -10688,8 +10669,8 @@ differ significantly from one another in several ways.
 Informally, a set is simply a collection of distinct objects.  To give a more
 precise definition we can employ the method of data abstraction.  That is, we
 define ``set'' by specifying the operations that are to be used on sets.  These
-are @code{union-set}, @code{intersection-set}, @code{element-of-set?}, and
-@code{adjoin-set}.  @code{Element-of-set?} is a predicate that determines
+are @code{union_set}, @code{intersection_set}, @code{element_of_set}, and
+@code{adjoin_set}.  @code{Element-of-set?} is a predicate that determines
 whether a given element is a member of a set.  @code{Adjoin-set} takes an
 object and a set as arguments and returns a set that contains the elements of
 the original set and also the adjoined element.  @code{Union-set} computes the
@@ -10730,7 +10711,7 @@ is false (informally: ``No object is an element of the empty set'').
 
 One way to represent a set is as a list of its elements in which no element
 appears more than once.  The empty set is represented by the empty list.  In
-this representation, @code{element-of-set?} is similar to the procedure
+this representation, @code{element_of_set} is similar to the procedure
 @code{memq} of @ref{2.3.1}.  It uses @code{equal?}  instead of
 @code{eq?} so that the set elements need not be symbols:
 
@@ -10741,7 +10722,7 @@ fn element_of_set<T: PartialEq>(x: &T, set: &[T]) -> bool @{
 @end example
 
 @noindent
-Using this, we can write @code{adjoin-set}.  If the object to be adjoined is
+Using this, we can write @code{adjoin_set}.  If the object to be adjoined is
 already in the set, we just return the set.  Otherwise, we use @code{cons} to
 add the object to the list that represents the set:
 
@@ -10758,7 +10739,7 @@ fn adjoin_set<T: PartialEq + Clone>(x: T, set: &[T]) -> Vec<T> @{
 @end example
 
 @noindent
-For @code{intersection-set} we can use a recursive strategy.  If we know how to
+For @code{intersection_set} we can use a recursive strategy.  If we know how to
 form the intersection of @code{set2} and the @code{cdr} of @code{set1}, we only
 need to decide whether to include the @code{car} of @code{set1} in this.  But
 this depends on whether @code{(car set1)} is also in @code{set2}.  Here is the
@@ -10776,21 +10757,21 @@ fn intersection_set<T: PartialEq + Clone>(set1: &[T], set2: &[T]) -> Vec<T> @{
 @noindent
 In designing a representation, one of the issues we should be concerned with is
 efficiency.  Consider the number of steps required by our set operations.
-Since they all use @code{element-of-set?}, the speed of this operation has a
+Since they all use @code{element_of_set}, the speed of this operation has a
 major impact on the efficiency of the set implementation as a whole.  Now, in
-order to check whether an object is a member of a set, @code{element-of-set?}
+order to check whether an object is a member of a set, @code{element_of_set}
 may have to scan the entire set. (In the worst case, the object turns out not
 to be in the set.)  Hence, if the set has @math{n} elements,
-@code{element-of-set?}  might take up to @math{n} steps.  Thus, the number of
+@code{element_of_set}  might take up to @math{n} steps.  Thus, the number of
 steps required grows as @math{{\Theta(n)}}.  The number of steps required by
-@code{adjoin-set}, which uses this operation, also grows as @math{{\Theta(n)}}.
-For @code{intersection-set}, which does an @code{element-of-set?} check for
+@code{adjoin_set}, which uses this operation, also grows as @math{{\Theta(n)}}.
+For @code{intersection_set}, which does an @code{element_of_set} check for
 each element of @code{set1}, the number of steps required grows as the product
 of the sizes of the sets involved, or @math{{\Theta(n^2)}} for two sets of size
-@math{n}.  The same will be true of @code{union-set}.
+@math{n}.  The same will be true of @code{union_set}.
 
 @quotation
-@strong{@anchor{Exercise 2.59}Exercise 2.59:} Implement the @code{union-set}
+@strong{@anchor{Exercise 2.59}Exercise 2.59:} Implement the @code{union_set}
 operation for the unordered-list representation of sets.
 @end quotation
 
@@ -10798,8 +10779,8 @@ operation for the unordered-list representation of sets.
 @strong{@anchor{Exercise 2.60}Exercise 2.60:} We specified that a set would be
 represented as a list with no duplicates.  Now suppose we allow duplicates.
 For instance, the set @math{{\{1, 2, 3\}}} could be represented as the list @code{(2 3 2 1
-3 2 2)}.  Design procedures @code{element-of-set?}, @code{adjoin-set},
-@code{union-set}, and @code{intersection-set} that operate on this
+3 2 2)}.  Design procedures @code{element_of_set}, @code{adjoin_set},
+@code{union_set}, and @code{intersection_set} that operate on this
 representation.  How does the efficiency of each compare with the corresponding
 procedure for the non-duplicate representation?  Are there applications for
 which you would use this representation in preference to the non-duplicate one?
@@ -10820,7 +10801,7 @@ representation above allowed us to represent the set @math{{\{1, 3, 6, 10\}}} by
 the elements in any order, our new representation allows only the list @code{(1
 3 6 10)}.
 
-One advantage of ordering shows up in @code{element-of-set?}: In checking for
+One advantage of ordering shows up in @code{element_of_set}: In checking for
 the presence of an item, we no longer have to scan the entire set.  If we reach
 a set element that is larger than the item we are looking for, then we know
 that the item is not in the set:
@@ -10849,7 +10830,7 @@ number of steps required will be about @math{{n / 2}}.  This is still
 @math{{\Theta(n)}} growth, but it does save us, on the average, a factor of 2
 in number of steps over the previous implementation.
 
-We obtain a more impressive speedup with @code{intersection-set}.  In the
+We obtain a more impressive speedup with @code{intersection_set}.  In the
 unordered representation this operation required @math{{\Theta(n^2)}} steps,
 because we performed a complete scan of @code{set2} for each element of
 @code{set1}.  But with the ordered representation, we can use a more clever
@@ -10895,15 +10876,15 @@ unordered representation.  This is @math{{\Theta(n)}} growth rather than
 
 @quotation
 @strong{@anchor{Exercise 2.61}Exercise 2.61:} Give an implementation of
-@code{adjoin-set} using the ordered representation.  By analogy with
-@code{element-of-set?} show how to take advantage of the ordering to produce a
+@code{adjoin_set} using the ordered representation.  By analogy with
+@code{element_of_set} show how to take advantage of the ordering to produce a
 procedure that requires on the average about half as many steps as with the
 unordered representation.
 @end quotation
 
 @quotation
 @strong{@anchor{Exercise 2.62}Exercise 2.62:} Give a @math{{\Theta(n)}}
-implementation of @code{union-set} for sets represented as ordered lists.
+implementation of @code{union_set} for sets represented as ordered lists.
 @end quotation
 
 @subsubheading Sets as binary trees
@@ -10989,7 +10970,7 @@ fn make_tree<T>(entry: T, left: Tree<T>, right: Tree<T>) -> Tree<T> @{
 @end example
 
 @noindent
-Now we can write the @code{element-of-set?} procedure using the strategy
+Now we can write the @code{element_of_set} procedure using the strategy
 described above:
 
 @example
@@ -11044,7 +11025,7 @@ that the left and the right subtree of every tree have approximately the same
 number of elements, so that each subtree contains about half the elements of
 its parent.  But how can we be certain that the trees we construct will be
 balanced?  Even if we start with a balanced tree, adding elements with
-@code{adjoin-set} may produce an unbalanced result.  Since the position of a
+@code{adjoin_set} may produce an unbalanced result.  Since the position of a
 newly adjoined element depends on how the element compares with the items
 already in the set, we can expect that if we add elements ``randomly'' the tree
 will tend to be balanced on the average.  But this is not a guarantee.  For
@@ -11053,7 +11034,7 @@ sequence we end up with the highly unbalanced tree shown in @ref{Figure 2.17}.
 In this tree all the left subtrees are empty, so it has no advantage over a
 simple ordered list.  One way to solve this problem is to define an operation
 that transforms an arbitrary tree into a balanced tree with the same elements.
-Then we can perform this transformation after every few @code{adjoin-set}
+Then we can perform this transformation after every few @code{adjoin_set}
 operations to keep our set in balance.  There are also other ways to solve this
 problem, most of which involve designing new data structures for which
 searching and insertion both can be done in @math{{\Theta(\log n)}}
@@ -11181,7 +11162,7 @@ What is the order of growth in the number of steps required by
 @quotation
 @strong{@anchor{Exercise 2.65}Exercise 2.65:} Use the results of @ref{Exercise 2.63} 
 and @ref{Exercise 2.64} to give @math{{\Theta(n)}} implementations of
-@code{union-set} and @code{intersection-set} for sets implemented as (balanced)
+@code{union_set} and @code{intersection_set} for sets implemented as (balanced)
 binary trees.@footnote{@ref{Exercise 2.63} through @ref{Exercise 2.65} are due
 to Paul Hilfinger.}
 @end quotation
@@ -11210,7 +11191,7 @@ Now we represent the data base as a set of records. To locate the record with a
 given key we use a procedure @code{lookup}, which takes as arguments a key and
 a data base and which returns the record that has that key, or false if there
 is no such record.  @code{Lookup} is implemented in almost the same way as
-@code{element-of-set?}.  For example, if the set of records is implemented as
+@code{element_of_set}.  For example, if the set of records is implemented as
 an unordered list, we could use
 
 @example
@@ -11574,7 +11555,7 @@ to repeatedly find the smallest item in a set, it is convenient to use an
 ordered representation for this kind of set.
 
 We will represent a set of leaves and trees as a list of elements, arranged in
-increasing order of weight.  The following @code{adjoin-set} procedure for
+increasing order of weight.  The following @code{adjoin_set} procedure for
 constructing sets is similar to the one described in @ref{Exercise 2.61};
 however, items are compared by their weights, and the element being added to
 the set is never already in it.
@@ -11737,11 +11718,11 @@ program that uses rational numbers from the task of implementing rational
 numbers in terms of the computer language's primitive mechanisms for
 constructing compound data.  The key idea was to erect an abstraction barrier
 -- in this case, the selectors and constructors for rational numbers
-(@code{make-rat}, @code{numer}, @code{denom})---that isolates the way rational
+(@code{Rational::new}, @code{num}, @code{denom})---that isolates the way rational
 numbers are used from their underlying representation in terms of list
 structure.  A similar abstraction barrier isolates the details of the
-procedures that perform rational arithmetic (@code{add-rat}, @code{sub-rat},
-@code{mul-rat}, and @code{div-rat}) from the ``higher-level'' procedures that
+procedures that perform rational arithmetic (@code{add_rat}, @code{sub_rat},
+@code{mul_rat}, and @code{div_rat}) from the ``higher-level'' procedures that
 use rational numbers.  The resulting program has the structure shown in
 @ref{Figure 2.1}.
 
@@ -11788,8 +11769,8 @@ We begin with the simple complex-number example. We will see how type tags and
 data-directed style enable us to design separate rectangular and polar
 representations for complex numbers while maintaining the notion of an abstract
 ``complex-number'' data object.  We will accomplish this by defining arithmetic
-procedures for complex numbers (@code{add-complex}, @code{sub-complex},
-@code{mul-complex}, and @code{div-complex}) in terms of generic selectors that
+procedures for complex numbers (@code{add_complex}, @code{sub_complex},
+@code{mul_complex}, and @code{div_complex}) in terms of generic selectors that
 access parts of a complex number independent of how the number is represented.
 The resulting complex-number system, as shown in @ref{Figure 2.19}, contains
 two different kinds of abstraction barriers.  The ``horizontal'' abstraction
@@ -11948,10 +11929,10 @@ specified by polar coordinates.
 To design such a system, we can follow the same data-abstraction strategy we
 followed in designing the rational-number package in @ref{2.1.1}.
 Assume that the operations on complex numbers are implemented in terms of four
-selectors: @code{real-part}, @code{imag-part}, @code{magnitude}, and
+selectors: @code{real_part}, @code{imag_part}, @code{magnitude}, and
 @code{angle}.  Also assume that we have two procedures for constructing complex
-numbers: @code{make-from-real-imag} returns a complex number with specified
-real and imaginary parts, and @code{make-from-mag-ang} returns a complex number
+numbers: @code{make_from_real_imag} returns a complex number with specified
+real and imaginary parts, and @code{make_from_mag_ang} returns a complex number
 with specified magnitude and angle.  These procedures have the property that,
 for any complex number @code{z}, both
 
@@ -12117,8 +12098,8 @@ impl Polar @{
 
 @noindent
 The discipline of data abstraction ensures that the same implementation of
-@code{add-complex}, @code{sub-complex}, @code{mul-complex}, and
-@code{div-complex} will work with either Ben's representation or Alyssa's
+@code{add_complex}, @code{sub_complex}, @code{mul_complex}, and
+@code{div_complex} will work with either Ben's representation or Alyssa's
 representation.
 
 @node	2.4.2, 2.4.3, 2.4.1, 2.4
@@ -12147,9 +12128,9 @@ when we need to manipulate a complex number we can use the tag to decide which
 selector to apply.
 
 In order to manipulate tagged data, we will assume that we have procedures
-@code{type-tag} and @code{contents} that extract from a data object the tag and
+@code{type_tag} and @code{contents} that extract from a data object the tag and
 the actual contents (the polar or rectangular coordinates, in the case of a
-complex number).  We will also postulate a procedure @code{attach-tag} that
+complex number).  We will also postulate a procedure @code{attach_tag} that
 takes a tag and contents and produces a tagged data object.  A straightforward
 way to implement this is to use ordinary list structure:
 
@@ -12231,7 +12212,7 @@ enum.  The type system ensures correct dispatch through pattern matching:
 @noindent
 Each generic selector is implemented as a procedure that checks the tag of its
 argument and calls the appropriate procedure for handling data of that type.
-For example, to obtain the real part of a complex number, @code{real-part}
+For example, to obtain the real part of a complex number, @code{real_part}
 examines the tag to determine whether to use Ben's @code{real-part-rectangular}
 or Alyssa's @code{real-part-polar}.  In either case, we use @code{contents} to
 extract the bare, untagged datum and send this to the rectangular or polar
@@ -12280,10 +12261,10 @@ impl ComplexOps for Complex @{
 
 @noindent
 To implement the complex-number arithmetic operations, we can use the same
-procedures @code{add-complex}, @code{sub-complex}, @code{mul-complex}, and
-@code{div-complex} from @ref{2.4.1}, because the selectors they call
+procedures @code{add_complex}, @code{sub_complex}, @code{mul_complex}, and
+@code{div_complex} from @ref{2.4.1}, because the selectors they call
 are generic, and so will work with either representation.  For example, the
-procedure @code{add-complex} is still
+procedure @code{add_complex} is still
 
 @example
 fn add_complex(z1: &Complex, z2: &Complex) -> Complex @{
@@ -12370,8 +12351,8 @@ The general strategy of checking the type of a datum and calling an appropriate
 procedure is called @newterm{dispatching on type}.  This is a powerful strategy
 for obtaining modularity in system design.  On the other hand, implementing the
 dispatch as in @ref{2.4.2} has two significant weaknesses.  One
-weakness is that the generic interface procedures (@code{real-part},
-@code{imag-part}, @code{magnitude}, and @code{angle}) must know about all the
+weakness is that the generic interface procedures (@code{real_part},
+@code{imag_part}, @code{magnitude}, and @code{angle}) must know about all the
 different representations.  For instance, suppose we wanted to incorporate a
 new representation for complex numbers into our complex-number system.  We
 would need to identify this new representation with a type, and then add a
@@ -12499,10 +12480,10 @@ fn install_rectangular_package(table: &mut OperationTable) @{
     table.put("angle", "rectangular",
         Box::new(angle));
 
-    table.put_constructor("make-from-real-imag", "rectangular",
+    table.put_constructor("make_from_real_imag", "rectangular",
         Box::new(|x, y| Complex::Rectangular(x, y)));
 
-    table.put_constructor("make-from-mag-ang", "rectangular",
+    table.put_constructor("make_from_mag_ang", "rectangular",
         Box::new(|r, a| Complex::Rectangular(r * a.cos(), r * a.sin())));
 @}
 @end example
@@ -12514,8 +12495,8 @@ necessary in order to interface them to the rest of the system.  Moreover,
 since these procedure definitions are internal to the installation procedure,
 Ben needn't worry about name conflicts with other procedures outside the
 rectangular package.  To interface these to the rest of the system, Ben
-installs his @code{real-part} procedure under the operation name
-@code{real-part} and the type @code{(rectangular)}, and similarly for the other
+installs his @code{real_part} procedure under the operation name
+@code{real_part} and the type @code{(rectangular)}, and similarly for the other
 selectors.@footnote{We use the list @code{(rectangular)} rather than the symbol
 @code{rectangular} to allow for the possibility of operations with multiple
 arguments, not all of the same type.}  The interface also defines the
@@ -12550,18 +12531,18 @@ fn install_polar_package(table: &mut OperationTable) @{
     table.put("angle", "polar",
         Box::new(angle));
 
-    table.put_constructor("make-from-real-imag", "polar",
+    table.put_constructor("make_from_real_imag", "polar",
         Box::new(|x, y| Complex::Polar(
             (x.powi(2) + y.powi(2)).sqrt(), y.atan2(x))));
 
-    table.put_constructor("make-from-mag-ang", "polar",
+    table.put_constructor("make_from_mag_ang", "polar",
         Box::new(|r, a| Complex::Polar(r, a)));
 @}
 @end example
 
 @noindent
 Even though Ben and Alyssa both still use their original procedures defined
-with the same names as each other's (e.g., @code{real-part}), these definitions
+with the same names as each other's (e.g., @code{real_part}), these definitions
 are now internal to different procedures (see @ref{1.1.8}), so there is
 no name conflict.
 
@@ -12634,13 +12615,13 @@ numbers whenever we have magnitudes and angles:
 
 @example
 fn make_from_real_imag(x: f64, y: f64, table: &OperationTable) -> Complex @{
-    let constructor = table.get("make-from-real-imag", "rectangular")
+    let constructor = table.get("make_from_real_imag", "rectangular")
         .expect("constructor not found");
     constructor(x, y)
 @}
 
 fn make_from_mag_ang(r: f64, a: f64, table: &OperationTable) -> Complex @{
-    let constructor = table.get("make-from-mag-ang", "polar")
+    let constructor = table.get("make_from_mag_ang", "polar")
         .expect("constructor not found");
     constructor(r, a)
 @}
@@ -12697,7 +12678,7 @@ fn deriv(exp: &Expr, var: &str, table: &DerivTable) -> Expr @{
 
 @item
 Explain what was done above.  Why can't we assimilate the predicates
-@code{number?} and @code{variable?} into the data-directed dispatch?
+@code{number?} and @code{is_variable} into the data-directed dispatch?
 
 @item
 Write the procedures for derivatives of sums and products, and the auxiliary
@@ -12789,7 +12770,7 @@ to work with ``intelligent data objects'' that dispatch on operation names.  We
 can do this by arranging things so that a data object, such as a rectangular
 number, is represented as a procedure that takes as input the required
 operation name and performs the operation indicated.  In such a discipline,
-@code{make-from-real-imag} could be written as
+@code{make_from_real_imag} could be written as
 
 @example
 fn make_from_real_imag(x: f64, y: f64) -> Box<dyn Fn(&str) -> f64> @{
@@ -12818,7 +12799,7 @@ fn apply_generic(op: &str, arg: &Box<dyn Fn(&str) -> f64>) -> f64 @{
 @end example
 
 @noindent
-Note that the value returned by @code{make-from-real-imag} is a procedure---the
+Note that the value returned by @code{make_from_real_imag} is a procedure---the
 internal @code{dispatch} procedure.  This is the procedure that is invoked when
 @code{apply-generic} requests an operation to be performed.
 
@@ -12836,8 +12817,8 @@ simulation programs.
 
 @quotation
 @strong{@anchor{Exercise 2.75}Exercise 2.75:} Implement the constructor
-@code{make-from-mag-ang} in mes@-sage-pass@-ing style.  This procedure should be
-analogous to the @code{make-from-real-imag} procedure given above.
+@code{make_from_mag_ang} in mes@-sage-pass@-ing style.  This procedure should be
+analogous to the @code{make_from_real_imag} procedure given above.
 @end quotation
 
 @quotation
@@ -12862,8 +12843,8 @@ only to define operations that are generic over different representations but
 also to define operations that are generic over different kinds of arguments.
 We have already seen several different packages of arithmetic operations: the
 primitive arithmetic (@code{+}, @code{-}, @code{*}, @code{/}) built into our
-language, the rational-number arithmetic (@code{add-rat}, @code{sub-rat},
-@code{mul-rat}, @code{div-rat}) of @ref{2.1.1}, and the complex-number
+language, the rational-number arithmetic (@code{add_rat}, @code{sub_rat},
+@code{mul-rat}, @code{div_rat}) of @ref{2.1.1}, and the complex-number
 arithmetic that we implemented in @ref{2.4.3}.  We will now use
 data-directed techniques to construct a package of arithmetic operations that
 incorporates all the arithmetic packages we have already constructed.
@@ -12875,7 +12856,7 @@ supplied.  @code{Add} is part of a generic interface that allows the separate
 or@-di@-na@-ry-arithmetic, rational-arithmetic, and complex-arithmetic pack@-ag@-es to be
 accessed uniformly by programs that use numbers.  Any individual arithmetic
 package (such as the complex package) may itself be accessed through generic
-procedures (such as @code{add-complex}) that combine packages designed for
+procedures (such as @code{add_complex}) that combine packages designed for
 different representations (such as rectangular and polar).  Moreover, the
 structure of the system is additive, so that one can design the individual
 arithmetic packages separately and combine them to produce a generic arithmetic
@@ -12924,8 +12905,8 @@ system.
 The task of designing generic arithmetic operations is analogous to that of
 designing the generic complex-number operations.  We would like, for instance,
 to have a generic addition procedure @code{add} that acts like ordinary
-primitive addition @code{+} on ordinary numbers, like @code{add-rat} on
-rational numbers, and like @code{add-complex} on complex numbers.  We can
+primitive addition @code{+} on ordinary numbers, like @code{add_rat} on
+rational numbers, and like @code{add_complex} on complex numbers.  We can
 implement @code{add}, and the other generic arithmetic operations, by following
 the same strategy we used in @ref{2.4.3} to implement the generic
 selectors for complex numbers.  We will attach a type tag to each kind of
@@ -12962,7 +12943,7 @@ impl Add for Number @{
 @noindent
 We begin by installing a package for handling @newterm{ordinary} numbers, that
 is, the primitive numbers of our language.  We will tag these with the symbol
-@code{scheme-number}.  The arithmetic operations in this package are the
+@code{SchemeNumber}.  The arithmetic operations in this package are the
 primitive arithmetic procedures (so there is no need to define extra procedures
 to handle the untagged numbers).  Since these operations each take two
 arguments, they are installed in the table keyed by the list
@@ -13050,10 +13031,10 @@ impl std::ops::Div for Rational @{
 @noindent
 We can install a similar package to handle complex numbers, using the tag
 @code{complex}.  In creating the package, we extract from the table the
-operations @code{make-from-real-imag} and @code{make-from-mag-ang} that were
+operations @code{make_from_real_imag} and @code{make_from_mag_ang} that were
 defined by the rectangular and polar packages.  Additivity permits us to use,
-as the internal operations, the same @code{add-complex}, @code{sub-complex},
-@code{mul-complex}, and @code{div-complex} procedures from @ref{2.4.1}.
+as the internal operations, the same @code{add_complex}, @code{sub_complex},
+@code{mul_complex}, and @code{div_complex} procedures from @ref{2.4.1}.
 
 @example
 // Complex number package using std::ops traits
@@ -13152,7 +13133,7 @@ package is stripped off (by applying @code{contents}) and the next level of tag
 @end float
 
 @noindent
-In the above packages, we used @code{add-rat}, @code{add-complex}, and the
+In the above packages, we used @code{add_rat}, @code{add_complex}, and the
 other arithmetic procedures exactly as originally written.  Once these
 definitions are internal to different installation procedures, however, they no
 longer need names that are distinct from each other: we could simply name them
@@ -13185,18 +13166,18 @@ case?
 
 @quotation
 @strong{@anchor{Exercise 2.78}Exercise 2.78:} The internal procedures in the
-@code{scheme-number} package are essentially nothing more than calls to the
+@code{SchemeNumber} package are essentially nothing more than calls to the
 primitive procedures @code{+}, @code{-}, etc.  It was not possible to use the
 primitives of the language directly because our type-tag system requires that
 each data object have a type attached to it.  In fact, however, all Lisp
 implementations do have a type system, which they use internally.  Primitive
 predicates such as @code{symbol?} and @code{number?}  determine whether data
-objects have particular types.  Modify the definitions of @code{type-tag},
-@code{contents}, and @code{attach-tag} from @ref{2.4.2} so that our
+objects have particular types.  Modify the definitions of @code{type_tag},
+@code{contents}, and @code{attach_tag} from @ref{2.4.2} so that our
 generic system takes advantage of Scheme's internal type system.  That is to
 say, the system should work as before except that ordinary numbers should be
 represented simply as Scheme numbers rather than as pairs whose @code{car} is
-the symbol @code{scheme-number}.
+the symbol @code{SchemeNumber}.
 @end quotation
 
 @quotation
@@ -13440,7 +13421,7 @@ and @ref{Exercise 2.84} concern the details of implementing such a strategy.)
 Another advantage of a tower is that we can easily implement the notion that
 every type ``inherits'' all operations defined on a supertype.  For instance,
 if we do not supply a special procedure for finding the real part of an
-integer, we should nevertheless expect that @code{real-part} will be defined
+integer, we should nevertheless expect that @code{real_part} will be defined
 for integers by virtue of the fact that integers are a subtype of complex
 numbers.  In a tower, we can arrange for this to happen in a uniform way by
 modifying @code{apply-generic}.  If the required operation is not directly
@@ -13546,7 +13527,7 @@ fn identity<T>(x: T) -> T @{ x @}
 
 @item
 With Louis's coercion procedures installed, what happens if
-@code{apply-generic} is called with two arguments of type @code{scheme-number}
+@code{apply-generic} is called with two arguments of type @code{SchemeNumber}
 or two arguments of type @code{complex} for an operation that is not found in
 the table for those types?  For example, assume that we've defined a generic
 exponentiation operation:
@@ -13756,7 +13737,7 @@ called a @newterm{poly}, which consists of a variable and a collection of
 terms.  We assume that we have selectors @code{variable} and @code{term-list}
 that extract those parts from a poly and a constructor @code{make-poly} that
 assembles a poly from a given variable and a term list.  A variable will be
-just a symbol, so we can use the @code{same-variable?}  procedure of 
+just a symbol, so we can use the @code{same_variable}  procedure of 
 @ref{2.3.2} to compare variables.  The following procedures define addition and
 multiplication of polys:
 
@@ -13836,13 +13817,13 @@ order in the other addend are simply accumulated into the sum polynomial being
 constructed.
 
 In order to manipulate term lists, we will assume that we have a constructor
-@code{the-empty-termlist} that returns an empty term list and a constructor
-@code{adjoin-term} that adjoins a new term to a term list.  We will also assume
-that we have a predicate @code{empty-termlist?} that tells if a given term list
-is empty, a selector @code{first-term} that extracts the highest-order term
-from a term list, and a selector @code{rest-terms} that returns all but the
+empty term list that returns an empty term list and a constructor
+@code{adjoin_term} that adjoins a new term to a term list.  We will also assume
+that we have a predicate @code{is_empty} (or similar test) that tells if a given term list
+is empty, a selector @code{first_term} that extracts the highest-order term
+from a term list, and a selector @code{rest_terms} that returns all but the
 highest-order term.  To manipulate terms, we will suppose that we have a
-constructor @code{make-term} that constructs a term with given order and
+constructor @code{make_term} that constructs a term with given order and
 coefficient, and selectors @code{order} and @code{coeff} that return,
 respectively, the order and the coefficient of the term.  These operations
 allow us to consider both terms and term lists as data abstractions, whose
@@ -13850,10 +13831,10 @@ concrete representations we can worry about separately.
 
 Here is the procedure that constructs the term list for the sum of two
 polynomials:@footnote{This operation is very much like the ordered
-@code{union-set} operation we developed in @ref{Exercise 2.62}.  In
+@code{union_set} operation we developed in @ref{Exercise 2.62}.  In
 fact, if we think of the terms of the polynomial as a set ordered according to
 the power of the indeterminate, then the program that produces the term list
-for a sum is almost identical to @code{union-set}.}
+for a sum is almost identical to @code{union_set}.}
 
 @example
 fn add_terms(l1: &[Term], l2: &[Term]) -> Vec<Term> @{
@@ -13943,7 +13924,7 @@ polynomials of different coefficient types, such as
   {[3x^2 + (2 + 3i)x + 7] \cdot} {\left[ x^4 + {2\over3} x^2 + (5 + 3i) \right].}  \]
 @end tex
 Because we installed the polynomial addition and multiplication procedures
-@code{add-poly} and @code{mul-poly} in the generic arithmetic system as the
+@code{add_poly} and @code{mul_poly} in the generic arithmetic system as the
 @code{add} and @code{mul} operations for type @code{polynomial}, our system is
 also automatically able to handle polynomial operations such as
 @ifinfo
@@ -13959,10 +13940,10 @@ also automatically able to handle polynomial operations such as
 @end tex
 The reason is that when the system tries to combine coefficients, it will
 dispatch through @code{add} and @code{mul}.  Since the coefficients are
-themselves polynomials (in @math{y}), these will be combined using @code{add-poly}
-and @code{mul-poly}.  The result is a kind of ``data-directed recursion'' in
-which, for example, a call to @code{mul-poly} will result in recursive calls to
-@code{mul-poly} in order to multiply the coefficients.  If the coefficients of
+themselves polynomials (in @math{y}), these will be combined using @code{add_poly}
+and @code{mul_poly}.  The result is a kind of ``data-directed recursion'' in
+which, for example, a call to @code{mul_poly} will result in recursive calls to
+@code{mul_poly} in order to multiply the coefficients.  If the coefficients of
 the coefficients were themselves polynomials (as might be used to represent
 polynomials in three variables), the data direction would ensure that the
 system would follow through another level of recursive calls, and so on through
@@ -14035,7 +14016,7 @@ length of the sublist beginning with that term's coefficient, decremented by
 the generic arithmetic system using the type mechanism suggested in
 @ref{Exercise 2.78}.  Thus, coefficients that are ordinary numbers will be
 represented as the numbers themselves rather than as pairs whose @code{car} is
-the symbol @code{scheme-number}.}  This would be a terrible representation for
+the symbol @code{SchemeNumber}.}  This would be a terrible representation for
 a sparse polynomial such as @math{B}: There would be a giant list of zeros
 punctuated by a few lonely nonzero terms.  A more reasonable representation of
 the term list of a sparse polynomial is as a list of the nonzero terms, where
@@ -14047,12 +14028,12 @@ are represented as lists of terms, arranged from highest-order to lowest-order
 term.  Once we have made this decision, implementing the selectors and
 constructors for terms and term lists is straightforward:@footnote{Although we
 are assuming that term lists are ordered, we have implemented
-@code{adjoin-term} to simply @code{cons} the new term onto the existing term
+@code{adjoin_term} to simply @code{cons} the new term onto the existing term
 list.  We can get away with this so long as we guarantee that the procedures
-(such as @code{add-terms}) that use @code{adjoin-term} always call it with a
+(such as @code{add-terms}) that use @code{adjoin_term} always call it with a
 higher-order term than appears in the list.  If we did not want to make such a
-guarantee, we could have implemented @code{adjoin-term} to be similar to the
-@code{adjoin-set} constructor for the ordered-list representation of sets
+guarantee, we could have implemented @code{adjoin_term} to be similar to the
+@code{adjoin_set} constructor for the ordered-list representation of sets
 (@ref{Exercise 2.61}).}
 
 @example
@@ -14095,7 +14076,7 @@ fn make_polynomial(var: &str, terms: Vec<Term>) -> Poly @{
 @quotation
 @strong{@anchor{Exercise 2.87}Exercise 2.87:} Install @code{=zero?} for
 polynomials in the generic arithmetic package.  This will allow
-@code{adjoin-term} to work for polynomials with coefficients that are
+@code{adjoin_term} to work for polynomials with coefficients that are
 themselves polynomials.
 @end quotation
 
@@ -14148,8 +14129,8 @@ divisor exceeds the order of the dividend and declare the dividend to be the
 remainder.  Also, if the dividend ever becomes zero, return zero as both
 quotient and remainder.
 
-We can design a @code{div-poly} procedure on the model of @code{add-poly} and
-@code{mul-poly}. The procedure checks to see if the two polys have the same
+We can design a @code{div-poly} procedure on the model of @code{add_poly} and
+@code{mul_poly}. The procedure checks to see if the two polys have the same
 variable.  If so, @code{div-poly} strips off the variable and passes the
 problem to @code{div-terms}, which performs the division operation on term
 lists. @code{Div-poly} finally reattaches the variable to the result supplied
@@ -14279,7 +14260,7 @@ fractions to lowest terms.
 
 @quotation
 @strong{@anchor{Exercise 2.93}Exercise 2.93:} Modify the rational-arithmetic
-package to use generic operations, but change @code{make-rat} so that it does
+package to use generic operations, but change @code{Rational::new} so that it does
 not attempt to reduce fractions to lowest terms.  Test your system by calling
 @code{make-rational} on two polynomials to produce a rational function:
 
@@ -14295,7 +14276,7 @@ addition procedure does not reduce fractions to lowest terms.
 
 @noindent
 We can reduce polynomial fractions to lowest terms using the same idea we used
-with integers: modifying @code{make-rat} to divide both the numerator and the
+with integers: modifying @code{Rational::new} to divide both the numerator and the
 denominator by their greatest common divisor.  The notion of ``greatest common
 divisor'' makes sense for polynomials.  In fact, we can compute the
 @abbr{GCD} of two polynomials using essentially the same Euclid's Algorithm
@@ -14486,14 +14467,14 @@ Implement this algorithm as a procedure @code{reduce-terms} that takes two term
 lists @code{n} and @code{d} as arguments and returns a list @code{nn},
 @code{dd}, which are @code{n} and @code{d} reduced to lowest terms via the
 algorithm given above.  Also write a procedure @code{reduce-poly}, analogous to
-@code{add-poly}, that checks to see if the two polys have the same variable.
+@code{add_poly}, that checks to see if the two polys have the same variable.
 If so, @code{reduce-poly} strips off the variable and passes the problem to
 @code{reduce-terms}, then reattaches the variable to the two term lists
 supplied by @code{reduce-terms}.
 
 @item
 Define a procedure analogous to @code{reduce-terms} that does what the original
-@code{make-rat} did for integers:
+@code{Rational::new} did for integers:
 
 @example
 fn reduce_integers(n: i64, d: i64) -> (i64, i64) @{
@@ -14504,9 +14485,9 @@ fn reduce_integers(n: i64, d: i64) -> (i64, i64) @{
 
 and define @code{reduce} as a generic operation that calls @code{apply-generic}
 to dispatch to either @code{reduce-poly} (for @code{polynomial} arguments) or
-@code{reduce-integers} (for @code{scheme-number} arguments).  You can now
+@code{reduce-integers} (for @code{SchemeNumber} arguments).  You can now
 easily make the rational-arithmetic package reduce fractions to lowest terms by
-having @code{make-rat} call @code{reduce} before combining the given numerator
+having @code{Rational::new} call @code{reduce} before combining the given numerator
 and denominator to form a rational number.  The system now handles rational
 expressions in either integers or polynomials.  To test your program, try the
 example at the beginning of this extended exercise:
@@ -14840,11 +14821,11 @@ local variable @code{balance}, bound to the initial value 100.  Within this
 local environment, we use @code{lambda} to create a procedure that takes
 @code{amount} as an argument and behaves like our previous @code{withdraw}
 procedure.  This procedure---returned as the result of evaluating the
-@code{let} expression---is @code{new-withdraw}, which behaves in precisely the
+@code{let} expression---is @code{new_withdraw}, which behaves in precisely the
 same way as @code{withdraw} but whose variable @code{balance} is not accessible
 by any other procedure.@footnote{In programming-language jargon, the variable
 @code{balance} is said to be @newterm{encapsulated} within the
-@code{new-withdraw} procedure.  Encapsulation reflects the general
+@code{new_withdraw} procedure.  Encapsulation reflects the general
 system-design principle known as the @newterm{hiding principle}: One can make a
 system more modular and robust by protecting parts of the system from each
 other; that is, by providing information access only to those parts of the
@@ -14860,17 +14841,17 @@ evaluating the body of the procedure with the formal parameters replaced by
 their values.  The trouble is that, as soon as we introduce assignment into our
 language, substitution is no longer an adequate model of procedure application.
 (We will see why this is so in @ref{3.1.3}.)  As a consequence, we
-technically have at this point no way to understand why the @code{new-withdraw}
+technically have at this point no way to understand why the @code{new_withdraw}
 procedure behaves as claimed above.  In order to really understand a procedure
-such as @code{new-withdraw}, we will need to develop a new model of procedure
+such as @code{new_withdraw}, we will need to develop a new model of procedure
 application.  In @ref{3.2} we will introduce such a model, together
 with an explanation of @code{set!} and local variables.  First, however, we
-examine some variations on the theme established by @code{new-withdraw}.
+examine some variations on the theme established by @code{new_withdraw}.
 
-The following procedure, @code{make-withdraw}, creates ``withdrawal
-processors.''  The formal parameter @code{balance} in @code{make-withdraw}
+The following procedure, @code{make_withdraw}, creates ``withdrawal
+processors.''  The formal parameter @code{balance} in @code{make_withdraw}
 specifies the initial amount of money in the account.@footnote{In contrast with
-@code{new-withdraw} above, we do not have to use @code{let} to make
+@code{new_withdraw} above, we do not have to use @code{let} to make
 @code{balance} a local variable, since formal parameters are already local.
 This will be clearer after the discussion of the environment model of
 evaluation in @ref{3.2}.  (See also @ref{Exercise 3.10}.)}
@@ -14950,8 +14931,8 @@ impl Account @{
 @end example
 
 @noindent
-Each call to @code{make-account} sets up an environment with a local state
-variable @code{balance}.  Within this environment, @code{make-account} defines
+Each call to @code{Account::new} sets up an environment with a local state
+variable @code{balance}.  Within this environment, @code{Account::new} defines
 procedures @code{deposit} and @code{withdraw} that access @code{balance} and an
 additional procedure @code{dispatch} that takes a ``message'' as input and
 returns one of the two local procedures.  The @code{dispatch} procedure itself
@@ -14981,8 +14962,8 @@ acc.withdraw(60);
 @noindent
 Each call to @code{acc} returns the locally defined @code{deposit} or
 @code{withdraw} procedure, which is then applied to the specified
-@code{amount}.  As was the case with @code{make-withdraw}, another call to
-@code{make-account}
+@code{amount}.  As was the case with @code{make_withdraw}, another call to
+@code{Account::new}
 
 @example
 let acc2 = Account::new(100);
@@ -14996,9 +14977,9 @@ local @code{balance}.
 @strong{@anchor{Exercise 3.1}Exercise 3.1:} An @newterm{accumulator} is a
 procedure that is called repeatedly with a single numeric argument and
 accumulates its arguments into a sum.  Each time it is called, it returns the
-currently accumulated sum.  Write a procedure @code{make-accumulator} that
+currently accumulated sum.  Write a procedure @code{make_accumulator} that
 generates accumulators, each maintaining an independent sum.  The input to
-@code{make-accumulator} should specify the initial value of the sum; for
+@code{make_accumulator} should specify the initial value of the sum; for
 example
 
 @example
@@ -15016,8 +14997,8 @@ a(10);
 @strong{@anchor{Exercise 3.2}Exercise 3.2:} In software-testing applications,
 it is useful to be able to count the number of times a given procedure is
 called during the course of a computation.  Write a procedure
-@code{make-monitored} that takes as input a procedure, @code{f}, that itself
-takes one input.  The result returned by @code{make-monitored} is a third
+@code{make_monitored} that takes as input a procedure, @code{f}, that itself
+takes one input.  The result returned by @code{make_monitored} is a third
 procedure, say @code{mf}, that keeps track of the number of times it has been
 called by maintaining an internal counter.  If the input to @code{mf} is the
 special symbol @code{how-many-calls?}, then @code{mf} returns the value of the
@@ -15038,9 +15019,9 @@ s.call_count();
 @end quotation
 
 @quotation
-@strong{@anchor{Exercise 3.3}Exercise 3.3:} Modify the @code{make-account}
+@strong{@anchor{Exercise 3.3}Exercise 3.3:} Modify the @code{Account::new}
 procedure so that it creates password-protected accounts.  That is,
-@code{make-account} should take a symbol as an additional argument, as in
+@code{Account::new} should take a symbol as an additional argument, as in
 
 @example
 let acc = Account::new_with_password(100, "secret-password");
@@ -15060,7 +15041,7 @@ acc.deposit_with_password("some-other-password", 50);
 @end quotation
 
 @quotation
-@strong{@anchor{Exercise 3.4}Exercise 3.4:} Modify the @code{make-account}
+@strong{@anchor{Exercise 3.4}Exercise 3.4:} Modify the @code{Account::new}
 procedure of @ref{Exercise 3.3} by adding another local state variable so that,
 if an account is accessed more than seven consecutive times with an incorrect
 password, it invokes the procedure @code{call-the-cops}.
@@ -15302,7 +15283,7 @@ assignments, as we did throughout the first two chapters of this book, is
 accordingly known as @newterm{functional programming}.
 
 To understand how assignment complicates matters, consider a simplified version
-of the @code{make-withdraw} procedure of @ref{3.1.1} that does not
+of the @code{make_withdraw} procedure of @ref{3.1.1} that does not
 bother to check for an insufficient amount:
 
 @example
@@ -15627,7 +15608,7 @@ explore the uses of objects with local state in designing simulations.
 
 @quotation
 @strong{@anchor{Exercise 3.7}Exercise 3.7:} Consider the bank account objects
-created by @code{make-account}, with the password modification described in
+created by @code{Account::new}, with the password modification described in
 @ref{Exercise 3.3}.  Suppose that our banking system requires the ability to
 make joint accounts.  Define a procedure @code{make-joint} that accomplishes
 this.  @code{Make-joint} should take three arguments.  The first is a
@@ -15809,9 +15790,9 @@ specifying what it means to apply a compound procedure to arguments.
 
 In the environment model of evaluation, a procedure is always a pair consisting
 of some code and a pointer to an environment.  Procedures are created in one
-way only: by evaluating a λ-expression.  This produces a procedure
-whose code is obtained from the text of the λ-expression and whose
-environment is the environment in which the λ-expression was
+way only: by evaluating a closure expression.  This produces a procedure
+whose code is obtained from the text of the closure expression and whose
+environment is the environment in which the closure expression was
 evaluated to produce the procedure.  For example, consider the procedure
 definition
 
@@ -15833,21 +15814,21 @@ let square = |x: i64| -> i64 @{ x * x @};
 which evaluates @code{(lambda (x) (* x x))} and binds @code{square} to the
 resulting value, all in the global environment.
 
-@ref{Figure 3.2} shows the result of evaluating this @code{define} expression.
+@ref{Figure 3.2} shows the result of evaluating this definition expression.
 The procedure object is a pair whose code specifies that the procedure has one
 formal parameter, namely @code{x}, and a procedure body @code{(* x x)}.  The
 environment part of the procedure is a pointer to the global environment, since
-that is the environment in which the λ-expression was evaluated to
+that is the environment in which the closure expression was evaluated to
 produce the procedure. A new binding, which associates the procedure object
 with the symbol @code{square}, has been added to the global frame.  In general,
-@code{define} creates definitions by adding bindings to frames.
+definition creates definitions by adding bindings to frames.
 
 @float
 @anchor{Figure 3.2}
 @ifinfo
 @quotation
 @strong{Figure 3.2:} Environment structure produced by
-evaluating @code{(define (square x) (* x x))} in the global environment.
+evaluating @code{fn square(x: i64) -> i64 @{ x * x @}} in the global environment.
 
 @example
            +----------------------+
@@ -15870,7 +15851,7 @@ env        | square: --+          |
 @end ifinfo
 @iftex
 @image{fig/chap3/Fig3.2b,81mm,,,.std.svg}
-@caption{@strong{Figure 3.2:} Environment structure produced by evaluating @code{(define (square x) (* x x))} in the global environment.}
+@caption{@strong{Figure 3.2:} Environment structure produced by evaluating @code{fn square(x: i64) -> i64 @{ x * x @}} in the global environment.}
 @end iftex
 @end float
 
@@ -15883,7 +15864,7 @@ frame is the environment specified by the procedure.  Now, within this new
 environment, evaluate the procedure body.
 
 To show how this rule is followed, @ref{Figure 3.3} illustrates the environment
-structure created by evaluating the expression @code{(square 5)} in the global
+structure created by evaluating the expression @code{square(5)} in the global
 environment, where @code{square} is the procedure generated in @ref{Figure 3.2}.  
 Applying the procedure results in the creation of a new environment,
 labeled E1 in the figure, that begins with a frame in which @code{x}, the
@@ -15899,7 +15880,7 @@ Since the value of @code{x} in E1 is 5, the result is @code{(* 5 5)}, or 25.
 @ifinfo
 @quotation
 @strong{Figure 3.3:} Environment created by evaluating
-@code{(square 5)} in the global environment.
+@code{square(5)} in the global environment.
 
 @example
           +------------------------------------+
@@ -15922,7 +15903,7 @@ env       | square: --+                        |
 @end ifinfo
 @iftex
 @image{fig/chap3/Fig3.3b,129mm,,,.std.svg}
-@caption{@strong{Figure 3.3:} Environment created by evaluating @code{(square 5)} in the global environment.}
+@caption{@strong{Figure 3.3:} Environment created by evaluating @code{square(5)} in the global environment.}
 @end iftex
 @end float
 
@@ -15939,19 +15920,19 @@ environment constructed.  The new frame has as its enclosing environment the
 environment part of the procedure object being applied.
 
 @item
-A procedure is created by evaluating a λ-expression relative to a
+A procedure is created by evaluating a closure expression relative to a
 given environment.  The resulting procedure object is a pair consisting of the
-text of the λ-expression and a pointer to the environment in which
+text of the closure expression and a pointer to the environment in which
 the procedure was created.
 
 @end itemize
 
 @noindent
-We also specify that defining a symbol using @code{define} creates a binding in
+We also specify that defining a symbol using definition creates a binding in
 the current environment frame and assigns to the symbol the indicated
 value.@footnote{If there is already a binding for the variable in the current
 frame, then the binding is changed.  This is convenient because it allows
-redefinition of symbols; however, it also means that @code{define} can be used
+redefinition of symbols; however, it also means that definition can be used
 to change values, and this brings up the issues of assignment without
 explicitly using @code{set!}.  Because of this, some people prefer
 redefinitions of existing symbols to signal errors or warnings.} Finally, we
@@ -15975,7 +15956,7 @@ programs.
 @subsection Applying Simple Procedures
 
 When we introduced the substitution model in @ref{1.1.5} we showed how
-the combination @code{(f 5)} evaluates to 136, given the following procedure
+the combination @code{f(5)} evaluates to 136, given the following procedure
 definitions:
 
 @example
@@ -15995,7 +15976,7 @@ fn f(a: i64) -> i64 @{
 @noindent
 We can analyze the same example using the environment model.  @ref{Figure 3.4}
 shows the three procedure objects created by evaluating the definitions of
-@code{f}, @code{square}, and @code{sum-of-squares} in the global environment.
+@code{f}, @code{square}, and @code{sum_of_squares} in the global environment.
 Each procedure object consists of some code, together with a pointer to the
 global environment.
 
@@ -16032,7 +16013,7 @@ env       | f: --+                                     |
 
 @noindent
 In @ref{Figure 3.5} we see the environment structure created by evaluating the
-expression @code{(f 5)}.  The call to @code{f} creates a new environment E1
+expression @code{f(5)}.  The call to @code{f} creates a new environment E1
 beginning with a frame in which @code{a}, the formal parameter of @code{f}, is
 bound to the argument 5.  In E1, we evaluate the body of @code{f}:
 
@@ -16044,7 +16025,7 @@ sum_of_squares(a + 1, a * 2)
 @anchor{Figure 3.5}
 @ifinfo
 @strong{Figure 3.5:} Environments created by evaluating
-@code{(f 5)} using the procedures in @ref{Figure 3.4}.
+@code{f(5)} using the procedures in @ref{Figure 3.4}.
 
 @example
           +-----------------------------------------------------+
@@ -16063,29 +16044,29 @@ env       +-----------------------------------------------------+
 @end ifinfo
 @iftex
 @image{fig/chap3/Fig3.5b,142mm,,,.std.svg}
-@caption{@strong{Figure 3.5:} Environments created by evaluating @code{(f 5)} @w{using} the procedures in @ref{Figure 3.4}.}
+@caption{@strong{Figure 3.5:} Environments created by evaluating @code{f(5)} @w{using} the procedures in @ref{Figure 3.4}.}
 @end iftex
 @end float
 
 @noindent
 To evaluate this combination, we first evaluate the subexpressions.  The first
-subexpression, @code{sum-of-squares}, has a value that is a procedure object.
+subexpression, @code{sum_of_squares}, has a value that is a procedure object.
 (Notice how this value is found: We first look in the first frame of E1, which
-contains no binding for @code{sum-of-squares}.  Then we proceed to the
+contains no binding for @code{sum_of_squares}.  Then we proceed to the
 enclosing environment, i.e. the global environment, and find the binding shown
 in @ref{Figure 3.4}.)  The other two subexpressions are evaluated by applying
 the primitive operations @code{+} and @code{*} to evaluate the two combinations
 @code{(+ a 1)} and @code{(* a 2)} to obtain 6 and 10, respectively.
 
 @noindent
-Now we apply the procedure object @code{sum-of-squares} to the arguments 6 and
+Now we apply the procedure object @code{sum_of_squares} to the arguments 6 and
 10.  This results in a new environment E2 in which the formal parameters
 @code{x} and @code{y} are bound to the arguments.  Within E2 we evaluate the
 combination @code{(+ (square x) (square y))}.  This leads us to evaluate
 @code{(square x)}, where @code{square} is found in the global frame and
 @code{x} is 6.  Once again, we set up a new environment, E3, in which @code{x}
 is bound to 6, and within this we evaluate the body of @code{square}, which is
-@code{(* x x)}.  Also as part of applying @code{sum-of-squares}, we must
+@code{(* x x)}.  Also as part of applying @code{sum_of_squares}, we must
 evaluate the subexpression @code{(square y)}, where @code{y} is 10.  This
 second call to @code{square} creates another environment, E4, in which
 @code{x}, the formal parameter of @code{square}, is bound to 10.  And within E4
@@ -16099,7 +16080,7 @@ environment, since this is the environment indicated by the @code{square}
 procedure object.
 
 After the subexpressions are evaluated, the results are returned.  The values
-generated by the two calls to @code{square} are added by @code{sum-of-squares},
+generated by the two calls to @code{square} are added by @code{sum_of_squares},
 and this result is returned by @code{f}.  Since our focus here is on the
 environment structures, we will not dwell on how these returned values are
 passed from call to call; however, this is also an important aspect of the
@@ -16140,7 +16121,7 @@ fn fact_iter(product: u64, counter: u64, max_count: u64) -> u64 @{
 Show the environment structures created by evaluating @code{(factorial 6)}
 using each version of the @code{factorial} procedure.@footnote{The environment
 model will not clarify our claim in @ref{1.2.1} that the interpreter
-can execute a procedure such as @code{fact-iter} in a constant amount of space
+can execute a procedure such as @code{fact_iter} in a constant amount of space
 using tail recursion.  We will discuss tail recursion when we deal with the
 control structure of the interpreter in @ref{5.4}.}
 @end quotation
@@ -16186,17 +16167,17 @@ w1(50);
 @end example
 
 @noindent
-@ref{Figure 3.6} shows the result of defining the @code{make-withdraw}
+@ref{Figure 3.6} shows the result of defining the @code{make_withdraw}
 procedure in the global environment.  This produces a procedure object that
 contains a pointer to the global environment.  So far, this is no different
 from the examples we have already seen, except that the body of the procedure
-is itself a λ-expression.
+is itself a closure expression.
 
 @float
 @anchor{Figure 3.6}
 @ifinfo
 @quotation
-@strong{Figure 3.6:} Result of defining @code{make-withdraw} in the global environment.
+@strong{Figure 3.6:} Result of defining @code{make_withdraw} in the global environment.
 
 @example
           +---------------------------+
@@ -16221,13 +16202,13 @@ env       +------------------|--------+
 @end ifinfo
 @iftex
 @image{fig/chap3/Fig3.6c,128mm,,,.std.svg}
-@caption{@strong{Figure 3.6:} Result of defining @code{make-withdraw} in the global environment.}
+@caption{@strong{Figure 3.6:} Result of defining @code{make_withdraw} in the global environment.}
 @end iftex
 @end float
 
 @noindent
 The interesting part of the computation happens when we apply the procedure
-@code{make-withdraw} to an argument:
+@code{make_withdraw} to an argument:
 
 @example
 let mut w1 = make_withdraw(100);
@@ -16236,13 +16217,13 @@ let mut w1 = make_withdraw(100);
 @noindent
 We begin, as usual, by setting up an environment E1 in which the formal
 parameter @code{balance} is bound to the argument 100.  Within this
-environment, we evaluate the body of @code{make-withdraw}, namely the
-λ-expression.  This constructs a new procedure object, whose code
+environment, we evaluate the body of @code{make_withdraw}, namely the
+closure expression.  This constructs a new procedure object, whose code
 is as specified by the @code{lambda} and whose environment is E1, the
 environment in which the @code{lambda} was evaluated to produce the procedure.
 The resulting procedure object is the value returned by the call to
-@code{make-withdraw}.  This is bound to @code{W1} in the global environment,
-since the @code{define} itself is being evaluated in the global environment.
+@code{make_withdraw}.  This is bound to @code{W1} in the global environment,
+since the definition itself is being evaluated in the global environment.
 @ref{Figure 3.7} shows the resulting environment structure.
 
 @float
@@ -16390,7 +16371,7 @@ env        | W1: --+                            |
 @end float
 
 Observe what happens when we create a second ``withdraw'' object by making
-another call to @code{make-withdraw}:
+another call to @code{make_withdraw}:
 
 @example
 let mut w2 = make_withdraw(100);
@@ -16400,10 +16381,10 @@ let mut w2 = make_withdraw(100);
 This produces the environment structure of @ref{Figure 3.10}, which shows that
 @code{W2} is a procedure object, that is, a pair with some code and an
 environment.  The environment E2 for @code{W2} was created by the call to
-@code{make-withdraw}.  It contains a frame with its own local binding for
+@code{make_withdraw}.  It contains a frame with its own local binding for
 @code{balance}.  On the other hand, @code{W1} and @code{W2} have the same code:
-the code specified by the λ-expression in the body of
-@code{make-withdraw}.@footnote{Whether @code{W1} and @code{W2} share the same
+the code specified by the closure expression in the body of
+@code{make_withdraw}.@footnote{Whether @code{W1} and @code{W2} share the same
 physical code stored in the computer, or whether they each keep a copy of the
 code, is a detail of the implementation.  For the interpreter we implement in
 @ref{Chapter 4}, the code is in fact shared.} We see here why @code{W1} and
@@ -16445,9 +16426,9 @@ env      | W1: --+                        |                |
 @end float
 
 @quotation
-@strong{@anchor{Exercise 3.10}Exercise 3.10:} In the @code{make-withdraw}
+@strong{@anchor{Exercise 3.10}Exercise 3.10:} In the @code{make_withdraw}
 procedure, the local variable @code{balance} is created as a parameter of
-@code{make-withdraw}.  We could also create the local state variable
+@code{make_withdraw}.  We could also create the local state variable
 explicitly, using @code{let}, as follows:
 
 @example
@@ -16476,7 +16457,7 @@ move |amount| @{ /* uses balance */ @}
 @end example
 
 Use the environment model to analyze this alternate version of
-@code{make-withdraw}, drawing figures like the ones above to illustrate the
+@code{make_withdraw}, drawing figures like the ones above to illustrate the
 interactions
 
 @example
@@ -16485,7 +16466,7 @@ w1(50);
 let mut w2 = make_withdraw(100);
 @end example
 
-Show that the two versions of @code{make-withdraw} create objects with the same
+Show that the two versions of @code{make_withdraw} create objects with the same
 behavior.  How do the environment structures differ for the two versions?
 @end quotation
 
@@ -16521,7 +16502,7 @@ fn sqrt(x: f64) -> f64 @{
 @noindent
 Now we can use the environment model to see why these internal definitions
 behave as desired.  @ref{Figure 3.11} shows the point in the evaluation of the
-expression @code{(sqrt 2)} where the internal procedure @code{good-enough?} has
+expression @code{(sqrt 2)} where the internal procedure @code{good_enough} has
 been called for the first time with @code{guess} equal to 1.
 
 @float
@@ -16575,28 +16556,28 @@ fn good_enough(guess: f64, x: f64) -> bool @{
 @end example
 
 @noindent
-evaluating this expression defined the procedure @code{good-enough?}  in the
-environment E1.  To be more precise, the symbol @code{good-enough?} was added
+evaluating this expression defined the procedure @code{good_enough}  in the
+environment E1.  To be more precise, the symbol @code{good_enough} was added
 to the first frame of E1, bound to a procedure object whose associated
 environment is E1.  Similarly, @code{improve} and @code{sqrt-iter} were defined
 as procedures in E1.  For conciseness, @ref{Figure 3.11} shows only the
-procedure object for @code{good-enough?}.
+procedure object for @code{good_enough}.
 
 @noindent
 After the local procedures were defined, the expression @code{(sqrt-iter 1.0)}
 was evaluated, still in environment E1.  So the procedure object bound to
 @code{sqrt-iter} in E1 was called with 1 as an argument.  This created an
 environment E2 in which @code{guess}, the parameter of @code{sqrt-iter}, is
-bound to 1.  @code{Sqrt-iter} in turn called @code{good-enough?} with the value
-of @code{guess} (from E2) as the argument for @code{good-enough?}.  This set up
+bound to 1.  @code{Sqrt-iter} in turn called @code{good_enough} with the value
+of @code{guess} (from E2) as the argument for @code{good_enough}.  This set up
 another environment, E3, in which @code{guess} (the parameter of
-@code{good-enough?}) is bound to 1.  Although @code{sqrt-iter} and
-@code{good-enough?} both have a parameter named @code{guess}, these are two
+@code{good_enough}) is bound to 1.  Although @code{sqrt-iter} and
+@code{good_enough} both have a parameter named @code{guess}, these are two
 distinct local variables located in different frames.  Also, E2 and E3 both
 have E1 as their enclosing environment, because the @code{sqrt-iter} and
-@code{good-enough?} procedures both have E1 as their environment part.  One
+@code{good_enough} procedures both have E1 as their environment part.  One
 consequence of this is that the symbol @code{x} that appears in the body of
-@code{good-enough?} will reference the binding of @code{x} that appears in E1,
+@code{good_enough} will reference the binding of @code{x} that appears in E1,
 namely the value of @code{x} with which the original @code{sqrt} procedure was
 called.
 
@@ -16730,11 +16711,11 @@ list operations we have used so far, such as @code{append} and @code{list},
 since these can be defined in terms of @code{cons}, @code{car}, and @code{cdr}.
 To modify list structures we need new operations.
 
-The primitive mutators for pairs are @code{set-car!} and
-@code{set-cdr!}. @code{Set-car!} takes two arguments, the first of which must
+The primitive mutators for pairs are @code{set_car} (or similar mutator) and
+@code{set_cdr} (or similar mutator). @code{Set-car!} takes two arguments, the first of which must
 be a pair.  It modifies this pair, replacing the @code{car} pointer by a
-pointer to the second argument of @code{set-car!}.@footnote{@code{Set-car!} and
-@code{set-cdr!} return implementation-dependent values.  Like @code{set!}, they
+pointer to the second argument of @code{set_car} (or similar mutator).@footnote{@code{Set-car!} and
+@code{set_cdr} (or similar mutator) return implementation-dependent values.  Like @code{set!}, they
 should be used only for their effect.}
 
 @noindent
@@ -16868,7 +16849,7 @@ z -->| * | *-+-+   +---+         +---+
 @end iftex
 @end float
 
-The @code{set-cdr!} operation is similar to @code{set-car!}.  The only
+The @code{set_cdr} (or similar mutator) operation is similar to @code{set_car} (or similar mutator).  The only
 difference is that the @code{cdr} pointer of the pair, rather than the
 @code{car} pointer, is replaced.  The effect of executing @code{(set-cdr! x y)}
 on the lists of @ref{Figure 3.12} is shown in @ref{Figure 3.15}.  Here the
@@ -16915,7 +16896,7 @@ x -->| * | * |     | * | *-+---->| * | / |
 
 @noindent 
 @code{Cons} builds new list structure by creating new pairs, while
-@code{set-car!} and @code{set-cdr!} modify existing pairs.  Indeed, we could
+@code{set_car} (or similar mutator) and @code{set_cdr} (or similar mutator) modify existing pairs.  Indeed, we could
 implement @code{cons} in terms of the two mutators, together with a procedure
 @code{get-new-pair}, which returns a new pair that is not part of any existing
 list structure.  We obtain the new pair, set its @code{car} and @code{cdr}
@@ -16950,7 +16931,7 @@ fn append<T: Clone>(x: &[T], y: &[T]) -> Vec<T> @{
 @end example
 
 @code{Append} forms a new list by successively @code{cons}ing the elements of
-@code{x} onto @code{y}.  The procedure @code{append!} is similar to
+@code{x} onto @code{y}.  @code{append_mut} is similar to
 @code{append}, but it is a mutator rather than a constructor.  It appends the
 lists by splicing them together, modifying the final pair of @code{x} so that
 its @code{cdr} is now @code{y}.  (It is an error to call @code{append!} with an
@@ -17062,7 +17043,7 @@ fn reverse_in_place<T>(mut x: Option<Box<Node<T>>>) -> Option<Box<Node<T>>> @{
 @end example
 
 @code{Loop} uses the ``temporary'' variable @code{temp} to hold the old value
-of the @code{cdr} of @code{x}, since the @code{set-cdr!}  on the next line
+of the @code{cdr} of @code{x}, since the @code{set_cdr} (or similar mutator)  on the next line
 destroys the @code{cdr}.  Explain what @code{mystery} does in general.  Suppose
 @code{v} is defined by @code{(define v (list 'a 'b 'c 'd))}. Draw the
 box-and-pointer diagram that represents the list to which @code{v} is bound.
@@ -17217,7 +17198,7 @@ As will be seen in the following sections, we can exploit sharing to greatly
 extend the repertoire of data structures that can be represented by pairs.  On
 the other hand, sharing can also be dangerous, since modifications made to
 structures will also affect other structures that happen to share the modified
-parts.  The mutation operations @code{set-car!} and @code{set-cdr!} should be
+parts.  The mutation operations @code{set_car} (or similar mutator) and @code{set_cdr} (or similar mutator) should be
 used with care; unless we have a good understanding of how our data objects are
 shared, mutation can have unanticipated results.@footnote{The subtleties of
 dealing with sharing of mutable data objects reflect the underlying issues of
@@ -17313,9 +17294,9 @@ fn cdr<T>(z: impl Fn(PairOp<T>) -> T) -> T @{ z(PairOp::Cdr) @}
 @noindent
 The same observation is true for mutable data.  We can implement mutable data
 objects as procedures using assignment and local state.  For instance, we can
-extend the above pair implementation to handle @code{set-car!} and
-@code{set-cdr!} in a manner analogous to the way we implemented bank accounts
-using @code{make-account} in @ref{3.1.1}:
+extend the above pair implementation to handle @code{set_car} (or similar mutator) and
+@code{set_cdr} (or similar mutator) in a manner analogous to the way we implemented bank accounts
+using @code{Account::new} in @ref{3.1.1}:
 
 @example
 // Mutable pair using Cell for interior mutability
@@ -17372,7 +17353,7 @@ using the procedural implementation of pairs given above.  (Compare
 @node	3.3.2, 3.3.3, 3.3.1, 3.3
 @subsection Representing Queues
 
-The mutators @code{set-car!} and @code{set-cdr!} enable us to use pairs to
+The mutators @code{set_car} (or similar mutator) and @code{set_cdr} (or similar mutator) enable us to use pairs to
 construct data structures that cannot be built with @code{cons}, @code{car},
 and @code{cdr} alone.  This section shows how to use pairs to represent a data
 structure called a queue.  Section @ref{3.3.3} will show how to represent data
@@ -17394,13 +17375,13 @@ called a @newterm{FIFO} (first in, first out) buffer.
 
 @example
 Operation                Resulting Queue
-(define q (make-queue))
-(insert-queue! q 'a)     a
-(insert-queue! q 'b)     a b
-(delete-queue! q)        b
-(insert-queue! q 'c)     b c
-(insert-queue! q 'd)     b c d
-(delete-queue! q)        c d
+let mut q = Queue::new();
+q.push_back("a")         a
+q.push_back("b")         a b
+q.pop_front()            b
+q.push_back("c")         b c
+q.push_back("d")         b c d
+q.pop_front()            c d
 @end example
 @end quotation
 @end ifinfo
@@ -17542,7 +17523,7 @@ fn is_empty(&self) -> bool @{
 @end example
 
 @noindent
-The @code{make-queue} constructor returns, as an initially empty queue, a pair
+The @code{Queue::new} constructor returns, as an initially empty queue, a pair
 whose @code{car} and @code{cdr} are both the empty list:
 
 @example
@@ -17572,7 +17553,7 @@ also set the rear pointer to the new pair.
 @float
 @anchor{Figure 3.20}
 @ifinfo
-@strong{Figure 3.20:} Result of using @code{(insert-queue! q 'd)} on the queue of @ref{Figure 3.19}.
+@strong{Figure 3.20:} Result of using @code{q.push_back("d")} on the queue of @ref{Figure 3.19}.
 
 @example
        +---+---+
@@ -17592,7 +17573,7 @@ also set the rear pointer to the new pair.
 @end ifinfo
 @iftex
 @image{fig/chap3/Fig3.20c,141mm,,,.std.svg}
-@caption{@strong{Figure 3.20:} Result of using @code{(insert-queue! q 'd)} on the queue of @ref{Figure 3.19}.}
+@caption{@strong{Figure 3.20:} Result of using @code{q.push_back("d")} on the queue of @ref{Figure 3.19}.}
 @end iftex
 @end float
 
@@ -17621,7 +17602,7 @@ fn pop_front(&mut self) -> Option<T> @{
 @float
 @anchor{Figure 3.21}
 @ifinfo
-@strong{Figure 3.21:} Result of using @code{(delete-queue!  q)} on the queue of @ref{Figure 3.20}.
+@strong{Figure 3.21:} Result of using @code{q.pop_front()} on the queue of @ref{Figure 3.20}.
 
 @example
        +---+---+
@@ -17641,7 +17622,7 @@ fn pop_front(&mut self) -> Option<T> @{
 @end ifinfo
 @iftex
 @image{fig/chap3/Fig3.21c,141mm,,,.std.svg}
-@caption{@strong{Figure 3.21:} Result of using @code{(delete-queue!  q)} on the queue of @ref{Figure 3.20}.}
+@caption{@strong{Figure 3.21:} Result of using @code{q.pop_front()} on the queue of @ref{Figure 3.20}.}
 @end iftex
 @end float
 
@@ -17683,7 +17664,7 @@ takes a queue as input and prints the sequence of items in the queue.
 @strong{@anchor{Exercise 3.22}Exercise 3.22:} Instead of representing a queue
 as a pair of pointers, we can build a queue as a procedure with local state.
 The local state will consist of pointers to the beginning and the end of an
-ordinary list.  Thus, the @code{make-queue} procedure will have the form
+ordinary list.  Thus, the @code{Queue::new} procedure will have the form
 
 @example
 struct Queue<T> @{
@@ -17699,7 +17680,7 @@ impl<T> Queue<T> @{
 @}
 @end example
 
-Complete the definition of @code{make-queue} and provide implementations of the
+Complete the definition of @code{Queue::new} and provide implementations of the
 queue operations using this representation.
 @end quotation
 
@@ -17803,7 +17784,7 @@ designated new value.  The header of the table provides us with a fixed
 location to modify in order to insert the new record.@footnote{Thus, the first
 backbone pair is the object that represents the table ``itself''; that is, a
 pointer to the table is a pointer to this pair.  This same backbone pair always
-starts the table.  If we did not arrange things in this way, @code{insert!}
+starts the table.  If we did not arrange things in this way, @code{insert}
 would have to return a new value for the start of the table when it added a new
 record.}
 
@@ -17927,10 +17908,10 @@ where
 
 @subsubheading Creating local tables
 
-The @code{lookup} and @code{insert!} operations defined above take the table as
+The @code{lookup} and @code{insert} operations defined above take the table as
 an argument.  This enables us to use programs that access more than one table.
 Another way to deal with multiple tables is to have separate @code{lookup} and
-@code{insert!} procedures for each table.  We can do this by representing a
+@code{insert} procedures for each table.  We can do this by representing a
 table procedurally, as an object that maintains an internal table as part of
 its local state.  When sent an appropriate message, this ``table object''
 supplies the procedure with which to operate on the internal table.  Here is a
@@ -17967,7 +17948,7 @@ where
 @end example
 
 @noindent
-Using @code{make-table}, we could implement the @code{get} and @code{put}
+Using @code{Table::new}, we could implement the @code{get} and @code{put}
 operations used in @ref{2.4.3} for data-directed programming, as
 follows:
 
@@ -17981,7 +17962,7 @@ let op = operation_table.lookup(&"math", &"add");
 @noindent
 @code{Get} takes as arguments two keys, and @code{put} takes as arguments two
 keys and a value.  Both operations access the same local table, which is
-encapsulated within the object created by the call to @code{make-table}.
+encapsulated within the object created by the call to @code{Table::new}.
 
 @quotation
 @strong{@anchor{Exercise 3.24}Exercise 3.24:} In the table implementations
@@ -17989,10 +17970,10 @@ above, the keys are tested for equality using @code{equal?} (called by
 @code{assoc}).  This is not always the appropriate test.  For instance, we
 might have a table with numeric keys in which we don't need an exact match to
 the number we're looking up, but only a number within some tolerance of it.
-Design a table constructor @code{make-table} that takes as an argument a
+Design a table constructor @code{Table::new} that takes as an argument a
 @code{same-key?} procedure that will be used to test ``equality'' of keys.
 @code{Make-table} should return a @code{dispatch} procedure that can be used to
-access appropriate @code{lookup} and @code{insert!} procedures for a local
+access appropriate @code{lookup} and @code{insert} procedures for a local
 table.
 @end quotation
 
@@ -18000,7 +17981,7 @@ table.
 @strong{@anchor{Exercise 3.25}Exercise 3.25:} Generalizing one- and
 two-dimensional tables, show how to implement a table in which values are
 stored under an arbitrary number of keys and different values may be stored
-under different numbers of keys.  The @code{lookup} and @code{insert!}
+under different numbers of keys.  The @code{lookup} and @code{insert}
 procedures should take as input a list of keys used to access the table.
 @end quotation
 
@@ -18214,7 +18195,7 @@ study.  The program will construct computational objects modeling the wires,
 which will ``hold'' the signals.  Function boxes will be modeled by procedures
 that enforce the correct relationships among the signals.
 
-One basic element of our simulation will be a procedure @code{make-wire}, which
+One basic element of our simulation will be a procedure @code{Wire::new}, which
 constructs wires.  For example, we can construct six wires as follows:
 
 @example
@@ -18249,7 +18230,7 @@ circuit.and_gate(&d, &e, &s);
 
 @noindent
 Better yet, we can explicitly name this operation by defining a procedure
-@code{half-adder} that constructs this circuit, given the four external wires
+@code{half_adder} that constructs this circuit, given the four external wires
 to be attached to the half-adder:
 
 @example
@@ -18267,7 +18248,7 @@ fn half_adder(
 @end example
 
 @noindent
-The advantage of making this definition is that we can use @code{half-adder}
+The advantage of making this definition is that we can use @code{half_adder}
 itself as a building block in creating more complex circuits.  @ref{Figure 3.26}, 
 for example, shows a @newterm{full-adder} composed of two half-adders
 and an or-gate.@footnote{A full-adder is a basic circuit element used in adding
@@ -18317,7 +18298,7 @@ C -----+       +---------------/___/   |
 @end float
 
 @noindent
-Having defined @code{full-adder} as a procedure, we can now use it as a
+Having defined @code{full_adder} as a procedure, we can now use it as a
 building block for creating still more complex circuits.  (For example, see
 @ref{Exercise 3.30}.)
 
@@ -18341,7 +18322,7 @@ boxes, we use the following operations on wires:
 @noindent
 returns the current value of the signal on the wire.
 
-@item @code{(set-signal! ⟨@var{wire}⟩ ⟨@var{new value}⟩)}
+@item @code{set_signal(⟨@var{wire}⟩, ⟨@var{new_value}⟩)}
 
 @noindent
 changes the value of the signal on the wire to the new value.
@@ -18361,7 +18342,7 @@ time delay and a procedure to be run and executes the given procedure after the
 given delay.
 
 Using these procedures, we can define the primitive digital logic functions.
-To connect an input to an output through an inverter, we use @code{add-action!}
+To connect an input to an output through an inverter, we use @code{add_action}
 to associate with the input wire a procedure that will be run whenever the
 signal on the input wire changes value.  The procedure computes the
 @code{logical-not} of the input signal, and then, after one
@@ -18551,9 +18532,9 @@ syntactic sugar that allow us to use ordinary procedural syntax to access the
 local procedures of objects.  It is striking that we can interchange the role
 of ``procedures'' and ``data'' in such a simple way.  For example, if we write
 @code{(wire 'get-signal)} we think of @code{wire} as a procedure that is called
-with the message @code{get-signal} as input.  Alternatively, writing
+with the message @code{get_signal} as input.  Alternatively, writing
 @code{(get-signal wire)} encourages us to think of @code{wire} as a data object
-that is the input to a procedure @code{get-signal}.  The truth of the matter is
+that is the input to a procedure @code{get_signal}.  The truth of the matter is
 that, in a language in which we can deal with procedures as objects, there is
 no fundamental difference between ``procedures'' and ``data,'' and we can
 choose our syntactic sugar to allow us to program in whatever style we choose.}
@@ -18573,7 +18554,7 @@ Wires, which have time-varying signals and may be incrementally attached to
 devices, are typical of mutable objects.  We have modeled them as procedures
 with local state variables that are modified by assignment.  When a new wire is
 created, a new set of state variables is allocated (by the @code{let}
-expression in @code{make-wire}) and a new @code{dispatch} procedure is
+expression in @code{Wire::new}) and a new @code{dispatch} procedure is
 constructed and returned, capturing the environment with the new state
 variables.
 
@@ -18593,7 +18574,7 @@ for agendas:
 @itemize @bullet
 
 @item
-@code{(make-agenda)} returns a new empty agenda.
+@code{Agenda::new} returns a new empty agenda.
 
 @item
 @code{(empty-agenda? ⟨@var{agenda}⟩)} is true if the specified agenda is
@@ -18730,7 +18711,7 @@ time 16.
 
 @quotation
 @strong{@anchor{Exercise 3.31}Exercise 3.31:} The internal procedure
-@code{accept-action-procedure!} defined in @code{make-wire} specifies that when
+@code{accept-action-procedure!} defined in @code{Wire::new} specifies that when
 a new action procedure is added to a wire, the procedure is immediately run.
 Explain why this initialization is necessary.  In particular, trace through the
 half-adder example in the paragraphs above and say how the system's response
@@ -19013,7 +18994,7 @@ to @math{{25 \cdot 9 = 225}}.  Then @math{u} awakens the second multiplier, whic
 
 To use the constraint system to carry out the temperature computation outlined
 above, we first create two connectors, @code{C} and @code{F}, by calling the
-constructor @code{make-connector}, and link @code{C} and @code{F} in an
+constructor @code{make_connector}, and link @code{C} and @code{F} in an
 appropriate network:
 
 @example
@@ -19992,7 +19973,7 @@ changed between an access and the corresponding assignment.
 @subsubheading Serializers in Scheme
 
 To make the above mechanism more concrete, suppose that we have extended Scheme
-to include a procedure called @code{parallel-execute}:
+to include a procedure parallel execution:
 
 @example
 // Rust's std::thread provides parallel execution:
@@ -20069,7 +20050,7 @@ depending on the interleaving of the events of @math{P_1} and @math{P_2}:
 @noindent
 We can constrain the concurrency by using serialized procedures, which are
 created by @newterm{serializers}. Serializers are constructed by
-@code{make-serializer}, whose implementation is given below.  A serializer
+@code{Mutex::new}, whose implementation is given below.  A serializer
 takes a procedure as argument and returns a serialized procedure that behaves
 like the original procedure.  All calls to a given serializer return serialized
 procedures in the same set.
@@ -20105,7 +20086,7 @@ can produce only two possible values for @code{x}, 101 or 121.  The other
 possibilities are eliminated, because the execution of @math{P_1} and @math{P_2}
 cannot be interleaved.
 
-Here is a version of the @code{make-account} procedure from 
+Here is a version of the @code{Account::new} procedure from 
 @ref{3.1.1}, where the deposits and withdrawals have been serialized:
 
 @example
@@ -20272,7 +20253,7 @@ Ben's concern?
 @quotation
 @strong{@anchor{Exercise 3.42}Exercise 3.42:} Ben Bitdiddle suggests that it's
 a waste of time to create a new serialized procedure in response to every
-@code{withdraw} and @code{deposit} message.  He says that @code{make-account}
+@code{withdraw} and @code{deposit} message.  He says that @code{Account::new}
 could be changed so that the calls to @code{protected} are done outside the
 @code{dispatch} procedure.  That is, an account would return the same
 serialized procedure (which was created at the same time as the account) each
@@ -20314,7 +20295,7 @@ impl Account @{
 @end example
 
 Is this a safe change to make?  In particular, is there any difference in what
-concurrency is allowed by these two versions of @code{make-account}?
+concurrency is allowed by these two versions of @code{Account::new}?
 @end quotation
 
 @subsubheading Complexity of using multiple shared resources
@@ -20347,7 +20328,7 @@ This procedure works well when only a single process is trying to do the
 exchange.  Suppose, however, that Peter and Paul both have access to accounts
 @math{{a1}}, @math{{a2}}, and @math{{a3}}, and that Peter exchanges @math{{a1}} and @math{{a2}} while
 Paul concurrently exchanges @math{{a1}} and @math{{a3}}.  Even with account deposits and
-withdrawals serialized for individual accounts (as in the @code{make-account}
+withdrawals serialized for individual accounts (as in the @code{Account::new}
 procedure shown above in this section), @code{exchange} can still produce
 incorrect results.  For example, Peter might compute the difference in the
 balances for @math{{a1}} and @math{{a2}}, but then Paul might change the balance in
@@ -20363,7 +20344,7 @@ One way we can accomplish this is by using both accounts' serializers to
 serialize the entire @code{exchange} procedure.  To do this, we will arrange
 for access to an account's serializer.  Note that we are deliberately breaking
 the modularity of the bank-account object by exposing the serializer.  The
-following version of @code{make-account} is identical to the original version
+following version of @code{Account::new} is identical to the original version
 given in @ref{3.1.1}, except that a serializer is provided to protect
 the balance variable, and the serializer is exported via message passing:
 
@@ -20477,7 +20458,7 @@ transferring an amount from one account to another.  Ben Bitdiddle claims that
 this can be accomplished with the following procedure, even if there are
 multiple people concurrently transferring money among multiple accounts, using
 any account mechanism that serializes deposit and withdrawal transactions, for
-example, the version of @code{make-account} in the text above.
+example, the version of @code{Account::new} in the text above.
 
 @example
 fn transfer(
@@ -20503,7 +20484,7 @@ bank-account system is unnecessarily complex and error-prone now that deposits
 and withdrawals aren't automatically serialized.  He suggests that
 @code{make-account-and-serializer} should have exported the serializer (for use
 by such procedures as @code{serialized-exchange}) in addition to (rather than
-instead of) using it to serialize accounts and deposits as @code{make-account}
+instead of) using it to serialize accounts and deposits as @code{Account::new}
 did.  He proposes to redefine accounts as follows:
 
 @example
@@ -20547,7 +20528,7 @@ impl LouisAccount @{
 @}
 @end example
 
-Then deposits are handled as with the original @code{make-account}:
+Then deposits are handled as with the original @code{Account::new}:
 
 @example
 fn deposit(account: &LouisAccount, amount: i64) -> i64 @{
@@ -20797,7 +20778,7 @@ used in database management systems, a topic that is treated in detail in
 deadlock-avoidance method described above, (i.e., the accounts are numbered,
 and each process attempts to acquire the smaller-numbered account first) avoids
 deadlock in the exchange problem.  Rewrite @code{serialized-exchange} to
-incorporate this idea.  (You will also need to modify @code{make-account} so
+incorporate this idea.  (You will also need to modify @code{Account::new} so
 that each account is created with a number, which can be accessed by sending an
 appropriate message.)
 @end quotation
@@ -20943,7 +20924,7 @@ transformations of lists, our programs must construct and copy data structures
 
 To see why this is true, let us compare two programs for computing the sum of
 all the prime numbers in an interval.  The first program is written in standard
-iterative style:@footnote{Assume that we have a predicate @code{prime?} (e.g.,
+iterative style:@footnote{Assume that we have a predicate @code{is_prime} (e.g.,
 as in @ref{1.2.6}) that tests for primality.}
 
 @example
@@ -21014,8 +20995,8 @@ to automatically and transparently interleave the construction of the stream
 with its use.
 
 On the surface, streams are just lists with different names for the procedures
-that manipulate them.  There is a constructor, @code{cons-stream}, and two
-selectors, @code{stream-car} and @code{stream-cdr}, which satisfy the
+that manipulate them.  There is a constructor, @code{Stream::cons} (or similar constructor), and two
+selectors, @code{head} and @code{tail}, which satisfy the
 constraints
 
 @example
@@ -21085,7 +21066,7 @@ where
 @noindent
 To make the stream implementation automatically and transparently interleave
 the construction of a stream with its use, we will arrange for the @code{cdr}
-of a stream to be evaluated when it is accessed by the @code{stream-cdr}
+of a stream to be evaluated when it is accessed by the @code{tail}
 procedure rather than when the stream is constructed by @code{cons-stream}.
 This implementation choice is reminiscent of our discussion of rational numbers
 in @ref{2.1.2}, where we saw that we can choose to implement rational
@@ -21129,7 +21110,7 @@ std::iter::once(a).chain(/* b is evaluated lazily */)
 What this means is that we will construct streams using pairs.  However, rather
 than placing the value of the rest of the stream into the @code{cdr} of the
 pair we will put there a promise to compute the rest if it is ever requested.
-@code{Stream-car} and @code{stream-cdr} can now be defined as procedures:
+@code{Stream-car} and @code{tail} can now be defined as procedures:
 
 @example
 // In Rust, Iterator::next() returns Option<Item>
@@ -21141,10 +21122,10 @@ let second = stream.next();  // stream-cdr then car => Some(4)
 @end example
 
 @noindent
-@code{Stream-car} selects the @code{car} of the pair; @code{stream-cdr} selects
+@code{Stream-car} selects the @code{car} of the pair; @code{tail} selects
 the @code{cdr} of the pair and evaluates the delayed expression found there to
-obtain the rest of the stream.@footnote{Although @code{stream-car} and
-@code{stream-cdr} can be defined as procedures, @code{cons-stream} must be a
+obtain the rest of the stream.@footnote{Although @code{head} and
+@code{tail} can be defined as procedures, @code{cons-stream} must be a
 special form.  If @code{cons-stream} were a procedure, then, according to our
 model of evaluation, evaluating @code{(cons-stream ⟨@var{a}⟩ ⟨@var{b}⟩)} would
 automatically cause @code{⟨}@var{b}@code{⟩} to be evaluated, which is precisely what we do
@@ -21213,10 +21194,10 @@ where
 @end example
 
 @noindent
-@code{Stream-filter} tests the @code{stream-car} of the stream (the @code{car}
+@code{Stream-filter} tests the @code{head} of the stream (the @code{car}
 of the pair, which is 10,000).  Since this is not prime, @code{stream-filter}
-examines the @code{stream-cdr} of its input stream.  The call to
-@code{stream-cdr} forces evaluation of the delayed
+examines the @code{tail} of its input stream.  The call to
+@code{tail} forces evaluation of the delayed
 @code{stream-enumerate-interval}, which now returns
 
 @example
@@ -21226,8 +21207,8 @@ examines the @code{stream-cdr} of its input stream.  The call to
 @end example
 
 @noindent
-@code{Stream-filter} now looks at the @code{stream-car} of this stream, 10,001,
-sees that this is not prime either, forces another @code{stream-cdr}, and so
+@code{Stream-filter} now looks at the @code{head} of this stream, 10,001,
+sees that this is not prime either, forces another @code{tail}, and so
 on, until @code{stream-enumerate-interval} yields the prime 10,007, whereupon
 @code{stream-filter}, according to its definition, returns
 
@@ -21247,10 +21228,10 @@ which in this case is
 @end example
 
 @noindent
-This result is now passed to @code{stream-cdr} in our original expression.
+This result is now passed to @code{tail} in our original expression.
 This forces the delayed @code{stream-filter}, which in turn keeps forcing the
 delayed @code{stream-enumerate-interval} until it finds the next prime, which
-is 10,009.  Finally, the result passed to @code{stream-car} in our original
+is 10,009.  Finally, the result passed to @code{head} in our original
 expression is
 
 @example
@@ -21672,7 +21653,7 @@ pair whose @code{car} is 1 and whose @code{cdr} is a promise to evaluate
 evaluate @code{ones}, and so on.
 
 We can do more interesting things by manipulating streams with operations such
-as @code{add-streams}, which produces the elementwise sum of two given
+as @code{add_streams}, which produces the elementwise sum of two given
 streams:@footnote{This uses the generalized version of @code{stream-map} from
 @ref{Exercise 3.50}.}
 
@@ -21797,7 +21778,7 @@ fn is_prime_with_primes<I: Iterator<Item = u64>>(n: u64, primes: I) -> bool @{
 
 @noindent
 This is a recursive definition, since @code{primes} is defined in terms of the
-@code{prime?} predicate, which itself uses the @code{primes} stream.  The
+@code{is_prime} predicate, which itself uses the @code{primes} stream.  The
 reason this procedure works is that, at any point, enough of the @code{primes}
 stream has been generated to test the primality of the numbers we need to check
 next.  That is, for every @math{n} we test for primality, either @math{n} is not
@@ -21827,7 +21808,7 @@ let s = std::iter::successors(Some(1_i64), |&n| Some(n + n));
 
 @quotation
 @strong{@anchor{Exercise 3.54}Exercise 3.54:} Define a procedure
-@code{mul-streams}, analogous to @code{add-streams}, that produces the
+@code{mul_streams}, analogous to @code{add_streams}, that produces the
 elementwise product of its two input streams.  Use this together with the
 stream of @code{integers} to complete the following definition of the stream
 whose @math{n^{\text{th}}} element (counting from 0) is @math{{n + 1}} factorial:
@@ -21847,7 +21828,7 @@ fn factorials() -> impl Iterator<Item = u64> @{
 
 @quotation
 @strong{@anchor{Exercise 3.55}Exercise 3.55:} Define a procedure
-@code{partial-sums} that takes as argument a stream @math{S} and returns the
+@code{partial_sums} that takes as argument a stream @math{S} and returns the
 stream whose elements are @math{S_0}, @math{{S_0 + S_1}}, @math{{S_0 + S_1} + {S_2, \dots}}.  
 For example, @code{(partial-sums integers)} should be the
 stream 1, 3, 6, 10, 15, @dots{}.
@@ -21869,12 +21850,12 @@ following facts about it.
 @code{S} begins with 1.
 
 @item
-The elements of @code{(scale-stream S 2)} are also
+The elements of @code{scale_stream(S, 2)} are also
 elements of @code{S}.
 
 @item
-The same is true for @code{(scale-stream S 3)}
-and @code{(scale-stream S 5)}.
+The same is true for @code{scale_stream(S, 3)}
+and @code{scale_stream(S, 5)}.
 
 @item
 These are all the elements of @code{S}.
@@ -21925,7 +21906,7 @@ Fill in the missing expressions in the places marked @code{⟨??⟩} above.
 @quotation
 @strong{@anchor{Exercise 3.57}Exercise 3.57:} How many additions are performed
 when we compute the @math{n^{\text{th}}} Fibonacci number using the definition of
-@code{fibs} based on the @code{add-streams} procedure?  Show that the number of
+@code{fibs} based on the @code{add_streams} procedure?  Show that the number of
 additions would be exponentially greater if we had implemented @code{(delay ⟨@var{exp}⟩)} 
 simply as @code{(lambda () ⟨@var{exp}⟩)}, without using the
 optimization provided by the @code{memo-proc} procedure described in 
@@ -22010,12 +21991,12 @@ c + a_0 x + --- a_1 x^2 + --- a_2 x^3 + --- a_3 x^4 + ...
   c + {a_0 x} + {\frac{1}{2} a_1 x^2} + {\frac{1}{3} a_2 x^3} + {\frac{1}{4} a_3 x^4 + \dots,}  \]
 @end tex
 @noindent
-where @math{c} is any constant.  Define a procedure @code{integrate-series} that
+where @math{c} is any constant.  Define a procedure @code{integrate_series} that
 takes as input a stream @math{a_0}, @math{a_1}, @math{a_2}, @dots{} representing a power
 series and returns the stream @math{a_0}, @math{{{1\over2}a_1}}, @math{{{1\over3}a_2}}, @dots{} of
 coefficients of the non-constant terms of the integral of the series.  (Since
 the result has no constant term, it doesn't represent a power series; when we
-use @code{integrate-series}, we will @code{cons} on the appropriate constant.)
+use @code{integrate_series}, we will @code{cons} on the appropriate constant.)
 
 @item
 The function @math{{x \mapsto e^x}} is its own derivative.  This implies that
@@ -22071,7 +22052,7 @@ fn sine_series() -> impl Iterator<Item = f64> @{
 @quotation
 @strong{@anchor{Exercise 3.60}Exercise 3.60:} With power series represented as
 streams of coefficients as in @ref{Exercise 3.59}, adding series is implemented
-by @code{add-streams}.  Complete the definition of the following procedure for
+by @code{add_streams}.  Complete the definition of the following procedure for
 multiplying series:
 
 @example
@@ -22122,18 +22103,18 @@ constant term.  Then we can solve for @math{X} as follows:
 @end tex
 In other words, @math{X} is the power series whose constant term is 1 and whose
 higher-order terms are given by the negative of @math{S_R} times @math{X}.  Use
-this idea to write a procedure @code{invert-unit-series} that computes @math{{1 / S}}
+this idea to write a procedure @code{invert_unit_series} that computes @math{{1 / S}}
 for a power series @math{S} with constant term 1.  You will need to use
-@code{mul-series} from @ref{Exercise 3.60}.
+@code{mul_series} from @ref{Exercise 3.60}.
 @end quotation
 
 @quotation
 @strong{@anchor{Exercise 3.62}Exercise 3.62:} Use the results of @ref{Exercise 3.60} 
-and @ref{Exercise 3.61} to define a procedure @code{div-series} that
+and @ref{Exercise 3.61} to define a procedure @code{div_series} that
 divides two power series.  @code{Div-series} should work for any two series,
 provided that the denominator series begins with a nonzero constant term.  (If
-the denominator has a zero constant term, then @code{div-series} should signal
-an error.)  Show how to use @code{div-series} together with the result of
+the denominator has a zero constant term, then @code{div_series} should signal
+an error.)  Show how to use @code{div_series} together with the result of
 @ref{Exercise 3.59} to generate the power series for tangent.
 @end quotation
 
@@ -22211,7 +22192,7 @@ approximation to @math{\pi}, based upon the alternating series that we saw in
 @end tex
 We first generate the stream of summands of the series (the reciprocals of the
 odd integers, with alternating signs).  Then we take the stream of sums of more
-and more terms (using the @code{partial-sums} procedure of @ref{Exercise 3.55})
+and more terms (using the @code{partial_sums} procedure of @ref{Exercise 3.55})
 and scale the result by 4:
 
 @example
@@ -22381,7 +22362,7 @@ manipulated with a uniform set of operations.
 
 @quotation
 @strong{@anchor{Exercise 3.63}Exercise 3.63:} Louis Reasoner asks why the
-@code{sqrt-stream} procedure was not written in the following more
+@code{sqrt_stream} procedure was not written in the following more
 straightforward way, without the local variable @code{guesses}:
 
 @example
@@ -22403,7 +22384,7 @@ using the optimization provided by @code{memo-proc} (@ref{3.5.1})?
 
 @quotation
 @strong{@anchor{Exercise 3.64}Exercise 3.64:} Write a procedure
-@code{stream-limit} that takes as arguments a stream and a number (the
+@code{stream_limit} that takes as arguments a stream and a number (the
 tolerance).  It should examine the stream until it finds two successive
 elements that differ in absolute value by less than the tolerance, and return
 the second of the two elements.  Using this, we could compute square roots up
@@ -22464,7 +22445,7 @@ represented as loops, because the ``looping'' must range over an infinite set.
 For example, suppose we want to generalize the @code{prime-sum-pairs} procedure
 of @ref{2.2.3} to produce the stream of pairs of @emph{all} integers
 @math{{(i, j)}} with @math{{i \le j}} such that @math{{i + j}} is prime.  If
-@code{int-pairs} is the sequence of all pairs of integers @math{{(i, j)}} with
+@code{int_pairs} is the sequence of all pairs of integers @math{{(i, j)}} with
 @math{{i \le j}}, then our required stream is simply@footnote{As in 
 @ref{2.2.3}, we represent a pair of integers as a list rather than a Lisp
 pair.}
@@ -22479,7 +22460,7 @@ fn prime_sum_pairs() -> impl Iterator<Item = (u64, u64)> @{
 @end example
 
 @noindent
-Our problem, then, is to produce the stream @code{int-pairs}.  More generally,
+Our problem, then, is to produce the stream @code{int_pairs}.  More generally,
 suppose we have two streams @math{{S = (S_i)}} and @math{{T = (T_j)}},
 and imagine the infinite rectangular array
 @ifinfo
@@ -22528,7 +22509,7 @@ on or above the diagonal, i.e., the pairs
 @end tex
 @noindent
 (If we take both @math{S} and @math{T} to be the stream of integers, then this will
-be our desired stream @code{int-pairs}.)
+be our desired stream @code{int_pairs}.)
 
 Call the general stream of pairs @code{(pairs S T)}, and consider it to be
 composed of three parts: the pair @math{{(S_0, T_0)}}, the rest of the pairs in
@@ -22734,14 +22715,14 @@ define a way to say that one pair of integers is ``less than'' another.  One
 way to do this is to define a ``weighting function'' @math{{W(i, j)}} and
 stipulate that @math{{(i_1, j_1)}} is less than @math{{(i_2, j_2)}} if
 @math{{W(i_1, j_1) <} {W(i_2, j_2)}}.  Write a procedure
-@code{merge-weighted} that is like @code{merge}, except that
-@code{merge-weighted} takes an additional argument @code{weight}, which is a
+@code{merge_weighted} that is like @code{merge}, except that
+@code{merge_weighted} takes an additional argument @code{weight}, which is a
 procedure that computes the weight of a pair, and is used to determine the
 order in which elements should appear in the resulting merged
 stream.@footnote{We will require that the weighting function be such that the
 weight of a pair increases as we move out along a row or down along a column of
 the array of pairs.}  Using this, generalize @code{pairs} to a procedure
-@code{weighted-pairs} that takes two streams, together with a procedure that
+@code{weighted_pairs} that takes two streams, together with a procedure that
 computes a weighting function, and generates the stream of pairs, ordered
 according to weight.  Use your procedure to generate
 
@@ -22938,7 +22919,7 @@ zero-crossing signal would be
 In Alyssa's system, the signal from the sensor is represented as a stream
 @code{sense-data} and the stream @code{zero-crossings} is the corresponding
 stream of zero crossings.  Alyssa first writes a procedure
-@code{sign-change-detector} that takes two values as arguments and compares the
+@code{sign_change_detector} that takes two values as arguments and compares the
 signs of the values to produce an appropriate @math{0}, @math{1}, or @math{{-1}}.  She then
 constructs her zero-crossing stream as follows:
 
@@ -23008,7 +22989,7 @@ fn make_zero_crossings_buggy(
 
 This does not correctly implement Alyssa's plan.  Find the bug that Louis has
 installed and fix it without changing the structure of the program.  (Hint: You
-will need to increase the number of arguments to @code{make-zero-crossings}.)
+will need to increase the number of arguments to @code{make_zero_crossings}.)
 @end quotation
 
 @quotation
@@ -24072,7 +24053,7 @@ access the parts of an assignment.  Implementation of expressions will be
 described in detail in @ref{4.1.2}.  There are also operations,
 described in @ref{4.1.3}, that specify the representation of procedures
 and environments.  For example, @code{make-procedure} constructs compound
-procedures, @code{lookup-variable-value} accesses the values of variables, and
+procedures, @code{lookup_variable_value} accesses the values of variables, and
 @code{apply-primitive-procedure} applies a primitive procedure to a given list
 of arguments.
 
@@ -24244,12 +24225,12 @@ fn apply(procedure: &Value, arguments: &[Value]) -> Result<Value, EvalError> @{
 @subsubheading Procedure arguments
 
 When @code{eval} processes a procedure application, it uses
-@code{list-of-values} to produce the list of arguments to which the procedure
+@code{list_of_values} to produce the list of arguments to which the procedure
 is to be applied. @code{List-of-values} takes as an argument the operands of
 the combination.  It evaluates each operand and returns a list of the
 corresponding values:@footnote{We could have simplified the @code{application?}
 clause in @code{eval} by using @code{map} (and stipulating that @code{operands}
-returns a list) rather than writing an explicit @code{list-of-values}
+returns a list) rather than writing an explicit @code{list_of_values}
 procedure.  We chose not to use @code{map} here to emphasize the fact that the
 evaluator can be implemented without any use of higher-order procedures (and
 thus could be written in a language that doesn't have higher-order procedures),
@@ -24269,7 +24250,7 @@ fn list_of_values(
 @subsubheading Conditionals
 
 @code{Eval-if} evaluates the predicate part of an @code{if} expression in the
-given environment.  If the result is true, @code{eval-if} evaluates the
+given environment.  If the result is true, @code{eval_if} evaluates the
 consequent, otherwise it evaluates the alternative:
 
 @example
@@ -24285,7 +24266,7 @@ fn eval_if(test: &Expr, conseq: &Expr, alt: &Expr, env: &Environment)
 @end example
 
 @noindent
-The use of @code{true?} in @code{eval-if} highlights the issue of the
+The use of @code{true?} in @code{eval_if} highlights the issue of the
 connection between an implemented language and an implementation language.  The
 @code{if-predicate} is evaluated in the language being implemented and thus
 yields a value in that language.  The interpreter predicate @code{true?}
@@ -24318,7 +24299,7 @@ fn eval_sequence(exps: &[Expr], env: &Environment) -> Result<Value, EvalError> @
 
 The following procedure handles assignments to variables.  It calls @code{eval}
 to find the value to be assigned and transmits the variable and the resulting
-value to @code{set-variable-value!} to be installed in the designated
+value to @code{set_variable_value} to be installed in the designated
 environment.
 
 @example
@@ -24333,7 +24314,7 @@ fn eval_assignment(var: &str, val_expr: &Expr, env: &mut Environment)
 
 @noindent
 Definitions of variables are handled in a similar manner.@footnote{This
-implementation of @code{define} ignores a subtle issue in the handling of
+implementation of definition ignores a subtle issue in the handling of
 internal definitions, although it works correctly in most cases.  We will see
 what the problem is and how to solve it in @ref{4.1.6}.}
 
@@ -24350,21 +24331,21 @@ fn eval_definition(var: &str, val_expr: &Expr, env: &mut Environment)
 @noindent
 We have chosen here to return the symbol @code{ok} as the value of an
 assignment or a definition.@footnote{As we said when we introduced
-@code{define} and @code{set!}, these values are implementation-dependent in
+definition and @code{set!}, these values are implementation-dependent in
 Scheme---that is, the implementor can choose what value to return.}
 
 @quotation
 @strong{@anchor{Exercise 4.1}Exercise 4.1:} Notice that we cannot tell whether
 the metacircular evaluator evaluates operands from left to right or from right
 to left.  Its evaluation order is inherited from the underlying Lisp: If the
-arguments to @code{cons} in @code{list-of-values} are evaluated from left to
-right, then @code{list-of-values} will evaluate operands from left to right;
+arguments to @code{cons} in @code{list_of_values} are evaluated from left to
+right, then @code{list_of_values} will evaluate operands from left to right;
 and if the arguments to @code{cons} are evaluated from right to left, then
-@code{list-of-values} will evaluate operands from right to left.
+@code{list_of_values} will evaluate operands from right to left.
 
-Write a version of @code{list-of-values} that evaluates operands from left to
+Write a version of @code{list_of_values} that evaluates operands from left to
 right regardless of the order of evaluation in the underlying Lisp.  Also write
-a version of @code{list-of-values} that evaluates operands from right to left.
+a version of @code{list_of_values} that evaluates operands from right to left.
 @end quotation
 
 @node	4.1.2, 4.1.3, 4.1.1, 4.1
@@ -24528,7 +24509,7 @@ enum Expr @{
 @end example
 
 We also provide a constructor for @code{if} expressions, to be used by
-@code{cond->if} to transform @code{cond} expressions into @code{if}
+@code{cond_to_if} to transform @code{cond} expressions into @code{if}
 expressions:
 
 @example
@@ -24560,7 +24541,7 @@ enum Expr @{
 // exprs.last(), exprs.first(), &exprs[1..]
 @end example
 
-We also include a constructor @code{sequence->exp} (for use by @code{cond->if})
+We also include a constructor @code{sequence_to_exp} (for use by @code{cond_to_if})
 that transforms a sequence into a single expression, using @code{begin} if
 necessary:
 
@@ -24630,7 +24611,7 @@ because it reduces the number of special forms for which the evaluation process
 must be explicitly specified.
 
 We include syntax procedures that extract the parts of a @code{cond}
-expression, and a procedure @code{cond->if} that transforms @code{cond}
+expression, and a procedure @code{cond_to_if} that transforms @code{cond}
 expressions into @code{if} expressions.  A case analysis begins with
 @code{cond} and has a list of predicate-action clauses.  A clause is an
 @code{else} clause if its predicate is the symbol @code{else}.@footnote{The
@@ -24771,7 +24752,7 @@ is equivalent to
 @})(@var{exp1}, ..., @var{expn})
 @end example
 
-Implement a syntactic transformation @code{let->combination} that reduces
+Implement a syntactic transformation @code{let_to_combination} that reduces
 evaluating @code{let} expressions to evaluating combinations of the type shown
 above, and add the appropriate clause to @code{eval} to handle @code{let}
 expressions.
@@ -24993,8 +24974,8 @@ impl Environment @{
 Each frame of an environment is represented as a pair of lists: a list of the
 variables bound in that frame and a list of the associated
 values.@footnote{Frames are not really a data abstraction in the following
-code: @code{Set-variable-value!} and @code{define-variable!} use
-@code{set-car!}  to directly modify the values in a frame.  The purpose of the
+code: @code{Set-variable-value!} and @code{define_variable} use
+@code{set_car} (or similar mutator)  to directly modify the values in a frame.  The purpose of the
 frame procedures is to make the environment-manipulation procedures easy to
 read.}
 
@@ -25056,7 +25037,7 @@ impl Environment @{
 
 @noindent
 To set a variable to a new value in a specified environment, we scan for the
-variable, just as in @code{lookup-variable-value}, and change the corresponding
+variable, just as in @code{lookup_variable_value}, and change the corresponding
 value when we find it.
 
 @example
@@ -25082,7 +25063,7 @@ impl Environment @{
 
 @noindent
 To define a variable, we search the first frame for a binding for the variable,
-and change the binding if it exists (just as in @code{set-variable-value!}).
+and change the binding if it exists (just as in @code{set_variable_value}).
 If no such binding exists, we adjoin one to the first frame.
 
 @example
@@ -25121,8 +25102,8 @@ alternative representation.
 
 @quotation
 @strong{@anchor{Exercise 4.12}Exercise 4.12:} The procedures
-@code{define-variable!}, @code{set-variable-value!} and
-@code{lookup-variable-value} can be expressed in terms of more abstract
+@code{define_variable}, @code{set_variable_value} and
+@code{lookup_variable_value} can be expressed in terms of more abstract
 procedures for traversing the environment structure.  Define abstractions that
 capture the common patterns and redefine the three procedures in terms of these
 abstractions.
@@ -25130,7 +25111,7 @@ abstractions.
 
 @quotation
 @strong{@anchor{Exercise 4.13}Exercise 4.13:} Scheme allows us to create new
-bindings for variables by means of @code{define}, but provides no way to get
+bindings for variables by means of definition, but provides no way to get
 rid of bindings.  Implement for the evaluator a special form
 @code{make-unbound!} that removes the binding of a given symbol from the
 environment in which the @code{make-unbound!} expression is evaluated.  This
@@ -25599,13 +25580,13 @@ Our intention here is that the name @code{odd?} in the body of the procedure
 @code{even?} should refer to the procedure @code{odd?} that is defined after
 @code{even?}.  The scope of the name @code{odd?} is the entire body of
 @code{f}, not just the portion of the body of @code{f} starting at the point
-where the @code{define} for @code{odd?} occurs.  Indeed, when we consider that
+where the definition for @code{odd?} occurs.  Indeed, when we consider that
 @code{odd?} is itself defined in terms of @code{even?}---so that @code{even?}
 and @code{odd?} are mutually recursive procedures---we see that the only
-satisfactory interpretation of the two @code{define}s is to regard them as if
+satisfactory interpretation of the two definitions is to regard them as if
 the names @code{even?} and @code{odd?} were being added to the environment
 simultaneously.  More generally, in block structure, the scope of a local name
-is the entire procedure body in which the @code{define} is evaluated.
+is the entire procedure body in which the definition is evaluated.
 
 As it happens, our interpreter will evaluate calls to @code{f} correctly, but
 for an ``accidental'' reason: Since the definitions of the internal procedures
@@ -25685,7 +25666,7 @@ the evaluator supports @code{let} (see @ref{Exercise 4.6}).
 @enumerate a
 
 @item
-Change @code{lookup-variable-value} (@ref{4.1.3}) to signal an error if
+Change @code{lookup_variable_value} (@ref{4.1.3}) to signal an error if
 the value it finds is the symbol @code{*unassigned*}.
 
 @item
@@ -25774,7 +25755,7 @@ expression
 @end example
 
 Ben asserts that the result should be obtained using the sequential rule for
-@code{define}: @code{b} is defined to be 11, then @code{a} is defined to be 5,
+definition: @code{b} is defined to be 11, then @code{a} is defined to be 5,
 so the result is 16.  Alyssa objects that mutual recursion requires the
 simultaneous scope rule for internal procedure definitions, and that it is
 unreasonable to treat procedure names differently from other names.  Thus, she
@@ -25869,11 +25850,11 @@ be created with a @code{let} and then be assigned their values with
 
 @item
 Louis Reasoner is confused by all this fuss about internal definitions.  The
-way he sees it, if you don't like to use @code{define} inside a procedure, you
+way he sees it, if you don't like to use definition inside a procedure, you
 can just use @code{let}.  Illustrate what is loose about his reasoning by
 drawing an environment diagram that shows the environment in which the
 @code{⟨}@var{rest of body of @code{f}}@code{⟩} is evaluated during evaluation of the
-expression @code{(f 5)}, with @code{f} defined as in this exercise.  Draw an
+expression @code{f(5)}, with @code{f} defined as in this exercise.  Draw an
 environment diagram for the same evaluation, but with @code{let} in place of
 @code{letrec} in the definition of @code{f}.
 
@@ -25883,11 +25864,11 @@ environment diagram for the same evaluation, but with @code{let} in place of
 @quotation
 @strong{@anchor{Exercise 4.21}Exercise 4.21:} Amazingly, Louis's intuition in
 @ref{Exercise 4.20} is correct.  It is indeed possible to specify recursive
-procedures without using @code{letrec} (or even @code{define}), although the
+procedures without using @code{letrec} (or even definition), although the
 method for accomplishing this is much more subtle than Louis imagined.  The
 following expression computes 10 factorial by applying a recursive factorial
 procedure:@footnote{This example illustrates a programming trick for
-formulating recursive procedures without using @code{define}.  The most general
+formulating recursive procedures without using definition.  The most general
 trick of this sort is the @math{Y} @newterm{operator}, which can be used to give a
 ``pure λ-calculus'' implementation of recursion.  (See @ref{Stoy 1977} for
 details on the λ-calculus, and @ref{Gabriel 1988} for an exposition of the
@@ -26594,7 +26575,7 @@ fn apply_lazy(
 @end example
 
 @noindent
-The procedures that process the arguments are just like @code{list-of-values}
+The procedures that process the arguments are just like @code{list_of_values}
 from @ref{4.1.1}, except that @code{list-of-delayed-args} delays the
 arguments instead of evaluating them, and @code{list-of-arg-values} uses
 @code{actual-value} instead of @code{eval}:
@@ -26857,7 +26838,7 @@ is there only for its effect, such as assigning to a variable or printing),
 there can be no subsequent use of this value (e.g., as an argument to a
 primitive procedure) that will cause it to be forced.  Cy thus thinks that when
 evaluating sequences, we must force all expressions in the sequence except the
-final one.  He proposes to modify @code{eval-sequence} from @ref{4.1.1}
+final one.  He proposes to modify @code{eval_sequence} from @ref{4.1.1}
 to use @code{actual-value} rather than @code{eval}:
 
 @example
@@ -26891,7 +26872,7 @@ where
 @end example
 
 He claims that the evaluator in the text (with the original
-@code{eval-sequence}) handles this correctly:
+@code{eval_sequence}) handles this correctly:
 
 @example
 // ;;; L-Eval input:
@@ -26912,7 +26893,7 @@ Explain why Ben is right about the behavior of @code{for-each}.
 @item
 Cy agrees that Ben is right about the @code{for-each} example, but says that
 that's not the kind of program he was thinking about when he proposed his
-change to @code{eval-sequence}.  He defines the following two procedures in the
+change to @code{eval_sequence}.  He defines the following two procedures in the
 lazy evaluator:
 
 @example
@@ -26930,11 +26911,11 @@ fn p2(mut x: Vec<i64>) -> Vec<i64> @{
 @end example
 
 What are the values of @code{(p1 1)} and @code{(p2 1)} with the original
-@code{eval-sequence}?  What would the values be with Cy's proposed change to
-@code{eval-sequence}?
+@code{eval_sequence}?  What would the values be with Cy's proposed change to
+@code{eval_sequence}?
 
 @item
-Cy also points out that changing @code{eval-sequence} as he proposes does not
+Cy also points out that changing @code{eval_sequence} as he proposes does not
 affect the behavior of the example in part a.  Explain why this is true.
 
 @item
@@ -26975,7 +26956,7 @@ Scheme, while adding the @code{lazy-memo} declaration to each parameter of
 every compound procedure will produce the behavior of the lazy evaluator
 defined in this section. Design and implement the changes required to produce
 such an extension to Scheme.  You will have to implement new syntax procedures
-to handle the new syntax for @code{define}.  You must also arrange for
+to handle the new syntax for definition.  You must also arrange for
 @code{eval} or @code{apply} to determine when arguments are to be delayed, and
 to force or delay arguments accordingly, and you must arrange for forcing to
 memoize or not, as appropriate.
@@ -27176,8 +27157,8 @@ fn prime_sum_pair(list1: &[i64], list2: &[i64]) -> Option<(i64, i64)> @{
 It might seem as if this procedure merely restates the problem, rather than
 specifying a way to solve it.  Nevertheless, this is a legitimate
 nondeterministic program.@footnote{We assume that we have previously defined a
-procedure @code{prime?} that tests whether numbers are prime.  Even with
-@code{prime?} defined, the @code{prime-sum-pair} procedure may look
+procedure @code{is_prime} that tests whether numbers are prime.  Even with
+@code{is_prime} defined, the @code{prime-sum-pair} procedure may look
 suspiciously like the unhelpful ``pseudo-Lisp'' attempt to define the
 square-root function, which we described at the beginning of 
 @ref{1.1.7}.  In fact, a square-root procedure along those lines can actually
@@ -27213,7 +27194,7 @@ previous choice point and proceed along a different branch.
 The nondeterministic program evaluator implemented below is called the
 @code{amb} evaluator because it is based on a new special form called
 @code{amb}.  We can type the above definition of @code{prime-sum-pair} at the
-@code{amb} evaluator driver loop (along with definitions of @code{prime?},
+@code{amb} evaluator driver loop (along with definitions of @code{is_prime},
 @code{an-element-of}, and @code{require}) and run the procedure as follows:
 
 @example
@@ -28281,7 +28262,7 @@ fn analyze_lambda(params: Vec<String>, body: Vec<Expr>) -> Executor @{
 
 @noindent
 Notice that looking up a variable always `succeeds.'  If
-@code{lookup-variable-value} fails to find the variable, it signals an error,
+@code{lookup_variable_value} fails to find the variable, it signals an error,
 as usual.  Such a ``failure'' indicates a program bug---a reference to an
 unbound variable; it is not an indication that we should try another
 nondeterministic choice instead of the one that is currently being tried.
@@ -31594,7 +31575,7 @@ consisting of a single element:
 
 @code{Type} and @code{contents}, used by @code{qeval} (@ref{4.4.4.2}),
 specify that a special form is identified by the symbol in its @code{car}.
-They are the same as the @code{type-tag} and @code{contents} procedures in
+They are the same as the @code{type_tag} and @code{contents} procedures in
 @ref{2.4.2}, except for the error message.
 
 @example
@@ -31976,7 +31957,7 @@ evaluating
 
 @noindent
 there is no confusion between the @code{x} in @code{square} and the @code{x} in
-@code{sum-of-squares}, because we evaluate the body of each procedure in an
+@code{sum_of_squares}, because we evaluate the body of each procedure in an
 environment that is specially constructed to contain bindings for the local
 variables.  In the query system, we used a different strategy to avoid name
 conflicts in applying rules.  Each time we apply a rule we rename the variables
@@ -32723,7 +32704,7 @@ roots using Newton's method, as described in @ref{Sec.1.1.7,,1.1.7}:
   (sqrt-iter 1.0))
 @end example
 
-Begin by assuming that @code{good-enough?} and @code{improve} operations are
+Begin by assuming that @code{good_enough} and @code{improve} operations are
 available as primitives.  Then show how to expand these in terms of arithmetic
 operations.  Describe each version of the @code{sqrt} machine design by drawing
 a data-path diagram and writing a controller definition in the register-machine
@@ -34943,8 +34924,8 @@ pointer) because we are using a compacting garbage collector, as we will see in
 
 @noindent
 is implemented as the following sequence of vector operations:@footnote{This is
-essentially the implementation of @code{cons} in terms of @code{set-car!} and
-@code{set-cdr!}, as described in @ref{3.3.1}.  The operation
+essentially the implementation of @code{cons} in terms of @code{set_car} (or similar mutator) and
+@code{set_cdr} (or similar mutator), as described in @ref{3.3.1}.  The operation
 @code{get-new-pair} used in that implementation is realized here by the
 @code{free} pointer.}
 
@@ -35858,7 +35839,7 @@ metacircular evaluator, which inherits its control structure from the
 underlying Scheme in which it is implemented.@footnote{The order of operand
 evaluation in the metacircular evaluator is determined by the order of
 evaluation of the arguments to @code{cons} in the procedure
-@code{list-of-values} of @ref{4.1.1} (see @ref{Exercise 4.1}).} Because
+@code{list_of_values} of @ref{4.1.1} (see @ref{Exercise 4.1}).} Because
 the @code{first-operand} selector (used in @code{ev-appl-operand-loop} to
 extract successive operands from @code{unev}) is implemented as @code{car} and
 the @code{rest-operands} selector is implemented as @code{cdr}, the
@@ -35951,7 +35932,7 @@ variables to be bound.
 @subsection Sequence Evaluation and Tail Recursion
 
 The portion of the explicit-control evaluator at @code{ev-sequence} is
-analogous to the metacircular evaluator's @code{eval-sequence} procedure.  It
+analogous to the metacircular evaluator's @code{eval_sequence} procedure.  It
 handles sequences of expressions in procedure bodies or in explicit
 @code{begin} expressions.
 
@@ -36059,7 +36040,7 @@ Building this strategy into the interpreter, as we have done in this section,
 provides the optimization uniformly throughout the language.}
 
 If we did not think to take advantage of the fact that it was unnecessary to
-save information in this case, we might have implemented @code{eval-sequence}
+save information in this case, we might have implemented @code{eval_sequence}
 by treating all the expressions in a sequence in the same way---saving the
 registers, evaluating the expression, returning to restore the registers, and
 repeating this until all the expressions have been evaluated:@footnote{We can
@@ -36233,10 +36214,10 @@ ev-definition-1
 @strong{@anchor{Exercise 5.23}Exercise 5.23:} Extend the evaluator to handle
 derived expressions such as @code{cond}, @code{let}, and so on 
 (@ref{4.1.2}).  You may ``cheat'' and assume that the syntax transformers such
-as @code{cond->if} are available as machine operations.@footnote{This isn't
+as @code{cond_to_if} are available as machine operations.@footnote{This isn't
 really cheating.  In an actual implementation built from scratch, we would use
 our explicit-control evaluator to interpret a Scheme program that performs
-source-level transformations like @code{cond->if} in a syntax phase that runs
+source-level transformations like @code{cond_to_if} in a syntax phase that runs
 before execution.}
 @end quotation
 
@@ -36566,7 +36547,7 @@ time required.
 
 @quotation
 @strong{@anchor{Exercise 5.28}Exercise 5.28:} Modify the definition of the
-evaluator by changing @code{eval-sequence} as described in @ref{5.4.2}
+evaluator by changing @code{eval_sequence} as described in @ref{5.4.2}
 so that the evaluator is no longer tail-recursive.  Rerun your experiments from
 @ref{Exercise 5.26} and @ref{Exercise 5.27} to demonstrate that both versions
 of the @code{factorial} procedure now require space that grows linearly with
@@ -36795,7 +36776,7 @@ to obtain the result in @code{val}, restores the saved registers, and finally
 moves the result from @code{val} to @code{proc}.  However, in the particular
 expression we are dealing with, the operator is the symbol @code{f}, whose
 evaluation is accomplished by the machine operation
-@code{lookup-variable-value}, which does not alter any registers.  The compiler
+@code{lookup_variable_value}, which does not alter any registers.  The compiler
 that we implement in this section will take advantage of this fact and generate
 code that evaluates the operator using the instruction
 
@@ -36814,7 +36795,7 @@ obtain the result in @code{val} and then move this to @code{proc}.
 A compiler can also optimize access to the environment.  Having analyzed the
 code, the compiler can in many cases know in which frame a particular variable
 will be located and access that frame directly, rather than performing the
-@code{lookup-variable-value} search.  We will discuss how to implement such
+@code{lookup_variable_value} search.  We will discuss how to implement such
 variable access in @ref{5.5.6}.  Until then, however, we will focus on
 the kind of register and stack optimizations described above.  There are many
 other optimizations that can be performed by a compiler, such as coding
@@ -37465,7 +37446,7 @@ special combiner @code{parallel-instruction-sequences} described in
 @ref{5.5.4}.
 
 Note that @code{cond} is a derived expression, so all that the compiler needs
-to do handle it is to apply the @code{cond->if} transformer (from 
+to do handle it is to apply the @code{cond_to_if} transformer (from 
 @ref{4.1.2}) and compile the resulting @code{if} expression.
 
 @subsubheading Compiling sequences
@@ -38256,15 +38237,15 @@ definition of a recursive @code{factorial} procedure by calling @code{compile}:
 @end lisp
 
 @noindent
-We have specified that the value of the @code{define} expression should be
+We have specified that the value of the definition expression should be
 placed in the @code{val} register.  We don't care what the compiled code does
-after executing the @code{define}, so our choice of @code{next} as the linkage
+after executing the definition, so our choice of @code{next} as the linkage
 descriptor is arbitrary.
 
 @code{Compile} determines that the expression is a definition, so it calls
 @code{compile-definition} to compile code to compute the value to be assigned
 (targeted to @code{val}), followed by code to install the definition, followed
-by code to put the value of the @code{define} (which is the symbol @code{ok})
+by code to put the value of the definition (which is the symbol @code{ok})
 into the target register, followed finally by the linkage code.  @code{Env} is
 preserved around the computation of the value, because it is needed in order to
 install the definition.  Because the linkage is @code{next}, there is no
@@ -38878,7 +38859,7 @@ only two inputs.
 
 One of the most common optimizations performed by compilers is the optimization
 of variable lookup.  Our compiler, as we have implemented it so far, generates
-code that uses the @code{lookup-variable-value} operation of the evaluator
+code that uses the @code{lookup_variable_value} operation of the evaluator
 machine.  This searches for a variable by comparing it with each variable that
 is currently bound, working frame by frame outward through the run-time
 environment.  This search can be expensive if the frames are deeply nested or
@@ -38909,11 +38890,11 @@ combination, this expression is equivalent to
 @end lisp
 
 @noindent
-Each time @code{lookup-variable-value} searches for @code{x}, it must determine
+Each time @code{lookup_variable_value} searches for @code{x}, it must determine
 that the symbol @code{x} is not @code{eq?} to @code{y} or @code{z} (in the
 first frame), nor to @code{a}, @code{b}, @code{c}, @code{d}, or @code{e} (in
 the second frame).  We will assume, for the moment, that our programs do not
-use @code{define}---that variables are bound only with @code{lambda}.  Because
+use definition---that variables are bound only with @code{lambda}.  Because
 our language is lexically scoped, the run-time environment for any expression
 will have a structure that parallels the lexical structure of the program in
 which the expression appears.@footnote{This is not true if we allow internal
@@ -38932,9 +38913,9 @@ in that frame.  @code{Lexical-address-lookup} will produce the value of the
 variable stored at that lexical address relative to the current environment.
 If we add the @code{lexical-address-lookup} operation to our machine, we can
 make the compiler generate code that references variables using this operation,
-rather than @code{lookup-variable-value}.  Similarly, our compiled code can use
+rather than @code{lookup_variable_value}.  Similarly, our compiled code can use
 a new @code{lexical-address-set!}  operation instead of
-@code{set-variable-value!}.
+@code{set_variable_value}.
 
 In order to generate such code, the compiler must be able to determine the
 lexical address of a variable it is about to compile a reference to.  The
@@ -39047,7 +39028,7 @@ this section.
 @quotation
 @strong{@anchor{Exercise 5.43}Exercise 5.43:} We argued in @ref{4.1.6}
 that internal definitions for block structure should not be considered ``real''
-@code{define}s.  Rather, a procedure body should be interpreted as if the
+definitions.  Rather, a procedure body should be interpreted as if the
 internal variables being defined were installed as ordinary @code{lambda}
 variables initialized to their correct values using @code{set!}.  
 @ref{4.1.6} and @ref{Exercise 4.16} showed how to modify the metacircular
@@ -39079,7 +39060,7 @@ open-coding compiler would still open-code the @code{+} and the @code{*} in
 open-coding compiler to consult the compile-time environment in order to
 compile the correct code for expressions involving the names of primitive
 procedures.  (The code will work correctly as long as the program does not
-@code{define} or @code{set!} these names.)
+definition or @code{set!} these names.)
 @end quotation
 
 @node	5.5.7, References, 5.4, 5.5
