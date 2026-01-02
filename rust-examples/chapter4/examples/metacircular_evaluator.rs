@@ -27,7 +27,7 @@ fn main() {
         ],
     };
     match eval(&expr, env.clone()) {
-        Ok(result) => println!("   Result: {}\n", result),
+        Ok((result, _)) => println!("   Result: {}\n", result),
         Err(e) => println!("   Error: {}\n", e),
     }
 
@@ -64,7 +64,8 @@ fn main() {
         }),
     };
 
-    eval(&factorial_def, env.clone()).unwrap();
+    // Thread environment through defines
+    let (_, env) = eval(&factorial_def, env).unwrap();
 
     println!("   (factorial 6)");
     let factorial_call = Expr::Application {
@@ -72,7 +73,7 @@ fn main() {
         operands: vec![Expr::Number(6)],
     };
     match eval(&factorial_call, env.clone()) {
-        Ok(result) => println!("   Result: {}\n", result),
+        Ok((result, _)) => println!("   Result: {}\n", result),
         Err(e) => println!("   Error: {}\n", e),
     }
 
@@ -93,7 +94,7 @@ fn main() {
             }],
         }),
     };
-    eval(&make_adder_def, env.clone()).unwrap();
+    let (_, env) = eval(&make_adder_def, env).unwrap();
 
     println!("   (define add10 (make-adder 10))");
     let add10_def = Expr::Define {
@@ -103,7 +104,7 @@ fn main() {
             operands: vec![Expr::Number(10)],
         }),
     };
-    eval(&add10_def, env.clone()).unwrap();
+    let (_, env) = eval(&add10_def, env).unwrap();
 
     println!("   (add10 32)");
     let add10_call = Expr::Application {
@@ -111,7 +112,7 @@ fn main() {
         operands: vec![Expr::Number(32)],
     };
     match eval(&add10_call, env.clone()) {
-        Ok(result) => println!("   Result: {}\n", result),
+        Ok((result, _)) => println!("   Result: {}\n", result),
         Err(e) => println!("   Error: {}\n", e),
     }
 
@@ -143,7 +144,7 @@ fn main() {
     ]);
 
     match eval(&cond_expr, env.clone()) {
-        Ok(result) => println!("   Result: {}\n", result),
+        Ok((result, _)) => println!("   Result: {}\n", result),
         Err(e) => println!("   Error: {}\n", e),
     }
 
@@ -170,14 +171,14 @@ fn main() {
     };
 
     match eval(&let_expr, env) {
-        Ok(result) => println!("   Result: {}\n", result),
+        Ok((result, _)) => println!("   Result: {}\n", result),
         Err(e) => println!("   Error: {}\n", e),
     }
 
     println!("=== Key Rust Concepts Demonstrated ===");
     println!("1. Algebraic Data Types: Expr and Value enums with exhaustive matching");
-    println!("2. Ownership & Borrowing: Rc<RefCell<Environment>> for shared mutable state");
-    println!("3. Pattern Matching: eval() dispatches on Expr variants");
-    println!("4. Closures: Lambda captures environment via Rc clone");
-    println!("5. Error Handling: Result<Value, EvalError> for type-safe errors");
+    println!("2. Persistent Data Structures: im::HashMap for O(1) clone environments");
+    println!("3. Functional State Threading: eval returns (Value, Environment)");
+    println!("4. Owned Closures: Lambda captures environment by clone, not shared reference");
+    println!("5. Error Handling: Result<(Value, Environment), EvalError> for type-safe errors");
 }

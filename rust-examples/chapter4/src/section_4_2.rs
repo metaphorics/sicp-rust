@@ -3,11 +3,18 @@
 //! This module implements a lazy evaluator for Scheme, where:
 //! - Compound procedures are non-strict (arguments delayed)
 //! - Primitive procedures are strict (arguments evaluated)
-//! - Thunks memoize their values after first evaluation
+//! - Thunks memoize their values after first evaluation using OnceCell
 //! - Lazy lists enable infinite streams without special forms
+//!
+//! ## Key Design Changes from Original:
+//!
+//! - **Persistent environments**: Using `im::HashMap` for O(1) clone with structural sharing
+//! - **OnceCell memoization**: Thunks use `OnceCell<Value>` for single-write semantics
+//! - **No Rc<RefCell<>>**: Environment is persistent, thunks use OnceCell
+//! - **Functional state threading**: eval returns (Value, Environment) for defines
 
-use std::cell::RefCell;
-use std::collections::HashMap;
+use sicp_common::Environment;
+use std::cell::OnceCell;
 use std::fmt;
 use std::rc::Rc;
 
@@ -55,14 +62,16 @@ pub enum Value {
     Bool(bool),
     /// Primitive procedure (implemented in Rust)
     Primitive(PrimitiveFn),
-    /// Compound procedure (user-defined)
+    /// Compound procedure (user-defined) - OWNS its environment
     Procedure {
         params: Vec<String>,
         body: Expr,
-        env: Environment,
+        env: Environment<Value>,
+        /// Optional self-name for recursive binding
+        self_name: Option<String>,
     },
-    /// Lazy thunk - unevaluated expression with memoization
-    Thunk(Rc<RefCell<ThunkInner>>),
+    /// Lazy thunk - unevaluated expression with OnceCell memoization
+    Thunk(Rc<Thunk>),
 }
 
 /// Primitive function type
@@ -72,24 +81,53 @@ pub struct PrimitiveFn {
     pub func: fn(&[Value]) -> Result<Value, EvalError>,
 }
 
-/// Inner thunk state with memoization
-#[derive(Debug, Clone)]
-pub enum ThunkInner {
-    /// Not yet evaluated - contains expression and environment
-    Delayed { expr: Expr, env: Environment },
-    /// Already evaluated - memoized value
-    Evaluated(Value),
+/// Thunk with OnceCell memoization (single-write, no RefCell needed)
+pub struct Thunk {
+    /// The unevaluated expression
+    expr: Expr,
+    /// Environment captured at delay time
+    env: Environment<Value>,
+    /// Memoized result - written once, read many times
+    memo: OnceCell<Value>,
 }
 
-/// Environment for variable bindings (shared, mutable)
-pub type Environment = Rc<RefCell<EnvInner>>;
+impl Thunk {
+    /// Create a new unevaluated thunk
+    pub fn new(expr: Expr, env: Environment<Value>) -> Self {
+        Self {
+            expr,
+            env,
+            memo: OnceCell::new(),
+        }
+    }
 
-#[derive(Debug, Clone)]
-pub struct EnvInner {
-    /// Current frame's bindings
-    bindings: HashMap<String, Value>,
-    /// Parent environment (None for global)
-    parent: Option<Environment>,
+    /// Check if the thunk has been evaluated
+    pub fn is_evaluated(&self) -> bool {
+        self.memo.get().is_some()
+    }
+
+    /// Get the memoized value if available
+    pub fn get_memo(&self) -> Option<&Value> {
+        self.memo.get()
+    }
+}
+
+impl Clone for Thunk {
+    fn clone(&self) -> Self {
+        // Clone the thunk state
+        Self {
+            expr: self.expr.clone(),
+            env: self.env.clone(),
+            memo: match self.memo.get() {
+                Some(v) => {
+                    let cell = OnceCell::new();
+                    let _ = cell.set(v.clone());
+                    cell
+                }
+                None => OnceCell::new(),
+            },
+        }
+    }
 }
 
 #[derive(Debug, Clone, PartialEq)]
@@ -113,10 +151,10 @@ impl fmt::Debug for Value {
             Value::Primitive(pf) => write!(f, "#<primitive:{}>", pf.name),
             Value::Procedure { params, .. } => write!(f, "#<procedure({})>", params.join(" ")),
             Value::Thunk(thunk) => {
-                let inner = thunk.borrow();
-                match &*inner {
-                    ThunkInner::Delayed { .. } => write!(f, "#<thunk:delayed>"),
-                    ThunkInner::Evaluated(val) => write!(f, "#<thunk:evaluated({:?})>", val),
+                if thunk.is_evaluated() {
+                    write!(f, "#<thunk:evaluated({:?})>", thunk.get_memo().unwrap())
+                } else {
+                    write!(f, "#<thunk:delayed>")
                 }
             }
         }
@@ -140,127 +178,61 @@ impl fmt::Display for EvalError {
 impl std::error::Error for EvalError {}
 
 // ============================================================================
-// Environment Operations
+// Environment Setup (using persistent Environment from sicp-common)
 // ============================================================================
 
-impl Default for EnvInner {
-    fn default() -> Self {
-        Self::new()
-    }
-}
-
-impl EnvInner {
-    /// Create a new empty environment
-    pub fn new() -> Self {
-        EnvInner {
-            bindings: HashMap::new(),
-            parent: None,
-        }
-    }
-
-    /// Create an environment with a parent
-    pub fn with_parent(parent: Environment) -> Self {
-        EnvInner {
-            bindings: HashMap::new(),
-            parent: Some(parent),
-        }
-    }
-
-    /// Define a variable in this environment
-    pub fn define(&mut self, name: String, value: Value) {
-        self.bindings.insert(name, value);
-    }
-
-    /// Look up a variable in this environment or its parents
-    pub fn lookup(&self, name: &str) -> Result<Value, EvalError> {
-        if let Some(val) = self.bindings.get(name) {
-            Ok(val.clone())
-        } else if let Some(ref parent) = self.parent {
-            parent.borrow().lookup(name)
-        } else {
-            Err(EvalError::UnboundVariable(name.to_string()))
-        }
-    }
-}
-
-/// Create a new environment extending the given one
-pub fn extend_environment(
-    parent: Environment,
-    params: &[String],
-    args: &[Value],
-) -> Result<Environment, EvalError> {
-    if params.len() != args.len() {
-        return Err(EvalError::ArityMismatch {
-            expected: params.len(),
-            got: args.len(),
-        });
-    }
-
-    let mut env = EnvInner::with_parent(parent);
-    for (param, arg) in params.iter().zip(args.iter()) {
-        env.define(param.clone(), arg.clone());
-    }
-    Ok(Rc::new(RefCell::new(env)))
-}
-
 /// Create the global environment with primitive procedures
-pub fn setup_environment() -> Environment {
-    let mut env = EnvInner::new();
-
-    // Arithmetic primitives
-    env.define(
-        "+".to_string(),
-        Value::Primitive(PrimitiveFn {
-            name: "+",
-            func: prim_add,
-        }),
-    );
-    env.define(
-        "-".to_string(),
-        Value::Primitive(PrimitiveFn {
-            name: "-",
-            func: prim_sub,
-        }),
-    );
-    env.define(
-        "*".to_string(),
-        Value::Primitive(PrimitiveFn {
-            name: "*",
-            func: prim_mul,
-        }),
-    );
-    env.define(
-        "/".to_string(),
-        Value::Primitive(PrimitiveFn {
-            name: "/",
-            func: prim_div,
-        }),
-    );
-
-    // Comparison primitives
-    env.define(
-        "=".to_string(),
-        Value::Primitive(PrimitiveFn {
-            name: "=",
-            func: prim_eq,
-        }),
-    );
-    env.define(
-        "<".to_string(),
-        Value::Primitive(PrimitiveFn {
-            name: "<",
-            func: prim_lt,
-        }),
-    );
-    env.define(
-        ">".to_string(),
-        Value::Primitive(PrimitiveFn {
-            name: ">",
-            func: prim_gt,
-        }),
-    );
-
-    Rc::new(RefCell::new(env))
+pub fn setup_environment() -> Environment<Value> {
+    Environment::new()
+        .define(
+            "+".to_string(),
+            Value::Primitive(PrimitiveFn {
+                name: "+",
+                func: prim_add,
+            }),
+        )
+        .define(
+            "-".to_string(),
+            Value::Primitive(PrimitiveFn {
+                name: "-",
+                func: prim_sub,
+            }),
+        )
+        .define(
+            "*".to_string(),
+            Value::Primitive(PrimitiveFn {
+                name: "*",
+                func: prim_mul,
+            }),
+        )
+        .define(
+            "/".to_string(),
+            Value::Primitive(PrimitiveFn {
+                name: "/",
+                func: prim_div,
+            }),
+        )
+        .define(
+            "=".to_string(),
+            Value::Primitive(PrimitiveFn {
+                name: "=",
+                func: prim_eq,
+            }),
+        )
+        .define(
+            "<".to_string(),
+            Value::Primitive(PrimitiveFn {
+                name: "<",
+                func: prim_lt,
+            }),
+        )
+        .define(
+            ">".to_string(),
+            Value::Primitive(PrimitiveFn {
+                name: ">",
+                func: prim_gt,
+            }),
+        )
 }
 
 // ============================================================================
@@ -377,37 +349,28 @@ fn prim_gt(args: &[Value]) -> Result<Value, EvalError> {
 // ============================================================================
 
 /// Create a thunk (delayed computation)
-pub fn delay_it(expr: Expr, env: Environment) -> Value {
-    Value::Thunk(Rc::new(RefCell::new(ThunkInner::Delayed { expr, env })))
+pub fn delay_it(expr: Expr, env: Environment<Value>) -> Value {
+    Value::Thunk(Rc::new(Thunk::new(expr, env)))
 }
 
-/// Force a thunk to produce its value (with memoization)
+/// Force a thunk to produce its value (with OnceCell memoization)
 pub fn force_it(obj: Value) -> Result<Value, EvalError> {
     match obj {
-        Value::Thunk(thunk_ref) => {
-            // Check if already evaluated
-            {
-                let thunk = thunk_ref.borrow();
-                if let ThunkInner::Evaluated(ref val) = *thunk {
-                    return Ok(val.clone());
-                }
+        Value::Thunk(thunk) => {
+            // Check if already memoized
+            if let Some(val) = thunk.memo.get() {
+                return Ok(val.clone());
             }
 
-            // Evaluate and memoize
-            let (expr, env) = {
-                let thunk = thunk_ref.borrow();
-                match &*thunk {
-                    ThunkInner::Delayed { expr, env } => (expr.clone(), env.clone()),
-                    ThunkInner::Evaluated(_) => unreachable!(),
-                }
-            };
+            // Evaluate the expression
+            let result = actual_value(thunk.expr.clone(), thunk.env.clone())?;
 
-            let result = actual_value(expr, env)?;
+            // Memoize the result (OnceCell ensures single-write)
+            // If already set by recursive evaluation, that's fine
+            let _ = thunk.memo.set(result.clone());
 
-            // Memoize the result
-            *thunk_ref.borrow_mut() = ThunkInner::Evaluated(result.clone());
-
-            Ok(result)
+            // Return the memoized value
+            Ok(thunk.memo.get().cloned().unwrap_or(result))
         }
         // If not a thunk, return as-is
         val => Ok(val),
@@ -415,8 +378,8 @@ pub fn force_it(obj: Value) -> Result<Value, EvalError> {
 }
 
 /// Evaluate an expression and force any resulting thunks
-pub fn actual_value(expr: Expr, env: Environment) -> Result<Value, EvalError> {
-    let val = eval(expr, env)?;
+pub fn actual_value(expr: Expr, env: Environment<Value>) -> Result<Value, EvalError> {
+    let (val, _) = eval(expr, env)?;
     force_it(val)
 }
 
@@ -424,22 +387,52 @@ pub fn actual_value(expr: Expr, env: Environment) -> Result<Value, EvalError> {
 // Main Evaluator
 // ============================================================================
 
-/// Evaluate an expression in an environment
-pub fn eval(expr: Expr, env: Environment) -> Result<Value, EvalError> {
+/// Evaluate an expression in an environment.
+/// Returns (Value, Environment) - environment may have new bindings from define.
+pub fn eval(expr: Expr, env: Environment<Value>) -> Result<(Value, Environment<Value>), EvalError> {
     match expr {
-        Expr::Number(n) => Ok(Value::Number(n)),
-        Expr::Bool(b) => Ok(Value::Bool(b)),
-        Expr::Symbol(name) => env.borrow().lookup(&name),
-        Expr::Define(name, val_expr) => {
-            let value = eval(*val_expr, env.clone())?;
-            env.borrow_mut().define(name, value.clone());
-            Ok(value)
+        Expr::Number(n) => Ok((Value::Number(n), env)),
+        Expr::Bool(b) => Ok((Value::Bool(b), env)),
+
+        Expr::Symbol(name) => {
+            let val = env
+                .lookup(&name)
+                .ok_or_else(|| EvalError::UnboundVariable(name.clone()))?
+                .clone();
+            Ok((val, env))
         }
-        Expr::Lambda { params, body } => Ok(Value::Procedure {
-            params,
-            body: *body,
-            env,
-        }),
+
+        Expr::Define(name, val_expr) => {
+            // Special handling for lambda to enable recursion
+            match val_expr.as_ref() {
+                Expr::Lambda { params, body } => {
+                    let procedure = Value::Procedure {
+                        params: params.clone(),
+                        body: *body.clone(),
+                        env: env.clone(),
+                        self_name: Some(name.clone()),
+                    };
+                    let new_env = env.define(name, procedure.clone());
+                    Ok((procedure, new_env))
+                }
+                _ => {
+                    let (value, env) = eval(*val_expr, env)?;
+                    let new_env = env.define(name, value.clone());
+                    Ok((value, new_env))
+                }
+            }
+        }
+
+        Expr::Lambda { params, body } => {
+            let procedure = Value::Procedure {
+                params,
+                body: *body,
+                env: env.clone(),
+                self_name: None,
+            };
+            Ok((procedure, env))
+        }
+
         Expr::If {
             test,
             consequent,
@@ -455,39 +448,74 @@ pub fn eval(expr: Expr, env: Environment) -> Result<Value, EvalError> {
                 )),
             }
         }
+
         Expr::Begin(exprs) => {
             let mut result = Value::Bool(false);
+            let mut current_env = env;
             for expr in exprs {
-                result = eval(expr, env.clone())?;
+                let (val, new_env) = eval(expr, current_env)?;
+                result = val;
+                current_env = new_env;
             }
-            Ok(result)
+            Ok((result, current_env))
         }
+
         Expr::Application { operator, operands } => {
             // Force the operator to get actual procedure
             let proc = actual_value(*operator, env.clone())?;
-            apply(proc, operands, env)
+            let result = apply(proc, operands, env.clone())?;
+            Ok((result, env))
         }
     }
 }
 
 /// Apply a procedure to arguments
-pub fn apply(procedure: Value, operands: Vec<Expr>, env: Environment) -> Result<Value, EvalError> {
-    match procedure {
+pub fn apply(
+    procedure: Value,
+    operands: Vec<Expr>,
+    env: Environment<Value>,
+) -> Result<Value, EvalError> {
+    match procedure.clone() {
         // Primitives are strict - evaluate all arguments
         Value::Primitive(prim) => {
             let args = list_of_arg_values(operands, env)?;
             (prim.func)(&args)
         }
+
         // Compound procedures are non-strict - delay all arguments
         Value::Procedure {
             params,
             body,
             env: proc_env,
+            self_name,
         } => {
-            let delayed_args = list_of_delayed_args(operands, env)?;
-            let new_env = extend_environment(proc_env, &params, &delayed_args)?;
-            eval(body, new_env)
+            if params.len() != operands.len() {
+                return Err(EvalError::ArityMismatch {
+                    expected: params.len(),
+                    got: operands.len(),
+                });
+            }
+
+            // Start with the procedure's captured environment
+            let mut new_env = proc_env;
+
+            // Bind self-name for recursive calls
+            if let Some(name) = self_name {
+                new_env = new_env.define(name, procedure);
+            }
+
+            // Delay all arguments (non-strict semantics)
+            let delayed_args = list_of_delayed_args(operands, env);
+
+            // Extend environment with parameter bindings
+            let bindings: Vec<(String, Value)> = params.into_iter().zip(delayed_args).collect();
+            new_env = new_env.extend(bindings);
+
+            // Evaluate body (ignore returned env since we're in apply)
+            let (result, _) = eval(body, new_env)?;
+            Ok(result)
         }
+
         _ => Err(EvalError::TypeError(
             "Cannot apply non-procedure".to_string(),
         )),
@@ -495,7 +523,10 @@ pub fn apply(procedure: Value, operands: Vec<Expr>, env: Environment) -> Result<
 }
 
 /// Evaluate all operands (for primitive procedures)
-fn list_of_arg_values(operands: Vec<Expr>, env: Environment) -> Result<Vec<Value>, EvalError> {
+fn list_of_arg_values(
+    operands: Vec<Expr>,
+    env: Environment<Value>,
+) -> Result<Vec<Value>, EvalError> {
     operands
         .into_iter()
         .map(|expr| actual_value(expr, env.clone()))
@@ -503,35 +534,11 @@ fn list_of_arg_values(operands: Vec<Expr>, env: Environment) -> Result<Vec<Value
 }
 
 /// Delay all operands (for compound procedures)
-fn list_of_delayed_args(operands: Vec<Expr>, env: Environment) -> Result<Vec<Value>, EvalError> {
-    Ok(operands
+fn list_of_delayed_args(operands: Vec<Expr>, env: Environment<Value>) -> Vec<Value> {
+    operands
         .into_iter()
         .map(|expr| delay_it(expr, env.clone()))
-        .collect())
-}
-
-// ============================================================================
-// Lazy List Utilities (Procedural Representation)
-// ============================================================================
-
-/// Lazy cons - creates a pair as a closure
-/// In the lazy evaluator, cons is non-strict, so both car and cdr are delayed
-pub fn lazy_cons(car: Value, cdr: Value) -> Value {
-    // Store car and cdr in procedure environment
-    let car = Rc::new(RefCell::new(car));
-    let cdr = Rc::new(RefCell::new(cdr));
-
-    // Create a selector procedure
-    Value::Procedure {
-        params: vec!["m".to_string()],
-        body: Expr::Symbol("m".to_string()), // Simplified - in real implementation would call m with car/cdr
-        env: {
-            let mut env = EnvInner::new();
-            env.define("car".to_string(), car.borrow().clone());
-            env.define("cdr".to_string(), cdr.borrow().clone());
-            Rc::new(RefCell::new(env))
-        },
-    }
+        .collect()
 }
 
 // ============================================================================
@@ -557,7 +564,7 @@ pub fn num(n: i64) -> Expr {
 }
 
 /// Helper to create boolean expressions
-pub fn bool(b: bool) -> Expr {
+pub fn bool_expr(b: bool) -> Expr {
     Expr::Bool(b)
 }
 
@@ -590,7 +597,7 @@ mod tests {
     fn test_basic_evaluation() {
         let env = setup_environment();
         let expr = num(42);
-        let result = eval(expr, env).unwrap();
+        let (result, _) = eval(expr, env).unwrap();
         match result {
             Value::Number(n) => assert_eq!(n, 42),
             _ => panic!("Expected number"),
@@ -621,7 +628,7 @@ mod tests {
                 if_expr(app(sym("="), vec![sym("a"), num(0)]), num(1), sym("b")),
             )),
         );
-        eval(try_def, env.clone()).unwrap();
+        let (_, env) = eval(try_def, env).unwrap();
 
         // Call: (try 0 (/ 1 0))
         // This should return 1 WITHOUT evaluating (/ 1 0)
@@ -654,7 +661,7 @@ mod tests {
                 ),
             )),
         );
-        eval(unless_def, env.clone()).unwrap();
+        let (_, env) = eval(unless_def, env).unwrap();
 
         // Call: (unless (= 0 0) (/ 1 0) 42)
         // Should return 42 without evaluating (/ 1 0)
@@ -678,21 +685,26 @@ mod tests {
     fn test_thunk_memoization() {
         let env = setup_environment();
 
-        // Define counter procedure that has side effects
-        // (define count 0)
-        let count_def = Expr::Define("count".to_string(), Box::new(num(0)));
-        eval(count_def, env.clone()).unwrap();
-
-        // This test verifies that thunks are memoized
-        // We can't easily test mutation without extending the evaluator
-        // but we can verify that thunks are created and forced correctly
+        // Create a thunk for a simple expression
         let thunk = delay_it(num(42), env.clone());
+
+        // Verify it's a thunk
+        match &thunk {
+            Value::Thunk(t) => assert!(!t.is_evaluated()),
+            _ => panic!("Expected thunk"),
+        }
 
         // First force
         let val1 = force_it(thunk.clone()).unwrap();
         match val1 {
             Value::Number(n) => assert_eq!(n, 42),
             _ => panic!("Expected number 42"),
+        }
+
+        // Verify thunk is now memoized
+        match &thunk {
+            Value::Thunk(t) => assert!(t.is_evaluated()),
+            _ => panic!("Expected thunk"),
         }
 
         // Second force - should return memoized value
@@ -719,13 +731,9 @@ mod tests {
                 ),
             )),
         );
-        eval(unless_def, env.clone()).unwrap();
+        let (_, env) = eval(unless_def, env).unwrap();
 
         // Define factorial using unless
-        // (define (factorial n)
-        //   (unless (= n 1)
-        //           (* n (factorial (- n 1)))
-        //           1))
         let factorial_def = Expr::Define(
             "factorial".to_string(),
             Box::new(lambda(
@@ -749,20 +757,16 @@ mod tests {
                 ),
             )),
         );
-        eval(factorial_def, env.clone()).unwrap();
+        let (_, env) = eval(factorial_def, env).unwrap();
 
-        // In applicative order, (factorial 5) would cause infinite recursion
-        // But in lazy evaluation, it works!
+        // In lazy evaluation, this works because recursive call is delayed
         let expr = app(sym("factorial"), vec![num(5)]);
         let result = actual_value(expr, env);
 
-        // Note: This will actually work in the lazy evaluator
-        // because the recursive call is delayed
         match result {
             Ok(Value::Number(n)) => assert_eq!(n, 120),
             Err(_) => {
-                // Or it might recurse forever - implementation dependent
-                // In a real implementation with proper laziness, this should work
+                // Implementation may recurse forever - that's acceptable
             }
             _ => panic!("Unexpected result"),
         }
@@ -779,13 +783,7 @@ mod tests {
         // Thunk should not be evaluated yet
         match &thunk {
             Value::Thunk(inner) => {
-                let state = inner.borrow();
-                match &*state {
-                    ThunkInner::Delayed { .. } => {
-                        // Good - still delayed
-                    }
-                    ThunkInner::Evaluated(_) => panic!("Should not be evaluated yet"),
-                }
+                assert!(!inner.is_evaluated(), "Should not be evaluated yet");
             }
             _ => panic!("Expected thunk"),
         }
@@ -800,13 +798,10 @@ mod tests {
         // Check that it's now memoized
         match &thunk {
             Value::Thunk(inner) => {
-                let state = inner.borrow();
-                match &*state {
-                    ThunkInner::Evaluated(val) => match val {
-                        Value::Number(n) => assert_eq!(*n, 3),
-                        _ => panic!("Expected memoized number 3"),
-                    },
-                    ThunkInner::Delayed { .. } => panic!("Should be evaluated now"),
+                assert!(inner.is_evaluated(), "Should be evaluated now");
+                match inner.get_memo().unwrap() {
+                    Value::Number(n) => assert_eq!(*n, 3),
+                    _ => panic!("Expected memoized number 3"),
                 }
             }
             _ => panic!("Expected thunk"),
@@ -837,7 +832,7 @@ mod tests {
             "square".to_string(),
             Box::new(lambda(vec!["x"], app(sym("*"), vec![sym("x"), sym("x")]))),
         );
-        eval(square_def, env.clone()).unwrap();
+        let (_, env) = eval(square_def, env).unwrap();
 
         // Call: (square 5)
         let expr = app(sym("square"), vec![num(5)]);

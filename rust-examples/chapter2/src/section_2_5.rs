@@ -344,6 +344,7 @@ impl Raise for Rational {
 }
 
 // Exercise 2.84: Type level in tower
+#[allow(dead_code)] // Exercise helper - demonstrates tower hierarchy
 fn type_level(n: &Number) -> u8 {
     match n {
         Number::SchemeNumber(_) => 1,

@@ -392,17 +392,18 @@ impl MarkSweepGC {
 
     /// Mark a value and all pairs reachable from it
     fn mark(&mut self, value: &Value) {
-        if let Value::Pair(index) = value {
-            if *index < self.marked.len() && !self.marked[*index] {
-                self.marked[*index] = true;
+        if let Value::Pair(index) = value
+            && *index < self.marked.len()
+            && !self.marked[*index]
+        {
+            self.marked[*index] = true;
 
-                // Recursively mark car and cdr
-                let car = self.memory.the_cars[*index].clone();
-                let cdr = self.memory.the_cdrs[*index].clone();
+            // Recursively mark car and cdr
+            let car = self.memory.the_cars[*index].clone();
+            let cdr = self.memory.the_cdrs[*index].clone();
 
-                self.mark(&car);
-                self.mark(&cdr);
-            }
+            self.mark(&car);
+            self.mark(&cdr);
         }
     }
 
@@ -442,17 +443,17 @@ pub fn exercise_5_20() -> Result<(Memory, Value, Value), &'static str> {
 // RUST OWNERSHIP: Compile-Time Garbage Collection
 // ============================================================================
 
-/// Rust's ownership system is essentially compile-time garbage collection.
-///
-/// While SICP demonstrates runtime GC (stop-and-copy, mark-sweep), Rust
-/// achieves memory safety without runtime overhead through:
-///
-/// 1. **Ownership**: Each value has exactly one owner
-/// 2. **Borrowing**: References must follow lifetime rules
-/// 3. **Drop**: RAII ensures cleanup when owner goes out of scope
-///
-/// This section demonstrates how Rust's approach eliminates the need
-/// for runtime garbage collection in most cases.
+// Rust's ownership system is essentially compile-time garbage collection.
+//
+// While SICP demonstrates runtime GC (stop-and-copy, mark-sweep), Rust
+// achieves memory safety without runtime overhead through:
+//
+// 1. **Ownership**: Each value has exactly one owner
+// 2. **Borrowing**: References must follow lifetime rules
+// 3. **Drop**: RAII ensures cleanup when owner goes out of scope
+//
+// This section demonstrates how Rust's approach eliminates the need
+// for runtime garbage collection in most cases.
 
 /// Traditional linked list with manual memory management (conceptual)
 ///

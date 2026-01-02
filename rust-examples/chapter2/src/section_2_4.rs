@@ -7,7 +7,6 @@
 //! - Message passing style programming
 
 use std::collections::HashMap;
-use std::f64::consts::PI;
 
 // ============================================================================
 // Section 2.4.1: Representations for Complex Numbers
@@ -225,10 +224,14 @@ pub fn div_complex_tagged(z1: &Complex, z2: &Complex) -> Complex {
 // Section 2.4.3: Data-Directed Programming and Additivity
 // ============================================================================
 
+/// Function pointer types for operation table (zero-cost, no heap allocation)
+pub type OperationFn = fn(f64, f64) -> f64;
+pub type ConstructorFn = fn(f64, f64) -> Complex;
+
 /// Operation table for data-directed programming
 pub struct OperationTable {
-    operations: HashMap<(String, String), Box<dyn Fn(f64, f64) -> f64>>,
-    constructors: HashMap<(String, String), Box<dyn Fn(f64, f64) -> Complex>>,
+    operations: HashMap<(String, String), OperationFn>,
+    constructors: HashMap<(String, String), ConstructorFn>,
 }
 
 impl OperationTable {
@@ -239,26 +242,26 @@ impl OperationTable {
         }
     }
 
-    pub fn put(&mut self, op: &str, typ: &str, proc: Box<dyn Fn(f64, f64) -> f64>) {
+    pub fn put(&mut self, op: &str, typ: &str, proc: OperationFn) {
         self.operations
             .insert((op.to_string(), typ.to_string()), proc);
     }
 
-    pub fn get(&self, op: &str, typ: &str) -> Option<&Box<dyn Fn(f64, f64) -> f64>> {
-        self.operations.get(&(op.to_string(), typ.to_string()))
+    pub fn get(&self, op: &str, typ: &str) -> Option<OperationFn> {
+        self.operations
+            .get(&(op.to_string(), typ.to_string()))
+            .copied()
     }
 
-    pub fn put_constructor(&mut self, op: &str, typ: &str, proc: Box<dyn Fn(f64, f64) -> Complex>) {
+    pub fn put_constructor(&mut self, op: &str, typ: &str, proc: ConstructorFn) {
         self.constructors
             .insert((op.to_string(), typ.to_string()), proc);
     }
 
-    pub fn get_constructor(
-        &self,
-        op: &str,
-        typ: &str,
-    ) -> Option<&Box<dyn Fn(f64, f64) -> Complex>> {
-        self.constructors.get(&(op.to_string(), typ.to_string()))
+    pub fn get_constructor(&self, op: &str, typ: &str) -> Option<ConstructorFn> {
+        self.constructors
+            .get(&(op.to_string(), typ.to_string()))
+            .copied()
     }
 }
 
@@ -287,23 +290,18 @@ pub fn install_rectangular_package(table: &mut OperationTable) {
         y.atan2(x)
     }
 
+    fn make_rect_from_mag_ang(r: f64, a: f64) -> Complex {
+        Complex::Rectangular(r * a.cos(), r * a.sin())
+    }
+
     // Interface to the rest of the system
-    table.put("real-part", "rectangular", Box::new(real_part));
-    table.put("imag-part", "rectangular", Box::new(imag_part));
-    table.put("magnitude", "rectangular", Box::new(magnitude));
-    table.put("angle", "rectangular", Box::new(angle));
+    table.put("real-part", "rectangular", real_part);
+    table.put("imag-part", "rectangular", imag_part);
+    table.put("magnitude", "rectangular", magnitude);
+    table.put("angle", "rectangular", angle);
 
-    table.put_constructor(
-        "make-from-real-imag",
-        "rectangular",
-        Box::new(|x, y| Complex::Rectangular(x, y)),
-    );
-
-    table.put_constructor(
-        "make-from-mag-ang",
-        "rectangular",
-        Box::new(|r, a| Complex::Rectangular(r * a.cos(), r * a.sin())),
-    );
+    table.put_constructor("make-from-real-imag", "rectangular", Complex::Rectangular);
+    table.put_constructor("make-from-mag-ang", "rectangular", make_rect_from_mag_ang);
 }
 
 /// Install Alyssa's polar package
@@ -325,23 +323,18 @@ pub fn install_polar_package(table: &mut OperationTable) {
         r * angle.sin()
     }
 
+    fn make_polar_from_real_imag(x: f64, y: f64) -> Complex {
+        Complex::Polar((x.powi(2) + y.powi(2)).sqrt(), y.atan2(x))
+    }
+
     // Interface to the rest of the system
-    table.put("real-part", "polar", Box::new(real_part));
-    table.put("imag-part", "polar", Box::new(imag_part));
-    table.put("magnitude", "polar", Box::new(magnitude));
-    table.put("angle", "polar", Box::new(angle));
+    table.put("real-part", "polar", real_part);
+    table.put("imag-part", "polar", imag_part);
+    table.put("magnitude", "polar", magnitude);
+    table.put("angle", "polar", angle);
 
-    table.put_constructor(
-        "make-from-real-imag",
-        "polar",
-        Box::new(|x, y| Complex::Polar((x.powi(2) + y.powi(2)).sqrt(), y.atan2(x))),
-    );
-
-    table.put_constructor(
-        "make-from-mag-ang",
-        "polar",
-        Box::new(|r, a| Complex::Polar(r, a)),
-    );
+    table.put_constructor("make-from-real-imag", "polar", make_polar_from_real_imag);
+    table.put_constructor("make-from-mag-ang", "polar", Complex::Polar);
 }
 
 /// Apply a generic operation to arguments
@@ -427,6 +420,7 @@ pub fn apply_generic_message(op: &str, arg: &MessagePassingComplex) -> f64 {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::f64::consts::PI;
 
     const EPSILON: f64 = 1e-10;
 

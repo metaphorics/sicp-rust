@@ -1,13 +1,13 @@
 [package]
-name = "sicp-chapter4"
+name = "sicp-common"
 version = "0.1.0"
-description = "SICP Chapter 4: Metalinguistic Abstraction"
 edition.workspace = true
 rust-version.workspace = true
 license.workspace = true
+description = "Shared utilities for SICP Rust examples: arena allocation, persistent environments, functional patterns"
 
 [dependencies]
-sicp-common.workspace = true
+im = "15.1"
 
 [dev-dependencies]
 proptest.workspace = true

@@ -119,7 +119,7 @@ impl Query {
         Query::Or(queries)
     }
 
-    pub fn not(query: Query) -> Self {
+    pub fn negate(query: Query) -> Self {
         Query::Not(Box::new(query))
     }
 }
@@ -229,10 +229,10 @@ fn extend_if_possible(var: &str, val: &Term, frame: &Frame) -> Option<Frame> {
     }
 
     // If val is a variable, check if it has a binding
-    if let Term::Var(v) = val {
-        if let Some(binding) = frame.get(v) {
-            return unify(&Term::Var(var.to_string()), binding, frame);
-        }
+    if let Term::Var(v) = val
+        && let Some(binding) = frame.get(v)
+    {
+        return unify(&Term::Var(var.to_string()), binding, frame);
     }
 
     // Check for circular dependency (occurs check)
@@ -751,7 +751,7 @@ mod tests {
                 Term::var("x"),
                 Term::var("job"),
             ])),
-            Query::not(Query::simple(Term::list(vec![
+            Query::negate(Query::simple(Term::list(vec![
                 Term::atom("job"),
                 Term::var("x"),
                 Term::list(vec![Term::atom("computer"), Term::atom("programmer")]),

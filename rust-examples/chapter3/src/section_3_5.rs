@@ -43,12 +43,12 @@ pub mod delayed_lists {
         if n == 2 {
             return true;
         }
-        if n % 2 == 0 {
+        if n.is_multiple_of(2) {
             return false;
         }
 
         let limit = (n as f64).sqrt() as u64;
-        (3..=limit).step_by(2).all(|i| n % i != 0)
+        (3..=limit).step_by(2).all(|i| !n.is_multiple_of(i))
     }
 
     /// Demonstrates iterator combinators (map, filter, take)
@@ -176,7 +176,7 @@ impl PrimesOptimized {
         self.primes_so_far
             .iter()
             .take_while(|&&p| p <= limit)
-            .all(|&p| n % p != 0)
+            .all(|&p| !n.is_multiple_of(p))
     }
 }
 

@@ -1,109 +1,108 @@
 //! Section 3.1: Assignment and Local State
 //!
-//! This section demonstrates how to model stateful objects in Rust using interior mutability.
-//! In Scheme, the `set!` special form enables assignment. In Rust, we achieve similar
-//! behavior through `RefCell<T>` for single-threaded interior mutability and `Rc<RefCell<T>>`
-//! for shared ownership with mutable state.
+//! This section demonstrates idiomatic Rust approaches to modeling stateful objects.
+//! Instead of using `Rc<RefCell<T>>` (a code smell), we use:
+//!
+//! - **Pure functional patterns**: Operations return new state instead of mutating
+//! - **`Cell<T>`**: For simple `Copy` types when interior mutability is truly needed
+//! - **Struct-based APIs**: Replace closures-with-state with explicit structs
 //!
 //! # Key Rust Concepts
 //!
-//! - `RefCell<T>`: Enables interior mutability with runtime borrow checking
-//! - `Cell<T>`: For `Copy` types, simpler than RefCell
-//! - `Rc<RefCell<T>>`: Reference-counted shared ownership with mutable state
-//! - `thread_local!`: For global mutable state (like Scheme's top-level `define`)
-//! - Closures: Capture environment variables, similar to Scheme's `lambda`
+//! - `Cell<T>`: Simple interior mutability for `Copy` types (no borrow API needed)
+//! - Functional updates: `fn withdraw(&self, amount) -> (Self, Result<...>)`
+//! - Struct methods: Clearer ownership than closure captures
 //!
-//! # Memory Layout Diagrams
+//! # Comparison: Scheme vs Idiomatic Rust
 //!
-//! ## Global State (withdraw with thread_local!)
-//! ```text
-//! [Stack]                    [Thread-Local Storage]
-//!   withdraw() ──────────────> BALANCE: RefCell<i64>
-//!                                 │
-//!                                 └─> 100 (mutable)
-//! ```
-//!
-//! ## Encapsulated State (Rc<RefCell<T>>)
-//! ```text
-//! [Stack]                    [Heap]
-//!   make_withdraw ───────────> Rc<RefCell<i64>>
-//!        │                         │
-//!        │                         └─> balance: 100
-//!        │
-//!        └─> Closure { balance: Rc::clone(&balance) }
-//! ```
+//! | Scheme | Anti-Pattern Rust | Idiomatic Rust |
+//! |--------|-------------------|----------------|
+//! | `set!` | `RefCell::borrow_mut()` | Return new value |
+//! | Closure with state | `Rc<RefCell<T>>` in closure | Struct with methods |
+//! | Message passing | `match msg { ... borrow_mut ... }` | Enum + struct methods |
 
-use std::cell::{Cell, RefCell};
-use std::rc::Rc;
+use std::cell::Cell;
 
 // ============================================================================
-// 3.1.1: Local State Variables
+// 3.1.1: Local State Variables - Functional Approach
 // ============================================================================
 
-/// Global withdraw function using thread-local storage.
-/// This demonstrates the simplest form of state, but violates encapsulation.
+/// A bank account with balance tracking.
 ///
-/// In Scheme:
-/// ```scheme
-/// (define balance 100)
-/// (define (withdraw amount)
-///   (if (>= balance amount)
-///       (begin (set! balance (- balance amount))
-///              balance)
-///       "Insufficient funds"))
+/// Instead of mutable closures with `RefCell`, we use a simple struct.
+/// Operations return a new `Account` (functional update pattern).
+///
+/// # Example
+///
 /// ```
-pub mod global_state {
-    use super::*;
-
-    thread_local! {
-        static BALANCE: RefCell<i64> = const { RefCell::new(100) };
-    }
-
-    pub fn withdraw(amount: i64) -> Result<i64, &'static str> {
-        BALANCE.with(|balance| {
-            let mut bal = balance.borrow_mut();
-            if *bal >= amount {
-                *bal -= amount;
-                Ok(*bal)
-            } else {
-                Err("Insufficient funds")
-            }
-        })
-    }
-
-    /// Reset balance for testing
-    pub fn reset_balance(new_balance: i64) {
-        BALANCE.with(|balance| *balance.borrow_mut() = new_balance);
-    }
+/// use sicp_chapter3::section_3_1::Account;
+///
+/// let acc = Account::new(100);
+/// let (acc, result) = acc.withdraw(25);
+/// assert_eq!(result, Ok(75));
+///
+/// let (acc, result) = acc.withdraw(25);
+/// assert_eq!(result, Ok(50));
+///
+/// let (acc, result) = acc.withdraw(60);
+/// assert_eq!(result, Err("Insufficient funds"));
+/// assert_eq!(acc.balance(), 50); // Balance unchanged on failure
+/// ```
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct Account {
+    balance: i64,
 }
 
-/// Encapsulated withdraw using a closure with captured RefCell.
-///
-/// In Scheme:
-/// ```scheme
-/// (define new-withdraw
-///   (let ((balance 100))
-///     (lambda (amount)
-///       (if (>= balance amount)
-///           (begin (set! balance (- balance amount))
-///                  balance)
-///           "Insufficient funds"))))
-/// ```
-pub fn new_withdraw() -> impl FnMut(i64) -> Result<i64, &'static str> {
-    let balance = RefCell::new(100);
-
-    move |amount: i64| {
-        let mut bal = balance.borrow_mut();
-        if *bal >= amount {
-            *bal -= amount;
-            Ok(*bal)
-        } else {
-            Err("Insufficient funds")
+impl Account {
+    /// Creates a new account with the given initial balance.
+    #[must_use]
+    pub fn new(initial_balance: i64) -> Self {
+        Self {
+            balance: initial_balance,
         }
     }
+
+    /// Returns the current balance.
+    #[must_use]
+    pub fn balance(&self) -> i64 {
+        self.balance
+    }
+
+    /// Withdraws the specified amount, returning (new_account, result).
+    ///
+    /// On success, returns the new balance. On failure, returns an error
+    /// and the account is unchanged.
+    pub fn withdraw(&self, amount: i64) -> (Self, Result<i64, &'static str>) {
+        if self.balance >= amount {
+            let new_balance = self.balance - amount;
+            (
+                Self {
+                    balance: new_balance,
+                },
+                Ok(new_balance),
+            )
+        } else {
+            (*self, Err("Insufficient funds"))
+        }
+    }
+
+    /// Deposits the specified amount, returning (new_account, new_balance).
+    #[must_use]
+    pub fn deposit(&self, amount: i64) -> (Self, i64) {
+        let new_balance = self.balance + amount;
+        (
+            Self {
+                balance: new_balance,
+            },
+            new_balance,
+        )
+    }
 }
 
-/// Factory function that creates withdraw closures with specified initial balance.
+/// Factory function that creates a withdraw closure (for compatibility).
+///
+/// Note: This still uses `Cell<T>` for interior mutability, but `Cell` is
+/// much simpler than `RefCell` for `Copy` types - no borrow API needed.
 ///
 /// In Scheme:
 /// ```scheme
@@ -115,86 +114,226 @@ pub fn new_withdraw() -> impl FnMut(i64) -> Result<i64, &'static str> {
 ///         "Insufficient funds")))
 /// ```
 pub fn make_withdraw(initial_balance: i64) -> impl FnMut(i64) -> Result<i64, &'static str> {
-    let balance = RefCell::new(initial_balance);
+    let balance = Cell::new(initial_balance);
 
     move |amount: i64| {
-        let mut bal = balance.borrow_mut();
-        if *bal >= amount {
-            *bal -= amount;
-            Ok(*bal)
+        let current = balance.get();
+        if current >= amount {
+            let new_balance = current - amount;
+            balance.set(new_balance);
+            Ok(new_balance)
         } else {
             Err("Insufficient funds")
         }
     }
 }
 
-// ============================================================================
-// Message-Passing Account with Deposit and Withdraw
-// ============================================================================
-
-/// Message types for account operations
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub enum AccountMessage {
-    Withdraw,
-    Deposit,
-}
-
-/// Account operation result type
-pub type AccountOp = Box<dyn FnMut(i64) -> Result<i64, &'static str>>;
-
-/// Creates a bank account object using message-passing style.
+/// Global withdraw using thread-local storage (for demonstration).
 ///
-/// In Scheme:
-/// ```scheme
-/// (define (make-account balance)
-///   (define (withdraw amount) ...)
-///   (define (deposit amount) ...)
-///   (define (dispatch m)
-///     (cond ((eq? m 'withdraw) withdraw)
-///           ((eq? m 'deposit) deposit)
-///           (else (error "Unknown request" m))))
-///   dispatch)
-/// ```
-pub fn make_account(initial_balance: i64) -> impl FnMut(AccountMessage) -> AccountOp {
-    let balance = Rc::new(RefCell::new(initial_balance));
+/// Note: Global mutable state is generally discouraged in Rust.
+/// This is shown for pedagogical comparison with Scheme.
+pub mod global_state {
+    use std::cell::Cell;
 
-    move |msg: AccountMessage| match msg {
-        AccountMessage::Withdraw => {
-            let balance = Rc::clone(&balance);
-            Box::new(move |amount: i64| {
-                let mut bal = balance.borrow_mut();
-                if *bal >= amount {
-                    *bal -= amount;
-                    Ok(*bal)
-                } else {
-                    Err("Insufficient funds")
-                }
-            })
-        }
-        AccountMessage::Deposit => {
-            let balance = Rc::clone(&balance);
-            Box::new(move |amount: i64| {
-                let mut bal = balance.borrow_mut();
-                *bal += amount;
-                Ok(*bal)
-            })
-        }
+    thread_local! {
+        static BALANCE: Cell<i64> = const { Cell::new(100) };
+    }
+
+    pub fn withdraw(amount: i64) -> Result<i64, &'static str> {
+        BALANCE.with(|balance| {
+            let current = balance.get();
+            if current >= amount {
+                let new_balance = current - amount;
+                balance.set(new_balance);
+                Ok(new_balance)
+            } else {
+                Err("Insufficient funds")
+            }
+        })
+    }
+
+    pub fn reset_balance(new_balance: i64) {
+        BALANCE.with(|balance| balance.set(new_balance));
     }
 }
 
 // ============================================================================
-// 3.1.2: The Benefits of Introducing Assignment - Random Numbers
+// Password-Protected Account (Functional)
+// ============================================================================
+
+/// A password-protected bank account.
+///
+/// Instead of `Rc<RefCell<T>>` with message-passing closures, we use
+/// a struct with methods that return new state.
+#[derive(Debug, Clone)]
+pub struct PasswordAccount {
+    balance: i64,
+    password: String,
+}
+
+impl PasswordAccount {
+    /// Creates a new password-protected account.
+    #[must_use]
+    pub fn new(initial_balance: i64, password: impl Into<String>) -> Self {
+        Self {
+            balance: initial_balance,
+            password: password.into(),
+        }
+    }
+
+    /// Returns the current balance (no password needed for checking).
+    #[must_use]
+    pub fn balance(&self) -> i64 {
+        self.balance
+    }
+
+    /// Attempts to withdraw, returning (new_account, result).
+    pub fn withdraw(&self, pwd: &str, amount: i64) -> (Self, Result<i64, &'static str>) {
+        if pwd != self.password {
+            return (self.clone(), Err("Incorrect password"));
+        }
+        if self.balance >= amount {
+            let new_balance = self.balance - amount;
+            (
+                Self {
+                    balance: new_balance,
+                    password: self.password.clone(),
+                },
+                Ok(new_balance),
+            )
+        } else {
+            (self.clone(), Err("Insufficient funds"))
+        }
+    }
+
+    /// Attempts to deposit, returning (new_account, result).
+    pub fn deposit(&self, pwd: &str, amount: i64) -> (Self, Result<i64, &'static str>) {
+        if pwd != self.password {
+            return (self.clone(), Err("Incorrect password"));
+        }
+        let new_balance = self.balance + amount;
+        (
+            Self {
+                balance: new_balance,
+                password: self.password.clone(),
+            },
+            Ok(new_balance),
+        )
+    }
+}
+
+/// A secure account that tracks failed password attempts.
+#[derive(Debug, Clone)]
+pub struct SecureAccount {
+    balance: i64,
+    password: String,
+    failed_attempts: u8,
+}
+
+impl SecureAccount {
+    /// Creates a new secure account.
+    #[must_use]
+    pub fn new(initial_balance: i64, password: impl Into<String>) -> Self {
+        Self {
+            balance: initial_balance,
+            password: password.into(),
+            failed_attempts: 0,
+        }
+    }
+
+    /// Returns the current balance.
+    #[must_use]
+    pub fn balance(&self) -> i64 {
+        self.balance
+    }
+
+    /// Returns the number of failed password attempts.
+    #[must_use]
+    pub fn failed_attempts(&self) -> u8 {
+        self.failed_attempts
+    }
+
+    /// Attempts to withdraw, returning (new_account, result).
+    /// After 7 consecutive wrong passwords, returns "Calling the cops!".
+    pub fn withdraw(&self, pwd: &str, amount: i64) -> (Self, Result<i64, &'static str>) {
+        if pwd != self.password {
+            let new_attempts = self.failed_attempts + 1;
+            let error = if new_attempts >= 7 {
+                "Calling the cops!"
+            } else {
+                "Incorrect password"
+            };
+            return (
+                Self {
+                    balance: self.balance,
+                    password: self.password.clone(),
+                    failed_attempts: new_attempts,
+                },
+                Err(error),
+            );
+        }
+
+        // Reset failed attempts on successful auth
+        if self.balance >= amount {
+            let new_balance = self.balance - amount;
+            (
+                Self {
+                    balance: new_balance,
+                    password: self.password.clone(),
+                    failed_attempts: 0,
+                },
+                Ok(new_balance),
+            )
+        } else {
+            (
+                Self {
+                    balance: self.balance,
+                    password: self.password.clone(),
+                    failed_attempts: 0,
+                },
+                Err("Insufficient funds"),
+            )
+        }
+    }
+
+    /// Attempts to deposit, returning (new_account, result).
+    pub fn deposit(&self, pwd: &str, amount: i64) -> (Self, Result<i64, &'static str>) {
+        if pwd != self.password {
+            let new_attempts = self.failed_attempts + 1;
+            let error = if new_attempts >= 7 {
+                "Calling the cops!"
+            } else {
+                "Incorrect password"
+            };
+            return (
+                Self {
+                    balance: self.balance,
+                    password: self.password.clone(),
+                    failed_attempts: new_attempts,
+                },
+                Err(error),
+            );
+        }
+
+        let new_balance = self.balance + amount;
+        (
+            Self {
+                balance: new_balance,
+                password: self.password.clone(),
+                failed_attempts: 0,
+            },
+            Ok(new_balance),
+        )
+    }
+}
+
+// ============================================================================
+// 3.1.2: Random Numbers
 // ============================================================================
 
 /// Linear Congruential Generator for pseudo-random numbers.
-/// Uses the formula: x_next = (a * x + c) mod m
 ///
-/// In Scheme:
-/// ```scheme
-/// (define rand
-///   (let ((x random-init))
-///     (lambda () (set! x (rand-update x)) x)))
-/// ```
+/// Uses `Cell<u64>` for state since `u64` is `Copy` - simpler than `RefCell`.
 pub struct RandomGenerator {
     state: Cell<u64>,
     a: u64,
@@ -203,18 +342,18 @@ pub struct RandomGenerator {
 }
 
 impl RandomGenerator {
-    /// Create a new random generator with default parameters
-    /// (values from Numerical Recipes)
+    /// Creates a new random generator with default parameters.
+    #[must_use]
     pub fn new(seed: u64) -> Self {
         Self {
             state: Cell::new(seed),
             a: 1664525,
             c: 1013904223,
-            m: 1u64 << 32, // 2^32
+            m: 1u64 << 32,
         }
     }
 
-    /// Generate next random number (0 to m-1)
+    /// Generates the next random number.
     pub fn rand(&self) -> u64 {
         let current = self.state.get();
         let next = (self.a.wrapping_mul(current).wrapping_add(self.c)) % self.m;
@@ -222,32 +361,18 @@ impl RandomGenerator {
         next
     }
 
-    /// Generate random number in range [0, max)
+    /// Generates a random number in range [0, max).
     pub fn rand_max(&self, max: u64) -> u64 {
         self.rand() % max
     }
 
-    /// Reset to a specific seed
+    /// Resets to a specific seed.
     pub fn reset(&self, seed: u64) {
         self.state.set(seed);
     }
 }
 
-/// Monte Carlo simulation: runs an experiment multiple times and returns
-/// the fraction of successful trials.
-///
-/// In Scheme:
-/// ```scheme
-/// (define (monte-carlo trials experiment)
-///   (define (iter trials-remaining trials-passed)
-///     (cond ((= trials-remaining 0)
-///            (/ trials-passed trials))
-///           ((experiment)
-///            (iter (- trials-remaining 1) (+ trials-passed 1)))
-///           (else
-///            (iter (- trials-remaining 1) trials-passed))))
-///   (iter trials 0))
-/// ```
+/// Monte Carlo simulation.
 pub fn monte_carlo<F>(trials: u64, mut experiment: F) -> f64
 where
     F: FnMut() -> bool,
@@ -261,7 +386,6 @@ where
     trials_passed as f64 / trials as f64
 }
 
-/// GCD function for Cesàro test
 fn gcd(mut a: u64, mut b: u64) -> u64 {
     while b != 0 {
         let temp = b;
@@ -271,19 +395,11 @@ fn gcd(mut a: u64, mut b: u64) -> u64 {
     a
 }
 
-/// Estimate π using Monte Carlo method and Cesàro's theorem:
-/// The probability that two random integers have GCD = 1 is 6/π²
-///
-/// In Scheme:
-/// ```scheme
-/// (define (estimate-pi trials)
-///   (sqrt (/ 6 (monte-carlo trials cesaro-test))))
-/// ```
+/// Estimates pi using Monte Carlo and Cesaro's theorem.
 pub fn estimate_pi(trials: u64) -> f64 {
     let rng = RandomGenerator::new(12345);
 
     let cesaro_test = || {
-        // Use larger range and avoid bias from modulo
         let x1 = (rng.rand() % 100_000_000) + 1;
         let x2 = (rng.rand() % 100_000_000) + 1;
         gcd(x1, x2) == 1
@@ -297,72 +413,42 @@ pub fn estimate_pi(trials: u64) -> f64 {
 // EXERCISES
 // ============================================================================
 
-/// Exercise 3.1: Accumulator
-///
-/// An accumulator is called repeatedly with a numeric argument and accumulates
-/// its arguments into a sum.
-///
-/// In Scheme:
-/// ```scheme
-/// (define (make-accumulator initial)
-///   (lambda (amount)
-///     (set! initial (+ initial amount))
-///     initial))
-/// ```
+/// Exercise 3.1: Accumulator (functional version)
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct Accumulator {
+    sum: i64,
+}
+
+impl Accumulator {
+    #[must_use]
+    pub fn new(initial: i64) -> Self {
+        Self { sum: initial }
+    }
+
+    #[must_use]
+    pub fn add(&self, amount: i64) -> (Self, i64) {
+        let new_sum = self.sum + amount;
+        (Self { sum: new_sum }, new_sum)
+    }
+
+    #[must_use]
+    pub fn value(&self) -> i64 {
+        self.sum
+    }
+}
+
+/// Closure-based accumulator using Cell (for compatibility).
 pub fn make_accumulator(initial: i64) -> impl FnMut(i64) -> i64 {
-    let sum = RefCell::new(initial);
+    let sum = Cell::new(initial);
 
     move |amount: i64| {
-        let mut s = sum.borrow_mut();
-        *s += amount;
-        *s
+        let new_sum = sum.get() + amount;
+        sum.set(new_sum);
+        new_sum
     }
 }
 
 /// Exercise 3.2: Monitored procedure
-///
-/// Wraps a function and tracks how many times it's been called.
-///
-/// In Scheme:
-/// ```scheme
-/// (define (make-monitored f)
-///   (let ((count 0))
-///     (lambda (arg)
-///       (cond ((eq? arg 'how-many-calls?) count)
-///             ((eq? arg 'reset-count) (set! count 0))
-///             (else (set! count (+ count 1))
-///                   (f arg))))))
-/// ```
-pub enum MonitorCommand<T> {
-    Call(T),
-    HowManyCalls,
-    ResetCount,
-}
-
-pub fn make_monitored<F, T, R>(mut f: F) -> impl FnMut(MonitorCommand<T>) -> Option<R>
-where
-    F: FnMut(T) -> R,
-{
-    let count = RefCell::new(0u64);
-
-    move |cmd: MonitorCommand<T>| match cmd {
-        MonitorCommand::HowManyCalls => {
-            // Return count as R (requires R to be constructible from u64)
-            // For demonstration, we return None for query commands
-            None
-        }
-        MonitorCommand::ResetCount => {
-            *count.borrow_mut() = 0;
-            None
-        }
-        MonitorCommand::Call(arg) => {
-            *count.borrow_mut() += 1;
-            Some(f(arg))
-        }
-    }
-}
-
-/// Better version that separates query from execution
 pub struct Monitored<F, T, R>
 where
     F: FnMut(T) -> R,
@@ -398,105 +484,7 @@ where
     }
 }
 
-/// Exercise 3.3: Password-protected account
-///
-/// In Scheme:
-/// ```scheme
-/// (define (make-account balance password)
-///   (define (withdraw amount) ...)
-///   (define (deposit amount) ...)
-///   (define (dispatch pwd m)
-///     (if (eq? pwd password)
-///         (cond ((eq? m 'withdraw) withdraw)
-///               ((eq? m 'deposit) deposit))
-///         (lambda (x) "Incorrect password")))
-///   dispatch)
-/// ```
-pub fn make_password_account(
-    initial_balance: i64,
-    password: &'static str,
-) -> impl FnMut(&str, AccountMessage) -> AccountOp {
-    let balance = Rc::new(RefCell::new(initial_balance));
-
-    move |pwd: &str, msg: AccountMessage| {
-        if pwd != password {
-            return Box::new(|_: i64| Err("Incorrect password"));
-        }
-
-        match msg {
-            AccountMessage::Withdraw => {
-                let balance = Rc::clone(&balance);
-                Box::new(move |amount: i64| {
-                    let mut bal = balance.borrow_mut();
-                    if *bal >= amount {
-                        *bal -= amount;
-                        Ok(*bal)
-                    } else {
-                        Err("Insufficient funds")
-                    }
-                })
-            }
-            AccountMessage::Deposit => {
-                let balance = Rc::clone(&balance);
-                Box::new(move |amount: i64| {
-                    let mut bal = balance.borrow_mut();
-                    *bal += amount;
-                    Ok(*bal)
-                })
-            }
-        }
-    }
-}
-
-/// Exercise 3.4: Call-the-cops after 7 consecutive incorrect passwords
-pub fn make_secure_account(
-    initial_balance: i64,
-    password: &'static str,
-) -> impl FnMut(&str, AccountMessage) -> AccountOp {
-    let balance = Rc::new(RefCell::new(initial_balance));
-    let failed_attempts = Rc::new(RefCell::new(0u8));
-
-    move |pwd: &str, msg: AccountMessage| {
-        if pwd != password {
-            let mut attempts = failed_attempts.borrow_mut();
-            *attempts += 1;
-            if *attempts >= 7 {
-                return Box::new(|_: i64| Err("Calling the cops!"));
-            }
-            return Box::new(|_: i64| Err("Incorrect password"));
-        }
-
-        // Reset failed attempts on successful authentication
-        *failed_attempts.borrow_mut() = 0;
-
-        match msg {
-            AccountMessage::Withdraw => {
-                let balance = Rc::clone(&balance);
-                Box::new(move |amount: i64| {
-                    let mut bal = balance.borrow_mut();
-                    if *bal >= amount {
-                        *bal -= amount;
-                        Ok(*bal)
-                    } else {
-                        Err("Insufficient funds")
-                    }
-                })
-            }
-            AccountMessage::Deposit => {
-                let balance = Rc::clone(&balance);
-                Box::new(move |amount: i64| {
-                    let mut bal = balance.borrow_mut();
-                    *bal += amount;
-                    Ok(*bal)
-                })
-            }
-        }
-    }
-}
-
 /// Exercise 3.5: Monte Carlo integration
-///
-/// Estimates the area of a region by randomly sampling points.
 pub fn estimate_integral<P>(predicate: P, x1: f64, x2: f64, y1: f64, y2: f64, trials: u64) -> f64
 where
     P: Fn(f64, f64) -> bool,
@@ -516,14 +504,10 @@ where
     fraction * rect_area
 }
 
-/// Estimate π using Monte Carlo integration of a unit circle
+/// Estimates pi using Monte Carlo integration.
 pub fn estimate_pi_integral(trials: u64) -> f64 {
-    // Unit circle centered at origin: x² + y² ≤ 1
     let in_circle = |x: f64, y: f64| x * x + y * y <= 1.0;
-
-    // Sample square from -1 to 1 in both dimensions (area = 4)
-    // Circle area = π * r² = π (for r=1)
-    estimate_integral(in_circle, -1.0, 1.0, -1.0, 1.0, trials) // This is approximately π
+    estimate_integral(in_circle, -1.0, 1.0, -1.0, 1.0, trials)
 }
 
 /// Exercise 3.6: Resettable random number generator
@@ -539,48 +523,62 @@ pub fn make_rand(seed: u64) -> impl FnMut(RandCommand) -> u64 {
         RandCommand::Generate => rng.rand(),
         RandCommand::Reset(new_seed) => {
             rng.reset(new_seed);
-            new_seed // Return the seed for confirmation
+            new_seed
         }
     }
 }
 
-/// Exercise 3.7: Joint accounts
+/// Exercise 3.7: Joint accounts (functional)
 ///
-/// Creates a new access point to an existing password-protected account
-/// with a different password.
-pub fn make_joint<F>(
-    mut account: F,
-    old_password: &'static str,
-    new_password: &'static str,
-) -> impl FnMut(&str, AccountMessage) -> AccountOp
-where
-    F: FnMut(&str, AccountMessage) -> AccountOp + 'static,
-{
-    move |pwd: &str, msg: AccountMessage| {
-        if pwd != new_password {
-            return Box::new(|_: i64| Err("Incorrect password"));
-        }
+/// Creates a view of an account with a different password.
+#[derive(Debug, Clone)]
+pub struct JointAccount {
+    inner: PasswordAccount,
+    joint_password: String,
+}
 
-        // Use the old password to access the original account
-        account(old_password, msg)
+impl JointAccount {
+    pub fn new(
+        account: PasswordAccount,
+        original_pwd: &str,
+        new_pwd: impl Into<String>,
+    ) -> Option<Self> {
+        // Verify the original password works
+        let (_, result) = account.withdraw(original_pwd, 0);
+        if result.is_err() && result != Err("Insufficient funds") {
+            return None;
+        }
+        Some(Self {
+            inner: account,
+            joint_password: new_pwd.into(),
+        })
+    }
+
+    pub fn withdraw(&self, pwd: &str, amount: i64) -> (Self, Result<i64, &'static str>) {
+        if pwd != self.joint_password {
+            return (self.clone(), Err("Incorrect password"));
+        }
+        // We need the original password - but in functional style we'd need to store it
+        // For simplicity, this shows the concept
+        let (new_inner, result) = self.inner.withdraw(&self.inner.password, amount);
+        (
+            Self {
+                inner: new_inner,
+                joint_password: self.joint_password.clone(),
+            },
+            result,
+        )
     }
 }
 
 /// Exercise 3.8: Order-dependent evaluation
-///
-/// Function that returns different values based on the order of evaluation.
-/// f(0) followed by f(1) should return 0, but f(1) followed by f(0) should return 1.
-///
-/// The key insight: store the first value seen, and return it multiplied by current value.
-/// If f(0) is called first: stores 0, returns 0. Then f(1) returns 0 * 1 = 0. Sum = 0.
-/// If f(1) is called first: stores 1, returns 1. Then f(0) returns 1 * 0 = 0. Sum = 1.
 pub fn make_order_dependent() -> impl FnMut(i32) -> i32 {
-    let state = RefCell::new(1); // Start with 1
+    let state = Cell::new(1i32);
 
     move |x: i32| {
-        let mut s = state.borrow_mut();
-        let result = *s * x;
-        *s = x;
+        let current = state.get();
+        let result = current * x;
+        state.set(x);
         result
     }
 }
@@ -594,6 +592,33 @@ mod tests {
     use super::*;
 
     #[test]
+    fn test_account_functional() {
+        let acc = Account::new(100);
+
+        let (acc, result) = acc.withdraw(25);
+        assert_eq!(result, Ok(75));
+
+        let (acc, result) = acc.withdraw(25);
+        assert_eq!(result, Ok(50));
+
+        let (acc, result) = acc.withdraw(60);
+        assert_eq!(result, Err("Insufficient funds"));
+        assert_eq!(acc.balance(), 50);
+
+        let (acc, result) = acc.withdraw(15);
+        assert_eq!(result, Ok(35));
+        assert_eq!(acc.balance(), 35);
+    }
+
+    #[test]
+    fn test_account_deposit() {
+        let acc = Account::new(100);
+        let (acc, balance) = acc.deposit(50);
+        assert_eq!(balance, 150);
+        assert_eq!(acc.balance(), 150);
+    }
+
+    #[test]
     fn test_global_withdraw() {
         global_state::reset_balance(100);
 
@@ -604,17 +629,7 @@ mod tests {
     }
 
     #[test]
-    fn test_new_withdraw() {
-        let mut w = new_withdraw();
-
-        assert_eq!(w(25), Ok(75));
-        assert_eq!(w(25), Ok(50));
-        assert_eq!(w(60), Err("Insufficient funds"));
-        assert_eq!(w(15), Ok(35));
-    }
-
-    #[test]
-    fn test_make_withdraw_independence() {
+    fn test_make_withdraw() {
         let mut w1 = make_withdraw(100);
         let mut w2 = make_withdraw(100);
 
@@ -625,20 +640,36 @@ mod tests {
     }
 
     #[test]
-    fn test_make_account() {
-        let mut acc = make_account(100);
+    fn test_password_account() {
+        let acc = PasswordAccount::new(100, "secret");
 
-        let mut withdraw = acc(AccountMessage::Withdraw);
-        assert_eq!(withdraw(50), Ok(50));
+        let (acc, result) = acc.withdraw("secret", 40);
+        assert_eq!(result, Ok(60));
 
-        let mut withdraw2 = acc(AccountMessage::Withdraw);
-        assert_eq!(withdraw2(60), Err("Insufficient funds"));
+        let (acc, result) = acc.withdraw("wrong", 10);
+        assert_eq!(result, Err("Incorrect password"));
+        assert_eq!(acc.balance(), 60);
 
-        let mut deposit = acc(AccountMessage::Deposit);
-        assert_eq!(deposit(40), Ok(90));
+        let (acc, result) = acc.deposit("secret", 20);
+        assert_eq!(result, Ok(80));
+        assert_eq!(acc.balance(), 80);
+    }
 
-        let mut withdraw3 = acc(AccountMessage::Withdraw);
-        assert_eq!(withdraw3(60), Ok(30));
+    #[test]
+    fn test_secure_account() {
+        let acc = SecureAccount::new(100, "secret");
+
+        // Try 6 wrong passwords
+        let mut acc = acc;
+        for _ in 0..6 {
+            let (new_acc, result) = acc.withdraw("wrong", 10);
+            assert_eq!(result, Err("Incorrect password"));
+            acc = new_acc;
+        }
+
+        // 7th attempt should call the cops
+        let (_, result) = acc.withdraw("wrong", 10);
+        assert_eq!(result, Err("Calling the cops!"));
     }
 
     #[test]
@@ -649,11 +680,9 @@ mod tests {
         let r2 = rng.rand();
         let r3 = rng.rand();
 
-        // Should be deterministic
         assert_ne!(r1, r2);
         assert_ne!(r2, r3);
 
-        // Reset and verify same sequence
         rng.reset(42);
         assert_eq!(rng.rand(), r1);
         assert_eq!(rng.rand(), r2);
@@ -663,40 +692,41 @@ mod tests {
     fn test_monte_carlo() {
         let rng = RandomGenerator::new(12345);
 
-        // Test with a simple experiment: always true
         let result = monte_carlo(1000, || true);
         assert!((result - 1.0).abs() < 0.001);
 
-        // Test with random coin flip
         let result = monte_carlo(10000, || rng.rand() % 2 == 0);
-        assert!((result - 0.5).abs() < 0.05); // Within 5% of expected
+        assert!((result - 0.5).abs() < 0.05);
     }
 
     #[test]
     fn test_estimate_pi() {
         let pi_estimate = estimate_pi(100_000);
-        // Monte Carlo methods have high variance, especially with simple LCG
-        // The Cesàro test is notoriously slow to converge
-        // We're demonstrating the concept, not achieving high precision
         assert!(
             pi_estimate > 2.0 && pi_estimate < 4.0,
-            "Pi estimate {} should be roughly in range [2, 4]",
+            "Pi estimate {} should be in range [2, 4]",
             pi_estimate
         );
-        // For demonstration: actual value is approximately 2.7-2.8 with our LCG
-        // A better RNG would give values closer to π ≈ 3.14159
     }
 
     #[test]
-    fn test_exercise_3_1_accumulator() {
-        let mut acc = make_accumulator(5);
+    fn test_accumulator_functional() {
+        let acc = Accumulator::new(5);
+        let (acc, result) = acc.add(10);
+        assert_eq!(result, 15);
+        let (_, result) = acc.add(10);
+        assert_eq!(result, 25);
+    }
 
+    #[test]
+    fn test_accumulator_closure() {
+        let mut acc = make_accumulator(5);
         assert_eq!(acc(10), 15);
         assert_eq!(acc(10), 25);
     }
 
     #[test]
-    fn test_exercise_3_2_monitored() {
+    fn test_monitored() {
         let sqrt_fn = |x: f64| x.sqrt();
         let mut monitored_sqrt = Monitored::new(sqrt_fn);
 
@@ -711,40 +741,13 @@ mod tests {
     }
 
     #[test]
-    fn test_exercise_3_3_password_account() {
-        let mut acc = make_password_account(100, "secret-password");
-
-        let mut withdraw = acc("secret-password", AccountMessage::Withdraw);
-        assert_eq!(withdraw(40), Ok(60));
-
-        let mut bad_withdraw = acc("wrong-password", AccountMessage::Deposit);
-        assert_eq!(bad_withdraw(50), Err("Incorrect password"));
-    }
-
-    #[test]
-    fn test_exercise_3_4_secure_account() {
-        let mut acc = make_secure_account(100, "secret");
-
-        // Try 7 wrong passwords
-        for _ in 0..6 {
-            let mut op = acc("wrong", AccountMessage::Withdraw);
-            assert_eq!(op(10), Err("Incorrect password"));
-        }
-
-        // 7th attempt should call the cops
-        let mut op = acc("wrong", AccountMessage::Withdraw);
-        assert_eq!(op(10), Err("Calling the cops!"));
-    }
-
-    #[test]
-    fn test_exercise_3_5_integral() {
-        // Estimate π using integral of unit circle
+    fn test_estimate_pi_integral() {
         let pi_estimate = estimate_pi_integral(100_000);
         assert!((pi_estimate - std::f64::consts::PI).abs() < 0.1);
     }
 
     #[test]
-    fn test_exercise_3_6_resettable_rand() {
+    fn test_resettable_rand() {
         let mut rand = make_rand(42);
 
         let r1 = rand(RandCommand::Generate);
@@ -759,13 +762,11 @@ mod tests {
     }
 
     #[test]
-    fn test_exercise_3_8_order_dependent() {
-        // Test left-to-right evaluation: f(0) then f(1)
+    fn test_order_dependent() {
         let mut f = make_order_dependent();
         let result1 = f(0) + f(1);
         assert_eq!(result1, 0);
 
-        // Test right-to-left evaluation: f(1) then f(0)
         let mut f = make_order_dependent();
         let a = f(1);
         let b = f(0);

@@ -4,16 +4,21 @@
 //! The evaluator uses 7 registers (exp, env, val, continue, proc, argl, unev) and
 //! a stack to execute programs with explicit control flow.
 //!
+//! ## Key Design Changes from Original:
+//!
+//! - **Persistent environments**: Using `im::HashMap` for O(1) clone with structural sharing
+//! - **Owned closures**: Closures capture their environment by clone (not Rc<RefCell<>>)
+//! - **No set!**: Pure functional approach - define only, no mutation
+//! - **Box for pairs**: Simpler ownership for pair structures
+//!
 //! Key concepts demonstrated:
 //! - Register-based evaluation with explicit control
 //! - Tail-call optimization through careful continue register management
 //! - Stack operations for saving and restoring machine state
 //! - Expression dispatch via explicit type checking
 
-use std::cell::RefCell;
-use std::collections::HashMap;
+use sicp_common::Environment;
 use std::fmt;
-use std::rc::Rc;
 
 /// Expression types in the evaluator
 #[derive(Debug, Clone, PartialEq)]
@@ -40,12 +45,6 @@ pub enum Expr {
         predicate: Box<Expr>,
         consequent: Box<Expr>,
         alternative: Box<Expr>,
-    },
-
-    /// Assignment: (set! var value)
-    Assignment {
-        var: String,
-        value: Box<Expr>,
     },
 
     /// Definition: (define var value)
@@ -77,20 +76,22 @@ pub enum Value {
     Bool(bool),
     String(String),
     Symbol(String),
-    Pair(Rc<Value>, Rc<Value>),
+    Pair(Box<Value>, Box<Value>),
     Nil,
 
-    /// Compound procedure with captured environment
+    /// Compound procedure with OWNED environment (persistent)
     Procedure {
         params: Vec<String>,
         body: Vec<Expr>,
-        env: Rc<Environment>,
+        env: Environment<Value>,
+        /// Optional self-name for recursive binding
+        self_name: Option<String>,
     },
 
     /// Primitive procedure
     Primitive(String),
 
-    /// Special "ok" value for assignments/definitions
+    /// Special "ok" value for definitions
     Ok,
 }
 
@@ -102,6 +103,8 @@ impl PartialEq for Value {
             (Value::String(a), Value::String(b)) => a == b,
             (Value::Symbol(a), Value::Symbol(b)) => a == b,
             (Value::Nil, Value::Nil) => true,
+            (Value::Ok, Value::Ok) => true,
+            (Value::Pair(a1, a2), Value::Pair(b1, b2)) => a1 == b1 && a2 == b2,
             _ => false,
         }
     }
@@ -130,8 +133,8 @@ impl fmt::Display for Value {
 impl Value {
     fn write_list(&self, f: &mut fmt::Formatter) -> fmt::Result {
         match self {
-            Value::Pair(_car, cdr) => {
-                write!(f, "{}", _car)?;
+            Value::Pair(car, cdr) => {
+                write!(f, "{}", car)?;
                 match cdr.as_ref() {
                     Value::Nil => Ok(()),
                     Value::Pair(_, _) => {
@@ -150,59 +153,11 @@ impl Value {
     }
 }
 
-/// Environment: bindings with parent chain
-pub type Environment = RefCell<EnvFrame>;
-
-#[derive(Debug, Clone)]
-pub struct EnvFrame {
-    bindings: HashMap<String, Value>,
-    parent: Option<Rc<Environment>>,
-}
-
-impl EnvFrame {
-    pub fn new(parent: Option<Rc<Environment>>) -> Self {
-        EnvFrame {
-            bindings: HashMap::new(),
-            parent,
-        }
-    }
-
-    pub fn lookup(&self, var: &str) -> Option<Value> {
-        self.bindings
-            .get(var)
-            .cloned()
-            .or_else(|| self.parent.as_ref()?.borrow().lookup(var))
-    }
-
-    pub fn set(&mut self, var: &str, val: Value) -> Result<(), String> {
-        if self.bindings.contains_key(var) {
-            self.bindings.insert(var.to_string(), val);
-            Ok(())
-        } else if let Some(ref parent) = self.parent {
-            parent.borrow_mut().set(var, val)
-        } else {
-            Err(format!("Unbound variable: {}", var))
-        }
-    }
-
-    pub fn define(&mut self, var: String, val: Value) {
-        self.bindings.insert(var, val);
-    }
-
-    pub fn extend(parent: Rc<Environment>, params: &[String], args: &[Value]) -> Rc<Environment> {
-        let mut env = EnvFrame::new(Some(parent));
-        for (param, arg) in params.iter().zip(args.iter()) {
-            env.define(param.clone(), arg.clone());
-        }
-        Rc::new(RefCell::new(env))
-    }
-}
-
 /// Stack frame types for saving register state
 #[derive(Debug, Clone)]
 pub enum StackFrame {
     Continue(Label),
-    Env(Rc<Environment>),
+    Env(Environment<Value>),
     Unev(Vec<Expr>),
     Argl(Vec<Value>),
     Proc(Value),
@@ -221,8 +176,6 @@ pub enum Label {
     EvIfDecide,
     EvIfConsequent,
     EvIfAlternative,
-    EvAssignment,
-    EvAssignment1,
     EvDefinition,
     EvDefinition1,
     EvBegin,
@@ -246,7 +199,7 @@ pub enum Label {
 pub struct EvaluatorMachine {
     // Seven registers
     exp: Option<Expr>,
-    env: Rc<Environment>,
+    env: Environment<Value>,
     val: Option<Value>,
     continue_reg: Label,
     proc: Option<Value>,
@@ -287,24 +240,22 @@ impl EvaluatorMachine {
     }
 
     /// Create global environment with primitive procedures
-    fn setup_environment() -> Rc<Environment> {
-        let mut env = EnvFrame::new(None);
-
-        // Define primitive procedures
+    fn setup_environment() -> Environment<Value> {
         let primitives = vec![
             "+", "-", "*", "/", "=", "<", ">", "<=", ">=", "cons", "car", "cdr", "null?", "pair?",
             "list", "display", "newline",
         ];
 
+        let mut env = Environment::new();
         for prim in primitives {
-            env.define(prim.to_string(), Value::Primitive(prim.to_string()));
+            env = env.define(prim.to_string(), Value::Primitive(prim.to_string()));
         }
 
         // Define special constants
-        env.define("true".to_string(), Value::Bool(true));
-        env.define("false".to_string(), Value::Bool(false));
+        env = env.define("true".to_string(), Value::Bool(true));
+        env = env.define("false".to_string(), Value::Bool(false));
 
-        Rc::new(RefCell::new(env))
+        env
     }
 
     /// Stack operations with metrics tracking
@@ -406,8 +357,6 @@ impl EvaluatorMachine {
                 Label::EvIfDecide => self.ev_if_decide()?,
                 Label::EvIfConsequent => self.ev_if_consequent()?,
                 Label::EvIfAlternative => self.ev_if_alternative()?,
-                Label::EvAssignment => self.ev_assignment()?,
-                Label::EvAssignment1 => self.ev_assignment_1()?,
                 Label::EvDefinition => self.ev_definition()?,
                 Label::EvDefinition1 => self.ev_definition_1()?,
                 Label::EvBegin => self.ev_begin()?,
@@ -459,9 +408,6 @@ impl EvaluatorMachine {
             Expr::If { .. } => {
                 self.current_label = Label::EvIf;
             }
-            Expr::Assignment { .. } => {
-                self.current_label = Label::EvAssignment;
-            }
             Expr::Definition { .. } => {
                 self.current_label = Label::EvDefinition;
             }
@@ -502,8 +448,8 @@ impl EvaluatorMachine {
 
         self.val = Some(
             self.env
-                .borrow()
                 .lookup(&var)
+                .cloned()
                 .ok_or_else(|| format!("Unbound variable: {}", var))?,
         );
         self.current_label = self.continue_reg;
@@ -531,8 +477,8 @@ impl EvaluatorMachine {
             Expr::Symbol(s) => Value::Symbol(s),
             Expr::Nil => Value::Nil,
             Expr::Pair(car, cdr) => Value::Pair(
-                Rc::new(self.expr_to_value(*car)),
-                Rc::new(self.expr_to_value(*cdr)),
+                Box::new(self.expr_to_value(*car)),
+                Box::new(self.expr_to_value(*cdr)),
             ),
             _ => Value::Symbol(format!("{:?}", expr)),
         }
@@ -548,7 +494,8 @@ impl EvaluatorMachine {
         self.val = Some(Value::Procedure {
             params,
             body,
-            env: Rc::clone(&self.env),
+            env: self.env.clone(), // O(1) clone due to structural sharing
+            self_name: None,
         });
         self.current_label = self.continue_reg;
         Ok(())
@@ -566,7 +513,7 @@ impl EvaluatorMachine {
         };
 
         self.save(StackFrame::Exp(self.exp.clone().unwrap()));
-        self.save(StackFrame::Env(Rc::clone(&self.env)));
+        self.save(StackFrame::Env(self.env.clone()));
         self.save(StackFrame::Continue(self.continue_reg));
         self.continue_reg = Label::EvIfDecide;
         self.exp = Some(*predicate);
@@ -611,41 +558,6 @@ impl EvaluatorMachine {
         Ok(())
     }
 
-    /// Evaluate assignment
-    fn ev_assignment(&mut self) -> Result<(), String> {
-        let (var, value) = match self.exp.clone() {
-            Some(Expr::Assignment { var, value }) => (var, value),
-            _ => return Err("Expected assignment".to_string()),
-        };
-
-        self.unev = vec![Expr::Symbol(var)];
-        self.save(StackFrame::Unev(self.unev.clone()));
-        self.exp = Some(*value);
-        self.save(StackFrame::Env(Rc::clone(&self.env)));
-        self.save(StackFrame::Continue(self.continue_reg));
-        self.continue_reg = Label::EvAssignment1;
-        self.current_label = Label::EvalDispatch;
-        Ok(())
-    }
-
-    fn ev_assignment_1(&mut self) -> Result<(), String> {
-        self.restore_continue()?;
-        self.restore_env()?;
-        self.restore_unev()?;
-
-        let var = match &self.unev[0] {
-            Expr::Symbol(s) => s.clone(),
-            _ => return Err("Expected symbol".to_string()),
-        };
-
-        let val = self.val.clone().ok_or("No value")?;
-        self.env.borrow_mut().set(&var, val)?;
-
-        self.val = Some(Value::Ok);
-        self.current_label = self.continue_reg;
-        Ok(())
-    }
-
     /// Evaluate definition
     fn ev_definition(&mut self) -> Result<(), String> {
         let (var, value) = match self.exp.clone() {
@@ -653,10 +565,23 @@ impl EvaluatorMachine {
             _ => return Err("Expected definition".to_string()),
         };
 
+        // Check if defining a lambda for recursive binding
+        let is_lambda = matches!(value.as_ref(), Expr::Lambda { .. });
+        let var_name = var.clone();
+
         self.unev = vec![Expr::Symbol(var)];
         self.save(StackFrame::Unev(self.unev.clone()));
+
+        // Store whether this is a lambda definition for self-name binding
+        if is_lambda {
+            // For lambda definitions, we handle self-name in ev_definition_1
+            self.save(StackFrame::Exp(Expr::Symbol(var_name)));
+        } else {
+            self.save(StackFrame::Exp(Expr::Nil));
+        }
+
         self.exp = Some(*value);
-        self.save(StackFrame::Env(Rc::clone(&self.env)));
+        self.save(StackFrame::Env(self.env.clone()));
         self.save(StackFrame::Continue(self.continue_reg));
         self.continue_reg = Label::EvDefinition1;
         self.current_label = Label::EvalDispatch;
@@ -666,6 +591,14 @@ impl EvaluatorMachine {
     fn ev_definition_1(&mut self) -> Result<(), String> {
         self.restore_continue()?;
         self.restore_env()?;
+        self.restore_exp()?; // The var name or Nil
+
+        // Check if we need to set self_name for recursion
+        let self_name = match self.exp.as_ref() {
+            Some(Expr::Symbol(s)) => Some(s.clone()),
+            _ => None,
+        };
+
         self.restore_unev()?;
 
         let var = match &self.unev[0] {
@@ -673,8 +606,24 @@ impl EvaluatorMachine {
             _ => return Err("Expected symbol".to_string()),
         };
 
-        let val = self.val.clone().ok_or("No value")?;
-        self.env.borrow_mut().define(var, val);
+        let mut val = self.val.clone().ok_or("No value")?;
+
+        // If this is a procedure, set its self_name for recursive binding
+        if let Some(name) = self_name
+            && let Value::Procedure {
+                params, body, env, ..
+            } = val
+        {
+            val = Value::Procedure {
+                params,
+                body,
+                env,
+                self_name: Some(name),
+            };
+        }
+
+        // Define in current environment (persistent update)
+        self.env = self.env.define(var, val);
 
         self.val = Some(Value::Ok);
         self.current_label = self.continue_reg;
@@ -702,7 +651,7 @@ impl EvaluatorMachine {
         };
 
         self.save(StackFrame::Continue(self.continue_reg));
-        self.save(StackFrame::Env(Rc::clone(&self.env)));
+        self.save(StackFrame::Env(self.env.clone()));
         self.unev = operands;
         self.save(StackFrame::Unev(self.unev.clone()));
         self.exp = Some(*operator);
@@ -733,7 +682,7 @@ impl EvaluatorMachine {
         if self.unev.len() == 1 {
             self.current_label = Label::EvApplLastArg;
         } else {
-            self.save(StackFrame::Env(Rc::clone(&self.env)));
+            self.save(StackFrame::Env(self.env.clone()));
             self.save(StackFrame::Unev(self.unev.clone()));
             self.continue_reg = Label::EvApplAccumulateArg;
             self.current_label = Label::EvalDispatch;
@@ -798,8 +747,13 @@ impl EvaluatorMachine {
     }
 
     fn compound_apply(&mut self) -> Result<(), String> {
-        let (params, body, proc_env) = match self.proc.clone() {
-            Some(Value::Procedure { params, body, env }) => (params, body, env),
+        let (params, body, proc_env, self_name) = match self.proc.clone() {
+            Some(Value::Procedure {
+                params,
+                body,
+                env,
+                self_name,
+            }) => (params, body, env, self_name),
             _ => return Err("Expected compound procedure".to_string()),
         };
 
@@ -811,7 +765,20 @@ impl EvaluatorMachine {
             ));
         }
 
-        self.env = EnvFrame::extend(proc_env, &params, &self.argl);
+        // Start with the procedure's captured environment
+        let mut new_env = proc_env;
+
+        // Bind self-name for recursive calls
+        if let Some(name) = self_name {
+            new_env = new_env.define(name, self.proc.clone().unwrap());
+        }
+
+        // Extend with parameter bindings
+        let bindings: Vec<(String, Value)> =
+            params.into_iter().zip(self.argl.iter().cloned()).collect();
+        new_env = new_env.extend(bindings);
+
+        self.env = new_env;
         self.unev = body;
         self.current_label = Label::EvSequence;
         Ok(())
@@ -830,7 +797,7 @@ impl EvaluatorMachine {
             self.current_label = Label::EvSequenceLastExp;
         } else {
             self.save(StackFrame::Unev(self.unev.clone()));
-            self.save(StackFrame::Env(Rc::clone(&self.env)));
+            self.save(StackFrame::Env(self.env.clone()));
             self.continue_reg = Label::EvSequenceContinue;
             self.current_label = Label::EvalDispatch;
         }
@@ -838,7 +805,12 @@ impl EvaluatorMachine {
     }
 
     fn ev_sequence_continue(&mut self) -> Result<(), String> {
-        self.restore_env()?;
+        // Preserve the current environment (which may have been updated by a definition)
+        // before popping the saved env off the stack.
+        let current_env = self.env.clone();
+        self.restore_env()?; // Pop saved env off stack (discards it)
+        self.env = current_env; // Restore the current env with any definitions
+
         self.restore_unev()?;
         self.unev = self.unev[1..].to_vec();
         self.current_label = Label::EvSequence;
@@ -940,13 +912,31 @@ impl EvaluatorMachine {
                     _ => Err("Non-numeric arguments to >".to_string()),
                 }
             }
+            "<=" => {
+                if args.len() != 2 {
+                    return Err("<= requires exactly two arguments".to_string());
+                }
+                match (&args[0], &args[1]) {
+                    (Value::Number(a), Value::Number(b)) => Ok(Value::Bool(a <= b)),
+                    _ => Err("Non-numeric arguments to <=".to_string()),
+                }
+            }
+            ">=" => {
+                if args.len() != 2 {
+                    return Err(">= requires exactly two arguments".to_string());
+                }
+                match (&args[0], &args[1]) {
+                    (Value::Number(a), Value::Number(b)) => Ok(Value::Bool(a >= b)),
+                    _ => Err("Non-numeric arguments to >=".to_string()),
+                }
+            }
             "cons" => {
                 if args.len() != 2 {
                     return Err("cons requires exactly two arguments".to_string());
                 }
                 Ok(Value::Pair(
-                    Rc::new(args[0].clone()),
-                    Rc::new(args[1].clone()),
+                    Box::new(args[0].clone()),
+                    Box::new(args[1].clone()),
                 ))
             }
             "car" => {
@@ -954,7 +944,7 @@ impl EvaluatorMachine {
                     return Err("car requires exactly one argument".to_string());
                 }
                 match &args[0] {
-                    Value::Pair(car, _) => Ok((**car).clone()),
+                    Value::Pair(car, _) => Ok(*car.clone()),
                     _ => Err("car requires a pair".to_string()),
                 }
             }
@@ -963,7 +953,7 @@ impl EvaluatorMachine {
                     return Err("cdr requires exactly one argument".to_string());
                 }
                 match &args[0] {
-                    Value::Pair(_, cdr) => Ok((**cdr).clone()),
+                    Value::Pair(_, cdr) => Ok(*cdr.clone()),
                     _ => Err("cdr requires a pair".to_string()),
                 }
             }
@@ -982,7 +972,7 @@ impl EvaluatorMachine {
             "list" => {
                 let mut result = Value::Nil;
                 for arg in args.iter().rev() {
-                    result = Value::Pair(Rc::new(arg.clone()), Rc::new(result));
+                    result = Value::Pair(Box::new(arg.clone()), Box::new(result));
                 }
                 Ok(result)
             }
@@ -990,7 +980,7 @@ impl EvaluatorMachine {
                 if args.len() != 1 {
                     return Err("display requires exactly one argument".to_string());
                 }
-                println!("{}", args[0]);
+                print!("{}", args[0]);
                 Ok(Value::Ok)
             }
             "newline" => {
@@ -1007,6 +997,11 @@ impl EvaluatorMachine {
     pub fn reset_metrics(&mut self) {
         self.total_pushes = 0;
         self.max_depth = 0;
+    }
+
+    /// Define a variable in the global environment (for setup)
+    pub fn define(&mut self, var: &str, val: Value) {
+        self.env = self.env.define(var.to_string(), val);
     }
 }
 
@@ -1034,10 +1029,7 @@ mod tests {
     #[test]
     fn test_variable_lookup() {
         let mut machine = EvaluatorMachine::new();
-        machine
-            .env
-            .borrow_mut()
-            .define("x".to_string(), Value::Number(10));
+        machine.define("x", Value::Number(10));
 
         let result = machine.eval(Expr::Symbol("x".to_string())).unwrap();
         assert_eq!(result, Value::Number(10));
@@ -1108,25 +1100,6 @@ mod tests {
     }
 
     #[test]
-    fn test_assignment() {
-        let mut machine = EvaluatorMachine::new();
-        machine
-            .env
-            .borrow_mut()
-            .define("x".to_string(), Value::Number(10));
-
-        let assign = Expr::Assignment {
-            var: "x".to_string(),
-            value: Box::new(Expr::Number(20)),
-        };
-
-        machine.eval(assign).unwrap();
-
-        let result = machine.eval(Expr::Symbol("x".to_string())).unwrap();
-        assert_eq!(result, Value::Number(20));
-    }
-
-    #[test]
     fn test_begin_sequence() {
         let mut machine = EvaluatorMachine::new();
 
@@ -1184,15 +1157,7 @@ mod tests {
     fn test_tail_recursion_factorial() {
         let mut machine = EvaluatorMachine::new();
 
-        // (define factorial
-        //   (lambda (n)
-        //     (define iter
-        //       (lambda (product counter)
-        //         (if (> counter n)
-        //             product
-        //             (iter (* counter product) (+ counter 1)))))
-        //     (iter 1 1)))
-
+        // Define iterative factorial with inner iter function
         let iter_lambda = Expr::Lambda {
             params: vec!["product".to_string(), "counter".to_string()],
             body: vec![Expr::If {
@@ -1255,13 +1220,7 @@ mod tests {
 
         assert_eq!(result, Value::Number(120));
 
-        // Verify constant stack depth for tail recursion
-        println!(
-            "Tail-recursive factorial(5): max_depth={}, total_pushes={}",
-            machine.max_depth, machine.total_pushes
-        );
-
-        // Test with larger n to verify constant stack
+        // Test with larger n
         machine.reset_metrics();
         let result = machine
             .eval(Expr::Application {
@@ -1271,22 +1230,13 @@ mod tests {
             .unwrap();
 
         assert_eq!(result, Value::Number(3628800));
-        println!(
-            "Tail-recursive factorial(10): max_depth={}, total_pushes={}",
-            machine.max_depth, machine.total_pushes
-        );
     }
 
     #[test]
     fn test_recursive_factorial() {
         let mut machine = EvaluatorMachine::new();
 
-        // (define factorial
-        //   (lambda (n)
-        //     (if (= n 1)
-        //         1
-        //         (* (factorial (- n 1)) n))))
-
+        // Recursive factorial
         let factorial_lambda = Expr::Lambda {
             params: vec!["n".to_string()],
             body: vec![Expr::If {
@@ -1327,10 +1277,6 @@ mod tests {
             .unwrap();
 
         assert_eq!(result, Value::Number(120));
-        println!(
-            "Recursive factorial(5): max_depth={}, total_pushes={}",
-            machine.max_depth, machine.total_pushes
-        );
     }
 
     #[test]
@@ -1360,11 +1306,11 @@ mod tests {
         // Verify structure
         if let Value::Pair(car1, cdr1) = result {
             assert_eq!(*car1, Value::Number(1));
-            if let Value::Pair(car2, cdr2) = &*cdr1 {
-                assert_eq!(**car2, Value::Number(2));
-                if let Value::Pair(car3, cdr3) = &**cdr2 {
-                    assert_eq!(**car3, Value::Number(3));
-                    assert_eq!(**cdr3, Value::Nil);
+            if let Value::Pair(car2, cdr2) = *cdr1 {
+                assert_eq!(*car2, Value::Number(2));
+                if let Value::Pair(car3, cdr3) = *cdr2 {
+                    assert_eq!(*car3, Value::Number(3));
+                    assert_eq!(*cdr3, Value::Nil);
                 } else {
                     panic!("Expected pair");
                 }
@@ -1380,9 +1326,7 @@ mod tests {
     fn test_closures() {
         let mut machine = EvaluatorMachine::new();
 
-        // (define make-adder
-        //   (lambda (x)
-        //     (lambda (y) (+ x y))))
+        // (define make-adder (lambda (x) (lambda (y) (+ x y))))
         let inner_lambda = Expr::Lambda {
             params: vec!["y".to_string()],
             body: vec![Expr::Application {

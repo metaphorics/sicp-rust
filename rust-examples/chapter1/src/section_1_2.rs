@@ -119,7 +119,7 @@ pub fn is_prime(n: u64) -> bool {
     fn find_divisor(n: u64, test_divisor: u64) -> u64 {
         if test_divisor * test_divisor > n {
             n
-        } else if n % test_divisor == 0 {
+        } else if n.is_multiple_of(test_divisor) {
             test_divisor
         } else {
             find_divisor(n, test_divisor + 1)
@@ -139,7 +139,7 @@ pub fn is_prime(n: u64) -> bool {
 pub fn fast_expt(base: u64, exp: u64) -> u64 {
     if exp == 0 {
         1
-    } else if exp % 2 == 0 {
+    } else if exp.is_multiple_of(2) {
         let half = fast_expt(base, exp / 2);
         half * half
     } else {

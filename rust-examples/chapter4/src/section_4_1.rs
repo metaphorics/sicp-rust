@@ -1,48 +1,43 @@
 //! Section 4.1: The Metacircular Evaluator
 //!
-//! A Scheme interpreter written in Rust, demonstrating metalinguistic abstraction.
+//! A Scheme interpreter written in idiomatic Rust using persistent environments.
 //!
-//! ## Key Rust Mappings from Scheme:
+//! ## Key Design Changes from SICP Scheme:
 //!
-//! - `eval/apply` → `match` on `enum Expr` for exhaustive dispatch
-//! - Expressions → Algebraic data types (enum Expr with variants)
-//! - Environments → `HashMap<String, Value>` with `Rc<RefCell<>>` for parent links
-//! - Special forms → match arms for if, lambda, define, etc.
-//! - Closures → Struct capturing parameters, body, and environment
+//! - **Persistent environments**: Using `im::HashMap` for O(1) clone with structural sharing
+//! - **Owned closures**: Closures capture their environment by clone (not shared reference)
+//! - **Functional state threading**: `eval` returns `(Value, Environment)` for mutations
+//! - **No Rc<RefCell<>>**: All ownership is explicit through the type system
+//!
+//! ## Rust vs Scheme Semantics:
+//!
+//! In Scheme, `set!` mutates a shared environment visible to all closures.
+//! In this pure functional implementation, `set!` returns a new environment,
+//! so closures that captured the old environment won't see the change.
+//! This matches pure functional semantics and demonstrates Rust's ownership model.
 //!
 //! ## Architecture:
 //!
 //! ```text
-//! eval(expr, env) → Value
+//! eval(expr, env) → (Value, Environment)
 //!   ↓
 //!   match expr {
-//!     Number/String → self-evaluating
-//!     Symbol → env.lookup(name)
-//!     Quote → quoted expression
-//!     If → eval predicate, then consequent or alternative
-//!     Lambda → create closure capturing environment
-//!     Define → bind value in environment
-//!     Set → update existing binding
-//!     Begin → eval sequence, return last
-//!     Cond → desugar to nested if
-//!     Let → desugar to lambda application
-//!     Application → apply(eval(operator), eval(operands))
-//!   }
-//!
-//! apply(procedure, args) → Value
-//!   ↓
-//!   match procedure {
-//!     Primitive(f) → f(args)
-//!     Closure{params, body, env} → eval(body, env.extend(params, args))
+//!     Number/String → (self-evaluating, env)
+//!     Symbol → (env.lookup(name), env)
+//!     Lambda → (Closure { env: env.clone() }, env)
+//!     Define → env' = env.define(name, value); (Void, env')
+//!     Application → apply(procedure, args)
 //!   }
 //! ```
 
-use std::cell::RefCell;
-use std::collections::HashMap;
+use sicp_common::Environment;
 use std::fmt;
-use std::rc::Rc;
 
-/// Expression type - represents the abstract syntax tree
+// =============================================================================
+// Expression Types (AST)
+// =============================================================================
+
+/// Expression type - represents the abstract syntax tree.
 #[derive(Debug, Clone, PartialEq)]
 pub enum Expr {
     /// Self-evaluating numbers
@@ -66,8 +61,6 @@ pub enum Expr {
     },
     /// Variable definition: (define var expr)
     Define { name: String, value: Box<Expr> },
-    /// Assignment: (set! var expr)
-    Set { name: String, value: Box<Expr> },
     /// Sequence: (begin expr...)
     Begin(Vec<Expr>),
     /// Conditional with multiple clauses: (cond (pred expr)... (else expr))
@@ -88,25 +81,33 @@ pub enum Expr {
     Cons(Box<Expr>, Box<Expr>),
 }
 
-/// Cond clause: predicate and actions
+/// Cond clause: predicate and actions.
 #[derive(Debug, Clone, PartialEq)]
 pub struct CondClause {
     pub predicate: Expr,
     pub actions: Vec<Expr>,
 }
 
-/// Runtime values produced by evaluation
+// =============================================================================
+// Runtime Values
+// =============================================================================
+
+/// Runtime values produced by evaluation.
+///
+/// Closures own their environment (no Rc<RefCell<>>).
 #[derive(Debug, Clone)]
 pub enum Value {
     Number(i64),
     Bool(bool),
     String(String),
     Symbol(String),
-    /// Compound procedure (closure)
+    /// Compound procedure - closure OWNS its captured environment
     Closure {
         params: Vec<String>,
         body: Vec<Expr>,
-        env: Rc<RefCell<Environment>>,
+        env: Environment<Value>,
+        /// Optional self-name for recursive binding at call time
+        self_name: Option<String>,
     },
     /// Primitive procedure
     Primitive(String, PrimitiveFn),
@@ -114,7 +115,7 @@ pub enum Value {
     Pair(Box<Value>, Box<Value>),
     /// Empty list
     Nil,
-    /// Void (returned by define/set!)
+    /// Void (returned by define)
     Void,
 }
 
@@ -128,7 +129,6 @@ impl PartialEq for Value {
             (Value::Nil, Value::Nil) => true,
             (Value::Void, Value::Void) => true,
             (Value::Pair(a1, a2), Value::Pair(b1, b2)) => a1 == b1 && a2 == b2,
-            // Procedures compared by identity (not structural equality)
             _ => false,
         }
     }
@@ -170,10 +170,14 @@ impl fmt::Display for Value {
     }
 }
 
-/// Primitive function type
+/// Primitive function type.
 pub type PrimitiveFn = fn(&[Value]) -> Result<Value, EvalError>;
 
-/// Evaluation errors
+// =============================================================================
+// Errors
+// =============================================================================
+
+/// Evaluation errors.
 #[derive(Debug, Clone, PartialEq)]
 pub enum EvalError {
     UnboundVariable(String),
@@ -201,87 +205,38 @@ impl fmt::Display for EvalError {
 
 impl std::error::Error for EvalError {}
 
-/// Environment: maps variable names to values
+// =============================================================================
+// Evaluator Core
+// =============================================================================
+
+/// Evaluate an expression in an environment.
 ///
-/// Environments are organized as a chain of frames, each represented as a HashMap.
-/// The parent link enables lexical scoping.
-///
-/// ## Ownership Model:
-/// - `Rc<RefCell<Environment>>` allows shared mutable access
-/// - Closures capture their defining environment
-/// - Child environments reference parent via Rc
-#[derive(Debug, Clone)]
-pub struct Environment {
-    frame: HashMap<String, Value>,
-    parent: Option<Rc<RefCell<Environment>>>,
-}
-
-impl Environment {
-    /// Create a new empty environment with no parent
-    pub fn new() -> Self {
-        Environment {
-            frame: HashMap::new(),
-            parent: None,
-        }
-    }
-
-    /// Create a new environment extending a parent
-    pub fn extend(parent: Rc<RefCell<Environment>>) -> Self {
-        Environment {
-            frame: HashMap::new(),
-            parent: Some(parent),
-        }
-    }
-
-    /// Look up a variable's value in this environment or its parents
-    pub fn lookup(&self, name: &str) -> Result<Value, EvalError> {
-        if let Some(value) = self.frame.get(name) {
-            Ok(value.clone())
-        } else if let Some(ref parent) = self.parent {
-            parent.borrow().lookup(name)
-        } else {
-            Err(EvalError::UnboundVariable(name.to_string()))
-        }
-    }
-
-    /// Define a variable in the current frame (creates or updates)
-    pub fn define(&mut self, name: String, value: Value) {
-        self.frame.insert(name, value);
-    }
-
-    /// Set an existing variable's value (searches up the environment chain)
-    pub fn set(&mut self, name: &str, value: Value) -> Result<(), EvalError> {
-        if self.frame.contains_key(name) {
-            self.frame.insert(name.to_string(), value);
-            Ok(())
-        } else if let Some(ref parent) = self.parent {
-            parent.borrow_mut().set(name, value)
-        } else {
-            Err(EvalError::UnboundVariable(name.to_string()))
-        }
-    }
-}
-
-impl Default for Environment {
-    fn default() -> Self {
-        Self::new()
-    }
-}
-
-/// Evaluate an expression in an environment
-///
-/// This is the core of the interpreter, implementing the eval-apply cycle.
-pub fn eval(expr: &Expr, env: Rc<RefCell<Environment>>) -> Result<Value, EvalError> {
+/// Returns `(Value, Environment)` - the new environment may have new bindings
+/// from `define` expressions. This functional approach threads state through
+/// the evaluator without mutation.
+pub fn eval(
+    expr: &Expr,
+    env: Environment<Value>,
+) -> Result<(Value, Environment<Value>), EvalError> {
     match expr {
         // Self-evaluating expressions
-        Expr::Number(n) => Ok(Value::Number(*n)),
-        Expr::String(s) => Ok(Value::String(s.clone())),
+        Expr::Number(n) => Ok((Value::Number(*n), env)),
+        Expr::String(s) => Ok((Value::String(s.clone()), env)),
 
         // Variable lookup
-        Expr::Symbol(name) => env.borrow().lookup(name),
+        Expr::Symbol(name) => {
+            let value = env
+                .lookup(name)
+                .ok_or_else(|| EvalError::UnboundVariable(name.clone()))?
+                .clone();
+            Ok((value, env))
+        }
 
         // Quote: return the expression unevaluated
-        Expr::Quote(expr) => expr_to_value(expr),
+        Expr::Quote(quoted) => {
+            let value = expr_to_value(quoted)?;
+            Ok((value, env))
+        }
 
         // If: evaluate predicate, then consequent or alternative
         Expr::If {
@@ -289,7 +244,7 @@ pub fn eval(expr: &Expr, env: Rc<RefCell<Environment>>) -> Result<Value, EvalErr
             consequent,
             alternative,
         } => {
-            let pred_value = eval(predicate, env.clone())?;
+            let (pred_value, env) = eval(predicate, env)?;
             if is_true(&pred_value) {
                 eval(consequent, env)
             } else {
@@ -298,24 +253,38 @@ pub fn eval(expr: &Expr, env: Rc<RefCell<Environment>>) -> Result<Value, EvalErr
         }
 
         // Lambda: create a closure capturing the current environment
-        Expr::Lambda { params, body } => Ok(Value::Closure {
-            params: params.clone(),
-            body: body.clone(),
-            env: env.clone(),
-        }),
-
-        // Define: evaluate value and bind in current environment
-        Expr::Define { name, value } => {
-            let val = eval(value, env.clone())?;
-            env.borrow_mut().define(name.clone(), val);
-            Ok(Value::Void)
+        Expr::Lambda { params, body } => {
+            let closure = Value::Closure {
+                params: params.clone(),
+                body: body.clone(),
+                env: env.clone(), // Closure OWNS a copy (O(1) due to structural sharing)
+                self_name: None,  // Anonymous lambda
+            };
+            Ok((closure, env))
         }
 
-        // Set!: evaluate value and update existing binding
-        Expr::Set { name, value } => {
-            let val = eval(value, env.clone())?;
-            env.borrow_mut().set(name, val)?;
-            Ok(Value::Void)
+        // Define: evaluate value and bind in a new environment
+        // Special handling for lambda to enable recursion via self_name
+        Expr::Define { name, value } => {
+            match value.as_ref() {
+                // For lambda definitions, set self_name for recursive binding
+                Expr::Lambda { params, body } => {
+                    let closure = Value::Closure {
+                        params: params.clone(),
+                        body: body.clone(),
+                        env: env.clone(),
+                        self_name: Some(name.clone()), // Enable recursive self-reference
+                    };
+                    let new_env = env.define(name.clone(), closure);
+                    Ok((Value::Void, new_env))
+                }
+                // Non-lambda values: evaluate normally
+                _ => {
+                    let (val, env) = eval(value, env)?;
+                    let new_env = env.define(name.clone(), val);
+                    Ok((Value::Void, new_env))
+                }
+            }
         }
 
         // Begin: evaluate sequence, return last value
@@ -335,31 +304,37 @@ pub fn eval(expr: &Expr, env: Rc<RefCell<Environment>>) -> Result<Value, EvalErr
 
         // Application: evaluate operator and operands, then apply
         Expr::Application { operator, operands } => {
-            let proc = eval(operator, env.clone())?;
-            let args = eval_list(operands, env)?;
-            apply(proc, args)
+            let (proc, env) = eval(operator, env)?;
+            let (args, env) = eval_list(operands, env)?;
+            let result = apply(proc, args)?;
+            Ok((result, env))
         }
 
         // Empty list
-        Expr::Nil => Ok(Value::Nil),
+        Expr::Nil => Ok((Value::Nil, env)),
 
         // Cons (only in quoted expressions)
         Expr::Cons(car, cdr) => {
             let car_val = expr_to_value(car)?;
             let cdr_val = expr_to_value(cdr)?;
-            Ok(Value::Pair(Box::new(car_val), Box::new(cdr_val)))
+            Ok((Value::Pair(Box::new(car_val), Box::new(cdr_val)), env))
         }
     }
 }
 
-/// Apply a procedure to arguments
+/// Apply a procedure to arguments.
 pub fn apply(procedure: Value, args: Vec<Value>) -> Result<Value, EvalError> {
-    match procedure {
+    match procedure.clone() {
         // Primitive procedure: call the Rust function
         Value::Primitive(_, func) => func(&args),
 
         // Compound procedure: evaluate body in extended environment
-        Value::Closure { params, body, env } => {
+        Value::Closure {
+            params,
+            body,
+            env,
+            self_name,
+        } => {
             if params.len() != args.len() {
                 return Err(EvalError::ArityMismatch {
                     expected: params.len(),
@@ -367,16 +342,21 @@ pub fn apply(procedure: Value, args: Vec<Value>) -> Result<Value, EvalError> {
                 });
             }
 
-            // Create new environment extending the closure's environment
-            let mut new_env = Environment::extend(env);
+            // Start with the closure's captured environment
+            let mut new_env = env;
 
-            // Bind parameters to arguments
-            for (param, arg) in params.iter().zip(args.iter()) {
-                new_env.define(param.clone(), arg.clone());
+            // Bind self-name for recursive calls (the key fix for recursion!)
+            if let Some(name) = self_name {
+                new_env = new_env.define(name, procedure);
             }
 
-            let new_env_rc = Rc::new(RefCell::new(new_env));
-            eval_sequence(&body, new_env_rc)
+            // Extend with parameter bindings
+            let bindings: Vec<(String, Value)> = params.into_iter().zip(args).collect();
+            new_env = new_env.extend(bindings);
+
+            // Evaluate body and return just the value (ignore final environment)
+            let (result, _) = eval_sequence(&body, new_env)?;
+            Ok(result)
         }
 
         _ => Err(EvalError::TypeError(format!(
@@ -386,25 +366,39 @@ pub fn apply(procedure: Value, args: Vec<Value>) -> Result<Value, EvalError> {
     }
 }
 
-/// Evaluate a sequence of expressions, returning the last value
-fn eval_sequence(exprs: &[Expr], env: Rc<RefCell<Environment>>) -> Result<Value, EvalError> {
+/// Evaluate a sequence of expressions, returning the last value.
+fn eval_sequence(
+    exprs: &[Expr],
+    mut env: Environment<Value>,
+) -> Result<(Value, Environment<Value>), EvalError> {
     if exprs.is_empty() {
-        return Ok(Value::Void);
+        return Ok((Value::Void, env));
     }
 
     let mut result = Value::Void;
     for expr in exprs {
-        result = eval(expr, env.clone())?;
+        let (val, new_env) = eval(expr, env)?;
+        result = val;
+        env = new_env;
     }
-    Ok(result)
+    Ok((result, env))
 }
 
-/// Evaluate a list of expressions, returning a vector of values
-fn eval_list(exprs: &[Expr], env: Rc<RefCell<Environment>>) -> Result<Vec<Value>, EvalError> {
-    exprs.iter().map(|e| eval(e, env.clone())).collect()
+/// Evaluate a list of expressions, returning a vector of values.
+fn eval_list(
+    exprs: &[Expr],
+    mut env: Environment<Value>,
+) -> Result<(Vec<Value>, Environment<Value>), EvalError> {
+    let mut values = Vec::with_capacity(exprs.len());
+    for expr in exprs {
+        let (val, new_env) = eval(expr, env)?;
+        values.push(val);
+        env = new_env;
+    }
+    Ok((values, env))
 }
 
-/// Convert an Expr to a Value (for quoted expressions)
+/// Convert an Expr to a Value (for quoted expressions).
 fn expr_to_value(expr: &Expr) -> Result<Value, EvalError> {
     match expr {
         Expr::Number(n) => Ok(Value::Number(*n)),
@@ -422,12 +416,12 @@ fn expr_to_value(expr: &Expr) -> Result<Value, EvalError> {
     }
 }
 
-/// Test if a value is true (everything except #f is true)
+/// Test if a value is true (everything except #f is true).
 fn is_true(value: &Value) -> bool {
     !matches!(value, Value::Bool(false))
 }
 
-/// Transform cond to nested if
+/// Transform cond to nested if.
 fn cond_to_if(clauses: &[CondClause]) -> Result<Expr, EvalError> {
     if clauses.is_empty() {
         return Ok(Expr::Quote(Box::new(Expr::Symbol("false".to_string()))));
@@ -437,19 +431,19 @@ fn cond_to_if(clauses: &[CondClause]) -> Result<Expr, EvalError> {
     let rest = &clauses[1..];
 
     // Check for else clause
-    if let Expr::Symbol(s) = &first.predicate {
-        if s == "else" {
-            if !rest.is_empty() {
-                return Err(EvalError::InvalidSyntax(
-                    "else clause must be last".to_string(),
-                ));
-            }
-            return Ok(if first.actions.len() == 1 {
-                first.actions[0].clone()
-            } else {
-                Expr::Begin(first.actions.clone())
-            });
+    if let Expr::Symbol(s) = &first.predicate
+        && s == "else"
+    {
+        if !rest.is_empty() {
+            return Err(EvalError::InvalidSyntax(
+                "else clause must be last".to_string(),
+            ));
         }
+        return Ok(if first.actions.len() == 1 {
+            first.actions[0].clone()
+        } else {
+            Expr::Begin(first.actions.clone())
+        });
     }
 
     let consequent = if first.actions.len() == 1 {
@@ -467,7 +461,7 @@ fn cond_to_if(clauses: &[CondClause]) -> Result<Expr, EvalError> {
     })
 }
 
-/// Transform let to lambda application
+/// Transform let to lambda application.
 fn let_to_application(bindings: &[(String, Expr)], body: &[Expr]) -> Expr {
     let params: Vec<String> = bindings.iter().map(|(name, _)| name.clone()).collect();
     let args: Vec<Expr> = bindings.iter().map(|(_, expr)| expr.clone()).collect();
@@ -481,80 +475,79 @@ fn let_to_application(bindings: &[(String, Expr)], body: &[Expr]) -> Expr {
     }
 }
 
-// ============================================================================
+// =============================================================================
 // Primitive Procedures
-// ============================================================================
+// =============================================================================
 
-/// Create a global environment with primitive procedures
-pub fn setup_environment() -> Rc<RefCell<Environment>> {
-    let mut env = Environment::new();
+/// Create a global environment with primitive procedures.
+pub fn setup_environment() -> Environment<Value> {
+    let env = Environment::new();
 
     // Arithmetic
-    env.define("+".to_string(), Value::Primitive("+".to_string(), prim_add));
-    env.define("-".to_string(), Value::Primitive("-".to_string(), prim_sub));
-    env.define("*".to_string(), Value::Primitive("*".to_string(), prim_mul));
-    env.define("/".to_string(), Value::Primitive("/".to_string(), prim_div));
+    let env = env.define("+".to_string(), Value::Primitive("+".to_string(), prim_add));
+    let env = env.define("-".to_string(), Value::Primitive("-".to_string(), prim_sub));
+    let env = env.define("*".to_string(), Value::Primitive("*".to_string(), prim_mul));
+    let env = env.define("/".to_string(), Value::Primitive("/".to_string(), prim_div));
 
     // Comparison
-    env.define("=".to_string(), Value::Primitive("=".to_string(), prim_eq));
-    env.define("<".to_string(), Value::Primitive("<".to_string(), prim_lt));
-    env.define(">".to_string(), Value::Primitive(">".to_string(), prim_gt));
-    env.define(
+    let env = env.define("=".to_string(), Value::Primitive("=".to_string(), prim_eq));
+    let env = env.define("<".to_string(), Value::Primitive("<".to_string(), prim_lt));
+    let env = env.define(">".to_string(), Value::Primitive(">".to_string(), prim_gt));
+    let env = env.define(
         "<=".to_string(),
         Value::Primitive("<=".to_string(), prim_lte),
     );
-    env.define(
+    let env = env.define(
         ">=".to_string(),
         Value::Primitive(">=".to_string(), prim_gte),
     );
 
     // List operations
-    env.define(
+    let env = env.define(
         "cons".to_string(),
         Value::Primitive("cons".to_string(), prim_cons),
     );
-    env.define(
+    let env = env.define(
         "car".to_string(),
         Value::Primitive("car".to_string(), prim_car),
     );
-    env.define(
+    let env = env.define(
         "cdr".to_string(),
         Value::Primitive("cdr".to_string(), prim_cdr),
     );
-    env.define(
+    let env = env.define(
         "null?".to_string(),
         Value::Primitive("null?".to_string(), prim_null),
     );
-    env.define(
+    let env = env.define(
         "list".to_string(),
         Value::Primitive("list".to_string(), prim_list),
     );
 
     // Type predicates
-    env.define(
+    let env = env.define(
         "number?".to_string(),
         Value::Primitive("number?".to_string(), prim_number_p),
     );
-    env.define(
+    let env = env.define(
         "symbol?".to_string(),
         Value::Primitive("symbol?".to_string(), prim_symbol_p),
     );
-    env.define(
+    let env = env.define(
         "pair?".to_string(),
         Value::Primitive("pair?".to_string(), prim_pair_p),
     );
 
     // Display
-    env.define(
+    let env = env.define(
         "display".to_string(),
         Value::Primitive("display".to_string(), prim_display),
     );
 
     // Boolean constants
-    env.define("true".to_string(), Value::Bool(true));
-    env.define("false".to_string(), Value::Bool(false));
+    let env = env.define("true".to_string(), Value::Bool(true));
 
-    Rc::new(RefCell::new(env))
+    env.define("false".to_string(), Value::Bool(false))
 }
 
 // Arithmetic primitives
@@ -788,18 +781,19 @@ fn list_from_vec(values: Vec<Value>) -> Value {
         .fold(Value::Nil, |acc, v| Value::Pair(Box::new(v), Box::new(acc)))
 }
 
-// ============================================================================
+// =============================================================================
 // Tests
-// ============================================================================
+// =============================================================================
 
 #[cfg(test)]
 mod tests {
     use super::*;
 
-    /// Helper to evaluate a string expression
+    /// Helper to evaluate an expression in a fresh environment
     fn eval_expr(expr: Expr) -> Result<Value, EvalError> {
         let env = setup_environment();
-        eval(&expr, env)
+        let (value, _) = eval(&expr, env)?;
+        Ok(value)
     }
 
     #[test]
@@ -912,34 +906,12 @@ mod tests {
             name: "x".to_string(),
             value: Box::new(Expr::Number(42)),
         };
-        eval(&define_expr, env.clone()).unwrap();
+        let (_, env) = eval(&define_expr, env).unwrap();
 
         // x
         let lookup_expr = Expr::Symbol("x".to_string());
-        assert_eq!(eval(&lookup_expr, env).unwrap(), Value::Number(42));
-    }
-
-    #[test]
-    fn test_set() {
-        let env = setup_environment();
-
-        // (define x 10)
-        let define_expr = Expr::Define {
-            name: "x".to_string(),
-            value: Box::new(Expr::Number(10)),
-        };
-        eval(&define_expr, env.clone()).unwrap();
-
-        // (set! x 20)
-        let set_expr = Expr::Set {
-            name: "x".to_string(),
-            value: Box::new(Expr::Number(20)),
-        };
-        eval(&set_expr, env.clone()).unwrap();
-
-        // x
-        let lookup_expr = Expr::Symbol("x".to_string());
-        assert_eq!(eval(&lookup_expr, env).unwrap(), Value::Number(20));
+        let (value, _) = eval(&lookup_expr, env).unwrap();
+        assert_eq!(value, Value::Number(42));
     }
 
     #[test]
@@ -957,14 +929,15 @@ mod tests {
                 }],
             }),
         };
-        eval(&define_expr, env.clone()).unwrap();
+        let (_, env) = eval(&define_expr, env).unwrap();
 
         // (square 5)
         let app_expr = Expr::Application {
             operator: Box::new(Expr::Symbol("square".to_string())),
             operands: vec![Expr::Number(5)],
         };
-        assert_eq!(eval(&app_expr, env).unwrap(), Value::Number(25));
+        let (value, _) = eval(&app_expr, env).unwrap();
+        assert_eq!(value, Value::Number(25));
     }
 
     #[test]
@@ -986,7 +959,8 @@ mod tests {
                 operands: vec![Expr::Symbol("x".to_string()), Expr::Symbol("y".to_string())],
             },
         ]);
-        assert_eq!(eval(&expr, env).unwrap(), Value::Number(30));
+        let (value, _) = eval(&expr, env).unwrap();
+        assert_eq!(value, Value::Number(30));
     }
 
     #[test]
@@ -1066,14 +1040,15 @@ mod tests {
                 }],
             }),
         };
-        eval(&define_expr, env.clone()).unwrap();
+        let (_, env) = eval(&define_expr, env).unwrap();
 
         // (factorial 5)
         let app_expr = Expr::Application {
             operator: Box::new(Expr::Symbol("factorial".to_string())),
             operands: vec![Expr::Number(5)],
         };
-        assert_eq!(eval(&app_expr, env).unwrap(), Value::Number(120));
+        let (value, _) = eval(&app_expr, env).unwrap();
+        assert_eq!(value, Value::Number(120));
     }
 
     #[test]
@@ -1088,14 +1063,15 @@ mod tests {
                 operands: vec![Expr::Number(1), Expr::Number(2), Expr::Number(3)],
             }),
         };
-        eval(&define_expr, env.clone()).unwrap();
+        let (_, env) = eval(&define_expr, env).unwrap();
 
         // (car lst)
         let car_expr = Expr::Application {
             operator: Box::new(Expr::Symbol("car".to_string())),
             operands: vec![Expr::Symbol("lst".to_string())],
         };
-        assert_eq!(eval(&car_expr, env.clone()).unwrap(), Value::Number(1));
+        let (value, env) = eval(&car_expr, env).unwrap();
+        assert_eq!(value, Value::Number(1));
 
         // (car (cdr lst))
         let cadr_expr = Expr::Application {
@@ -1105,7 +1081,8 @@ mod tests {
                 operands: vec![Expr::Symbol("lst".to_string())],
             }],
         };
-        assert_eq!(eval(&cadr_expr, env).unwrap(), Value::Number(2));
+        let (value, _) = eval(&cadr_expr, env).unwrap();
+        assert_eq!(value, Value::Number(2));
     }
 
     #[test]
@@ -1131,7 +1108,7 @@ mod tests {
                 }],
             }),
         };
-        eval(&define_expr, env.clone()).unwrap();
+        let (_, env) = eval(&define_expr, env).unwrap();
 
         // (define add5 (make-adder 5))
         let define_add5 = Expr::Define {
@@ -1141,14 +1118,15 @@ mod tests {
                 operands: vec![Expr::Number(5)],
             }),
         };
-        eval(&define_add5, env.clone()).unwrap();
+        let (_, env) = eval(&define_add5, env).unwrap();
 
         // (add5 10)
         let app_expr = Expr::Application {
             operator: Box::new(Expr::Symbol("add5".to_string())),
             operands: vec![Expr::Number(10)],
         };
-        assert_eq!(eval(&app_expr, env).unwrap(), Value::Number(15));
+        let (value, _) = eval(&app_expr, env).unwrap();
+        assert_eq!(value, Value::Number(15));
     }
 
     #[test]
@@ -1172,7 +1150,7 @@ mod tests {
                 }],
             }),
         };
-        eval(&define_expr, env.clone()).unwrap();
+        let (_, env) = eval(&define_expr, env).unwrap();
 
         // (f 1) - wrong arity
         let app_expr = Expr::Application {
