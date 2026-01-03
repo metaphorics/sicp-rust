@@ -24394,8 +24394,7 @@ enum Expr @{
 
 @item
 Definitions have the form @code{let ⟨@var{var}⟩ = ⟨@var{value}⟩;} (desugared from
-@code{let ⟨@var{var}⟩ = ⟨@var{value}⟩;} (desugared from @code{(define ⟨@var{var}⟩ ⟨@var{value}⟩)}):
-
+@code{(define ⟨@var{var}⟩ ⟨@var{value}⟩)}):
 @example
 enum Expr @{
     Define @{ name: String, value: Box<Expr> @},
@@ -33399,9 +33398,9 @@ contents, as specified at the beginning of @ref{5.2}:
 These procedures (and many procedures in @ref{5.2.2} and @ref{5.2.3})
 use the following to look up the register with a given name in a given machine:
 
-@lisp
+@example
 // Register lookup is handled by the Machine struct's get_register method.
-@end lisp
+@end example
 
 @node	5.2.2, 5.2.3, 5.2.1, 5.2
 @subsection The Assembler
@@ -33441,7 +33440,7 @@ This procedure uses @code{update_insts} to generate the instruction execution
 procedures and insert them into the instruction list, and returns the modified
 list.
 
-@lisp
+@example
 fn assemble(
     controller: Vec<Inst>,
     register_map: &HashMap<String, usize>,
@@ -33450,7 +33449,7 @@ fn assemble(
     let (insts, labels) = extract_labels(controller);
     update_insts(insts, &labels, register_map, operations)
 @}
-@end lisp
+@end example
 
 @noindent
 @code{Extract_labels} takes as arguments a list @code{text} (the sequence of
@@ -33461,7 +33460,7 @@ and (2) a table called @code{labels}, which associates each label from
 @code{text} with the position in the list @code{insts} that the label
 designates.
 
-@lisp
+@example
 fn extract_labels(text: Vec<Inst>) -> (Vec<Inst>, HashMap<String, usize>) @{
     let mut instructions = Vec::new();
     let mut labels = HashMap::new();
@@ -33482,42 +33481,14 @@ fn extract_labels(text: Vec<Inst>) -> (Vec<Inst>, HashMap<String, usize>) @{
 
     (instructions, labels)
 @}
-@end lisp
+@end example
 
 @noindent
-@code{Extract_labels} works by sequentially scanning the elements of the
-@code{text} and accumulating the @code{insts} and the @code{labels}.  If an
-element is a symbol (and thus a label) an appropriate entry is added to the
+@code{extract_labels} works by sequentially scanning the elements of the
+@code{text} and accumulating the @code{instructions} and the @code{labels}.  If an
+element is a label, an appropriate entry is added to the
 @code{labels} table.  Otherwise the element is accumulated onto the
-@code{insts} list.@footnote{Using the @code{receive} procedure here is a way to
-get @code{extract_labels} to effectively return two values---@code{labels} and
-@code{insts}---without explicitly making a compound data structure to hold
-them.  An alternative implementation, which returns an explicit pair of values,
-is
-
-@lisp
-@lisp
-/// Assemble controller text into executable instructions
-fn assemble(
-    controller: Vec<Inst>,
-    register_map: &HashMap<String, usize>,
-    operations: &HashMap<String, OpFn>,
-) -> Vec<ResolvedInst> @{
-    // Pass 1: Extract labels and build instruction list
-    let (insts, labels) = extract_labels(controller);
-
-    // Pass 2: Resolve all references and create execution procedures
-    update_insts(insts, &labels, register_map, operations)
-}
-
-/// Extract labels from controller text
-fn extract_labels(text: Vec<Inst>) -> (Vec<Inst>, HashMap<String, usize>) @{
-    let mut instructions = Vec::new();
-    let mut labels = HashMap::new();
-
-    for inst in text @{
-        match inst @{
-            Inst::Label(name) => @{
+@code{instructions} list.
                 if labels.contains_key(&name) @{
                     panic!("Multiply defined label: @{@}", name);
                 @}
@@ -33543,7 +33514,7 @@ numeric indices.
 @code{Update_insts} modifies the instruction list to include the resolved
 references:
 
-@lisp
+@example
 fn update_insts(
     insts: Vec<Inst>,
     labels: &HashMap<String, usize>,
@@ -33555,7 +33526,7 @@ fn update_insts(
         .map(|inst| resolve_instruction(inst, labels, register_map))
         .collect()
 @}
-@end lisp
+@end example
 
 @noindent
 The machine instruction data structure simply pairs the instruction text with
@@ -33563,10 +33534,10 @@ the corresponding execution procedure.  The execution procedure is not yet
 available when @code{extract_labels} constructs the instruction, and is
 inserted later by @code{update_insts}.
 
-@lisp
+@example
 // In Rust, we use the Inst and ResolvedInst enums to represent instructions.
 // See the definitions in section 5.2 source code.
-@end lisp
+@end example
 
 @noindent
 The instruction text is not used by our simulator, but it is handy to keep
@@ -33598,17 +33569,19 @@ fn lookup_label(
 @strong{@anchor{Exercise 5.8}Exercise 5.8:} The following register-machine code
 is ambiguous, because the label @code{here} is defined more than once:
 
-@lisp
-start
-  (goto (label here))
-here
-  (assign a (const 3))
-  (goto (label there))
-here
-  (assign a (const 4))
-  (goto (label there))
-there
-@end lisp
+@example
+vec![
+    Label("start".into()),
+    Goto(Label("here".into())),
+    Label("here".into()),
+    Assign("a".into(), Const(3)),
+    Goto(Label("there".into())),
+    Label("here".into()),
+    Assign("a".into(), Const(4)),
+    Goto(Label("there".into())),
+    Label("there".into()),
+]
+@end example
 
 With the simulator as written, what will the contents of register @code{a} be
 when control reaches @code{there}?  Modify the @code{extract_labels} procedure
@@ -33624,7 +33597,7 @@ procedure for an instruction.  Like the @code{analyze} procedure in the
 evaluator of @ref{4.1.7}, this dispatches on the type of instruction to
 generate the appropriate execution procedure.
 
-@lisp
+@example
 fn resolve_instruction(
     inst: Inst,
     labels: &HashMap<String, usize>,
@@ -33663,7 +33636,7 @@ fn resolve_instruction(
         Inst::Label(_) => panic!("Labels should have been filtered out"),
     @}
 @}
-@end lisp
+@end example
 
 @noindent
 For each type of instruction in the register-machine language, there is a
