@@ -1272,13 +1272,99 @@ fn length_via_fold&lt;T&gt;(sequence: &amp;[T]) -&gt; usize {
 <p><strong class="strong"><a class="anchor" id="Exercise-2_002e34"></a>Exercise 2.34:</strong> Evaluating a polynomial in <em class="math">x</em>
 at a given value of <em class="math">x</em> can be formulated as an accumulation.  We evaluate
 the polynomial
-\[ % :35:
-  {a_n x^n} + {a_{n-1} x^{n-1}} + \dots + {a_1 x} + a_0  \]
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mrow data-mjx-texclass="ORD">
+    <msub>
+      <mi>a</mi>
+      <mi>n</mi>
+    </msub>
+    <msup>
+      <mi>x</mi>
+      <mi>n</mi>
+    </msup>
+  </mrow>
+  <mo>+</mo>
+  <mrow data-mjx-texclass="ORD">
+    <msub>
+      <mi>a</mi>
+      <mrow data-mjx-texclass="ORD">
+        <mi>n</mi>
+        <mo>&#x2212;</mo>
+        <mn>1</mn>
+      </mrow>
+    </msub>
+    <msup>
+      <mi>x</mi>
+      <mrow data-mjx-texclass="ORD">
+        <mi>n</mi>
+        <mo>&#x2212;</mo>
+        <mn>1</mn>
+      </mrow>
+    </msup>
+  </mrow>
+  <mo>+</mo>
+  <mo>&#x22EF;</mo>
+  <mo>+</mo>
+  <mrow data-mjx-texclass="ORD">
+    <msub>
+      <mi>a</mi>
+      <mn>1</mn>
+    </msub>
+    <mi>x</mi>
+  </mrow>
+  <mo>+</mo>
+  <msub>
+    <mi>a</mi>
+    <mn>0</mn>
+  </msub>
+</math>
 using a well-known algorithm called <a class="index-entry-id" id="index-Horner_0027s-rule"></a>
 <em class="dfn">Horner&#8217;s rule</em>, which structures
 the computation as
-\[ % :36:
-  {(\dots (a_n x} + {a_{n-1}) x} + \dots + {a_1) x} + {a_0.}  \]
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mrow data-mjx-texclass="ORD">
+    <mo stretchy="false">(</mo>
+    <mo>&#x2026;</mo>
+    <mo stretchy="false">(</mo>
+    <msub>
+      <mi>a</mi>
+      <mi>n</mi>
+    </msub>
+    <mi>x</mi>
+  </mrow>
+  <mo>+</mo>
+  <mrow data-mjx-texclass="ORD">
+    <msub>
+      <mi>a</mi>
+      <mrow data-mjx-texclass="ORD">
+        <mi>n</mi>
+        <mo>&#x2212;</mo>
+        <mn>1</mn>
+      </mrow>
+    </msub>
+    <mo stretchy="false">)</mo>
+    <mi>x</mi>
+  </mrow>
+  <mo>+</mo>
+  <mo>&#x22EF;</mo>
+  <mo>+</mo>
+  <mrow data-mjx-texclass="ORD">
+    <msub>
+      <mi>a</mi>
+      <mn>1</mn>
+    </msub>
+    <mo stretchy="false">)</mo>
+    <mi>x</mi>
+  </mrow>
+  <mo>+</mo>
+  <mrow data-mjx-texclass="ORD">
+    <msub>
+      <mi>a</mi>
+      <mn>0</mn>
+    </msub>
+    <mo>.</mo>
+  </mrow>
+</math>
 In other words, we start with <em class="math">a_n</em>, multiply by <em class="math">x</em>, add
 <em class="math">a_{n-1}</em>, multiply by <em class="math">x</em>, and so on, until we reach
 <em class="math">a_0</em>.<a class="footnote" id="DOCF75" href="#FOOT75"><sup>75</sup></a>
@@ -1360,26 +1446,288 @@ of <code class="code">accumulate-n</code>:
 Suppose we represent vectors <b class="b">v</b> = <em class="math">{(v_i)}</em> as sequences of numbers, and
 matrices <b class="b">m</b> = <em class="math">{(m_{ij})}</em> as sequences of vectors (the rows of the
 matrix).  For example, the matrix
-\[ % :37:
-  
-\left(\matrix{	1 &amp; 2 &amp; 3 &amp; 4 \cr
-		4 &amp; 5 &amp; 6 &amp; 6 \cr
-		6 &amp; 7 &amp; 8 &amp; 9 \cr }\right)  \]
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mrow data-mjx-texclass="INNER">
+    <mo data-mjx-texclass="OPEN">(</mo>
+    <mtable rowspacing="4pt" columnspacing="1em">
+      <mtr>
+        <mtd>
+          <mn>1</mn>
+        </mtd>
+        <mtd>
+          <mi>a</mi>
+          <mi>m</mi>
+          <mi>p</mi>
+          <mo>;</mo>
+          <mn>2</mn>
+        </mtd>
+        <mtd>
+          <mi>a</mi>
+          <mi>m</mi>
+          <mi>p</mi>
+          <mo>;</mo>
+          <mn>3</mn>
+        </mtd>
+        <mtd>
+          <mi>a</mi>
+          <mi>m</mi>
+          <mi>p</mi>
+          <mo>;</mo>
+          <mn>4</mn>
+        </mtd>
+      </mtr>
+      <mtr>
+        <mtd>
+          <mn>4</mn>
+        </mtd>
+        <mtd>
+          <mi>a</mi>
+          <mi>m</mi>
+          <mi>p</mi>
+          <mo>;</mo>
+          <mn>5</mn>
+        </mtd>
+        <mtd>
+          <mi>a</mi>
+          <mi>m</mi>
+          <mi>p</mi>
+          <mo>;</mo>
+          <mn>6</mn>
+        </mtd>
+        <mtd>
+          <mi>a</mi>
+          <mi>m</mi>
+          <mi>p</mi>
+          <mo>;</mo>
+          <mn>6</mn>
+        </mtd>
+      </mtr>
+      <mtr>
+        <mtd>
+          <mn>6</mn>
+        </mtd>
+        <mtd>
+          <mi>a</mi>
+          <mi>m</mi>
+          <mi>p</mi>
+          <mo>;</mo>
+          <mn>7</mn>
+        </mtd>
+        <mtd>
+          <mi>a</mi>
+          <mi>m</mi>
+          <mi>p</mi>
+          <mo>;</mo>
+          <mn>8</mn>
+        </mtd>
+        <mtd>
+          <mi>a</mi>
+          <mi>m</mi>
+          <mi>p</mi>
+          <mo>;</mo>
+          <mn>9</mn>
+        </mtd>
+      </mtr>
+    </mtable>
+    <mo data-mjx-texclass="CLOSE">)</mo>
+  </mrow>
+</math>
 is represented as the sequence <code class="code">((1 2 3 4) (4 5 6 6) (6 7 8 9))</code>.  With
 this representation, we can use sequence operations to concisely express the
 basic matrix and vector operations.  These operations (which are described in
 any book on matrix algebra) are the following:
-\[ % :38:
-  
-\eqalign{ 
-	\text{(dot-product v w)} 	&amp; \text{returns the sum}\;\Sigma_i v_i w_i; \cr
-	\text{(matrix-*-vector m v)} 	&amp; \text{returns the vector}\;{\bf t}, \cr
-		&amp; \text{where}\; t_i = \Sigma_j m_{ij} v_j; \cr
-	\text{(matrix-*-matrix m n)} 	&amp; \text{returns the matrix}\;{\bf p}, \cr
-		&amp; \text{where}\; p_{ij} = \Sigma_k m_{ik} n_{kj}; \cr
-	\text{(transpose m)} 		&amp; \text{returns the matrix}\;{\bf n}, \cr
-		&amp; \text{where}\; n_{ij} = m_{ji}. \cr
-}  \]
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mtable rowspacing=".5em" columnspacing="0.278em" displaystyle="true" columnalign="right left">
+    <mtr>
+      <mtd>
+        <mtext>(dot-product v w)</mtext>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mtext>returns the sum</mtext>
+        <mstyle scriptlevel="0">
+          <mspace width="0.278em"></mspace>
+        </mstyle>
+        <msub>
+          <mi mathvariant="normal">&#x3A3;</mi>
+          <mi>i</mi>
+        </msub>
+        <msub>
+          <mi>v</mi>
+          <mi>i</mi>
+        </msub>
+        <msub>
+          <mi>w</mi>
+          <mi>i</mi>
+        </msub>
+        <mo>;</mo>
+      </mtd>
+    </mtr>
+    <mtr>
+      <mtd>
+        <mtext>(matrix-*-vector m v)</mtext>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mtext>returns the vector</mtext>
+        <mstyle scriptlevel="0">
+          <mspace width="0.278em"></mspace>
+        </mstyle>
+        <mrow data-mjx-texclass="ORD">
+          <mi mathvariant="bold">t</mi>
+        </mrow>
+        <mo>,</mo>
+      </mtd>
+    </mtr>
+    <mtr>
+      <mtd></mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mtext>where</mtext>
+        <mstyle scriptlevel="0">
+          <mspace width="0.278em"></mspace>
+        </mstyle>
+        <msub>
+          <mi>t</mi>
+          <mi>i</mi>
+        </msub>
+        <mo>=</mo>
+        <msub>
+          <mi mathvariant="normal">&#x3A3;</mi>
+          <mi>j</mi>
+        </msub>
+        <msub>
+          <mi>m</mi>
+          <mrow data-mjx-texclass="ORD">
+            <mi>i</mi>
+            <mi>j</mi>
+          </mrow>
+        </msub>
+        <msub>
+          <mi>v</mi>
+          <mi>j</mi>
+        </msub>
+        <mo>;</mo>
+      </mtd>
+    </mtr>
+    <mtr>
+      <mtd>
+        <mtext>(matrix-*-matrix m n)</mtext>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mtext>returns the matrix</mtext>
+        <mstyle scriptlevel="0">
+          <mspace width="0.278em"></mspace>
+        </mstyle>
+        <mrow data-mjx-texclass="ORD">
+          <mi mathvariant="bold">p</mi>
+        </mrow>
+        <mo>,</mo>
+      </mtd>
+    </mtr>
+    <mtr>
+      <mtd></mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mtext>where</mtext>
+        <mstyle scriptlevel="0">
+          <mspace width="0.278em"></mspace>
+        </mstyle>
+        <msub>
+          <mi>p</mi>
+          <mrow data-mjx-texclass="ORD">
+            <mi>i</mi>
+            <mi>j</mi>
+          </mrow>
+        </msub>
+        <mo>=</mo>
+        <msub>
+          <mi mathvariant="normal">&#x3A3;</mi>
+          <mi>k</mi>
+        </msub>
+        <msub>
+          <mi>m</mi>
+          <mrow data-mjx-texclass="ORD">
+            <mi>i</mi>
+            <mi>k</mi>
+          </mrow>
+        </msub>
+        <msub>
+          <mi>n</mi>
+          <mrow data-mjx-texclass="ORD">
+            <mi>k</mi>
+            <mi>j</mi>
+          </mrow>
+        </msub>
+        <mo>;</mo>
+      </mtd>
+    </mtr>
+    <mtr>
+      <mtd>
+        <mtext>(transpose m)</mtext>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mtext>returns the matrix</mtext>
+        <mstyle scriptlevel="0">
+          <mspace width="0.278em"></mspace>
+        </mstyle>
+        <mrow data-mjx-texclass="ORD">
+          <mi mathvariant="bold">n</mi>
+        </mrow>
+        <mo>,</mo>
+      </mtd>
+    </mtr>
+    <mtr>
+      <mtd></mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mtext>where</mtext>
+        <mstyle scriptlevel="0">
+          <mspace width="0.278em"></mspace>
+        </mstyle>
+        <msub>
+          <mi>n</mi>
+          <mrow data-mjx-texclass="ORD">
+            <mi>i</mi>
+            <mi>j</mi>
+          </mrow>
+        </msub>
+        <mo>=</mo>
+        <msub>
+          <mi>m</mi>
+          <mrow data-mjx-texclass="ORD">
+            <mi>j</mi>
+            <mi>i</mi>
+          </mrow>
+        </msub>
+        <mo>.</mo>
+      </mtd>
+    </mtr>
+  </mtable>
+</math>
 We can define the dot product as<a class="footnote" id="DOCF76" href="#FOOT76"><sup>76</sup></a>
 </p>
 <div class="example">
@@ -1497,15 +1845,174 @@ commonly expressed using nested loops.<a class="footnote" id="DOCF77" href="#FOO
 ordered pairs of distinct positive integers <em class="math">i</em> and <em class="math">j</em>, where 
 <em class="math">{1 \le j} &lt; {i \le n}</em>, such that <em class="math">{i + j}</em> is prime.  For example, if <em class="math">n</em> is 6,
 then the pairs are the following:
-\[ % :39:
- 
-\begin{array}{c|ccccccc}
-i 	&amp; 2 &amp; 3 &amp; 4 &amp; 4 &amp; 5 &amp; 6 &amp; 6 \\
-j 	&amp; 1 &amp; 2 &amp; 1 &amp; 3 &amp; 2 &amp; 1 &amp; 5 \\
-\hline
-i + j	&amp; 3 &amp; 5 &amp; 5 &amp; 7 &amp; 7 &amp; 7 &amp; 11 
-\end{array}
-\]
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mtable columnalign="center center center center center center center center" columnspacing="1em" rowspacing="4pt" columnlines="solid none none none none none none" rowlines="none solid">
+    <mtr>
+      <mtd>
+        <mi>i</mi>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mn>2</mn>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mn>3</mn>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mn>4</mn>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mn>4</mn>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mn>5</mn>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mn>6</mn>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mn>6</mn>
+      </mtd>
+    </mtr>
+    <mtr>
+      <mtd>
+        <mi>j</mi>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mn>1</mn>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mn>2</mn>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mn>1</mn>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mn>3</mn>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mn>2</mn>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mn>1</mn>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mn>5</mn>
+      </mtd>
+    </mtr>
+    <mtr>
+      <mtd>
+        <mi>i</mi>
+        <mo>+</mo>
+        <mi>j</mi>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mn>3</mn>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mn>5</mn>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mn>5</mn>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mn>7</mn>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mn>7</mn>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mn>7</mn>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mn>11</mn>
+      </mtd>
+    </mtr>
+  </mtable>
+</math>
 A natural way to organize this computation is to generate the sequence of all
 ordered pairs of positive integers less than or equal to <em class="math">n</em>, filter to
 select those pairs whose sum is prime, and then, for each pair <em class="math">{(i, j)}</em>
@@ -1988,8 +2495,32 @@ images.  With each frame, we associate a <a class="index-entry-id" id="index-fra
 will be used to shift and scale images to fit the frame.  The map transforms
 the unit square into the frame by mapping the vector <em class="math">{{\bf v} = (x, y)}</em> to
 the vector sum
-\[ % :40:
-  {\text{Origin(Frame)}} + {x \cdot \text{Edge}_1\text{(Frame)}} + {y \cdot \text{Edge}_2\text{(Frame)}.} \]
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mrow data-mjx-texclass="ORD">
+    <mtext>Origin(Frame)</mtext>
+  </mrow>
+  <mo>+</mo>
+  <mrow data-mjx-texclass="ORD">
+    <mi>x</mi>
+    <mo>&#x22C5;</mo>
+    <msub>
+      <mtext>Edge</mtext>
+      <mn>1</mn>
+    </msub>
+    <mtext>(Frame)</mtext>
+  </mrow>
+  <mo>+</mo>
+  <mrow data-mjx-texclass="ORD">
+    <mi>y</mi>
+    <mo>&#x22C5;</mo>
+    <msub>
+      <mtext>Edge</mtext>
+      <mn>2</mn>
+    </msub>
+    <mtext>(Frame)</mtext>
+    <mo>.</mo>
+  </mrow>
+</math>
 For example, (0, 0) is mapped to the origin of the frame, (1, 1) to the vertex
 diagonally opposite the origin, and (0.5, 0.5) to the center of the frame.  We
 can create a frame&#8217;s coordinate map with the following
@@ -2028,14 +2559,166 @@ vectors by giving a constructor <code class="code">Vec2::new</code> and correspo
 constructor, implement procedures <code class="code">add_vect</code>, <code class="code">sub_vect</code>, and
 <code class="code">scale_vect</code> that perform the operations vector addition, vector
 subtraction, and multiplying a vector by a scalar:
-\[ % :41:
-  
-\begin{eqnarray}
-	(x_1, y_1) + (x_2, y_2)  &amp;=&amp;  (x_1 + x_2, y_1 + y_2), \\
-	(x_1, y_1) - (x_2, y_2)  &amp;=&amp;  (x_1 - x_2, y_1 - y_2), \\
-	s \cdot (x, y) 		 &amp;=&amp;  (sx, sy).
-\end{eqnarray}
-\]
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mtable displaystyle="true" columnalign="right center left" columnspacing="0em 0.278em" rowspacing="3pt">
+    <mtr>
+      <mtd>
+        <mo stretchy="false">(</mo>
+        <msub>
+          <mi>x</mi>
+          <mn>1</mn>
+        </msub>
+        <mo>,</mo>
+        <msub>
+          <mi>y</mi>
+          <mn>1</mn>
+        </msub>
+        <mo stretchy="false">)</mo>
+        <mo>+</mo>
+        <mo stretchy="false">(</mo>
+        <msub>
+          <mi>x</mi>
+          <mn>2</mn>
+        </msub>
+        <mo>,</mo>
+        <msub>
+          <mi>y</mi>
+          <mn>2</mn>
+        </msub>
+        <mo stretchy="false">)</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mo>=</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mo stretchy="false">(</mo>
+        <msub>
+          <mi>x</mi>
+          <mn>1</mn>
+        </msub>
+        <mo>+</mo>
+        <msub>
+          <mi>x</mi>
+          <mn>2</mn>
+        </msub>
+        <mo>,</mo>
+        <msub>
+          <mi>y</mi>
+          <mn>1</mn>
+        </msub>
+        <mo>+</mo>
+        <msub>
+          <mi>y</mi>
+          <mn>2</mn>
+        </msub>
+        <mo stretchy="false">)</mo>
+        <mo>,</mo>
+      </mtd>
+    </mtr>
+    <mtr>
+      <mtd>
+        <mo stretchy="false">(</mo>
+        <msub>
+          <mi>x</mi>
+          <mn>1</mn>
+        </msub>
+        <mo>,</mo>
+        <msub>
+          <mi>y</mi>
+          <mn>1</mn>
+        </msub>
+        <mo stretchy="false">)</mo>
+        <mo>&#x2212;</mo>
+        <mo stretchy="false">(</mo>
+        <msub>
+          <mi>x</mi>
+          <mn>2</mn>
+        </msub>
+        <mo>,</mo>
+        <msub>
+          <mi>y</mi>
+          <mn>2</mn>
+        </msub>
+        <mo stretchy="false">)</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mo>=</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mo stretchy="false">(</mo>
+        <msub>
+          <mi>x</mi>
+          <mn>1</mn>
+        </msub>
+        <mo>&#x2212;</mo>
+        <msub>
+          <mi>x</mi>
+          <mn>2</mn>
+        </msub>
+        <mo>,</mo>
+        <msub>
+          <mi>y</mi>
+          <mn>1</mn>
+        </msub>
+        <mo>&#x2212;</mo>
+        <msub>
+          <mi>y</mi>
+          <mn>2</mn>
+        </msub>
+        <mo stretchy="false">)</mo>
+        <mo>,</mo>
+      </mtd>
+    </mtr>
+    <mtr>
+      <mtd>
+        <mi>s</mi>
+        <mo>&#x22C5;</mo>
+        <mo stretchy="false">(</mo>
+        <mi>x</mi>
+        <mo>,</mo>
+        <mi>y</mi>
+        <mo stretchy="false">)</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mo>=</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mo stretchy="false">(</mo>
+        <mi>s</mi>
+        <mi>x</mi>
+        <mo>,</mo>
+        <mi>s</mi>
+        <mi>y</mi>
+        <mo stretchy="false">)</mo>
+        <mo>.</mo>
+      </mtd>
+    </mtr>
+  </mtable>
+</math>
 </p></blockquote>
 
 <blockquote class="quotation">
@@ -2832,9 +3515,15 @@ properties. The type of a list:
 
 <p>translates to the algebraic equation:
 </p>
-\[
-  L = 1 + A \times L
-\]
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mi>L</mi>
+  <mo>=</mo>
+  <mn>1</mn>
+  <mo>+</mo>
+  <mi>A</mi>
+  <mo>&#xD7;</mo>
+  <mi>L</mi>
+</math>
 
 <p>Solving for <em class="math">L</em>:
 </p>

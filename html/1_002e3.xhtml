@@ -117,10 +117,39 @@ integers from <code class="code">a</code> through <code class="code">b</code>:
 
 <p>The third computes the sum of a sequence of terms in the series
 
-\[ % :17:
-  
-\frac{1}{1\cdot 3} +  \frac{1}{5\cdot 7} + \frac{1}{9\cdot 11} + {\dots,}
-\]
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mfrac>
+    <mn>1</mn>
+    <mrow>
+      <mn>1</mn>
+      <mo>&#x22C5;</mo>
+      <mn>3</mn>
+    </mrow>
+  </mfrac>
+  <mo>+</mo>
+  <mfrac>
+    <mn>1</mn>
+    <mrow>
+      <mn>5</mn>
+      <mo>&#x22C5;</mo>
+      <mn>7</mn>
+    </mrow>
+  </mfrac>
+  <mo>+</mo>
+  <mfrac>
+    <mn>1</mn>
+    <mrow>
+      <mn>9</mn>
+      <mo>&#x22C5;</mo>
+      <mn>11</mn>
+    </mrow>
+  </mfrac>
+  <mo>+</mo>
+  <mrow data-mjx-texclass="ORD">
+    <mo>&#x2026;</mo>
+    <mo>,</mo>
+  </mrow>
+</math>
 
 which converges to <em class="math">{\pi / 8}</em> (very slowly):<a class="footnote" id="DOCF44" href="#FOOT44"><sup>44</sup></a>
 </p>
@@ -156,10 +185,46 @@ ago identified the abstraction of <a class="index-entry-id" id="index-summation-
 <em class="dfn">summation of a series</em> and invented
 &#8220;sigma notation,&#8221; for example
 
-\[ % :18:
- 
-{\sum_{n = a}^b f(n)} \,=\, {f(a)} + \dots + {f(b),}
-\]
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mrow data-mjx-texclass="ORD">
+    <munderover>
+      <mo data-mjx-texclass="OP">&#x2211;</mo>
+      <mrow data-mjx-texclass="ORD">
+        <mi>n</mi>
+        <mo>=</mo>
+        <mi>a</mi>
+      </mrow>
+      <mi>b</mi>
+    </munderover>
+    <mi>f</mi>
+    <mo stretchy="false">(</mo>
+    <mi>n</mi>
+    <mo stretchy="false">)</mo>
+  </mrow>
+  <mstyle scriptlevel="0">
+    <mspace width="0.167em"></mspace>
+  </mstyle>
+  <mo>=</mo>
+  <mstyle scriptlevel="0">
+    <mspace width="0.167em"></mspace>
+  </mstyle>
+  <mrow data-mjx-texclass="ORD">
+    <mi>f</mi>
+    <mo stretchy="false">(</mo>
+    <mi>a</mi>
+    <mo stretchy="false">)</mo>
+  </mrow>
+  <mo>+</mo>
+  <mo>&#x22EF;</mo>
+  <mo>+</mo>
+  <mrow data-mjx-texclass="ORD">
+    <mi>f</mi>
+    <mo stretchy="false">(</mo>
+    <mi>b</mi>
+    <mo stretchy="false">)</mo>
+    <mo>,</mo>
+  </mrow>
+</math>
 
 to express this concept.  The power of sigma notation is that it allows
 mathematicians to deal with the concept of summation itself rather than only
@@ -259,14 +324,117 @@ further concepts.  For instance, the definite integral of a function <em class="
 between the limits <em class="math">a</em> and <em class="math">b</em> can be approximated numerically using the
 formula
 
-\[ % :19:
- 
-{\int_a^b \kern-0.3em f}
-  \;=\; {\left[\;f\left(a + \frac{d x}{2}\right)\right.}
-  \,+\, {f\left(a + dx + \frac{dx}{2}\right)}
-  \,+\, {\left. f\left(a + 2dx + \frac{dx}{2}\right)
-  \,+\, \dots \;\right] dx}
-\]
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mrow data-mjx-texclass="ORD">
+    <msubsup>
+      <mo data-mjx-texclass="OP">&#x222B;</mo>
+      <mi>a</mi>
+      <mi>b</mi>
+    </msubsup>
+    <mspace width="-0.3em"></mspace>
+    <mi>f</mi>
+  </mrow>
+  <mstyle scriptlevel="0">
+    <mspace width="0.278em"></mspace>
+  </mstyle>
+  <mo>=</mo>
+  <mstyle scriptlevel="0">
+    <mspace width="0.278em"></mspace>
+  </mstyle>
+  <mrow data-mjx-texclass="ORD">
+    <mrow data-mjx-texclass="INNER">
+      <mo data-mjx-texclass="OPEN">[</mo>
+      <mstyle scriptlevel="0">
+        <mspace width="0.278em"></mspace>
+      </mstyle>
+      <mi>f</mi>
+      <mrow data-mjx-texclass="INNER">
+        <mo data-mjx-texclass="OPEN">(</mo>
+        <mi>a</mi>
+        <mo>+</mo>
+        <mfrac>
+          <mrow>
+            <mi>d</mi>
+            <mi>x</mi>
+          </mrow>
+          <mn>2</mn>
+        </mfrac>
+        <mo data-mjx-texclass="CLOSE">)</mo>
+      </mrow>
+      <mo data-mjx-texclass="CLOSE" fence="true" stretchy="true" symmetric="true"></mo>
+    </mrow>
+  </mrow>
+  <mstyle scriptlevel="0">
+    <mspace width="0.167em"></mspace>
+  </mstyle>
+  <mo>+</mo>
+  <mstyle scriptlevel="0">
+    <mspace width="0.167em"></mspace>
+  </mstyle>
+  <mrow data-mjx-texclass="ORD">
+    <mi>f</mi>
+    <mrow data-mjx-texclass="INNER">
+      <mo data-mjx-texclass="OPEN">(</mo>
+      <mi>a</mi>
+      <mo>+</mo>
+      <mi>d</mi>
+      <mi>x</mi>
+      <mo>+</mo>
+      <mfrac>
+        <mrow>
+          <mi>d</mi>
+          <mi>x</mi>
+        </mrow>
+        <mn>2</mn>
+      </mfrac>
+      <mo data-mjx-texclass="CLOSE">)</mo>
+    </mrow>
+  </mrow>
+  <mstyle scriptlevel="0">
+    <mspace width="0.167em"></mspace>
+  </mstyle>
+  <mo>+</mo>
+  <mstyle scriptlevel="0">
+    <mspace width="0.167em"></mspace>
+  </mstyle>
+  <mrow data-mjx-texclass="ORD">
+    <mrow data-mjx-texclass="INNER">
+      <mo data-mjx-texclass="OPEN" fence="true" stretchy="true" symmetric="true"></mo>
+      <mi>f</mi>
+      <mrow data-mjx-texclass="INNER">
+        <mo data-mjx-texclass="OPEN">(</mo>
+        <mi>a</mi>
+        <mo>+</mo>
+        <mn>2</mn>
+        <mi>d</mi>
+        <mi>x</mi>
+        <mo>+</mo>
+        <mfrac>
+          <mrow>
+            <mi>d</mi>
+            <mi>x</mi>
+          </mrow>
+          <mn>2</mn>
+        </mfrac>
+        <mo data-mjx-texclass="CLOSE">)</mo>
+      </mrow>
+      <mstyle scriptlevel="0">
+        <mspace width="0.167em"></mspace>
+      </mstyle>
+      <mo>+</mo>
+      <mstyle scriptlevel="0">
+        <mspace width="0.167em"></mspace>
+      </mstyle>
+      <mo>&#x2026;</mo>
+      <mstyle scriptlevel="0">
+        <mspace width="0.278em"></mspace>
+      </mstyle>
+      <mo data-mjx-texclass="CLOSE">]</mo>
+    </mrow>
+    <mi>d</mi>
+    <mi>x</mi>
+  </mrow>
+</math>
 
 for small values of <em class="math">{dx}</em>.  We can express this directly as a procedure:
 </p>
@@ -314,10 +482,82 @@ method of numerical integration than the method illustrated above.  Using
 Simpson&#8217;s Rule, the integral of a function <em class="math">f</em> between <em class="math">a</em> and <em class="math">b</em> is
 approximated as
 
-\[ % :20:
-  
-\frac{h}{3}(y_0 + {4y_1} + {2y_2} + {4y_3} + {2y_4} + \dots + {2y_{n-2}} + {4y_{n-1} + y_n),}
-\]
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mfrac>
+    <mi>h</mi>
+    <mn>3</mn>
+  </mfrac>
+  <mo stretchy="false">(</mo>
+  <msub>
+    <mi>y</mi>
+    <mn>0</mn>
+  </msub>
+  <mo>+</mo>
+  <mrow data-mjx-texclass="ORD">
+    <mn>4</mn>
+    <msub>
+      <mi>y</mi>
+      <mn>1</mn>
+    </msub>
+  </mrow>
+  <mo>+</mo>
+  <mrow data-mjx-texclass="ORD">
+    <mn>2</mn>
+    <msub>
+      <mi>y</mi>
+      <mn>2</mn>
+    </msub>
+  </mrow>
+  <mo>+</mo>
+  <mrow data-mjx-texclass="ORD">
+    <mn>4</mn>
+    <msub>
+      <mi>y</mi>
+      <mn>3</mn>
+    </msub>
+  </mrow>
+  <mo>+</mo>
+  <mrow data-mjx-texclass="ORD">
+    <mn>2</mn>
+    <msub>
+      <mi>y</mi>
+      <mn>4</mn>
+    </msub>
+  </mrow>
+  <mo>+</mo>
+  <mo>&#x22EF;</mo>
+  <mo>+</mo>
+  <mrow data-mjx-texclass="ORD">
+    <mn>2</mn>
+    <msub>
+      <mi>y</mi>
+      <mrow data-mjx-texclass="ORD">
+        <mi>n</mi>
+        <mo>&#x2212;</mo>
+        <mn>2</mn>
+      </mrow>
+    </msub>
+  </mrow>
+  <mo>+</mo>
+  <mrow data-mjx-texclass="ORD">
+    <mn>4</mn>
+    <msub>
+      <mi>y</mi>
+      <mrow data-mjx-texclass="ORD">
+        <mi>n</mi>
+        <mo>&#x2212;</mo>
+        <mn>1</mn>
+      </mrow>
+    </msub>
+    <mo>+</mo>
+    <msub>
+      <mi>y</mi>
+      <mi>n</mi>
+    </msub>
+    <mo stretchy="false">)</mo>
+    <mo>,</mo>
+  </mrow>
+</math>
 
 where <em class="math">{h = (b - a)/n}</em>, for some even integer <em class="math">n</em>, and
 <em class="math">y_k = {f(a + kh)}</em>.  (Increasing <em class="math">n</em> increases the
@@ -367,11 +607,54 @@ function at points over a given range.  Show how to define <code class="code">fa
 terms of <code class="code">product</code>.  Also use <code class="code">product</code> to compute approximations to
 <em class="math">\pi</em> using the formula<a class="footnote" id="DOCF47" href="#FOOT47"><sup>47</sup></a>
 
-\[ % :21:
-  
-\frac{\pi}{4} \,=\, {\frac{2\cdot 4\cdot 4\cdot 6\cdot 6\cdot 8\cdot\cdots}
-                     {3\cdot 3\cdot 5\cdot 5\cdot 7\cdot 7\cdot\cdots}.}
-\]
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mfrac>
+    <mi>&#x3C0;</mi>
+    <mn>4</mn>
+  </mfrac>
+  <mstyle scriptlevel="0">
+    <mspace width="0.167em"></mspace>
+  </mstyle>
+  <mo>=</mo>
+  <mstyle scriptlevel="0">
+    <mspace width="0.167em"></mspace>
+  </mstyle>
+  <mrow data-mjx-texclass="ORD">
+    <mfrac>
+      <mrow>
+        <mn>2</mn>
+        <mo>&#x22C5;</mo>
+        <mn>4</mn>
+        <mo>&#x22C5;</mo>
+        <mn>4</mn>
+        <mo>&#x22C5;</mo>
+        <mn>6</mn>
+        <mo>&#x22C5;</mo>
+        <mn>6</mn>
+        <mo>&#x22C5;</mo>
+        <mn>8</mn>
+        <mo>&#x22C5;</mo>
+        <mo>&#x22EF;</mo>
+      </mrow>
+      <mrow>
+        <mn>3</mn>
+        <mo>&#x22C5;</mo>
+        <mn>3</mn>
+        <mo>&#x22C5;</mo>
+        <mn>5</mn>
+        <mo>&#x22C5;</mo>
+        <mn>5</mn>
+        <mo>&#x22C5;</mo>
+        <mn>7</mn>
+        <mo>&#x22C5;</mo>
+        <mn>7</mn>
+        <mo>&#x22C5;</mo>
+        <mo>&#x22EF;</mo>
+      </mrow>
+    </mfrac>
+    <mo>.</mo>
+  </mrow>
+</math>
 
 </li><li> If your <code class="code">product</code> procedure generates a recursive process, write one that
 generates an iterative process.  If it generates an iterative process, write
@@ -525,21 +808,169 @@ name.<a class="footnote" id="DOCF48" href="#FOOT48"><sup>48</sup></a>
 local variables in our procedures other than those that have been bound as
 formal parameters.  For example, suppose we wish to compute the function
 
-\[ % :22:
-  
-{f(x,y)} \,=\, {x(1 + xy)^2} + {y(1 - y)} + {(1 + xy)(1 - y),}
-\]
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mrow data-mjx-texclass="ORD">
+    <mi>f</mi>
+    <mo stretchy="false">(</mo>
+    <mi>x</mi>
+    <mo>,</mo>
+    <mi>y</mi>
+    <mo stretchy="false">)</mo>
+  </mrow>
+  <mstyle scriptlevel="0">
+    <mspace width="0.167em"></mspace>
+  </mstyle>
+  <mo>=</mo>
+  <mstyle scriptlevel="0">
+    <mspace width="0.167em"></mspace>
+  </mstyle>
+  <mrow data-mjx-texclass="ORD">
+    <mi>x</mi>
+    <mo stretchy="false">(</mo>
+    <mn>1</mn>
+    <mo>+</mo>
+    <mi>x</mi>
+    <mi>y</mi>
+    <msup>
+      <mo stretchy="false">)</mo>
+      <mn>2</mn>
+    </msup>
+  </mrow>
+  <mo>+</mo>
+  <mrow data-mjx-texclass="ORD">
+    <mi>y</mi>
+    <mo stretchy="false">(</mo>
+    <mn>1</mn>
+    <mo>&#x2212;</mo>
+    <mi>y</mi>
+    <mo stretchy="false">)</mo>
+  </mrow>
+  <mo>+</mo>
+  <mrow data-mjx-texclass="ORD">
+    <mo stretchy="false">(</mo>
+    <mn>1</mn>
+    <mo>+</mo>
+    <mi>x</mi>
+    <mi>y</mi>
+    <mo stretchy="false">)</mo>
+    <mo stretchy="false">(</mo>
+    <mn>1</mn>
+    <mo>&#x2212;</mo>
+    <mi>y</mi>
+    <mo stretchy="false">)</mo>
+    <mo>,</mo>
+  </mrow>
+</math>
 
 which we could also express as
 
-\[ % :23:
- 
-\begin{eqnarray}
-  a                     &amp;=&amp;   {1 + xy,}  \\
-  \hphantom{(x,y)} b    &amp;=&amp;   {1 - y,}   \\
-  {f(x,y)}              &amp;=&amp;   {xa^2} + {yb} + {ab.}
-\end{eqnarray}
-\]
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mtable displaystyle="true" columnalign="right center left" columnspacing="0em 0.278em" rowspacing="3pt">
+    <mtr>
+      <mtd>
+        <mi>a</mi>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mo>=</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mrow data-mjx-texclass="ORD">
+          <mn>1</mn>
+          <mo>+</mo>
+          <mi>x</mi>
+          <mi>y</mi>
+          <mo>,</mo>
+        </mrow>
+      </mtd>
+    </mtr>
+    <mtr>
+      <mtd>
+        <mrow data-mjx-texclass="ORD">
+          <mpadded height="0" depth="0">
+            <mphantom>
+              <mo stretchy="false">(</mo>
+              <mi>x</mi>
+              <mo>,</mo>
+              <mi>y</mi>
+              <mo stretchy="false">)</mo>
+            </mphantom>
+          </mpadded>
+        </mrow>
+        <mi>b</mi>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mo>=</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mrow data-mjx-texclass="ORD">
+          <mn>1</mn>
+          <mo>&#x2212;</mo>
+          <mi>y</mi>
+          <mo>,</mo>
+        </mrow>
+      </mtd>
+    </mtr>
+    <mtr>
+      <mtd>
+        <mrow data-mjx-texclass="ORD">
+          <mi>f</mi>
+          <mo stretchy="false">(</mo>
+          <mi>x</mi>
+          <mo>,</mo>
+          <mi>y</mi>
+          <mo stretchy="false">)</mo>
+        </mrow>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mo>=</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mrow data-mjx-texclass="ORD">
+          <mi>x</mi>
+          <msup>
+            <mi>a</mi>
+            <mn>2</mn>
+          </msup>
+        </mrow>
+        <mo>+</mo>
+        <mrow data-mjx-texclass="ORD">
+          <mi>y</mi>
+          <mi>b</mi>
+        </mrow>
+        <mo>+</mo>
+        <mrow data-mjx-texclass="ORD">
+          <mi>a</mi>
+          <mi>b</mi>
+          <mo>.</mo>
+        </mrow>
+      </mtd>
+    </mtr>
+  </mtable>
+</math>
 
 In writing a procedure to compute <em class="math">f</em>, we would like to include as local
 variables not only <em class="math">x</em> and <em class="math">y</em> but also the names of intermediate
@@ -822,10 +1253,51 @@ satisfies the equation <em class="math">{f(x) = x}</em>.  For some functions <em
 locate a fixed point by beginning with an initial guess and applying <em class="math">f</em>
 repeatedly,
 
-\[ % :24:
-  
-{f(x),}\quad {f(f(x)),}\quad {f(f(f(x))),} \quad{\dots,}
-\]
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mrow data-mjx-texclass="ORD">
+    <mi>f</mi>
+    <mo stretchy="false">(</mo>
+    <mi>x</mi>
+    <mo stretchy="false">)</mo>
+    <mo>,</mo>
+  </mrow>
+  <mstyle scriptlevel="0">
+    <mspace width="1em"></mspace>
+  </mstyle>
+  <mrow data-mjx-texclass="ORD">
+    <mi>f</mi>
+    <mo stretchy="false">(</mo>
+    <mi>f</mi>
+    <mo stretchy="false">(</mo>
+    <mi>x</mi>
+    <mo stretchy="false">)</mo>
+    <mo stretchy="false">)</mo>
+    <mo>,</mo>
+  </mrow>
+  <mstyle scriptlevel="0">
+    <mspace width="1em"></mspace>
+  </mstyle>
+  <mrow data-mjx-texclass="ORD">
+    <mi>f</mi>
+    <mo stretchy="false">(</mo>
+    <mi>f</mi>
+    <mo stretchy="false">(</mo>
+    <mi>f</mi>
+    <mo stretchy="false">(</mo>
+    <mi>x</mi>
+    <mo stretchy="false">)</mo>
+    <mo stretchy="false">)</mo>
+    <mo stretchy="false">)</mo>
+    <mo>,</mo>
+  </mrow>
+  <mstyle scriptlevel="0">
+    <mspace width="1em"></mspace>
+  </mstyle>
+  <mrow data-mjx-texclass="ORD">
+    <mo>&#x2026;</mo>
+    <mo>,</mo>
+  </mrow>
+</math>
 
 until the value does not change very much.  Using this idea, we can devise a
 procedure <code class="code">fixed_point</code> that takes as inputs a function and an initial
@@ -949,10 +1421,59 @@ this takes with and without average damping.  (Note that you cannot start
 <li> An infinite <a class="index-entry-id" id="index-continued-fraction"></a>
 <em class="dfn">continued fraction</em> is an expression of the form
 
-\[ % :25:
-  
-f \,=\, {\frac{N_1}{D_1 + \frac{N_2}{D_2 + \frac{N_3}{D_3 + \dots}}}.}
-\]
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mi>f</mi>
+  <mstyle scriptlevel="0">
+    <mspace width="0.167em"></mspace>
+  </mstyle>
+  <mo>=</mo>
+  <mstyle scriptlevel="0">
+    <mspace width="0.167em"></mspace>
+  </mstyle>
+  <mrow data-mjx-texclass="ORD">
+    <mfrac>
+      <msub>
+        <mi>N</mi>
+        <mn>1</mn>
+      </msub>
+      <mrow>
+        <msub>
+          <mi>D</mi>
+          <mn>1</mn>
+        </msub>
+        <mo>+</mo>
+        <mfrac>
+          <msub>
+            <mi>N</mi>
+            <mn>2</mn>
+          </msub>
+          <mrow>
+            <msub>
+              <mi>D</mi>
+              <mn>2</mn>
+            </msub>
+            <mo>+</mo>
+            <mfrac>
+              <msub>
+                <mi>N</mi>
+                <mn>3</mn>
+              </msub>
+              <mrow>
+                <msub>
+                  <mi>D</mi>
+                  <mn>3</mn>
+                </msub>
+                <mo>+</mo>
+                <mo>&#x2026;</mo>
+              </mrow>
+            </mfrac>
+          </mrow>
+        </mfrac>
+      </mrow>
+    </mfrac>
+    <mo>.</mo>
+  </mrow>
+</math>
 
 As an example, one can show that the infinite continued fraction expansion with
 the <em class="math">N_i</em> and the <em class="math">D_i</em> all equal to 1 produces <em class="math">{1 / \varphi}</em>, where
@@ -963,10 +1484,44 @@ finite continued fraction
 <em class="dfn"><i class="i">k</i>-term
 finite continued fraction</em>&#8212;has the form
 
-\[ % :26:
-  
-{\frac{N_1}{D_1 + \frac{N_2}{\ddots + \frac{N_k}{D_k}}}.}
-\]
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mrow data-mjx-texclass="ORD">
+    <mfrac>
+      <msub>
+        <mi>N</mi>
+        <mn>1</mn>
+      </msub>
+      <mrow>
+        <msub>
+          <mi>D</mi>
+          <mn>1</mn>
+        </msub>
+        <mo>+</mo>
+        <mfrac>
+          <msub>
+            <mi>N</mi>
+            <mn>2</mn>
+          </msub>
+          <mrow>
+            <mo>&#x22F1;</mo>
+            <mo>+</mo>
+            <mfrac>
+              <msub>
+                <mi>N</mi>
+                <mi>k</mi>
+              </msub>
+              <msub>
+                <mi>D</mi>
+                <mi>k</mi>
+              </msub>
+            </mfrac>
+          </mrow>
+        </mfrac>
+      </mrow>
+    </mfrac>
+    <mo>.</mo>
+  </mrow>
+</math>
 
 Suppose that <code class="code">n</code> and <code class="code">d</code> are procedures of one argument (the term
 index <em class="math">i</em>) that return the <em class="math">N_i</em> and <em class="math">D_i</em> of the terms of the
@@ -1003,10 +1558,54 @@ to approximate <em class="math">e</em>, based on Euler&#8217;s expansion.
 representation of the tangent function was published in 1770 by the German
 mathematician J.H. Lambert:
 
-\[ % :27:
-  
-{\tan x} \,=\, {\frac{x}{1 - \frac{x^2}{3 - \frac{x^2}{5 - \dots}}}\,,}
-\]
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mrow data-mjx-texclass="ORD">
+    <mi>tan</mi>
+    <mo data-mjx-texclass="NONE">&#x2061;</mo>
+    <mi>x</mi>
+  </mrow>
+  <mstyle scriptlevel="0">
+    <mspace width="0.167em"></mspace>
+  </mstyle>
+  <mo>=</mo>
+  <mstyle scriptlevel="0">
+    <mspace width="0.167em"></mspace>
+  </mstyle>
+  <mrow data-mjx-texclass="ORD">
+    <mfrac>
+      <mi>x</mi>
+      <mrow>
+        <mn>1</mn>
+        <mo>&#x2212;</mo>
+        <mfrac>
+          <msup>
+            <mi>x</mi>
+            <mn>2</mn>
+          </msup>
+          <mrow>
+            <mn>3</mn>
+            <mo>&#x2212;</mo>
+            <mfrac>
+              <msup>
+                <mi>x</mi>
+                <mn>2</mn>
+              </msup>
+              <mrow>
+                <mn>5</mn>
+                <mo>&#x2212;</mo>
+                <mo>&#x2026;</mo>
+              </mrow>
+            </mfrac>
+          </mrow>
+        </mfrac>
+      </mrow>
+    </mfrac>
+    <mstyle scriptlevel="0">
+      <mspace width="0.167em"></mspace>
+    </mstyle>
+    <mo>,</mo>
+  </mrow>
+</math>
 
 where <em class="math">x</em> is in radians.  Define a procedure <code class="code">(tan_cf x k)</code> that
 computes an approximation to the tangent function based on Lambert&#8217;s formula.
@@ -1105,10 +1704,38 @@ mentioned that this was a special case of <a class="index-entry-id" id="index-Ne
 If <em class="math">{x \mapsto g(x)}</em> is a differentiable function, then a solution of the equation
 <em class="math">{g(x) = 0}</em> is a fixed point of the function <em class="math">{x \mapsto f(x)}</em> where
 
-\[ % :28:
-  
-{f(x)} \,=\, x - \frac{g(x)}{D g(x)}
-\]
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mrow data-mjx-texclass="ORD">
+    <mi>f</mi>
+    <mo stretchy="false">(</mo>
+    <mi>x</mi>
+    <mo stretchy="false">)</mo>
+  </mrow>
+  <mstyle scriptlevel="0">
+    <mspace width="0.167em"></mspace>
+  </mstyle>
+  <mo>=</mo>
+  <mstyle scriptlevel="0">
+    <mspace width="0.167em"></mspace>
+  </mstyle>
+  <mi>x</mi>
+  <mo>&#x2212;</mo>
+  <mfrac>
+    <mrow>
+      <mi>g</mi>
+      <mo stretchy="false">(</mo>
+      <mi>x</mi>
+      <mo stretchy="false">)</mo>
+    </mrow>
+    <mrow>
+      <mi>D</mi>
+      <mi>g</mi>
+      <mo stretchy="false">(</mo>
+      <mi>x</mi>
+      <mo stretchy="false">)</mo>
+    </mrow>
+  </mfrac>
+</math>
 
 and <em class="math">{Dg(x)}</em> is the derivative of <em class="math">g</em> evaluated at <em class="math">x</em>.  Newton&#8217;s
 method is the use of the fixed-point method we saw above to approximate a
@@ -1126,10 +1753,43 @@ In general, if <em class="math">g</em> is a function and <em class="math">{dx}</
 then the derivative <em class="math">{Dg}</em> of <em class="math">g</em> is the function whose value at any
 number <em class="math">x</em> is given (in the limit of small <em class="math">{dx}</em>) by
 
-\[ % :29:
-  
-Dg(x) \,=\, {\frac{g(x + dx) - g(x)}{dx}.}
-\]
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mi>D</mi>
+  <mi>g</mi>
+  <mo stretchy="false">(</mo>
+  <mi>x</mi>
+  <mo stretchy="false">)</mo>
+  <mstyle scriptlevel="0">
+    <mspace width="0.167em"></mspace>
+  </mstyle>
+  <mo>=</mo>
+  <mstyle scriptlevel="0">
+    <mspace width="0.167em"></mspace>
+  </mstyle>
+  <mrow data-mjx-texclass="ORD">
+    <mfrac>
+      <mrow>
+        <mi>g</mi>
+        <mo stretchy="false">(</mo>
+        <mi>x</mi>
+        <mo>+</mo>
+        <mi>d</mi>
+        <mi>x</mi>
+        <mo stretchy="false">)</mo>
+        <mo>&#x2212;</mo>
+        <mi>g</mi>
+        <mo stretchy="false">(</mo>
+        <mi>x</mi>
+        <mo stretchy="false">)</mo>
+      </mrow>
+      <mrow>
+        <mi>d</mi>
+        <mi>x</mi>
+      </mrow>
+    </mfrac>
+    <mo>.</mo>
+  </mrow>
+</math>
 
 Thus, we can express the idea of derivative (taking <em class="math">{dx}</em> to be, say,
 0.00001) as the procedure

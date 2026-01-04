@@ -646,17 +646,103 @@ cannot define a procedure that computes the absolute value of a number by
 testing whether the number is positive, negative, or zero and taking different
 actions in the different cases according to the rule
 
-\[ % :1:
-
-\left|{x}\right| \; = \;
-  \left\{ 
-    \begin{array}{rll}	 	 
-       x &amp; \;\text{if} &amp; x \gt 0, \\
-       0 &amp; \;\text{if} &amp; x  =  0, \\
-      -x &amp; \;\text{if} &amp; x \lt 0. 
-    \end{array} 
-  \right. 
-\]
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mrow data-mjx-texclass="INNER">
+    <mo data-mjx-texclass="OPEN">|</mo>
+    <mrow data-mjx-texclass="ORD">
+      <mi>x</mi>
+    </mrow>
+    <mo data-mjx-texclass="CLOSE">|</mo>
+  </mrow>
+  <mstyle scriptlevel="0">
+    <mspace width="0.278em"></mspace>
+  </mstyle>
+  <mo>=</mo>
+  <mstyle scriptlevel="0">
+    <mspace width="0.278em"></mspace>
+  </mstyle>
+  <mrow data-mjx-texclass="INNER">
+    <mo data-mjx-texclass="OPEN">{</mo>
+    <mtable columnalign="right left left" columnspacing="1em" rowspacing="4pt">
+      <mtr>
+        <mtd>
+          <mi>x</mi>
+        </mtd>
+        <mtd>
+          <mi>a</mi>
+          <mi>m</mi>
+          <mi>p</mi>
+          <mo>;</mo>
+          <mstyle scriptlevel="0">
+            <mspace width="0.278em"></mspace>
+          </mstyle>
+          <mtext>if</mtext>
+        </mtd>
+        <mtd>
+          <mi>a</mi>
+          <mi>m</mi>
+          <mi>p</mi>
+          <mo>;</mo>
+          <mi>x</mi>
+          <mo>&gt;</mo>
+          <mn>0</mn>
+          <mo>,</mo>
+        </mtd>
+      </mtr>
+      <mtr>
+        <mtd>
+          <mn>0</mn>
+        </mtd>
+        <mtd>
+          <mi>a</mi>
+          <mi>m</mi>
+          <mi>p</mi>
+          <mo>;</mo>
+          <mstyle scriptlevel="0">
+            <mspace width="0.278em"></mspace>
+          </mstyle>
+          <mtext>if</mtext>
+        </mtd>
+        <mtd>
+          <mi>a</mi>
+          <mi>m</mi>
+          <mi>p</mi>
+          <mo>;</mo>
+          <mi>x</mi>
+          <mo>=</mo>
+          <mn>0</mn>
+          <mo>,</mo>
+        </mtd>
+      </mtr>
+      <mtr>
+        <mtd>
+          <mo>&#x2212;</mo>
+          <mi>x</mi>
+        </mtd>
+        <mtd>
+          <mi>a</mi>
+          <mi>m</mi>
+          <mi>p</mi>
+          <mo>;</mo>
+          <mstyle scriptlevel="0">
+            <mspace width="0.278em"></mspace>
+          </mstyle>
+          <mtext>if</mtext>
+        </mtd>
+        <mtd>
+          <mi>a</mi>
+          <mi>m</mi>
+          <mi>p</mi>
+          <mo>;</mo>
+          <mi>x</mi>
+          <mo>&lt;</mo>
+          <mn>0.</mn>
+        </mtd>
+      </mtr>
+    </mtable>
+    <mo data-mjx-texclass="CLOSE" fence="true" stretchy="true" symmetric="true"></mo>
+  </mrow>
+</math>
 
 This construct is called a <a class="index-entry-id" id="index-case-analysis"></a>
 <em class="dfn">case analysis</em>, and there is a special form
@@ -853,10 +939,48 @@ if a == 4 {
 <p><strong class="strong"><a class="anchor" id="Exercise-1_002e2"></a>Exercise 1.2:</strong> Translate the following expression
 into Rust:
 
-\[ % :2:
-
-{\frac{5 + 4 + (2 - (3 - (6 + \frac{4}{5})))}{3(6 - 2)(2 - 7)}.}
-\]
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mrow data-mjx-texclass="ORD">
+    <mfrac>
+      <mrow>
+        <mn>5</mn>
+        <mo>+</mo>
+        <mn>4</mn>
+        <mo>+</mo>
+        <mo stretchy="false">(</mo>
+        <mn>2</mn>
+        <mo>&#x2212;</mo>
+        <mo stretchy="false">(</mo>
+        <mn>3</mn>
+        <mo>&#x2212;</mo>
+        <mo stretchy="false">(</mo>
+        <mn>6</mn>
+        <mo>+</mo>
+        <mfrac>
+          <mn>4</mn>
+          <mn>5</mn>
+        </mfrac>
+        <mo stretchy="false">)</mo>
+        <mo stretchy="false">)</mo>
+        <mo stretchy="false">)</mo>
+      </mrow>
+      <mrow>
+        <mn>3</mn>
+        <mo stretchy="false">(</mo>
+        <mn>6</mn>
+        <mo>&#x2212;</mo>
+        <mn>2</mn>
+        <mo stretchy="false">)</mo>
+        <mo stretchy="false">(</mo>
+        <mn>2</mn>
+        <mo>&#x2212;</mo>
+        <mn>7</mn>
+        <mo stretchy="false">)</mo>
+      </mrow>
+    </mfrac>
+    <mo>.</mo>
+  </mrow>
+</math>
 
 </p></blockquote>
 
@@ -930,11 +1054,76 @@ procedures.  Procedures must be effective.
 <p>As a case in point, consider the problem of computing square roots.  We can
 define the square-root function as
 
-\[ % :3:
-
-\sqrt{x} \;\; = \;\; {\text{the} \;\; y} \;\;
-{\text{such that}} \;\; {y \ge 0} \;\; {\text{and} \;\; y^2 = x.}
-\]
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <msqrt>
+    <mi>x</mi>
+  </msqrt>
+  <mstyle scriptlevel="0">
+    <mspace width="0.278em"></mspace>
+  </mstyle>
+  <mstyle scriptlevel="0">
+    <mspace width="0.278em"></mspace>
+  </mstyle>
+  <mo>=</mo>
+  <mstyle scriptlevel="0">
+    <mspace width="0.278em"></mspace>
+  </mstyle>
+  <mstyle scriptlevel="0">
+    <mspace width="0.278em"></mspace>
+  </mstyle>
+  <mrow data-mjx-texclass="ORD">
+    <mtext>the</mtext>
+    <mstyle scriptlevel="0">
+      <mspace width="0.278em"></mspace>
+    </mstyle>
+    <mstyle scriptlevel="0">
+      <mspace width="0.278em"></mspace>
+    </mstyle>
+    <mi>y</mi>
+  </mrow>
+  <mstyle scriptlevel="0">
+    <mspace width="0.278em"></mspace>
+  </mstyle>
+  <mstyle scriptlevel="0">
+    <mspace width="0.278em"></mspace>
+  </mstyle>
+  <mrow data-mjx-texclass="ORD">
+    <mtext>such that</mtext>
+  </mrow>
+  <mstyle scriptlevel="0">
+    <mspace width="0.278em"></mspace>
+  </mstyle>
+  <mstyle scriptlevel="0">
+    <mspace width="0.278em"></mspace>
+  </mstyle>
+  <mrow data-mjx-texclass="ORD">
+    <mi>y</mi>
+    <mo>&#x2265;</mo>
+    <mn>0</mn>
+  </mrow>
+  <mstyle scriptlevel="0">
+    <mspace width="0.278em"></mspace>
+  </mstyle>
+  <mstyle scriptlevel="0">
+    <mspace width="0.278em"></mspace>
+  </mstyle>
+  <mrow data-mjx-texclass="ORD">
+    <mtext>and</mtext>
+    <mstyle scriptlevel="0">
+      <mspace width="0.278em"></mspace>
+    </mstyle>
+    <mstyle scriptlevel="0">
+      <mspace width="0.278em"></mspace>
+    </mstyle>
+    <msup>
+      <mi>y</mi>
+      <mn>2</mn>
+    </msup>
+    <mo>=</mo>
+    <mi>x</mi>
+    <mo>.</mo>
+  </mrow>
+</math>
 
 This describes a perfectly legitimate mathematical function.  We could use it
 to recognize whether one number is the square root of another, or to derive
@@ -1122,10 +1311,29 @@ kind of end test.  Does this work better for small and large numbers?
 based on the fact that if <em class="math">y</em> is an approximation to the cube root of <em class="math">x</em>,
 then a better approximation is given by the value
 
-\[ % :4:
- 
-{\frac{{x / y^2} + 2y}{3}.}
-\]
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mrow data-mjx-texclass="ORD">
+    <mfrac>
+      <mrow>
+        <mrow data-mjx-texclass="ORD">
+          <mi>x</mi>
+          <mrow data-mjx-texclass="ORD">
+            <mo>/</mo>
+          </mrow>
+          <msup>
+            <mi>y</mi>
+            <mn>2</mn>
+          </msup>
+        </mrow>
+        <mo>+</mo>
+        <mn>2</mn>
+        <mi>y</mi>
+      </mrow>
+      <mn>3</mn>
+    </mfrac>
+    <mo>.</mo>
+  </mrow>
+</math>
 
 Use this formula to implement a cube-root procedure analogous to the
 square-root procedure.  (In <a class="ref" href="1_002e3.xhtml#g_t1_002e3_002e4">Procedures as Returned Values</a> we will see how to implement

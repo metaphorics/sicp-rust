@@ -254,17 +254,203 @@ symbolic-differentiation program that handles expressions that are built up
 using only the operations of addition and multiplication with two arguments.
 Differentiation of any such expression can be carried out by applying the
 following reduction rules:
-\[ % :42:
-{{dc \over dx} \,=\, 0,} 
-  \quad {\text{for } c \text{ a constant }} {\text{or a variable }} {\text{different from } x,}
-\]
-\[ % :43:
-\begin{eqnarray}
-{dx \over dx}         &amp;=&amp;   1, \\
-{d(u + v) \over dx}   &amp;=&amp;   {du \over dx} + {dv \over dx}, \\
-{d(uv) \over dx}      &amp;=&amp;   u \kern0.1em {dv \over dx} + v \kern0.1em {du \over dx}.
-\end{eqnarray}
-\]
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mrow data-mjx-texclass="ORD">
+    <mrow data-mjx-texclass="ORD">
+      <mfrac>
+        <mrow>
+          <mi>d</mi>
+          <mi>c</mi>
+        </mrow>
+        <mrow>
+          <mi>d</mi>
+          <mi>x</mi>
+        </mrow>
+      </mfrac>
+    </mrow>
+    <mstyle scriptlevel="0">
+      <mspace width="0.167em"></mspace>
+    </mstyle>
+    <mo>=</mo>
+    <mstyle scriptlevel="0">
+      <mspace width="0.167em"></mspace>
+    </mstyle>
+    <mn>0</mn>
+    <mo>,</mo>
+  </mrow>
+  <mstyle scriptlevel="0">
+    <mspace width="1em"></mspace>
+  </mstyle>
+  <mrow data-mjx-texclass="ORD">
+    <mtext>for&#xA0;</mtext>
+    <mi>c</mi>
+    <mtext>&#xA0;a constant&#xA0;</mtext>
+  </mrow>
+  <mrow data-mjx-texclass="ORD">
+    <mtext>or a variable&#xA0;</mtext>
+  </mrow>
+  <mrow data-mjx-texclass="ORD">
+    <mtext>different from&#xA0;</mtext>
+    <mi>x</mi>
+    <mo>,</mo>
+  </mrow>
+</math>
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mtable displaystyle="true" columnalign="right center left" columnspacing="0em 0.278em" rowspacing="3pt">
+    <mtr>
+      <mtd>
+        <mrow data-mjx-texclass="ORD">
+          <mfrac>
+            <mrow>
+              <mi>d</mi>
+              <mi>x</mi>
+            </mrow>
+            <mrow>
+              <mi>d</mi>
+              <mi>x</mi>
+            </mrow>
+          </mfrac>
+        </mrow>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mo>=</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mn>1</mn>
+        <mo>,</mo>
+      </mtd>
+    </mtr>
+    <mtr>
+      <mtd>
+        <mrow data-mjx-texclass="ORD">
+          <mfrac>
+            <mrow>
+              <mi>d</mi>
+              <mo stretchy="false">(</mo>
+              <mi>u</mi>
+              <mo>+</mo>
+              <mi>v</mi>
+              <mo stretchy="false">)</mo>
+            </mrow>
+            <mrow>
+              <mi>d</mi>
+              <mi>x</mi>
+            </mrow>
+          </mfrac>
+        </mrow>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mo>=</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mrow data-mjx-texclass="ORD">
+          <mfrac>
+            <mrow>
+              <mi>d</mi>
+              <mi>u</mi>
+            </mrow>
+            <mrow>
+              <mi>d</mi>
+              <mi>x</mi>
+            </mrow>
+          </mfrac>
+        </mrow>
+        <mo>+</mo>
+        <mrow data-mjx-texclass="ORD">
+          <mfrac>
+            <mrow>
+              <mi>d</mi>
+              <mi>v</mi>
+            </mrow>
+            <mrow>
+              <mi>d</mi>
+              <mi>x</mi>
+            </mrow>
+          </mfrac>
+        </mrow>
+        <mo>,</mo>
+      </mtd>
+    </mtr>
+    <mtr>
+      <mtd>
+        <mrow data-mjx-texclass="ORD">
+          <mfrac>
+            <mrow>
+              <mi>d</mi>
+              <mo stretchy="false">(</mo>
+              <mi>u</mi>
+              <mi>v</mi>
+              <mo stretchy="false">)</mo>
+            </mrow>
+            <mrow>
+              <mi>d</mi>
+              <mi>x</mi>
+            </mrow>
+          </mfrac>
+        </mrow>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mo>=</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mi>u</mi>
+        <mspace width="0.1em"></mspace>
+        <mrow data-mjx-texclass="ORD">
+          <mfrac>
+            <mrow>
+              <mi>d</mi>
+              <mi>v</mi>
+            </mrow>
+            <mrow>
+              <mi>d</mi>
+              <mi>x</mi>
+            </mrow>
+          </mfrac>
+        </mrow>
+        <mo>+</mo>
+        <mi>v</mi>
+        <mspace width="0.1em"></mspace>
+        <mrow data-mjx-texclass="ORD">
+          <mfrac>
+            <mrow>
+              <mi>d</mi>
+              <mi>u</mi>
+            </mrow>
+            <mrow>
+              <mi>d</mi>
+              <mi>x</mi>
+            </mrow>
+          </mfrac>
+        </mrow>
+        <mo>.</mo>
+      </mtd>
+    </mtr>
+  </mtable>
+</math>
 Observe that the latter two rules are recursive in nature.  That is, to obtain
 the derivative of a sum we first find the derivatives of the terms and add
 them.  Each of the terms may in turn be an expression that needs to be
@@ -420,8 +606,42 @@ deriv(&amp;make_product(
 
 <p>The program produces answers that are correct; however, they are unsimplified.
 It is true that
-\[ % :44:
-  {d(xy) \over dx} \,=\, {x \cdot 0} + {1 \cdot y,}  \]
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mrow data-mjx-texclass="ORD">
+    <mfrac>
+      <mrow>
+        <mi>d</mi>
+        <mo stretchy="false">(</mo>
+        <mi>x</mi>
+        <mi>y</mi>
+        <mo stretchy="false">)</mo>
+      </mrow>
+      <mrow>
+        <mi>d</mi>
+        <mi>x</mi>
+      </mrow>
+    </mfrac>
+  </mrow>
+  <mstyle scriptlevel="0">
+    <mspace width="0.167em"></mspace>
+  </mstyle>
+  <mo>=</mo>
+  <mstyle scriptlevel="0">
+    <mspace width="0.167em"></mspace>
+  </mstyle>
+  <mrow data-mjx-texclass="ORD">
+    <mi>x</mi>
+    <mo>&#x22C5;</mo>
+    <mn>0</mn>
+  </mrow>
+  <mo>+</mo>
+  <mrow data-mjx-texclass="ORD">
+    <mn>1</mn>
+    <mo>&#x22C5;</mo>
+    <mi>y</mi>
+    <mo>,</mo>
+  </mrow>
+</math>
 but we would like the program to know that <em class="math">{x \cdot 0 = 0}</em>, <em class="math">{1 \cdot y = y}</em>,
 and <em class="math">{0 + y = y}</em>.  The answer for the second example should have been
 simply <code class="code">y</code>.  As the third example shows, this becomes a serious issue when
@@ -493,8 +713,62 @@ simplest for one purpose may not be for another.
 <p><strong class="strong"><a class="anchor" id="Exercise-2_002e56"></a>Exercise 2.56:</strong> Show how to extend the basic
 differentiator to handle more kinds of expressions.  For instance, implement
 the differentiation rule
-\[ % :45:
-  {d(u^{\kern0.1ex n}) \over dx} \,=\, {nu^{\kern0.1ex n-1} \, {du \over dx}}  \]
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mrow data-mjx-texclass="ORD">
+    <mfrac>
+      <mrow>
+        <mi>d</mi>
+        <mo stretchy="false">(</mo>
+        <msup>
+          <mi>u</mi>
+          <mrow data-mjx-texclass="ORD">
+            <mspace width="0.1ex"></mspace>
+            <mi>n</mi>
+          </mrow>
+        </msup>
+        <mo stretchy="false">)</mo>
+      </mrow>
+      <mrow>
+        <mi>d</mi>
+        <mi>x</mi>
+      </mrow>
+    </mfrac>
+  </mrow>
+  <mstyle scriptlevel="0">
+    <mspace width="0.167em"></mspace>
+  </mstyle>
+  <mo>=</mo>
+  <mstyle scriptlevel="0">
+    <mspace width="0.167em"></mspace>
+  </mstyle>
+  <mrow data-mjx-texclass="ORD">
+    <mi>n</mi>
+    <msup>
+      <mi>u</mi>
+      <mrow data-mjx-texclass="ORD">
+        <mspace width="0.1ex"></mspace>
+        <mi>n</mi>
+        <mo>&#x2212;</mo>
+        <mn>1</mn>
+      </mrow>
+    </msup>
+    <mstyle scriptlevel="0">
+      <mspace width="0.167em"></mspace>
+    </mstyle>
+    <mrow data-mjx-texclass="ORD">
+      <mfrac>
+        <mrow>
+          <mi>d</mi>
+          <mi>u</mi>
+        </mrow>
+        <mrow>
+          <mi>d</mi>
+          <mi>x</mi>
+        </mrow>
+      </mfrac>
+    </mrow>
+  </mrow>
+</math>
 by adding a new clause to the <code class="code">deriv</code> program and defining appropriate
 procedures <code class="code">exponentiation?</code>, <code class="code">base</code>, <code class="code">exponent</code>, and
 <code class="code">make-exponentiation</code>.  (You may use the symbol <code class="code">**</code> to denote

@@ -1406,19 +1406,112 @@ recursively:
 evaluating <em class="math">{n!}</em> for <em class="math">{n \ge 1}</em>.  (Again, these functions will be linear.)
 Summarize your experiments by filling in the following table with the
 appropriate expressions in terms of <em class="math">n</em>:
-\[ % :82:
-
-\begin{array}{l|l|l}
-                	&amp; \text{Maximum} 	&amp; \text{Number of} 	\\
-                	&amp; \text{depth} 	        &amp; \text{pushes} 	\\
-\hline
-\text{Recursive} 	&amp;	                &amp;  \\
-\text{factorial} 	&amp;  	                &amp;  \\
-\hline
-\text{Iterative} 	&amp;               	&amp;  \\
-\text{factorial} 	&amp;  	                &amp; 
-\end{array}
-\]
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mtable columnalign="left left left" columnspacing="1em" rowspacing="4pt" columnlines="solid solid" rowlines="none solid none solid none">
+    <mtr>
+      <mtd></mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mtext>Maximum</mtext>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mtext>Number of</mtext>
+      </mtd>
+    </mtr>
+    <mtr>
+      <mtd></mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mtext>depth</mtext>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mtext>pushes</mtext>
+      </mtd>
+    </mtr>
+    <mtr>
+      <mtd>
+        <mtext>Recursive</mtext>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+      </mtd>
+    </mtr>
+    <mtr>
+      <mtd>
+        <mtext>factorial</mtext>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+      </mtd>
+    </mtr>
+    <mtr>
+      <mtd>
+        <mtext>Iterative</mtext>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+      </mtd>
+    </mtr>
+    <mtr>
+      <mtd>
+        <mtext>factorial</mtext>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+      </mtd>
+    </mtr>
+  </mtable>
+</math>
 The maximum depth is a measure of the amount of space used by the evaluator in
 carrying out the computation, and the number of pushes correlates well with the
 time required.

@@ -707,8 +707,49 @@ Typical abstractions in symbolic algebra are ideas such as linear combination,
 polynomial, rational function, or trigonometric function.  We can regard these
 as compound &#8220;types,&#8221; which are often useful for directing the processing of
 expressions.  For example, we could describe the expression
-\[ % :49:
-  {x^2 \sin (y^2 + 1)} + {x \cos 2y} + {\cos(y^3 - 2y^2)}  \]
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mrow data-mjx-texclass="ORD">
+    <msup>
+      <mi>x</mi>
+      <mn>2</mn>
+    </msup>
+    <mi>sin</mi>
+    <mo data-mjx-texclass="NONE">&#x2061;</mo>
+    <mo stretchy="false">(</mo>
+    <msup>
+      <mi>y</mi>
+      <mn>2</mn>
+    </msup>
+    <mo>+</mo>
+    <mn>1</mn>
+    <mo stretchy="false">)</mo>
+  </mrow>
+  <mo>+</mo>
+  <mrow data-mjx-texclass="ORD">
+    <mi>x</mi>
+    <mi>cos</mi>
+    <mo data-mjx-texclass="NONE">&#x2061;</mo>
+    <mn>2</mn>
+    <mi>y</mi>
+  </mrow>
+  <mo>+</mo>
+  <mrow data-mjx-texclass="ORD">
+    <mi>cos</mi>
+    <mo data-mjx-texclass="NONE">&#x2061;</mo>
+    <mo stretchy="false">(</mo>
+    <msup>
+      <mi>y</mi>
+      <mn>3</mn>
+    </msup>
+    <mo>&#x2212;</mo>
+    <mn>2</mn>
+    <msup>
+      <mi>y</mi>
+      <mn>2</mn>
+    </msup>
+    <mo stretchy="false">)</mo>
+  </mrow>
+</math>
 as a polynomial in <em class="math">x</em> with coefficients that are trigonometric functions of
 polynomials in <em class="math">y</em> whose coefficients are integers.
 </p>
@@ -733,11 +774,49 @@ which is either a coefficient, a power of the indeterminate, or a product of a
 coefficient and a power of the indeterminate.  A coefficient is defined as an
 algebraic expression that is not dependent upon the indeterminate of the
 polynomial.  For example,
-\[ % :50:
-  {5x^2} + {3x} + 7  \]
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mrow data-mjx-texclass="ORD">
+    <mn>5</mn>
+    <msup>
+      <mi>x</mi>
+      <mn>2</mn>
+    </msup>
+  </mrow>
+  <mo>+</mo>
+  <mrow data-mjx-texclass="ORD">
+    <mn>3</mn>
+    <mi>x</mi>
+  </mrow>
+  <mo>+</mo>
+  <mn>7</mn>
+</math>
 is a simple polynomial in <em class="math">x</em>, and
-\[ % :51:
-  {(y^2 + 1)x^3} + {(2y)x + 1}  \]
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mrow data-mjx-texclass="ORD">
+    <mo stretchy="false">(</mo>
+    <msup>
+      <mi>y</mi>
+      <mn>2</mn>
+    </msup>
+    <mo>+</mo>
+    <mn>1</mn>
+    <mo stretchy="false">)</mo>
+    <msup>
+      <mi>x</mi>
+      <mn>3</mn>
+    </msup>
+  </mrow>
+  <mo>+</mo>
+  <mrow data-mjx-texclass="ORD">
+    <mo stretchy="false">(</mo>
+    <mn>2</mn>
+    <mi>y</mi>
+    <mo stretchy="false">)</mo>
+    <mi>x</mi>
+    <mo>+</mo>
+    <mn>1</mn>
+  </mrow>
+</math>
 is a polynomial in <em class="math">x</em> whose coefficients are polynomials in <em class="math">y</em>.
 </p>
 <p>Already we are skirting some thorny issues.  Is the first of these polynomials
@@ -930,14 +1009,127 @@ coefficient that is known about by the generic arithmetic package.  If we
 include a coercion mechanism such as one of those discussed in 
 <a class="ref" href="#g_t2_002e5_002e2">Combining Data of Different Types</a>, then we also are automatically able to handle operations on
 polynomials of different coefficient types, such as
-\[ % :52:
-  {[3x^2 + (2 + 3i)x + 7] \cdot} {\left[ x^4 + {2\over3} x^2 + (5 + 3i) \right].}  \]
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mrow data-mjx-texclass="ORD">
+    <mo stretchy="false">[</mo>
+    <mn>3</mn>
+    <msup>
+      <mi>x</mi>
+      <mn>2</mn>
+    </msup>
+    <mo>+</mo>
+    <mo stretchy="false">(</mo>
+    <mn>2</mn>
+    <mo>+</mo>
+    <mn>3</mn>
+    <mi>i</mi>
+    <mo stretchy="false">)</mo>
+    <mi>x</mi>
+    <mo>+</mo>
+    <mn>7</mn>
+    <mo stretchy="false">]</mo>
+    <mo>&#x22C5;</mo>
+  </mrow>
+  <mrow data-mjx-texclass="ORD">
+    <mrow data-mjx-texclass="INNER">
+      <mo data-mjx-texclass="OPEN">[</mo>
+      <msup>
+        <mi>x</mi>
+        <mn>4</mn>
+      </msup>
+      <mo>+</mo>
+      <mrow data-mjx-texclass="ORD">
+        <mfrac>
+          <mn>2</mn>
+          <mn>3</mn>
+        </mfrac>
+      </mrow>
+      <msup>
+        <mi>x</mi>
+        <mn>2</mn>
+      </msup>
+      <mo>+</mo>
+      <mo stretchy="false">(</mo>
+      <mn>5</mn>
+      <mo>+</mo>
+      <mn>3</mn>
+      <mi>i</mi>
+      <mo stretchy="false">)</mo>
+      <mo data-mjx-texclass="CLOSE">]</mo>
+    </mrow>
+    <mo>.</mo>
+  </mrow>
+</math>
 Because we installed the polynomial addition and multiplication procedures
 <code class="code">add_poly</code> and <code class="code">mul_poly</code> in the generic arithmetic system as the
 <code class="code">add</code> and <code class="code">mul</code> operations for type <code class="code">polynomial</code>, our system is
 also automatically able to handle polynomial operations such as
-\[ % :53:
-  {\Big[(y + 1)x^2} + {(y^2 + 1)x} + {(y - 1)\Big] \cdot} {\Big[(y - 2)x} + {(y^3 + 7)\Big].}  \]
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mrow data-mjx-texclass="ORD">
+    <mrow data-mjx-texclass="ORD">
+      <mo minsize="1.623em" maxsize="1.623em">[</mo>
+    </mrow>
+    <mo stretchy="false">(</mo>
+    <mi>y</mi>
+    <mo>+</mo>
+    <mn>1</mn>
+    <mo stretchy="false">)</mo>
+    <msup>
+      <mi>x</mi>
+      <mn>2</mn>
+    </msup>
+  </mrow>
+  <mo>+</mo>
+  <mrow data-mjx-texclass="ORD">
+    <mo stretchy="false">(</mo>
+    <msup>
+      <mi>y</mi>
+      <mn>2</mn>
+    </msup>
+    <mo>+</mo>
+    <mn>1</mn>
+    <mo stretchy="false">)</mo>
+    <mi>x</mi>
+  </mrow>
+  <mo>+</mo>
+  <mrow data-mjx-texclass="ORD">
+    <mo stretchy="false">(</mo>
+    <mi>y</mi>
+    <mo>&#x2212;</mo>
+    <mn>1</mn>
+    <mo stretchy="false">)</mo>
+    <mrow data-mjx-texclass="ORD">
+      <mo minsize="1.623em" maxsize="1.623em">]</mo>
+    </mrow>
+    <mo>&#x22C5;</mo>
+  </mrow>
+  <mrow data-mjx-texclass="ORD">
+    <mrow data-mjx-texclass="ORD">
+      <mo minsize="1.623em" maxsize="1.623em">[</mo>
+    </mrow>
+    <mo stretchy="false">(</mo>
+    <mi>y</mi>
+    <mo>&#x2212;</mo>
+    <mn>2</mn>
+    <mo stretchy="false">)</mo>
+    <mi>x</mi>
+  </mrow>
+  <mo>+</mo>
+  <mrow data-mjx-texclass="ORD">
+    <mo stretchy="false">(</mo>
+    <msup>
+      <mi>y</mi>
+      <mn>3</mn>
+    </msup>
+    <mo>+</mo>
+    <mn>7</mn>
+    <mo stretchy="false">)</mo>
+    <mrow data-mjx-texclass="ORD">
+      <mo minsize="1.623em" maxsize="1.623em">]</mo>
+    </mrow>
+    <mo>.</mo>
+  </mrow>
+</math>
 The reason is that when the system tries to combine coefficients, it will
 dispatch through <code class="code">add</code> and <code class="code">mul</code>.  Since the coefficients are
 themselves polynomials (in <em class="math">y</em>), these will be combined using <code class="code">add_poly</code>
@@ -966,11 +1158,66 @@ polynomial is said to be <a class="index-entry-id" id="index-dense"></a>
 terms of most orders.  If it has many zero terms it is said to be
 <a class="index-entry-id" id="index-sparse"></a>
 <em class="dfn">sparse</em>.  For example,
-\[ % :55:
-  A: \quad {x^5} + {2x^4} + {3x^2} - {2x} - 5  \]
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mi>A</mi>
+  <mo>:</mo>
+  <mstyle scriptlevel="0">
+    <mspace width="1em"></mspace>
+  </mstyle>
+  <mrow data-mjx-texclass="ORD">
+    <msup>
+      <mi>x</mi>
+      <mn>5</mn>
+    </msup>
+  </mrow>
+  <mo>+</mo>
+  <mrow data-mjx-texclass="ORD">
+    <mn>2</mn>
+    <msup>
+      <mi>x</mi>
+      <mn>4</mn>
+    </msup>
+  </mrow>
+  <mo>+</mo>
+  <mrow data-mjx-texclass="ORD">
+    <mn>3</mn>
+    <msup>
+      <mi>x</mi>
+      <mn>2</mn>
+    </msup>
+  </mrow>
+  <mo>&#x2212;</mo>
+  <mrow data-mjx-texclass="ORD">
+    <mn>2</mn>
+    <mi>x</mi>
+  </mrow>
+  <mo>&#x2212;</mo>
+  <mn>5</mn>
+</math>
 is a dense polynomial, whereas
-\[ % :56:
-  B: \quad x^{100} + {2x^2} + 1  \]
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mi>B</mi>
+  <mo>:</mo>
+  <mstyle scriptlevel="0">
+    <mspace width="1em"></mspace>
+  </mstyle>
+  <msup>
+    <mi>x</mi>
+    <mrow data-mjx-texclass="ORD">
+      <mn>100</mn>
+    </mrow>
+  </msup>
+  <mo>+</mo>
+  <mrow data-mjx-texclass="ORD">
+    <mn>2</mn>
+    <msup>
+      <mi>x</mi>
+      <mn>2</mn>
+    </msup>
+  </mrow>
+  <mo>+</mo>
+  <mn>1</mn>
+</math>
 is sparse.
 </p>
 <p>The term lists of dense polynomials are most efficiently represented as lists
@@ -1059,8 +1306,50 @@ generalization.  This is a major effort, not a local change.
 <p><strong class="strong"><a class="anchor" id="Exercise-2_002e91"></a>Exercise 2.91:</strong> A univariate polynomial can be
 divided by another one to produce a polynomial quotient and a polynomial
 remainder.  For example,
-\[ % :57:
-  {x^5 - 1 \over x^2 - 1} \,=\, {x^3 + x,} \text{  remainder  } {x - 1.}  \]
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mrow data-mjx-texclass="ORD">
+    <mfrac>
+      <mrow>
+        <msup>
+          <mi>x</mi>
+          <mn>5</mn>
+        </msup>
+        <mo>&#x2212;</mo>
+        <mn>1</mn>
+      </mrow>
+      <mrow>
+        <msup>
+          <mi>x</mi>
+          <mn>2</mn>
+        </msup>
+        <mo>&#x2212;</mo>
+        <mn>1</mn>
+      </mrow>
+    </mfrac>
+  </mrow>
+  <mstyle scriptlevel="0">
+    <mspace width="0.167em"></mspace>
+  </mstyle>
+  <mo>=</mo>
+  <mstyle scriptlevel="0">
+    <mspace width="0.167em"></mspace>
+  </mstyle>
+  <mrow data-mjx-texclass="ORD">
+    <msup>
+      <mi>x</mi>
+      <mn>3</mn>
+    </msup>
+    <mo>+</mo>
+    <mi>x</mi>
+    <mo>,</mo>
+  </mrow>
+  <mtext>&#xA0;remainder&#xA0;</mtext>
+  <mrow data-mjx-texclass="ORD">
+    <mi>x</mi>
+    <mo>&#x2212;</mo>
+    <mn>1.</mn>
+  </mrow>
+</math>
 Division can be performed via long division.  That is, divide the highest-order
 term of the dividend by the highest-order term of the divisor.  The result is
 the first term of the quotient.  Next, multiply the result by the divisor,
@@ -1162,13 +1451,109 @@ polynomials works for polynomials in different variables.  (This is not easy!)
 <em class="dfn">rational functions</em>.  
 These are &#8220;fractions&#8221; whose numerator and denominator are
 polynomials, such as
-\[ % :58:
-  {{x + 1 \over x^3 - 1}.}  \]
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mrow data-mjx-texclass="ORD">
+    <mrow data-mjx-texclass="ORD">
+      <mfrac>
+        <mrow>
+          <mi>x</mi>
+          <mo>+</mo>
+          <mn>1</mn>
+        </mrow>
+        <mrow>
+          <msup>
+            <mi>x</mi>
+            <mn>3</mn>
+          </msup>
+          <mo>&#x2212;</mo>
+          <mn>1</mn>
+        </mrow>
+      </mfrac>
+    </mrow>
+    <mo>.</mo>
+  </mrow>
+</math>
 The system should be able to add, subtract, multiply, and divide rational
 functions, and to perform such computations as
-\[ % :59:
-  {x + 1 \over x^3 - 1} + {x \over x^2 - 1} \,=\, 
-  {{x^3 + 2x^2 + 3x + 1 \over x^4 + x^3 - x - 1}.}  \]
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mrow data-mjx-texclass="ORD">
+    <mfrac>
+      <mrow>
+        <mi>x</mi>
+        <mo>+</mo>
+        <mn>1</mn>
+      </mrow>
+      <mrow>
+        <msup>
+          <mi>x</mi>
+          <mn>3</mn>
+        </msup>
+        <mo>&#x2212;</mo>
+        <mn>1</mn>
+      </mrow>
+    </mfrac>
+  </mrow>
+  <mo>+</mo>
+  <mrow data-mjx-texclass="ORD">
+    <mfrac>
+      <mi>x</mi>
+      <mrow>
+        <msup>
+          <mi>x</mi>
+          <mn>2</mn>
+        </msup>
+        <mo>&#x2212;</mo>
+        <mn>1</mn>
+      </mrow>
+    </mfrac>
+  </mrow>
+  <mstyle scriptlevel="0">
+    <mspace width="0.167em"></mspace>
+  </mstyle>
+  <mo>=</mo>
+  <mstyle scriptlevel="0">
+    <mspace width="0.167em"></mspace>
+  </mstyle>
+  <mrow data-mjx-texclass="ORD">
+    <mrow data-mjx-texclass="ORD">
+      <mfrac>
+        <mrow>
+          <msup>
+            <mi>x</mi>
+            <mn>3</mn>
+          </msup>
+          <mo>+</mo>
+          <mn>2</mn>
+          <msup>
+            <mi>x</mi>
+            <mn>2</mn>
+          </msup>
+          <mo>+</mo>
+          <mn>3</mn>
+          <mi>x</mi>
+          <mo>+</mo>
+          <mn>1</mn>
+        </mrow>
+        <mrow>
+          <msup>
+            <mi>x</mi>
+            <mn>4</mn>
+          </msup>
+          <mo>+</mo>
+          <msup>
+            <mi>x</mi>
+            <mn>3</mn>
+          </msup>
+          <mo>&#x2212;</mo>
+          <mi>x</mi>
+          <mo>&#x2212;</mo>
+          <mn>1</mn>
+        </mrow>
+      </mfrac>
+    </mrow>
+    <mo>.</mo>
+  </mrow>
+</math>
 (Here the sum has been simplified by removing common factors.  Ordinary &#8220;cross
 multiplication&#8221; would have produced a fourth-degree polynomial over a
 fifth-degree polynomial.)
@@ -1256,13 +1641,77 @@ let result = gcd_poly(&amp;p1, &amp;p2);
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-2_002e95"></a>Exercise 2.95:</strong> Define <em class="math">P_1</em>, <em class="math">P_2</em>, and
 <em class="math">P_3</em> to be the polynomials
-\[ % :60:
-\begin{array}{rl}
-  P_1:  &amp;   x^2 - 2x + 1, \\
-  P_2:  &amp;   11x^2 + 7,    \\
-  P_3:  &amp;   13x + 5.
-\end{array}
-\]
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mtable columnalign="right left" columnspacing="1em" rowspacing="4pt">
+    <mtr>
+      <mtd>
+        <msub>
+          <mi>P</mi>
+          <mn>1</mn>
+        </msub>
+        <mo>:</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <msup>
+          <mi>x</mi>
+          <mn>2</mn>
+        </msup>
+        <mo>&#x2212;</mo>
+        <mn>2</mn>
+        <mi>x</mi>
+        <mo>+</mo>
+        <mn>1</mn>
+        <mo>,</mo>
+      </mtd>
+    </mtr>
+    <mtr>
+      <mtd>
+        <msub>
+          <mi>P</mi>
+          <mn>2</mn>
+        </msub>
+        <mo>:</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mn>11</mn>
+        <msup>
+          <mi>x</mi>
+          <mn>2</mn>
+        </msup>
+        <mo>+</mo>
+        <mn>7</mn>
+        <mo>,</mo>
+      </mtd>
+    </mtr>
+    <mtr>
+      <mtd>
+        <msub>
+          <mi>P</mi>
+          <mn>3</mn>
+        </msub>
+        <mo>:</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mn>13</mn>
+        <mi>x</mi>
+        <mo>+</mo>
+        <mn>5.</mn>
+      </mtd>
+    </mtr>
+  </mtable>
+</math>
 Now define <em class="math">Q_1</em> to be the product of <em class="math">P_1</em> and <em class="math">P_2</em>, and <em class="math">Q_2</em> to be
 the product of <em class="math">P_1</em> and <em class="math">P_3</em>, and use <code class="code">greatest-common-divisor</code>
 (<a class="ref" href="#Exercise-2_002e94">Exercise 2.94</a>) to compute the <abbr class="abbr">GCD</abbr> of <em class="math">Q_1</em> and <em class="math">Q_2</em>.
@@ -1463,8 +1912,40 @@ work completely smoothly, we should also add to our generic arithmetic system
 the ability to coerce a &#8220;number&#8221; to a polynomial by regarding it as a
 polynomial of degree zero whose coefficient is the number.  This is necessary
 if we are going to perform operations such as
-\[ % :54:
-  {[x^2 + (y + 1)x + 5]} + {[x^2 + 2x + 1],}  \]
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mrow data-mjx-texclass="ORD">
+    <mo stretchy="false">[</mo>
+    <msup>
+      <mi>x</mi>
+      <mn>2</mn>
+    </msup>
+    <mo>+</mo>
+    <mo stretchy="false">(</mo>
+    <mi>y</mi>
+    <mo>+</mo>
+    <mn>1</mn>
+    <mo stretchy="false">)</mo>
+    <mi>x</mi>
+    <mo>+</mo>
+    <mn>5</mn>
+    <mo stretchy="false">]</mo>
+  </mrow>
+  <mo>+</mo>
+  <mrow data-mjx-texclass="ORD">
+    <mo stretchy="false">[</mo>
+    <msup>
+      <mi>x</mi>
+      <mn>2</mn>
+    </msup>
+    <mo>+</mo>
+    <mn>2</mn>
+    <mi>x</mi>
+    <mo>+</mo>
+    <mn>1</mn>
+    <mo stretchy="false">]</mo>
+    <mo>,</mo>
+  </mrow>
+</math>
 which requires adding the coefficient <em class="math">{y + 1}</em> to the coefficient 2.</p>
 <h5 class="footnote-body-heading"><a id="FOOT117" href="#DOCF117">(117)</a></h5>
 <p>In these polynomial examples, we assume that we have implemented

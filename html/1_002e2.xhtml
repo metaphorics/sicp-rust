@@ -90,19 +90,103 @@ than practical examples in their own right.
 
 <p>We begin by considering the factorial function, defined by
 
-\[ % :5:
- 
-n! \,=\, {n \cdot (n - 1)} \cdot {(n - 2)} \cdots {3 \cdot 2 \cdot 1.}
-\]
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mi>n</mi>
+  <mo>!</mo>
+  <mstyle scriptlevel="0">
+    <mspace width="0.167em"></mspace>
+  </mstyle>
+  <mo>=</mo>
+  <mstyle scriptlevel="0">
+    <mspace width="0.167em"></mspace>
+  </mstyle>
+  <mrow data-mjx-texclass="ORD">
+    <mi>n</mi>
+    <mo>&#x22C5;</mo>
+    <mo stretchy="false">(</mo>
+    <mi>n</mi>
+    <mo>&#x2212;</mo>
+    <mn>1</mn>
+    <mo stretchy="false">)</mo>
+  </mrow>
+  <mo>&#x22C5;</mo>
+  <mrow data-mjx-texclass="ORD">
+    <mo stretchy="false">(</mo>
+    <mi>n</mi>
+    <mo>&#x2212;</mo>
+    <mn>2</mn>
+    <mo stretchy="false">)</mo>
+  </mrow>
+  <mo>&#x22EF;</mo>
+  <mrow data-mjx-texclass="ORD">
+    <mn>3</mn>
+    <mo>&#x22C5;</mo>
+    <mn>2</mn>
+    <mo>&#x22C5;</mo>
+    <mn>1.</mn>
+  </mrow>
+</math>
 
 There are many ways to compute factorials.  One way is to make use of the
 observation that <em class="math">{n!}</em> is equal to <em class="math">n</em> times <em class="math">{(n - 1)!}</em> for any positive
 integer <em class="math">n</em>:
 
-\[ % :6:
- 
-n! \,=\, {n \cdot [(n - 1)} \cdot {(n - 2)} \cdots {3 \cdot 2 \cdot 1]} \,=\, {n \cdot (n - 1)!.}
-\]
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mi>n</mi>
+  <mo>!</mo>
+  <mstyle scriptlevel="0">
+    <mspace width="0.167em"></mspace>
+  </mstyle>
+  <mo>=</mo>
+  <mstyle scriptlevel="0">
+    <mspace width="0.167em"></mspace>
+  </mstyle>
+  <mrow data-mjx-texclass="ORD">
+    <mi>n</mi>
+    <mo>&#x22C5;</mo>
+    <mo stretchy="false">[</mo>
+    <mo stretchy="false">(</mo>
+    <mi>n</mi>
+    <mo>&#x2212;</mo>
+    <mn>1</mn>
+    <mo stretchy="false">)</mo>
+  </mrow>
+  <mo>&#x22C5;</mo>
+  <mrow data-mjx-texclass="ORD">
+    <mo stretchy="false">(</mo>
+    <mi>n</mi>
+    <mo>&#x2212;</mo>
+    <mn>2</mn>
+    <mo stretchy="false">)</mo>
+  </mrow>
+  <mo>&#x22EF;</mo>
+  <mrow data-mjx-texclass="ORD">
+    <mn>3</mn>
+    <mo>&#x22C5;</mo>
+    <mn>2</mn>
+    <mo>&#x22C5;</mo>
+    <mn>1</mn>
+    <mo stretchy="false">]</mo>
+  </mrow>
+  <mstyle scriptlevel="0">
+    <mspace width="0.167em"></mspace>
+  </mstyle>
+  <mo>=</mo>
+  <mstyle scriptlevel="0">
+    <mspace width="0.167em"></mspace>
+  </mstyle>
+  <mrow data-mjx-texclass="ORD">
+    <mi>n</mi>
+    <mo>&#x22C5;</mo>
+    <mo stretchy="false">(</mo>
+    <mi>n</mi>
+    <mo>&#x2212;</mo>
+    <mn>1</mn>
+    <mo stretchy="false">)</mo>
+    <mo>!</mo>
+    <mo>.</mo>
+  </mrow>
+</math>
 
 Thus, we can compute <em class="math">{n!}</em> by computing <em class="math">{(n - 1)!}</em> and multiplying the
 result by <em class="math">n</em>.  If we add the stipulation that 1! is equal to 1, this
@@ -332,17 +416,103 @@ number is the sum of the preceding two:
 </div>
 <p>In general, the Fibonacci numbers can be defined by the rule
 
-\[ % :7:
-  
-\text{Fib}(n) \; = \;
-  \left\{ 
-    \begin{array}{ll}	 	 
-      0 &amp; \;\text{if} \;\; n = 0, \\
-      1 &amp; \;\text{if} \;\; n = 1, \\
-      \text{Fib}(n-1) + \text{Fib}(n-2) &amp; \;\text{otherwise}. 
-    \end{array} 
-  \right. 
-\]
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mtext>Fib</mtext>
+  <mo stretchy="false">(</mo>
+  <mi>n</mi>
+  <mo stretchy="false">)</mo>
+  <mstyle scriptlevel="0">
+    <mspace width="0.278em"></mspace>
+  </mstyle>
+  <mo>=</mo>
+  <mstyle scriptlevel="0">
+    <mspace width="0.278em"></mspace>
+  </mstyle>
+  <mrow data-mjx-texclass="INNER">
+    <mo data-mjx-texclass="OPEN">{</mo>
+    <mtable columnalign="left left" columnspacing="1em" rowspacing="4pt">
+      <mtr>
+        <mtd>
+          <mn>0</mn>
+        </mtd>
+        <mtd>
+          <mi>a</mi>
+          <mi>m</mi>
+          <mi>p</mi>
+          <mo>;</mo>
+          <mstyle scriptlevel="0">
+            <mspace width="0.278em"></mspace>
+          </mstyle>
+          <mtext>if</mtext>
+          <mstyle scriptlevel="0">
+            <mspace width="0.278em"></mspace>
+          </mstyle>
+          <mstyle scriptlevel="0">
+            <mspace width="0.278em"></mspace>
+          </mstyle>
+          <mi>n</mi>
+          <mo>=</mo>
+          <mn>0</mn>
+          <mo>,</mo>
+        </mtd>
+      </mtr>
+      <mtr>
+        <mtd>
+          <mn>1</mn>
+        </mtd>
+        <mtd>
+          <mi>a</mi>
+          <mi>m</mi>
+          <mi>p</mi>
+          <mo>;</mo>
+          <mstyle scriptlevel="0">
+            <mspace width="0.278em"></mspace>
+          </mstyle>
+          <mtext>if</mtext>
+          <mstyle scriptlevel="0">
+            <mspace width="0.278em"></mspace>
+          </mstyle>
+          <mstyle scriptlevel="0">
+            <mspace width="0.278em"></mspace>
+          </mstyle>
+          <mi>n</mi>
+          <mo>=</mo>
+          <mn>1</mn>
+          <mo>,</mo>
+        </mtd>
+      </mtr>
+      <mtr>
+        <mtd>
+          <mtext>Fib</mtext>
+          <mo stretchy="false">(</mo>
+          <mi>n</mi>
+          <mo>&#x2212;</mo>
+          <mn>1</mn>
+          <mo stretchy="false">)</mo>
+          <mo>+</mo>
+          <mtext>Fib</mtext>
+          <mo stretchy="false">(</mo>
+          <mi>n</mi>
+          <mo>&#x2212;</mo>
+          <mn>2</mn>
+          <mo stretchy="false">)</mo>
+        </mtd>
+        <mtd>
+          <mi>a</mi>
+          <mi>m</mi>
+          <mi>p</mi>
+          <mo>;</mo>
+          <mstyle scriptlevel="0">
+            <mspace width="0.278em"></mspace>
+          </mstyle>
+          <mtext>otherwise</mtext>
+          <mo>.</mo>
+        </mtd>
+      </mtr>
+    </mtable>
+    <mo data-mjx-texclass="CLOSE" fence="true" stretchy="true" symmetric="true"></mo>
+  </mrow>
+</math>
 
 We can immediately translate this definition into a recursive procedure for
 computing Fibonacci numbers:
@@ -380,18 +550,56 @@ show that the value of <em class="math">{\text{Fib}(n)}</em> grows exponentially
 precisely (see <a class="ref" href="#Exercise-1_002e13">Exercise 1.13</a>), <em class="math">{\text{Fib}(n)}</em> is the closest integer
 to <em class="math">{\varphi^n / \sqrt{5}}</em>, where
 
-\[ % :8:
-
-\varphi \,=\, \frac{1 + \sqrt{5}}{2} \,\approx\, 1.6180
-\]
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mi>&#x3C6;</mi>
+  <mstyle scriptlevel="0">
+    <mspace width="0.167em"></mspace>
+  </mstyle>
+  <mo>=</mo>
+  <mstyle scriptlevel="0">
+    <mspace width="0.167em"></mspace>
+  </mstyle>
+  <mfrac>
+    <mrow>
+      <mn>1</mn>
+      <mo>+</mo>
+      <msqrt>
+        <mn>5</mn>
+      </msqrt>
+    </mrow>
+    <mn>2</mn>
+  </mfrac>
+  <mstyle scriptlevel="0">
+    <mspace width="0.167em"></mspace>
+  </mstyle>
+  <mo>&#x2248;</mo>
+  <mstyle scriptlevel="0">
+    <mspace width="0.167em"></mspace>
+  </mstyle>
+  <mn>1.6180</mn>
+</math>
 
 is the <a class="index-entry-id" id="index-golden-ratio"></a>
 <em class="dfn">golden ratio</em>, which satisfies the equation
 
-\[ % :9:
- 
-\varphi^2 \,=\, {\varphi + 1.}
-\]
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <msup>
+    <mi>&#x3C6;</mi>
+    <mn>2</mn>
+  </msup>
+  <mstyle scriptlevel="0">
+    <mspace width="0.167em"></mspace>
+  </mstyle>
+  <mo>=</mo>
+  <mstyle scriptlevel="0">
+    <mspace width="0.167em"></mspace>
+  </mstyle>
+  <mrow data-mjx-texclass="ORD">
+    <mi>&#x3C6;</mi>
+    <mo>+</mo>
+    <mn>1.</mn>
+  </mrow>
+</math>
 
 Thus, the process uses a number of steps that grows exponentially with the
 input.  On the other hand, the space required grows only linearly with the
@@ -406,13 +614,40 @@ The idea is to use a pair of integers <em class="math">a</em> and <em class="mat
 simultaneous transformations
 </p>
 
-\[ % :10:
- 
-\begin{array}{l}
-  a \;\leftarrow\; a + b, \\ 
-  b \;\leftarrow\; a. 
-\end{array}
-\]
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mtable columnalign="left" columnspacing="1em" rowspacing="4pt">
+    <mtr>
+      <mtd>
+        <mi>a</mi>
+        <mstyle scriptlevel="0">
+          <mspace width="0.278em"></mspace>
+        </mstyle>
+        <mo stretchy="false">&#x2190;</mo>
+        <mstyle scriptlevel="0">
+          <mspace width="0.278em"></mspace>
+        </mstyle>
+        <mi>a</mi>
+        <mo>+</mo>
+        <mi>b</mi>
+        <mo>,</mo>
+      </mtd>
+    </mtr>
+    <mtr>
+      <mtd>
+        <mi>b</mi>
+        <mstyle scriptlevel="0">
+          <mspace width="0.278em"></mspace>
+        </mstyle>
+        <mo stretchy="false">&#x2190;</mo>
+        <mstyle scriptlevel="0">
+          <mspace width="0.278em"></mspace>
+        </mstyle>
+        <mi>a</mi>
+        <mo>.</mo>
+      </mtd>
+    </mtr>
+  </mtable>
+</math>
 
 <p>It is not hard to show that, after applying this transformation <em class="math">n</em> times,
 <em class="math">a</em> and <em class="math">b</em> will be equal, respectively, to <em class="math">{\text{Fib}(n+1)}</em> and
@@ -652,10 +887,48 @@ in radians) can be computed by making use of the approximation
 <em class="math">{\sin x  \approx x}</em> if <em class="math">x</em> is sufficiently small, and the trigonometric
 identity
 
-\[ % :12:
- 
-{\sin x} \,=\, {3\sin \frac{x}{3}} \,-\, {4\sin^3 \frac{x}{3}}
-\]
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mrow data-mjx-texclass="ORD">
+    <mi>sin</mi>
+    <mo data-mjx-texclass="NONE">&#x2061;</mo>
+    <mi>x</mi>
+  </mrow>
+  <mstyle scriptlevel="0">
+    <mspace width="0.167em"></mspace>
+  </mstyle>
+  <mo>=</mo>
+  <mstyle scriptlevel="0">
+    <mspace width="0.167em"></mspace>
+  </mstyle>
+  <mrow data-mjx-texclass="ORD">
+    <mn>3</mn>
+    <mi>sin</mi>
+    <mo data-mjx-texclass="NONE">&#x2061;</mo>
+    <mfrac>
+      <mi>x</mi>
+      <mn>3</mn>
+    </mfrac>
+  </mrow>
+  <mstyle scriptlevel="0">
+    <mspace width="0.167em"></mspace>
+  </mstyle>
+  <mo>&#x2212;</mo>
+  <mstyle scriptlevel="0">
+    <mspace width="0.167em"></mspace>
+  </mstyle>
+  <mrow data-mjx-texclass="ORD">
+    <mn>4</mn>
+    <msup>
+      <mi>sin</mi>
+      <mn>3</mn>
+    </msup>
+    <mo data-mjx-texclass="NONE">&#x2061;</mo>
+    <mfrac>
+      <mi>x</mi>
+      <mn>3</mn>
+    </mfrac>
+  </mrow>
+</math>
 
 to reduce the size of the argument of sin.  (For purposes of this
 exercise an angle is considered &#8220;sufficiently small&#8221; if its magnitude is not
@@ -695,13 +968,53 @@ like a procedure that takes as arguments a base <em class="math">b</em> and a po
 exponent <em class="math">n</em> and computes <em class="math">b^n</em>.  One way to do this is via the
 recursive definition
 
-\[ % :13:
- 
-\begin{array}{l}
-  b^n \,=\, b\cdot b^{n-1}, \\ 
-  b^0 \,=\, 1, 
-\end{array}
-\]
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mtable columnalign="left" columnspacing="1em" rowspacing="4pt">
+    <mtr>
+      <mtd>
+        <msup>
+          <mi>b</mi>
+          <mi>n</mi>
+        </msup>
+        <mstyle scriptlevel="0">
+          <mspace width="0.167em"></mspace>
+        </mstyle>
+        <mo>=</mo>
+        <mstyle scriptlevel="0">
+          <mspace width="0.167em"></mspace>
+        </mstyle>
+        <mi>b</mi>
+        <mo>&#x22C5;</mo>
+        <msup>
+          <mi>b</mi>
+          <mrow data-mjx-texclass="ORD">
+            <mi>n</mi>
+            <mo>&#x2212;</mo>
+            <mn>1</mn>
+          </mrow>
+        </msup>
+        <mo>,</mo>
+      </mtd>
+    </mtr>
+    <mtr>
+      <mtd>
+        <msup>
+          <mi>b</mi>
+          <mn>0</mn>
+        </msup>
+        <mstyle scriptlevel="0">
+          <mspace width="0.167em"></mspace>
+        </mstyle>
+        <mo>=</mo>
+        <mstyle scriptlevel="0">
+          <mspace width="0.167em"></mspace>
+        </mstyle>
+        <mn>1</mn>
+        <mo>,</mo>
+      </mtd>
+    </mtr>
+  </mtable>
+</math>
 
 which translates readily into the procedure
 </p>
@@ -738,33 +1051,214 @@ fn expt_iter(b: u64, counter: u64, product: u64) -&gt; u64 {
 <p>We can compute exponentials in fewer steps by using successive squaring.  For
 instance, rather than computing <em class="math">b^8</em> as
 
-\[ % :14:
-  
-{b\cdot (b\cdot (b}\cdot {(b\cdot (b\cdot (b}\cdot {(b\cdot b)))))),}
-\]
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mrow data-mjx-texclass="ORD">
+    <mi>b</mi>
+    <mo>&#x22C5;</mo>
+    <mo stretchy="false">(</mo>
+    <mi>b</mi>
+    <mo>&#x22C5;</mo>
+    <mo stretchy="false">(</mo>
+    <mi>b</mi>
+  </mrow>
+  <mo>&#x22C5;</mo>
+  <mrow data-mjx-texclass="ORD">
+    <mo stretchy="false">(</mo>
+    <mi>b</mi>
+    <mo>&#x22C5;</mo>
+    <mo stretchy="false">(</mo>
+    <mi>b</mi>
+    <mo>&#x22C5;</mo>
+    <mo stretchy="false">(</mo>
+    <mi>b</mi>
+  </mrow>
+  <mo>&#x22C5;</mo>
+  <mrow data-mjx-texclass="ORD">
+    <mo stretchy="false">(</mo>
+    <mi>b</mi>
+    <mo>&#x22C5;</mo>
+    <mi>b</mi>
+    <mo stretchy="false">)</mo>
+    <mo stretchy="false">)</mo>
+    <mo stretchy="false">)</mo>
+    <mo stretchy="false">)</mo>
+    <mo stretchy="false">)</mo>
+    <mo stretchy="false">)</mo>
+    <mo>,</mo>
+  </mrow>
+</math>
 
 we can compute it using three multiplications:
 
-\[ % :15:
- 
-\begin{array}{l}
-  b^2 \,=\, b\cdot b, \\ 
-  b^4 \,=\, b^2\cdot b^2, \\
-  b^8 \,=\, b^4\cdot b^4.
-\end{array}
-\]
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mtable columnalign="left" columnspacing="1em" rowspacing="4pt">
+    <mtr>
+      <mtd>
+        <msup>
+          <mi>b</mi>
+          <mn>2</mn>
+        </msup>
+        <mstyle scriptlevel="0">
+          <mspace width="0.167em"></mspace>
+        </mstyle>
+        <mo>=</mo>
+        <mstyle scriptlevel="0">
+          <mspace width="0.167em"></mspace>
+        </mstyle>
+        <mi>b</mi>
+        <mo>&#x22C5;</mo>
+        <mi>b</mi>
+        <mo>,</mo>
+      </mtd>
+    </mtr>
+    <mtr>
+      <mtd>
+        <msup>
+          <mi>b</mi>
+          <mn>4</mn>
+        </msup>
+        <mstyle scriptlevel="0">
+          <mspace width="0.167em"></mspace>
+        </mstyle>
+        <mo>=</mo>
+        <mstyle scriptlevel="0">
+          <mspace width="0.167em"></mspace>
+        </mstyle>
+        <msup>
+          <mi>b</mi>
+          <mn>2</mn>
+        </msup>
+        <mo>&#x22C5;</mo>
+        <msup>
+          <mi>b</mi>
+          <mn>2</mn>
+        </msup>
+        <mo>,</mo>
+      </mtd>
+    </mtr>
+    <mtr>
+      <mtd>
+        <msup>
+          <mi>b</mi>
+          <mn>8</mn>
+        </msup>
+        <mstyle scriptlevel="0">
+          <mspace width="0.167em"></mspace>
+        </mstyle>
+        <mo>=</mo>
+        <mstyle scriptlevel="0">
+          <mspace width="0.167em"></mspace>
+        </mstyle>
+        <msup>
+          <mi>b</mi>
+          <mn>4</mn>
+        </msup>
+        <mo>&#x22C5;</mo>
+        <msup>
+          <mi>b</mi>
+          <mn>4</mn>
+        </msup>
+        <mo>.</mo>
+      </mtd>
+    </mtr>
+  </mtable>
+</math>
 
 This method works fine for exponents that are powers of 2.  We can also take
 advantage of successive squaring in computing exponentials in general if we use
 the rule
 
-\[ % :16:
- 
-\begin{array}{ll}
-  b^n \,=\, (b^{n / 2})^2   &amp; \text{if} \; n \; \text{is even}, \\
-  b^n \,=\, b\cdot b^{n-1}  &amp; \text{if} \; n \; \text{is odd}.
-\end{array}
-\]
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mtable columnalign="left left" columnspacing="1em" rowspacing="4pt">
+    <mtr>
+      <mtd>
+        <msup>
+          <mi>b</mi>
+          <mi>n</mi>
+        </msup>
+        <mstyle scriptlevel="0">
+          <mspace width="0.167em"></mspace>
+        </mstyle>
+        <mo>=</mo>
+        <mstyle scriptlevel="0">
+          <mspace width="0.167em"></mspace>
+        </mstyle>
+        <mo stretchy="false">(</mo>
+        <msup>
+          <mi>b</mi>
+          <mrow data-mjx-texclass="ORD">
+            <mi>n</mi>
+            <mrow data-mjx-texclass="ORD">
+              <mo>/</mo>
+            </mrow>
+            <mn>2</mn>
+          </mrow>
+        </msup>
+        <msup>
+          <mo stretchy="false">)</mo>
+          <mn>2</mn>
+        </msup>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mtext>if</mtext>
+        <mstyle scriptlevel="0">
+          <mspace width="0.278em"></mspace>
+        </mstyle>
+        <mi>n</mi>
+        <mstyle scriptlevel="0">
+          <mspace width="0.278em"></mspace>
+        </mstyle>
+        <mtext>is even</mtext>
+        <mo>,</mo>
+      </mtd>
+    </mtr>
+    <mtr>
+      <mtd>
+        <msup>
+          <mi>b</mi>
+          <mi>n</mi>
+        </msup>
+        <mstyle scriptlevel="0">
+          <mspace width="0.167em"></mspace>
+        </mstyle>
+        <mo>=</mo>
+        <mstyle scriptlevel="0">
+          <mspace width="0.167em"></mspace>
+        </mstyle>
+        <mi>b</mi>
+        <mo>&#x22C5;</mo>
+        <msup>
+          <mi>b</mi>
+          <mrow data-mjx-texclass="ORD">
+            <mi>n</mi>
+            <mo>&#x2212;</mo>
+            <mn>1</mn>
+          </mrow>
+        </msup>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mtext>if</mtext>
+        <mstyle scriptlevel="0">
+          <mspace width="0.278em"></mspace>
+        </mstyle>
+        <mi>n</mi>
+        <mstyle scriptlevel="0">
+          <mspace width="0.278em"></mspace>
+        </mstyle>
+        <mtext>is odd</mtext>
+        <mo>.</mo>
+      </mtd>
+    </mtr>
+  </mtable>
+</math>
 
 We can express this method as a procedure:
 </p>

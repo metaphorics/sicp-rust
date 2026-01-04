@@ -359,40 +359,338 @@ Thus, for example,
 produces one of the following four sequences of instructions, depending on how
 <em class="math">{⟨\kern0.1em seq_1⟩}</em> and <em class="math">{⟨\kern0.1em seq_2⟩}</em> 
 use <em class="math">{⟨\kern0.1em reg_1⟩}</em> and <em class="math">{⟨\kern0.1em reg_2⟩}</em>:
-\[ % :83:
-
-\begin{array}{l|l|l|l}
-⟨\kern0.1em{seq_1}⟩                     &amp;
-\text{(save}                            &amp;
-\text{(save}                            &amp;
-\text{(save} \kern1ex ⟨\kern0.1em{reg_2}⟩\text{)}    \\
-
-⟨\kern0.1em{seq_2}⟩  		        &amp;
-\kern1ex ⟨\kern0.1em{reg_1}⟩\text{)}    &amp;
-\kern1ex ⟨\kern0.1em{reg_2}⟩\text{)}    &amp;
-\text{(save} \kern1ex ⟨\kern0.1em{reg_1}⟩\text{)}    \\
-
-                                        &amp;
-⟨\kern0.1em{seq_1}⟩                     &amp;
-⟨\kern0.1em{seq_1}⟩                     &amp;
-⟨\kern0.1em{seq_1}⟩                                  \\
-
-                                        &amp;
-\text{(restore}                         &amp;
-\text{(restore}                         &amp;
-\text{(restore} \kern1ex ⟨\kern0.1em{reg_1}⟩\text{)} \\
-
-                                        &amp;
-\kern1ex ⟨\kern0.1em{reg_1}⟩\text{)}    &amp;
-\kern1ex ⟨\kern0.1em{reg_2}⟩\text{)}    &amp;
-\text{(restore} \kern1ex ⟨\kern0.1em{reg_2}⟩\text{)} \\
-
-                                        &amp;
-⟨\kern0.1em{seq_2}⟩                     &amp;
-⟨\kern0.1em{seq_2}⟩                     &amp;
-⟨\kern0.1em{seq_2}⟩
-\end{array}
-\]
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mtable columnalign="left left left left" columnspacing="1em" rowspacing="4pt" columnlines="solid solid solid">
+    <mtr>
+      <mtd>
+        <mo stretchy="false">&#x27E8;</mo>
+        <mspace width="0.1em"></mspace>
+        <mrow data-mjx-texclass="ORD">
+          <mi>s</mi>
+          <mi>e</mi>
+          <msub>
+            <mi>q</mi>
+            <mn>1</mn>
+          </msub>
+        </mrow>
+        <mo stretchy="false">&#x27E9;</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mtext>(save</mtext>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mtext>(save</mtext>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mtext>(save</mtext>
+        <mspace width="1ex"></mspace>
+        <mo stretchy="false">&#x27E8;</mo>
+        <mspace width="0.1em"></mspace>
+        <mrow data-mjx-texclass="ORD">
+          <mi>r</mi>
+          <mi>e</mi>
+          <msub>
+            <mi>g</mi>
+            <mn>2</mn>
+          </msub>
+        </mrow>
+        <mo stretchy="false">&#x27E9;</mo>
+        <mtext>)</mtext>
+      </mtd>
+    </mtr>
+    <mtr>
+      <mtd>
+        <mo stretchy="false">&#x27E8;</mo>
+        <mspace width="0.1em"></mspace>
+        <mrow data-mjx-texclass="ORD">
+          <mi>s</mi>
+          <mi>e</mi>
+          <msub>
+            <mi>q</mi>
+            <mn>2</mn>
+          </msub>
+        </mrow>
+        <mo stretchy="false">&#x27E9;</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mspace width="1ex"></mspace>
+        <mo stretchy="false">&#x27E8;</mo>
+        <mspace width="0.1em"></mspace>
+        <mrow data-mjx-texclass="ORD">
+          <mi>r</mi>
+          <mi>e</mi>
+          <msub>
+            <mi>g</mi>
+            <mn>1</mn>
+          </msub>
+        </mrow>
+        <mo stretchy="false">&#x27E9;</mo>
+        <mtext>)</mtext>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mspace width="1ex"></mspace>
+        <mo stretchy="false">&#x27E8;</mo>
+        <mspace width="0.1em"></mspace>
+        <mrow data-mjx-texclass="ORD">
+          <mi>r</mi>
+          <mi>e</mi>
+          <msub>
+            <mi>g</mi>
+            <mn>2</mn>
+          </msub>
+        </mrow>
+        <mo stretchy="false">&#x27E9;</mo>
+        <mtext>)</mtext>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mtext>(save</mtext>
+        <mspace width="1ex"></mspace>
+        <mo stretchy="false">&#x27E8;</mo>
+        <mspace width="0.1em"></mspace>
+        <mrow data-mjx-texclass="ORD">
+          <mi>r</mi>
+          <mi>e</mi>
+          <msub>
+            <mi>g</mi>
+            <mn>1</mn>
+          </msub>
+        </mrow>
+        <mo stretchy="false">&#x27E9;</mo>
+        <mtext>)</mtext>
+      </mtd>
+    </mtr>
+    <mtr>
+      <mtd></mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mo stretchy="false">&#x27E8;</mo>
+        <mspace width="0.1em"></mspace>
+        <mrow data-mjx-texclass="ORD">
+          <mi>s</mi>
+          <mi>e</mi>
+          <msub>
+            <mi>q</mi>
+            <mn>1</mn>
+          </msub>
+        </mrow>
+        <mo stretchy="false">&#x27E9;</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mo stretchy="false">&#x27E8;</mo>
+        <mspace width="0.1em"></mspace>
+        <mrow data-mjx-texclass="ORD">
+          <mi>s</mi>
+          <mi>e</mi>
+          <msub>
+            <mi>q</mi>
+            <mn>1</mn>
+          </msub>
+        </mrow>
+        <mo stretchy="false">&#x27E9;</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mo stretchy="false">&#x27E8;</mo>
+        <mspace width="0.1em"></mspace>
+        <mrow data-mjx-texclass="ORD">
+          <mi>s</mi>
+          <mi>e</mi>
+          <msub>
+            <mi>q</mi>
+            <mn>1</mn>
+          </msub>
+        </mrow>
+        <mo stretchy="false">&#x27E9;</mo>
+      </mtd>
+    </mtr>
+    <mtr>
+      <mtd></mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mtext>(restore</mtext>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mtext>(restore</mtext>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mtext>(restore</mtext>
+        <mspace width="1ex"></mspace>
+        <mo stretchy="false">&#x27E8;</mo>
+        <mspace width="0.1em"></mspace>
+        <mrow data-mjx-texclass="ORD">
+          <mi>r</mi>
+          <mi>e</mi>
+          <msub>
+            <mi>g</mi>
+            <mn>1</mn>
+          </msub>
+        </mrow>
+        <mo stretchy="false">&#x27E9;</mo>
+        <mtext>)</mtext>
+      </mtd>
+    </mtr>
+    <mtr>
+      <mtd></mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mspace width="1ex"></mspace>
+        <mo stretchy="false">&#x27E8;</mo>
+        <mspace width="0.1em"></mspace>
+        <mrow data-mjx-texclass="ORD">
+          <mi>r</mi>
+          <mi>e</mi>
+          <msub>
+            <mi>g</mi>
+            <mn>1</mn>
+          </msub>
+        </mrow>
+        <mo stretchy="false">&#x27E9;</mo>
+        <mtext>)</mtext>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mspace width="1ex"></mspace>
+        <mo stretchy="false">&#x27E8;</mo>
+        <mspace width="0.1em"></mspace>
+        <mrow data-mjx-texclass="ORD">
+          <mi>r</mi>
+          <mi>e</mi>
+          <msub>
+            <mi>g</mi>
+            <mn>2</mn>
+          </msub>
+        </mrow>
+        <mo stretchy="false">&#x27E9;</mo>
+        <mtext>)</mtext>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mtext>(restore</mtext>
+        <mspace width="1ex"></mspace>
+        <mo stretchy="false">&#x27E8;</mo>
+        <mspace width="0.1em"></mspace>
+        <mrow data-mjx-texclass="ORD">
+          <mi>r</mi>
+          <mi>e</mi>
+          <msub>
+            <mi>g</mi>
+            <mn>2</mn>
+          </msub>
+        </mrow>
+        <mo stretchy="false">&#x27E9;</mo>
+        <mtext>)</mtext>
+      </mtd>
+    </mtr>
+    <mtr>
+      <mtd></mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mo stretchy="false">&#x27E8;</mo>
+        <mspace width="0.1em"></mspace>
+        <mrow data-mjx-texclass="ORD">
+          <mi>s</mi>
+          <mi>e</mi>
+          <msub>
+            <mi>q</mi>
+            <mn>2</mn>
+          </msub>
+        </mrow>
+        <mo stretchy="false">&#x27E9;</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mo stretchy="false">&#x27E8;</mo>
+        <mspace width="0.1em"></mspace>
+        <mrow data-mjx-texclass="ORD">
+          <mi>s</mi>
+          <mi>e</mi>
+          <msub>
+            <mi>q</mi>
+            <mn>2</mn>
+          </msub>
+        </mrow>
+        <mo stretchy="false">&#x27E9;</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mo stretchy="false">&#x27E8;</mo>
+        <mspace width="0.1em"></mspace>
+        <mrow data-mjx-texclass="ORD">
+          <mi>s</mi>
+          <mi>e</mi>
+          <msub>
+            <mi>q</mi>
+            <mn>2</mn>
+          </msub>
+        </mrow>
+        <mo stretchy="false">&#x27E9;</mo>
+      </mtd>
+    </mtr>
+  </mtable>
+</math>
 </p>
 <p>By using <code class="code">preserving</code> to combine instruction sequences the compiler avoids
 unnecessary stack operations.  This also isolates the details of whether or not

@@ -1001,21 +1001,240 @@ integers.)  What are the successive elements produced by <code class="code">(exp
 to implement a polynomial arithmetic system representing polynomials as lists
 of terms.  In a similar way, we can work with <a class="index-entry-id" id="index-power-series"></a>
 <em class="dfn">power series</em>, such as
-\[ % :63:
-\begin{eqnarray}
-  e^x 	  &amp;=&amp; 1 + x + \frac{1}{2} x^2  + \frac{1}{3 \cdot 2} x^3  + \frac{1}{4 \cdot 3 \cdot 2} x^4  + \dots, \\
-  \cos x  &amp;=&amp; 1 - \frac{1}{2} x^2  + \frac{1}{4 \cdot 3 \cdot 2} x^4  - \dots, \\
-  \sin x  &amp;=&amp; x - \frac{1}{3 \cdot 2} x^3  + \frac{1}{5 \cdot 4 \cdot 3 \cdot 2} x^5  - \dots
-\end{eqnarray}
-\]
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mtable displaystyle="true" columnalign="right center left" columnspacing="0em 0.278em" rowspacing="3pt">
+    <mtr>
+      <mtd>
+        <msup>
+          <mi>e</mi>
+          <mi>x</mi>
+        </msup>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mo>=</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mn>1</mn>
+        <mo>+</mo>
+        <mi>x</mi>
+        <mo>+</mo>
+        <mfrac>
+          <mn>1</mn>
+          <mn>2</mn>
+        </mfrac>
+        <msup>
+          <mi>x</mi>
+          <mn>2</mn>
+        </msup>
+        <mo>+</mo>
+        <mfrac>
+          <mn>1</mn>
+          <mrow>
+            <mn>3</mn>
+            <mo>&#x22C5;</mo>
+            <mn>2</mn>
+          </mrow>
+        </mfrac>
+        <msup>
+          <mi>x</mi>
+          <mn>3</mn>
+        </msup>
+        <mo>+</mo>
+        <mfrac>
+          <mn>1</mn>
+          <mrow>
+            <mn>4</mn>
+            <mo>&#x22C5;</mo>
+            <mn>3</mn>
+            <mo>&#x22C5;</mo>
+            <mn>2</mn>
+          </mrow>
+        </mfrac>
+        <msup>
+          <mi>x</mi>
+          <mn>4</mn>
+        </msup>
+        <mo>+</mo>
+        <mo>&#x2026;</mo>
+        <mo>,</mo>
+      </mtd>
+    </mtr>
+    <mtr>
+      <mtd>
+        <mi>cos</mi>
+        <mo data-mjx-texclass="NONE">&#x2061;</mo>
+        <mi>x</mi>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mo>=</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mn>1</mn>
+        <mo>&#x2212;</mo>
+        <mfrac>
+          <mn>1</mn>
+          <mn>2</mn>
+        </mfrac>
+        <msup>
+          <mi>x</mi>
+          <mn>2</mn>
+        </msup>
+        <mo>+</mo>
+        <mfrac>
+          <mn>1</mn>
+          <mrow>
+            <mn>4</mn>
+            <mo>&#x22C5;</mo>
+            <mn>3</mn>
+            <mo>&#x22C5;</mo>
+            <mn>2</mn>
+          </mrow>
+        </mfrac>
+        <msup>
+          <mi>x</mi>
+          <mn>4</mn>
+        </msup>
+        <mo>&#x2212;</mo>
+        <mo>&#x2026;</mo>
+        <mo>,</mo>
+      </mtd>
+    </mtr>
+    <mtr>
+      <mtd>
+        <mi>sin</mi>
+        <mo data-mjx-texclass="NONE">&#x2061;</mo>
+        <mi>x</mi>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mo>=</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mi>x</mi>
+        <mo>&#x2212;</mo>
+        <mfrac>
+          <mn>1</mn>
+          <mrow>
+            <mn>3</mn>
+            <mo>&#x22C5;</mo>
+            <mn>2</mn>
+          </mrow>
+        </mfrac>
+        <msup>
+          <mi>x</mi>
+          <mn>3</mn>
+        </msup>
+        <mo>+</mo>
+        <mfrac>
+          <mn>1</mn>
+          <mrow>
+            <mn>5</mn>
+            <mo>&#x22C5;</mo>
+            <mn>4</mn>
+            <mo>&#x22C5;</mo>
+            <mn>3</mn>
+            <mo>&#x22C5;</mo>
+            <mn>2</mn>
+          </mrow>
+        </mfrac>
+        <msup>
+          <mi>x</mi>
+          <mn>5</mn>
+        </msup>
+        <mo>&#x2212;</mo>
+        <mo>&#x2026;</mo>
+      </mtd>
+    </mtr>
+  </mtable>
+</math>
 represented as infinite streams.  We will represent the series <em class="math">{a_0 +
 a_1 x} + {a_2 x^2} + {a_3 x^3 + \dots}</em> as the stream whose
 elements are the coefficients <em class="math">a_0</em>, <em class="math">a_1</em>, <em class="math">a_2</em>, <em class="math">a_3</em>, &#8230;.
 </p>
 <ol class="enumerate" type="a" start="1">
 <li> The integral of the series <em class="math">{a_0 + a_1 x} + {a_2 x^2} + {a_3 x^3 + \dots}</em> is the series
-\[ % :64:
-  c + {a_0 x} + {\frac{1}{2} a_1 x^2} + {\frac{1}{3} a_2 x^3} + {\frac{1}{4} a_3 x^4 + \dots,}  \]
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mi>c</mi>
+  <mo>+</mo>
+  <mrow data-mjx-texclass="ORD">
+    <msub>
+      <mi>a</mi>
+      <mn>0</mn>
+    </msub>
+    <mi>x</mi>
+  </mrow>
+  <mo>+</mo>
+  <mrow data-mjx-texclass="ORD">
+    <mfrac>
+      <mn>1</mn>
+      <mn>2</mn>
+    </mfrac>
+    <msub>
+      <mi>a</mi>
+      <mn>1</mn>
+    </msub>
+    <msup>
+      <mi>x</mi>
+      <mn>2</mn>
+    </msup>
+  </mrow>
+  <mo>+</mo>
+  <mrow data-mjx-texclass="ORD">
+    <mfrac>
+      <mn>1</mn>
+      <mn>3</mn>
+    </mfrac>
+    <msub>
+      <mi>a</mi>
+      <mn>2</mn>
+    </msub>
+    <msup>
+      <mi>x</mi>
+      <mn>3</mn>
+    </msup>
+  </mrow>
+  <mo>+</mo>
+  <mrow data-mjx-texclass="ORD">
+    <mfrac>
+      <mn>1</mn>
+      <mn>4</mn>
+    </mfrac>
+    <msub>
+      <mi>a</mi>
+      <mn>3</mn>
+    </msub>
+    <msup>
+      <mi>x</mi>
+      <mn>4</mn>
+    </msup>
+    <mo>+</mo>
+    <mo>&#x2026;</mo>
+    <mo>,</mo>
+  </mrow>
+</math>
 where <em class="math">c</em> is any constant.  Define a procedure <code class="code">integrate_series</code> that
 takes as input a stream <em class="math">a_0</em>, <em class="math">a_1</em>, <em class="math">a_2</em>, &#8230; representing a power
 series and returns the stream <em class="math">a_0</em>, <em class="math">{{1\over2}a_1}</em>, <em class="math">{{1\over3}a_2}</em>, &#8230; of
@@ -1105,14 +1324,115 @@ using the series from <a class="ref" href="#Exercise-3_002e59">Exercise 3.59</a>
 power series <em class="math">{1 / S}</em>, that is, the series <em class="math">X</em> such that <em class="math">{SX = 1}</em>.
 Write <em class="math">{S = 1 + S_R}</em> where <em class="math">S_R</em> is the part of <em class="math">S</em> after the
 constant term.  Then we can solve for <em class="math">X</em> as follows:
-\[ % :65:
-\begin{eqnarray}
-  S \cdot X           &amp;=&amp;   1, \\
-  (1 + S_R) \cdot X   &amp;=&amp;   1, \\
-  X + S_R \cdot X     &amp;=&amp;   1, \\
-  X                   &amp;=&amp;   1 - S_R \cdot X.
-\end{eqnarray}
-\]
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mtable displaystyle="true" columnalign="right center left" columnspacing="0em 0.278em" rowspacing="3pt">
+    <mtr>
+      <mtd>
+        <mi>S</mi>
+        <mo>&#x22C5;</mo>
+        <mi>X</mi>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mo>=</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mn>1</mn>
+        <mo>,</mo>
+      </mtd>
+    </mtr>
+    <mtr>
+      <mtd>
+        <mo stretchy="false">(</mo>
+        <mn>1</mn>
+        <mo>+</mo>
+        <msub>
+          <mi>S</mi>
+          <mi>R</mi>
+        </msub>
+        <mo stretchy="false">)</mo>
+        <mo>&#x22C5;</mo>
+        <mi>X</mi>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mo>=</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mn>1</mn>
+        <mo>,</mo>
+      </mtd>
+    </mtr>
+    <mtr>
+      <mtd>
+        <mi>X</mi>
+        <mo>+</mo>
+        <msub>
+          <mi>S</mi>
+          <mi>R</mi>
+        </msub>
+        <mo>&#x22C5;</mo>
+        <mi>X</mi>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mo>=</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mn>1</mn>
+        <mo>,</mo>
+      </mtd>
+    </mtr>
+    <mtr>
+      <mtd>
+        <mi>X</mi>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mo>=</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mn>1</mn>
+        <mo>&#x2212;</mo>
+        <msub>
+          <mi>S</mi>
+          <mi>R</mi>
+        </msub>
+        <mo>&#x22C5;</mo>
+        <mi>X</mi>
+        <mo>.</mo>
+      </mtd>
+    </mtr>
+  </mtable>
+</math>
 In other words, <em class="math">X</em> is the power series whose constant term is 1 and whose
 higher-order terms are given by the negative of <em class="math">S_R</em> times <em class="math">X</em>.  Use
 this idea to write a procedure <code class="code">invert_unit_series</code> that computes <em class="math">{1 / S}</em>
@@ -1186,8 +1506,48 @@ until the answer is good enough.  (See <a class="ref" href="#Exercise-3_002e64">
 <p>Another iteration that we can treat in the same way is to generate an
 approximation to <em class="math">\pi</em>, based upon the alternating series that we saw in
 <a class="ref" href="1_002e3.xhtml#g_t1_002e3_002e1">Procedures as Arguments</a>:
-\[ % :66:
-  {\pi\over4} \,=\, 1 - {1\over3} + {1\over5} - {1\over7} + {\dots.}  \]
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mrow data-mjx-texclass="ORD">
+    <mfrac>
+      <mi>&#x3C0;</mi>
+      <mn>4</mn>
+    </mfrac>
+  </mrow>
+  <mstyle scriptlevel="0">
+    <mspace width="0.167em"></mspace>
+  </mstyle>
+  <mo>=</mo>
+  <mstyle scriptlevel="0">
+    <mspace width="0.167em"></mspace>
+  </mstyle>
+  <mn>1</mn>
+  <mo>&#x2212;</mo>
+  <mrow data-mjx-texclass="ORD">
+    <mfrac>
+      <mn>1</mn>
+      <mn>3</mn>
+    </mfrac>
+  </mrow>
+  <mo>+</mo>
+  <mrow data-mjx-texclass="ORD">
+    <mfrac>
+      <mn>1</mn>
+      <mn>5</mn>
+    </mfrac>
+  </mrow>
+  <mo>&#x2212;</mo>
+  <mrow data-mjx-texclass="ORD">
+    <mfrac>
+      <mn>1</mn>
+      <mn>7</mn>
+    </mfrac>
+  </mrow>
+  <mo>+</mo>
+  <mrow data-mjx-texclass="ORD">
+    <mo>&#x2026;</mo>
+    <mo>.</mo>
+  </mrow>
+</math>
 We first generate the stream of summands of the series (the reciprocals of the
 odd integers, with alternating signs).  Then we take the stream of sums of more
 and more terms (using the <code class="code">partial_sums</code> procedure of <a class="ref" href="#Exercise-3_002e55">Exercise 3.55</a>)
@@ -1230,8 +1590,69 @@ Leonhard Euler, works well with sequences that are partial sums of alternating
 series (series of terms with alternating signs).  In Euler&#8217;s technique, if
 <em class="math">S_n</em> is the <em class="math">n^{\text{th}}</em> term of the original sum sequence, then the
 accelerated sequence has terms
-\[ % :67:
-  S_{n+1} - {{(S_{n+1} - S_n)^2 \over S_{n-1} - 2S_n + S_{n+1}}.}  \]
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <msub>
+    <mi>S</mi>
+    <mrow data-mjx-texclass="ORD">
+      <mi>n</mi>
+      <mo>+</mo>
+      <mn>1</mn>
+    </mrow>
+  </msub>
+  <mo>&#x2212;</mo>
+  <mrow data-mjx-texclass="ORD">
+    <mrow data-mjx-texclass="ORD">
+      <mfrac>
+        <mrow>
+          <mo stretchy="false">(</mo>
+          <msub>
+            <mi>S</mi>
+            <mrow data-mjx-texclass="ORD">
+              <mi>n</mi>
+              <mo>+</mo>
+              <mn>1</mn>
+            </mrow>
+          </msub>
+          <mo>&#x2212;</mo>
+          <msub>
+            <mi>S</mi>
+            <mi>n</mi>
+          </msub>
+          <msup>
+            <mo stretchy="false">)</mo>
+            <mn>2</mn>
+          </msup>
+        </mrow>
+        <mrow>
+          <msub>
+            <mi>S</mi>
+            <mrow data-mjx-texclass="ORD">
+              <mi>n</mi>
+              <mo>&#x2212;</mo>
+              <mn>1</mn>
+            </mrow>
+          </msub>
+          <mo>&#x2212;</mo>
+          <mn>2</mn>
+          <msub>
+            <mi>S</mi>
+            <mi>n</mi>
+          </msub>
+          <mo>+</mo>
+          <msub>
+            <mi>S</mi>
+            <mrow data-mjx-texclass="ORD">
+              <mi>n</mi>
+              <mo>+</mo>
+              <mn>1</mn>
+            </mrow>
+          </msub>
+        </mrow>
+      </mfrac>
+    </mrow>
+    <mo>.</mo>
+  </mrow>
+</math>
 Thus, if the original sequence is represented as a stream of values, the
 transformed sequence is given by
 </p>
@@ -1284,15 +1705,219 @@ where
 </pre></div>
 
 <p>The tableau has the form
-\[ % :68:
-
-\begin{array}{cccccc}
- s_{00} 	&amp;   s_{01}  	&amp;   s_{02}  	&amp;   s_{03}  	&amp;   s_{04}  	&amp;   \dots  \\
-		&amp;   s_{10}  	&amp;   s_{11}  	&amp;   s_{12}  	&amp;   s_{13}  	&amp;   \dots  \\
-		&amp; 		&amp;   s_{20}  	&amp;   s_{21}  	&amp;   s_{22}  	&amp;   \dots  \\
-		&amp; 		&amp; 		&amp;   \dots  	&amp; 		&amp;   
-\end{array}
-\]
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mtable columnalign="center center center center center center" columnspacing="1em" rowspacing="4pt">
+    <mtr>
+      <mtd>
+        <msub>
+          <mi>s</mi>
+          <mrow data-mjx-texclass="ORD">
+            <mn>00</mn>
+          </mrow>
+        </msub>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <msub>
+          <mi>s</mi>
+          <mrow data-mjx-texclass="ORD">
+            <mn>01</mn>
+          </mrow>
+        </msub>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <msub>
+          <mi>s</mi>
+          <mrow data-mjx-texclass="ORD">
+            <mn>02</mn>
+          </mrow>
+        </msub>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <msub>
+          <mi>s</mi>
+          <mrow data-mjx-texclass="ORD">
+            <mn>03</mn>
+          </mrow>
+        </msub>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <msub>
+          <mi>s</mi>
+          <mrow data-mjx-texclass="ORD">
+            <mn>04</mn>
+          </mrow>
+        </msub>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mo>&#x2026;</mo>
+      </mtd>
+    </mtr>
+    <mtr>
+      <mtd></mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <msub>
+          <mi>s</mi>
+          <mrow data-mjx-texclass="ORD">
+            <mn>10</mn>
+          </mrow>
+        </msub>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <msub>
+          <mi>s</mi>
+          <mrow data-mjx-texclass="ORD">
+            <mn>11</mn>
+          </mrow>
+        </msub>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <msub>
+          <mi>s</mi>
+          <mrow data-mjx-texclass="ORD">
+            <mn>12</mn>
+          </mrow>
+        </msub>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <msub>
+          <mi>s</mi>
+          <mrow data-mjx-texclass="ORD">
+            <mn>13</mn>
+          </mrow>
+        </msub>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mo>&#x2026;</mo>
+      </mtd>
+    </mtr>
+    <mtr>
+      <mtd></mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <msub>
+          <mi>s</mi>
+          <mrow data-mjx-texclass="ORD">
+            <mn>20</mn>
+          </mrow>
+        </msub>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <msub>
+          <mi>s</mi>
+          <mrow data-mjx-texclass="ORD">
+            <mn>21</mn>
+          </mrow>
+        </msub>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <msub>
+          <mi>s</mi>
+          <mrow data-mjx-texclass="ORD">
+            <mn>22</mn>
+          </mrow>
+        </msub>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mo>&#x2026;</mo>
+      </mtd>
+    </mtr>
+    <mtr>
+      <mtd></mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mo>&#x2026;</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+      </mtd>
+    </mtr>
+  </mtable>
+</math>
 Finally, we form a sequence by taking the first term in each row of the
 tableau:
 </p>
@@ -1387,8 +2012,42 @@ fn stream_limit&lt;I: Iterator&lt;Item = f64&gt;&gt;(stream: I, tolerance: f64) 
 
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-3_002e65"></a>Exercise 3.65:</strong> Use the series
-\[ % :69:
-  \ln 2 \,=\, 1 - {1\over2} + {1\over3} - {1\over4} + \dots  \]
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mi>ln</mi>
+  <mo data-mjx-texclass="NONE">&#x2061;</mo>
+  <mn>2</mn>
+  <mstyle scriptlevel="0">
+    <mspace width="0.167em"></mspace>
+  </mstyle>
+  <mo>=</mo>
+  <mstyle scriptlevel="0">
+    <mspace width="0.167em"></mspace>
+  </mstyle>
+  <mn>1</mn>
+  <mo>&#x2212;</mo>
+  <mrow data-mjx-texclass="ORD">
+    <mfrac>
+      <mn>1</mn>
+      <mn>2</mn>
+    </mfrac>
+  </mrow>
+  <mo>+</mo>
+  <mrow data-mjx-texclass="ORD">
+    <mfrac>
+      <mn>1</mn>
+      <mn>3</mn>
+    </mfrac>
+  </mrow>
+  <mo>&#x2212;</mo>
+  <mrow data-mjx-texclass="ORD">
+    <mfrac>
+      <mn>1</mn>
+      <mn>4</mn>
+    </mfrac>
+  </mrow>
+  <mo>+</mo>
+  <mo>&#x2026;</mo>
+</math>
 to compute three sequences of approximations to the natural logarithm of 2, in
 the same way we did above for <em class="math">\pi</em>.  How rapidly do these sequences
 converge?
@@ -1419,42 +2078,527 @@ fn prime_sum_pairs() -&gt; impl Iterator&lt;Item = (u64, u64)&gt; {
 <p>Our problem, then, is to produce the stream <code class="code">int_pairs</code>.  More generally,
 suppose we have two streams <em class="math">{S = (S_i)}</em> and <em class="math">{T = (T_j)}</em>,
 and imagine the infinite rectangular array
-\[ % :70:
-
-\begin{array}{cccc}
-	 (S_0, T_0)  &amp;  (S_0, T_1)  &amp;  (S_0, T_2)  &amp;  \dots  \\
-	 (S_1, T_0)  &amp;  (S_1, T_1)  &amp;  (S_1, T_2)  &amp;  \dots  \\
-	 (S_2, T_0)  &amp;  (S_2, T_1)  &amp;  (S_2, T_2)  &amp;  \dots  \\
-	 \dots  &amp; &amp; &amp; 
-\end{array}
-\]
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mtable columnalign="center center center center" columnspacing="1em" rowspacing="4pt">
+    <mtr>
+      <mtd>
+        <mo stretchy="false">(</mo>
+        <msub>
+          <mi>S</mi>
+          <mn>0</mn>
+        </msub>
+        <mo>,</mo>
+        <msub>
+          <mi>T</mi>
+          <mn>0</mn>
+        </msub>
+        <mo stretchy="false">)</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mo stretchy="false">(</mo>
+        <msub>
+          <mi>S</mi>
+          <mn>0</mn>
+        </msub>
+        <mo>,</mo>
+        <msub>
+          <mi>T</mi>
+          <mn>1</mn>
+        </msub>
+        <mo stretchy="false">)</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mo stretchy="false">(</mo>
+        <msub>
+          <mi>S</mi>
+          <mn>0</mn>
+        </msub>
+        <mo>,</mo>
+        <msub>
+          <mi>T</mi>
+          <mn>2</mn>
+        </msub>
+        <mo stretchy="false">)</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mo>&#x2026;</mo>
+      </mtd>
+    </mtr>
+    <mtr>
+      <mtd>
+        <mo stretchy="false">(</mo>
+        <msub>
+          <mi>S</mi>
+          <mn>1</mn>
+        </msub>
+        <mo>,</mo>
+        <msub>
+          <mi>T</mi>
+          <mn>0</mn>
+        </msub>
+        <mo stretchy="false">)</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mo stretchy="false">(</mo>
+        <msub>
+          <mi>S</mi>
+          <mn>1</mn>
+        </msub>
+        <mo>,</mo>
+        <msub>
+          <mi>T</mi>
+          <mn>1</mn>
+        </msub>
+        <mo stretchy="false">)</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mo stretchy="false">(</mo>
+        <msub>
+          <mi>S</mi>
+          <mn>1</mn>
+        </msub>
+        <mo>,</mo>
+        <msub>
+          <mi>T</mi>
+          <mn>2</mn>
+        </msub>
+        <mo stretchy="false">)</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mo>&#x2026;</mo>
+      </mtd>
+    </mtr>
+    <mtr>
+      <mtd>
+        <mo stretchy="false">(</mo>
+        <msub>
+          <mi>S</mi>
+          <mn>2</mn>
+        </msub>
+        <mo>,</mo>
+        <msub>
+          <mi>T</mi>
+          <mn>0</mn>
+        </msub>
+        <mo stretchy="false">)</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mo stretchy="false">(</mo>
+        <msub>
+          <mi>S</mi>
+          <mn>2</mn>
+        </msub>
+        <mo>,</mo>
+        <msub>
+          <mi>T</mi>
+          <mn>1</mn>
+        </msub>
+        <mo stretchy="false">)</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mo stretchy="false">(</mo>
+        <msub>
+          <mi>S</mi>
+          <mn>2</mn>
+        </msub>
+        <mo>,</mo>
+        <msub>
+          <mi>T</mi>
+          <mn>2</mn>
+        </msub>
+        <mo stretchy="false">)</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mo>&#x2026;</mo>
+      </mtd>
+    </mtr>
+    <mtr>
+      <mtd>
+        <mo>&#x2026;</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+      </mtd>
+    </mtr>
+  </mtable>
+</math>
 We wish to generate a stream that contains all the pairs in the array that lie
 on or above the diagonal, i.e., the pairs
-\[ % :71:
-
-\begin{array}{cccc}
- (S_0, T_0)  	&amp;  (S_0, T_1)  	&amp;  (S_0, T_2)  	&amp;  \dots  \\
-		&amp;  (S_1, T_1)  	&amp;  (S_1, T_2)  	&amp;  \dots  \\
-		&amp; 		&amp;  (S_2, T_2)  	&amp;  \dots  \\
-		&amp; 		&amp; 		&amp;  \dots 
-\end{array}
-\]
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mtable columnalign="center center center center" columnspacing="1em" rowspacing="4pt">
+    <mtr>
+      <mtd>
+        <mo stretchy="false">(</mo>
+        <msub>
+          <mi>S</mi>
+          <mn>0</mn>
+        </msub>
+        <mo>,</mo>
+        <msub>
+          <mi>T</mi>
+          <mn>0</mn>
+        </msub>
+        <mo stretchy="false">)</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mo stretchy="false">(</mo>
+        <msub>
+          <mi>S</mi>
+          <mn>0</mn>
+        </msub>
+        <mo>,</mo>
+        <msub>
+          <mi>T</mi>
+          <mn>1</mn>
+        </msub>
+        <mo stretchy="false">)</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mo stretchy="false">(</mo>
+        <msub>
+          <mi>S</mi>
+          <mn>0</mn>
+        </msub>
+        <mo>,</mo>
+        <msub>
+          <mi>T</mi>
+          <mn>2</mn>
+        </msub>
+        <mo stretchy="false">)</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mo>&#x2026;</mo>
+      </mtd>
+    </mtr>
+    <mtr>
+      <mtd></mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mo stretchy="false">(</mo>
+        <msub>
+          <mi>S</mi>
+          <mn>1</mn>
+        </msub>
+        <mo>,</mo>
+        <msub>
+          <mi>T</mi>
+          <mn>1</mn>
+        </msub>
+        <mo stretchy="false">)</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mo stretchy="false">(</mo>
+        <msub>
+          <mi>S</mi>
+          <mn>1</mn>
+        </msub>
+        <mo>,</mo>
+        <msub>
+          <mi>T</mi>
+          <mn>2</mn>
+        </msub>
+        <mo stretchy="false">)</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mo>&#x2026;</mo>
+      </mtd>
+    </mtr>
+    <mtr>
+      <mtd></mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mo stretchy="false">(</mo>
+        <msub>
+          <mi>S</mi>
+          <mn>2</mn>
+        </msub>
+        <mo>,</mo>
+        <msub>
+          <mi>T</mi>
+          <mn>2</mn>
+        </msub>
+        <mo stretchy="false">)</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mo>&#x2026;</mo>
+      </mtd>
+    </mtr>
+    <mtr>
+      <mtd></mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mo>&#x2026;</mo>
+      </mtd>
+    </mtr>
+  </mtable>
+</math>
 (If we take both <em class="math">S</em> and <em class="math">T</em> to be the stream of integers, then this will
 be our desired stream <code class="code">int_pairs</code>.)
 </p>
 <p>Call the general stream of pairs <code class="code">(pairs S T)</code>, and consider it to be
 composed of three parts: the pair <em class="math">{(S_0, T_0)}</em>, the rest of the pairs in
 the first row, and the remaining pairs:<a class="footnote" id="DOCF186" href="#FOOT186"><sup>186</sup></a>
-\[ % :72:
-
-\begin{array}{c|ccc}
- (S_0, T_0)  	&amp;  (S_0, T_1)  	&amp;  (S_0, T_2)  	&amp;  \dots  \\
-\hline
-		&amp;  (S_1, T_1)  	&amp;  (S_1, T_2)  	&amp;  \dots  \\
-		&amp; 		&amp;  (S_2, T_2)  	&amp;  \dots  \\
-		&amp; 		&amp; 		&amp;  \dots  
-\end{array}
-\]
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mtable columnalign="center center center center" columnspacing="1em" rowspacing="4pt" columnlines="solid none none" rowlines="solid none">
+    <mtr>
+      <mtd>
+        <mo stretchy="false">(</mo>
+        <msub>
+          <mi>S</mi>
+          <mn>0</mn>
+        </msub>
+        <mo>,</mo>
+        <msub>
+          <mi>T</mi>
+          <mn>0</mn>
+        </msub>
+        <mo stretchy="false">)</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mo stretchy="false">(</mo>
+        <msub>
+          <mi>S</mi>
+          <mn>0</mn>
+        </msub>
+        <mo>,</mo>
+        <msub>
+          <mi>T</mi>
+          <mn>1</mn>
+        </msub>
+        <mo stretchy="false">)</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mo stretchy="false">(</mo>
+        <msub>
+          <mi>S</mi>
+          <mn>0</mn>
+        </msub>
+        <mo>,</mo>
+        <msub>
+          <mi>T</mi>
+          <mn>2</mn>
+        </msub>
+        <mo stretchy="false">)</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mo>&#x2026;</mo>
+      </mtd>
+    </mtr>
+    <mtr>
+      <mtd></mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mo stretchy="false">(</mo>
+        <msub>
+          <mi>S</mi>
+          <mn>1</mn>
+        </msub>
+        <mo>,</mo>
+        <msub>
+          <mi>T</mi>
+          <mn>1</mn>
+        </msub>
+        <mo stretchy="false">)</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mo stretchy="false">(</mo>
+        <msub>
+          <mi>S</mi>
+          <mn>1</mn>
+        </msub>
+        <mo>,</mo>
+        <msub>
+          <mi>T</mi>
+          <mn>2</mn>
+        </msub>
+        <mo stretchy="false">)</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mo>&#x2026;</mo>
+      </mtd>
+    </mtr>
+    <mtr>
+      <mtd></mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mo stretchy="false">(</mo>
+        <msub>
+          <mi>S</mi>
+          <mn>2</mn>
+        </msub>
+        <mo>,</mo>
+        <msub>
+          <mi>T</mi>
+          <mn>2</mn>
+        </msub>
+        <mo stretchy="false">)</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mo>&#x2026;</mo>
+      </mtd>
+    </mtr>
+    <mtr>
+      <mtd></mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mo>&#x2026;</mo>
+      </mtd>
+    </mtr>
+  </mtable>
+</math>
 Observe that the third piece in this decomposition (pairs that are not in the
 first row) is (recursively) the pairs formed from <code class="code">(stream-cdr S)</code> and
 <code class="code">(stream-cdr T)</code>.  Also note that the second piece (the rest of the first
@@ -1672,8 +2816,41 @@ stream.  For instance, we can implement an <a class="index-entry-id" id="index-i
 <a class="index-entry-id" id="index-summer"></a>
 <em class="dfn">summer</em> that, for an input stream <em class="math">{x = (x_i)}</em>, an initial
 value <em class="math">C</em>, and a small increment <em class="math">{dt}</em>, accumulates the sum
-\[ % :73:
-  S_i \,=\, C + {\sum_{j=1}^i x_j \, dt}  \]
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <msub>
+    <mi>S</mi>
+    <mi>i</mi>
+  </msub>
+  <mstyle scriptlevel="0">
+    <mspace width="0.167em"></mspace>
+  </mstyle>
+  <mo>=</mo>
+  <mstyle scriptlevel="0">
+    <mspace width="0.167em"></mspace>
+  </mstyle>
+  <mi>C</mi>
+  <mo>+</mo>
+  <mrow data-mjx-texclass="ORD">
+    <munderover>
+      <mo data-mjx-texclass="OP">&#x2211;</mo>
+      <mrow data-mjx-texclass="ORD">
+        <mi>j</mi>
+        <mo>=</mo>
+        <mn>1</mn>
+      </mrow>
+      <mi>i</mi>
+    </munderover>
+    <msub>
+      <mi>x</mi>
+      <mi>j</mi>
+    </msub>
+    <mstyle scriptlevel="0">
+      <mspace width="0.167em"></mspace>
+    </mstyle>
+    <mi>d</mi>
+    <mi>t</mi>
+  </mrow>
+</math>
 and returns the stream of values <em class="math">{S = (S_i)}</em>.  The following
 <code class="code">integral</code> procedure is reminiscent of the &#8220;implicit style&#8221; definition
 of the stream of integers (<a class="ref" href="#g_t3_002e5_002e2">Infinite Streams</a>):
@@ -1996,8 +3173,53 @@ expects the <code class="code">integrand</code> as a delayed argument and hence 
 <p><strong class="strong"><a class="anchor" id="Exercise-3_002e78"></a>Exercise 3.78:</strong> Consider the problem of designing
 a signal-processing system to study the homogeneous second-order linear
 differential equation
-\[ % :74:
-  \frac{d^2 y}{dt^2} - {a \frac{dy}{dt}} - {by} \,=\, {0.}  \]
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mfrac>
+    <mrow>
+      <msup>
+        <mi>d</mi>
+        <mn>2</mn>
+      </msup>
+      <mi>y</mi>
+    </mrow>
+    <mrow>
+      <mi>d</mi>
+      <msup>
+        <mi>t</mi>
+        <mn>2</mn>
+      </msup>
+    </mrow>
+  </mfrac>
+  <mo>&#x2212;</mo>
+  <mrow data-mjx-texclass="ORD">
+    <mi>a</mi>
+    <mfrac>
+      <mrow>
+        <mi>d</mi>
+        <mi>y</mi>
+      </mrow>
+      <mrow>
+        <mi>d</mi>
+        <mi>t</mi>
+      </mrow>
+    </mfrac>
+  </mrow>
+  <mo>&#x2212;</mo>
+  <mrow data-mjx-texclass="ORD">
+    <mi>b</mi>
+    <mi>y</mi>
+  </mrow>
+  <mstyle scriptlevel="0">
+    <mspace width="0.167em"></mspace>
+  </mstyle>
+  <mo>=</mo>
+  <mstyle scriptlevel="0">
+    <mspace width="0.167em"></mspace>
+  </mstyle>
+  <mrow data-mjx-texclass="ORD">
+    <mn>0.</mn>
+  </mrow>
+</math>
 The output stream, modeling <em class="math">y</em>, is generated by a network that contains a
 loop. This is because the value of <em class="math">{d^2 y / dt^2}</em> depends upon the
 values of <em class="math">y</em> and <em class="math">{dy / dt}</em> and both of these are determined by
@@ -2028,29 +3250,300 @@ consists of a resistor, a capacitor, and an inductor connected in series, as
 shown in <a class="ref" href="#Figure-3_002e36">Figure 3.36</a>.  If <em class="math">R</em>, <em class="math">L</em>, and <em class="math">C</em> are the resistance,
 inductance, and capacitance, then the relations between voltage <em class="math">{(v)}</em> and
 current <em class="math">{(i)}</em> for the three components are described by the equations
-\[ % :75:
-\begin{eqnarray}
-  v_R 	&amp;=&amp;   i_R R, \\
-  v_L 	&amp;=&amp;   L\,{di_L \over dt}, \\
-  i_C 	&amp;=&amp;   C\,{dv_C \over dt},
-\end{eqnarray}
-\]
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mtable displaystyle="true" columnalign="right center left" columnspacing="0em 0.278em" rowspacing="3pt">
+    <mtr>
+      <mtd>
+        <msub>
+          <mi>v</mi>
+          <mi>R</mi>
+        </msub>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mo>=</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <msub>
+          <mi>i</mi>
+          <mi>R</mi>
+        </msub>
+        <mi>R</mi>
+        <mo>,</mo>
+      </mtd>
+    </mtr>
+    <mtr>
+      <mtd>
+        <msub>
+          <mi>v</mi>
+          <mi>L</mi>
+        </msub>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mo>=</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mi>L</mi>
+        <mstyle scriptlevel="0">
+          <mspace width="0.167em"></mspace>
+        </mstyle>
+        <mrow data-mjx-texclass="ORD">
+          <mfrac>
+            <mrow>
+              <mi>d</mi>
+              <msub>
+                <mi>i</mi>
+                <mi>L</mi>
+              </msub>
+            </mrow>
+            <mrow>
+              <mi>d</mi>
+              <mi>t</mi>
+            </mrow>
+          </mfrac>
+        </mrow>
+        <mo>,</mo>
+      </mtd>
+    </mtr>
+    <mtr>
+      <mtd>
+        <msub>
+          <mi>i</mi>
+          <mi>C</mi>
+        </msub>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mo>=</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mi>C</mi>
+        <mstyle scriptlevel="0">
+          <mspace width="0.167em"></mspace>
+        </mstyle>
+        <mrow data-mjx-texclass="ORD">
+          <mfrac>
+            <mrow>
+              <mi>d</mi>
+              <msub>
+                <mi>v</mi>
+                <mi>C</mi>
+              </msub>
+            </mrow>
+            <mrow>
+              <mi>d</mi>
+              <mi>t</mi>
+            </mrow>
+          </mfrac>
+        </mrow>
+        <mo>,</mo>
+      </mtd>
+    </mtr>
+  </mtable>
+</math>
 and the circuit connections dictate the relations
-\[ % :76:
-\begin{eqnarray}
-  i_R 	&amp;=&amp;   i_L = -i_C, \\
-  v_C 	&amp;=&amp;   v_L + v_R.
-\end{eqnarray}
-\]
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mtable displaystyle="true" columnalign="right center left" columnspacing="0em 0.278em" rowspacing="3pt">
+    <mtr>
+      <mtd>
+        <msub>
+          <mi>i</mi>
+          <mi>R</mi>
+        </msub>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mo>=</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <msub>
+          <mi>i</mi>
+          <mi>L</mi>
+        </msub>
+        <mo>=</mo>
+        <mo>&#x2212;</mo>
+        <msub>
+          <mi>i</mi>
+          <mi>C</mi>
+        </msub>
+        <mo>,</mo>
+      </mtd>
+    </mtr>
+    <mtr>
+      <mtd>
+        <msub>
+          <mi>v</mi>
+          <mi>C</mi>
+        </msub>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mo>=</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <msub>
+          <mi>v</mi>
+          <mi>L</mi>
+        </msub>
+        <mo>+</mo>
+        <msub>
+          <mi>v</mi>
+          <mi>R</mi>
+        </msub>
+        <mo>.</mo>
+      </mtd>
+    </mtr>
+  </mtable>
+</math>
 Combining these equations shows that the state of the circuit (summarized by
 <em class="math">v_C</em>, the voltage across the capacitor, and <em class="math">i_L</em>, the current in
 the inductor) is described by the pair of differential equations
-\[ % :77:
-\begin{eqnarray}
-  {dv_C \over dt}   &amp;=&amp;   -{i_L \over C}\,, \\
-  {di_L \over dt}   &amp;=&amp;    {1 \over L}\, v_C - {R \over L}\, i_L.
-\end{eqnarray}
-\]
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mtable displaystyle="true" columnalign="right center left" columnspacing="0em 0.278em" rowspacing="3pt">
+    <mtr>
+      <mtd>
+        <mrow data-mjx-texclass="ORD">
+          <mfrac>
+            <mrow>
+              <mi>d</mi>
+              <msub>
+                <mi>v</mi>
+                <mi>C</mi>
+              </msub>
+            </mrow>
+            <mrow>
+              <mi>d</mi>
+              <mi>t</mi>
+            </mrow>
+          </mfrac>
+        </mrow>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mo>=</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mo>&#x2212;</mo>
+        <mrow data-mjx-texclass="ORD">
+          <mfrac>
+            <msub>
+              <mi>i</mi>
+              <mi>L</mi>
+            </msub>
+            <mi>C</mi>
+          </mfrac>
+        </mrow>
+        <mstyle scriptlevel="0">
+          <mspace width="0.167em"></mspace>
+        </mstyle>
+        <mo>,</mo>
+      </mtd>
+    </mtr>
+    <mtr>
+      <mtd>
+        <mrow data-mjx-texclass="ORD">
+          <mfrac>
+            <mrow>
+              <mi>d</mi>
+              <msub>
+                <mi>i</mi>
+                <mi>L</mi>
+              </msub>
+            </mrow>
+            <mrow>
+              <mi>d</mi>
+              <mi>t</mi>
+            </mrow>
+          </mfrac>
+        </mrow>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mo>=</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+        <mrow data-mjx-texclass="ORD">
+          <mfrac>
+            <mn>1</mn>
+            <mi>L</mi>
+          </mfrac>
+        </mrow>
+        <mstyle scriptlevel="0">
+          <mspace width="0.167em"></mspace>
+        </mstyle>
+        <msub>
+          <mi>v</mi>
+          <mi>C</mi>
+        </msub>
+        <mo>&#x2212;</mo>
+        <mrow data-mjx-texclass="ORD">
+          <mfrac>
+            <mi>R</mi>
+            <mi>L</mi>
+          </mfrac>
+        </mrow>
+        <mstyle scriptlevel="0">
+          <mspace width="0.167em"></mspace>
+        </mstyle>
+        <msub>
+          <mi>i</mi>
+          <mi>L</mi>
+        </msub>
+        <mo>.</mo>
+      </mtd>
+    </mtr>
+  </mtable>
+</math>
 The signal-flow diagram representing this system of differential equations is
 shown in <a class="ref" href="#Figure-3_002e37">Figure 3.37</a>.
 </p></blockquote>

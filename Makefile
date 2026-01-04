@@ -24,6 +24,11 @@ SHELL = /bin/bash
 JQ = <script src=\"js/jquery.min.js\" type=\"text/javascript\"></script>
 FT = <script src=\"js/footnotes.js\" type=\"text/javascript\"></script>
 BR = <script src=\"js/browsertest.js\" type=\"text/javascript\"></script>
+SCSS = <link href=\"css/style.css\" rel=\"stylesheet\" type=\"text/css\" />
+PCSS = <link href=\"css/prettify.css\" rel=\"stylesheet\" type=\"text/css\" />
+PJS = <script src=\"js/highlight/prettify.js\" type=\"text/javascript\"></script>
+PLSP = <script src=\"js/highlight/lang-lisp.js\" type=\"text/javascript\"></script>
+PRST = <script src=\"js/highlight/lang-rust.js\" type=\"text/javascript\"></script>
 
 GITHUB = <a href=\"https://github.com/sarabander/sicp\"><img style=\"position: absolute; top: 0; right: 0; border: 0; width: 149px; height: 149px; z-index: 10; opacity: 0.5;\" src=\"http://aral.github.com/fork-me-on-github-retina-ribbons/right-red\@2x.png\" alt=\"Fork me on GitHub\" /></a>
 
@@ -34,7 +39,7 @@ all: $(GOAL)
 	@if ! grep -m 1 -l 'browsertest' $(NEXUS); then \
 	  for file in $(HTML); do \
 	    perl -0p -i.bak -e \
-	      "s{\s*</head>}{\n\n$(JQ)\n$(FT)\n$(BR)\n</head>}" $$file; \
+	      "s{\s*</head>}{\n$(SCSS)\n$(PCSS)\n\n$(JQ)\n$(FT)\n$(BR)\n$(PJS)\n$(PLSP)\n$(PRST)\n</head>}" $$file; \
 	  done; \
 	  rm $(DIR)*.bak; \
 	fi; \
