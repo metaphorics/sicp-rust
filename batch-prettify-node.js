@@ -45,14 +45,31 @@ if (fs.existsSync(langRustPath)) {
 async function processFile(filePath) {
   const html = fs.readFileSync(filePath, "utf8");
 
+  // Custom resource loader that suppresses warnings for local CSS/JS files
+  // (they're not needed for server-side prettification)
+  const virtualConsole = new (require("jsdom").VirtualConsole)();
+  virtualConsole.on("error", () => {});  // Suppress resource loading errors
+  virtualConsole.on("warn", () => {});   // Suppress warnings
+
   const dom = new JSDOM(html, {
     runScripts: "dangerously",
-    resources: "usable",
     url: "file://" + path.resolve(filePath),
+    virtualConsole,
   });
 
   const { window } = dom;
   const { document } = window;
+
+  // Suppress "cannot override language handler" warnings from prettify
+  // by temporarily replacing console.log during script evaluation
+  const origConsoleLog = window.console.log;
+  window.console.log = function(...args) {
+    const msg = args.join(" ");
+    if (msg.includes("cannot override language handler")) {
+      return; // Suppress this specific warning
+    }
+    origConsoleLog.apply(window.console, args);
+  };
 
   // Inject prettify scripts into the document
   const scriptContent = `
@@ -60,9 +77,10 @@ async function processFile(filePath) {
     ${langLispJs}
     ${langRustJs}
   `;
-
-  // Execute prettify in the context
   window.eval(scriptContent);
+
+  // Restore console.log
+  window.console.log = origConsoleLog;
 
   // Run prettyPrint synchronously
   if (typeof window.prettyPrint === "function") {

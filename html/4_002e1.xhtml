@@ -1,24 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="en" lang="en">
-<!-- Created by GNU Texinfo 5.1, http://www.gnu.org/software/texinfo/ -->
-<head>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="en" lang="en"><!-- Created by GNU Texinfo 5.1, http://www.gnu.org/software/texinfo/ --><head>
 <title>Structure and Interpretation of Computer Programs, 2e: 4.1</title>
 
-<meta name="description" content="Structure and Interpretation of Computer Programs, 2e: 4.1" />
-<meta name="keywords" content="Structure and Interpretation of Computer Programs, 2e: 4.1" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="Generator" content="texi2any" />
-<meta charset="utf-8" />
-<link href="index.xhtml#Top" rel="start" title="Top" />
-<link href="Term-Index.xhtml#Term-Index" rel="index" title="Term Index" />
-<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents" />
-<link href="Chapter-4.xhtml#Chapter-4" rel="prev" title="Chapter 4" />
-<link href="4_002e2.xhtml#g_t4_002e2" rel="next" title="4.2" />
-<link href="Chapter-4.xhtml#Chapter-4" rel="prev" title="Chapter 4" />
+<meta name="description" content="Structure and Interpretation of Computer Programs, 2e: 4.1">
+<meta name="keywords" content="Structure and Interpretation of Computer Programs, 2e: 4.1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="Generator" content="texi2any">
+<meta charset="utf-8">
+<link href="index.xhtml#Top" rel="start" title="Top">
+<link href="Term-Index.xhtml#Term-Index" rel="index" title="Term Index">
+<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Chapter-4.xhtml#Chapter-4" rel="prev" title="Chapter 4">
+<link href="4_002e2.xhtml#g_t4_002e2" rel="next" title="4.2">
+<link href="Chapter-4.xhtml#Chapter-4" rel="prev" title="Chapter 4">
 
-<link href="css/style.css" rel="stylesheet" type="text/css" />
-<link href="css/prettify.css" rel="stylesheet" type="text/css" />
+<link href="css/style.css" rel="stylesheet" type="text/css">
+<link href="css/prettify.css" rel="stylesheet" type="text/css">
 
 <script src="js/jquery.min.js" type="text/javascript"></script>
 <script src="js/footnotes.js" type="text/javascript"></script>
@@ -29,7 +27,7 @@
 <section><span class="top jump" title="Jump to top"><a href="#pagetop" accesskey="t">⇡</a></span><a id="pagetop"></a><a id="g_t4_002e1"></a>
 <nav class="header">
 <p>
-Next: <a href="4_002e2.xhtml#g_t4_002e2" accesskey="n" rel="next">4.2</a>, Prev: <a href="Chapter-4.xhtml#Chapter-4" accesskey="p" rel="prev">Chapter 4</a>, Up: <a href="Chapter-4.xhtml#Chapter-4" accesskey="u" rel="prev">Chapter 4</a>   [<a href="index.xhtml#SEC_Contents" title="Table of contents" accesskey="c" rel="contents">Contents</a>]</p>
+Next: <a href="4_002e2.xhtml#g_t4_002e2" accesskey="n" rel="next">4.2</a>, Prev: <a href="Chapter-4.xhtml#Chapter-4" accesskey="p" rel="prev">Chapter 4</a>, Up: <a href="Chapter-4.xhtml#Chapter-4" accesskey="u" rel="prev">Chapter 4</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" accesskey="c" rel="contents">Contents</a>]</p>
 </nav>
 <a id="The-Metacircular-Evaluator"></a>
 <h3 class="section"><span class="secnum">4.1</span><span class="sectitle">The Metacircular Evaluator</span></h3>
@@ -166,7 +164,7 @@ application.
 <p>Here is the definition of <code>eval</code>:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">eval exp env</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">eval exp env</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">((</span><span class="pln">self-evaluating? exp</span><span class="clo">)</span><span class="pln"> 
          exp</span><span class="clo">)</span><span class="pln">
         </span><span class="opn">((</span><span class="pln">variable? exp</span><span class="clo">)</span><span class="pln"> 
@@ -222,7 +220,7 @@ procedure to the arguments to which the procedure is to be applied.  Here is
 the definition of <code>apply</code>:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">apply procedure arguments</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">apply procedure arguments</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">((</span><span class="pln">primitive-procedure? procedure</span><span class="clo">)</span><span class="pln">
          </span><span class="opn">(</span><span class="pln">apply-primitive-procedure 
           procedure 
@@ -251,7 +249,7 @@ the combination.  It evaluates each operand and returns a list of the
 corresponding values:<a class="footnote_link" id="DOCF209" href="#FOOT209"><sup>209</sup></a>
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">list-of-values exps env</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">list-of-values exps env</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pln">no-operands? exps</span><span class="clo">)</span><span class="pln">
       </span><span class="lit">'</span><span class="opn">(</span><span class="clo">)</span><span class="pln">
       </span><span class="opn">(</span><span class="kwd">cons</span><span class="pln"> </span><span class="opn">(</span><span class="pln">eval </span><span class="opn">(</span><span class="pln">first-operand exps</span><span class="clo">)</span><span class="pln"> env</span><span class="clo">)</span><span class="pln">
@@ -267,7 +265,7 @@ given environment.  If the result is true, <code>eval-if</code> evaluates the
 consequent, otherwise it evaluates the alternative:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">eval-if exp env</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">eval-if exp env</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pln">true? </span><span class="opn">(</span><span class="pln">eval </span><span class="opn">(</span><span class="pln">if-predicate exp</span><span class="clo">)</span><span class="pln"> env</span><span class="clo">))</span><span class="pln">
       </span><span class="opn">(</span><span class="pln">eval </span><span class="opn">(</span><span class="pln">if-consequent exp</span><span class="clo">)</span><span class="pln"> env</span><span class="clo">)</span><span class="pln">
       </span><span class="opn">(</span><span class="pln">eval </span><span class="opn">(</span><span class="pln">if-alternative exp</span><span class="clo">)</span><span class="pln"> env</span><span class="clo">)))</span></pre></div>
@@ -290,7 +288,7 @@ expressions and an environment, and evaluates the expressions in the order in
 which they occur.  The value returned is the value of the final expression.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">eval-sequence exps env</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">eval-sequence exps env</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">((</span><span class="pln">last-exp? exps</span><span class="clo">)</span><span class="pln"> 
          </span><span class="opn">(</span><span class="pln">eval </span><span class="opn">(</span><span class="pln">first-exp exps</span><span class="clo">)</span><span class="pln"> env</span><span class="clo">))</span><span class="pln">
         </span><span class="opn">(</span><span class="kwd">else</span><span class="pln"> 
@@ -307,7 +305,7 @@ value to <code>set-variable-value!</code> to be installed in the designated
 environment.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">eval-assignment exp env</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">eval-assignment exp env</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">set-variable-value! 
    </span><span class="opn">(</span><span class="pln">assignment-variable exp</span><span class="clo">)</span><span class="pln">
    </span><span class="opn">(</span><span class="pln">eval </span><span class="opn">(</span><span class="pln">assignment-value exp</span><span class="clo">)</span><span class="pln"> env</span><span class="clo">)</span><span class="pln">
@@ -317,7 +315,7 @@ environment.
 <p>Definitions of variables are handled in a similar manner.<a class="footnote_link" id="DOCF211" href="#FOOT211"><sup>211</sup></a>
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">eval-definition exp env</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">eval-definition exp env</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">define-variable! 
     </span><span class="opn">(</span><span class="pln">definition-variable exp</span><span class="clo">)</span><span class="pln">
     </span><span class="opn">(</span><span class="pln">eval </span><span class="opn">(</span><span class="pln">definition-value exp</span><span class="clo">)</span><span class="pln"> env</span><span class="clo">)</span><span class="pln">
@@ -364,7 +362,7 @@ expressions.
 <li> The only self-evaluating items are numbers and strings:
 
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">self-evaluating? exp</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">self-evaluating? exp</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">((</span><span class="pln">number? exp</span><span class="clo">)</span><span class="pln"> true</span><span class="clo">)</span><span class="pln">
         </span><span class="opn">((</span><span class="pln">string? exp</span><span class="clo">)</span><span class="pln"> true</span><span class="clo">)</span><span class="pln">
         </span><span class="opn">(</span><span class="kwd">else</span><span class="pln"> false</span><span class="clo">)))</span></pre></div>
@@ -372,12 +370,12 @@ expressions.
 </li><li> Variables are represented by symbols:
 
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">variable? exp</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">symbol? exp</span><span class="clo">))</span></pre></div>
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">variable? exp</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">symbol? exp</span><span class="clo">))</span></pre></div>
 
 </li><li> Quotations have the form <code>(quote ⟨<var>text-of-quotation</var>⟩)</code>:<a class="footnote_link" id="DOCF213" href="#FOOT213"><sup>213</sup></a>
 
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">quoted? exp</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">quoted? exp</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">tagged-list? exp </span><span class="lit">'quote</span><span class="clo">))</span><span class="pln">
 
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">text-of-quotation exp</span><span class="clo">)</span><span class="pln">
@@ -387,7 +385,7 @@ expressions.
 identifies lists beginning with a designated symbol:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">tagged-list? exp tag</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">tagged-list? exp tag</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pln">pair? exp</span><span class="clo">)</span><span class="pln">
       </span><span class="opn">(</span><span class="kwd">eq</span><span class="pun">?</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> exp</span><span class="clo">)</span><span class="pln"> tag</span><span class="clo">)</span><span class="pln">
       false</span><span class="clo">))</span></pre></div>
@@ -395,7 +393,7 @@ identifies lists beginning with a designated symbol:
 </li><li> Assignments have the form <code>(set! ⟨<var>var</var>⟩ ⟨<var>value</var>⟩)</code>:
 
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">assignment? exp</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">assignment? exp</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">tagged-list? exp </span><span class="lit">'set!</span><span class="clo">))</span><span class="pln">
 
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">assignment-variable exp</span><span class="clo">)</span><span class="pln"> 
@@ -406,25 +404,25 @@ identifies lists beginning with a designated symbol:
 </li><li> Definitions have the form
 
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> ⟨</span><var><span class="pln">var</span></var><span class="pln">⟩ ⟨</span><var><span class="pln">value</span></var><span class="pln">⟩</span><span class="clo">)</span></pre></div>
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> ⟨</span><var><span class="pln">var</span></var><span class="pln">⟩ ⟨</span><var><span class="pln">value</span></var><span class="pln">⟩</span><span class="clo">)</span></pre></div>
 
 <p>or the form
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">⟨</span><var><span class="pln">var</span></var><span class="pln">⟩ ⟨</span><var><span class="pln">param</span><span class="pun">₁</span></var><span class="pln">⟩ </span><span class="roman"><span class="pun">…</span></span><span class="pln"> ⟨</span><var><span class="pln">param</span><span class="pun">ₙ</span></var><span class="pln">⟩</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">⟨</span><var><span class="pln">var</span></var><span class="pln">⟩ ⟨</span><var><span class="pln">param</span><span class="pun">₁</span></var><span class="pln">⟩ </span><span class="roman"><span class="pun">…</span></span><span class="pln"> ⟨</span><var><span class="pln">param</span><span class="pun">ₙ</span></var><span class="pln">⟩</span><span class="clo">)</span><span class="pln">
   ⟨</span><var><span class="pln">body</span></var><span class="pln">⟩</span><span class="clo">)</span></pre></div>
 
 <p>The latter form (standard procedure definition) is syntactic sugar for
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> ⟨</span><var><span class="pln">var</span></var><span class="pln">⟩
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> ⟨</span><var><span class="pln">var</span></var><span class="pln">⟩
   </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">⟨</span><var><span class="pln">param</span><span class="pun">₁</span></var><span class="pln">⟩ </span><span class="roman"><span class="pun">…</span></span><span class="pln"> ⟨</span><var><span class="pln">param</span><span class="pun">ₙ</span></var><span class="pln">⟩</span><span class="clo">)</span><span class="pln">
     ⟨</span><var><span class="pln">body</span></var><span class="pln">⟩</span><span class="clo">))</span></pre></div>
 
 <p>The corresponding syntax procedures are the following:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">definition? exp</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">definition? exp</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">tagged-list? exp </span><span class="lit">'define</span><span class="clo">))</span><span class="pln">
 
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">definition-variable exp</span><span class="clo">)</span><span class="pln">
@@ -443,7 +441,7 @@ identifies lists beginning with a designated symbol:
 </li><li> <code>Lambda</code> expressions are lists that begin with the symbol <code>lambda</code>:
 
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pun">?</span><span class="pln"> exp</span><span class="clo">)</span><span class="pln"> 
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pun">?</span><span class="pln"> exp</span><span class="clo">)</span><span class="pln"> 
   </span><span class="opn">(</span><span class="pln">tagged-list? exp </span><span class="lit">'lambda</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">lambda-parameters exp</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">cadr</span><span class="pln"> exp</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">lambda-body exp</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">cddr</span><span class="pln"> exp</span><span class="clo">))</span></pre></div>
@@ -452,7 +450,7 @@ identifies lists beginning with a designated symbol:
 <code>definition-value</code>, above:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-lambda parameters body</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-lambda parameters body</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">cons</span><span class="pln"> </span><span class="lit">'lambda</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">cons</span><span class="pln"> parameters body</span><span class="clo">)))</span></pre></div>
 
 </li><li> Conditionals begin with <code>if</code> and have a predicate, a consequent, and an
@@ -460,7 +458,7 @@ identifies lists beginning with a designated symbol:
 <code>false</code> as the alternative.<a class="footnote_link" id="DOCF214" href="#FOOT214"><sup>214</sup></a>
 
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">if</span><span class="pun">?</span><span class="pln"> exp</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">tagged-list? exp </span><span class="lit">'if</span><span class="clo">))</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">if</span><span class="pun">?</span><span class="pln"> exp</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">tagged-list? exp </span><span class="lit">'if</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">if-predicate exp</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">cadr</span><span class="pln"> exp</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">if-consequent exp</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">caddr</span><span class="pln"> exp</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">if-alternative exp</span><span class="clo">)</span><span class="pln">
@@ -473,7 +471,7 @@ identifies lists beginning with a designated symbol:
 expressions:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-if predicate 
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-if predicate 
                  consequent 
                  alternative</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">list </span><span class="lit">'if</span><span class="pln"> 
@@ -488,7 +486,7 @@ first expression and the rest of the expressions in the
 sequence.<a class="footnote_link" id="DOCF215" href="#FOOT215"><sup>215</sup></a>
 
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">begin</span><span class="pun">?</span><span class="pln"> exp</span><span class="clo">)</span><span class="pln"> 
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">begin</span><span class="pun">?</span><span class="pln"> exp</span><span class="clo">)</span><span class="pln"> 
   </span><span class="opn">(</span><span class="pln">tagged-list? exp </span><span class="lit">'begin</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">begin-actions exp</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> exp</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">last-exp? seq</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">null? </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> seq</span><span class="clo">)))</span><span class="pln">
@@ -500,7 +498,7 @@ that transforms a sequence into a single expression, using <code>begin</code> if
 necessary:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">sequence-</span><span class="pun">&gt;</span><span class="pln">exp seq</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">sequence-</span><span class="pun">&gt;</span><span class="pln">exp seq</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">((</span><span class="pln">null? seq</span><span class="clo">)</span><span class="pln"> seq</span><span class="clo">)</span><span class="pln">
         </span><span class="opn">((</span><span class="pln">last-exp? seq</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">first-exp seq</span><span class="clo">))</span><span class="pln">
         </span><span class="opn">(</span><span class="kwd">else</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-begin seq</span><span class="clo">))))</span><span class="pln">
@@ -512,7 +510,7 @@ expression types.  The <code>car</code> of the expression is the operator, and t
 <code>cdr</code> is the list of operands:
 
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">application? exp</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">pair? exp</span><span class="clo">))</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">application? exp</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">pair? exp</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">operator exp</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> exp</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">operands exp</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> exp</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">no-operands? ops</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">null? ops</span><span class="clo">))</span><span class="pln">
@@ -531,7 +529,7 @@ expressions.  For example, we can reduce the problem of evaluating the
 expression
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">((</span><span class="pun">&gt;</span><span class="pln"> x </span><span class="lit">0</span><span class="clo">)</span><span class="pln"> x</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">((</span><span class="pun">&gt;</span><span class="pln"> x </span><span class="lit">0</span><span class="clo">)</span><span class="pln"> x</span><span class="clo">)</span><span class="pln">
       </span><span class="opn">((</span><span class="pun">=</span><span class="pln"> x </span><span class="lit">0</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">display </span><span class="lit">'zero</span><span class="clo">)</span><span class="pln"> </span><span class="lit">0</span><span class="clo">)</span><span class="pln">
       </span><span class="opn">(</span><span class="kwd">else</span><span class="pln"> </span><span class="opn">(</span><span class="pun">-</span><span class="pln"> x</span><span class="clo">)))</span></pre></div>
 
@@ -539,7 +537,7 @@ expression
 <code>begin</code> expressions:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pun">&gt;</span><span class="pln"> x </span><span class="lit">0</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pun">&gt;</span><span class="pln"> x </span><span class="lit">0</span><span class="clo">)</span><span class="pln">
     x
     </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pun">=</span><span class="pln"> x </span><span class="lit">0</span><span class="clo">)</span><span class="pln">
         </span><span class="opn">(</span><span class="kwd">begin</span><span class="pln"> </span><span class="opn">(</span><span class="pln">display </span><span class="lit">'zero</span><span class="clo">)</span><span class="pln"> </span><span class="lit">0</span><span class="clo">)</span><span class="pln">
@@ -556,7 +554,7 @@ expressions into <code>if</code> expressions.  A case analysis begins with
 <code>else</code> clause if its predicate is the symbol <code>else</code>.<a class="footnote_link" id="DOCF216" href="#FOOT216"><sup>216</sup></a>
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">cond</span><span class="pun">?</span><span class="pln"> exp</span><span class="clo">)</span><span class="pln"> 
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">cond</span><span class="pun">?</span><span class="pln"> exp</span><span class="clo">)</span><span class="pln"> 
   </span><span class="opn">(</span><span class="pln">tagged-list? exp </span><span class="lit">'cond</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">cond-clauses exp</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> exp</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">cond-else-clause? clause</span><span class="clo">)</span><span class="pln">
@@ -656,7 +654,7 @@ on the value of the <code>⟨</code><var>test</var><code>⟩</code>, and the res
 the <code>cond</code> expression.  For example
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">((</span><span class="pln">assoc </span><span class="lit">'b</span><span class="pln"> </span><span class="lit">'</span><span class="opn">((</span><span class="pln">a </span><span class="lit">1</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">b </span><span class="lit">2</span><span class="clo">)))</span><span class="pln"> </span><span class="pun">=&gt;</span><span class="pln"> </span><span class="kwd">cadr</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">((</span><span class="pln">assoc </span><span class="lit">'b</span><span class="pln"> </span><span class="lit">'</span><span class="opn">((</span><span class="pln">a </span><span class="lit">1</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">b </span><span class="lit">2</span><span class="clo">)))</span><span class="pln"> </span><span class="pun">=&gt;</span><span class="pln"> </span><span class="kwd">cadr</span><span class="clo">)</span><span class="pln">
       </span><span class="opn">(</span><span class="kwd">else</span><span class="pln"> false</span><span class="clo">))</span></pre></div>
 
 <p>returns 2.  Modify the handling of <code>cond</code> so that it supports this
@@ -668,13 +666,13 @@ extended syntax.
 expressions, because
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">⟨</span><var><span class="pln">var</span><span class="pun">₁</span></var><span class="pln">⟩ ⟨</span><var><span class="pln">exp</span><span class="pun">₁</span></var><span class="pln">⟩</span><span class="clo">)</span><span class="pln"> </span><span class="roman"><span class="pun">…</span></span><span class="pln"> </span><span class="opn">(</span><span class="pln">⟨</span><var><span class="pln">var</span><span class="pun">ₙ</span></var><span class="pln">⟩ ⟨</span><var><span class="pln">exp</span><span class="pun">ₙ</span></var><span class="pln">⟩</span><span class="clo">))</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">⟨</span><var><span class="pln">var</span><span class="pun">₁</span></var><span class="pln">⟩ ⟨</span><var><span class="pln">exp</span><span class="pun">₁</span></var><span class="pln">⟩</span><span class="clo">)</span><span class="pln"> </span><span class="roman"><span class="pun">…</span></span><span class="pln"> </span><span class="opn">(</span><span class="pln">⟨</span><var><span class="pln">var</span><span class="pun">ₙ</span></var><span class="pln">⟩ ⟨</span><var><span class="pln">exp</span><span class="pun">ₙ</span></var><span class="pln">⟩</span><span class="clo">))</span><span class="pln">
   ⟨</span><var><span class="pln">body</span></var><span class="pln">⟩</span><span class="clo">)</span></pre></div>
 
 <p>is equivalent to
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">((</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">⟨</span><var><span class="pln">var</span><span class="pun">₁</span></var><span class="pln">⟩ </span><span class="roman"><span class="pun">…</span></span><span class="pln"> ⟨</span><var><span class="pln">var</span><span class="pun">ₙ</span></var><span class="pln">⟩</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">((</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">⟨</span><var><span class="pln">var</span><span class="pun">₁</span></var><span class="pln">⟩ </span><span class="roman"><span class="pun">…</span></span><span class="pln"> ⟨</span><var><span class="pln">var</span><span class="pun">ₙ</span></var><span class="pln">⟩</span><span class="clo">)</span><span class="pln">
    ⟨</span><var><span class="pln">body</span></var><span class="pln">⟩</span><span class="clo">)</span><span class="pln">
  ⟨</span><var><span class="pln">exp</span><span class="pun">₁</span></var><span class="pln">⟩
  </span><span class="roman"><span class="pun">…</span></span><span class="pln">
@@ -693,7 +691,7 @@ sequentially from left to right, and each binding is made in an environment in
 which all of the preceding bindings are visible.  For example
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">let</span><span class="pun">*</span><span class="pln"> </span><span class="opn">((</span><span class="pln">x </span><span class="lit">3</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">let</span><span class="pun">*</span><span class="pln"> </span><span class="opn">((</span><span class="pln">x </span><span class="lit">3</span><span class="clo">)</span><span class="pln">
        </span><span class="opn">(</span><span class="pln">y </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> x </span><span class="lit">2</span><span class="clo">))</span><span class="pln">
        </span><span class="opn">(</span><span class="pln">z </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> x y </span><span class="lit">5</span><span class="clo">)))</span><span class="pln">
   </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> x z</span><span class="clo">))</span></pre></div>
@@ -705,7 +703,7 @@ that performs this transformation.  If we have already implemented <code>let</co
 is it sufficient to add a clause to <code>eval</code> whose action is
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">eval </span><span class="opn">(</span><span class="kwd">let</span><span class="pun">*-&gt;</span><span class="pln">nested-lets exp</span><span class="clo">)</span><span class="pln"> env</span><span class="clo">)</span></pre></div>
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">eval </span><span class="opn">(</span><span class="kwd">let</span><span class="pun">*-&gt;</span><span class="pln">nested-lets exp</span><span class="clo">)</span><span class="pln"> env</span><span class="clo">)</span></pre></div>
 
 <p>or must we explicitly expand <code>let*</code> in terms of non-derived expressions?
 </p></blockquote>
@@ -715,7 +713,7 @@ is it sufficient to add a clause to <code>eval</code> whose action is
 of <code>let</code> that has the form 
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">let</span><span class="pln"> ⟨</span><var><span class="pln">var</span></var><span class="pln">⟩ ⟨</span><var><span class="pln">bindings</span></var><span class="pln">⟩ ⟨</span><var><span class="pln">body</span></var><span class="pln">⟩</span><span class="clo">)</span></pre></div>
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">let</span><span class="pln"> ⟨</span><var><span class="pln">var</span></var><span class="pln">⟩ ⟨</span><var><span class="pln">bindings</span></var><span class="pln">⟩ ⟨</span><var><span class="pln">body</span></var><span class="pln">⟩</span><span class="clo">)</span></pre></div>
 
 <p>The <code>⟨</code><var>bindings</var><code>⟩</code> and <code>⟨</code><var>body</var><code>⟩</code> are just as in ordinary <code>let</code>,
 except that <code>⟨</code><var>var</var><code>⟩</code> is bound within <code>⟨</code><var>body</var><code>⟩</code> to a procedure whose body
@@ -725,7 +723,7 @@ named <code>⟨</code><var>var</var><code>⟩</code>.  For example, the iterativ
 (<a href="1_002e2.xhtml#g_t1_002e2_002e2">1.2.2</a>) can be rewritten using named <code>let</code> as follows:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">fib n</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">fib n</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> fib-iter </span><span class="opn">((</span><span class="pln">a </span><span class="lit">1</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">b </span><span class="lit">0</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">count n</span><span class="clo">))</span><span class="pln">
     </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pun">=</span><span class="pln"> count </span><span class="lit">0</span><span class="clo">)</span><span class="pln">
         b
@@ -772,7 +770,7 @@ and false.
 <code>false</code> object.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">true? x</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">true? x</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">not </span><span class="opn">(</span><span class="kwd">eq</span><span class="pun">?</span><span class="pln"> x false</span><span class="clo">)))</span><span class="pln">
 
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">false? x</span><span class="clo">)</span><span class="pln">
@@ -803,7 +801,7 @@ procedures:
 environments using the constructor <code>make-procedure</code>:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-procedure parameters body env</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-procedure parameters body env</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">list </span><span class="lit">'procedure</span><span class="pln"> parameters body env</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">compound-procedure? p</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">tagged-list? p </span><span class="lit">'procedure</span><span class="clo">))</span><span class="pln">
@@ -850,7 +848,7 @@ The enclosing environment of an environment is the <code>cdr</code> of the list.
 empty environment is simply the empty list.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">enclosing-environment env</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> env</span><span class="clo">))</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">enclosing-environment env</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> env</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">first-frame env</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> env</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> the-empty-environment </span><span class="lit">'</span><span class="opn">(</span><span class="clo">))</span></pre></div>
 
@@ -859,7 +857,7 @@ variables bound in that frame and a list of the associated
 values.<a class="footnote_link" id="DOCF218" href="#FOOT218"><sup>218</sup></a>
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-frame variables values</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-frame variables values</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">cons</span><span class="pln"> variables values</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">frame-variables frame</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> frame</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">frame-values frame</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> frame</span><span class="clo">))</span><span class="pln">
@@ -873,7 +871,7 @@ we adjoin this to the environment.  We signal an error if the number of
 variables does not match the number of values.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">extend-environment vars vals base-env</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">extend-environment vars vals base-env</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pun">=</span><span class="pln"> </span><span class="opn">(</span><span class="pln">length vars</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">length vals</span><span class="clo">))</span><span class="pln">
       </span><span class="opn">(</span><span class="kwd">cons</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-frame vars vals</span><span class="clo">)</span><span class="pln"> base-env</span><span class="clo">)</span><span class="pln">
       </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pun">&lt;</span><span class="pln"> </span><span class="opn">(</span><span class="pln">length vars</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">length vals</span><span class="clo">))</span><span class="pln">
@@ -891,7 +889,7 @@ frame, we search the enclosing environment, and so on.  If we reach the empty
 environment, we signal an “unbound variable” error.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">lookup-variable-value var env</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">lookup-variable-value var env</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">env-loop env</span><span class="clo">)</span><span class="pln">
     </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">scan vars vals</span><span class="clo">)</span><span class="pln">
       </span><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">((</span><span class="pln">null? vars</span><span class="clo">)</span><span class="pln">
@@ -913,7 +911,7 @@ variable, just as in <code>lookup-variable-value</code>, and change the correspo
 value when we find it.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">set-variable-value! var val env</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">set-variable-value! var val env</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">env-loop env</span><span class="clo">)</span><span class="pln">
     </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">scan vars vals</span><span class="clo">)</span><span class="pln">
       </span><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">((</span><span class="pln">null? vars</span><span class="clo">)</span><span class="pln">
@@ -935,7 +933,7 @@ and change the binding if it exists (just as in <code>set-variable-value!</code>
 If no such binding exists, we adjoin one to the first frame.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">define-variable! var val env</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">define-variable! var val env</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">frame </span><span class="opn">(</span><span class="pln">first-frame env</span><span class="clo">)))</span><span class="pln">
     </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">scan vars vals</span><span class="clo">)</span><span class="pln">
       </span><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">((</span><span class="pln">null? vars</span><span class="clo">)</span><span class="pln">
@@ -1010,7 +1008,7 @@ also includes bindings for the symbols <code>true</code> and <code>false</code>,
 they can be used as variables in expressions to be evaluated.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">setup-environment</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">setup-environment</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">initial-env
          </span><span class="opn">(</span><span class="pln">extend-environment 
           </span><span class="opn">(</span><span class="pln">primitive-procedure-names</span><span class="clo">)</span><span class="pln">
@@ -1031,7 +1029,7 @@ chosen to represent a primitive procedure as a list beginning with the symbol
 implements that primitive.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">primitive-procedure? proc</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">primitive-procedure? proc</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">tagged-list? proc </span><span class="lit">'primitive</span><span class="clo">))</span><span class="pln">
 
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">primitive-implementation proc</span><span class="clo">)</span><span class="pln"> 
@@ -1041,7 +1039,7 @@ implements that primitive.
 procedures from a list:<a class="footnote_link" id="DOCF220" href="#FOOT220"><sup>220</sup></a>
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> primitive-procedures
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> primitive-procedures
   </span><span class="opn">(</span><span class="pln">list </span><span class="opn">(</span><span class="pln">list </span><span class="lit">'car</span><span class="pln"> </span><span class="kwd">car</span><span class="clo">)</span><span class="pln">
         </span><span class="opn">(</span><span class="pln">list </span><span class="lit">'cdr</span><span class="pln"> </span><span class="kwd">cdr</span><span class="clo">)</span><span class="pln">
         </span><span class="opn">(</span><span class="pln">list </span><span class="lit">'cons</span><span class="pln"> </span><span class="kwd">cons</span><span class="clo">)</span><span class="pln">
@@ -1061,7 +1059,7 @@ the arguments, using the underlying Lisp
 system:<a class="footnote_link" id="DOCF221" href="#FOOT221"><sup>221</sup></a>
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">apply-primitive-procedure proc args</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">apply-primitive-procedure proc args</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">apply-in-underlying-scheme
    </span><span class="opn">(</span><span class="pln">primitive-implementation proc</span><span class="clo">)</span><span class="pln"> args</span><span class="clo">))</span></pre></div>
 
@@ -1076,7 +1074,7 @@ precede each printed result by an <a id="index-output-prompt"></a>
 the value of the expression from other output that may be printed.<a class="footnote_link" id="DOCF222" href="#FOOT222"><sup>222</sup></a>
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> input-prompt  </span><span class="str">";;; M-Eval input:"</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> input-prompt  </span><span class="str">";;; M-Eval input:"</span><span class="clo">)</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> output-prompt </span><span class="str">";;; M-Eval value:"</span><span class="clo">)</span><span class="pln">
 
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">driver-loop</span><span class="clo">)</span><span class="pln">
@@ -1101,7 +1099,7 @@ environment part of a compound procedure, which may be a very long list (or may
 even contain cycles).
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">user-print object</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">user-print object</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pln">compound-procedure? object</span><span class="clo">)</span><span class="pln">
       </span><span class="opn">(</span><span class="pln">display 
        </span><span class="opn">(</span><span class="pln">list </span><span class="lit">'compound-procedure</span><span class="pln">
@@ -1114,7 +1112,7 @@ even contain cycles).
 environment and start the driver loop.  Here is a sample interaction:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> the-global-environment 
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> the-global-environment 
   </span><span class="opn">(</span><span class="pln">setup-environment</span><span class="clo">))</span><span class="pln">
 
 </span><span class="opn">(</span><span class="pln">driver-loop</span><span class="clo">)</span><span class="pln">
@@ -1154,7 +1152,7 @@ program is a description of an abstract (perhaps infinitely large) machine.
 For example, consider the familiar program to compute factorials:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">factorial n</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">factorial n</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pun">=</span><span class="pln"> n </span><span class="lit">1</span><span class="clo">)</span><span class="pln">
       </span><span class="lit">1</span><span class="pln">
       </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> </span><span class="opn">(</span><span class="pln">factorial </span><span class="opn">(</span><span class="pun">-</span><span class="pln"> n </span><span class="lit">1</span><span class="clo">))</span><span class="pln"> n</span><span class="clo">)))</span></pre></div>
@@ -1221,12 +1219,12 @@ expression and an environment and evaluates the expression relative to the
 environment.<a class="footnote_link" id="DOCF225" href="#FOOT225"><sup>225</sup></a> Thus,
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">eval </span><span class="lit">'</span><span class="opn">(</span><span class="pun">*</span><span class="pln"> </span><span class="lit">5</span><span class="pln"> </span><span class="lit">5</span><span class="clo">)</span><span class="pln"> user-initial-environment</span><span class="clo">)</span></pre></div>
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">eval </span><span class="lit">'</span><span class="opn">(</span><span class="pun">*</span><span class="pln"> </span><span class="lit">5</span><span class="pln"> </span><span class="lit">5</span><span class="clo">)</span><span class="pln"> user-initial-environment</span><span class="clo">)</span></pre></div>
 
 <p>and
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">eval </span><span class="opn">(</span><span class="kwd">cons</span><span class="pln"> </span><span class="lit">'</span><span class="pun">*</span><span class="pln"> </span><span class="opn">(</span><span class="pln">list </span><span class="lit">5</span><span class="pln"> </span><span class="lit">5</span><span class="clo">))</span><span class="pln"> 
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">eval </span><span class="opn">(</span><span class="kwd">cons</span><span class="pln"> </span><span class="lit">'</span><span class="pun">*</span><span class="pln"> </span><span class="opn">(</span><span class="pln">list </span><span class="lit">5</span><span class="pln"> </span><span class="lit">5</span><span class="clo">))</span><span class="pln"> 
       user-initial-environment</span><span class="clo">)</span></pre></div>
 
 <p>will both return 25.<a class="footnote_link" id="DOCF226" href="#FOOT226"><sup>226</sup></a>
@@ -1242,7 +1240,7 @@ the following reasoning: If you had such a procedure <code>halts?</code>, you co
 implement the following program:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">run-forever</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">run-forever</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">run-forever</span><span class="clo">))</span><span class="pln">
 
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">try p</span><span class="clo">)</span><span class="pln">
@@ -1271,7 +1269,7 @@ not be the best way to define local variables.
 <p>Consider a procedure with internal definitions, such as
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">f x</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">f x</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">even? n</span><span class="clo">)</span><span class="pln">
     </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pun">=</span><span class="pln"> n </span><span class="lit">0</span><span class="clo">)</span><span class="pln">
         true
@@ -1316,7 +1314,7 @@ variables will be created with a <code>let</code> and then set to their values b
 assignment.  For example, the procedure
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> ⟨</span><var><span class="pln">vars</span></var><span class="pln">⟩
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> ⟨</span><var><span class="pln">vars</span></var><span class="pln">⟩
   </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> u ⟨</span><var><span class="pln">e1</span></var><span class="pln">⟩</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> v ⟨</span><var><span class="pln">e2</span></var><span class="pln">⟩</span><span class="clo">)</span><span class="pln">
   ⟨</span><var><span class="pln">e3</span></var><span class="pln">⟩</span><span class="clo">)</span></pre></div>
@@ -1324,7 +1322,7 @@ assignment.  For example, the procedure
 <p>would be transformed into
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> ⟨</span><var><span class="pln">vars</span></var><span class="pln">⟩
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> ⟨</span><var><span class="pln">vars</span></var><span class="pln">⟩
   </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">u </span><span class="lit">'</span><span class="pun">*</span><span class="pln">unassigned</span><span class="pun">*</span><span class="clo">)</span><span class="pln">
         </span><span class="opn">(</span><span class="pln">v </span><span class="lit">'</span><span class="pun">*</span><span class="pln">unassigned</span><span class="pun">*</span><span class="clo">))</span><span class="pln">
     </span><span class="opn">(</span><span class="kwd">set</span><span class="pun">!</span><span class="pln"> u ⟨</span><var><span class="pln">e1</span></var><span class="pln">⟩</span><span class="clo">)</span><span class="pln">
@@ -1377,7 +1375,7 @@ the extra frame.
 for scanning out definitions that translates the example in the text to
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> ⟨</span><var><span class="pln">vars</span></var><span class="pln">⟩
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> ⟨</span><var><span class="pln">vars</span></var><span class="pln">⟩
   </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">u </span><span class="lit">'</span><span class="pun">*</span><span class="pln">unassigned</span><span class="pun">*</span><span class="clo">)</span><span class="pln">
         </span><span class="opn">(</span><span class="pln">v </span><span class="lit">'</span><span class="pun">*</span><span class="pln">unassigned</span><span class="pun">*</span><span class="clo">))</span><span class="pln">
     </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">a ⟨</span><var><span class="pln">e1</span></var><span class="pln">⟩</span><span class="clo">)</span><span class="pln">
@@ -1391,7 +1389,7 @@ by the interpreter, that do not appear in the user’s program.  Consider the
 <code>solve</code> procedure from <a href="3_002e5.xhtml#g_t3_002e5_002e4">3.5.4</a>:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">solve f y0 dt</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">solve f y0 dt</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> y </span><span class="opn">(</span><span class="pln">integral </span><span class="opn">(</span><span class="kwd">delay</span><span class="pln"> dy</span><span class="clo">)</span><span class="pln"> y0 dt</span><span class="clo">))</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> dy </span><span class="opn">(</span><span class="pln">stream-map f y</span><span class="clo">))</span><span class="pln">
   y</span><span class="clo">)</span></pre></div>
@@ -1406,7 +1404,7 @@ and Eva Lu Ator are arguing about the desired result of evaluating the
 expression
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">a </span><span class="lit">1</span><span class="clo">))</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">a </span><span class="lit">1</span><span class="clo">))</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">f x</span><span class="clo">)</span><span class="pln">
     </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> b </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> a x</span><span class="clo">))</span><span class="pln">
     </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> a </span><span class="lit">5</span><span class="clo">)</span><span class="pln">
@@ -1439,7 +1437,7 @@ simultaneously and have the same scope as each other.  The sample procedure
 the same meaning, as
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">f x</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">f x</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">letrec</span><span class="pln">
       </span><span class="opn">((</span><span class="pln">even?
         </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">n</span><span class="clo">)</span><span class="pln">
@@ -1456,14 +1454,14 @@ the same meaning, as
 <p><code>Letrec</code> expressions, which have the form
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">letrec</span><span class="pln"> </span><span class="opn">((</span><span class="pln">⟨</span><var><span class="pln">var</span><span class="pun">₁</span></var><span class="pln">⟩ ⟨</span><var><span class="pln">exp</span><span class="pun">₁</span></var><span class="pln">⟩</span><span class="clo">)</span><span class="pln"> </span><span class="roman"><span class="pun">…</span></span><span class="pln"> </span><span class="opn">(</span><span class="pln">⟨</span><var><span class="pln">var</span><span class="pun">ₙ</span></var><span class="pln">⟩ ⟨</span><var><span class="pln">exp</span><span class="pun">ₙ</span></var><span class="pln">⟩</span><span class="clo">))</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">letrec</span><span class="pln"> </span><span class="opn">((</span><span class="pln">⟨</span><var><span class="pln">var</span><span class="pun">₁</span></var><span class="pln">⟩ ⟨</span><var><span class="pln">exp</span><span class="pun">₁</span></var><span class="pln">⟩</span><span class="clo">)</span><span class="pln"> </span><span class="roman"><span class="pun">…</span></span><span class="pln"> </span><span class="opn">(</span><span class="pln">⟨</span><var><span class="pln">var</span><span class="pun">ₙ</span></var><span class="pln">⟩ ⟨</span><var><span class="pln">exp</span><span class="pun">ₙ</span></var><span class="pln">⟩</span><span class="clo">))</span><span class="pln">
   ⟨</span><var><span class="pln">body</span></var><span class="pln">⟩</span><span class="clo">)</span></pre></div>
 
 <p>are a variation on <code>let</code> in which the expressions
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <mrow class="MJX-TeXAtom-ORD">
     <mo stretchy="false">⟨</mo>
-    <mspace width="0.1em"/>
+    <mspace width="0.1em"></mspace>
     <mi>e</mi>
     <mi>x</mi>
     <msub>
@@ -1476,7 +1474,7 @@ the same meaning, as
 variables <math xmlns="http://www.w3.org/1998/Math/MathML">
   <mrow class="MJX-TeXAtom-ORD">
     <mo stretchy="false">⟨</mo>
-    <mspace width="0.06em"/>
+    <mspace width="0.06em"></mspace>
     <mi>v</mi>
     <mi>a</mi>
     <msub>
@@ -1491,7 +1489,7 @@ bindings, such as the mutual recursion of <code>even?</code> and <code>odd?</cod
 example above, or the evaluation of 10 factorial with
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">letrec</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">letrec</span><span class="pln">
     </span><span class="opn">((</span><span class="pln">fact
       </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">n</span><span class="clo">)</span><span class="pln">
         </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pun">=</span><span class="pln"> n </span><span class="lit">1</span><span class="clo">)</span><span class="pln">
@@ -1527,7 +1525,7 @@ following expression computes 10 factorial by applying a recursive factorial
 procedure:<a class="footnote_link" id="DOCF231" href="#FOOT231"><sup>231</sup></a>
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">((</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">n</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">((</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">n</span><span class="clo">)</span><span class="pln">
    </span><span class="opn">((</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">fact</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">fact fact n</span><span class="clo">))</span><span class="pln">
     </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">ft k</span><span class="clo">)</span><span class="pln">
       </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pun">=</span><span class="pln"> k </span><span class="lit">1</span><span class="clo">)</span><span class="pln">
@@ -1543,7 +1541,7 @@ Devise an analogous expression for computing Fibonacci numbers.
 definitions:
 
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">f x</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">f x</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">even? n</span><span class="clo">)</span><span class="pln">
     </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pun">=</span><span class="pln"> n </span><span class="lit">0</span><span class="clo">)</span><span class="pln">
         true
@@ -1558,7 +1556,7 @@ definitions:
 <code>f</code>, which uses neither internal definitions nor <code>letrec</code>:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">f x</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">f x</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">((</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">even? odd?</span><span class="clo">)</span><span class="pln">
      </span><span class="opn">(</span><span class="pln">even? even? odd? x</span><span class="clo">))</span><span class="pln">
    </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">ev? od? n</span><span class="clo">)</span><span class="pln">
@@ -1583,7 +1581,7 @@ Consider, for example, evaluating <code>(factorial 4)</code> using the following
 definition of <code>factorial</code>:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">factorial n</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">factorial n</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pun">=</span><span class="pln"> n </span><span class="lit">1</span><span class="clo">)</span><span class="pln">
       </span><span class="lit">1</span><span class="pln">
       </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> </span><span class="opn">(</span><span class="pln">factorial </span><span class="opn">(</span><span class="pun">-</span><span class="pln"> n </span><span class="lit">1</span><span class="clo">))</span><span class="pln"> n</span><span class="clo">)))</span></pre></div>
@@ -1611,7 +1609,7 @@ execution procedure may be called many times.
 <p>With the separation into analysis and execution, <code>eval</code> now becomes
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">eval exp env</span><span class="clo">)</span><span class="pln"> </span><span class="opn">((</span><span class="pln">analyze exp</span><span class="clo">)</span><span class="pln"> env</span><span class="clo">))</span></pre></div>
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">eval exp env</span><span class="clo">)</span><span class="pln"> </span><span class="opn">((</span><span class="pln">analyze exp</span><span class="clo">)</span><span class="pln"> env</span><span class="clo">))</span></pre></div>
 
 <p>The result of calling <code>analyze</code> is the execution procedure to be applied
 to the environment.  The <code>analyze</code> procedure is the same case analysis as
@@ -1619,7 +1617,7 @@ performed by the original <code>eval</code> of <a href="#g_t4_002e1_002e1">4.1.1
 procedures to which we dispatch perform only analysis, not full evaluation:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">analyze exp</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">analyze exp</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">((</span><span class="pln">self-evaluating? exp</span><span class="clo">)</span><span class="pln">
          </span><span class="opn">(</span><span class="pln">analyze-self-evaluating exp</span><span class="clo">))</span><span class="pln">
         </span><span class="opn">((</span><span class="pln">quoted? exp</span><span class="clo">)</span><span class="pln"> 
@@ -1651,7 +1649,7 @@ self-evaluating expressions.  It returns an execution procedure that ignores
 its environment argument and just returns the expression:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">analyze-self-evaluating exp</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">analyze-self-evaluating exp</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">env</span><span class="clo">)</span><span class="pln"> exp</span><span class="clo">))</span></pre></div>
 
 <p>For a quoted expression, we can gain a little efficiency by extracting the text
@@ -1659,7 +1657,7 @@ of the quotation only once, in the analysis phase, rather than in the execution
 phase.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">analyze-quoted exp</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">analyze-quoted exp</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">qval </span><span class="opn">(</span><span class="pln">text-of-quotation exp</span><span class="clo">)))</span><span class="pln">
     </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">env</span><span class="clo">)</span><span class="pln"> qval</span><span class="clo">)))</span></pre></div>
 
@@ -1667,7 +1665,7 @@ phase.
 this depends upon knowing the environment.<a class="footnote_link" id="DOCF233" href="#FOOT233"><sup>233</sup></a>
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">analyze-variable exp</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">analyze-variable exp</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">env</span><span class="clo">)</span><span class="pln"> 
     </span><span class="opn">(</span><span class="pln">lookup-variable-value exp env</span><span class="clo">)))</span></pre></div>
 
@@ -1679,7 +1677,7 @@ expression will now be analyzed only once.  The same holds true for
 definitions.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">analyze-assignment exp</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">analyze-assignment exp</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">var </span><span class="opn">(</span><span class="pln">assignment-variable exp</span><span class="clo">))</span><span class="pln">
         </span><span class="opn">(</span><span class="pln">vproc </span><span class="opn">(</span><span class="pln">analyze 
                 </span><span class="opn">(</span><span class="pln">assignment-value exp</span><span class="clo">))))</span><span class="pln">
@@ -1700,7 +1698,7 @@ definitions.
 and alternative at analysis time.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">analyze-if exp</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">analyze-if exp</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">pproc </span><span class="opn">(</span><span class="pln">analyze </span><span class="opn">(</span><span class="pln">if-predicate exp</span><span class="clo">)))</span><span class="pln">
         </span><span class="opn">(</span><span class="pln">cproc </span><span class="opn">(</span><span class="pln">analyze </span><span class="opn">(</span><span class="pln">if-consequent exp</span><span class="clo">)))</span><span class="pln">
         </span><span class="opn">(</span><span class="pln">aproc </span><span class="opn">(</span><span class="pln">analyze </span><span class="opn">(</span><span class="pln">if-alternative exp</span><span class="clo">))))</span><span class="pln">
@@ -1714,7 +1712,7 @@ We analyze the <code>lambda</code> body only once, even though procedures result
 from evaluation of the <code>lambda</code> may be applied many times.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">analyze-lambda exp</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">analyze-lambda exp</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">vars </span><span class="opn">(</span><span class="pln">lambda-parameters exp</span><span class="clo">))</span><span class="pln">
         </span><span class="opn">(</span><span class="pln">bproc </span><span class="opn">(</span><span class="pln">analyze-sequence 
                 </span><span class="opn">(</span><span class="pln">lambda-body exp</span><span class="clo">))))</span><span class="pln">
@@ -1729,7 +1727,7 @@ environment as argument and sequentially calls each individual execution
 procedure with the environment as argument.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">analyze-sequence exps</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">analyze-sequence exps</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">sequentially proc1 proc2</span><span class="clo">)</span><span class="pln">
     </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">env</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">proc1 env</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">proc2 env</span><span class="clo">)))</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">loop first-proc rest-procs</span><span class="clo">)</span><span class="pln">
@@ -1754,7 +1752,7 @@ no need to do further analysis.  Instead, we just call the execution procedure
 for the body on the extended environment.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">analyze-application exp</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">analyze-application exp</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">fproc </span><span class="opn">(</span><span class="pln">analyze </span><span class="opn">(</span><span class="pln">operator exp</span><span class="clo">)))</span><span class="pln">
         </span><span class="opn">(</span><span class="pln">aprocs </span><span class="opn">(</span><span class="pln">map analyze </span><span class="opn">(</span><span class="pln">operands exp</span><span class="clo">))))</span><span class="pln">
     </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">env</span><span class="clo">)</span><span class="pln">
@@ -1793,7 +1791,7 @@ corresponding evaluation procedures (or <code>eval</code> clauses) in
 <a href="#g_t4_002e1_002e1">4.1.1</a>.  She expected <code>analyze-sequence</code> to look like this:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">analyze-sequence exps</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">analyze-sequence exps</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">execute-sequence procs env</span><span class="clo">)</span><span class="pln">
     </span><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">((</span><span class="pln">null? </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> procs</span><span class="clo">))</span><span class="pln"> 
            </span><span class="opn">((</span><span class="kwd">car</span><span class="pln"> procs</span><span class="clo">)</span><span class="pln"> env</span><span class="clo">))</span><span class="pln">
@@ -1976,7 +1974,7 @@ avoid conflict with the name of the primitive procedure.  We have assumed
 instead that we have saved a reference to the underlying <code>apply</code> by doing
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> apply-in-underlying-scheme apply</span><span class="clo">)</span></pre></div>
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> apply-in-underlying-scheme apply</span><span class="clo">)</span></pre></div>
 
 <p>before defining the metacircular <code>apply</code>.  This allows us to access the
 original version of <code>apply</code> under a different name.</p>
@@ -2121,10 +2119,10 @@ for some insight into the processing of sequences.</p>
 </div>
 <nav class="header">
 <p>
-Next: <a href="4_002e2.xhtml#g_t4_002e2" accesskey="n" rel="next">4.2</a>, Prev: <a href="Chapter-4.xhtml#Chapter-4" accesskey="p" rel="prev">Chapter 4</a>, Up: <a href="#g_t4_002e1" accesskey="u" rel="prev">4.1</a>   [<a href="index.xhtml#SEC_Contents" title="Table of contents" accesskey="c" rel="contents">Contents</a>]</p>
+Next: <a href="4_002e2.xhtml#g_t4_002e2" accesskey="n" rel="next">4.2</a>, Prev: <a href="Chapter-4.xhtml#Chapter-4" accesskey="p" rel="prev">Chapter 4</a>, Up: <a href="#g_t4_002e1" accesskey="u" rel="prev">4.1</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" accesskey="c" rel="contents">Contents</a>]</p>
 </nav>
 
 
 </section><span class="bottom jump" title="Jump to bottom"><a href="#pagebottom" accesskey="b">⇣</a></span><a id="pagebottom"></a>
-</body>
-</html>
+
+</body></html>

@@ -1,24 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="en" lang="en">
-<!-- Created by GNU Texinfo 5.1, http://www.gnu.org/software/texinfo/ -->
-<head>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="en" lang="en"><!-- Created by GNU Texinfo 5.1, http://www.gnu.org/software/texinfo/ --><head>
 <title>Structure and Interpretation of Computer Programs, 2e: 5.2</title>
 
-<meta name="description" content="Structure and Interpretation of Computer Programs, 2e: 5.2" />
-<meta name="keywords" content="Structure and Interpretation of Computer Programs, 2e: 5.2" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="Generator" content="texi2any" />
-<meta charset="utf-8" />
-<link href="index.xhtml#Top" rel="start" title="Top" />
-<link href="Term-Index.xhtml#Term-Index" rel="index" title="Term Index" />
-<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents" />
-<link href="Chapter-5.xhtml#Chapter-5" rel="prev" title="Chapter 5" />
-<link href="5_002e3.xhtml#g_t5_002e3" rel="next" title="5.3" />
-<link href="5_002e1.xhtml#g_t5_002e1_002e5" rel="prev" title="5.1.5" />
+<meta name="description" content="Structure and Interpretation of Computer Programs, 2e: 5.2">
+<meta name="keywords" content="Structure and Interpretation of Computer Programs, 2e: 5.2">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="Generator" content="texi2any">
+<meta charset="utf-8">
+<link href="index.xhtml#Top" rel="start" title="Top">
+<link href="Term-Index.xhtml#Term-Index" rel="index" title="Term Index">
+<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Chapter-5.xhtml#Chapter-5" rel="prev" title="Chapter 5">
+<link href="5_002e3.xhtml#g_t5_002e3" rel="next" title="5.3">
+<link href="5_002e1.xhtml#g_t5_002e1_002e5" rel="prev" title="5.1.5">
 
-<link href="css/style.css" rel="stylesheet" type="text/css" />
-<link href="css/prettify.css" rel="stylesheet" type="text/css" />
+<link href="css/style.css" rel="stylesheet" type="text/css">
+<link href="css/prettify.css" rel="stylesheet" type="text/css">
 
 <script src="js/jquery.min.js" type="text/javascript"></script>
 <script src="js/footnotes.js" type="text/javascript"></script>
@@ -29,7 +27,7 @@
 <section><span class="top jump" title="Jump to top"><a href="#pagetop" accesskey="t">⇡</a></span><a id="pagetop"></a><a id="g_t5_002e2"></a>
 <nav class="header">
 <p>
-Next: <a href="5_002e3.xhtml#g_t5_002e3" accesskey="n" rel="next">5.3</a>, Prev: <a href="5_002e1.xhtml#g_t5_002e1" accesskey="p" rel="prev">5.1</a>, Up: <a href="Chapter-5.xhtml#Chapter-5" accesskey="u" rel="prev">Chapter 5</a>   [<a href="index.xhtml#SEC_Contents" title="Table of contents" accesskey="c" rel="contents">Contents</a>]</p>
+Next: <a href="5_002e3.xhtml#g_t5_002e3" accesskey="n" rel="next">5.3</a>, Prev: <a href="5_002e1.xhtml#g_t5_002e1" accesskey="p" rel="prev">5.1</a>, Up: <a href="Chapter-5.xhtml#Chapter-5" accesskey="u" rel="prev">Chapter 5</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" accesskey="c" rel="contents">Contents</a>]</p>
 </nav>
 <a id="A-Register_002dMachine-Simulator"></a>
 <h3 class="section"><span class="secnum">5.2</span><span class="sectitle">A Register-Machine Simulator</span></h3>
@@ -48,7 +46,7 @@ simulate the machine by manipulating the model:
 <blockquote>
 
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">make-machine ⟨</span><var><span class="pln">register-names</span></var><span class="pln">⟩
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">make-machine ⟨</span><var><span class="pln">register-names</span></var><span class="pln">⟩
               ⟨</span><var><span class="pln">operations</span></var><span class="pln">⟩
               ⟨</span><var><span class="pln">controller</span></var><span class="pln">⟩</span><span class="clo">)</span></pre></div>
 
@@ -56,20 +54,20 @@ simulate the machine by manipulating the model:
 operations, and controller.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">set-register-contents! ⟨</span><var><span class="pln">machine-model</span></var><span class="pln">⟩ 
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">set-register-contents! ⟨</span><var><span class="pln">machine-model</span></var><span class="pln">⟩ 
                         ⟨</span><var><span class="pln">register-name</span></var><span class="pln">⟩ 
                         ⟨</span><var><span class="pln">value</span></var><span class="pln">⟩</span><span class="clo">)</span></pre></div>
 
 <p>stores a value in a simulated register in the given machine.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">get-register-contents ⟨</span><var><span class="pln">machine-model</span></var><span class="pln">⟩
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">get-register-contents ⟨</span><var><span class="pln">machine-model</span></var><span class="pln">⟩
                        ⟨</span><var><span class="pln">register-name</span></var><span class="pln">⟩</span><span class="clo">)</span></pre></div>
 
 <p>returns the contents of a simulated register in the given machine.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">start ⟨</span><var><span class="pln">machine-model</span></var><span class="pln">⟩</span><span class="clo">)</span></pre></div>
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">start ⟨</span><var><span class="pln">machine-model</span></var><span class="pln">⟩</span><span class="clo">)</span></pre></div>
 
 <p>simulates the execution of the given machine, starting from the beginning of
 the controller sequence and stopping when it reaches the end of the sequence.
@@ -80,7 +78,7 @@ the controller sequence and stopping when it reaches the end of the sequence.
 <a href="5_002e1.xhtml#g_t5_002e1_002e1">5.1.1</a> as follows:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> gcd-machine
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> gcd-machine
   </span><span class="opn">(</span><span class="pln">make-machine
    </span><span class="lit">'</span><span class="opn">(</span><span class="pln">a b t</span><span class="clo">)</span><span class="pln">
    </span><span class="opn">(</span><span class="pln">list </span><span class="opn">(</span><span class="pln">list </span><span class="lit">'rem</span><span class="pln"> remainder</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">list </span><span class="lit">'</span><span class="pun">=</span><span class="pln"> </span><span class="pun">=</span><span class="clo">))</span><span class="pln">
@@ -104,7 +102,7 @@ specifies the controller as a list of labels and machine instructions, as in
 the machine, and examine the result when the simulation terminates:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">set-register-contents! gcd-machine </span><span class="lit">'a</span><span class="pln"> </span><span class="lit">206</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">set-register-contents! gcd-machine </span><span class="lit">'a</span><span class="pln"> </span><span class="lit">206</span><span class="clo">)</span><span class="pln">
 </span><i><span class="pln">done</span></i><span class="pln">
 
 </span><span class="opn">(</span><span class="pln">set-register-contents! gcd-machine </span><span class="lit">'b</span><span class="pln"> </span><span class="lit">40</span><span class="clo">)</span><span class="pln">
@@ -151,7 +149,7 @@ machine and installs these as the machine’s instruction sequence.
 <code>Make-machine</code> returns as its value the modified machine model.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-machine register-names 
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-machine register-names 
                       ops 
                       controller-text</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">machine </span><span class="opn">(</span><span class="pln">make-new-machine</span><span class="clo">)))</span><span class="pln">
@@ -172,7 +170,7 @@ machine and installs these as the machine’s instruction sequence.
 holds a value that can be accessed or changed:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-register name</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-register name</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">contents </span><span class="lit">'</span><span class="pun">*</span><span class="pln">unassigned</span><span class="pun">*</span><span class="clo">))</span><span class="pln">
     </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">dispatch message</span><span class="clo">)</span><span class="pln">
       </span><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">((</span><span class="kwd">eq</span><span class="pun">?</span><span class="pln"> message </span><span class="lit">'get</span><span class="clo">)</span><span class="pln"> contents</span><span class="clo">)</span><span class="pln">
@@ -188,7 +186,7 @@ holds a value that can be accessed or changed:
 <p>The following procedures are used to access registers:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">get-contents register</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">get-contents register</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">register </span><span class="lit">'get</span><span class="clo">))</span><span class="pln">
 
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">set-contents! register value</span><span class="clo">)</span><span class="pln">
@@ -204,7 +202,7 @@ stack, to <code>pop</code> the top item off the stack and return it, and to
 <code>initialize</code> the stack to empty.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-stack</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-stack</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">s </span><span class="lit">'</span><span class="opn">(</span><span class="clo">)))</span><span class="pln">
     </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">push x</span><span class="clo">)</span><span class="pln">
       </span><span class="opn">(</span><span class="kwd">set</span><span class="pun">!</span><span class="pln"> s </span><span class="opn">(</span><span class="kwd">cons</span><span class="pln"> x s</span><span class="clo">)))</span><span class="pln">
@@ -230,14 +228,14 @@ stack, to <code>pop</code> the top item off the stack and return it, and to
 <p>The following procedures are used to access stacks:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">pop stack</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">stack </span><span class="lit">'pop</span><span class="clo">))</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">pop stack</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">stack </span><span class="lit">'pop</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">push stack value</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">((</span><span class="pln">stack </span><span class="lit">'push</span><span class="clo">)</span><span class="pln"> value</span><span class="clo">))</span></pre></div>
 
 <a id="The-basic-machine"></a>
 <h5 class="subsubheading">The basic machine</h5>
 
-<p>The <code>make-new-machine</code> procedure, shown in <a href="#Figure-5_002e13">Figure 5.13<!-- /@w --></a>, 
+<p>The <code>make-new-machine</code> procedure, shown in <a href="#Figure-5_002e13">Figure&nbsp;5.13<!-- /@w --></a>, 
 constructs
 an object whose local state consists of a stack, an initially empty instruction
 sequence, a list of operations that initially contains an operation to
@@ -254,7 +252,7 @@ the table.
 procedure, which implements the basic machine model.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-new-machine</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-new-machine</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">pc </span><span class="opn">(</span><span class="pln">make-register </span><span class="lit">'pc</span><span class="clo">))</span><span class="pln">
         </span><span class="opn">(</span><span class="pln">flag </span><span class="opn">(</span><span class="pln">make-register </span><span class="lit">'flag</span><span class="clo">))</span><span class="pln">
         </span><span class="opn">(</span><span class="pln">stack </span><span class="opn">(</span><span class="pln">make-stack</span><span class="clo">))</span><span class="pln">
@@ -360,7 +358,7 @@ sequence and calling <code>execute</code>.
 contents, as specified at the beginning of <a href="#g_t5_002e2">5.2</a>:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">start machine</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">start machine</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">machine </span><span class="lit">'start</span><span class="clo">))</span><span class="pln">
 
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">get-register-contents 
@@ -379,7 +377,7 @@ contents, as specified at the beginning of <a href="#g_t5_002e2">5.2</a>:
 use the following to look up the register with a given name in a given machine:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">get-register machine reg-name</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">get-register machine reg-name</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">((</span><span class="pln">machine </span><span class="lit">'get-register</span><span class="clo">)</span><span class="pln"> reg-name</span><span class="clo">))</span></pre></div>
 
 <a id="g_t5_002e2_002e2"></a>
@@ -422,7 +420,7 @@ procedures and insert them into the instruction list, and returns the modified
 list.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">assemble controller-text machine</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">assemble controller-text machine</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">extract-labels controller-text
     </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">insts labels</span><span class="clo">)</span><span class="pln">
       </span><span class="opn">(</span><span class="pln">update-insts! insts labels machine</span><span class="clo">)</span><span class="pln">
@@ -437,7 +435,7 @@ and (2) a table called <code>labels</code>, which associates each label from
 designates.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">extract-labels text receive</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">extract-labels text receive</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pln">null? text</span><span class="clo">)</span><span class="pln">
       </span><span class="opn">(</span><span class="pln">receive </span><span class="lit">'</span><span class="opn">(</span><span class="clo">)</span><span class="pln"> </span><span class="lit">'</span><span class="opn">(</span><span class="clo">))</span><span class="pln">
       </span><span class="opn">(</span><span class="pln">extract-labels 
@@ -469,7 +467,7 @@ only the text of the instructions, to include the corresponding execution
 procedures:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">update-insts! insts labels machine</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">update-insts! insts labels machine</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">pc </span><span class="opn">(</span><span class="pln">get-register machine </span><span class="lit">'pc</span><span class="clo">))</span><span class="pln">
         </span><span class="opn">(</span><span class="pln">flag </span><span class="opn">(</span><span class="pln">get-register machine </span><span class="lit">'flag</span><span class="clo">))</span><span class="pln">
         </span><span class="opn">(</span><span class="pln">stack </span><span class="opn">(</span><span class="pln">machine </span><span class="lit">'stack</span><span class="clo">))</span><span class="pln">
@@ -494,7 +492,7 @@ available when <code>extract-labels</code> constructs the instruction, and is
 inserted later by <code>update-insts!</code>.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-instruction text</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-instruction text</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">cons</span><span class="pln"> text </span><span class="lit">'</span><span class="opn">(</span><span class="clo">)))</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">instruction-text inst</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> inst</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">instruction-execution-proc inst</span><span class="clo">)</span><span class="pln">
@@ -510,13 +508,13 @@ around for debugging (see <a href="#Exercise-5_002e16">Exercise 5.16</a>).
 <p>Elements of the label table are pairs:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-label-entry label-name insts</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-label-entry label-name insts</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">cons</span><span class="pln"> label-name insts</span><span class="clo">))</span></pre></div>
 
 <p>Entries will be looked up in the table with
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">lookup-label labels label-name</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">lookup-label labels label-name</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">val </span><span class="opn">(</span><span class="pln">assoc label-name labels</span><span class="clo">)))</span><span class="pln">
     </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> val
         </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> val</span><span class="clo">)</span><span class="pln">
@@ -528,7 +526,7 @@ around for debugging (see <a href="#Exercise-5_002e16">Exercise 5.16</a>).
 is ambiguous, because the label <code>here</code> is defined more than once:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="pln">start
+<pre class="lisp prettyprinted prettyprint" style=""><span class="pln">start
   </span><span class="opn">(</span><span class="pln">goto </span><span class="opn">(</span><span class="pln">label here</span><span class="clo">))</span><span class="pln">
 here
   </span><span class="opn">(</span><span class="pln">assign a </span><span class="opn">(</span><span class="pln">const </span><span class="lit">3</span><span class="clo">))</span><span class="pln">
@@ -554,7 +552,7 @@ evaluator of <a href="4_002e1.xhtml#g_t4_002e1_002e7">4.1.7</a>, this dispatches
 generate the appropriate execution procedure.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-execution-procedure 
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-execution-procedure 
          inst labels machine pc flag stack ops</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">((</span><span class="kwd">eq</span><span class="pun">?</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> inst</span><span class="clo">)</span><span class="pln"> </span><span class="lit">'assign</span><span class="clo">)</span><span class="pln">
          </span><span class="opn">(</span><span class="pln">make-assign 
@@ -592,7 +590,7 @@ procedures to extract and classify the parts of an instruction.
 <p>The <code>make-assign</code> procedure handles <code>assign</code> instructions:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-assign 
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-assign 
          inst machine labels operations pc</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">target 
          </span><span class="opn">(</span><span class="pln">get-register 
@@ -620,7 +618,7 @@ instruction) and the value expression (the rest of the list that forms the
 instruction) from the <code>assign</code> instruction using the selectors
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">assign-reg-name assign-instruction</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">assign-reg-name assign-instruction</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">cadr</span><span class="pln"> assign-instruction</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">assign-value-exp assign-instruction</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">cddr</span><span class="pln"> assign-instruction</span><span class="clo">))</span></pre></div>
@@ -645,7 +643,7 @@ to the result obtained by executing <code>value-proc</code>.  Then it advances t
 <code>pc</code> to the next instruction by running the procedure
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">advance-pc pc</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">advance-pc pc</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">set-contents! pc </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> </span><span class="opn">(</span><span class="pln">get-contents pc</span><span class="clo">))))</span></pre></div>
 
 <p><code>Advance-pc</code> is the normal termination for all instructions except
@@ -661,7 +659,7 @@ condition is called, the result is assigned to the <code>flag</code> register, a
 the <code>pc</code> is advanced:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> 
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> 
   </span><span class="opn">(</span><span class="pln">make-test 
    inst machine labels operations flag pc</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">condition </span><span class="opn">(</span><span class="pln">test-condition inst</span><span class="clo">)))</span><span class="pln">
@@ -691,7 +689,7 @@ enforces this.  Notice also that the label is looked up at assembly time, not
 each time the <code>branch</code> instruction is simulated.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> 
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> 
   </span><span class="opn">(</span><span class="pln">make-branch 
    inst machine labels flag pc</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">dest </span><span class="opn">(</span><span class="pln">branch-dest inst</span><span class="clo">)))</span><span class="pln">
@@ -716,7 +714,7 @@ may be specified either as a label or as a register, and there is no condition
 to check—the <code>pc</code> is always set to the new destination.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-goto inst machine labels pc</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-goto inst machine labels pc</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">dest </span><span class="opn">(</span><span class="pln">goto-dest inst</span><span class="clo">)))</span><span class="pln">
     </span><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">((</span><span class="pln">label-exp? dest</span><span class="clo">)</span><span class="pln">
            </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">insts
@@ -748,7 +746,7 @@ to check—the <code>pc</code> is always set to the new destination.
 the designated register and advance the <code>pc</code>:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-save inst machine stack pc</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-save inst machine stack pc</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">reg </span><span class="opn">(</span><span class="pln">get-register 
               machine
               </span><span class="opn">(</span><span class="pln">stack-inst-reg-name inst</span><span class="clo">))))</span><span class="pln">
@@ -773,7 +771,7 @@ execution procedure for the action to be performed.  At simulation time, the
 action procedure is executed and the <code>pc</code> advanced.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-perform 
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-perform 
          inst machine labels operations pc</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">action </span><span class="opn">(</span><span class="pln">perform-action inst</span><span class="clo">)))</span><span class="pln">
     </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pln">operation-exp? action</span><span class="clo">)</span><span class="pln">
@@ -802,7 +800,7 @@ generates execution procedures to produce values for these expressions during
 the simulation:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-primitive-exp exp machine labels</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-primitive-exp exp machine labels</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">((</span><span class="pln">constant-exp? exp</span><span class="clo">)</span><span class="pln">
          </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">c </span><span class="opn">(</span><span class="pln">constant-exp-value exp</span><span class="clo">)))</span><span class="pln">
            </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="clo">)</span><span class="pln"> c</span><span class="clo">)))</span><span class="pln">
@@ -825,7 +823,7 @@ the simulation:
 determined by
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">register-exp? exp</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">register-exp? exp</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">tagged-list? exp </span><span class="lit">'reg</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">register-exp-reg exp</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">cadr</span><span class="pln"> exp</span><span class="clo">))</span><span class="pln">
@@ -846,7 +844,7 @@ expression”—a list containing the operation and operand expressions from the
 instruction:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-operation-exp
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-operation-exp
          exp machine labels operations</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">op </span><span class="opn">(</span><span class="pln">lookup-prim 
              </span><span class="opn">(</span><span class="pln">operation-exp-op exp</span><span class="clo">)</span><span class="pln">
@@ -862,7 +860,7 @@ instruction:
 <p>The syntax of operation expressions is determined by
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">operation-exp? exp</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">operation-exp? exp</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">and</span><span class="pln"> </span><span class="opn">(</span><span class="pln">pair? exp</span><span class="clo">)</span><span class="pln">
        </span><span class="opn">(</span><span class="pln">tagged-list? </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> exp</span><span class="clo">)</span><span class="pln"> </span><span class="lit">'op</span><span class="clo">)))</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">operation-exp-op operation-exp</span><span class="clo">)</span><span class="pln">
@@ -879,7 +877,7 @@ values.  The simulation procedure is found by looking up the operation name in
 the operation table for the machine:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">lookup-prim symbol operations</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">lookup-prim symbol operations</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">val </span><span class="opn">(</span><span class="pln">assoc symbol operations</span><span class="clo">)))</span><span class="pln">
     </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> val
         </span><span class="opn">(</span><span class="kwd">cadr</span><span class="pln"> val</span><span class="clo">)</span><span class="pln">
@@ -907,7 +905,7 @@ if you tried to restore a register that was not the last one saved, as in the
 sequence
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">save y</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">save y</span><span class="clo">)</span><span class="pln">
 </span><span class="opn">(</span><span class="pln">save x</span><span class="clo">)</span><span class="pln">
 </span><span class="opn">(</span><span class="pln">restore y</span><span class="clo">)</span></pre></div>
 
@@ -985,7 +983,7 @@ to the basic machine model to print the stack statistics, by initializing
 <code>the-ops</code> in <code>make-new-machine</code> to
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">list </span><span class="opn">(</span><span class="pln">list </span><span class="lit">'initialize-stack</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">list </span><span class="opn">(</span><span class="pln">list </span><span class="lit">'initialize-stack</span><span class="pln">
             </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="clo">)</span><span class="pln"> 
               </span><span class="opn">(</span><span class="pln">stack </span><span class="lit">'initialize</span><span class="clo">)))</span><span class="pln">
       </span><span class="opn">(</span><span class="pln">list </span><span class="lit">'print-stack-statistics</span><span class="pln">
@@ -995,7 +993,7 @@ to the basic machine model to print the stack statistics, by initializing
 <p>Here is the new version of <code>make-stack</code>:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-stack</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-stack</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">s </span><span class="lit">'</span><span class="opn">(</span><span class="clo">))</span><span class="pln">
         </span><span class="opn">(</span><span class="pln">number-pushes </span><span class="lit">0</span><span class="clo">)</span><span class="pln">
         </span><span class="opn">(</span><span class="pln">max-depth </span><span class="lit">0</span><span class="clo">)</span><span class="pln">
@@ -1132,7 +1130,7 @@ stop and allow her to examine the state of the machine.  You are to implement a
 procedure
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">set-breakpoint ⟨</span><var><span class="pln">machine</span></var><span class="pln">⟩ ⟨</span><var><span class="pln">label</span></var><span class="pln">⟩ ⟨</span><var><span class="pln">n</span></var><span class="pln">⟩</span><span class="clo">)</span></pre></div>
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">set-breakpoint ⟨</span><var><span class="pln">machine</span></var><span class="pln">⟩ ⟨</span><var><span class="pln">label</span></var><span class="pln">⟩ ⟨</span><var><span class="pln">n</span></var><span class="pln">⟩</span><span class="clo">)</span></pre></div>
 
 <p>that sets a breakpoint just before the <math xmlns="http://www.w3.org/1998/Math/MathML">
   <msup>
@@ -1145,7 +1143,7 @@ procedure
 label.  For example,
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">set-breakpoint gcd-machine </span><span class="lit">'test-b</span><span class="pln"> </span><span class="lit">4</span><span class="clo">)</span></pre></div>
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">set-breakpoint gcd-machine </span><span class="lit">'test-b</span><span class="pln"> </span><span class="lit">4</span><span class="clo">)</span></pre></div>
 
 <p>installs a breakpoint in <code>gcd-machine</code> just before the assignment to
 register <code>a</code>.  When the simulator reaches the breakpoint it should print
@@ -1155,17 +1153,17 @@ Alyssa can then use <code>get-register-contents</code> and
 She should then be able to continue execution by saying
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">proceed-machine ⟨</span><var><span class="pln">machine</span></var><span class="pln">⟩</span><span class="clo">)</span></pre></div>
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">proceed-machine ⟨</span><var><span class="pln">machine</span></var><span class="pln">⟩</span><span class="clo">)</span></pre></div>
 
 <p>She should also be able to remove a specific breakpoint by means of
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">cancel-breakpoint ⟨</span><var><span class="pln">machine</span></var><span class="pln">⟩ ⟨</span><var><span class="pln">label</span></var><span class="pln">⟩ ⟨</span><var><span class="pln">n</span></var><span class="pln">⟩</span><span class="clo">)</span></pre></div>
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">cancel-breakpoint ⟨</span><var><span class="pln">machine</span></var><span class="pln">⟩ ⟨</span><var><span class="pln">label</span></var><span class="pln">⟩ ⟨</span><var><span class="pln">n</span></var><span class="pln">⟩</span><span class="clo">)</span></pre></div>
 
 <p>or to remove all breakpoints by means of
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">cancel-all-breakpoints ⟨</span><var><span class="pln">machine</span></var><span class="pln">⟩</span><span class="clo">)</span></pre></div>
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">cancel-all-breakpoints ⟨</span><var><span class="pln">machine</span></var><span class="pln">⟩</span><span class="clo">)</span></pre></div>
 </blockquote>
 
 <div class="footnote">
@@ -1179,7 +1177,7 @@ them.  An alternative implementation, which returns an explicit pair of values,
 is
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">extract-labels text</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">extract-labels text</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pln">null? text</span><span class="clo">)</span><span class="pln">
       </span><span class="opn">(</span><span class="kwd">cons</span><span class="pln"> </span><span class="lit">'</span><span class="opn">(</span><span class="clo">)</span><span class="pln"> </span><span class="lit">'</span><span class="opn">(</span><span class="clo">))</span><span class="pln">
       </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">result 
@@ -1203,7 +1201,7 @@ is
 <p>which would be called by <code>assemble</code> as follows:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">assemble controller-text machine</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">assemble controller-text machine</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">result 
          </span><span class="opn">(</span><span class="pln">extract-labels controller-text</span><span class="clo">)))</span><span class="pln">
     </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">insts </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> result</span><span class="clo">))</span><span class="pln">
@@ -1221,10 +1219,10 @@ the backtracking control structure in the <code>amb</code> evaluator in
 </div>
 <nav class="header">
 <p>
-Next: <a href="5_002e3.xhtml#g_t5_002e3" accesskey="n" rel="next">5.3</a>, Prev: <a href="5_002e1.xhtml#g_t5_002e1" accesskey="p" rel="prev">5.1</a>, Up: <a href="#g_t5_002e2" accesskey="u" rel="prev">5.2</a>   [<a href="index.xhtml#SEC_Contents" title="Table of contents" accesskey="c" rel="contents">Contents</a>]</p>
+Next: <a href="5_002e3.xhtml#g_t5_002e3" accesskey="n" rel="next">5.3</a>, Prev: <a href="5_002e1.xhtml#g_t5_002e1" accesskey="p" rel="prev">5.1</a>, Up: <a href="#g_t5_002e2" accesskey="u" rel="prev">5.2</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" accesskey="c" rel="contents">Contents</a>]</p>
 </nav>
 
 
 </section><span class="bottom jump" title="Jump to bottom"><a href="#pagebottom" accesskey="b">⇣</a></span><a id="pagebottom"></a>
-</body>
-</html>
+
+</body></html>

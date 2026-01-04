@@ -1,24 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="en" lang="en">
-<!-- Created by GNU Texinfo 5.1, http://www.gnu.org/software/texinfo/ -->
-<head>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="en" lang="en"><!-- Created by GNU Texinfo 5.1, http://www.gnu.org/software/texinfo/ --><head>
 <title>Structure and Interpretation of Computer Programs, 2e: 3.3</title>
 
-<meta name="description" content="Structure and Interpretation of Computer Programs, 2e: 3.3" />
-<meta name="keywords" content="Structure and Interpretation of Computer Programs, 2e: 3.3" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="Generator" content="texi2any" />
-<meta charset="utf-8" />
-<link href="index.xhtml#Top" rel="start" title="Top" />
-<link href="Term-Index.xhtml#Term-Index" rel="index" title="Term Index" />
-<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents" />
-<link href="Chapter-3.xhtml#Chapter-3" rel="prev" title="Chapter 3" />
-<link href="3_002e4.xhtml#g_t3_002e4" rel="next" title="3.4" />
-<link href="3_002e2.xhtml#g_t3_002e2_002e4" rel="prev" title="3.2.4" />
+<meta name="description" content="Structure and Interpretation of Computer Programs, 2e: 3.3">
+<meta name="keywords" content="Structure and Interpretation of Computer Programs, 2e: 3.3">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="Generator" content="texi2any">
+<meta charset="utf-8">
+<link href="index.xhtml#Top" rel="start" title="Top">
+<link href="Term-Index.xhtml#Term-Index" rel="index" title="Term Index">
+<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Chapter-3.xhtml#Chapter-3" rel="prev" title="Chapter 3">
+<link href="3_002e4.xhtml#g_t3_002e4" rel="next" title="3.4">
+<link href="3_002e2.xhtml#g_t3_002e2_002e4" rel="prev" title="3.2.4">
 
-<link href="css/style.css" rel="stylesheet" type="text/css" />
-<link href="css/prettify.css" rel="stylesheet" type="text/css" />
+<link href="css/style.css" rel="stylesheet" type="text/css">
+<link href="css/prettify.css" rel="stylesheet" type="text/css">
 
 <script src="js/jquery.min.js" type="text/javascript"></script>
 <script src="js/footnotes.js" type="text/javascript"></script>
@@ -29,7 +27,7 @@
 <section><span class="top jump" title="Jump to top"><a href="#pagetop" accesskey="t">⇡</a></span><a id="pagetop"></a><a id="g_t3_002e3"></a>
 <nav class="header">
 <p>
-Next: <a href="3_002e4.xhtml#g_t3_002e4" accesskey="n" rel="next">3.4</a>, Prev: <a href="3_002e2.xhtml#g_t3_002e2" accesskey="p" rel="prev">3.2</a>, Up: <a href="Chapter-3.xhtml#Chapter-3" accesskey="u" rel="prev">Chapter 3</a>   [<a href="index.xhtml#SEC_Contents" title="Table of contents" accesskey="c" rel="contents">Contents</a>]</p>
+Next: <a href="3_002e4.xhtml#g_t3_002e4" accesskey="n" rel="next">3.4</a>, Prev: <a href="3_002e2.xhtml#g_t3_002e2" accesskey="p" rel="prev">3.2</a>, Up: <a href="Chapter-3.xhtml#Chapter-3" accesskey="u" rel="prev">Chapter 3</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" accesskey="c" rel="contents">Contents</a>]</p>
 </nav>
 <a id="Modeling-with-Mutable-Data"></a>
 <h3 class="section"><span class="secnum">3.3</span><span class="sectitle">Modeling with Mutable Data</span></h3>
@@ -51,7 +49,7 @@ banking system requires us to change account balances.  Thus, a data structure
 for representing bank accounts might admit an operation
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">set-balance! ⟨</span><var><span class="pln">account</span></var><span class="pln">⟩ ⟨</span><var><span class="pln">new-value</span></var><span class="pln">⟩</span><span class="clo">)</span></pre></div>
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">set-balance! ⟨</span><var><span class="pln">account</span></var><span class="pln">⟩ ⟨</span><var><span class="pln">new-value</span></var><span class="pln">⟩</span><span class="clo">)</span></pre></div>
 
 <p>that changes the balance of the designated account to the designated new value.
 Data objects for which mutators are defined are known as <a id="index-mutable-data-objects"></a>
@@ -150,7 +148,7 @@ pointers to the designated objects, and return the new pair as the result of
 the <code>cons</code>.<a class="footnote_link" id="DOCF146" href="#FOOT146"><sup>146</sup></a>
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">cons</span><span class="pln"> x y</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">cons</span><span class="pln"> x y</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">new </span><span class="opn">(</span><span class="pln">get-new-pair</span><span class="clo">)))</span><span class="pln">
     </span><span class="opn">(</span><span class="pln">set-car! new x</span><span class="clo">)</span><span class="pln">
     </span><span class="opn">(</span><span class="pln">set-cdr! new y</span><span class="clo">)</span><span class="pln">
@@ -161,7 +159,7 @@ the <code>cons</code>.<a class="footnote_link" id="DOCF146" href="#FOOT146"><sup
 appending lists was introduced in <a href="2_002e2.xhtml#g_t2_002e2_002e1">2.2.1</a>:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">append x y</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">append x y</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pln">null? x</span><span class="clo">)</span><span class="pln">
       y
       </span><span class="opn">(</span><span class="kwd">cons</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> x</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">append </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> x</span><span class="clo">)</span><span class="pln"> y</span><span class="clo">))))</span></pre></div>
@@ -174,7 +172,7 @@ its <code>cdr</code> is now <code>y</code>.  (It is an error to call <code>appen
 empty <code>x</code>.)
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">append! x y</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">append! x y</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">set-cdr! </span><span class="opn">(</span><span class="pln">last-pair x</span><span class="clo">)</span><span class="pln"> y</span><span class="clo">)</span><span class="pln">
   x</span><span class="clo">)</span></pre></div>
 
@@ -182,7 +180,7 @@ empty <code>x</code>.)
 argument:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">last-pair x</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">last-pair x</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pln">null? </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> x</span><span class="clo">))</span><span class="pln">
       x
       </span><span class="opn">(</span><span class="pln">last-pair </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> x</span><span class="clo">))))</span></pre></div>
@@ -190,7 +188,7 @@ argument:
 <p>Consider the interaction
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> x </span><span class="opn">(</span><span class="pln">list </span><span class="lit">'a</span><span class="pln"> </span><span class="lit">'b</span><span class="clo">))</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> x </span><span class="opn">(</span><span class="pln">list </span><span class="lit">'a</span><span class="pln"> </span><span class="lit">'b</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> y </span><span class="opn">(</span><span class="pln">list </span><span class="lit">'c</span><span class="pln"> </span><span class="lit">'d</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> z </span><span class="opn">(</span><span class="pln">append x y</span><span class="clo">))</span><span class="pln">
 
@@ -218,14 +216,14 @@ explain your answer.
 in <a href="#Exercise-3_002e12">Exercise 3.12</a>:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-cycle x</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-cycle x</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">set-cdr! </span><span class="opn">(</span><span class="pln">last-pair x</span><span class="clo">)</span><span class="pln"> x</span><span class="clo">)</span><span class="pln">
   x</span><span class="clo">)</span></pre></div>
 
 <p>Draw a box-and-pointer diagram that shows the structure <code>z</code> created by
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> z </span><span class="opn">(</span><span class="pln">make-cycle </span><span class="opn">(</span><span class="pln">list </span><span class="lit">'a</span><span class="pln"> </span><span class="lit">'b</span><span class="pln"> </span><span class="lit">'c</span><span class="clo">)))</span></pre></div>
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> z </span><span class="opn">(</span><span class="pln">make-cycle </span><span class="opn">(</span><span class="pln">list </span><span class="lit">'a</span><span class="pln"> </span><span class="lit">'b</span><span class="pln"> </span><span class="lit">'c</span><span class="clo">)))</span></pre></div>
 
 <p>What happens if we try to compute <code>(last-pair z)</code>?
 </p></blockquote>
@@ -235,7 +233,7 @@ in <a href="#Exercise-3_002e12">Exercise 3.12</a>:
 useful, although obscure:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">mystery x</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">mystery x</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">loop x y</span><span class="clo">)</span><span class="pln">
     </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pln">null? x</span><span class="clo">)</span><span class="pln">
         y
@@ -265,7 +263,7 @@ practice when individual pairs are <a id="index-shared"></a>
 objects.  For example, consider the structure formed by
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> x </span><span class="opn">(</span><span class="pln">list </span><span class="lit">'a</span><span class="pln"> </span><span class="lit">'b</span><span class="clo">))</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> x </span><span class="opn">(</span><span class="pln">list </span><span class="lit">'a</span><span class="pln"> </span><span class="lit">'b</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> z1 </span><span class="opn">(</span><span class="kwd">cons</span><span class="pln"> x x</span><span class="clo">))</span></pre></div>
 
 <p>As shown in <a href="#Figure-3_002e16">Figure 3.16</a>, <code>z1</code> is a pair whose <code>car</code> and
@@ -288,7 +286,7 @@ in which many individual pairs are shared by many different structures.
 by
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> z2 
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> z2 
   </span><span class="opn">(</span><span class="kwd">cons</span><span class="pln"> </span><span class="opn">(</span><span class="pln">list </span><span class="lit">'a</span><span class="pln"> </span><span class="lit">'b</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">list </span><span class="lit">'a</span><span class="pln"> </span><span class="lit">'b</span><span class="clo">)))</span></pre></div>
 
 <figure class="float">
@@ -312,7 +310,7 @@ procedure, which modifies the <code>car</code> of the structure to which it is
 applied:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">set-to-wow! x</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">set-to-wow! x</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">set-car! </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> x</span><span class="clo">)</span><span class="pln"> </span><span class="lit">'wow</span><span class="clo">)</span><span class="pln">
   x</span><span class="clo">)</span></pre></div>
 
@@ -323,7 +321,7 @@ and the <code>cdr</code> are the same pair.  With <code>z2</code>, the <code>car
 <code>cdr</code> are distinct, so <code>set-to-wow!</code> modifies only the <code>car</code>:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="pln">z1
+<pre class="lisp prettyprinted prettyprint" style=""><span class="pln">z1
 </span><i><span class="opn">((</span><span class="pln">a b</span><span class="clo">)</span><span class="pln"> a b</span><span class="clo">)</span></i><span class="pln">
 
 </span><span class="opn">(</span><span class="pln">set-to-wow! z1</span><span class="clo">)</span><span class="pln">
@@ -366,7 +364,7 @@ he reasons.  “The number of pairs in any structure is the number in the
 pair.”  So Ben writes the following procedure:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">count-pairs x</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">count-pairs x</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pln">not </span><span class="opn">(</span><span class="pln">pair? x</span><span class="clo">))</span><span class="pln">
       </span><span class="lit">0</span><span class="pln">
       </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="opn">(</span><span class="pln">count-pairs </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> x</span><span class="clo">))</span><span class="pln">
@@ -406,7 +404,7 @@ clever idea.)
 can be represented purely in terms of procedures:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">cons</span><span class="pln"> x y</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">cons</span><span class="pln"> x y</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">dispatch m</span><span class="clo">)</span><span class="pln">
     </span><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">((</span><span class="kwd">eq</span><span class="pun">?</span><span class="pln"> m </span><span class="lit">'car</span><span class="clo">)</span><span class="pln"> x</span><span class="clo">)</span><span class="pln">
           </span><span class="opn">((</span><span class="kwd">eq</span><span class="pun">?</span><span class="pln"> m </span><span class="lit">'cdr</span><span class="clo">)</span><span class="pln"> y</span><span class="clo">)</span><span class="pln">
@@ -424,7 +422,7 @@ extend the above pair implementation to handle <code>set-car!</code> and
 using <code>make-account</code> in <a href="3_002e1.xhtml#g_t3_002e1_002e1">3.1.1</a>:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">cons</span><span class="pln"> x y</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">cons</span><span class="pln"> x y</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">set-x! v</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">set</span><span class="pun">!</span><span class="pln"> x v</span><span class="clo">))</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">set-y! v</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">set</span><span class="pun">!</span><span class="pln"> y v</span><span class="clo">))</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">dispatch m</span><span class="clo">)</span><span class="pln">
@@ -456,7 +454,7 @@ the issues, not only of assignment, but of mutable data in general.<a class="foo
 illustrate the evaluation of the sequence of expressions
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> x </span><span class="opn">(</span><span class="kwd">cons</span><span class="pln"> </span><span class="lit">1</span><span class="pln"> </span><span class="lit">2</span><span class="clo">))</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> x </span><span class="opn">(</span><span class="kwd">cons</span><span class="pln"> </span><span class="lit">1</span><span class="pln"> </span><span class="lit">2</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> z </span><span class="opn">(</span><span class="kwd">cons</span><span class="pln"> x x</span><span class="clo">))</span><span class="pln">
 
 </span><span class="opn">(</span><span class="pln">set-car! </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> z</span><span class="clo">)</span><span class="pln"> </span><span class="lit">17</span><span class="clo">)</span><span class="pln">
@@ -510,12 +508,12 @@ no items).
 </li><li> two selectors:
 
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">empty-queue? ⟨</span><var><span class="pln">queue</span></var><span class="pln">⟩</span><span class="clo">)</span></pre></div>
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">empty-queue? ⟨</span><var><span class="pln">queue</span></var><span class="pln">⟩</span><span class="clo">)</span></pre></div>
 
 <p>tests if the queue is empty.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">front-queue ⟨</span><var><span class="pln">queue</span></var><span class="pln">⟩</span><span class="clo">)</span></pre></div>
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">front-queue ⟨</span><var><span class="pln">queue</span></var><span class="pln">⟩</span><span class="clo">)</span></pre></div>
 
 <p>returns the object at the front of the queue, signaling an error if the queue
 is empty; it does not modify the queue.
@@ -523,13 +521,13 @@ is empty; it does not modify the queue.
 </li><li> two mutators:
 
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">insert-queue! ⟨</span><var><span class="pln">queue</span></var><span class="pln">⟩ ⟨</span><var><span class="pln">item</span></var><span class="pln">⟩</span><span class="clo">)</span></pre></div>
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">insert-queue! ⟨</span><var><span class="pln">queue</span></var><span class="pln">⟩ ⟨</span><var><span class="pln">item</span></var><span class="pln">⟩</span><span class="clo">)</span></pre></div>
 
 <p>inserts the item at the rear of the queue and returns the modified queue as its
 value.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">delete-queue! ⟨</span><var><span class="pln">queue</span></var><span class="pln">⟩</span><span class="clo">)</span></pre></div>
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">delete-queue! ⟨</span><var><span class="pln">queue</span></var><span class="pln">⟩</span><span class="clo">)</span></pre></div>
 
 <p>removes the item at the front of the queue and returns the modified queue as
 its value, signaling an error if the queue is empty before the deletion.
@@ -594,7 +592,7 @@ representation.
 to select and to modify the front and rear pointers of a queue:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">front-ptr queue</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> queue</span><span class="clo">))</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">front-ptr queue</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> queue</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">rear-ptr queue</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> queue</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">set-front-ptr! queue item</span><span class="clo">)</span><span class="pln"> 
   </span><span class="opn">(</span><span class="pln">set-car! queue item</span><span class="clo">))</span><span class="pln">
@@ -605,20 +603,20 @@ to select and to modify the front and rear pointers of a queue:
 be empty if its front pointer is the empty list:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">empty-queue? queue</span><span class="clo">)</span><span class="pln"> 
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">empty-queue? queue</span><span class="clo">)</span><span class="pln"> 
   </span><span class="opn">(</span><span class="pln">null? </span><span class="opn">(</span><span class="pln">front-ptr queue</span><span class="clo">)))</span></pre></div>
 
 <p>The <code>make-queue</code> constructor returns, as an initially empty queue, a pair
 whose <code>car</code> and <code>cdr</code> are both the empty list:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-queue</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">cons</span><span class="pln"> </span><span class="lit">'</span><span class="opn">(</span><span class="clo">)</span><span class="pln"> </span><span class="lit">'</span><span class="opn">(</span><span class="clo">)))</span></pre></div>
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-queue</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">cons</span><span class="pln"> </span><span class="lit">'</span><span class="opn">(</span><span class="clo">)</span><span class="pln"> </span><span class="lit">'</span><span class="opn">(</span><span class="clo">)))</span></pre></div>
 
 <p>To select the item at the front of the queue, we return the <code>car</code> of the
 pair indicated by the front pointer:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">front-queue queue</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">front-queue queue</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pln">empty-queue? queue</span><span class="clo">)</span><span class="pln">
       </span><span class="opn">(</span><span class="err">error</span><span class="pln"> </span><span class="str">"FRONT called with an 
               empty queue"</span><span class="pln"> queue</span><span class="clo">)</span><span class="pln">
@@ -641,7 +639,7 @@ also set the rear pointer to the new pair.
 </figure>
 
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">insert-queue! queue item</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">insert-queue! queue item</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">new-pair </span><span class="opn">(</span><span class="kwd">cons</span><span class="pln"> item </span><span class="lit">'</span><span class="opn">(</span><span class="clo">))))</span><span class="pln">
     </span><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">((</span><span class="pln">empty-queue? queue</span><span class="clo">)</span><span class="pln">
            </span><span class="opn">(</span><span class="pln">set-front-ptr! queue new-pair</span><span class="clo">)</span><span class="pln">
@@ -658,7 +656,7 @@ found by following the <code>cdr</code> pointer of the first item (see
 <a href="#Figure-3_002e21">Figure 3.21</a>):<a class="footnote_link" id="DOCF150" href="#FOOT150"><sup>150</sup></a>
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">delete-queue! queue</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">delete-queue! queue</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">((</span><span class="pln">empty-queue? queue</span><span class="clo">)</span><span class="pln">
          </span><span class="opn">(</span><span class="err">error</span><span class="pln"> </span><span class="str">"DELETE! called with 
                  an empty queue"</span><span class="pln"> queue</span><span class="clo">))</span><span class="pln">
@@ -682,7 +680,7 @@ queue implementation described above.  He types in the procedures to the Lisp
 interpreter and proceeds to try them out:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> q1 </span><span class="opn">(</span><span class="pln">make-queue</span><span class="clo">))</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> q1 </span><span class="opn">(</span><span class="pln">make-queue</span><span class="clo">))</span><span class="pln">
 
 </span><span class="opn">(</span><span class="pln">insert-queue! q1 </span><span class="lit">'a</span><span class="clo">)</span><span class="pln">
 </span><i><span class="opn">((</span><span class="pln">a</span><span class="clo">)</span><span class="pln"> a</span><span class="clo">)</span></i><span class="pln">
@@ -717,7 +715,7 @@ The local state will consist of pointers to the beginning and the end of an
 ordinary list.  Thus, the <code>make-queue</code> procedure will have the form
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-queue</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-queue</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">front-ptr </span><span class="roman"><span class="pun">…</span></span><span class="pln"> </span><span class="clo">)</span><span class="pln">
         </span><span class="opn">(</span><span class="pln">rear-ptr </span><span class="roman"><span class="pun">…</span></span><span class="pln"> </span><span class="clo">))</span><span class="pln">
     ⟨</span><var><span class="pln">definitions of internal procedures</span></var><span class="pln">⟩
@@ -773,7 +771,7 @@ list has a special backbone pair at the beginning, which holds a dummy
 <a href="#Figure-3_002e22">Figure 3.22</a> shows the box-and-pointer diagram for the table
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="pln">a</span><span class="pun">:</span><span class="pln">  </span><span class="lit">1</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="pln">a</span><span class="pun">:</span><span class="pln">  </span><span class="lit">1</span><span class="pln">
 b</span><span class="pun">:</span><span class="pln">  </span><span class="lit">2</span><span class="pln">
 c</span><span class="pun">:</span><span class="pln">  </span><span class="lit">3</span></pre></div>
 
@@ -796,7 +794,7 @@ returned by <code>assoc</code> is not false, and returns the value (the <code>cd
 of the record.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">lookup key table</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">lookup key table</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">record </span><span class="opn">(</span><span class="pln">assoc key </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> table</span><span class="clo">))))</span><span class="pln">
     </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> record
         </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> record</span><span class="clo">)</span><span class="pln">
@@ -817,7 +815,7 @@ designated new value.  The header of the table provides us with a fixed
 location to modify in order to insert the new record.<a class="footnote_link" id="DOCF153" href="#FOOT153"><sup>153</sup></a>
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">insert! key value table</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">insert! key value table</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">record </span><span class="opn">(</span><span class="pln">assoc key </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> table</span><span class="clo">))))</span><span class="pln">
     </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> record
         </span><span class="opn">(</span><span class="pln">set-cdr! record value</span><span class="clo">)</span><span class="pln">
@@ -830,7 +828,7 @@ location to modify in order to insert the new record.<a class="footnote_link" id
 <code>*table*</code>:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-table</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-table</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">list </span><span class="lit">'</span><span class="pun">*</span><span class="pln">table</span><span class="pun">*</span><span class="clo">))</span></pre></div>
 
 <a id="Two_002ddimensional-tables"></a>
@@ -841,7 +839,7 @@ construct such a table as a one-dimensional table in which each key identifies
 a subtable.  <a href="#Figure-3_002e23">Figure 3.23</a> shows the box-and-pointer diagram for the table
 </p>
 <div class="example">
-<pre class="example">math:  +: 43    letters:  a: 97
+<pre class="example prettyprint">math:  +: 43    letters:  a: 97
        -: 45              b: 98
        *: 42
 </pre></div>
@@ -862,7 +860,7 @@ since the key that identifies the subtable serves this purpose.)
 Then we use the second key to identify the record within the subtable.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">lookup key-1 key-2 table</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">lookup key-1 key-2 table</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">subtable </span><span class="opn">(</span><span class="pln">assoc key-1 </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> table</span><span class="clo">))))</span><span class="pln">
     </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> subtable
         </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">record 
@@ -878,7 +876,7 @@ we insert the new record into this subtable, using the insertion method for
 one-dimensional tables described above:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">insert! key-1 key-2 value table</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">insert! key-1 key-2 value table</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">subtable </span><span class="opn">(</span><span class="pln">assoc key-1 </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> table</span><span class="clo">))))</span><span class="pln">
     </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> subtable
         </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">record 
@@ -908,7 +906,7 @@ supplies the procedure with which to operate on the internal table.  Here is a
 generator for two-dimensional tables represented in this fashion:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-table</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-table</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">local-table </span><span class="opn">(</span><span class="pln">list </span><span class="lit">'</span><span class="pun">*</span><span class="pln">table</span><span class="pun">*</span><span class="clo">)))</span><span class="pln">
     </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">lookup key-1 key-2</span><span class="clo">)</span><span class="pln">
       </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">subtable 
@@ -950,7 +948,7 @@ operations used in <a href="2_002e4.xhtml#g_t2_002e4_002e3">2.4.3</a> for data-d
 follows:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> operation-table </span><span class="opn">(</span><span class="pln">make-table</span><span class="clo">))</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> operation-table </span><span class="opn">(</span><span class="pln">make-table</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> get </span><span class="opn">(</span><span class="pln">operation-table </span><span class="lit">'lookup-proc</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> put </span><span class="opn">(</span><span class="pln">operation-table </span><span class="lit">'insert-proc!</span><span class="clo">))</span></pre></div>
 
@@ -1005,7 +1003,7 @@ memoization, recall from <a href="1_002e2.xhtml#g_t1_002e2_002e2">1.2.2</a> the 
 computing Fibonacci numbers:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">fib n</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">fib n</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">((</span><span class="pun">=</span><span class="pln"> n </span><span class="lit">0</span><span class="clo">)</span><span class="pln"> </span><span class="lit">0</span><span class="clo">)</span><span class="pln">
         </span><span class="opn">((</span><span class="pun">=</span><span class="pln"> n </span><span class="lit">1</span><span class="clo">)</span><span class="pln"> </span><span class="lit">1</span><span class="clo">)</span><span class="pln">
         </span><span class="opn">(</span><span class="kwd">else</span><span class="pln"> </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="opn">(</span><span class="pln">fib </span><span class="opn">(</span><span class="pun">-</span><span class="pln"> n </span><span class="lit">1</span><span class="clo">))</span><span class="pln">
@@ -1014,7 +1012,7 @@ computing Fibonacci numbers:
 <p>The memoized version of the same procedure is
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> memo-fib
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> memo-fib
   </span><span class="opn">(</span><span class="pln">memoize 
    </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">n</span><span class="clo">)</span><span class="pln">
      </span><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">((</span><span class="pun">=</span><span class="pln"> n </span><span class="lit">0</span><span class="clo">)</span><span class="pln"> </span><span class="lit">0</span><span class="clo">)</span><span class="pln">
@@ -1026,7 +1024,7 @@ computing Fibonacci numbers:
 <p>where the memoizer is defined as
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">memoize f</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">memoize f</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">table </span><span class="opn">(</span><span class="pln">make-table</span><span class="clo">)))</span><span class="pln">
     </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">x</span><span class="clo">)</span><span class="pln">
       </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">previously-computed-result 
@@ -1136,7 +1134,7 @@ that enforce the correct relationships among the signals.
 constructs wires.  For example, we can construct six wires as follows:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> a </span><span class="opn">(</span><span class="pln">make-wire</span><span class="clo">))</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> a </span><span class="opn">(</span><span class="pln">make-wire</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> b </span><span class="opn">(</span><span class="pln">make-wire</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> c </span><span class="opn">(</span><span class="pln">make-wire</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> d </span><span class="opn">(</span><span class="pln">make-wire</span><span class="clo">))</span><span class="pln">
@@ -1150,7 +1148,7 @@ and-gates, or-gates, and inverters, we can wire together the half-adder shown
 in <a href="#Figure-3_002e25">Figure 3.25</a>:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">or-gate a b d</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">or-gate a b d</span><span class="clo">)</span><span class="pln">
 </span><i><span class="pln">ok</span></i><span class="pln">
 
 </span><span class="opn">(</span><span class="pln">and-gate a b c</span><span class="clo">)</span><span class="pln">
@@ -1168,7 +1166,7 @@ in <a href="#Figure-3_002e25">Figure 3.25</a>:
 to be attached to the half-adder:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">half-adder a b s c</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">half-adder a b s c</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">d </span><span class="opn">(</span><span class="pln">make-wire</span><span class="clo">))</span><span class="pln"> </span><span class="opn">(</span><span class="pln">e </span><span class="opn">(</span><span class="pln">make-wire</span><span class="clo">)))</span><span class="pln">
     </span><span class="opn">(</span><span class="pln">or-gate a b d</span><span class="clo">)</span><span class="pln">
     </span><span class="opn">(</span><span class="pln">and-gate a b c</span><span class="clo">)</span><span class="pln">
@@ -1183,7 +1181,7 @@ for example, shows a <a id="index-full_002dadder"></a>
 and an or-gate.<a class="footnote_link" id="DOCF154" href="#FOOT154"><sup>154</sup></a> We can construct a full-adder as follows:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">full-adder a b c-in sum c-out</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">full-adder a b c-in sum c-out</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">c1 </span><span class="opn">(</span><span class="pln">make-wire</span><span class="clo">))</span><span class="pln"> 
         </span><span class="opn">(</span><span class="pln">c2 </span><span class="opn">(</span><span class="pln">make-wire</span><span class="clo">))</span><span class="pln">
         </span><span class="opn">(</span><span class="pln">s  </span><span class="opn">(</span><span class="pln">make-wire</span><span class="clo">)))</span><span class="pln">
@@ -1248,7 +1246,7 @@ signal on the input wire changes value.  The procedure computes the
 <code>inverter-delay</code>, sets the output signal to be this new value:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">inverter input output</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">inverter input output</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">invert-input</span><span class="clo">)</span><span class="pln">
     </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">new-value 
            </span><span class="opn">(</span><span class="pln">logical-not </span><span class="opn">(</span><span class="pln">get-signal input</span><span class="clo">))))</span><span class="pln">
@@ -1271,7 +1269,7 @@ signals on the input wires and sets up a change to the new value to occur on
 the output wire after one <code>and-gate-delay</code>.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">and-gate a1 a2 output</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">and-gate a1 a2 output</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">and-action-procedure</span><span class="clo">)</span><span class="pln">
     </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">new-value
            </span><span class="opn">(</span><span class="pln">logical-and </span><span class="opn">(</span><span class="pln">get-signal a1</span><span class="clo">)</span><span class="pln"> 
@@ -1440,7 +1438,7 @@ operation, just as we did with the simple bank-account object in
 <a href="3_002e1.xhtml#g_t3_002e1_002e1">3.1.1</a>:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-wire</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-wire</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">signal-value </span><span class="lit">0</span><span class="clo">)</span><span class="pln"> 
         </span><span class="opn">(</span><span class="pln">action-procedures </span><span class="lit">'</span><span class="opn">(</span><span class="clo">)))</span><span class="pln">
     </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">set-my-signal! new-value</span><span class="clo">)</span><span class="pln">
@@ -1470,7 +1468,7 @@ using the following procedure <code>call-each</code>, which calls each of the it
 in a list of no-argument procedures:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">call-each procedures</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">call-each procedures</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pln">null? procedures</span><span class="clo">)</span><span class="pln">
       </span><span class="lit">'done</span><span class="pln">
       </span><span class="opn">(</span><span class="kwd">begin</span><span class="pln"> </span><span class="opn">((</span><span class="kwd">car</span><span class="pln"> procedures</span><span class="clo">))</span><span class="pln">
@@ -1485,7 +1483,7 @@ the following procedures to access the local operations on
 wires:<a class="footnote_link" id="DOCF155" href="#FOOT155"><sup>155</sup></a>
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">get-signal wire</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">get-signal wire</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">wire </span><span class="lit">'get-signal</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">set-signal! wire new-value</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">((</span><span class="pln">wire </span><span class="lit">'set-signal!</span><span class="clo">)</span><span class="pln"> new-value</span><span class="clo">))</span><span class="pln">
@@ -1539,7 +1537,7 @@ specified time.
 procedure <code>after-delay</code> adds new elements to <code>the-agenda</code>:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">after-delay </span><span class="kwd">delay</span><span class="pln"> action</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">after-delay </span><span class="kwd">delay</span><span class="pln"> action</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">add-to-agenda! 
    </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="kwd">delay</span><span class="pln"> </span><span class="opn">(</span><span class="pln">current-time the-agenda</span><span class="clo">))</span><span class="pln">
    action
@@ -1552,7 +1550,7 @@ general, as the simulation runs, new items will be added to the agenda, and
 agenda:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">propagate</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">propagate</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pln">empty-agenda? the-agenda</span><span class="clo">)</span><span class="pln">
       </span><span class="lit">'done</span><span class="pln">
       </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">first-item 
@@ -1570,7 +1568,7 @@ changes value, it should print the new signal value, together with the current
 time and a name that identifies the wire:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">probe name wire</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">probe name wire</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">add-action! 
    wire
    </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="clo">)</span><span class="pln">
@@ -1585,7 +1583,7 @@ time and a name that identifies the wire:
 function boxes:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> the-agenda </span><span class="opn">(</span><span class="pln">make-agenda</span><span class="clo">))</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> the-agenda </span><span class="opn">(</span><span class="pln">make-agenda</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> inverter-delay </span><span class="lit">2</span><span class="clo">)</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> and-gate-delay </span><span class="lit">3</span><span class="clo">)</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> or-gate-delay </span><span class="lit">5</span><span class="clo">)</span></pre></div>
@@ -1593,7 +1591,7 @@ function boxes:
 <p>Now we define four wires, placing probes on two of them:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> input-1 </span><span class="opn">(</span><span class="pln">make-wire</span><span class="clo">))</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> input-1 </span><span class="opn">(</span><span class="pln">make-wire</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> input-2 </span><span class="opn">(</span><span class="pln">make-wire</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> sum </span><span class="opn">(</span><span class="pln">make-wire</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> carry </span><span class="opn">(</span><span class="pln">make-wire</span><span class="clo">))</span><span class="pln">
@@ -1609,7 +1607,7 @@ function boxes:
 set the signal on <code>input-1</code> to 1, and run the simulation:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">half-adder input-1 input-2 sum carry</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">half-adder input-1 input-2 sum carry</span><span class="clo">)</span><span class="pln">
 </span><i><span class="pln">ok</span></i><span class="pln">
 
 </span><span class="opn">(</span><span class="pln">set-signal! input-1 </span><span class="lit">1</span><span class="clo">)</span><span class="pln">
@@ -1625,7 +1623,7 @@ the beginning of the simulation.  At this point, we can set the signal on
 <code>input-2</code> to 1 and allow the values to propagate:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">set-signal! input-2 </span><span class="lit">1</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">set-signal! input-2 </span><span class="lit">1</span><span class="clo">)</span><span class="pln">
 </span><i><span class="pln">done</span></i><span class="pln">
 
 </span><span class="opn">(</span><span class="pln">propagate</span><span class="clo">)</span><span class="pln">
@@ -1646,7 +1644,7 @@ half-adder example in the paragraphs above and say how the system’s response
 would differ if we had defined <code>accept-action-procedure!</code> as
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">accept-action-procedure! proc</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">accept-action-procedure! proc</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">set</span><span class="pun">!</span><span class="pln"> action-procedures 
         </span><span class="opn">(</span><span class="kwd">cons</span><span class="pln"> proc action-procedures</span><span class="clo">)))</span></pre></div>
 </blockquote>
@@ -1663,7 +1661,7 @@ consisting of a number (the time) and a queue (see <a href="#Exercise-3_002e32">
 holds the procedures that are scheduled to be run during that time segment.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-time-segment time queue</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-time-segment time queue</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">cons</span><span class="pln"> time queue</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">segment-time s</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> s</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">segment-queue s</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> s</span><span class="clo">))</span></pre></div>
@@ -1680,7 +1678,7 @@ agenda.  A newly constructed agenda has no time segments and has a current time
 of 0:<a class="footnote_link" id="DOCF156" href="#FOOT156"><sup>156</sup></a>
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-agenda</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">list </span><span class="lit">0</span><span class="clo">))</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-agenda</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">list </span><span class="lit">0</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">current-time agenda</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> agenda</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">set-current-time! agenda time</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">set-car! agenda time</span><span class="clo">))</span><span class="pln">
@@ -1695,7 +1693,7 @@ of 0:<a class="footnote_link" id="DOCF156" href="#FOOT156"><sup>156</sup></a>
 <p>An agenda is empty if it has no time segments:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">empty-agenda? agenda</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">empty-agenda? agenda</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">null? </span><span class="opn">(</span><span class="pln">segments agenda</span><span class="clo">)))</span></pre></div>
 
 <p>To add an action to an agenda, we first check if the agenda is empty.  If so,
@@ -1707,7 +1705,7 @@ new time segment into the agenda just before it.  If we reach the end of the
 agenda, we must create a new time segment at the end.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">add-to-agenda! time action agenda</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">add-to-agenda! time action agenda</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">belongs-before? segments</span><span class="clo">)</span><span class="pln">
     </span><span class="opn">(</span><span class="kwd">or</span><span class="pln"> </span><span class="opn">(</span><span class="pln">null? segments</span><span class="clo">)</span><span class="pln">
         </span><span class="opn">(</span><span class="pun">&lt;</span><span class="pln"> time 
@@ -1745,7 +1743,7 @@ the front of the queue in the first time segment.  If this deletion makes the
 time segment empty, we remove it from the list of segments:<a class="footnote_link" id="DOCF157" href="#FOOT157"><sup>157</sup></a>
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">remove-first-agenda-item! agenda</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">remove-first-agenda-item! agenda</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">q </span><span class="opn">(</span><span class="pln">segment-queue 
             </span><span class="opn">(</span><span class="pln">first-segment agenda</span><span class="clo">))))</span><span class="pln">
     </span><span class="opn">(</span><span class="pln">delete-queue! q</span><span class="clo">)</span><span class="pln">
@@ -1759,7 +1757,7 @@ segment.  Whenever we extract an item, we also update the current
 time:<a class="footnote_link" id="DOCF158" href="#FOOT158"><sup>158</sup></a>
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">first-agenda-item agenda</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">first-agenda-item agenda</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pln">empty-agenda? agenda</span><span class="clo">)</span><span class="pln">
       </span><span class="opn">(</span><span class="err">error</span><span class="pln"> </span><span class="str">"Agenda is empty: 
               FIRST-AGENDA-ITEM"</span><span class="clo">)</span><span class="pln">
@@ -1810,9 +1808,9 @@ area <math xmlns="http://www.w3.org/1998/Math/MathML">
     <mi>A</mi>
     <mi>E</mi>
   </mrow>
-  <mspace width="thinmathspace"/>
+  <mspace width="thinmathspace"></mspace>
   <mo>=</mo>
-  <mspace width="thinmathspace"/>
+  <mspace width="thinmathspace"></mspace>
   <mrow class="MJX-TeXAtom-ORD">
     <mi>F</mi>
     <mi>L</mi>
@@ -1880,9 +1878,9 @@ relationship between Fahrenheit and Celsius temperatures is
     <mn>9</mn>
     <mi>C</mi>
   </mrow>
-  <mspace width="thinmathspace"/>
+  <mspace width="thinmathspace"></mspace>
   <mo>=</mo>
-  <mspace width="thinmathspace"/>
+  <mspace width="thinmathspace"></mspace>
   <mrow class="MJX-TeXAtom-ORD">
     <mn>5</mn>
     <mo stretchy="false">(</mo>
@@ -2025,7 +2023,7 @@ constructor <code>make-connector</code>, and link <code>C</code> and <code>F</co
 appropriate network:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> C </span><span class="opn">(</span><span class="pln">make-connector</span><span class="clo">))</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> C </span><span class="opn">(</span><span class="pln">make-connector</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> F </span><span class="opn">(</span><span class="pln">make-connector</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="pln">celsius-fahrenheit-converter C F</span><span class="clo">)</span><span class="pln">
 </span><i><span class="pln">ok</span></i>
@@ -2034,7 +2032,7 @@ appropriate network:
 <p>The procedure that creates the network is defined as follows:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">celsius-fahrenheit-converter c f</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">celsius-fahrenheit-converter c f</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">u </span><span class="opn">(</span><span class="pln">make-connector</span><span class="clo">))</span><span class="pln">
         </span><span class="opn">(</span><span class="pln">v </span><span class="opn">(</span><span class="pln">make-connector</span><span class="clo">))</span><span class="pln">
         </span><span class="opn">(</span><span class="pln">w </span><span class="opn">(</span><span class="pln">make-connector</span><span class="clo">))</span><span class="pln">
@@ -2062,7 +2060,7 @@ monitor wires in <a href="#g_t3_002e3_002e4">3.3.4</a>.  Placing a probe on a co
 cause a message to be printed whenever the connector is given a value:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">probe </span><span class="str">"Celsius temp"</span><span class="pln"> C</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">probe </span><span class="str">"Celsius temp"</span><span class="pln"> C</span><span class="clo">)</span><span class="pln">
 </span><span class="opn">(</span><span class="pln">probe </span><span class="str">"Fahrenheit temp"</span><span class="pln"> F</span><span class="clo">)</span></pre></div>
 
 <p>Next we set the value of <code>C</code> to 25.  (The third argument to
@@ -2070,7 +2068,7 @@ cause a message to be printed whenever the connector is given a value:
 <code>user</code>.)
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">set-value! C </span><span class="lit">25</span><span class="pln"> </span><span class="lit">'user</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">set-value! C </span><span class="lit">25</span><span class="pln"> </span><span class="lit">'user</span><span class="clo">)</span><span class="pln">
 </span><i><span class="pln">Probe</span><span class="pun">:</span><span class="pln"> Celsius temp </span><span class="pun">=</span><span class="pln"> </span><span class="lit">25</span></i><span class="pln">
 </span><i><span class="pln">Probe</span><span class="pun">:</span><span class="pln"> Fahrenheit temp </span><span class="pun">=</span><span class="pln"> </span><span class="lit">77</span></i><span class="pln">
 </span><i><span class="pln">done</span></i>
@@ -2083,7 +2081,7 @@ which is reported by the probe on <code>F</code>.
 <p>Now we can try to set <code>F</code> to a new value, say 212:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">set-value! F </span><span class="lit">212</span><span class="pln"> </span><span class="lit">'user</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">set-value! F </span><span class="lit">212</span><span class="pln"> </span><span class="lit">'user</span><span class="clo">)</span><span class="pln">
 </span><i><span class="pln">Error! Contradiction </span><span class="opn">(</span><span class="lit">77</span><span class="pln"> </span><span class="lit">212</span><span class="clo">)</span></i>
 </pre></div>
 
@@ -2092,7 +2090,7 @@ and someone is trying to set it to 212.  If we really want to reuse the network
 with new values, we can tell <code>C</code> to forget its old value:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">forget-value! C </span><span class="lit">'user</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">forget-value! C </span><span class="lit">'user</span><span class="clo">)</span><span class="pln">
 </span><i><span class="pln">Probe</span><span class="pun">:</span><span class="pln"> Celsius temp </span><span class="pun">=</span><span class="pln"> </span><span class="pun">?</span></i><span class="pln">
 </span><i><span class="pln">Probe</span><span class="pun">:</span><span class="pln"> Fahrenheit temp </span><span class="pun">=</span><span class="pln"> </span><span class="pun">?</span></i><span class="pln">
 </span><i><span class="pln">done</span></i>
@@ -2108,7 +2106,7 @@ its value, as shown by the probe.
 <p>Now that <code>F</code> has no value, we are free to set it to 212:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">set-value! F </span><span class="lit">212</span><span class="pln"> </span><span class="lit">'user</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">set-value! F </span><span class="lit">212</span><span class="pln"> </span><span class="lit">'user</span><span class="clo">)</span><span class="pln">
 </span><i><span class="pln">Probe</span><span class="pun">:</span><span class="pln"> Fahrenheit temp </span><span class="pun">=</span><span class="pln"> </span><span class="lit">212</span></i><span class="pln">
 </span><i><span class="pln">Probe</span><span class="pun">:</span><span class="pln"> Celsius temp </span><span class="pun">=</span><span class="pln"> </span><span class="lit">100</span></i><span class="pln">
 </span><i><span class="pln">done</span></i>
@@ -2158,7 +2156,7 @@ and <code>a2</code> and a <code>sum</code> connector.  An adder is implemented a
 procedure with local state (the procedure <code>me</code> below):
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">adder a1 a2 sum</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">adder a1 a2 sum</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">process-new-value</span><span class="clo">)</span><span class="pln">
     </span><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">((</span><span class="kwd">and</span><span class="pln"> </span><span class="opn">(</span><span class="pln">has-value? a1</span><span class="clo">)</span><span class="pln"> 
                 </span><span class="opn">(</span><span class="pln">has-value? a2</span><span class="clo">))</span><span class="pln">
@@ -2202,7 +2200,7 @@ dispatch to the local procedures.  The following “syntax interfaces” (see
 the dispatch:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">inform-about-value constraint</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">inform-about-value constraint</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">constraint </span><span class="lit">'I-have-a-value</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">inform-about-no-value constraint</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">constraint </span><span class="lit">'I-lost-my-value</span><span class="clo">))</span></pre></div>
@@ -2227,7 +2225,7 @@ and these values may need to be propagated back through the adder.
 if either of the factors is 0, even if the other factor is not known.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">multiplier m1 m2 product</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">multiplier m1 m2 product</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">process-new-value</span><span class="clo">)</span><span class="pln">
     </span><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">((</span><span class="kwd">or</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">and</span><span class="pln"> </span><span class="opn">(</span><span class="pln">has-value? m1</span><span class="clo">)</span><span class="pln"> 
                     </span><span class="opn">(</span><span class="pun">=</span><span class="pln"> </span><span class="opn">(</span><span class="pln">get-value m1</span><span class="clo">)</span><span class="pln"> </span><span class="lit">0</span><span class="clo">))</span><span class="pln">
@@ -2276,7 +2274,7 @@ connector.  Any <code>I-have-a-value</code> or <code>I-lost-my-value</code> mess
 the constant box will produce an error.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">constant value connector</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">constant value connector</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">me request</span><span class="clo">)</span><span class="pln">
     </span><span class="opn">(</span><span class="err">error</span><span class="pln"> </span><span class="str">"Unknown request: CONSTANT"</span><span class="pln"> 
            request</span><span class="clo">))</span><span class="pln">
@@ -2288,7 +2286,7 @@ the constant box will produce an error.
 the designated connector:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">probe name connector</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">probe name connector</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">print-probe value</span><span class="clo">)</span><span class="pln">
     </span><span class="opn">(</span><span class="pln">newline</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">display </span><span class="str">"Probe: "</span><span class="clo">)</span><span class="pln">
     </span><span class="opn">(</span><span class="pln">display name</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">display </span><span class="str">" = "</span><span class="clo">)</span><span class="pln">
@@ -2316,7 +2314,7 @@ that set the connector’s value; and <code>constraints</code>, a list of the
 constraints in which the connector participates.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-connector</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-connector</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">value false</span><span class="clo">)</span><span class="pln"> 
         </span><span class="opn">(</span><span class="pln">informant false</span><span class="clo">)</span><span class="pln"> 
         </span><span class="opn">(</span><span class="pln">constraints </span><span class="lit">'</span><span class="opn">(</span><span class="clo">)))</span><span class="pln">
@@ -2372,7 +2370,7 @@ accomplished using the following iterator, which applies a designated procedure
 to all items in a list except a given one:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">for-each-except exception 
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">for-each-except exception 
                          procedure 
                          list</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">loop items</span><span class="clo">)</span><span class="pln">
@@ -2397,7 +2395,7 @@ procedures and also represents the connector as an object.  The following
 procedures provide a syntax interface for the dispatch:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">has-value? connector</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">has-value? connector</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">connector </span><span class="lit">'has-value?</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">get-value connector</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">connector </span><span class="lit">'value</span><span class="clo">))</span><span class="pln">
@@ -2428,7 +2426,7 @@ value <code>a</code> on the first terminal.  He proposes the following simple de
 made from a multiplier:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">squarer a b</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">multiplier a a b</span><span class="clo">))</span></pre></div>
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">squarer a b</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">multiplier a a b</span><span class="clo">))</span></pre></div>
 
 <p>There is a serious flaw in this idea.  Explain.
 </p></blockquote>
@@ -2440,7 +2438,7 @@ new primitive constraint.  Fill in the missing portions in Ben’s outline for a
 procedure to implement such a constraint:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">squarer a b</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">squarer a b</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">process-new-value</span><span class="clo">)</span><span class="pln">
     </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pln">has-value? b</span><span class="clo">)</span><span class="pln">
         </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pun">&lt;</span><span class="pln"> </span><span class="opn">(</span><span class="pln">get-value b</span><span class="clo">)</span><span class="pln"> </span><span class="lit">0</span><span class="clo">)</span><span class="pln">
@@ -2460,7 +2458,7 @@ procedure to implement such a constraint:
 sequence of expressions in the global environment:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> a </span><span class="opn">(</span><span class="pln">make-connector</span><span class="clo">))</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> a </span><span class="opn">(</span><span class="pln">make-connector</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> b </span><span class="opn">(</span><span class="pln">make-connector</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="pln">set-value! a </span><span class="lit">10</span><span class="pln"> </span><span class="lit">'user</span><span class="clo">)</span></pre></div>
 
@@ -2468,7 +2466,7 @@ sequence of expressions in the global environment:
 expression from the connector’s local procedure is evaluated:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">for-each-except 
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">for-each-except 
   setter inform-about-value constraints</span><span class="clo">)</span></pre></div>
 
 <p>Draw an environment diagram showing the environment in which the above
@@ -2481,7 +2479,7 @@ expression is evaluated.
 a more expression-oriented style of definition, such as
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">celsius-fahrenheit-converter x</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">celsius-fahrenheit-converter x</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">c</span><span class="pun">+</span><span class="pln"> </span><span class="opn">(</span><span class="pln">c</span><span class="pun">*</span><span class="pln"> </span><span class="opn">(</span><span class="pln">c</span><span class="pun">/</span><span class="pln"> </span><span class="opn">(</span><span class="pln">cv </span><span class="lit">9</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">cv </span><span class="lit">5</span><span class="clo">))</span><span class="pln">
           x</span><span class="clo">)</span><span class="pln">
       </span><span class="opn">(</span><span class="pln">cv </span><span class="lit">32</span><span class="clo">)))</span><span class="pln">
@@ -2495,7 +2493,7 @@ arguments and returns a connector that is related to these by an adder
 constraint:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">c</span><span class="pun">+</span><span class="pln"> x y</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">c</span><span class="pun">+</span><span class="pln"> x y</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">z </span><span class="opn">(</span><span class="pln">make-connector</span><span class="clo">)))</span><span class="pln">
     </span><span class="opn">(</span><span class="pln">adder x y z</span><span class="clo">)</span><span class="pln">
     z</span><span class="clo">))</span></pre></div>
@@ -2677,7 +2675,7 @@ in “imperative style,” using procedures that set the values of designated
 vector arguments but do not themselves return vectors as values:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">v-sum a b temp1</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">v-sum a b temp1</span><span class="clo">)</span><span class="pln">
 </span><span class="opn">(</span><span class="pln">v-sum c d temp2</span><span class="clo">)</span><span class="pln">
 </span><span class="opn">(</span><span class="pln">v-prod temp1 temp2 answer</span><span class="clo">)</span></pre></div>
 
@@ -2686,7 +2684,7 @@ vectors as values, and thus avoid explicitly mentioning <code>temp1</code> and
 <code>temp2</code>:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> answer 
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> answer 
   </span><span class="opn">(</span><span class="pln">v-prod </span><span class="opn">(</span><span class="pln">v-sum a b</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">v-sum c d</span><span class="clo">)))</span></pre></div>
 
 <p>Since Lisp allows us to return compound objects as values of procedures, we can
@@ -2708,10 +2706,11 @@ difficult to do the converse.</p>
 </div>
 <nav class="header">
 <p>
-Next: <a href="3_002e4.xhtml#g_t3_002e4" accesskey="n" rel="next">3.4</a>, Prev: <a href="3_002e2.xhtml#g_t3_002e2" accesskey="p" rel="prev">3.2</a>, Up: <a href="#g_t3_002e3" accesskey="u" rel="prev">3.3</a>   [<a href="index.xhtml#SEC_Contents" title="Table of contents" accesskey="c" rel="contents">Contents</a>]</p>
+Next: <a href="3_002e4.xhtml#g_t3_002e4" accesskey="n" rel="next">3.4</a>, Prev: <a href="3_002e2.xhtml#g_t3_002e2" accesskey="p" rel="prev">3.2</a>, Up: <a href="#g_t3_002e3" accesskey="u" rel="prev">3.3</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" accesskey="c" rel="contents">Contents</a>]</p>
 </nav>
 
 
 </section><span class="bottom jump" title="Jump to bottom"><a href="#pagebottom" accesskey="b">⇣</a></span><a id="pagebottom"></a>
-</body>
-</html>
+
+
+</body></html>

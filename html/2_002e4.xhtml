@@ -1,24 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="en" lang="en">
-<!-- Created by GNU Texinfo 5.1, http://www.gnu.org/software/texinfo/ -->
-<head>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="en" lang="en"><!-- Created by GNU Texinfo 5.1, http://www.gnu.org/software/texinfo/ --><head>
 <title>Structure and Interpretation of Computer Programs, 2e: 2.4</title>
 
-<meta name="description" content="Structure and Interpretation of Computer Programs, 2e: 2.4" />
-<meta name="keywords" content="Structure and Interpretation of Computer Programs, 2e: 2.4" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="Generator" content="texi2any" />
-<meta charset="utf-8" />
-<link href="index.xhtml#Top" rel="start" title="Top" />
-<link href="Term-Index.xhtml#Term-Index" rel="index" title="Term Index" />
-<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents" />
-<link href="Chapter-2.xhtml#Chapter-2" rel="prev" title="Chapter 2" />
-<link href="2_002e5.xhtml#g_t2_002e5" rel="next" title="2.5" />
-<link href="2_002e3.xhtml#g_t2_002e3_002e4" rel="prev" title="2.3.4" />
+<meta name="description" content="Structure and Interpretation of Computer Programs, 2e: 2.4">
+<meta name="keywords" content="Structure and Interpretation of Computer Programs, 2e: 2.4">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="Generator" content="texi2any">
+<meta charset="utf-8">
+<link href="index.xhtml#Top" rel="start" title="Top">
+<link href="Term-Index.xhtml#Term-Index" rel="index" title="Term Index">
+<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Chapter-2.xhtml#Chapter-2" rel="prev" title="Chapter 2">
+<link href="2_002e5.xhtml#g_t2_002e5" rel="next" title="2.5">
+<link href="2_002e3.xhtml#g_t2_002e3_002e4" rel="prev" title="2.3.4">
 
-<link href="css/style.css" rel="stylesheet" type="text/css" />
-<link href="css/prettify.css" rel="stylesheet" type="text/css" />
+<link href="css/style.css" rel="stylesheet" type="text/css">
+<link href="css/prettify.css" rel="stylesheet" type="text/css">
 
 <script src="js/jquery.min.js" type="text/javascript"></script>
 <script src="js/footnotes.js" type="text/javascript"></script>
@@ -29,7 +27,7 @@
 <section><span class="top jump" title="Jump to top"><a href="#pagetop" accesskey="t">⇡</a></span><a id="pagetop"></a><a id="g_t2_002e4"></a>
 <nav class="header">
 <p>
-Next: <a href="2_002e5.xhtml#g_t2_002e5" accesskey="n" rel="next">2.5</a>, Prev: <a href="2_002e3.xhtml#g_t2_002e3" accesskey="p" rel="prev">2.3</a>, Up: <a href="Chapter-2.xhtml#Chapter-2" accesskey="u" rel="prev">Chapter 2</a>   [<a href="index.xhtml#SEC_Contents" title="Table of contents" accesskey="c" rel="contents">Contents</a>]</p>
+Next: <a href="2_002e5.xhtml#g_t2_002e5" accesskey="n" rel="next">2.5</a>, Prev: <a href="2_002e3.xhtml#g_t2_002e3" accesskey="p" rel="prev">2.3</a>, Up: <a href="Chapter-2.xhtml#Chapter-2" accesskey="u" rel="prev">Chapter 2</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" accesskey="c" rel="contents">Contents</a>]</p>
 </nav>
 <a id="Multiple-Representations-for-Abstract-Data"></a>
 <h3 class="section"><span class="secnum">2.4</span><span class="sectitle">Multiple Representations for Abstract Data</span></h3>
@@ -154,7 +152,7 @@ with two orthogonal axes, the “real” axis and the “imaginary” axis. (See
     <msup>
       <mi>i</mi>
       <mrow class="MJX-TeXAtom-ORD">
-        <mspace width="0.1em"/>
+        <mspace width="0.1em"></mspace>
         <mn>2</mn>
       </mrow>
     </msup>
@@ -201,8 +199,8 @@ coordinates:
       </mtd>
     </mtr>
     <mtr>
-      <mtd/>
-      <mtd/>
+      <mtd></mtd>
+      <mtd></mtd>
       <mtd>
         <mtext>Real-part</mtext>
         <mo stretchy="false">(</mo>
@@ -244,8 +242,8 @@ coordinates:
       </mtd>
     </mtr>
     <mtr>
-      <mtd/>
-      <mtd/>
+      <mtd></mtd>
+      <mtd></mtd>
       <mtd>
         <mtext>Imaginary-part</mtext>
         <mo stretchy="false">(</mo>
@@ -378,13 +376,13 @@ with specified magnitude and angle.  These procedures have the property that,
 for any complex number <code>z</code>, both
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">make-from-real-imag </span><span class="opn">(</span><span class="pln">real-part z</span><span class="clo">)</span><span class="pln"> 
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">make-from-real-imag </span><span class="opn">(</span><span class="pln">real-part z</span><span class="clo">)</span><span class="pln"> 
                      </span><span class="opn">(</span><span class="pln">imag-part z</span><span class="clo">))</span></pre></div>
 
 <p>and
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">make-from-mag-ang </span><span class="opn">(</span><span class="pln">magnitude z</span><span class="clo">)</span><span class="pln"> 
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">make-from-mag-ang </span><span class="opn">(</span><span class="pln">magnitude z</span><span class="clo">)</span><span class="pln"> 
                    </span><span class="opn">(</span><span class="pln">angle z</span><span class="clo">))</span></pre></div>
 
 <p>produce complex numbers that are equal to <code>z</code>.
@@ -397,7 +395,7 @@ of real and imaginary parts while multiplying and dividing complex numbers in
 terms of magnitudes and angles:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">add-complex z1 z2</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">add-complex z1 z2</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">make-from-real-imag 
    </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="opn">(</span><span class="pln">real-part z1</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">real-part z2</span><span class="clo">))</span><span class="pln">
    </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="opn">(</span><span class="pln">imag-part z1</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">imag-part z2</span><span class="clo">))))</span><span class="pln">
@@ -529,7 +527,7 @@ the angle <math xmlns="http://www.w3.org/1998/Math/MathML">
 representation is therefore given by the following selectors and constructors:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">real-part z</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> z</span><span class="clo">))</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">real-part z</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> z</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">imag-part z</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> z</span><span class="clo">))</span><span class="pln">
 
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">magnitude z</span><span class="clo">)</span><span class="pln">
@@ -551,7 +549,7 @@ the trigonometric relations to obtain the real and imaginary parts.  Alyssa’s
 representation is:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">real-part z</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">real-part z</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> </span><span class="opn">(</span><span class="pln">magnitude z</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">cos </span><span class="opn">(</span><span class="pln">angle z</span><span class="clo">))))</span><span class="pln">
 
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">imag-part z</span><span class="clo">)</span><span class="pln">
@@ -607,7 +605,7 @@ takes a tag and contents and produces a tagged data object.  A straightforward
 way to implement this is to use ordinary list structure:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">attach-tag type-tag contents</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">attach-tag type-tag contents</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">cons</span><span class="pln"> type-tag contents</span><span class="clo">))</span><span class="pln">
 
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">type-tag datum</span><span class="clo">)</span><span class="pln">
@@ -626,7 +624,7 @@ way to implement this is to use ordinary list structure:
 <code>polar?</code>, which recognize rectangular and polar numbers, respectively:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">rectangular? z</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">rectangular? z</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">eq</span><span class="pun">?</span><span class="pln"> </span><span class="opn">(</span><span class="pln">type-tag z</span><span class="clo">)</span><span class="pln"> </span><span class="lit">'rectangular</span><span class="clo">))</span><span class="pln">
 
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">polar? z</span><span class="clo">)</span><span class="pln">
@@ -643,7 +641,7 @@ names of hers.  Here is Ben’s revised rectangular representation from
 <a href="#g_t2_002e4_002e1">2.4.1</a>:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">real-part-rectangular z</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> z</span><span class="clo">))</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">real-part-rectangular z</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> z</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">imag-part-rectangular z</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> z</span><span class="clo">))</span><span class="pln">
 
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">magnitude-rectangular z</span><span class="clo">)</span><span class="pln">
@@ -665,7 +663,7 @@ names of hers.  Here is Ben’s revised rectangular representation from
 <p>and here is Alyssa’s revised polar representation:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">real-part-polar z</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">real-part-polar z</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> </span><span class="opn">(</span><span class="pln">magnitude-polar z</span><span class="clo">)</span><span class="pln"> 
      </span><span class="opn">(</span><span class="pln">cos </span><span class="opn">(</span><span class="pln">angle-polar z</span><span class="clo">))))</span><span class="pln">
 
@@ -694,7 +692,7 @@ extract the bare, untagged datum and send this to the rectangular or polar
 procedure as required:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">real-part z</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">real-part z</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">((</span><span class="pln">rectangular? z</span><span class="clo">)</span><span class="pln">
          </span><span class="opn">(</span><span class="pln">real-part-rectangular </span><span class="opn">(</span><span class="pln">contents z</span><span class="clo">)))</span><span class="pln">
         </span><span class="opn">((</span><span class="pln">polar? z</span><span class="clo">)</span><span class="pln">
@@ -733,7 +731,7 @@ are generic, and so will work with either representation.  For example, the
 procedure <code>add-complex</code> is still
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">add-complex z1 z2</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">add-complex z1 z2</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">make-from-real-imag 
    </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="opn">(</span><span class="pln">real-part z1</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">real-part z2</span><span class="clo">))</span><span class="pln">
    </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="opn">(</span><span class="pln">imag-part z1</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">imag-part z2</span><span class="clo">))))</span></pre></div>
@@ -744,7 +742,7 @@ construct rectangular numbers whenever we have real and imaginary parts and to
 construct polar numbers whenever we have magnitudes and angles:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-from-real-imag x y</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-from-real-imag x y</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">make-from-real-imag-rectangular x y</span><span class="clo">))</span><span class="pln">
 
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-from-mag-ang r a</span><span class="clo">)</span><span class="pln">
@@ -880,7 +878,7 @@ entries to the table that tell the system how to operate on rectangular
 numbers.  This is accomplished by calling the following procedure:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">install-rectangular-package</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">install-rectangular-package</span><span class="clo">)</span><span class="pln">
   </span><span class="roman"><span class="com">;; internal procedures</span></span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">real-part z</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> z</span><span class="clo">))</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">imag-part z</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> z</span><span class="clo">))</span><span class="pln">
@@ -923,7 +921,7 @@ Ben’s internally defined constructors, except that they attach the tag.
 <p>Alyssa’s polar package is analogous:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">install-polar-package</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">install-polar-package</span><span class="clo">)</span><span class="pln">
   </span><span class="roman"><span class="com">;; internal procedures</span></span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">magnitude z</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> z</span><span class="clo">))</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">angle z</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> z</span><span class="clo">))</span><span class="pln">
@@ -961,7 +959,7 @@ name of the operation and the types of the arguments and applies the resulting
 procedure if one is present:<a class="footnote_link" id="DOCF113" href="#FOOT113"><sup>113</sup></a>
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">apply-generic op </span><span class="pun">.</span><span class="pln"> args</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">apply-generic op </span><span class="pun">.</span><span class="pln"> args</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">type-tags </span><span class="opn">(</span><span class="pln">map type-tag args</span><span class="clo">)))</span><span class="pln">
     </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">proc </span><span class="opn">(</span><span class="pln">get op type-tags</span><span class="clo">)))</span><span class="pln">
       </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> proc
@@ -974,7 +972,7 @@ procedure if one is present:<a class="footnote_link" id="DOCF113" href="#FOOT113
 <p>Using <code>apply-generic</code>, we can define our generic selectors as follows:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">real-part z</span><span class="clo">)</span><span class="pln"> 
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">real-part z</span><span class="clo">)</span><span class="pln"> 
   </span><span class="opn">(</span><span class="pln">apply-generic </span><span class="lit">'real-part</span><span class="pln"> z</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">imag-part z</span><span class="clo">)</span><span class="pln"> 
   </span><span class="opn">(</span><span class="pln">apply-generic </span><span class="lit">'imag-part</span><span class="pln"> z</span><span class="clo">))</span><span class="pln">
@@ -993,7 +991,7 @@ rectangular numbers whenever we have real and imaginary parts, and polar
 numbers whenever we have magnitudes and angles:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-from-real-imag x y</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-from-real-imag x y</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">((</span><span class="pln">get </span><span class="lit">'make-from-real-imag</span><span class="pln"> 
         </span><span class="lit">'rectangular</span><span class="clo">)</span><span class="pln"> 
    x y</span><span class="clo">))</span><span class="pln">
@@ -1008,7 +1006,7 @@ numbers whenever we have magnitudes and angles:
 program that performs symbolic differentiation:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">deriv exp var</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">deriv exp var</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">((</span><span class="pln">number? exp</span><span class="clo">)</span><span class="pln"> </span><span class="lit">0</span><span class="clo">)</span><span class="pln">
         </span><span class="opn">((</span><span class="pln">variable? exp</span><span class="clo">)</span><span class="pln"> 
          </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pln">same-variable? exp var</span><span class="clo">)</span><span class="pln"> </span><span class="lit">1</span><span class="pln"> </span><span class="lit">0</span><span class="clo">))</span><span class="pln">
@@ -1034,7 +1032,7 @@ being performed is <code>deriv</code>.  We can transform this program into
 data-directed style by rewriting the basic derivative procedure as
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">deriv exp var</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">deriv exp var</span><span class="clo">)</span><span class="pln">
    </span><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">((</span><span class="pln">number? exp</span><span class="clo">)</span><span class="pln"> </span><span class="lit">0</span><span class="clo">)</span><span class="pln">
          </span><span class="opn">((</span><span class="pln">variable? exp</span><span class="clo">)</span><span class="pln"> 
            </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pln">same-variable? exp var</span><span class="clo">)</span><span class="pln"> 
@@ -1063,7 +1061,7 @@ operator that binds it together.  Suppose, however, we indexed the procedures
 in the opposite way, so that the dispatch line in <code>deriv</code> looked like
 
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">((</span><span class="pln">get </span><span class="opn">(</span><span class="pln">operator exp</span><span class="clo">)</span><span class="pln"> </span><span class="lit">'deriv</span><span class="clo">)</span><span class="pln"> 
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">((</span><span class="pln">get </span><span class="opn">(</span><span class="pln">operator exp</span><span class="clo">)</span><span class="pln"> </span><span class="lit">'deriv</span><span class="clo">)</span><span class="pln"> 
  </span><span class="opn">(</span><span class="pln">operands exp</span><span class="clo">)</span><span class="pln"> var</span><span class="clo">)</span></pre></div>
 
 <p>What corresponding changes to the derivative system are required?
@@ -1136,7 +1134,7 @@ operation name and performs the operation indicated.  In such a discipline,
 <code>make-from-real-imag</code> could be written as
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-from-real-imag x y</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-from-real-imag x y</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">dispatch op</span><span class="clo">)</span><span class="pln">
     </span><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">((</span><span class="kwd">eq</span><span class="pun">?</span><span class="pln"> op </span><span class="lit">'real-part</span><span class="clo">)</span><span class="pln"> x</span><span class="clo">)</span><span class="pln">
           </span><span class="opn">((</span><span class="kwd">eq</span><span class="pun">?</span><span class="pln"> op </span><span class="lit">'imag-part</span><span class="clo">)</span><span class="pln"> y</span><span class="clo">)</span><span class="pln">
@@ -1153,7 +1151,7 @@ operation to an argument, now simply feeds the operation’s name to the data
 object and lets the object do the work:<a class="footnote_link" id="DOCF114" href="#FOOT114"><sup>114</sup></a>
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">apply-generic op arg</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">arg op</span><span class="clo">))</span></pre></div>
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">apply-generic op arg</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">arg op</span><span class="clo">))</span></pre></div>
 
 <p>Note that the value returned by <code>make-from-real-imag</code> is a procedure—the
 internal <code>dispatch</code> procedure.  This is the procedure that is invoked when
@@ -1240,7 +1238,7 @@ takes two arguments, a procedure and a list.  <code>Apply</code> applies the
 procedure, using the elements in the list as arguments.  For example,
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">apply </span><span class="pun">+</span><span class="pln"> </span><span class="opn">(</span><span class="pln">list </span><span class="lit">1</span><span class="pln"> </span><span class="lit">2</span><span class="pln"> </span><span class="lit">3</span><span class="pln"> </span><span class="lit">4</span><span class="clo">))</span></pre></div>
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">apply </span><span class="pun">+</span><span class="pln"> </span><span class="opn">(</span><span class="pln">list </span><span class="lit">1</span><span class="pln"> </span><span class="lit">2</span><span class="pln"> </span><span class="lit">3</span><span class="pln"> </span><span class="lit">4</span><span class="clo">))</span></pre></div>
 
 <p>returns 10.</p>
 </div>
@@ -1251,10 +1249,10 @@ organization is it permits only generic procedures of one argument.</p>
 </div>
 <nav class="header">
 <p>
-Next: <a href="2_002e5.xhtml#g_t2_002e5" accesskey="n" rel="next">2.5</a>, Prev: <a href="2_002e3.xhtml#g_t2_002e3" accesskey="p" rel="prev">2.3</a>, Up: <a href="#g_t2_002e4" accesskey="u" rel="prev">2.4</a>   [<a href="index.xhtml#SEC_Contents" title="Table of contents" accesskey="c" rel="contents">Contents</a>]</p>
+Next: <a href="2_002e5.xhtml#g_t2_002e5" accesskey="n" rel="next">2.5</a>, Prev: <a href="2_002e3.xhtml#g_t2_002e3" accesskey="p" rel="prev">2.3</a>, Up: <a href="#g_t2_002e4" accesskey="u" rel="prev">2.4</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" accesskey="c" rel="contents">Contents</a>]</p>
 </nav>
 
 
 </section><span class="bottom jump" title="Jump to bottom"><a href="#pagebottom" accesskey="b">⇣</a></span><a id="pagebottom"></a>
-</body>
-</html>
+
+</body></html>

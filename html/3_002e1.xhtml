@@ -1,24 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="en" lang="en">
-<!-- Created by GNU Texinfo 5.1, http://www.gnu.org/software/texinfo/ -->
-<head>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="en" lang="en"><!-- Created by GNU Texinfo 5.1, http://www.gnu.org/software/texinfo/ --><head>
 <title>Structure and Interpretation of Computer Programs, 2e: 3.1</title>
 
-<meta name="description" content="Structure and Interpretation of Computer Programs, 2e: 3.1" />
-<meta name="keywords" content="Structure and Interpretation of Computer Programs, 2e: 3.1" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="Generator" content="texi2any" />
-<meta charset="utf-8" />
-<link href="index.xhtml#Top" rel="start" title="Top" />
-<link href="Term-Index.xhtml#Term-Index" rel="index" title="Term Index" />
-<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents" />
-<link href="Chapter-3.xhtml#Chapter-3" rel="prev" title="Chapter 3" />
-<link href="3_002e2.xhtml#g_t3_002e2" rel="next" title="3.2" />
-<link href="Chapter-3.xhtml#Chapter-3" rel="prev" title="Chapter 3" />
+<meta name="description" content="Structure and Interpretation of Computer Programs, 2e: 3.1">
+<meta name="keywords" content="Structure and Interpretation of Computer Programs, 2e: 3.1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="Generator" content="texi2any">
+<meta charset="utf-8">
+<link href="index.xhtml#Top" rel="start" title="Top">
+<link href="Term-Index.xhtml#Term-Index" rel="index" title="Term Index">
+<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Chapter-3.xhtml#Chapter-3" rel="prev" title="Chapter 3">
+<link href="3_002e2.xhtml#g_t3_002e2" rel="next" title="3.2">
+<link href="Chapter-3.xhtml#Chapter-3" rel="prev" title="Chapter 3">
 
-<link href="css/style.css" rel="stylesheet" type="text/css" />
-<link href="css/prettify.css" rel="stylesheet" type="text/css" />
+<link href="css/style.css" rel="stylesheet" type="text/css">
+<link href="css/prettify.css" rel="stylesheet" type="text/css">
 
 <script src="js/jquery.min.js" type="text/javascript"></script>
 <script src="js/footnotes.js" type="text/javascript"></script>
@@ -29,7 +27,7 @@
 <section><span class="top jump" title="Jump to top"><a href="#pagetop" accesskey="t">⇡</a></span><a id="pagetop"></a><a id="g_t3_002e1"></a>
 <nav class="header">
 <p>
-Next: <a href="3_002e2.xhtml#g_t3_002e2" accesskey="n" rel="next">3.2</a>, Prev: <a href="Chapter-3.xhtml#Chapter-3" accesskey="p" rel="prev">Chapter 3</a>, Up: <a href="Chapter-3.xhtml#Chapter-3" accesskey="u" rel="prev">Chapter 3</a>   [<a href="index.xhtml#SEC_Contents" title="Table of contents" accesskey="c" rel="contents">Contents</a>]</p>
+Next: <a href="3_002e2.xhtml#g_t3_002e2" accesskey="n" rel="next">3.2</a>, Prev: <a href="Chapter-3.xhtml#Chapter-3" accesskey="p" rel="prev">Chapter 3</a>, Up: <a href="Chapter-3.xhtml#Chapter-3" accesskey="u" rel="prev">Chapter 3</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" accesskey="c" rel="contents">Contents</a>]</p>
 </nav>
 <a id="Assignment-and-Local-State"></a>
 <h3 class="section"><span class="secnum">3.1</span><span class="sectitle">Assignment and Local State</span></h3>
@@ -84,7 +82,7 @@ account, we should obtain the following sequence of responses using
 <code>withdraw</code>:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">withdraw </span><span class="lit">25</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">withdraw </span><span class="lit">25</span><span class="clo">)</span><span class="pln">
 </span><i><span class="lit">75</span></i><span class="pln">
 
 </span><span class="opn">(</span><span class="pln">withdraw </span><span class="lit">25</span><span class="clo">)</span><span class="pln">
@@ -114,7 +112,7 @@ value of <code>balance</code>.  Otherwise, <code>withdraw</code> returns the
 and <code>withdraw</code>:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> balance </span><span class="lit">100</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> balance </span><span class="lit">100</span><span class="clo">)</span><span class="pln">
 
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">withdraw amount</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pun">&gt;=</span><span class="pln"> balance amount</span><span class="clo">)</span><span class="pln">
@@ -125,12 +123,12 @@ and <code>withdraw</code>:
 <p>Decrementing <code>balance</code> is accomplished by the expression
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">set</span><span class="pun">!</span><span class="pln"> balance </span><span class="opn">(</span><span class="pun">-</span><span class="pln"> balance amount</span><span class="clo">))</span></pre></div>
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">set</span><span class="pun">!</span><span class="pln"> balance </span><span class="opn">(</span><span class="pun">-</span><span class="pln"> balance amount</span><span class="clo">))</span></pre></div>
 
 <p>This uses the <code>set!</code> special form, whose syntax is
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">set</span><span class="pun">!</span><span class="pln"> ⟨</span><var><span class="pln">name</span></var><span class="pln">⟩ ⟨</span><var><span class="pln">new-value</span></var><span class="pln">⟩</span><span class="clo">)</span></pre></div>
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">set</span><span class="pun">!</span><span class="pln"> ⟨</span><var><span class="pln">name</span></var><span class="pln">⟩ ⟨</span><var><span class="pln">new-value</span></var><span class="pln">⟩</span><span class="clo">)</span></pre></div>
 
 <p>Here <code>⟨</code><var>name</var><code>⟩</code> is a symbol and <code>⟨</code><var>new-value</var><code>⟩</code> is any expression.
 <code>Set!</code> changes <code>⟨</code><var>name</var><code>⟩</code> so that its value is the result obtained by
@@ -144,7 +142,7 @@ decrementing <code>balance</code> and then returning the value of <code>balance<
 general, evaluating the expression
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">begin</span><span class="pln"> ⟨</span><var><span class="pln">exp</span><span class="pun">₁</span></var><span class="pln">⟩ ⟨</span><var><span class="pln">exp</span><span class="pun">₂</span></var><span class="pln">⟩ </span><span class="roman"><span class="pun">…</span></span><span class="pln"> ⟨</span><var><span class="pln">exp</span><span class="pun">ₖ</span></var><span class="pln">⟩</span><span class="clo">)</span></pre></div>
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">begin</span><span class="pln"> ⟨</span><var><span class="pln">exp</span><span class="pun">₁</span></var><span class="pln">⟩ ⟨</span><var><span class="pln">exp</span><span class="pun">₂</span></var><span class="pln">⟩ </span><span class="roman"><span class="pun">…</span></span><span class="pln"> ⟨</span><var><span class="pln">exp</span><span class="pun">ₖ</span></var><span class="pln">⟩</span><span class="clo">)</span></pre></div>
 
 <p>causes the expressions <math xmlns="http://www.w3.org/1998/Math/MathML">
   <mrow class="MJX-TeXAtom-ORD">
@@ -198,7 +196,7 @@ account.
 definition as follows:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> new-withdraw
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> new-withdraw
   </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">balance </span><span class="lit">100</span><span class="clo">))</span><span class="pln">
     </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">amount</span><span class="clo">)</span><span class="pln">
       </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pun">&gt;=</span><span class="pln"> balance amount</span><span class="clo">)</span><span class="pln">
@@ -238,7 +236,7 @@ processors.”  The formal parameter <code>balance</code> in <code>make-withdraw
 specifies the initial amount of money in the account.<a class="footnote_link" id="DOCF133" href="#FOOT133"><sup>133</sup></a>
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-withdraw balance</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-withdraw balance</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">amount</span><span class="clo">)</span><span class="pln">
     </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pun">&gt;=</span><span class="pln"> balance amount</span><span class="clo">)</span><span class="pln">
         </span><span class="opn">(</span><span class="kwd">begin</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">set</span><span class="pun">!</span><span class="pln"> balance 
@@ -250,7 +248,7 @@ specifies the initial amount of money in the account.<a class="footnote_link" id
 <code>W2</code>:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> W1 </span><span class="opn">(</span><span class="pln">make-withdraw </span><span class="lit">100</span><span class="clo">))</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> W1 </span><span class="opn">(</span><span class="pln">make-withdraw </span><span class="lit">100</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> W2 </span><span class="opn">(</span><span class="pln">make-withdraw </span><span class="lit">100</span><span class="clo">))</span><span class="pln">
 
 </span><span class="opn">(</span><span class="pln">W1 </span><span class="lit">50</span><span class="clo">)</span><span class="pln">
@@ -275,7 +273,7 @@ thus we can represent simple bank accounts.  Here is a procedure that returns a
 “bank-account object” with a specified initial balance:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-account balance</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-account balance</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">withdraw amount</span><span class="clo">)</span><span class="pln">
     </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pun">&gt;=</span><span class="pln"> balance amount</span><span class="clo">)</span><span class="pln">
         </span><span class="opn">(</span><span class="kwd">begin</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">set</span><span class="pun">!</span><span class="pln"> balance 
@@ -306,7 +304,7 @@ ability to modify local variables.
 <p><code>Make-account</code> can be used as follows:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> acc </span><span class="opn">(</span><span class="pln">make-account </span><span class="lit">100</span><span class="clo">))</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> acc </span><span class="opn">(</span><span class="pln">make-account </span><span class="lit">100</span><span class="clo">))</span><span class="pln">
 
 </span><span class="opn">((</span><span class="pln">acc </span><span class="lit">'withdraw</span><span class="clo">)</span><span class="pln"> </span><span class="lit">50</span><span class="clo">)</span><span class="pln">
 </span><i><span class="lit">50</span></i><span class="pln">
@@ -327,7 +325,7 @@ ability to modify local variables.
 <code>make-account</code>
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> acc2 </span><span class="opn">(</span><span class="pln">make-account </span><span class="lit">100</span><span class="clo">))</span></pre></div>
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> acc2 </span><span class="opn">(</span><span class="pln">make-account </span><span class="lit">100</span><span class="clo">))</span></pre></div>
 
 <p>will produce a completely separate account object, which maintains its own
 local <code>balance</code>.
@@ -343,7 +341,7 @@ generates accumulators, each maintaining an independent sum.  The input to
 example
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> A </span><span class="opn">(</span><span class="pln">make-accumulator </span><span class="lit">5</span><span class="clo">))</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> A </span><span class="opn">(</span><span class="pln">make-accumulator </span><span class="lit">5</span><span class="clo">))</span><span class="pln">
 
 </span><span class="opn">(</span><span class="pln">A </span><span class="lit">10</span><span class="clo">)</span><span class="pln">
 </span><i><span class="lit">15</span></i><span class="pln">
@@ -368,7 +366,7 @@ of calling <code>f</code> on that input and increments the counter.  For instanc
 could make a monitored version of the <code>sqrt</code> procedure:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> s </span><span class="opn">(</span><span class="pln">make-monitored sqrt</span><span class="clo">))</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> s </span><span class="opn">(</span><span class="pln">make-monitored sqrt</span><span class="clo">))</span><span class="pln">
 
 </span><span class="opn">(</span><span class="pln">s </span><span class="lit">100</span><span class="clo">)</span><span class="pln">
 </span><i><span class="lit">10</span></i><span class="pln">
@@ -384,7 +382,7 @@ procedure so that it creates password-protected accounts.  That is,
 <code>make-account</code> should take a symbol as an additional argument, as in
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> acc 
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> acc 
   </span><span class="opn">(</span><span class="pln">make-account </span><span class="lit">100</span><span class="pln"> </span><span class="lit">'secret-password</span><span class="clo">))</span></pre></div>
 
 <p>The resulting account object should process a request only if it is accompanied
@@ -392,7 +390,7 @@ by the password with which the account was created, and should otherwise return
 a complaint:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">((</span><span class="pln">acc </span><span class="lit">'secret-password</span><span class="pln"> </span><span class="lit">'withdraw</span><span class="clo">)</span><span class="pln"> </span><span class="lit">40</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">((</span><span class="pln">acc </span><span class="lit">'secret-password</span><span class="pln"> </span><span class="lit">'withdraw</span><span class="clo">)</span><span class="pln"> </span><span class="lit">40</span><span class="clo">)</span><span class="pln">
 </span><i><span class="lit">60</span></i><span class="pln">
 
 </span><span class="opn">((</span><span class="pln">acc </span><span class="lit">'some-other-password</span><span class="pln"> </span><span class="lit">'deposit</span><span class="clo">)</span><span class="pln"> </span><span class="lit">50</span><span class="clo">)</span><span class="pln">
@@ -431,7 +429,7 @@ start with a given number <math xmlns="http://www.w3.org/1998/Math/MathML">
 </math> and form
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><var><span class="pln">x</span><span class="pun">₂</span></var><span class="pln"> </span><span class="pun">=</span><span class="pln"> </span><span class="opn">(</span><span class="pln">rand-update </span><var><span class="pln">x</span><span class="pun">₁</span></var><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><var><span class="pln">x</span><span class="pun">₂</span></var><span class="pln"> </span><span class="pun">=</span><span class="pln"> </span><span class="opn">(</span><span class="pln">rand-update </span><var><span class="pln">x</span><span class="pun">₁</span></var><span class="clo">)</span><span class="pln">
 </span><var><span class="pln">x</span><span class="pun">₃</span></var><span class="pln"> </span><span class="pun">=</span><span class="pln"> </span><span class="opn">(</span><span class="pln">rand-update </span><var><span class="pln">x</span><span class="pun">₂</span></var><span class="clo">)</span></pre></div>
 
 <p>then the sequence of values <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -459,7 +457,7 @@ returns this as the random number, and also stores this as the new value of
 <code>x</code>.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> rand
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> rand
   </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">x random-init</span><span class="clo">))</span><span class="pln">
     </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">set</span><span class="pun">!</span><span class="pln"> x </span><span class="opn">(</span><span class="pln">rand-update x</span><span class="clo">))</span><span class="pln"> x</span><span class="clo">)))</span></pre></div>
 
@@ -519,7 +517,7 @@ designated number of trials and returns a number telling the fraction of the
 trials in which the experiment was found to be true.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">estimate-pi trials</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">estimate-pi trials</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">sqrt </span><span class="opn">(</span><span class="pun">/</span><span class="pln"> </span><span class="lit">6</span><span class="pln"> </span><span class="opn">(</span><span class="pln">monte-carlo trials 
                           cesaro-test</span><span class="clo">))))</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">cesaro-test</span><span class="clo">)</span><span class="pln">
@@ -542,7 +540,7 @@ than <code>rand</code>, the way we would be forced to proceed if we did not use
 assignment to model local state:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">estimate-pi trials</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">estimate-pi trials</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">sqrt </span><span class="opn">(</span><span class="pun">/</span><span class="pln"> </span><span class="lit">6</span><span class="pln"> </span><span class="opn">(</span><span class="pln">random-gcd-test trials 
                               random-init</span><span class="clo">))))</span><span class="pln">
 
@@ -698,7 +696,7 @@ implements this in terms of the <code>random</code> procedure used in
 input.<a class="footnote_link" id="DOCF136" href="#FOOT136"><sup>136</sup></a>
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">random-in-range low high</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">random-in-range low high</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">range </span><span class="opn">(</span><span class="pun">-</span><span class="pln"> high low</span><span class="clo">)))</span><span class="pln">
     </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> low </span><span class="opn">(</span><span class="pln">random range</span><span class="clo">))))</span></pre></div>
 </blockquote>
@@ -738,7 +736,7 @@ of the <code>make-withdraw</code> procedure of <a href="#g_t3_002e1_002e1">3.1.1
 bother to check for an insufficient amount:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-simplified-withdraw balance</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-simplified-withdraw balance</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">amount</span><span class="clo">)</span><span class="pln">
     </span><span class="opn">(</span><span class="kwd">set</span><span class="pun">!</span><span class="pln"> balance </span><span class="opn">(</span><span class="pun">-</span><span class="pln"> balance amount</span><span class="clo">))</span><span class="pln">
     balance</span><span class="clo">))</span><span class="pln">
@@ -756,7 +754,7 @@ bother to check for an insufficient amount:
 which does not use <code>set!</code>:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-decrementer balance</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-decrementer balance</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">amount</span><span class="clo">)</span><span class="pln">
     </span><span class="opn">(</span><span class="pun">-</span><span class="pln"> balance amount</span><span class="clo">)))</span></pre></div>
 
@@ -765,7 +763,7 @@ designated amount <code>balance</code>, but there is no accumulated effect over
 successive calls, as with <code>make-simplified-withdraw</code>:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> D </span><span class="opn">(</span><span class="pln">make-decrementer </span><span class="lit">25</span><span class="clo">))</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> D </span><span class="opn">(</span><span class="pln">make-decrementer </span><span class="lit">25</span><span class="clo">))</span><span class="pln">
 
 </span><span class="opn">(</span><span class="pln">D </span><span class="lit">20</span><span class="clo">)</span><span class="pln">
 </span><i><span class="lit">5</span></i><span class="pln">
@@ -778,20 +776,20 @@ successive calls, as with <code>make-simplified-withdraw</code>:
 For instance, let us analyze the evaluation of the expression
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">((</span><span class="pln">make-decrementer </span><span class="lit">25</span><span class="clo">)</span><span class="pln"> </span><span class="lit">20</span><span class="clo">)</span></pre></div>
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">((</span><span class="pln">make-decrementer </span><span class="lit">25</span><span class="clo">)</span><span class="pln"> </span><span class="lit">20</span><span class="clo">)</span></pre></div>
 
 <p>We first simplify the operator of the combination by substituting 25 for
 <code>balance</code> in the body of <code>make-decrementer</code>.  This reduces the
 expression to
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">((</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">amount</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pun">-</span><span class="pln"> </span><span class="lit">25</span><span class="pln"> amount</span><span class="clo">))</span><span class="pln"> </span><span class="lit">20</span><span class="clo">)</span></pre></div>
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">((</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">amount</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pun">-</span><span class="pln"> </span><span class="lit">25</span><span class="pln"> amount</span><span class="clo">))</span><span class="pln"> </span><span class="lit">20</span><span class="clo">)</span></pre></div>
 
 <p>Now we apply the operator by substituting 20 for <code>amount</code> in the body of
 the <code>lambda</code> expression:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pun">-</span><span class="pln"> </span><span class="lit">25</span><span class="pln"> </span><span class="lit">20</span><span class="clo">)</span></pre></div>
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pun">-</span><span class="pln"> </span><span class="lit">25</span><span class="pln"> </span><span class="lit">20</span><span class="clo">)</span></pre></div>
 
 <p>The final answer is 5.
 </p>
@@ -799,14 +797,14 @@ the <code>lambda</code> expression:
 with <code>make-simplified-withdraw</code>:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">((</span><span class="pln">make-simplified-withdraw </span><span class="lit">25</span><span class="clo">)</span><span class="pln"> </span><span class="lit">20</span><span class="clo">)</span></pre></div>
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">((</span><span class="pln">make-simplified-withdraw </span><span class="lit">25</span><span class="clo">)</span><span class="pln"> </span><span class="lit">20</span><span class="clo">)</span></pre></div>
 
 <p>We first simplify the operator by substituting 25 for <code>balance</code> in the
 body of <code>make-simplified-withdraw</code>.  This reduces the expression
 to<a class="footnote_link" id="DOCF137" href="#FOOT137"><sup>137</sup></a>
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">((</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">amount</span><span class="clo">)</span><span class="pln"> 
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">((</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">amount</span><span class="clo">)</span><span class="pln"> 
    </span><span class="opn">(</span><span class="kwd">set</span><span class="pun">!</span><span class="pln"> balance </span><span class="opn">(</span><span class="pun">-</span><span class="pln"> </span><span class="lit">25</span><span class="pln"> amount</span><span class="clo">))</span><span class="pln"> </span><span class="lit">25</span><span class="clo">)</span><span class="pln">
  </span><span class="lit">20</span><span class="clo">)</span></pre></div>
 
@@ -814,7 +812,7 @@ to<a class="footnote_link" id="DOCF137" href="#FOOT137"><sup>137</sup></a>
 the <code>lambda</code> expression:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">set</span><span class="pun">!</span><span class="pln"> balance </span><span class="opn">(</span><span class="pun">-</span><span class="pln"> </span><span class="lit">25</span><span class="pln"> </span><span class="lit">20</span><span class="clo">))</span><span class="pln"> </span><span class="lit">25</span></pre></div>
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">set</span><span class="pun">!</span><span class="pln"> balance </span><span class="opn">(</span><span class="pun">-</span><span class="pln"> </span><span class="lit">25</span><span class="pln"> </span><span class="lit">20</span><span class="clo">))</span><span class="pln"> </span><span class="lit">25</span></pre></div>
 
 <p>If we adhered to the substitution model, we would have to say that the meaning
 of the procedure application is to first set <code>balance</code> to 5 and then
@@ -844,7 +842,7 @@ problematical.  Consider the concept of two things being “the same.”
 two procedures:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> D1 </span><span class="opn">(</span><span class="pln">make-decrementer </span><span class="lit">25</span><span class="clo">))</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> D1 </span><span class="opn">(</span><span class="pln">make-decrementer </span><span class="lit">25</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> D2 </span><span class="opn">(</span><span class="pln">make-decrementer </span><span class="lit">25</span><span class="clo">))</span></pre></div>
 
 <p>Are <code>D1</code> and <code>D2</code> the same?  An acceptable answer is yes, because
@@ -855,7 +853,7 @@ substituted for <code>D2</code> in any computation without changing the result.
 <p>Contrast this with making two calls to <code>make-simplified-withdraw</code>:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> W1 </span><span class="opn">(</span><span class="pln">make-simplified-withdraw </span><span class="lit">25</span><span class="clo">))</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> W1 </span><span class="opn">(</span><span class="pln">make-simplified-withdraw </span><span class="lit">25</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> W2 </span><span class="opn">(</span><span class="pln">make-simplified-withdraw </span><span class="lit">25</span><span class="clo">))</span></pre></div>
 
 <p>Are <code>W1</code> and <code>W2</code> the same?  Surely not, because calls to <code>W1</code>
@@ -863,7 +861,7 @@ and <code>W2</code> have distinct effects, as shown by the following sequence of
 interactions:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">W1 </span><span class="lit">20</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">W1 </span><span class="lit">20</span><span class="clo">)</span><span class="pln">
 </span><i><span class="lit">5</span></i><span class="pln">
 
 </span><span class="opn">(</span><span class="pln">W1 </span><span class="lit">20</span><span class="clo">)</span><span class="pln">
@@ -904,13 +902,13 @@ where Peter and Paul have a bank account with $100 in it.  There is a
 substantial difference between modeling this as
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> peter-acc </span><span class="opn">(</span><span class="pln">make-account </span><span class="lit">100</span><span class="clo">))</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> peter-acc </span><span class="opn">(</span><span class="pln">make-account </span><span class="lit">100</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> paul-acc </span><span class="opn">(</span><span class="pln">make-account </span><span class="lit">100</span><span class="clo">))</span></pre></div>
 
 <p>and modeling it as
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> peter-acc </span><span class="opn">(</span><span class="pln">make-account </span><span class="lit">100</span><span class="clo">))</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> peter-acc </span><span class="opn">(</span><span class="pln">make-account </span><span class="lit">100</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> paul-acc peter-acc</span><span class="clo">)</span></pre></div>
 
 <p>In the first situation, the two bank accounts are distinct.  Transactions made
@@ -955,7 +953,7 @@ programs.  For example, recall the iterative factorial program from
 <a href="1_002e2.xhtml#g_t1_002e2_002e1">1.2.1</a>:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">factorial n</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">factorial n</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">iter product counter</span><span class="clo">)</span><span class="pln">
     </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pun">&gt;</span><span class="pln"> counter n</span><span class="clo">)</span><span class="pln">
         product
@@ -968,7 +966,7 @@ more imperative style by using explicit assignment to update the values of the
 variables <code>product</code> and <code>counter</code>:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">factorial n</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">factorial n</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">product </span><span class="lit">1</span><span class="clo">)</span><span class="pln">
         </span><span class="opn">(</span><span class="pln">counter </span><span class="lit">1</span><span class="clo">))</span><span class="pln">
     </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">iter</span><span class="clo">)</span><span class="pln">
@@ -986,7 +984,7 @@ the program is correct as written.  But writing the assignments in the opposite
 order
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">set</span><span class="pun">!</span><span class="pln"> counter </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> counter </span><span class="lit">1</span><span class="clo">))</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">set</span><span class="pun">!</span><span class="pln"> counter </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> counter </span><span class="lit">1</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">set</span><span class="pun">!</span><span class="pln"> product </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> counter product</span><span class="clo">))</span></pre></div>
 
 <p>would have produced a different, incorrect result.  In general, programming
@@ -1015,7 +1013,7 @@ example, if <code>peter-acc</code> is a bank account with password
 <code>open-sesame</code>, then
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> paul-acc
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> paul-acc
   </span><span class="opn">(</span><span class="pln">make-joint peter-acc 
               </span><span class="lit">'open-sesame</span><span class="pln"> 
               </span><span class="lit">'rosebud</span><span class="clo">))</span></pre></div>
@@ -1035,7 +1033,7 @@ procedure are evaluated can make a difference to the result.  Define a simple
 procedure <code>f</code> such that evaluating 
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="opn">(</span><span class="pln">f </span><span class="lit">0</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">f </span><span class="lit">1</span><span class="clo">))</span></pre></div>
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="opn">(</span><span class="pln">f </span><span class="lit">0</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">f </span><span class="lit">1</span><span class="clo">))</span></pre></div>
 
 <p>will return 0 if
 the arguments to <code>+</code> are evaluated from left to right but will return 1 if
@@ -1171,10 +1169,10 @@ concerns that can complicate programming and obscure the important ideas.</p>
 </div>
 <nav class="header">
 <p>
-Next: <a href="3_002e2.xhtml#g_t3_002e2" accesskey="n" rel="next">3.2</a>, Prev: <a href="Chapter-3.xhtml#Chapter-3" accesskey="p" rel="prev">Chapter 3</a>, Up: <a href="#g_t3_002e1" accesskey="u" rel="prev">3.1</a>   [<a href="index.xhtml#SEC_Contents" title="Table of contents" accesskey="c" rel="contents">Contents</a>]</p>
+Next: <a href="3_002e2.xhtml#g_t3_002e2" accesskey="n" rel="next">3.2</a>, Prev: <a href="Chapter-3.xhtml#Chapter-3" accesskey="p" rel="prev">Chapter 3</a>, Up: <a href="#g_t3_002e1" accesskey="u" rel="prev">3.1</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" accesskey="c" rel="contents">Contents</a>]</p>
 </nav>
 
 
 </section><span class="bottom jump" title="Jump to bottom"><a href="#pagebottom" accesskey="b">⇣</a></span><a id="pagebottom"></a>
-</body>
-</html>
+
+</body></html>

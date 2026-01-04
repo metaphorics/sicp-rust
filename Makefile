@@ -50,7 +50,7 @@ exercises.texi figures.texi: ex-fig-ref.pl
 
 $(NEXUS): $(SRC) $(CONV) $(MATH) $(PRETTY) exercises.texi figures.texi
 	@echo -n "Converting Texinfo file to HTML..."; \
-	texi2any --no-warn --html --split=section --no-headers --iftex $(SRC)
+	PERL5LIB=lib texi2any --no-warn --html --split=section --no-headers --iftex $(SRC)
 	@# Remove temporary files.
 	@grep -lZ 'This file redirects' $(HTML) | xargs -0 rm -f --
 	@echo "done."
@@ -87,7 +87,7 @@ $(META): $(NEXUS) create_metafiles.rb
 	./create_metafiles.rb
 
 $(THUMB): $(COVER)
-	@inkscape -b "#fbfbfb" -C -e $(THUMB) -f $(DIR)fig/coverpage.std.svg > /dev/null
+	@inkscape --export-background="#fbfbfb" --export-area-page --export-filename=$(THUMB) $(DIR)fig/coverpage.std.svg > /dev/null
 
 $(GOAL): $(META) $(THUMB) $(FIG) $(CSS) $(FONT) mimetype META-INF/* LICENSE
 	@if [ -f $(GOAL) ]; then rm $(GOAL); fi; \

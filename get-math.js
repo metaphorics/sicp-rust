@@ -1,4 +1,4 @@
-#!/usr/bin/env phantomjs
+#!/usr/bin/env node
 
 // Usage: ./get-math.js json_db file1 [file2 ...]
 //  json_db: the JSON file that will contain the database
@@ -11,93 +11,122 @@
 // LaTeX must be delimited by \( \) (inline) or \[ \] (display math).
 
 // (c) 2014 Andres Raba, GNU GPL v.3.
+// (c) 2025 Updated for Node.js with mathjax-node
 
-var page = require("webpage").create(),
-  system = require("system"),
-  fs = require("fs");
+const fs = require("fs");
+const mjAPI = require("mathjax-node");
 
-var loadPage = function(url) {
-  page.open(url, function(status) {
-    if (status !== "success") {
-      console.log("Failed to open the url: " + url);
-      page.close();
-      phantom.exit();
-    } else {
-      page.onAlert = function(msg) { // intercept alerts
-        if (msg === "Listening") {
-          page.evaluate(inject); // inject an outside object into page context
-          page.evaluate(function() {
-            Object.keys(window.texobj).forEach(function(latex) {
-              ConvertToMML(latex);
-            });
-            ConversionEnd();
-          });
-        } else if (msg === "End") {
-          var mathml = page.evaluate(function() {
-            return window.mathml;
-          });
-          Object.keys(mathml).forEach(function(latex) {
-            texobj[latex] = mathml[latex];
-          });
-          var jsonObj = JSON.stringify(texobj, function(k, v) {
-            return v;
-          }, 2);
-          fs.write(db, jsonObj, "w");
-          page.close();
-          phantom.exit();
-        } else {
-          console.log("Unrecognized message: " + msg);
-          page.close();
-          phantom.exit();
-        }
-      };
-    }
-  });
-};
-
-// Will hold extracted LaTeX fragments as keys:
-var texobj = {};
+// Configure MathJax
+mjAPI.config({
+  MathJax: {
+    // MathJax configuration
+  }
+});
+mjAPI.start();
 
 // LaTeX is enclosed in \( \) or \[ \] delimiters,
 // first pair for inline, second for display math:
-var pattern = /\\\([\s\S]+?\\\)|\\\[[\s\S]+?\\\]/g;
+const pattern = /\\\([\s\S]+?\\\)|\\\[[\s\S]+?\\\]/g;
 
-if (system.args.length <= 2) {
+// Get command-line arguments
+const args = process.argv.slice(2);
+
+if (args.length <= 1) {
   console.log("Usage: ./get-math.js json_db file1 [file2 ...]");
-  page.close();
-  phantom.exit();
-} else {
-  var db = system.args[1];
-  var args = system.args.slice(2);
-  args.forEach(function(arg) {
-    try {
-      var file = fs.read(arg);
-    } catch (error) {
-      console.log(error);
-      page.close();
-      phantom.exit();
-    }
-    var matched;
+  process.exit(0);
+}
+
+const db = args[0];
+const inputFiles = args.slice(1);
+
+// Will hold extracted LaTeX fragments as keys:
+const texobj = {};
+
+// Extract LaTeX from all input files
+inputFiles.forEach(arg => {
+  try {
+    const file = fs.readFileSync(arg, "utf8");
+    let matched;
     while ((matched = pattern.exec(file)) != null) {
       texobj[matched[0]] = "";
     }
-  });
-  if (fs.exists(db)) {
-    var oldmath = JSON.parse(fs.read(db)); // reuse the old MathML database
-  } else {
-    var oldmath = {};
+  } catch (error) {
+    console.error(`Error reading ${arg}:`, error.message);
+    process.exit(1);
   }
-  var delta = {}; // collect here only Latex that has changed
-  Object.keys(texobj).forEach(function(latex) {
-    texobj[latex] = oldmath[latex] || (delta[latex] = "");
-  });
-  if (Object.keys(delta).length > 0) { // some Latex has changed
-    // A way to inject an object into the sandboxed page context, taken from:
-    // http://stackoverflow.com/questions/8753169/copying-data-from-one-page-to-another-using-phantomjs
-    var inject = new Function("window.texobj = " + JSON.stringify(delta));
-    loadPage("mathcell.xhtml"); // conversion to MathML happens here
-  } else {
-    page.close();
-    phantom.exit();
+});
+
+// Load existing database if available
+let oldmath = {};
+if (fs.existsSync(db)) {
+  try {
+    oldmath = JSON.parse(fs.readFileSync(db, "utf8"));
+  } catch (error) {
+    console.error("Error reading existing database:", error.message);
   }
 }
+
+// Collect only LaTeX that needs conversion (not in old database)
+const delta = {};
+Object.keys(texobj).forEach(latex => {
+  if (oldmath[latex]) {
+    texobj[latex] = oldmath[latex];
+  } else {
+    delta[latex] = "";
+  }
+});
+
+// Convert LaTeX to MathML using mathjax-node
+async function convertLatex(latex) {
+  // Determine if inline or display math
+  const isInline = latex.startsWith("\\(");
+
+  // Strip delimiters for MathJax
+  let math;
+  if (isInline) {
+    math = latex.slice(2, -2); // Remove \( and \)
+  } else {
+    math = latex.slice(2, -2); // Remove \[ and \]
+  }
+
+  return new Promise((resolve, reject) => {
+    mjAPI.typeset({
+      math: math,
+      format: isInline ? "inline-TeX" : "TeX",
+      mml: true,
+    }, data => {
+      if (data.errors) {
+        console.error(`MathJax error for "${latex}":`, data.errors);
+        resolve(""); // Return empty on error
+      } else {
+        resolve(data.mml);
+      }
+    });
+  });
+}
+
+async function main() {
+  const deltaKeys = Object.keys(delta);
+
+  if (deltaKeys.length === 0) {
+    // No new LaTeX to convert, just write existing
+    const jsonObj = JSON.stringify(texobj, null, 2);
+    fs.writeFileSync(db, jsonObj, "utf8");
+    process.exit(0);
+  }
+
+  // Convert all new LaTeX
+  for (const latex of deltaKeys) {
+    const mml = await convertLatex(latex);
+    texobj[latex] = mml;
+  }
+
+  // Write the database
+  const jsonObj = JSON.stringify(texobj, null, 2);
+  fs.writeFileSync(db, jsonObj, "utf8");
+}
+
+main().catch(err => {
+  console.error("Error:", err);
+  process.exit(1);
+});

@@ -1,24 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="en" lang="en">
-<!-- Created by GNU Texinfo 5.1, http://www.gnu.org/software/texinfo/ -->
-<head>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="en" lang="en"><!-- Created by GNU Texinfo 5.1, http://www.gnu.org/software/texinfo/ --><head>
 <title>Structure and Interpretation of Computer Programs, 2e: 3.4</title>
 
-<meta name="description" content="Structure and Interpretation of Computer Programs, 2e: 3.4" />
-<meta name="keywords" content="Structure and Interpretation of Computer Programs, 2e: 3.4" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="Generator" content="texi2any" />
-<meta charset="utf-8" />
-<link href="index.xhtml#Top" rel="start" title="Top" />
-<link href="Term-Index.xhtml#Term-Index" rel="index" title="Term Index" />
-<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents" />
-<link href="Chapter-3.xhtml#Chapter-3" rel="prev" title="Chapter 3" />
-<link href="3_002e5.xhtml#g_t3_002e5" rel="next" title="3.5" />
-<link href="3_002e3.xhtml#g_t3_002e3_002e5" rel="prev" title="3.3.5" />
+<meta name="description" content="Structure and Interpretation of Computer Programs, 2e: 3.4">
+<meta name="keywords" content="Structure and Interpretation of Computer Programs, 2e: 3.4">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="Generator" content="texi2any">
+<meta charset="utf-8">
+<link href="index.xhtml#Top" rel="start" title="Top">
+<link href="Term-Index.xhtml#Term-Index" rel="index" title="Term Index">
+<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Chapter-3.xhtml#Chapter-3" rel="prev" title="Chapter 3">
+<link href="3_002e5.xhtml#g_t3_002e5" rel="next" title="3.5">
+<link href="3_002e3.xhtml#g_t3_002e3_002e5" rel="prev" title="3.3.5">
 
-<link href="css/style.css" rel="stylesheet" type="text/css" />
-<link href="css/prettify.css" rel="stylesheet" type="text/css" />
+<link href="css/style.css" rel="stylesheet" type="text/css">
+<link href="css/prettify.css" rel="stylesheet" type="text/css">
 
 <script src="js/jquery.min.js" type="text/javascript"></script>
 <script src="js/footnotes.js" type="text/javascript"></script>
@@ -29,7 +27,7 @@
 <section><span class="top jump" title="Jump to top"><a href="#pagetop" accesskey="t">⇡</a></span><a id="pagetop"></a><a id="g_t3_002e4"></a>
 <nav class="header">
 <p>
-Next: <a href="3_002e5.xhtml#g_t3_002e5" accesskey="n" rel="next">3.5</a>, Prev: <a href="3_002e3.xhtml#g_t3_002e3" accesskey="p" rel="prev">3.3</a>, Up: <a href="Chapter-3.xhtml#Chapter-3" accesskey="u" rel="prev">Chapter 3</a>   [<a href="index.xhtml#SEC_Contents" title="Table of contents" accesskey="c" rel="contents">Contents</a>]</p>
+Next: <a href="3_002e5.xhtml#g_t3_002e5" accesskey="n" rel="next">3.5</a>, Prev: <a href="3_002e3.xhtml#g_t3_002e3" accesskey="p" rel="prev">3.3</a>, Up: <a href="Chapter-3.xhtml#Chapter-3" accesskey="u" rel="prev">Chapter 3</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" accesskey="c" rel="contents">Contents</a>]</p>
 </nav>
 <a id="Concurrency_003a-Time-Is-of-the-Essence"></a>
 <h3 class="section"><span class="secnum">3.4</span><span class="sectitle">Concurrency: Time Is of the Essence</span></h3>
@@ -50,7 +48,7 @@ bank account and returning the resulting balance, introduced at the beginning
 of <a href="3_002e1.xhtml#g_t3_002e1_002e1">3.1.1</a>:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">withdraw </span><span class="lit">25</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">withdraw </span><span class="lit">25</span><span class="clo">)</span><span class="pln">
 </span><i><span class="lit">75</span></i><span class="pln">
 
 </span><span class="opn">(</span><span class="pln">withdraw </span><span class="lit">25</span><span class="clo">)</span><span class="pln">
@@ -147,7 +145,7 @@ variable <code>balance</code>, each process specified by the procedure given in
 <a href="3_002e1.xhtml#g_t3_002e1_002e1">3.1.1</a>:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">withdraw amount</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">withdraw amount</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pun">&gt;=</span><span class="pln"> balance amount</span><span class="clo">)</span><span class="pln">
       </span><span class="opn">(</span><span class="kwd">begin</span><span class="pln"> 
         </span><span class="opn">(</span><span class="kwd">set</span><span class="pun">!</span><span class="pln"> balance 
@@ -164,7 +162,7 @@ Peter’s test.
 <p>Things can be worse still.  Consider the expression
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">set</span><span class="pun">!</span><span class="pln"> balance </span><span class="opn">(</span><span class="pun">-</span><span class="pln"> balance amount</span><span class="clo">))</span></pre></div>
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">set</span><span class="pun">!</span><span class="pln"> balance </span><span class="opn">(</span><span class="pun">-</span><span class="pln"> balance amount</span><span class="clo">))</span></pre></div>
 
 <p>executed as part of each withdrawal process.  This consists of three steps: (1)
 accessing the value of the <code>balance</code> variable; (2) computing the new
@@ -272,7 +270,7 @@ Peter deposits $10, Paul withdraws $20, and Mary withdraws half the money in
 the account, by executing the following commands:
 </p>
 <div class="example">
-<pre class="example">Peter: (set! balance (+ balance 10))
+<pre class="example prettyprint">Peter: (set! balance (+ balance 10))
 Paul:  (set! balance (- balance 20))
 Mary:  (set! balance (- balance 
                         (/ balance 2)))
@@ -324,7 +322,7 @@ possible orderings for the events that are consistent with the individual
 orderings for the two processes:
 </p>
 <div class="example">
-<pre class="example">(a,b,c,x,y,z)  (a,x,b,y,c,z)  (x,a,b,c,y,z)  
+<pre class="example prettyprint">(a,b,c,x,y,z)  (a,x,b,y,c,z)  (x,a,b,c,y,z)  
 (x,a,y,z,b,c)  (a,b,x,c,y,z)  (a,x,b,y,z,c)  
 (x,a,b,y,c,z)  (x,y,a,b,c,z)  (a,b,x,y,c,z)  
 (a,x,y,b,c,z)  (x,a,b,y,z,c)  (x,y,a,b,z,c)
@@ -372,7 +370,7 @@ changed between an access and the corresponding assignment.
 to include a procedure called <code>parallel-execute</code>:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">parallel-execute ⟨</span><var><span class="pln">p</span><span class="pun">₁</span></var><span class="pln">⟩ 
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">parallel-execute ⟨</span><var><span class="pln">p</span><span class="pun">₁</span></var><span class="pln">⟩ 
                   ⟨</span><var><span class="pln">p</span><span class="pun">₂</span></var><span class="pln">⟩ 
                   </span><span class="roman"><span class="pun">…</span></span><span class="pln"> 
                   ⟨</span><var><span class="pln">p</span><span class="pun">ₖ</span></var><span class="pln">⟩</span><span class="clo">)</span></pre></div>
@@ -385,7 +383,7 @@ concurrently.<a class="footnote_link" id="DOCF168" href="#FOOT168"><sup>168</sup
 <p>As an example of how this is used, consider
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> x </span><span class="lit">10</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> x </span><span class="lit">10</span><span class="clo">)</span><span class="pln">
 </span><span class="opn">(</span><span class="pln">parallel-execute </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">set</span><span class="pun">!</span><span class="pln"> x </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> x x</span><span class="clo">)))</span><span class="pln">
                   </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">set</span><span class="pun">!</span><span class="pln"> x </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> x </span><span class="lit">1</span><span class="clo">))))</span></pre></div>
 
@@ -415,7 +413,7 @@ depending on the interleaving of the events of <math xmlns="http://www.w3.org/19
 </math>:
 </p>
 <div class="example">
-<pre class="example">101: <math xmlns="http://www.w3.org/1998/Math/MathML">
+<pre class="example prettyprint">101: <math xmlns="http://www.w3.org/1998/Math/MathML">
   <msub>
     <mi>P</mi>
     <mn>1</mn>
@@ -499,7 +497,7 @@ procedures in the same set.
 <p>Thus, in contrast to the example above, executing
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> x </span><span class="lit">10</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> x </span><span class="lit">10</span><span class="clo">)</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> s </span><span class="opn">(</span><span class="pln">make-serializer</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="pln">parallel-execute 
  </span><span class="opn">(</span><span class="pln">s </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">set</span><span class="pun">!</span><span class="pln"> x </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> x x</span><span class="clo">))))</span><span class="pln">
@@ -523,7 +521,7 @@ cannot be interleaved.
 <a href="3_002e1.xhtml#g_t3_002e1_002e1">3.1.1</a>, where the deposits and withdrawals have been serialized:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-account balance</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-account balance</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">withdraw amount</span><span class="clo">)</span><span class="pln">
     </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pun">&gt;=</span><span class="pln"> balance amount</span><span class="clo">)</span><span class="pln">
         </span><span class="opn">(</span><span class="kwd">begin</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">set</span><span class="pun">!</span><span class="pln"> balance 
@@ -560,7 +558,7 @@ in the parallel execution shown above remain if we instead serialize execution
 as follows:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> x </span><span class="lit">10</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> x </span><span class="lit">10</span><span class="clo">)</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> s </span><span class="opn">(</span><span class="pln">make-serializer</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="pln">parallel-execute 
   </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="clo">)</span><span class="pln"> 
@@ -573,7 +571,7 @@ as follows:
 <code>x</code> that can result from executing
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> x </span><span class="lit">10</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> x </span><span class="lit">10</span><span class="clo">)</span><span class="pln">
 </span><span class="opn">(</span><span class="pln">parallel-execute 
  </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">set</span><span class="pun">!</span><span class="pln"> x </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> x x</span><span class="clo">)))</span><span class="pln">
  </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">set</span><span class="pun">!</span><span class="pln"> x </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> x x x</span><span class="clo">))))</span></pre></div>
@@ -581,7 +579,7 @@ as follows:
 <p>Which of these possibilities remain if we instead use serialized procedures:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> x </span><span class="lit">10</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> x </span><span class="lit">10</span><span class="clo">)</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> s </span><span class="opn">(</span><span class="pln">make-serializer</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="pln">parallel-execute 
  </span><span class="opn">(</span><span class="pln">s </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">set</span><span class="pun">!</span><span class="pln"> x </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> x x</span><span class="clo">))))</span><span class="pln">
@@ -594,7 +592,7 @@ would be better to implement the bank account as follows (where the commented
 line has been changed):
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-account balance</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-account balance</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">withdraw amount</span><span class="clo">)</span><span class="pln">
     </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pun">&gt;=</span><span class="pln"> balance amount</span><span class="clo">)</span><span class="pln">
         </span><span class="opn">(</span><span class="kwd">begin</span><span class="pln"> 
@@ -637,7 +635,7 @@ serialized procedure (which was created at the same time as the account) each
 time it is asked for a withdrawal procedure.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-account balance</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-account balance</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">withdraw amount</span><span class="clo">)</span><span class="pln">
     </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pun">&gt;=</span><span class="pln"> balance amount</span><span class="clo">)</span><span class="pln">
         </span><span class="opn">(</span><span class="kwd">begin</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">set</span><span class="pun">!</span><span class="pln"> balance 
@@ -686,7 +684,7 @@ account, and deposit it in the other account.  We could implement this as
 follows:<a class="footnote_link" id="DOCF169" href="#FOOT169"><sup>169</sup></a>
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">exchange account1 account2</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">exchange account1 account2</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">difference </span><span class="opn">(</span><span class="pun">-</span><span class="pln"> </span><span class="opn">(</span><span class="pln">account1 </span><span class="lit">'balance</span><span class="clo">)</span><span class="pln">
                        </span><span class="opn">(</span><span class="pln">account2 </span><span class="lit">'balance</span><span class="clo">))))</span><span class="pln">
     </span><span class="opn">((</span><span class="pln">account1 </span><span class="lit">'withdraw</span><span class="clo">)</span><span class="pln"> difference</span><span class="clo">)</span><span class="pln">
@@ -763,7 +761,7 @@ given in <a href="3_002e1.xhtml#g_t3_002e1_002e1">3.1.1</a>, except that a seria
 the balance variable, and the serializer is exported via message passing:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-account-and-serializer balance</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-account-and-serializer balance</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">withdraw amount</span><span class="clo">)</span><span class="pln">
     </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pun">&gt;=</span><span class="pln"> balance amount</span><span class="clo">)</span><span class="pln">
         </span><span class="opn">(</span><span class="kwd">begin</span><span class="pln"> 
@@ -792,7 +790,7 @@ bank-account objects to explicitly manage the serialization, for example as
 follows:<a class="footnote_link" id="DOCF171" href="#FOOT171"><sup>171</sup></a>
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">deposit account amount</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">deposit account amount</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">s </span><span class="opn">(</span><span class="pln">account </span><span class="lit">'serializer</span><span class="clo">))</span><span class="pln">
         </span><span class="opn">(</span><span class="pln">d </span><span class="opn">(</span><span class="pln">account </span><span class="lit">'deposit</span><span class="clo">)))</span><span class="pln">
     </span><span class="opn">((</span><span class="pln">s d</span><span class="clo">)</span><span class="pln"> amount</span><span class="clo">)))</span></pre></div>
@@ -802,7 +800,7 @@ serialized exchange program.  We simply serialize the original <code>exchange</c
 procedure with the serializers for both accounts:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">serialized-exchange account1 account2</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">serialized-exchange account1 account2</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">serializer1 </span><span class="opn">(</span><span class="pln">account1 </span><span class="lit">'serializer</span><span class="clo">))</span><span class="pln">
         </span><span class="opn">(</span><span class="pln">serializer2 </span><span class="opn">(</span><span class="pln">account2 </span><span class="lit">'serializer</span><span class="clo">)))</span><span class="pln">
     </span><span class="opn">((</span><span class="pln">serializer1 </span><span class="opn">(</span><span class="pln">serializer2 exchange</span><span class="clo">))</span><span class="pln">
@@ -832,7 +830,7 @@ any account mechanism that serializes deposit and withdrawal transactions, for
 example, the version of <code>make-account</code> in the text above.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> 
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> 
   </span><span class="opn">(</span><span class="pln">transfer from-account to-account amount</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">((</span><span class="pln">from-account </span><span class="lit">'withdraw</span><span class="clo">)</span><span class="pln"> amount</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">((</span><span class="pln">to-account </span><span class="lit">'deposit</span><span class="clo">)</span><span class="pln"> amount</span><span class="clo">))</span></pre></div>
@@ -854,7 +852,7 @@ instead of) using it to serialize accounts and deposits as <code>make-account</c
 did.  He proposes to redefine accounts as follows:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> 
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> 
   </span><span class="opn">(</span><span class="pln">make-account-and-serializer balance</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">withdraw amount</span><span class="clo">)</span><span class="pln">
     </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pun">&gt;=</span><span class="pln"> balance amount</span><span class="clo">)</span><span class="pln">
@@ -884,7 +882,7 @@ did.  He proposes to redefine accounts as follows:
 <p>Then deposits are handled as with the original <code>make-account</code>:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">deposit account amount</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">deposit account amount</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">((</span><span class="pln">account </span><span class="lit">'deposit</span><span class="clo">)</span><span class="pln"> amount</span><span class="clo">))</span></pre></div>
 
 <p>Explain what is wrong with Louis’s reasoning.  In particular, consider what
@@ -909,7 +907,7 @@ serializer can be running at once, which is precisely the serialization
 property that we need to guarantee.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-serializer</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-serializer</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">mutex </span><span class="opn">(</span><span class="pln">make-mutex</span><span class="clo">)))</span><span class="pln">
     </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">p</span><span class="clo">)</span><span class="pln">
       </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">serialized-p </span><span class="pun">.</span><span class="pln"> args</span><span class="clo">)</span><span class="pln">
@@ -934,7 +932,7 @@ is available.<a class="footnote_link" id="DOCF173" href="#FOOT173"><sup>173</sup
 mutex, we set the cell contents to false.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-mutex</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-mutex</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">cell </span><span class="opn">(</span><span class="pln">list false</span><span class="clo">)))</span><span class="pln">
     </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">the-mutex m</span><span class="clo">)</span><span class="pln">
       </span><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">((</span><span class="kwd">eq</span><span class="pun">?</span><span class="pln"> m </span><span class="lit">'acquire</span><span class="clo">)</span><span class="pln">
@@ -950,7 +948,7 @@ true before returning false.  We can express this behavior as the following
 procedure:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">test-and-set! cell</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">test-and-set! cell</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> cell</span><span class="clo">)</span><span class="pln">
       true
       </span><span class="opn">(</span><span class="kwd">begin</span><span class="pln"> </span><span class="opn">(</span><span class="pln">set-car! cell true</span><span class="clo">)</span><span class="pln">
@@ -1241,7 +1239,7 @@ In <abbr>MIT</abbr> Scheme for a single processor, which uses a
 time-slicing model, <code>test-and-set!</code> can be implemented as follows:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">test-and-set! cell</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">test-and-set! cell</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">without-interrupts
    </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="clo">)</span><span class="pln">
      </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> cell</span><span class="clo">)</span><span class="pln">
@@ -1309,10 +1307,10 @@ establish orderings on events in distributed systems.</p>
 </div>
 <nav class="header">
 <p>
-Next: <a href="3_002e5.xhtml#g_t3_002e5" accesskey="n" rel="next">3.5</a>, Prev: <a href="3_002e3.xhtml#g_t3_002e3" accesskey="p" rel="prev">3.3</a>, Up: <a href="#g_t3_002e4" accesskey="u" rel="prev">3.4</a>   [<a href="index.xhtml#SEC_Contents" title="Table of contents" accesskey="c" rel="contents">Contents</a>]</p>
+Next: <a href="3_002e5.xhtml#g_t3_002e5" accesskey="n" rel="next">3.5</a>, Prev: <a href="3_002e3.xhtml#g_t3_002e3" accesskey="p" rel="prev">3.3</a>, Up: <a href="#g_t3_002e4" accesskey="u" rel="prev">3.4</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" accesskey="c" rel="contents">Contents</a>]</p>
 </nav>
 
 
 </section><span class="bottom jump" title="Jump to bottom"><a href="#pagebottom" accesskey="b">⇣</a></span><a id="pagebottom"></a>
-</body>
-</html>
+
+</body></html>

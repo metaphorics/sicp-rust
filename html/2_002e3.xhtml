@@ -1,24 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="en" lang="en">
-<!-- Created by GNU Texinfo 5.1, http://www.gnu.org/software/texinfo/ -->
-<head>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="en" lang="en"><!-- Created by GNU Texinfo 5.1, http://www.gnu.org/software/texinfo/ --><head>
 <title>Structure and Interpretation of Computer Programs, 2e: 2.3</title>
 
-<meta name="description" content="Structure and Interpretation of Computer Programs, 2e: 2.3" />
-<meta name="keywords" content="Structure and Interpretation of Computer Programs, 2e: 2.3" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="Generator" content="texi2any" />
-<meta charset="utf-8" />
-<link href="index.xhtml#Top" rel="start" title="Top" />
-<link href="Term-Index.xhtml#Term-Index" rel="index" title="Term Index" />
-<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents" />
-<link href="Chapter-2.xhtml#Chapter-2" rel="prev" title="Chapter 2" />
-<link href="2_002e4.xhtml#g_t2_002e4" rel="next" title="2.4" />
-<link href="2_002e2.xhtml#g_t2_002e2_002e4" rel="prev" title="2.2.4" />
+<meta name="description" content="Structure and Interpretation of Computer Programs, 2e: 2.3">
+<meta name="keywords" content="Structure and Interpretation of Computer Programs, 2e: 2.3">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="Generator" content="texi2any">
+<meta charset="utf-8">
+<link href="index.xhtml#Top" rel="start" title="Top">
+<link href="Term-Index.xhtml#Term-Index" rel="index" title="Term Index">
+<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Chapter-2.xhtml#Chapter-2" rel="prev" title="Chapter 2">
+<link href="2_002e4.xhtml#g_t2_002e4" rel="next" title="2.4">
+<link href="2_002e2.xhtml#g_t2_002e2_002e4" rel="prev" title="2.2.4">
 
-<link href="css/style.css" rel="stylesheet" type="text/css" />
-<link href="css/prettify.css" rel="stylesheet" type="text/css" />
+<link href="css/style.css" rel="stylesheet" type="text/css">
+<link href="css/prettify.css" rel="stylesheet" type="text/css">
 
 <script src="js/jquery.min.js" type="text/javascript"></script>
 <script src="js/footnotes.js" type="text/javascript"></script>
@@ -29,7 +27,7 @@
 <section><span class="top jump" title="Jump to top"><a href="#pagetop" accesskey="t">⇡</a></span><a id="pagetop"></a><a id="g_t2_002e3"></a>
 <nav class="header">
 <p>
-Next: <a href="2_002e4.xhtml#g_t2_002e4" accesskey="n" rel="next">2.4</a>, Prev: <a href="2_002e2.xhtml#g_t2_002e2" accesskey="p" rel="prev">2.2</a>, Up: <a href="Chapter-2.xhtml#Chapter-2" accesskey="u" rel="prev">Chapter 2</a>   [<a href="index.xhtml#SEC_Contents" title="Table of contents" accesskey="c" rel="contents">Contents</a>]</p>
+Next: <a href="2_002e4.xhtml#g_t2_002e4" accesskey="n" rel="next">2.4</a>, Prev: <a href="2_002e2.xhtml#g_t2_002e2" accesskey="p" rel="prev">2.2</a>, Up: <a href="Chapter-2.xhtml#Chapter-2" accesskey="u" rel="prev">Chapter 2</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" accesskey="c" rel="contents">Contents</a>]</p>
 </nav>
 <a id="Symbolic-Data"></a>
 <h3 class="section"><span class="secnum">2.3</span><span class="sectitle">Symbolic Data</span></h3>
@@ -46,7 +44,7 @@ language by introducing the ability to work with arbitrary symbols as data.
 <p>If we can form compound data using symbols, we can have lists such as
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">a b c d</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">a b c d</span><span class="clo">)</span><span class="pln">
 </span><span class="opn">(</span><span class="lit">23</span><span class="pln"> </span><span class="lit">45</span><span class="pln"> </span><span class="lit">17</span><span class="clo">)</span><span class="pln">
 </span><span class="opn">((</span><span class="pln">Norah </span><span class="lit">12</span><span class="clo">)</span><span class="pln"> 
  </span><span class="opn">(</span><span class="pln">Molly </span><span class="lit">9</span><span class="clo">)</span><span class="pln"> 
@@ -58,7 +56,7 @@ language by introducing the ability to work with arbitrary symbols as data.
 language:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pun">*</span><span class="pln"> </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="lit">23</span><span class="pln"> </span><span class="lit">45</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> x </span><span class="lit">9</span><span class="clo">))</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pun">*</span><span class="pln"> </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="lit">23</span><span class="pln"> </span><span class="lit">45</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> x </span><span class="lit">9</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">fact n</span><span class="clo">)</span><span class="pln"> 
   </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pun">=</span><span class="pln"> n </span><span class="lit">1</span><span class="clo">)</span><span class="pln"> 
       </span><span class="lit">1</span><span class="pln"> 
@@ -84,7 +82,7 @@ somebody else might say.<a class="footnote_link" id="DOCF98" href="#FOOT98"><sup
 <p>We can follow this same practice to identify lists and symbols that are to be
 treated as data objects rather than as expressions to be evaluated.  However,
 our format for quoting differs from that of natural languages in that we place
-a quotation mark (traditionally, the single quote symbol <code>'</code>)<!-- /@w --> only at the
+a quotation mark (traditionally, the single quote symbol&nbsp;<code>'</code>)<!-- /@w --> only at the
 beginning of the object to be quoted.  We can get away with this in Scheme
 syntax because we rely on blanks and parentheses to delimit objects.  Thus, the
 meaning of the single quote character is to quote the next object.<a class="footnote_link" id="DOCF99" href="#FOOT99"><sup>99</sup></a>
@@ -92,7 +90,7 @@ meaning of the single quote character is to quote the next object.<a class="foot
 <p>Now we can distinguish between symbols and their values:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> a </span><span class="lit">1</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> a </span><span class="lit">1</span><span class="clo">)</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> b </span><span class="lit">2</span><span class="clo">)</span><span class="pln">
 
 </span><span class="opn">(</span><span class="pln">list a b</span><span class="clo">)</span><span class="pln">
@@ -109,7 +107,7 @@ meaning of the single quote character is to quote the next object.<a class="foot
 printed representation for lists:<a class="footnote_link" id="DOCF100" href="#FOOT100"><sup>100</sup></a>
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">car</span><span class="pln"> </span><span class="lit">'</span><span class="opn">(</span><span class="pln">a b c</span><span class="clo">))</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">car</span><span class="pln"> </span><span class="lit">'</span><span class="opn">(</span><span class="pln">a b c</span><span class="clo">))</span><span class="pln">
 </span><i><span class="pln">a</span></i><span class="pln">
 
 </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> </span><span class="lit">'</span><span class="opn">(</span><span class="pln">a b c</span><span class="clo">))</span><span class="pln">
@@ -128,7 +126,7 @@ returns false.  Otherwise, it returns the sublist of the list beginning with
 the first occurrence of the symbol:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">memq item x</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">memq item x</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">((</span><span class="pln">null? x</span><span class="clo">)</span><span class="pln"> false</span><span class="clo">)</span><span class="pln">
         </span><span class="opn">((</span><span class="kwd">eq</span><span class="pun">?</span><span class="pln"> item </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> x</span><span class="clo">))</span><span class="pln"> x</span><span class="clo">)</span><span class="pln">
         </span><span class="opn">(</span><span class="kwd">else</span><span class="pln"> </span><span class="opn">(</span><span class="pln">memq item </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> x</span><span class="clo">)))))</span></pre></div>
@@ -136,12 +134,12 @@ the first occurrence of the symbol:
 <p>For example, the value of
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">memq </span><span class="lit">'apple</span><span class="pln"> </span><span class="lit">'</span><span class="opn">(</span><span class="pln">pear banana prune</span><span class="clo">))</span></pre></div>
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">memq </span><span class="lit">'apple</span><span class="pln"> </span><span class="lit">'</span><span class="opn">(</span><span class="pln">pear banana prune</span><span class="clo">))</span></pre></div>
 
 <p>is false, whereas the value of
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">memq </span><span class="lit">'apple</span><span class="pln"> </span><span class="lit">'</span><span class="opn">(</span><span class="pln">x </span><span class="opn">(</span><span class="pln">apple sauce</span><span class="clo">)</span><span class="pln"> y apple pear</span><span class="clo">))</span></pre></div>
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">memq </span><span class="lit">'apple</span><span class="pln"> </span><span class="lit">'</span><span class="opn">(</span><span class="pln">x </span><span class="opn">(</span><span class="pln">apple sauce</span><span class="clo">)</span><span class="pln"> y apple pear</span><span class="clo">))</span></pre></div>
 
 <p>is <code>(apple pear)</code>.
 </p>
@@ -150,7 +148,7 @@ the first occurrence of the symbol:
 in response to evaluating each of the following expressions?
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">list </span><span class="lit">'a</span><span class="pln"> </span><span class="lit">'b</span><span class="pln"> </span><span class="lit">'c</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">list </span><span class="lit">'a</span><span class="pln"> </span><span class="lit">'b</span><span class="pln"> </span><span class="lit">'c</span><span class="clo">)</span><span class="pln">
 </span><span class="opn">(</span><span class="pln">list </span><span class="opn">(</span><span class="pln">list </span><span class="lit">'george</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> </span><span class="lit">'</span><span class="opn">((</span><span class="pln">x1 x2</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">y1 y2</span><span class="clo">)))</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">cadr</span><span class="pln"> </span><span class="lit">'</span><span class="opn">((</span><span class="pln">x1 x2</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">y1 y2</span><span class="clo">)))</span><span class="pln">
@@ -165,13 +163,13 @@ in response to evaluating each of the following expressions?
 example,
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">equal</span><span class="pun">?</span><span class="pln"> </span><span class="lit">'</span><span class="opn">(</span><span class="pln">this is a list</span><span class="clo">)</span><span class="pln"> 
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">equal</span><span class="pun">?</span><span class="pln"> </span><span class="lit">'</span><span class="opn">(</span><span class="pln">this is a list</span><span class="clo">)</span><span class="pln"> 
         </span><span class="lit">'</span><span class="opn">(</span><span class="pln">this is a list</span><span class="clo">))</span></pre></div>
 
 <p>is true, but
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">equal</span><span class="pun">?</span><span class="pln"> </span><span class="lit">'</span><span class="opn">(</span><span class="pln">this is a list</span><span class="clo">)</span><span class="pln"> 
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">equal</span><span class="pun">?</span><span class="pln"> </span><span class="lit">'</span><span class="opn">(</span><span class="pln">this is a list</span><span class="clo">)</span><span class="pln"> 
         </span><span class="lit">'</span><span class="opn">(</span><span class="pln">this </span><span class="opn">(</span><span class="pln">is a</span><span class="clo">)</span><span class="pln"> list</span><span class="clo">))</span></pre></div>
 
 <p>is false.  To be more precise, we can define <code>equal?</code>  recursively in
@@ -187,7 +185,7 @@ this idea, implement <code>equal?</code> as a procedure.<a class="footnote_link"
 interpreter the expression
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">car</span><span class="pln"> </span><span class="lit">''abracadabra</span><span class="clo">)</span></pre></div>
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">car</span><span class="pln"> </span><span class="lit">''abracadabra</span><span class="clo">)</span></pre></div>
 
 <p>To her surprise, the interpreter prints back <code>quote</code>.  Explain.
 </p></blockquote>
@@ -262,23 +260,23 @@ following reduction rules:
         </mrow>
       </mfrac>
     </mrow>
-    <mspace width="thinmathspace"/>
+    <mspace width="thinmathspace"></mspace>
     <mo>=</mo>
-    <mspace width="thinmathspace"/>
+    <mspace width="thinmathspace"></mspace>
     <mn>0</mn>
     <mo>,</mo>
   </mrow>
-  <mspace width="1em"/>
+  <mspace width="1em"></mspace>
   <mrow class="MJX-TeXAtom-ORD">
-    <mtext>for </mtext>
+    <mtext>for&nbsp;</mtext>
     <mi>c</mi>
-    <mtext> a constant </mtext>
+    <mtext>&nbsp;a constant&nbsp;</mtext>
   </mrow>
   <mrow class="MJX-TeXAtom-ORD">
-    <mtext>or a variable </mtext>
+    <mtext>or a variable&nbsp;</mtext>
   </mrow>
   <mrow class="MJX-TeXAtom-ORD">
-    <mtext>different from </mtext>
+    <mtext>different from&nbsp;</mtext>
     <mi>x</mi>
     <mo>,</mo>
   </mrow>
@@ -382,7 +380,7 @@ following reduction rules:
       </mtd>
       <mtd>
         <mi>u</mi>
-        <mspace width="0.1em"/>
+        <mspace width="0.1em"></mspace>
         <mrow class="MJX-TeXAtom-ORD">
           <mfrac>
             <mrow>
@@ -397,7 +395,7 @@ following reduction rules:
         </mrow>
         <mo>+</mo>
         <mi>v</mi>
-        <mspace width="0.1em"/>
+        <mspace width="0.1em"></mspace>
         <mrow class="MJX-TeXAtom-ORD">
           <mfrac>
             <mrow>
@@ -433,7 +431,7 @@ already have procedures to implement the following selectors, constructors, and
 predicates:
 </p>
 <div class="example">
-<pre class="example">(variable? e)          <span class="roman">Is <code>e</code> a variable?</span>
+<pre class="example prettyprint">(variable? e)          <span class="roman">Is <code>e</code> a variable?</span>
 (same-variable? v1 v2) <span class="roman">Are <code>v1</code> and <code>v2</code> the same variable?</span>
 (sum? e)               <span class="roman">Is <code>e</code> a sum?</span>
 (addend e)             <span class="roman">Addend of the sum <code>e</code>.</span>
@@ -449,7 +447,7 @@ predicates:
 numbers, we can express the differentiation rules as the following procedure:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">deriv exp var</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">deriv exp var</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">((</span><span class="pln">number? exp</span><span class="clo">)</span><span class="pln"> </span><span class="lit">0</span><span class="clo">)</span><span class="pln">
         </span><span class="opn">((</span><span class="pln">variable? exp</span><span class="clo">)</span><span class="pln">
          </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pln">same-variable? exp var</span><span class="clo">)</span><span class="pln"> </span><span class="lit">1</span><span class="pln"> </span><span class="lit">0</span><span class="clo">))</span><span class="pln">
@@ -503,12 +501,12 @@ representation for the differentiation problem is as follows:
 <code>symbol?</code>:
 
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">variable? x</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">symbol? x</span><span class="clo">))</span></pre></div>
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">variable? x</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">symbol? x</span><span class="clo">))</span></pre></div>
 
 </li><li> Two variables are the same if the symbols representing them are <code>eq?</code>:
 
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">same-variable? v1 v2</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">same-variable? v1 v2</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">and</span><span class="pln"> </span><span class="opn">(</span><span class="pln">variable? v1</span><span class="clo">)</span><span class="pln">
        </span><span class="opn">(</span><span class="pln">variable? v2</span><span class="clo">)</span><span class="pln">
        </span><span class="opn">(</span><span class="kwd">eq</span><span class="pun">?</span><span class="pln"> v1 v2</span><span class="clo">)))</span></pre></div>
@@ -516,39 +514,39 @@ representation for the differentiation problem is as follows:
 </li><li> Sums and products are constructed as lists:
 
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-sum a1 a2</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">list </span><span class="lit">'</span><span class="pun">+</span><span class="pln"> a1 a2</span><span class="clo">))</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-sum a1 a2</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">list </span><span class="lit">'</span><span class="pun">+</span><span class="pln"> a1 a2</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-product m1 m2</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">list </span><span class="lit">'</span><span class="pun">*</span><span class="pln"> m1 m2</span><span class="clo">))</span></pre></div>
 
 </li><li> A sum is a list whose first element is the symbol <code>+</code>:
 
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">sum? x</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">sum? x</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">and</span><span class="pln"> </span><span class="opn">(</span><span class="pln">pair? x</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">eq</span><span class="pun">?</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> x</span><span class="clo">)</span><span class="pln"> </span><span class="lit">'</span><span class="pun">+</span><span class="clo">)))</span></pre></div>
 
 </li><li> The addend is the second item of the sum list:
 
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">addend s</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">cadr</span><span class="pln"> s</span><span class="clo">))</span></pre></div>
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">addend s</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">cadr</span><span class="pln"> s</span><span class="clo">))</span></pre></div>
 
 </li><li> The augend is the third item of the sum list:
 
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">augend s</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">caddr</span><span class="pln"> s</span><span class="clo">))</span></pre></div>
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">augend s</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">caddr</span><span class="pln"> s</span><span class="clo">))</span></pre></div>
 
 </li><li> A product is a list whose first element is the symbol <code>*</code>:
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">product? x</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">product? x</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">and</span><span class="pln"> </span><span class="opn">(</span><span class="pln">pair? x</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">eq</span><span class="pun">?</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> x</span><span class="clo">)</span><span class="pln"> </span><span class="lit">'</span><span class="pun">*</span><span class="clo">)))</span></pre></div>
 
 </li><li> The multiplier is the second item of the product list:
 
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">multiplier p</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">cadr</span><span class="pln"> p</span><span class="clo">))</span></pre></div>
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">multiplier p</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">cadr</span><span class="pln"> p</span><span class="clo">))</span></pre></div>
 
 </li><li> The multiplicand is the third item of the product list:
 
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">multiplicand p</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">caddr</span><span class="pln"> p</span><span class="clo">))</span></pre></div>
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">multiplicand p</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">caddr</span><span class="pln"> p</span><span class="clo">))</span></pre></div>
 
 </li></ul>
 
@@ -557,7 +555,7 @@ in order to have a working symbolic-differentiation program.  Let us look at
 some examples of its behavior:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">deriv </span><span class="lit">'</span><span class="opn">(</span><span class="pun">+</span><span class="pln"> x </span><span class="lit">3</span><span class="clo">)</span><span class="pln"> </span><span class="lit">'x</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">deriv </span><span class="lit">'</span><span class="opn">(</span><span class="pun">+</span><span class="pln"> x </span><span class="lit">3</span><span class="clo">)</span><span class="pln"> </span><span class="lit">'x</span><span class="clo">)</span><span class="pln">
 </span><i><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="lit">1</span><span class="pln"> </span><span class="lit">0</span><span class="clo">)</span></i><span class="pln">
 
 </span><span class="opn">(</span><span class="pln">deriv </span><span class="lit">'</span><span class="opn">(</span><span class="pun">*</span><span class="pln"> x y</span><span class="clo">)</span><span class="pln"> </span><span class="lit">'x</span><span class="clo">)</span><span class="pln">
@@ -587,9 +585,9 @@ It is true that
       </mrow>
     </mfrac>
   </mrow>
-  <mspace width="thinmathspace"/>
+  <mspace width="thinmathspace"></mspace>
   <mo>=</mo>
-  <mspace width="thinmathspace"/>
+  <mspace width="thinmathspace"></mspace>
   <mrow class="MJX-TeXAtom-ORD">
     <mi>x</mi>
     <mo>⋅<!-- ⋅ --></mo>
@@ -642,7 +640,7 @@ their sum.  Also, if one of the summands is 0, then <code>make-sum</code> will r
 the other summand:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-sum a1 a2</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-sum a1 a2</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">((</span><span class="pun">=</span><span class="pln">number? a1 </span><span class="lit">0</span><span class="clo">)</span><span class="pln"> a2</span><span class="clo">)</span><span class="pln">
         </span><span class="opn">((</span><span class="pun">=</span><span class="pln">number? a2 </span><span class="lit">0</span><span class="clo">)</span><span class="pln"> a1</span><span class="clo">)</span><span class="pln">
         </span><span class="opn">((</span><span class="kwd">and</span><span class="pln"> </span><span class="opn">(</span><span class="pln">number? a1</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">number? a2</span><span class="clo">))</span><span class="pln"> 
@@ -653,14 +651,14 @@ the other summand:
 equal to a given number:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pun">=</span><span class="pln">number? exp num</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pun">=</span><span class="pln">number? exp num</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">and</span><span class="pln"> </span><span class="opn">(</span><span class="pln">number? exp</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pun">=</span><span class="pln"> exp num</span><span class="clo">)))</span></pre></div>
 
 <p>Similarly, we will change <code>make-product</code> to build in the rules that 0
 times anything is 0 and 1 times anything is the thing itself:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-product m1 m2</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-product m1 m2</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">((</span><span class="kwd">or</span><span class="pln"> </span><span class="opn">(</span><span class="pun">=</span><span class="pln">number? m1 </span><span class="lit">0</span><span class="clo">)</span><span class="pln"> 
              </span><span class="opn">(</span><span class="pun">=</span><span class="pln">number? m2 </span><span class="lit">0</span><span class="clo">))</span><span class="pln"> 
          </span><span class="lit">0</span><span class="clo">)</span><span class="pln">
@@ -673,7 +671,7 @@ times anything is 0 and 1 times anything is the thing itself:
 <p>Here is how this version works on our three examples:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">deriv </span><span class="lit">'</span><span class="opn">(</span><span class="pun">+</span><span class="pln"> x </span><span class="lit">3</span><span class="clo">)</span><span class="pln"> </span><span class="lit">'x</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">deriv </span><span class="lit">'</span><span class="opn">(</span><span class="pun">+</span><span class="pln"> x </span><span class="lit">3</span><span class="clo">)</span><span class="pln"> </span><span class="lit">'x</span><span class="clo">)</span><span class="pln">
 </span><i><span class="lit">1</span></i><span class="pln">
 
 </span><span class="opn">(</span><span class="pln">deriv </span><span class="lit">'</span><span class="opn">(</span><span class="pun">*</span><span class="pln"> x y</span><span class="clo">)</span><span class="pln"> </span><span class="lit">'x</span><span class="clo">)</span><span class="pln">
@@ -702,7 +700,7 @@ the differentiation rule
         <msup>
           <mi>u</mi>
           <mrow class="MJX-TeXAtom-ORD">
-            <mspace width="0.1ex"/>
+            <mspace width="0.1ex"></mspace>
             <mi>n</mi>
           </mrow>
         </msup>
@@ -714,21 +712,21 @@ the differentiation rule
       </mrow>
     </mfrac>
   </mrow>
-  <mspace width="thinmathspace"/>
+  <mspace width="thinmathspace"></mspace>
   <mo>=</mo>
-  <mspace width="thinmathspace"/>
+  <mspace width="thinmathspace"></mspace>
   <mrow class="MJX-TeXAtom-ORD">
     <mi>n</mi>
     <msup>
       <mi>u</mi>
       <mrow class="MJX-TeXAtom-ORD">
-        <mspace width="0.1ex"/>
+        <mspace width="0.1ex"></mspace>
         <mi>n</mi>
         <mo>−<!-- − --></mo>
         <mn>1</mn>
       </mrow>
     </msup>
-    <mspace width="thinmathspace"/>
+    <mspace width="thinmathspace"></mspace>
     <mrow class="MJX-TeXAtom-ORD">
       <mfrac>
         <mrow>
@@ -756,7 +754,7 @@ program to handle sums and products of arbitrary numbers of (two or more)
 terms.  Then the last example above could be expressed as
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">deriv </span><span class="lit">'</span><span class="opn">(</span><span class="pun">*</span><span class="pln"> x y </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> x </span><span class="lit">3</span><span class="clo">))</span><span class="pln"> </span><span class="lit">'x</span><span class="clo">)</span></pre></div>
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">deriv </span><span class="lit">'</span><span class="opn">(</span><span class="pun">*</span><span class="pln"> x y </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> x </span><span class="lit">3</span><span class="clo">))</span><span class="pln"> </span><span class="lit">'x</span><span class="clo">)</span></pre></div>
 
 <p>Try to do this by changing only the representation for sums and products,
 without changing the <code>deriv</code> procedure at all.  For example, the
@@ -826,7 +824,7 @@ this representation, <code>element-of-set?</code> is similar to the procedure
 <code>eq?</code> so that the set elements need not be symbols:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">element-of-set? x </span><span class="kwd">set</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">element-of-set? x </span><span class="kwd">set</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">((</span><span class="pln">null? </span><span class="kwd">set</span><span class="clo">)</span><span class="pln"> false</span><span class="clo">)</span><span class="pln">
         </span><span class="opn">((</span><span class="kwd">equal</span><span class="pun">?</span><span class="pln"> x </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> </span><span class="kwd">set</span><span class="clo">))</span><span class="pln"> true</span><span class="clo">)</span><span class="pln">
         </span><span class="opn">(</span><span class="kwd">else</span><span class="pln"> </span><span class="opn">(</span><span class="pln">element-of-set? x </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> </span><span class="kwd">set</span><span class="clo">)))))</span></pre></div>
@@ -836,7 +834,7 @@ already in the set, we just return the set.  Otherwise, we use <code>cons</code>
 add the object to the list that represents the set:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">adjoin-set x </span><span class="kwd">set</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">adjoin-set x </span><span class="kwd">set</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pln">element-of-set? x </span><span class="kwd">set</span><span class="clo">)</span><span class="pln">
       </span><span class="kwd">set</span><span class="pln">
       </span><span class="opn">(</span><span class="kwd">cons</span><span class="pln"> x </span><span class="kwd">set</span><span class="clo">)))</span></pre></div>
@@ -848,7 +846,7 @@ this depends on whether <code>(car set1)</code> is also in <code>set2</code>.  H
 resulting procedure:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">intersection-set set1 set2</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">intersection-set set1 set2</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">((</span><span class="kwd">or</span><span class="pln"> </span><span class="opn">(</span><span class="pln">null? set1</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">null? set2</span><span class="clo">))</span><span class="pln"> 
          </span><span class="lit">'</span><span class="opn">(</span><span class="clo">))</span><span class="pln">
         </span><span class="opn">((</span><span class="pln">element-of-set? </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> set1</span><span class="clo">)</span><span class="pln"> set2</span><span class="clo">)</span><span class="pln">
@@ -963,7 +961,7 @@ a set element that is larger than the item we are looking for, then we know
 that the item is not in the set:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">element-of-set? x </span><span class="kwd">set</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">element-of-set? x </span><span class="kwd">set</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">((</span><span class="pln">null? </span><span class="kwd">set</span><span class="clo">)</span><span class="pln"> false</span><span class="clo">)</span><span class="pln">
         </span><span class="opn">((</span><span class="pun">=</span><span class="pln"> x </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> </span><span class="kwd">set</span><span class="clo">))</span><span class="pln"> true</span><span class="clo">)</span><span class="pln">
         </span><span class="opn">((</span><span class="pun">&lt;</span><span class="pln"> x </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> </span><span class="kwd">set</span><span class="clo">))</span><span class="pln"> false</span><span class="clo">)</span><span class="pln">
@@ -1022,7 +1020,7 @@ intersection of <code>set1</code> with the <code>cdr</code> of <code>set2</code>
 procedure:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">intersection-set set1 set2</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">intersection-set set1 set2</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">or</span><span class="pln"> </span><span class="opn">(</span><span class="pln">null? set1</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">null? set2</span><span class="clo">))</span><span class="pln">
       </span><span class="lit">'</span><span class="opn">(</span><span class="clo">)</span><span class="pln">
       </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">x1 </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> set1</span><span class="clo">))</span><span class="pln"> </span><span class="opn">(</span><span class="pln">x2 </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> set2</span><span class="clo">)))</span><span class="pln">
@@ -1185,7 +1183,7 @@ connected there.  We can describe this representation by the following
 procedures:<a class="footnote_link" id="DOCF105" href="#FOOT105"><sup>105</sup></a>
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">entry tree</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> tree</span><span class="clo">))</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">entry tree</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> tree</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">left-branch tree</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">cadr</span><span class="pln"> tree</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">right-branch tree</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">caddr</span><span class="pln"> tree</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-tree entry left right</span><span class="clo">)</span><span class="pln">
@@ -1195,7 +1193,7 @@ procedures:<a class="footnote_link" id="DOCF105" href="#FOOT105"><sup>105</sup><
 described above:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">element-of-set? x </span><span class="kwd">set</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">element-of-set? x </span><span class="kwd">set</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">((</span><span class="pln">null? </span><span class="kwd">set</span><span class="clo">)</span><span class="pln"> false</span><span class="clo">)</span><span class="pln">
         </span><span class="opn">((</span><span class="pun">=</span><span class="pln"> x </span><span class="opn">(</span><span class="pln">entry </span><span class="kwd">set</span><span class="clo">))</span><span class="pln"> true</span><span class="clo">)</span><span class="pln">
         </span><span class="opn">((</span><span class="pun">&lt;</span><span class="pln"> x </span><span class="opn">(</span><span class="pln">entry </span><span class="kwd">set</span><span class="clo">))</span><span class="pln">
@@ -1227,7 +1225,7 @@ generate a tree that has <code>x</code> as the entry and empty right and left
 branches.  Here is the procedure:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">adjoin-set x </span><span class="kwd">set</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">adjoin-set x </span><span class="kwd">set</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">((</span><span class="pln">null? </span><span class="kwd">set</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-tree x </span><span class="lit">'</span><span class="opn">(</span><span class="clo">)</span><span class="pln"> </span><span class="lit">'</span><span class="opn">(</span><span class="clo">)))</span><span class="pln">
         </span><span class="opn">((</span><span class="pun">=</span><span class="pln"> x </span><span class="opn">(</span><span class="pln">entry </span><span class="kwd">set</span><span class="clo">))</span><span class="pln"> </span><span class="kwd">set</span><span class="clo">)</span><span class="pln">
         </span><span class="opn">((</span><span class="pun">&lt;</span><span class="pln"> x </span><span class="opn">(</span><span class="pln">entry </span><span class="kwd">set</span><span class="clo">))</span><span class="pln">
@@ -1285,7 +1283,7 @@ steps.<a class="footnote_link" id="DOCF106" href="#FOOT106"><sup>106</sup></a>
 procedures converts a binary tree to a list.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">tree-</span><span class="pun">&gt;</span><span class="pln">list-1 tree</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">tree-</span><span class="pun">&gt;</span><span class="pln">list-1 tree</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pln">null? tree</span><span class="clo">)</span><span class="pln">
       </span><span class="lit">'</span><span class="opn">(</span><span class="clo">)</span><span class="pln">
       </span><span class="opn">(</span><span class="pln">append 
@@ -1337,7 +1335,7 @@ is a pair (formed with <code>cons</code>) whose <code>car</code> is the construc
 and whose <code>cdr</code> is the list of elements not included in the tree.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">list-</span><span class="pun">&gt;</span><span class="pln">tree elements</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">list-</span><span class="pun">&gt;</span><span class="pln">tree elements</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> </span><span class="opn">(</span><span class="pln">partial-tree 
         elements </span><span class="opn">(</span><span class="pln">length elements</span><span class="clo">))))</span><span class="pln">
 
@@ -1427,7 +1425,7 @@ is no such record.  <code>Lookup</code> is implemented in almost the same way as
 an unordered list, we could use
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">lookup given-key set-of-records</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">lookup given-key set-of-records</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">((</span><span class="pln">null? set-of-records</span><span class="clo">)</span><span class="pln"> false</span><span class="clo">)</span><span class="pln">
         </span><span class="opn">((</span><span class="kwd">equal</span><span class="pun">?</span><span class="pln"> given-key 
                  </span><span class="opn">(</span><span class="pln">key </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> set-of-records</span><span class="clo">)))</span><span class="pln">
@@ -1486,20 +1484,20 @@ symbol.  If all our messages are made up of the eight symbols A, B, C, D, E, F,
 G, and H, we can choose a code with three bits per character, for example
 </p>
 <div class="example">
-<pre class="example">A 000  C 010  E 100  G 110
+<pre class="example prettyprint">A 000  C 010  E 100  G 110
 B 001  D 011  F 101  H 111
 </pre></div>
 
 <p>With this code, the message
 </p>
 <div class="example">
-<pre class="example">BACADAEAFABBAAAGAH
+<pre class="example prettyprint">BACADAEAFABBAAAGAH
 </pre></div>
 
 <p>is encoded as the string of 54 bits
 </p>
 <div class="example">
-<pre class="example">001000010000011000100000101
+<pre class="example prettyprint">001000010000011000100000101
 000001001000000000110000111
 </pre></div>
 
@@ -1518,14 +1516,14 @@ message) if we assign shorter codes to the frequent symbols.  Consider the
 following alternative code for the letters A through H:
 </p>
 <div class="example">
-<pre class="example">A 0    C 1010  E 1100  G 1110
+<pre class="example prettyprint">A 0    C 1010  E 1100  G 1110
 B 100  D 1011  F 1101  H 1111
 </pre></div>
 
 <p>With this code, the same message as above is encoded as the string
 </p>
 <div class="example">
-<pre class="example">100010100101101100011
+<pre class="example prettyprint">100010100101101100011
 010100100000111001111
 </pre></div>
 
@@ -1621,7 +1619,7 @@ the root of the entire tree.  Here is how the Huffman tree of <a href="#Figure-2
 was generated:
 </p>
 <div class="example">
-<pre class="example">Initial {(A 8) (B 3) (C 1) (D 1) 
+<pre class="example prettyprint">Initial {(A 8) (B 3) (C 1) (D 1) 
 leaves   (E 1) (F 1) (G 1) (H 1)}
 
 Merge   {(A 8) (B 3) ({C D} 2) 
@@ -1662,7 +1660,7 @@ represented.
 <code>leaf</code>, the symbol at the leaf, and the weight:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-leaf symbol weight</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-leaf symbol weight</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">list </span><span class="lit">'leaf</span><span class="pln"> symbol weight</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">leaf? object</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">eq</span><span class="pun">?</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> object</span><span class="clo">)</span><span class="pln"> </span><span class="lit">'leaf</span><span class="clo">))</span><span class="pln">
@@ -1679,7 +1677,7 @@ form the union by using the <code>append</code> procedure we defined in
 <a href="2_002e2.xhtml#g_t2_002e2_002e1">2.2.1</a>:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-code-tree left right</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-code-tree left right</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">list left
         right
         </span><span class="opn">(</span><span class="pln">append </span><span class="opn">(</span><span class="pln">symbols left</span><span class="clo">)</span><span class="pln"> 
@@ -1689,7 +1687,7 @@ form the union by using the <code>append</code> procedure we defined in
 <p>If we make a tree in this way, we have the following selectors:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">left-branch tree</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> tree</span><span class="clo">))</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">left-branch tree</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> tree</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">right-branch tree</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">cadr</span><span class="pln"> tree</span><span class="clo">))</span><span class="pln">
 
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">symbols tree</span><span class="clo">)</span><span class="pln">
@@ -1716,7 +1714,7 @@ in <a href="2_002e4.xhtml#g_t2_002e4">2.4</a> and <a href="2_002e5.xhtml#g_t2_00
 arguments a list of zeros and ones, together with a Huffman tree.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">decode bits tree</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">decode bits tree</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">decode-1 bits current-branch</span><span class="clo">)</span><span class="pln">
     </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pln">null? bits</span><span class="clo">)</span><span class="pln">
         </span><span class="lit">'</span><span class="opn">(</span><span class="clo">)</span><span class="pln">
@@ -1765,7 +1763,7 @@ however, items are compared by their weights, and the element being added to
 the set is never already in it.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">adjoin-set x </span><span class="kwd">set</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">adjoin-set x </span><span class="kwd">set</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">((</span><span class="pln">null? </span><span class="kwd">set</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">list x</span><span class="clo">))</span><span class="pln">
         </span><span class="opn">((</span><span class="pun">&lt;</span><span class="pln"> </span><span class="opn">(</span><span class="pln">weight x</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">weight </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> </span><span class="kwd">set</span><span class="clo">)))</span><span class="pln"> 
          </span><span class="opn">(</span><span class="kwd">cons</span><span class="pln"> x </span><span class="kwd">set</span><span class="clo">))</span><span class="pln">
@@ -1778,7 +1776,7 @@ the set is never already in it.
 leaves, ready to be merged according to the Huffman algorithm:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-leaf-set pairs</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-leaf-set pairs</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pln">null? pairs</span><span class="clo">)</span><span class="pln">
       </span><span class="lit">'</span><span class="opn">(</span><span class="clo">)</span><span class="pln">
       </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">pair </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> pairs</span><span class="clo">)))</span><span class="pln">
@@ -1792,7 +1790,7 @@ leaves, ready to be merged according to the Huffman algorithm:
 sample message:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> sample-tree
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> sample-tree
   </span><span class="opn">(</span><span class="pln">make-code-tree 
    </span><span class="opn">(</span><span class="pln">make-leaf </span><span class="lit">'A</span><span class="pln"> </span><span class="lit">4</span><span class="clo">)</span><span class="pln">
    </span><span class="opn">(</span><span class="pln">make-code-tree
@@ -1813,7 +1811,7 @@ as arguments a message and a tree and produces the list of bits that gives the
 encoded message.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">encode message tree</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">encode message tree</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pln">null? message</span><span class="clo">)</span><span class="pln">
       </span><span class="lit">'</span><span class="opn">(</span><span class="clo">)</span><span class="pln">
       </span><span class="opn">(</span><span class="pln">append 
@@ -1836,7 +1834,7 @@ than one pair) and generates a Huffman encoding tree according to the Huffman
 algorithm.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">generate-huffman-tree pairs</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">generate-huffman-tree pairs</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">successive-merge 
    </span><span class="opn">(</span><span class="pln">make-leaf-set pairs</span><span class="clo">)))</span></pre></div>
 
@@ -1857,8 +1855,7 @@ encode the lyrics of 1950s rock songs.  (Note that the “symbols” of an
 “alphabet” need not be individual letters.)
 </p>
 <div class="example">
-<pre class="example">
-A    2    NA  16
+<pre class="example prettyprint">A    2    NA  16
 BOOM 1    SHA  3
 GET  2    YIP  9
 JOB  2    WAH  1
@@ -1869,7 +1866,7 @@ corresponding Huffman tree, and use <code>encode</code> (<a href="#Exercise-2_00
 encode the following message:
 </p>
 <div class="example">
-<pre class="example">Get a job
+<pre class="example prettyprint">Get a job
 Sha na na na na na na na na
 
 Get a job
@@ -2057,10 +2054,10 @@ for a discussion of the mathematical properties of Huffman codes.</p>
 </div>
 <nav class="header">
 <p>
-Next: <a href="2_002e4.xhtml#g_t2_002e4" accesskey="n" rel="next">2.4</a>, Prev: <a href="2_002e2.xhtml#g_t2_002e2" accesskey="p" rel="prev">2.2</a>, Up: <a href="#g_t2_002e3" accesskey="u" rel="prev">2.3</a>   [<a href="index.xhtml#SEC_Contents" title="Table of contents" accesskey="c" rel="contents">Contents</a>]</p>
+Next: <a href="2_002e4.xhtml#g_t2_002e4" accesskey="n" rel="next">2.4</a>, Prev: <a href="2_002e2.xhtml#g_t2_002e2" accesskey="p" rel="prev">2.2</a>, Up: <a href="#g_t2_002e3" accesskey="u" rel="prev">2.3</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" accesskey="c" rel="contents">Contents</a>]</p>
 </nav>
 
 
 </section><span class="bottom jump" title="Jump to bottom"><a href="#pagebottom" accesskey="b">⇣</a></span><a id="pagebottom"></a>
-</body>
-</html>
+
+</body></html>

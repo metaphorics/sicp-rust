@@ -1,24 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="en" lang="en">
-<!-- Created by GNU Texinfo 5.1, http://www.gnu.org/software/texinfo/ -->
-<head>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="en" lang="en"><!-- Created by GNU Texinfo 5.1, http://www.gnu.org/software/texinfo/ --><head>
 <title>Structure and Interpretation of Computer Programs, 2e: 5.4</title>
 
-<meta name="description" content="Structure and Interpretation of Computer Programs, 2e: 5.4" />
-<meta name="keywords" content="Structure and Interpretation of Computer Programs, 2e: 5.4" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="Generator" content="texi2any" />
-<meta charset="utf-8" />
-<link href="index.xhtml#Top" rel="start" title="Top" />
-<link href="Term-Index.xhtml#Term-Index" rel="index" title="Term Index" />
-<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents" />
-<link href="Chapter-5.xhtml#Chapter-5" rel="prev" title="Chapter 5" />
-<link href="5_002e5.xhtml#g_t5_002e5" rel="next" title="5.5" />
-<link href="5_002e3.xhtml#g_t5_002e3_002e2" rel="prev" title="5.3.2" />
+<meta name="description" content="Structure and Interpretation of Computer Programs, 2e: 5.4">
+<meta name="keywords" content="Structure and Interpretation of Computer Programs, 2e: 5.4">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="Generator" content="texi2any">
+<meta charset="utf-8">
+<link href="index.xhtml#Top" rel="start" title="Top">
+<link href="Term-Index.xhtml#Term-Index" rel="index" title="Term Index">
+<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Chapter-5.xhtml#Chapter-5" rel="prev" title="Chapter 5">
+<link href="5_002e5.xhtml#g_t5_002e5" rel="next" title="5.5">
+<link href="5_002e3.xhtml#g_t5_002e3_002e2" rel="prev" title="5.3.2">
 
-<link href="css/style.css" rel="stylesheet" type="text/css" />
-<link href="css/prettify.css" rel="stylesheet" type="text/css" />
+<link href="css/style.css" rel="stylesheet" type="text/css">
+<link href="css/prettify.css" rel="stylesheet" type="text/css">
 
 <script src="js/jquery.min.js" type="text/javascript"></script>
 <script src="js/footnotes.js" type="text/javascript"></script>
@@ -29,7 +27,7 @@
 <section><span class="top jump" title="Jump to top"><a href="#pagetop" accesskey="t">⇡</a></span><a id="pagetop"></a><a id="g_t5_002e4"></a>
 <nav class="header">
 <p>
-Next: <a href="5_002e5.xhtml#g_t5_002e5" accesskey="n" rel="next">5.5</a>, Prev: <a href="5_002e3.xhtml#g_t5_002e3" accesskey="p" rel="prev">5.3</a>, Up: <a href="Chapter-5.xhtml#Chapter-5" accesskey="u" rel="prev">Chapter 5</a>   [<a href="index.xhtml#SEC_Contents" title="Table of contents" accesskey="c" rel="contents">Contents</a>]</p>
+Next: <a href="5_002e5.xhtml#g_t5_002e5" accesskey="n" rel="next">5.5</a>, Prev: <a href="5_002e3.xhtml#g_t5_002e3" accesskey="p" rel="prev">5.3</a>, Up: <a href="Chapter-5.xhtml#Chapter-5" accesskey="u" rel="prev">Chapter 5</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" accesskey="c" rel="contents">Contents</a>]</p>
 </nav>
 <a id="The-Explicit_002dControl-Evaluator"></a>
 <h3 class="section"><span class="secnum">5.4</span><span class="sectitle">The Explicit-Control Evaluator</span></h3>
@@ -117,7 +115,7 @@ metacircular <code>eval</code>, the structure of <code>eval-dispatch</code> is a
 analysis on the syntactic type of the expression to be evaluated.<a class="footnote_link" id="DOCF305" href="#FOOT305"><sup>305</sup></a>
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="pln">eval-dispatch
+<pre class="lisp prettyprinted prettyprint" style=""><span class="pln">eval-dispatch
   </span><span class="opn">(</span><span class="pln">test </span><span class="opn">(</span><span class="pln">op self-evaluating?</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">reg exp</span><span class="clo">))</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">branch </span><span class="opn">(</span><span class="pln">label ev-self-eval</span><span class="clo">))</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">test </span><span class="opn">(</span><span class="pln">op variable?</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">reg exp</span><span class="clo">))</span><span class="pln">
@@ -148,7 +146,7 @@ continues execution at the entry point specified by <code>continue</code>.
 Evaluation of simple expressions is performed by the following controller code:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="pln">ev-self-eval
+<pre class="lisp prettyprinted prettyprint" style=""><span class="pln">ev-self-eval
   </span><span class="opn">(</span><span class="pln">assign val </span><span class="opn">(</span><span class="pln">reg exp</span><span class="clo">))</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">goto </span><span class="opn">(</span><span class="pln">reg continue</span><span class="clo">))</span><span class="pln">
 ev-variable
@@ -209,7 +207,7 @@ however, we save the old value of <code>continue</code>, which tells the control
 where to continue after the application.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="pln">ev-application
+<pre class="lisp prettyprinted prettyprint" style=""><span class="pln">ev-application
   </span><span class="opn">(</span><span class="pln">save continue</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">save env</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">assign unev </span><span class="opn">(</span><span class="pln">op operands</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">reg exp</span><span class="clo">))</span><span class="pln">
@@ -229,7 +227,7 @@ evaluating the operator.  If there are no operands, we go directly to
 the argument-evaluation loop:<a class="footnote_link" id="DOCF307" href="#FOOT307"><sup>307</sup></a>
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="pln">ev-appl-did-operator
+<pre class="lisp prettyprinted prettyprint" style=""><span class="pln">ev-appl-did-operator
   </span><span class="opn">(</span><span class="pln">restore unev</span><span class="clo">)</span><span class="pln">             </span><span class="roman"><span class="com">; the operands</span></span><span class="pln">
   </span><span class="opn">(</span><span class="pln">restore env</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">assign argl </span><span class="opn">(</span><span class="pln">op empty-arglist</span><span class="clo">))</span><span class="pln">
@@ -249,7 +247,7 @@ made for the evaluation of the last operand, which is handled at
 <code>ev-appl-last-arg</code>.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="pln">ev-appl-operand-loop
+<pre class="lisp prettyprinted prettyprint" style=""><span class="pln">ev-appl-operand-loop
   </span><span class="opn">(</span><span class="pln">save argl</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">assign exp
           </span><span class="opn">(</span><span class="pln">op first-operand</span><span class="clo">)</span><span class="pln">
@@ -267,7 +265,7 @@ in <code>argl</code>.  The operand is then removed from the list of unevaluated
 operands in <code>unev</code>, and the argument-evaluation continues.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="pln">ev-appl-accumulate-arg
+<pre class="lisp prettyprinted prettyprint" style=""><span class="pln">ev-appl-accumulate-arg
   </span><span class="opn">(</span><span class="pln">restore unev</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">restore env</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">restore argl</span><span class="clo">)</span><span class="pln">
@@ -289,7 +287,7 @@ the new argument, restores the saved procedure, and goes off to perform the
 application.<a class="footnote_link" id="DOCF308" href="#FOOT308"><sup>308</sup></a>
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="pln">ev-appl-last-arg
+<pre class="lisp prettyprinted prettyprint" style=""><span class="pln">ev-appl-last-arg
   </span><span class="opn">(</span><span class="pln">assign continue 
           </span><span class="opn">(</span><span class="pln">label ev-appl-accum-last-arg</span><span class="clo">))</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">goto </span><span class="opn">(</span><span class="pln">label eval-dispatch</span><span class="clo">))</span><span class="pln">
@@ -329,7 +327,7 @@ metacircular <code>apply</code>, there are two cases to consider.  Either the
 procedure to be applied is a primitive or it is a compound procedure.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="pln">apply-dispatch
+<pre class="lisp prettyprinted prettyprint" style=""><span class="pln">apply-dispatch
   </span><span class="opn">(</span><span class="pln">test </span><span class="opn">(</span><span class="pln">op primitive-procedure?</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">reg proc</span><span class="clo">))</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">branch </span><span class="opn">(</span><span class="pln">label primitive-apply</span><span class="clo">))</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">test </span><span class="opn">(</span><span class="pln">op compound-procedure?</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">reg proc</span><span class="clo">))</span><span class="pln">
@@ -352,7 +350,7 @@ to perform the application, just as we did for the metacircular evaluator in
 we restore <code>continue</code> and go to the designated entry point.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="pln">primitive-apply
+<pre class="lisp prettyprinted prettyprint" style=""><span class="pln">primitive-apply
   </span><span class="opn">(</span><span class="pln">assign val </span><span class="opn">(</span><span class="pln">op apply-primitive-procedure</span><span class="clo">)</span><span class="pln">
               </span><span class="opn">(</span><span class="pln">reg proc</span><span class="clo">)</span><span class="pln">
               </span><span class="opn">(</span><span class="pln">reg argl</span><span class="clo">))</span><span class="pln">
@@ -367,7 +365,7 @@ forms the body of the procedure.  <code>Ev-sequence</code>, described below in
 <a href="#g_t5_002e4_002e2">5.4.2</a>, handles the evaluation of the sequence.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="pln">compound-apply
+<pre class="lisp prettyprinted prettyprint" style=""><span class="pln">compound-apply
   </span><span class="opn">(</span><span class="pln">assign unev 
           </span><span class="opn">(</span><span class="pln">op procedure-parameters</span><span class="clo">)</span><span class="pln">
           </span><span class="opn">(</span><span class="pln">reg proc</span><span class="clo">))</span><span class="pln">
@@ -404,7 +402,7 @@ expressions to be evaluated in <code>unev</code>, saving <code>continue</code> o
 stack, and jumping to <code>ev-sequence</code>.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="pln">ev-begin
+<pre class="lisp prettyprinted prettyprint" style=""><span class="pln">ev-begin
   </span><span class="opn">(</span><span class="pln">assign unev
           </span><span class="opn">(</span><span class="pln">op begin-actions</span><span class="clo">)</span><span class="pln">
           </span><span class="opn">(</span><span class="pln">reg exp</span><span class="clo">))</span><span class="pln">
@@ -439,7 +437,7 @@ entry point, we restore <code>continue</code> from the stack before going to
 point after evaluating the expression.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="pln">ev-sequence
+<pre class="lisp prettyprinted prettyprint" style=""><span class="pln">ev-sequence
   </span><span class="opn">(</span><span class="pln">assign exp </span><span class="opn">(</span><span class="pln">op first-exp</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">reg unev</span><span class="clo">))</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">test </span><span class="opn">(</span><span class="pln">op last-exp?</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">reg unev</span><span class="clo">))</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">branch </span><span class="opn">(</span><span class="pln">label ev-sequence-last-exp</span><span class="clo">))</span><span class="pln">
@@ -465,7 +463,7 @@ ev-sequence-last-exp
 <p>In <a href="Chapter-1.xhtml#Chapter-1">Chapter 1</a> we said that the process described by a procedure such as
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">sqrt-iter guess x</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">sqrt-iter guess x</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pln">good-enough? guess x</span><span class="clo">)</span><span class="pln">
       guess
       </span><span class="opn">(</span><span class="pln">sqrt-iter </span><span class="opn">(</span><span class="pln">improve guess x</span><span class="clo">)</span><span class="pln"> x</span><span class="clo">)))</span></pre></div>
@@ -499,7 +497,7 @@ registers, evaluating the expression, returning to restore the registers, and
 repeating this until all the expressions have been evaluated:<a class="footnote_link" id="DOCF312" href="#FOOT312"><sup>312</sup></a>
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="pln">ev-sequence
+<pre class="lisp prettyprinted prettyprint" style=""><span class="pln">ev-sequence
   </span><span class="opn">(</span><span class="pln">test </span><span class="opn">(</span><span class="pln">op no-more-exps?</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">reg unev</span><span class="clo">))</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">branch </span><span class="opn">(</span><span class="pln">label ev-sequence-end</span><span class="clo">))</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">assign exp </span><span class="opn">(</span><span class="pln">op first-exp</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">reg unev</span><span class="clo">))</span><span class="pln">
@@ -530,7 +528,7 @@ This difference can be significant.  For example, with tail recursion, an
 infinite loop can be expressed using only the procedure-call mechanism:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">count n</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">count n</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">newline</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">display n</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">count </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> n </span><span class="lit">1</span><span class="clo">)))</span></pre></div>
@@ -556,7 +554,7 @@ to return to the evaluation of the expression that is waiting for the value of
 the <code>if</code>.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="pln">ev-if
+<pre class="lisp prettyprinted prettyprint" style=""><span class="pln">ev-if
   </span><span class="opn">(</span><span class="pln">save exp</span><span class="clo">)</span><span class="pln">   </span><span class="roman"><span class="com">; save expression for later</span></span><span class="pln">
   </span><span class="opn">(</span><span class="pln">save env</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">save continue</span><span class="clo">)</span><span class="pln">
@@ -573,7 +571,7 @@ have the correct environment and to continue at the right place to receive the
 value of the <code>if</code> expression.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="pln">ev-if-decide
+<pre class="lisp prettyprinted prettyprint" style=""><span class="pln">ev-if-decide
   </span><span class="opn">(</span><span class="pln">restore continue</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">restore env</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">restore exp</span><span class="clo">)</span><span class="pln">
@@ -596,7 +594,7 @@ installs the new value in the environment.  <code>Set-variable-value!</code> is
 assumed to be available as a machine operation.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="pln">ev-assignment
+<pre class="lisp prettyprinted prettyprint" style=""><span class="pln">ev-assignment
   </span><span class="opn">(</span><span class="pln">assign unev 
           </span><span class="opn">(</span><span class="pln">op assignment-variable</span><span class="clo">)</span><span class="pln">
           </span><span class="opn">(</span><span class="pln">reg exp</span><span class="clo">))</span><span class="pln">
@@ -625,7 +623,7 @@ ev-assignment-1
 <p>Definitions are handled in a similar way:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="pln">ev-definition
+<pre class="lisp prettyprinted prettyprint" style=""><span class="pln">ev-definition
   </span><span class="opn">(</span><span class="pln">assign unev 
           </span><span class="opn">(</span><span class="pln">op definition-variable</span><span class="clo">)</span><span class="pln">
           </span><span class="opn">(</span><span class="pln">reg exp</span><span class="clo">))</span><span class="pln">
@@ -695,7 +693,7 @@ the beginning of the explicit-control evaluator’s controller
 sequence:<a class="footnote_link" id="DOCF314" href="#FOOT314"><sup>314</sup></a>
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="pln">read-eval-print-loop
+<pre class="lisp prettyprinted prettyprint" style=""><span class="pln">read-eval-print-loop
   </span><span class="opn">(</span><span class="pln">perform </span><span class="opn">(</span><span class="pln">op initialize-stack</span><span class="clo">))</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">perform </span><span class="opn">(</span><span class="pln">op prompt-for-input</span><span class="clo">)</span><span class="pln">
            </span><span class="opn">(</span><span class="pln">const </span><span class="str">";;; EC-Eval input:"</span><span class="clo">))</span><span class="pln">
@@ -714,7 +712,7 @@ error” indicated at <code>apply-dispatch</code>), we print an error message an
 return to the driver loop.<a class="footnote_link" id="DOCF315" href="#FOOT315"><sup>315</sup></a>
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="pln">unknown-expression-type
+<pre class="lisp prettyprinted prettyprint" style=""><span class="pln">unknown-expression-type
   </span><span class="opn">(</span><span class="pln">assign 
    val
    </span><span class="opn">(</span><span class="pln">const unknown-expression-type-error</span><span class="clo">))</span><span class="pln">
@@ -739,7 +737,7 @@ undefined variable) interrupts an evaluation.<a class="footnote_link" id="DOCF31
 run using the register-machine simulator of <a href="5_002e2.xhtml#g_t5_002e2">5.2</a>.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> eceval
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> eceval
   </span><span class="opn">(</span><span class="pln">make-machine
    </span><span class="lit">'</span><span class="opn">(</span><span class="pln">exp env val proc argl continue unev</span><span class="clo">)</span><span class="pln">
    eceval-operations
@@ -753,7 +751,7 @@ evaluator in <a href="4_002e1.xhtml#g_t4_002e1">4.1</a>, together with the few a
 in footnotes throughout <a href="#g_t5_002e4">5.4</a>.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> eceval-operations
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> eceval-operations
   </span><span class="opn">(</span><span class="pln">list </span><span class="opn">(</span><span class="pln">list </span><span class="lit">'self-evaluating?</span><span class="pln"> 
               self-evaluating</span><span class="clo">)</span><span class="pln">
         ⟨</span><em><span class="pln">complete list of operations</span></em><span class="pln"> 
@@ -762,7 +760,7 @@ in footnotes throughout <a href="#g_t5_002e4">5.4</a>.
 <p>Finally, we can initialize the global environment and run the evaluator:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> the-global-environment
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> the-global-environment
   </span><span class="opn">(</span><span class="pln">setup-environment</span><span class="clo">))</span><span class="pln">
 
 </span><span class="opn">(</span><span class="pln">start eceval</span><span class="clo">)</span><span class="pln">
@@ -803,7 +801,7 @@ the version of the simulator that collects statistics on stack use
 entry point to print the statistics:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="pln">print-result
+<pre class="lisp prettyprinted prettyprint" style=""><span class="pln">print-result
   </span><span class="roman"><span class="com">; added instruction:</span></span><span class="pln">
   </span><span class="opn">(</span><span class="pln">perform </span><span class="opn">(</span><span class="pln">op print-stack-statistics</span><span class="clo">))</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">perform </span><span class="opn">(</span><span class="pln">op announce-output</span><span class="clo">)</span><span class="pln">
@@ -814,7 +812,7 @@ entry point to print the statistics:
 <p>Interactions with the evaluator now look like this:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><i><span class="com">;;; EC-Eval input:</span></i><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><i><span class="com">;;; EC-Eval input:</span></i><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">factorial n</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pun">=</span><span class="pln"> n </span><span class="lit">1</span><span class="clo">)</span><span class="pln"> </span><span class="lit">1</span><span class="pln"> </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> </span><span class="opn">(</span><span class="pln">factorial </span><span class="opn">(</span><span class="pun">-</span><span class="pln"> n </span><span class="lit">1</span><span class="clo">))</span><span class="pln"> n</span><span class="clo">)))</span><span class="pln">
 </span><i><span class="opn">(</span><span class="pln">total-pushes </span><span class="pun">=</span><span class="pln"> </span><span class="lit">3</span><span class="pun">,</span><span class="pln"> maximum-depth </span><span class="pun">=</span><span class="pln"> </span><span class="lit">3</span><span class="clo">)</span></i><span class="pln">
@@ -841,7 +839,7 @@ Start the evaluator and define the iterative <code>factorial</code> procedure fr
 <a href="1_002e2.xhtml#g_t1_002e2_002e1">1.2.1</a>:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">factorial n</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">factorial n</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">iter product counter</span><span class="clo">)</span><span class="pln">
     </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pun">&gt;</span><span class="pln"> counter n</span><span class="clo">)</span><span class="pln">
         product
@@ -900,7 +898,7 @@ explore the behavior of the following procedure for computing factorials
 recursively:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">factorial n</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">factorial n</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pun">=</span><span class="pln"> n </span><span class="lit">1</span><span class="clo">)</span><span class="pln">
       </span><span class="lit">1</span><span class="pln">
       </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> </span><span class="opn">(</span><span class="pln">factorial </span><span class="opn">(</span><span class="pun">-</span><span class="pln"> n </span><span class="lit">1</span><span class="clo">))</span><span class="pln"> n</span><span class="clo">)))</span></pre></div>
@@ -928,7 +926,7 @@ appropriate expressions in terms of <math xmlns="http://www.w3.org/1998/Math/Mat
 <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
   <mtable columnalign="left left left" rowspacing="4pt" columnspacing="1em" rowlines="none solid none solid none" columnlines="solid solid">
     <mtr>
-      <mtd/>
+      <mtd></mtd>
       <mtd>
         <mtext>Maximum</mtext>
       </mtd>
@@ -937,7 +935,7 @@ appropriate expressions in terms of <math xmlns="http://www.w3.org/1998/Math/Mat
       </mtd>
     </mtr>
     <mtr>
-      <mtd/>
+      <mtd></mtd>
       <mtd>
         <mtext>depth</mtext>
       </mtd>
@@ -949,29 +947,29 @@ appropriate expressions in terms of <math xmlns="http://www.w3.org/1998/Math/Mat
       <mtd>
         <mtext>Recursive</mtext>
       </mtd>
-      <mtd/>
-      <mtd/>
+      <mtd></mtd>
+      <mtd></mtd>
     </mtr>
     <mtr>
       <mtd>
         <mtext>factorial</mtext>
       </mtd>
-      <mtd/>
-      <mtd/>
+      <mtd></mtd>
+      <mtd></mtd>
     </mtr>
     <mtr>
       <mtd>
         <mtext>Iterative</mtext>
       </mtd>
-      <mtd/>
-      <mtd/>
+      <mtd></mtd>
+      <mtd></mtd>
     </mtr>
     <mtr>
       <mtd>
         <mtext>factorial</mtext>
       </mtd>
-      <mtd/>
-      <mtd/>
+      <mtd></mtd>
+      <mtd></mtd>
     </mtr>
   </mtable>
 </math>
@@ -994,7 +992,7 @@ their input.
 the tree-recursive Fibonacci computation:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">fib n</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">fib n</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pun">&lt;</span><span class="pln"> n </span><span class="lit">2</span><span class="clo">)</span><span class="pln">
       n
       </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="opn">(</span><span class="pln">fib </span><span class="opn">(</span><span class="pun">-</span><span class="pln"> n </span><span class="lit">1</span><span class="clo">))</span><span class="pln"> </span><span class="opn">(</span><span class="pln">fib </span><span class="opn">(</span><span class="pun">-</span><span class="pln"> n </span><span class="lit">2</span><span class="clo">)))))</span></pre></div>
@@ -1190,7 +1188,7 @@ procedures in <a href="4_002e1.xhtml#g_t4_002e1_002e3">4.1.3</a> the following t
 argument lists:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">empty-arglist</span><span class="clo">)</span><span class="pln"> </span><span class="lit">'</span><span class="opn">(</span><span class="clo">))</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">empty-arglist</span><span class="clo">)</span><span class="pln"> </span><span class="lit">'</span><span class="opn">(</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">adjoin-arg arg arglist</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">append arglist </span><span class="opn">(</span><span class="pln">list arg</span><span class="clo">)))</span></pre></div>
 
@@ -1198,7 +1196,7 @@ argument lists:
 combination:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">last-operand? ops</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">null? </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> ops</span><span class="clo">)))</span></pre></div>
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">last-operand? ops</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">null? </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> ops</span><span class="clo">)))</span></pre></div>
 </div>
 <div id="FOOT308"><p><a class="footnote_backlink" href="#DOCF308"><sup>308</sup></a>
 The optimization of treating the last operand specially
@@ -1235,7 +1233,7 @@ We can
 define <code>no-more-exps?</code> as follows:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">no-more-exps? seq</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">null? seq</span><span class="clo">))</span></pre></div>
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">no-more-exps? seq</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">null? seq</span><span class="clo">))</span></pre></div>
 </div>
 <div id="FOOT313"><p><a class="footnote_backlink" href="#DOCF313"><sup>313</sup></a>
 This isn’t
@@ -1255,7 +1253,7 @@ from a device.
 <p>To support the <code>get-global-environment</code> operation we define
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> the-global-environment
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> the-global-environment
   </span><span class="opn">(</span><span class="pln">setup-environment</span><span class="clo">))</span><span class="pln">
 
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">get-global-environment</span><span class="clo">)</span><span class="pln">
@@ -1280,10 +1278,10 @@ offers you the opportunity to reboot the computer—if you’re lucky.</p>
 </div>
 <nav class="header">
 <p>
-Next: <a href="5_002e5.xhtml#g_t5_002e5" accesskey="n" rel="next">5.5</a>, Prev: <a href="5_002e3.xhtml#g_t5_002e3" accesskey="p" rel="prev">5.3</a>, Up: <a href="#g_t5_002e4" accesskey="u" rel="prev">5.4</a>   [<a href="index.xhtml#SEC_Contents" title="Table of contents" accesskey="c" rel="contents">Contents</a>]</p>
+Next: <a href="5_002e5.xhtml#g_t5_002e5" accesskey="n" rel="next">5.5</a>, Prev: <a href="5_002e3.xhtml#g_t5_002e3" accesskey="p" rel="prev">5.3</a>, Up: <a href="#g_t5_002e4" accesskey="u" rel="prev">5.4</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" accesskey="c" rel="contents">Contents</a>]</p>
 </nav>
 
 
 </section><span class="bottom jump" title="Jump to bottom"><a href="#pagebottom" accesskey="b">⇣</a></span><a id="pagebottom"></a>
-</body>
-</html>
+
+</body></html>

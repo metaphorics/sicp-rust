@@ -1,24 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="en" lang="en">
-<!-- Created by GNU Texinfo 5.1, http://www.gnu.org/software/texinfo/ -->
-<head>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="en" lang="en"><!-- Created by GNU Texinfo 5.1, http://www.gnu.org/software/texinfo/ --><head>
 <title>Structure and Interpretation of Computer Programs, 2e: 1.1</title>
 
-<meta name="description" content="Structure and Interpretation of Computer Programs, 2e: 1.1" />
-<meta name="keywords" content="Structure and Interpretation of Computer Programs, 2e: 1.1" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="Generator" content="texi2any" />
-<meta charset="utf-8" />
-<link href="index.xhtml#Top" rel="start" title="Top" />
-<link href="Term-Index.xhtml#Term-Index" rel="index" title="Term Index" />
-<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents" />
-<link href="Chapter-1.xhtml#Chapter-1" rel="prev" title="Chapter 1" />
-<link href="1_002e2.xhtml#g_t1_002e2" rel="next" title="1.2" />
-<link href="Chapter-1.xhtml#Chapter-1" rel="prev" title="Chapter 1" />
+<meta name="description" content="Structure and Interpretation of Computer Programs, 2e: 1.1">
+<meta name="keywords" content="Structure and Interpretation of Computer Programs, 2e: 1.1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="Generator" content="texi2any">
+<meta charset="utf-8">
+<link href="index.xhtml#Top" rel="start" title="Top">
+<link href="Term-Index.xhtml#Term-Index" rel="index" title="Term Index">
+<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Chapter-1.xhtml#Chapter-1" rel="prev" title="Chapter 1">
+<link href="1_002e2.xhtml#g_t1_002e2" rel="next" title="1.2">
+<link href="Chapter-1.xhtml#Chapter-1" rel="prev" title="Chapter 1">
 
-<link href="css/style.css" rel="stylesheet" type="text/css" />
-<link href="css/prettify.css" rel="stylesheet" type="text/css" />
+<link href="css/style.css" rel="stylesheet" type="text/css">
+<link href="css/prettify.css" rel="stylesheet" type="text/css">
 
 <script src="js/jquery.min.js" type="text/javascript"></script>
 <script src="js/footnotes.js" type="text/javascript"></script>
@@ -29,7 +27,7 @@
 <section><span class="top jump" title="Jump to top"><a href="#pagetop" accesskey="t">⇡</a></span><a id="pagetop"></a><a id="g_t1_002e1"></a>
 <nav class="header">
 <p>
-Next: <a href="1_002e2.xhtml#g_t1_002e2" accesskey="n" rel="next">1.2</a>, Prev: <a href="Chapter-1.xhtml#Chapter-1" accesskey="p" rel="prev">Chapter 1</a>, Up: <a href="Chapter-1.xhtml#Chapter-1" accesskey="u" rel="prev">Chapter 1</a>   [<a href="index.xhtml#SEC_Contents" title="Table of contents" accesskey="c" rel="contents">Contents</a>]</p>
+Next: <a href="1_002e2.xhtml#g_t1_002e2" accesskey="n" rel="next">1.2</a>, Prev: <a href="Chapter-1.xhtml#Chapter-1" accesskey="p" rel="prev">Chapter 1</a>, Up: <a href="Chapter-1.xhtml#Chapter-1" accesskey="u" rel="prev">Chapter 1</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" accesskey="c" rel="contents">Contents</a>]</p>
 </nav>
 <a id="The-Elements-of-Programming"></a>
 <h3 class="section"><span class="secnum">1.1</span><span class="sectitle">The Elements of Programming</span></h3>
@@ -82,12 +80,12 @@ the expression that you type consists of the numerals that represent the number
 in base 10.)  If you present Lisp with a number
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="lit">486</span></pre></div>
+<pre class="lisp prettyprinted prettyprint" style=""><span class="lit">486</span></pre></div>
 
 <p>the interpreter will respond by printing<a class="footnote_link" id="DOCF5" href="#FOOT5"><sup>5</sup></a>
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><i><span class="lit">486</span></i>
+<pre class="lisp prettyprinted prettyprint" style=""><i><span class="lit">486</span></i>
 </pre></div>
 
 <p>Expressions representing numbers may be combined with an expression
@@ -96,7 +94,7 @@ compound expression that represents the application of the procedure to those
 numbers.  For example<!-- /@w -->:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="lit">137</span><span class="pln"> </span><span class="lit">349</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="lit">137</span><span class="pln"> </span><span class="lit">349</span><span class="clo">)</span><span class="pln">
 </span><i><span class="lit">486</span></i><span class="pln">
 
 </span><span class="opn">(</span><span class="pun">-</span><span class="pln"> </span><span class="lit">1000</span><span class="pln"> </span><span class="lit">334</span><span class="clo">)</span><span class="pln">
@@ -132,7 +130,7 @@ accommodate procedures that may take an arbitrary number of arguments, as in
 the following examples:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="lit">21</span><span class="pln"> </span><span class="lit">35</span><span class="pln"> </span><span class="lit">12</span><span class="pln"> </span><span class="lit">7</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="lit">21</span><span class="pln"> </span><span class="lit">35</span><span class="pln"> </span><span class="lit">12</span><span class="pln"> </span><span class="lit">7</span><span class="clo">)</span><span class="pln">
 </span><i><span class="lit">75</span></i><span class="pln">
 
 </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> </span><span class="lit">25</span><span class="pln"> </span><span class="lit">4</span><span class="pln"> </span><span class="lit">12</span><span class="clo">)</span><span class="pln">
@@ -147,7 +145,7 @@ way to allow combinations to be <i>nested</i>, that is, to have combinations who
 elements are themselves combinations:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> </span><span class="lit">3</span><span class="pln"> </span><span class="lit">5</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pun">-</span><span class="pln"> </span><span class="lit">10</span><span class="pln"> </span><span class="lit">6</span><span class="clo">))</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> </span><span class="lit">3</span><span class="pln"> </span><span class="lit">5</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pun">-</span><span class="pln"> </span><span class="lit">10</span><span class="pln"> </span><span class="lit">6</span><span class="clo">))</span><span class="pln">
 </span><i><span class="lit">19</span></i>
 </pre></div>
 
@@ -156,13 +154,13 @@ overall complexity of the expressions that the Lisp interpreter can evaluate.
 It is we humans who get confused by still relatively simple expressions such as
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> </span><span class="lit">3</span><span class="pln"> </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> </span><span class="lit">2</span><span class="pln"> </span><span class="lit">4</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="lit">3</span><span class="pln"> </span><span class="lit">5</span><span class="clo">)))</span><span class="pln"> </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="opn">(</span><span class="pun">-</span><span class="pln"> </span><span class="lit">10</span><span class="pln"> </span><span class="lit">7</span><span class="clo">)</span><span class="pln"> </span><span class="lit">6</span><span class="clo">))</span></pre></div>
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> </span><span class="lit">3</span><span class="pln"> </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> </span><span class="lit">2</span><span class="pln"> </span><span class="lit">4</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="lit">3</span><span class="pln"> </span><span class="lit">5</span><span class="clo">)))</span><span class="pln"> </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="opn">(</span><span class="pun">-</span><span class="pln"> </span><span class="lit">10</span><span class="pln"> </span><span class="lit">7</span><span class="clo">)</span><span class="pln"> </span><span class="lit">6</span><span class="clo">))</span></pre></div>
 
 <p>which the interpreter would readily evaluate to be 57.  We can help ourselves
 by writing such an expression in the form
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> </span><span class="lit">3</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> </span><span class="lit">3</span><span class="pln">
       </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> </span><span class="lit">2</span><span class="pln"> </span><span class="lit">4</span><span class="clo">)</span><span class="pln">
          </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="lit">3</span><span class="pln"> </span><span class="lit">5</span><span class="clo">)))</span><span class="pln">
    </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="opn">(</span><span class="pun">-</span><span class="pln"> </span><span class="lit">10</span><span class="pln"> </span><span class="lit">7</span><span class="clo">)</span><span class="pln">
@@ -195,7 +193,7 @@ names to refer to computational objects.  We say that the name identifies a
 <p>In the Scheme dialect of Lisp, we name things with <code>define</code>.  Typing
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> size </span><span class="lit">2</span><span class="clo">)</span></pre></div>
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> size </span><span class="lit">2</span><span class="clo">)</span></pre></div>
 
 <p>causes the interpreter to associate the value 2 with the name
 <code>size</code>.<a class="footnote_link" id="DOCF8" href="#FOOT8"><sup>8</sup></a> Once
@@ -203,7 +201,7 @@ the name <code>size</code> has been associated with the number 2, we can refer t
 value 2 by name:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="pln">size
+<pre class="lisp prettyprinted prettyprint" style=""><span class="pln">size
 </span><i><span class="lit">2</span></i><span class="pln">
 
 </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> </span><span class="lit">5</span><span class="pln"> size</span><span class="clo">)</span><span class="pln">
@@ -213,7 +211,7 @@ value 2 by name:
 <p>Here are further examples of the use of <code>define</code>:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> pi </span><span class="lit">3.14159</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> pi </span><span class="lit">3.14159</span><span class="clo">)</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> radius </span><span class="lit">10</span><span class="clo">)</span><span class="pln">
 
 </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> pi </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> radius radius</span><span class="clo">))</span><span class="pln">
@@ -281,7 +279,7 @@ case of a deeply nested combination, would otherwise be viewed as a rather
 complicated process.  For example, evaluating
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pun">*</span><span class="pln"> </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="lit">2</span><span class="pln"> </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> </span><span class="lit">4</span><span class="pln"> </span><span class="lit">6</span><span class="clo">))</span><span class="pln"> </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="lit">3</span><span class="pln"> </span><span class="lit">5</span><span class="pln"> </span><span class="lit">7</span><span class="clo">))</span></pre></div>
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pun">*</span><span class="pln"> </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="lit">2</span><span class="pln"> </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> </span><span class="lit">4</span><span class="pln"> </span><span class="lit">6</span><span class="clo">))</span><span class="pln"> </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="lit">3</span><span class="pln"> </span><span class="lit">5</span><span class="pln"> </span><span class="lit">7</span><span class="clo">))</span></pre></div>
 
 <p>requires that the evaluation rule be applied to four different combinations.
 We can obtain a picture of this process by representing the combination in the
@@ -378,12 +376,12 @@ then referred to as a unit.
 language as
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">square x</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> x x</span><span class="clo">))</span></pre></div>
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">square x</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> x x</span><span class="clo">))</span></pre></div>
 
 <p>We can understand this in the following way:
 </p>
 <div class="example">
-<pre class="example">(define (square x)    (*       x       x))
+<pre class="example prettyprint">(define (square x)    (*       x       x))
   |      |      |      |       |       |
  To square something, multiply it by itself.
 </pre></div>
@@ -399,7 +397,7 @@ definition creates this compound procedure and associates it with the name
 <p>The general form of a procedure definition is
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">⟨</span><var><span class="pln">name</span></var><span class="pln">⟩ ⟨</span><var><span class="pln">formal parameters</span></var><span class="pln">⟩</span><span class="clo">)</span><span class="pln"> ⟨</span><var><span class="pln">body</span></var><span class="pln">⟩</span><span class="clo">)</span></pre></div>
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">⟨</span><var><span class="pln">name</span></var><span class="pln">⟩ ⟨</span><var><span class="pln">formal parameters</span></var><span class="pln">⟩</span><span class="clo">)</span><span class="pln"> ⟨</span><var><span class="pln">body</span></var><span class="pln">⟩</span><span class="clo">)</span></pre></div>
 
 <p>The <code>⟨</code><var>name</var><code>⟩</code> is a symbol to be associated with the procedure definition in
 the environment.<a class="footnote_link" id="DOCF13" href="#FOOT13"><sup>13</sup></a> The <code>⟨</code><var>formal<!-- /@w --> parameters<!-- /@w --></var><code>⟩</code> 
@@ -414,7 +412,7 @@ would be in an actual call to the procedure being defined.
 <p>Having defined <code>square</code>, we can now use it:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">square </span><span class="lit">21</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">square </span><span class="lit">21</span><span class="clo">)</span><span class="pln">
 </span><i><span class="lit">441</span></i><span class="pln">
 
 </span><span class="opn">(</span><span class="pln">square </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="lit">2</span><span class="pln"> </span><span class="lit">5</span><span class="clo">))</span><span class="pln">
@@ -438,13 +436,13 @@ For example, <math xmlns="http://www.w3.org/1998/Math/MathML">
 </math> can be expressed as
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="opn">(</span><span class="pln">square x</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">square y</span><span class="clo">))</span></pre></div>
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="opn">(</span><span class="pln">square x</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">square y</span><span class="clo">))</span></pre></div>
 
 <p>We can easily define a procedure <code>sum-of-squares</code> that, given any two
 numbers as arguments, produces the sum of their squares:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">sum-of-squares x y</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">sum-of-squares x y</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="opn">(</span><span class="pln">square x</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">square y</span><span class="clo">)))</span><span class="pln">
 
 </span><span class="opn">(</span><span class="pln">sum-of-squares </span><span class="lit">3</span><span class="pln"> </span><span class="lit">4</span><span class="clo">)</span><span class="pln">
@@ -455,7 +453,7 @@ numbers as arguments, produces the sum of their squares:
 further procedures:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">f a</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">f a</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">sum-of-squares </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> a </span><span class="lit">1</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> a </span><span class="lit">2</span><span class="clo">)))</span><span class="pln">
 
 </span><span class="opn">(</span><span class="pln">f </span><span class="lit">5</span><span class="clo">)</span><span class="pln">
@@ -490,18 +488,18 @@ with each formal parameter replaced by the corresponding argument.
 <p>To illustrate this process, let’s evaluate the combination
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">f </span><span class="lit">5</span><span class="clo">)</span></pre></div>
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">f </span><span class="lit">5</span><span class="clo">)</span></pre></div>
 
 <p>where <code>f</code> is the procedure defined in <a href="#g_t1_002e1_002e4">1.1.4</a>.  We begin by
 retrieving the body of <code>f</code>:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">sum-of-squares </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> a </span><span class="lit">1</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> a </span><span class="lit">2</span><span class="clo">))</span></pre></div>
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">sum-of-squares </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> a </span><span class="lit">1</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> a </span><span class="lit">2</span><span class="clo">))</span></pre></div>
 
 <p>Then we replace the formal parameter <code>a</code> by the argument 5:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">sum-of-squares </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="lit">5</span><span class="pln"> </span><span class="lit">1</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> </span><span class="lit">5</span><span class="pln"> </span><span class="lit">2</span><span class="clo">))</span></pre></div>
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">sum-of-squares </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="lit">5</span><span class="pln"> </span><span class="lit">1</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> </span><span class="lit">5</span><span class="pln"> </span><span class="lit">2</span><span class="clo">))</span></pre></div>
 
 <p>Thus the problem reduces to the evaluation of a combination with two operands
 and an operator <code>sum-of-squares</code>.  Evaluating this combination involves
@@ -513,22 +511,22 @@ the formal parameters <code>x</code> and <code>y</code> in the body of
 <code>sum-of-squares</code>, reducing the expression to
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="opn">(</span><span class="pln">square </span><span class="lit">6</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">square </span><span class="lit">10</span><span class="clo">))</span></pre></div>
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="opn">(</span><span class="pln">square </span><span class="lit">6</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">square </span><span class="lit">10</span><span class="clo">))</span></pre></div>
 
 <p>If we use the definition of <code>square</code>, this reduces to
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> </span><span class="lit">6</span><span class="pln"> </span><span class="lit">6</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> </span><span class="lit">10</span><span class="pln"> </span><span class="lit">10</span><span class="clo">))</span></pre></div>
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> </span><span class="lit">6</span><span class="pln"> </span><span class="lit">6</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> </span><span class="lit">10</span><span class="pln"> </span><span class="lit">10</span><span class="clo">))</span></pre></div>
 
 <p>which reduces by multiplication to
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="lit">36</span><span class="pln"> </span><span class="lit">100</span><span class="clo">)</span></pre></div>
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="lit">36</span><span class="pln"> </span><span class="lit">100</span><span class="clo">)</span></pre></div>
 
 <p>and finally to
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="lit">136</span></pre></div>
+<pre class="lisp prettyprinted prettyprint" style=""><span class="lit">136</span></pre></div>
 
 <p>The process we have just described is called the <a id="index-substitution-model"></a>
 <em>substitution model</em>
@@ -574,7 +572,7 @@ this method, the evaluation of <code>(f 5)</code> would proceed according to the
 sequence of expansions
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">sum-of-squares </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="lit">5</span><span class="pln"> </span><span class="lit">1</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> </span><span class="lit">5</span><span class="pln"> </span><span class="lit">2</span><span class="clo">))</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">sum-of-squares </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="lit">5</span><span class="pln"> </span><span class="lit">1</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> </span><span class="lit">5</span><span class="pln"> </span><span class="lit">2</span><span class="clo">))</span><span class="pln">
 
 </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="opn">(</span><span class="pln">square </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="lit">5</span><span class="pln"> </span><span class="lit">1</span><span class="clo">))</span><span class="pln"> 
    </span><span class="opn">(</span><span class="pln">square </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> </span><span class="lit">5</span><span class="pln"> </span><span class="lit">2</span><span class="clo">)))</span><span class="pln">
@@ -585,7 +583,7 @@ sequence of expansions
 <p>followed by the reductions
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> </span><span class="lit">6</span><span class="pln"> </span><span class="lit">6</span><span class="clo">)</span><span class="pln"> 
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> </span><span class="lit">6</span><span class="pln"> </span><span class="lit">6</span><span class="clo">)</span><span class="pln"> 
    </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> </span><span class="lit">10</span><span class="pln"> </span><span class="lit">10</span><span class="clo">))</span><span class="pln">
 
 </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="lit">36</span><span class="pln"> </span><span class="lit">100</span><span class="clo">)</span><span class="pln">
@@ -637,9 +635,9 @@ actions in the different cases according to the rule
     </mrow>
     <mo>|</mo>
   </mrow>
-  <mspace width="thickmathspace"/>
+  <mspace width="thickmathspace"></mspace>
   <mo>=</mo>
-  <mspace width="thickmathspace"/>
+  <mspace width="thickmathspace"></mspace>
   <mrow>
     <mo>{</mo>
     <mtable columnalign="right left left" rowspacing="4pt" columnspacing="1em">
@@ -648,7 +646,7 @@ actions in the different cases according to the rule
           <mi>x</mi>
         </mtd>
         <mtd>
-          <mspace width="thickmathspace"/>
+          <mspace width="thickmathspace"></mspace>
           <mtext>if</mtext>
         </mtd>
         <mtd>
@@ -663,7 +661,7 @@ actions in the different cases according to the rule
           <mn>0</mn>
         </mtd>
         <mtd>
-          <mspace width="thickmathspace"/>
+          <mspace width="thickmathspace"></mspace>
           <mtext>if</mtext>
         </mtd>
         <mtd>
@@ -679,7 +677,7 @@ actions in the different cases according to the rule
           <mi>x</mi>
         </mtd>
         <mtd>
-          <mspace width="thickmathspace"/>
+          <mspace width="thickmathspace"></mspace>
           <mtext>if</mtext>
         </mtd>
         <mtd>
@@ -698,7 +696,7 @@ in Lisp for notating such a case analysis.  It is called <code>cond</code> (whic
 stands for “conditional”), and it is used as follows:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">abs x</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">abs x</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">((</span><span class="pun">&gt;</span><span class="pln"> x </span><span class="lit">0</span><span class="clo">)</span><span class="pln"> x</span><span class="clo">)</span><span class="pln">
         </span><span class="opn">((</span><span class="pun">=</span><span class="pln"> x </span><span class="lit">0</span><span class="clo">)</span><span class="pln"> </span><span class="lit">0</span><span class="clo">)</span><span class="pln">
         </span><span class="opn">((</span><span class="pun">&lt;</span><span class="pln"> x </span><span class="lit">0</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pun">-</span><span class="pln"> x</span><span class="clo">))))</span></pre></div>
@@ -706,7 +704,7 @@ stands for “conditional”), and it is used as follows:
 <p>The general form of a conditional expression is
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">(</span><span class="pln">⟨</span><var><span class="pln">p</span><span class="pun">₁</span></var><span class="pln">⟩ ⟨</span><var><span class="pln">e</span><span class="pun">₁</span></var><span class="pln">⟩</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">(</span><span class="pln">⟨</span><var><span class="pln">p</span><span class="pun">₁</span></var><span class="pln">⟩ ⟨</span><var><span class="pln">e</span><span class="pun">₁</span></var><span class="pln">⟩</span><span class="clo">)</span><span class="pln">
       </span><span class="opn">(</span><span class="pln">⟨</span><var><span class="pln">p</span><span class="pun">₂</span></var><span class="pln">⟩ ⟨</span><var><span class="pln">e</span><span class="pun">₂</span></var><span class="pln">⟩</span><span class="clo">)</span><span class="pln">
       </span><span class="roman"><span class="pun">…</span></span><span class="pln">
       </span><span class="opn">(</span><span class="pln">⟨</span><var><span class="pln">p</span><span class="pun">ₙ</span></var><span class="pln">⟩ ⟨</span><var><span class="pln">e</span><span class="pun">ₙ</span></var><span class="pln">⟩</span><span class="clo">))</span></pre></div>
@@ -715,7 +713,7 @@ stands for “conditional”), and it is used as follows:
 expressions
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">⟨</span><var><span class="pln">p</span></var><span class="pln">⟩ ⟨</span><var><span class="pln">e</span></var><span class="pln">⟩</span><span class="clo">)</span></pre></div>
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">⟨</span><var><span class="pln">p</span></var><span class="pln">⟩ ⟨</span><var><span class="pln">e</span></var><span class="pln">⟩</span><span class="clo">)</span></pre></div>
 
 <p>called <a id="index-clauses"></a>
 <em>clauses</em>. The first expression in each pair is a
@@ -792,7 +790,7 @@ number, returning true or false accordingly.
 <p>Another way to write the absolute-value procedure is
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">abs x</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">abs x</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">((</span><span class="pun">&lt;</span><span class="pln"> x </span><span class="lit">0</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pun">-</span><span class="pln"> x</span><span class="clo">))</span><span class="pln">
         </span><span class="opn">(</span><span class="kwd">else</span><span class="pln"> x</span><span class="clo">)))</span></pre></div>
 
@@ -834,7 +832,7 @@ here.
 <p>Here is yet another way to write the absolute-value procedure:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">abs x</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">abs x</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pun">&lt;</span><span class="pln"> x </span><span class="lit">0</span><span class="clo">)</span><span class="pln">
       </span><span class="opn">(</span><span class="pun">-</span><span class="pln"> x</span><span class="clo">)</span><span class="pln">
       x</span><span class="clo">))</span></pre></div>
@@ -844,7 +842,7 @@ be used when there are precisely two cases in the case analysis.  The general
 form of an <code>if</code> expression is
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">if</span><span class="pln"> ⟨</span><var><span class="pln">predicate</span></var><span class="pln">⟩ ⟨</span><var><span class="pln">consequent</span></var><span class="pln">⟩ ⟨</span><var><span class="pln">alternative</span></var><span class="pln">⟩</span><span class="clo">)</span></pre></div>
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">if</span><span class="pln"> ⟨</span><var><span class="pln">predicate</span></var><span class="pln">⟩ ⟨</span><var><span class="pln">consequent</span></var><span class="pln">⟩ ⟨</span><var><span class="pln">alternative</span></var><span class="pln">⟩</span><span class="clo">)</span></pre></div>
 
 <p>To evaluate an <code>if</code> expression, the interpreter starts by evaluating the
 <code>⟨</code><var>predicate</var><code>⟩</code> part of the expression.  If the <code>⟨</code><var>predicate</var><code>⟩</code> evaluates
@@ -896,19 +894,19 @@ the range <math xmlns="http://www.w3.org/1998/Math/MathML">
 </math> may be expressed as
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">and</span><span class="pln"> </span><span class="opn">(</span><span class="pun">&gt;</span><span class="pln"> x </span><span class="lit">5</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pun">&lt;</span><span class="pln"> x </span><span class="lit">10</span><span class="clo">))</span></pre></div>
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">and</span><span class="pln"> </span><span class="opn">(</span><span class="pun">&gt;</span><span class="pln"> x </span><span class="lit">5</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pun">&lt;</span><span class="pln"> x </span><span class="lit">10</span><span class="clo">))</span></pre></div>
 
 <p>As another example, we can define a predicate to test whether one number is
 greater than or equal to another as 
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pun">&gt;=</span><span class="pln"> x y</span><span class="clo">)</span><span class="pln"> 
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pun">&gt;=</span><span class="pln"> x y</span><span class="clo">)</span><span class="pln"> 
   </span><span class="opn">(</span><span class="kwd">or</span><span class="pln"> </span><span class="opn">(</span><span class="pun">&gt;</span><span class="pln"> x y</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pun">=</span><span class="pln"> x y</span><span class="clo">)))</span></pre></div>
 
 <p>or alternatively as 
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pun">&gt;=</span><span class="pln"> x y</span><span class="clo">)</span><span class="pln"> 
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pun">&gt;=</span><span class="pln"> x y</span><span class="clo">)</span><span class="pln"> 
   </span><span class="opn">(</span><span class="pln">not </span><span class="opn">(</span><span class="pun">&lt;</span><span class="pln"> x y</span><span class="clo">)))</span></pre></div>
 
 <blockquote>
@@ -918,7 +916,7 @@ Assume that the sequence is to be evaluated in the order in which it is
 presented.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="lit">10</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="lit">10</span><span class="pln">
 </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="lit">5</span><span class="pln"> </span><span class="lit">3</span><span class="pln"> </span><span class="lit">4</span><span class="clo">)</span><span class="pln">
 </span><span class="opn">(</span><span class="pun">-</span><span class="pln"> </span><span class="lit">9</span><span class="pln"> </span><span class="lit">1</span><span class="clo">)</span><span class="pln">
 </span><span class="opn">(</span><span class="pun">/</span><span class="pln"> </span><span class="lit">6</span><span class="pln"> </span><span class="lit">2</span><span class="clo">)</span><span class="pln">
@@ -1001,7 +999,7 @@ evaluation allows for combinations whose operators are compound expressions.
 Use this observation to describe the behavior of the following procedure:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">a-plus-abs-b a b</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">a-plus-abs-b a b</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">((</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pun">&gt;</span><span class="pln"> b </span><span class="lit">0</span><span class="clo">)</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> </span><span class="pun">-</span><span class="clo">)</span><span class="pln"> a b</span><span class="clo">))</span></pre></div>
 </blockquote>
 
@@ -1012,7 +1010,7 @@ applicative-order evaluation or normal-order evaluation.  He defines the
 following two procedures:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">p</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">p</span><span class="clo">))</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">p</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">p</span><span class="clo">))</span><span class="pln">
 
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">test x y</span><span class="clo">)</span><span class="pln"> 
   </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pun">=</span><span class="pln"> x </span><span class="lit">0</span><span class="clo">)</span><span class="pln"> 
@@ -1022,7 +1020,7 @@ following two procedures:
 <p>Then he evaluates the expression
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">test </span><span class="lit">0</span><span class="pln"> </span><span class="opn">(</span><span class="pln">p</span><span class="clo">))</span></pre></div>
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">test </span><span class="lit">0</span><span class="pln"> </span><span class="opn">(</span><span class="pln">p</span><span class="clo">))</span></pre></div>
 
 <p>What behavior will Ben observe with an interpreter that uses applicative-order
 evaluation?  What behavior will he observe with an interpreter that uses
@@ -1049,35 +1047,35 @@ define the square-root function as
   <msqrt>
     <mi>x</mi>
   </msqrt>
-  <mspace width="thickmathspace"/>
-  <mspace width="thickmathspace"/>
+  <mspace width="thickmathspace"></mspace>
+  <mspace width="thickmathspace"></mspace>
   <mo>=</mo>
-  <mspace width="thickmathspace"/>
-  <mspace width="thickmathspace"/>
+  <mspace width="thickmathspace"></mspace>
+  <mspace width="thickmathspace"></mspace>
   <mrow class="MJX-TeXAtom-ORD">
     <mtext>the</mtext>
-    <mspace width="thickmathspace"/>
-    <mspace width="thickmathspace"/>
+    <mspace width="thickmathspace"></mspace>
+    <mspace width="thickmathspace"></mspace>
     <mi>y</mi>
   </mrow>
-  <mspace width="thickmathspace"/>
-  <mspace width="thickmathspace"/>
+  <mspace width="thickmathspace"></mspace>
+  <mspace width="thickmathspace"></mspace>
   <mrow class="MJX-TeXAtom-ORD">
     <mtext>such that</mtext>
   </mrow>
-  <mspace width="thickmathspace"/>
-  <mspace width="thickmathspace"/>
+  <mspace width="thickmathspace"></mspace>
+  <mspace width="thickmathspace"></mspace>
   <mrow class="MJX-TeXAtom-ORD">
     <mi>y</mi>
     <mo>≥<!-- ≥ --></mo>
     <mn>0</mn>
   </mrow>
-  <mspace width="thickmathspace"/>
-  <mspace width="thickmathspace"/>
+  <mspace width="thickmathspace"></mspace>
+  <mspace width="thickmathspace"></mspace>
   <mrow class="MJX-TeXAtom-ORD">
     <mtext>and</mtext>
-    <mspace width="thickmathspace"/>
-    <mspace width="thickmathspace"/>
+    <mspace width="thickmathspace"></mspace>
+    <mspace width="thickmathspace"></mspace>
     <msup>
       <mi>y</mi>
       <mn>2</mn>
@@ -1096,7 +1094,7 @@ actually find the square root of a given number.  It will not help matters to
 rephrase this definition in pseudo-Lisp:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">sqrt x</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">sqrt x</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">the y </span><span class="opn">(</span><span class="kwd">and</span><span class="pln"> </span><span class="opn">(</span><span class="pun">&gt;=</span><span class="pln"> y </span><span class="lit">0</span><span class="clo">)</span><span class="pln"> 
               </span><span class="opn">(</span><span class="pun">=</span><span class="pln"> </span><span class="opn">(</span><span class="pln">square y</span><span class="clo">)</span><span class="pln"> x</span><span class="clo">))))</span></pre></div>
 
@@ -1132,7 +1130,7 @@ For example, we can compute the square root of 2 as follows.
 Suppose our initial guess is 1:
 </p>
 <div class="example">
-<pre class="example">Guess     Quotient      Average
+<pre class="example prettyprint">Guess     Quotient      Average
 
 1         (2/1)  = 2    ((2 + 1)/2)  = 1.5
 
@@ -1155,7 +1153,7 @@ done; if not, we must repeat the process with an improved guess.  We write this
 basic strategy as a procedure:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">sqrt-iter guess x</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">sqrt-iter guess x</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pln">good-enough? guess x</span><span class="clo">)</span><span class="pln">
       guess
       </span><span class="opn">(</span><span class="pln">sqrt-iter </span><span class="opn">(</span><span class="pln">improve guess x</span><span class="clo">)</span><span class="pln"> x</span><span class="clo">)))</span></pre></div>
@@ -1164,13 +1162,13 @@ basic strategy as a procedure:
 old guess:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">improve guess x</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">improve guess x</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">average guess </span><span class="opn">(</span><span class="pun">/</span><span class="pln"> x guess</span><span class="clo">)))</span></pre></div>
 
 <p>where
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">average x y</span><span class="clo">)</span><span class="pln"> 
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">average x y</span><span class="clo">)</span><span class="pln"> 
   </span><span class="opn">(</span><span class="pun">/</span><span class="pln"> </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> x y</span><span class="clo">)</span><span class="pln"> </span><span class="lit">2</span><span class="clo">))</span></pre></div>
 
 <p>We also have to say what we mean by “good enough.”  The following will do for
@@ -1180,21 +1178,21 @@ enough so that its square differs from the radicand by less than a
 predetermined tolerance (here 0.001):<a class="footnote_link" id="DOCF22" href="#FOOT22"><sup>22</sup></a>
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">good-enough? guess x</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">good-enough? guess x</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="pun">&lt;</span><span class="pln"> </span><span class="opn">(</span><span class="pln">abs </span><span class="opn">(</span><span class="pun">-</span><span class="pln"> </span><span class="opn">(</span><span class="pln">square guess</span><span class="clo">)</span><span class="pln"> x</span><span class="clo">))</span><span class="pln"> </span><span class="lit">0.001</span><span class="clo">))</span></pre></div>
 
 <p>Finally, we need a way to get started.  For instance, we can always guess that
 the square root of any number is 1:<a class="footnote_link" id="DOCF23" href="#FOOT23"><sup>23</sup></a>
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">sqrt x</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">sqrt x</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">sqrt-iter </span><span class="lit">1.0</span><span class="pln"> x</span><span class="clo">))</span></pre></div>
 
 <p>If we type these definitions to the interpreter, we can use <code>sqrt</code> just as
 we can use any procedure:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">sqrt </span><span class="lit">9</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">sqrt </span><span class="lit">9</span><span class="clo">)</span><span class="pln">
 </span><i><span class="lit">3.00009155413138</span></i><span class="pln">
 
 </span><span class="opn">(</span><span class="pln">sqrt </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="lit">100</span><span class="pln"> </span><span class="lit">37</span><span class="clo">))</span><span class="pln">
@@ -1223,7 +1221,7 @@ Eva Lu Ator claims this can indeed be done, and she defines a new version of
 <code>if</code>:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">new-if predicate 
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">new-if predicate 
                 then-clause 
                 else-clause</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">(</span><span class="pln">predicate then-clause</span><span class="clo">)</span><span class="pln">
@@ -1232,7 +1230,7 @@ Eva Lu Ator claims this can indeed be done, and she defines a new version of
 <p>Eva demonstrates the program for Alyssa:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">new-if </span><span class="opn">(</span><span class="pun">=</span><span class="pln"> </span><span class="lit">2</span><span class="pln"> </span><span class="lit">3</span><span class="clo">)</span><span class="pln"> </span><span class="lit">0</span><span class="pln"> </span><span class="lit">5</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">new-if </span><span class="opn">(</span><span class="pun">=</span><span class="pln"> </span><span class="lit">2</span><span class="pln"> </span><span class="lit">3</span><span class="clo">)</span><span class="pln"> </span><span class="lit">0</span><span class="pln"> </span><span class="lit">5</span><span class="clo">)</span><span class="pln">
 </span><i><span class="lit">5</span></i><span class="pln">
 
 </span><span class="opn">(</span><span class="pln">new-if </span><span class="opn">(</span><span class="pun">=</span><span class="pln"> </span><span class="lit">1</span><span class="pln"> </span><span class="lit">1</span><span class="clo">)</span><span class="pln"> </span><span class="lit">0</span><span class="pln"> </span><span class="lit">5</span><span class="clo">)</span><span class="pln">
@@ -1242,7 +1240,7 @@ Eva Lu Ator claims this can indeed be done, and she defines a new version of
 <p>Delighted, Alyssa uses <code>new-if</code> to rewrite the square-root program:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">sqrt-iter guess x</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">sqrt-iter guess x</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="pln">new-if </span><span class="opn">(</span><span class="pln">good-enough? guess x</span><span class="clo">)</span><span class="pln">
           guess
           </span><span class="opn">(</span><span class="pln">sqrt-iter </span><span class="opn">(</span><span class="pln">improve guess x</span><span class="clo">)</span><span class="pln"> x</span><span class="clo">)))</span></pre></div>
@@ -1354,7 +1352,7 @@ squaring a number should be indistinguishable.  Each takes a numerical argument
 and produces the square of that number as the value.<a class="footnote_link" id="DOCF25" href="#FOOT25"><sup>25</sup></a>
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">square x</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> x x</span><span class="clo">))</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">square x</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> x x</span><span class="clo">))</span><span class="pln">
 
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">square x</span><span class="clo">)</span><span class="pln"> 
   </span><span class="opn">(</span><span class="pln">exp </span><span class="opn">(</span><span class="pln">double </span><span class="opn">(</span><span class="pln">log x</span><span class="clo">))))</span><span class="pln">
@@ -1375,7 +1373,7 @@ formal parameters.  Thus, the following procedures should not be
 distinguishable:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">square x</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> x x</span><span class="clo">))</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">square x</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> x x</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">square y</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> y y</span><span class="clo">))</span></pre></div>
 
 <p>This principle—that the meaning of a procedure should be independent of the
@@ -1386,7 +1384,7 @@ example, we used <code>square</code> in the definition of <code>good-enough?</co
 square-root procedure:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">good-enough? guess x</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">good-enough? guess x</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="pun">&lt;</span><span class="pln"> </span><span class="opn">(</span><span class="pln">abs </span><span class="opn">(</span><span class="pun">-</span><span class="pln"> </span><span class="opn">(</span><span class="pln">square guess</span><span class="clo">)</span><span class="pln"> x</span><span class="clo">))</span><span class="pln"> </span><span class="lit">0.001</span><span class="clo">))</span></pre></div>
 
 <p>The intention of the author of <code>good-enough?</code> is to determine if the
@@ -1445,7 +1443,7 @@ square-root program illustrates another way in which we would like to control
 the use of names.  The existing program consists of separate procedures:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">sqrt x</span><span class="clo">)</span><span class="pln"> 
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">sqrt x</span><span class="clo">)</span><span class="pln"> 
   </span><span class="opn">(</span><span class="pln">sqrt-iter </span><span class="lit">1.0</span><span class="pln"> x</span><span class="clo">))</span><span class="pln">
 
 </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">sqrt-iter guess x</span><span class="clo">)</span><span class="pln">
@@ -1476,7 +1474,7 @@ procedure to have internal definitions that are local to that procedure.  For
 example, in the square-root problem we can write
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">sqrt x</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">sqrt x</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">good-enough? guess x</span><span class="clo">)</span><span class="pln">
     </span><span class="opn">(</span><span class="pun">&lt;</span><span class="pln"> </span><span class="opn">(</span><span class="pln">abs </span><span class="opn">(</span><span class="pun">-</span><span class="pln"> </span><span class="opn">(</span><span class="pln">square guess</span><span class="clo">)</span><span class="pln"> x</span><span class="clo">))</span><span class="pln"> </span><span class="lit">0.001</span><span class="clo">))</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">improve guess x</span><span class="clo">)</span><span class="pln">
@@ -1502,7 +1500,7 @@ discipline is called <a id="index-lexical-scoping"></a>
 <em>lexical scoping</em>.<a class="footnote_link" id="DOCF27" href="#FOOT27"><sup>27</sup></a>
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">sqrt x</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">sqrt x</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">good-enough? guess</span><span class="clo">)</span><span class="pln">
     </span><span class="opn">(</span><span class="pun">&lt;</span><span class="pln"> </span><span class="opn">(</span><span class="pln">abs </span><span class="opn">(</span><span class="pun">-</span><span class="pln"> </span><span class="opn">(</span><span class="pln">square guess</span><span class="clo">)</span><span class="pln"> x</span><span class="clo">))</span><span class="pln"> </span><span class="lit">0.001</span><span class="clo">))</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">improve guess</span><span class="clo">)</span><span class="pln">
@@ -1740,10 +1738,10 @@ consequences of running programs that intertwine definition and use.</p>
 </div>
 <nav class="header">
 <p>
-Next: <a href="1_002e2.xhtml#g_t1_002e2" accesskey="n" rel="next">1.2</a>, Prev: <a href="Chapter-1.xhtml#Chapter-1" accesskey="p" rel="prev">Chapter 1</a>, Up: <a href="#g_t1_002e1" accesskey="u" rel="prev">1.1</a>   [<a href="index.xhtml#SEC_Contents" title="Table of contents" accesskey="c" rel="contents">Contents</a>]</p>
+Next: <a href="1_002e2.xhtml#g_t1_002e2" accesskey="n" rel="next">1.2</a>, Prev: <a href="Chapter-1.xhtml#Chapter-1" accesskey="p" rel="prev">Chapter 1</a>, Up: <a href="#g_t1_002e1" accesskey="u" rel="prev">1.1</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" accesskey="c" rel="contents">Contents</a>]</p>
 </nav>
 
 
 </section><span class="bottom jump" title="Jump to bottom"><a href="#pagebottom" accesskey="b">⇣</a></span><a id="pagebottom"></a>
-</body>
-</html>
+
+</body></html>

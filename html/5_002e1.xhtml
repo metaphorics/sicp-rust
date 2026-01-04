@@ -1,24 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="en" lang="en">
-<!-- Created by GNU Texinfo 5.1, http://www.gnu.org/software/texinfo/ -->
-<head>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="en" lang="en"><!-- Created by GNU Texinfo 5.1, http://www.gnu.org/software/texinfo/ --><head>
 <title>Structure and Interpretation of Computer Programs, 2e: 5.1</title>
 
-<meta name="description" content="Structure and Interpretation of Computer Programs, 2e: 5.1" />
-<meta name="keywords" content="Structure and Interpretation of Computer Programs, 2e: 5.1" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="Generator" content="texi2any" />
-<meta charset="utf-8" />
-<link href="index.xhtml#Top" rel="start" title="Top" />
-<link href="Term-Index.xhtml#Term-Index" rel="index" title="Term Index" />
-<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents" />
-<link href="Chapter-5.xhtml#Chapter-5" rel="prev" title="Chapter 5" />
-<link href="5_002e2.xhtml#g_t5_002e2" rel="next" title="5.2" />
-<link href="Chapter-5.xhtml#Chapter-5" rel="prev" title="Chapter 5" />
+<meta name="description" content="Structure and Interpretation of Computer Programs, 2e: 5.1">
+<meta name="keywords" content="Structure and Interpretation of Computer Programs, 2e: 5.1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="Generator" content="texi2any">
+<meta charset="utf-8">
+<link href="index.xhtml#Top" rel="start" title="Top">
+<link href="Term-Index.xhtml#Term-Index" rel="index" title="Term Index">
+<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Chapter-5.xhtml#Chapter-5" rel="prev" title="Chapter 5">
+<link href="5_002e2.xhtml#g_t5_002e2" rel="next" title="5.2">
+<link href="Chapter-5.xhtml#Chapter-5" rel="prev" title="Chapter 5">
 
-<link href="css/style.css" rel="stylesheet" type="text/css" />
-<link href="css/prettify.css" rel="stylesheet" type="text/css" />
+<link href="css/style.css" rel="stylesheet" type="text/css">
+<link href="css/prettify.css" rel="stylesheet" type="text/css">
 
 <script src="js/jquery.min.js" type="text/javascript"></script>
 <script src="js/footnotes.js" type="text/javascript"></script>
@@ -29,7 +27,7 @@
 <section><span class="top jump" title="Jump to top"><a href="#pagetop" accesskey="t">⇡</a></span><a id="pagetop"></a><a id="g_t5_002e1"></a>
 <nav class="header">
 <p>
-Next: <a href="5_002e2.xhtml#g_t5_002e2" accesskey="n" rel="next">5.2</a>, Prev: <a href="Chapter-5.xhtml#Chapter-5" accesskey="p" rel="prev">Chapter 5</a>, Up: <a href="Chapter-5.xhtml#Chapter-5" accesskey="u" rel="prev">Chapter 5</a>   [<a href="index.xhtml#SEC_Contents" title="Table of contents" accesskey="c" rel="contents">Contents</a>]</p>
+Next: <a href="5_002e2.xhtml#g_t5_002e2" accesskey="n" rel="next">5.2</a>, Prev: <a href="Chapter-5.xhtml#Chapter-5" accesskey="p" rel="prev">Chapter 5</a>, Up: <a href="Chapter-5.xhtml#Chapter-5" accesskey="u" rel="prev">Chapter 5</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" accesskey="c" rel="contents">Contents</a>]</p>
 </nav>
 <a id="Designing-Register-Machines"></a>
 <h3 class="section"><span class="secnum">5.1</span><span class="sectitle">Designing Register Machines</span></h3>
@@ -45,7 +43,7 @@ Euclid’s Algorithm can be carried out by an iterative process, as specified by
 the following procedure:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">gcd a b</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">gcd a b</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pun">=</span><span class="pln"> b </span><span class="lit">0</span><span class="clo">)</span><span class="pln">
       a
       </span><span class="opn">(</span><span class="pln">gcd b </span><span class="opn">(</span><span class="pln">remainder a b</span><span class="clo">))))</span></pre></div>
@@ -148,7 +146,7 @@ compute factorials using the iterative algorithm specified by the following
 procedure.  Draw data-path and controller diagrams for this machine.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">factorial n</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">factorial n</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">iter product counter</span><span class="clo">)</span><span class="pln">
     </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pun">&gt;</span><span class="pln"> counter n</span><span class="clo">)</span><span class="pln">
         product
@@ -219,7 +217,7 @@ and each button and test is used only once in the controller.
 machine.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">data-paths
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">data-paths
  </span><span class="opn">(</span><span class="pln">registers
   </span><span class="opn">((</span><span class="pln">name a</span><span class="clo">)</span><span class="pln">
    </span><span class="opn">(</span><span class="pln">buttons </span><span class="opn">((</span><span class="pln">name a</span><span class="pun">&lt;-</span><span class="pln">b</span><span class="clo">)</span><span class="pln"> 
@@ -274,7 +272,7 @@ will omit the data-path description, leaving only the controller sequence.
 Thus, the <abbr>GCD</abbr> machine is described as follows:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">controller
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">controller
  test-b
    </span><span class="opn">(</span><span class="pln">test </span><span class="opn">(</span><span class="pln">op </span><span class="pun">=</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">reg b</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">const </span><span class="lit">0</span><span class="clo">))</span><span class="pln">
    </span><span class="opn">(</span><span class="pln">branch </span><span class="opn">(</span><span class="pln">label gcd-done</span><span class="clo">))</span><span class="pln">
@@ -346,7 +344,7 @@ printing the contents of register <code>a</code> is represented in a controller
 sequence by the instruction
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">perform </span><span class="opn">(</span><span class="pln">op print</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">reg a</span><span class="clo">))</span></pre></div>
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">perform </span><span class="opn">(</span><span class="pln">op print</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">reg a</span><span class="clo">))</span></pre></div>
 
 <p><a href="#Figure-5_002e4">Figure 5.4</a> shows the data paths and controller for the new <abbr>GCD</abbr>
 machine.  Instead of having the machine stop after printing the answer, we have
@@ -385,7 +383,7 @@ subtraction.  Indeed, we can write a Scheme procedure that finds remainders in
 this way:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">remainder n d</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">remainder n d</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pun">&lt;</span><span class="pln"> n d</span><span class="clo">)</span><span class="pln"> n </span><span class="opn">(</span><span class="pln">remainder </span><span class="opn">(</span><span class="pun">-</span><span class="pln"> n d</span><span class="clo">)</span><span class="pln"> d</span><span class="clo">)))</span></pre></div>
 
 <p>We can thus replace the remainder operation in the <abbr>GCD</abbr> machine’s data
@@ -394,7 +392,7 @@ shows the data paths and controller for the elaborated machine.  The
 instruction
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">assign t </span><span class="opn">(</span><span class="pln">op rem</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">reg a</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">reg b</span><span class="clo">))</span></pre></div>
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">assign t </span><span class="opn">(</span><span class="pln">op rem</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">reg a</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">reg b</span><span class="clo">))</span></pre></div>
 
 <p>in the <abbr>GCD</abbr> controller definition is replaced by a sequence of
 instructions that contains a loop, as shown in <a href="#Figure-5_002e6">Figure 5.6</a>.
@@ -415,7 +413,7 @@ instructions that contains a loop, as shown in <a href="#Figure-5_002e6">Figure 
 <abbr>GCD</abbr> machine in <a href="#Figure-5_002e5">Figure 5.5</a>.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">controller
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">controller
  test-b
    </span><span class="opn">(</span><span class="pln">test </span><span class="opn">(</span><span class="pln">op </span><span class="pun">=</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">reg b</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">const </span><span class="lit">0</span><span class="clo">))</span><span class="pln">
    </span><span class="opn">(</span><span class="pln">branch </span><span class="opn">(</span><span class="pln">label gcd-done</span><span class="clo">))</span><span class="pln">
@@ -438,7 +436,7 @@ instructions that contains a loop, as shown in <a href="#Figure-5_002e6">Figure 
 roots using Newton’s method, as described in <a href="1_002e1.xhtml#Sec_002e1_002e1_002e7">1.1.7</a>:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">sqrt x</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">sqrt x</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">good-enough? guess</span><span class="clo">)</span><span class="pln">
     </span><span class="opn">(</span><span class="pun">&lt;</span><span class="pln"> </span><span class="opn">(</span><span class="pln">abs </span><span class="opn">(</span><span class="pun">-</span><span class="pln"> </span><span class="opn">(</span><span class="pln">square guess</span><span class="clo">)</span><span class="pln"> x</span><span class="clo">))</span><span class="pln"> </span><span class="lit">0.001</span><span class="clo">))</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">improve guess</span><span class="clo">)</span><span class="pln">
@@ -502,7 +500,7 @@ a machine that uses the same data-path components for two different
 <abbr>GCD</abbr> computations.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="pln">gcd-1
+<pre class="lisp prettyprinted prettyprint" style=""><span class="pln">gcd-1
  </span><span class="opn">(</span><span class="pln">test </span><span class="opn">(</span><span class="pln">op </span><span class="pun">=</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">reg b</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">const </span><span class="lit">0</span><span class="clo">))</span><span class="pln">
  </span><span class="opn">(</span><span class="pln">branch </span><span class="opn">(</span><span class="pln">label after-gcd-1</span><span class="clo">))</span><span class="pln">
  </span><span class="opn">(</span><span class="pln">assign t </span><span class="opn">(</span><span class="pln">op rem</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">reg a</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">reg b</span><span class="clo">))</span><span class="pln">
@@ -543,7 +541,7 @@ of the <code>gcd</code> instructions.
 avoid the duplicate controller sequence in <a href="#Figure-5_002e8">Figure 5.8</a>.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="pln">gcd
+<pre class="lisp prettyprinted prettyprint" style=""><span class="pln">gcd
  </span><span class="opn">(</span><span class="pln">test </span><span class="opn">(</span><span class="pln">op </span><span class="pun">=</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">reg b</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">const </span><span class="lit">0</span><span class="clo">))</span><span class="pln">
  </span><span class="opn">(</span><span class="pln">branch </span><span class="opn">(</span><span class="pln">label gcd-done</span><span class="clo">))</span><span class="pln">
  </span><span class="opn">(</span><span class="pln">assign t </span><span class="opn">(</span><span class="pln">op rem</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">reg a</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">reg b</span><span class="clo">))</span><span class="pln">
@@ -601,7 +599,7 @@ terminate the <code>gcd</code> subroutine with a branch to the location stored i
 <a href="#Figure-5_002e9">Figure 5.9</a>.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="pln">gcd
+<pre class="lisp prettyprinted prettyprint" style=""><span class="pln">gcd
  </span><span class="opn">(</span><span class="pln">test </span><span class="opn">(</span><span class="pln">op </span><span class="pun">=</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">reg b</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">const </span><span class="lit">0</span><span class="clo">))</span><span class="pln">
  </span><span class="opn">(</span><span class="pln">branch </span><span class="opn">(</span><span class="pln">label gcd-done</span><span class="clo">))</span><span class="pln">
  </span><span class="opn">(</span><span class="pln">assign t </span><span class="opn">(</span><span class="pln">op rem</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">reg a</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">reg b</span><span class="clo">))</span><span class="pln">
@@ -653,7 +651,7 @@ Consider the following recursive method for computing factorials, which we
 first examined in <a href="1_002e2.xhtml#g_t1_002e2_002e1">1.2.1</a>:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">factorial n</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">factorial n</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pun">=</span><span class="pln"> n </span><span class="lit">1</span><span class="clo">)</span><span class="pln"> 
       </span><span class="lit">1</span><span class="pln">
       </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> </span><span class="opn">(</span><span class="pln">factorial </span><span class="opn">(</span><span class="pun">-</span><span class="pln"> n </span><span class="lit">1</span><span class="clo">))</span><span class="pln"> n</span><span class="clo">)))</span></pre></div>
@@ -676,7 +674,7 @@ first examined in <a href="1_002e2.xhtml#g_t1_002e2_002e1">1.2.1</a>:
 Our <abbr>GCD</abbr> machine, modeled on the procedure
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">gcd a b</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">gcd a b</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pun">=</span><span class="pln"> b </span><span class="lit">0</span><span class="clo">)</span><span class="pln"> 
       a
       </span><span class="opn">(</span><span class="pln">gcd b </span><span class="opn">(</span><span class="pln">remainder a b</span><span class="clo">))))</span></pre></div>
@@ -872,7 +870,7 @@ modified during solution of the subproblem (see <a href="#Exercise-5_002e4">Exer
 of the Fibonacci numbers, which we introduced in <a href="1_002e2.xhtml#g_t1_002e2_002e2">1.2.2</a>:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">fib n</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">fib n</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pun">&lt;</span><span class="pln"> n </span><span class="lit">2</span><span class="clo">)</span><span class="pln"> 
       n 
       </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="opn">(</span><span class="pln">fib </span><span class="opn">(</span><span class="pun">-</span><span class="pln"> n </span><span class="lit">1</span><span class="clo">))</span><span class="pln"> </span><span class="opn">(</span><span class="pln">fib </span><span class="opn">(</span><span class="pun">-</span><span class="pln"> n </span><span class="lit">2</span><span class="clo">)))))</span></pre></div>
@@ -927,7 +925,7 @@ shows the controller sequence for this machine.
 Fibonacci numbers.
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">controller
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">controller
    </span><span class="opn">(</span><span class="pln">assign continue </span><span class="opn">(</span><span class="pln">label fib-done</span><span class="clo">))</span><span class="pln">
  fib-loop
    </span><span class="opn">(</span><span class="pln">test </span><span class="opn">(</span><span class="pln">op </span><span class="pun">&lt;</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">reg n</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">const </span><span class="lit">2</span><span class="clo">))</span><span class="pln">
@@ -979,7 +977,7 @@ controller instruction sequence and draw a diagram showing the data paths.
 <li> Recursive exponentiation:
 
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">expt b n</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">expt b n</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pun">=</span><span class="pln"> n </span><span class="lit">0</span><span class="clo">)</span><span class="pln">
       </span><span class="lit">1</span><span class="pln">
       </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> b </span><span class="opn">(</span><span class="pln">expt b </span><span class="opn">(</span><span class="pun">-</span><span class="pln"> n </span><span class="lit">1</span><span class="clo">)))))</span></pre></div>
@@ -987,7 +985,7 @@ controller instruction sequence and draw a diagram showing the data paths.
 </li><li> Iterative exponentiation:
 
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">expt b n</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">expt b n</span><span class="clo">)</span><span class="pln">
   </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">expt-iter counter product</span><span class="clo">)</span><span class="pln">
     </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pun">=</span><span class="pln"> counter </span><span class="lit">0</span><span class="clo">)</span><span class="pln">
         product
@@ -1020,7 +1018,7 @@ instructions?
 following forms, where each <math xmlns="http://www.w3.org/1998/Math/MathML">
   <mrow class="MJX-TeXAtom-ORD">
     <mo stretchy="false">⟨</mo>
-    <mspace width="0.06em"/>
+    <mspace width="0.06em"></mspace>
     <mi>i</mi>
     <mi>n</mi>
     <mi>p</mi>
@@ -1036,7 +1034,7 @@ following forms, where each <math xmlns="http://www.w3.org/1998/Math/MathML">
 These instructions were introduced in <a href="#g_t5_002e1_002e1">5.1.1</a>:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">assign ⟨</span><var><span class="pln">register-name</span></var><span class="pln">⟩ </span><span class="opn">(</span><span class="pln">reg ⟨</span><var><span class="pln">register-name</span></var><span class="pln">⟩</span><span class="clo">))</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">assign ⟨</span><var><span class="pln">register-name</span></var><span class="pln">⟩ </span><span class="opn">(</span><span class="pln">reg ⟨</span><var><span class="pln">register-name</span></var><span class="pln">⟩</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="pln">assign ⟨</span><var><span class="pln">register-name</span></var><span class="pln">⟩ 
         </span><span class="opn">(</span><span class="pln">const ⟨</span><var><span class="pln">constant-value</span></var><span class="pln">⟩</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="pln">assign ⟨</span><var><span class="pln">register-name</span></var><span class="pln">⟩ 
@@ -1056,21 +1054,21 @@ These instructions were introduced in <a href="#g_t5_002e1_002e1">5.1.1</a>:
 <p>The use of registers to hold labels was introduced in <a href="#g_t5_002e1_002e3">5.1.3</a>:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">assign ⟨</span><var><span class="pln">register-name</span></var><span class="pln">⟩ </span><span class="opn">(</span><span class="pln">label ⟨</span><var><span class="pln">label-name</span></var><span class="pln">⟩</span><span class="clo">))</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">assign ⟨</span><var><span class="pln">register-name</span></var><span class="pln">⟩ </span><span class="opn">(</span><span class="pln">label ⟨</span><var><span class="pln">label-name</span></var><span class="pln">⟩</span><span class="clo">))</span><span class="pln">
 </span><span class="opn">(</span><span class="pln">goto </span><span class="opn">(</span><span class="pln">reg ⟨</span><var><span class="pln">register-name</span></var><span class="pln">⟩</span><span class="clo">))</span></pre></div>
 
 <p>Instructions to use the stack were introduced in <a href="#g_t5_002e1_002e4">5.1.4</a>:
 </p>
 <div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">save ⟨</span><var><span class="pln">register-name</span></var><span class="pln">⟩</span><span class="clo">)</span><span class="pln">
+<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">save ⟨</span><var><span class="pln">register-name</span></var><span class="pln">⟩</span><span class="clo">)</span><span class="pln">
 </span><span class="opn">(</span><span class="pln">restore ⟨</span><var><span class="pln">register-name</span></var><span class="pln">⟩</span><span class="clo">)</span></pre></div>
 
 <p>The only kind of <code>⟨</code><var>constant-value</var><code>⟩</code> we have seen so far is a number,
 but later we will use strings, symbols, and lists.
-For example,<br />
-<code>(const "abc")</code> is the string <code>"abc"</code>,<br />
-<code>(const abc)</code> is the symbol <code>abc</code>,<br />
-<code>(const (a b c))</code> is the list <code>(a b c)</code>,<br />
+For example,<br>
+<code>(const "abc")</code> is the string <code>"abc"</code>,<br>
+<code>(const abc)</code> is the symbol <code>abc</code>,<br>
+<code>(const (a b c))</code> is the list <code>(a b c)</code>,<br>
 and <code>(const ())</code> is the empty list.
 </p>
 <div class="footnote">
@@ -1096,10 +1094,10 @@ primitive operations.</p>
 </div>
 <nav class="header">
 <p>
-Next: <a href="5_002e2.xhtml#g_t5_002e2" accesskey="n" rel="next">5.2</a>, Prev: <a href="Chapter-5.xhtml#Chapter-5" accesskey="p" rel="prev">Chapter 5</a>, Up: <a href="#g_t5_002e1" accesskey="u" rel="prev">5.1</a>   [<a href="index.xhtml#SEC_Contents" title="Table of contents" accesskey="c" rel="contents">Contents</a>]</p>
+Next: <a href="5_002e2.xhtml#g_t5_002e2" accesskey="n" rel="next">5.2</a>, Prev: <a href="Chapter-5.xhtml#Chapter-5" accesskey="p" rel="prev">Chapter 5</a>, Up: <a href="#g_t5_002e1" accesskey="u" rel="prev">5.1</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" accesskey="c" rel="contents">Contents</a>]</p>
 </nav>
 
 
 </section><span class="bottom jump" title="Jump to bottom"><a href="#pagebottom" accesskey="b">⇣</a></span><a id="pagebottom"></a>
-</body>
-</html>
+
+</body></html>

@@ -1,4 +1,4 @@
-#!/usr/bin/env phantomjs
+#!/usr/bin/env node
 
 // Usage: ./put-math.js json_db file1 [file2 ...]
 //  json_db: existing JSON file that contains the MathML database;
@@ -9,38 +9,45 @@
 // and looks up the mapping from LaTeX to MathML in the JSON database.
 
 // (c) 2014 Andres Raba, GNU GPL v.3.
+// (c) 2025 Updated for Node.js
 
-var system = require("system"),
-  fs = require("fs");
+const fs = require("fs");
 
 // LaTeX is enclosed in \( \) or \[ \] delimiters,
 // first pair for inline, second for display math:
-var pattern = /\\\([\s\S]+?\\\)|\\\[[\s\S]+?\\\]/g;
+const pattern = /\\\([\s\S]+?\\\)|\\\[[\s\S]+?\\\]/g;
 
-if (system.args.length <= 2) {
+// Get command-line arguments
+const args = process.argv.slice(2);
+
+if (args.length <= 1) {
   console.log("Usage: ./put-math.js json_db file1 [file2 ...]");
-  phantom.exit();
-} else {
-  var db = system.args[1]; // JSON database
-  var args = system.args.slice(2); // file1, file2, ...
-  try {
-    var mathml = JSON.parse(fs.read(db));
-  } catch (error) {
-    console.log(error);
-    phantom.exit();
-  }
-  args.forEach(function(arg) {
-    try {
-      var file = fs.read(arg);
-      // Replace LaTeX with MathML or paint LaTeX blue
-      // if mapping not found in JSON database:
-      var file = file.replace(pattern, function(latex) {
-        return mathml[latex] || "<span style='color:blue'>" + latex + "</span>";
-      });
-      fs.write(arg, file, "w");
-    } catch (error) {
-      console.log(error);
-    }
-  });
-  phantom.exit();
+  process.exit(0);
 }
+
+const db = args[0]; // JSON database
+const inputFiles = args.slice(1); // file1, file2, ...
+
+// Load the MathML database
+let mathml;
+try {
+  mathml = JSON.parse(fs.readFileSync(db, "utf8"));
+} catch (error) {
+  console.error("Error reading database:", error.message);
+  process.exit(1);
+}
+
+// Process each file
+inputFiles.forEach(arg => {
+  try {
+    let file = fs.readFileSync(arg, "utf8");
+    // Replace LaTeX with MathML or paint LaTeX blue
+    // if mapping not found in JSON database:
+    file = file.replace(pattern, latex => {
+      return mathml[latex] || "<span style='color:blue'>" + latex + "</span>";
+    });
+    fs.writeFileSync(arg, file, "utf8");
+  } catch (error) {
+    console.error(`Error processing ${arg}:`, error.message);
+  }
+});
