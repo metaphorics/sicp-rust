@@ -1,44 +1,48 @@
-<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="en" lang="en"><!-- Created by GNU Texinfo 5.1, http://www.gnu.org/software/texinfo/ --><head>
-<title>Structure and Interpretation of Computer Programs, 2e: Chapter 3</title>
+<html>
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Chapter 3 (Structure and Interpretation of Computer Programs, 2e)</title>
 
-<meta name="description" content="Structure and Interpretation of Computer Programs, 2e: Chapter 3">
-<meta name="keywords" content="Structure and Interpretation of Computer Programs, 2e: Chapter 3">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Chapter 3 (Structure and Interpretation of Computer Programs, 2e)">
+<meta name="keywords" content="Chapter 3 (Structure and Interpretation of Computer Programs, 2e)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
 <meta name="Generator" content="texi2any">
-<meta charset="utf-8">
-<link href="index.xhtml#Top" rel="start" title="Top">
-<link href="Term-Index.xhtml#Term-Index" rel="index" title="Term Index">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.xhtml" rel="start" title="Top">
+<link href="Term-Index.xhtml" rel="index" title="Term Index">
 <link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="index.xhtml#Top" rel="prev" title="Top">
+<link href="index.xhtml" rel="up" title="Top">
 <link href="3_002e1.xhtml#g_t3_002e1" rel="next" title="3.1">
-<link href="2_002e5.xhtml#g_t2_002e5_002e3" rel="prev" title="2.5.3">
+<link href="2_002e5.xhtml#g_t2_002e5" rel="prev" title="2.5">
+<style type="text/css">
+<!--
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+span:hover a.copiable-link {visibility: visible}
+-->
+</style>
 
-<link href="css/style.css" rel="stylesheet" type="text/css">
-<link href="css/prettify.css" rel="stylesheet" type="text/css">
 
-<script src="js/jquery.min.js" type="text/javascript"></script>
-<script src="js/footnotes.js" type="text/javascript"></script>
-<script src="js/browsertest.js" type="text/javascript"></script>
 </head>
 
-<body>
-<section><span class="top jump" title="Jump to top"><a href="#pagetop" accesskey="t">⇡</a></span><a id="pagetop"></a><a id="Chapter-3"></a>
-<nav class="header">
+<body lang="en">
+<div class="chapter-level-extent" id="Chapter-3">
+<div class="nav-panel">
 <p>
-Next: <a href="3_002e1.xhtml#g_t3_002e1" accesskey="n" rel="next">3.1</a>, Prev: <a href="2_002e5.xhtml#g_t2_002e5" accesskey="p" rel="prev">2.5</a>, Up: <a href="index.xhtml#Top" accesskey="u" rel="prev">Top</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" accesskey="c" rel="contents">Contents</a>]</p>
-</nav>
-<a id="Modularity_002c-Objects_002c-and-State"></a>
-<h2 class="chapter"><span class="chapnum">3</span><span class="chaptitle">Modularity, Objects, and State</span></h2>
+Next: <a href="3_002e1.xhtml#g_t3_002e1" accesskey="n" rel="next">Assignment and Local State</a>, Previous: <a href="2_002e5.xhtml#g_t2_002e5" accesskey="p" rel="prev">Systems with Generic Operations</a>, Up: <a href="index.xhtml" accesskey="u" rel="up">Top</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
+</div>
+<h2 class="chapter" id="Modularity_002c-Objects_002c-and-State"><span>3 Modularity, Objects, and State<a class="copiable-link" href="#Modularity_002c-Objects_002c-and-State"> &para;</a></span></h2>
 
-<blockquote>
+<blockquote class="quotation">
 <p>Mεταβάλλον ὰναπαύεται<br>
 (Even while it changes, it stands still.)<br>
-—Heraclitus
+&mdash;Heraclitus
 </p>
-<p>Plus ça change, plus c’est la même chose.<br>
-—Alphonse Karr
+<p>Plus &ccedil;a change, plus c&rsquo;est la m&ecirc;me chose.<br>
+&mdash;Alphonse Karr
 </p></blockquote>
 
 <p>The preceding chapters introduced the basic elements from which programs are
@@ -48,9 +52,9 @@ helping us to cope with the complexity of large systems.  But these tools are
 not sufficient for designing programs.  Effective program synthesis also
 requires organizational principles that can guide us in formulating the overall
 design of a program.  In particular, we need strategies to help us structure
-large systems so that they will be <a id="index-modular"></a>
-<em>modular</em>, that is, so that they can
-be divided “naturally” into coherent parts that can be separately developed
+large systems so that they will be <a class="index-entry-id" id="index-modular"></a>
+<em class="dfn">modular</em>, that is, so that they can
+be divided &ldquo;naturally&rdquo; into coherent parts that can be separately developed
 and maintained.
 </p>
 <p>One powerful design strategy, which is particularly appropriate to the
@@ -68,12 +72,12 @@ of the system.
 <p>To a large extent, then, the way we organize a large program is dictated by our
 perception of the system to be modeled.  In this chapter we will investigate
 two prominent organizational strategies arising from two rather different
-“world views” of the structure of systems.  The first organizational strategy
-concentrates on <a id="index-objects"></a>
-<em>objects</em>, viewing a large system as a collection of
+&ldquo;world views&rdquo; of the structure of systems.  The first organizational strategy
+concentrates on <a class="index-entry-id" id="index-objects"></a>
+<em class="dfn">objects</em>, viewing a large system as a collection of
 distinct objects whose behaviors may change over time.  An alternative
-organizational strategy concentrates on the <a id="index-streams"></a>
-<em>streams</em> of information
+organizational strategy concentrates on the <a class="index-entry-id" id="index-streams"></a>
+<em class="dfn">streams</em> of information
 that flow in the system, much as an electrical engineer views a
 signal-processing system.
 </p>
@@ -81,25 +85,27 @@ signal-processing system.
 significant linguistic issues in programming.  With objects, we must be
 concerned with how a computational object can change and yet maintain its
 identity.  This will force us to abandon our old substitution model of
-computation (<a href="1_002e1.xhtml#g_t1_002e1_002e5">1.1.5</a>) in favor of a more mechanistic but less
-theoretically tractable <a id="index-environment-model"></a>
-<em>environment model</em> of computation.  The
+computation (<a class="ref" href="1_002e1.xhtml#g_t1_002e1_002e5">The Substitution Model for Procedure Application</a>) in favor of a more mechanistic but less
+theoretically tractable <a class="index-entry-id" id="index-environment-model"></a>
+<em class="dfn">environment model</em> of computation.  The
 difficulties of dealing with objects, change, and identity are a fundamental
 consequence of the need to grapple with time in our computational models.
 These difficulties become even greater when we allow the possibility of
 concurrent execution of programs.  The stream approach can be most fully
 exploited when we decouple simulated time in our model from the order of the
 events that take place in the computer during evaluation.  We will accomplish
-this using a technique known as <a id="index-delayed-evaluation"></a>
-<em>delayed evaluation</em>.
+this using a technique known as <a class="index-entry-id" id="index-delayed-evaluation"></a>
+<em class="dfn">delayed evaluation</em>.
 </p>
 
-<nav class="header">
+</div>
+<hr>
+<div class="nav-panel">
 <p>
-Next: <a href="3_002e1.xhtml#g_t3_002e1" accesskey="n" rel="next">3.1</a>, Prev: <a href="2_002e5.xhtml#g_t2_002e5" accesskey="p" rel="prev">2.5</a>, Up: <a href="index.xhtml#Top" accesskey="u" rel="prev">Top</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" accesskey="c" rel="contents">Contents</a>]</p>
-</nav>
+Next: <a href="3_002e1.xhtml#g_t3_002e1" accesskey="n" rel="next">Assignment and Local State</a>, Previous: <a href="2_002e5.xhtml#g_t2_002e5" accesskey="p" rel="prev">Systems with Generic Operations</a>, Up: <a href="index.xhtml" accesskey="u" rel="up">Top</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
+</div>
 
 
-</section><span class="bottom jump" title="Jump to bottom"><a href="#pagebottom" accesskey="b">⇣</a></span><a id="pagebottom"></a>
 
-</body></html>
+</body>
+</html>

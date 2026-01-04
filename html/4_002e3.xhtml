@@ -1,53 +1,59 @@
-<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="en" lang="en"><!-- Created by GNU Texinfo 5.1, http://www.gnu.org/software/texinfo/ --><head>
-<title>Structure and Interpretation of Computer Programs, 2e: 4.3</title>
+<html>
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>4.3 (Structure and Interpretation of Computer Programs, 2e)</title>
 
-<meta name="description" content="Structure and Interpretation of Computer Programs, 2e: 4.3">
-<meta name="keywords" content="Structure and Interpretation of Computer Programs, 2e: 4.3">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="4.3 (Structure and Interpretation of Computer Programs, 2e)">
+<meta name="keywords" content="4.3 (Structure and Interpretation of Computer Programs, 2e)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
 <meta name="Generator" content="texi2any">
-<meta charset="utf-8">
-<link href="index.xhtml#Top" rel="start" title="Top">
-<link href="Term-Index.xhtml#Term-Index" rel="index" title="Term Index">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.xhtml" rel="start" title="Top">
+<link href="Term-Index.xhtml" rel="index" title="Term Index">
 <link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="Chapter-4.xhtml#Chapter-4" rel="prev" title="Chapter 4">
+<link href="Chapter-4.xhtml" rel="up" title="Chapter 4">
 <link href="4_002e4.xhtml#g_t4_002e4" rel="next" title="4.4">
-<link href="4_002e2.xhtml#g_t4_002e2_002e3" rel="prev" title="4.2.3">
+<link href="4_002e2.xhtml#g_t4_002e2_002e5a" rel="prev" title="4.2.5a">
+<style type="text/css">
+<!--
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+div.example {margin-left: 3.2em}
+span:hover a.copiable-link {visibility: visible}
+ul.mark-bullet {list-style-type: disc}
+-->
+</style>
 
-<link href="css/style.css" rel="stylesheet" type="text/css">
-<link href="css/prettify.css" rel="stylesheet" type="text/css">
 
-<script src="js/jquery.min.js" type="text/javascript"></script>
-<script src="js/footnotes.js" type="text/javascript"></script>
-<script src="js/browsertest.js" type="text/javascript"></script>
 </head>
 
-<body>
-<section><span class="top jump" title="Jump to top"><a href="#pagetop" accesskey="t">⇡</a></span><a id="pagetop"></a><a id="g_t4_002e3"></a>
-<nav class="header">
+<body lang="en">
+<div class="section-level-extent" id="g_t4_002e3">
+<div class="nav-panel">
 <p>
-Next: <a href="4_002e4.xhtml#g_t4_002e4" accesskey="n" rel="next">4.4</a>, Prev: <a href="4_002e2.xhtml#g_t4_002e2" accesskey="p" rel="prev">4.2</a>, Up: <a href="Chapter-4.xhtml#Chapter-4" accesskey="u" rel="prev">Chapter 4</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" accesskey="c" rel="contents">Contents</a>]</p>
-</nav>
-<a id="Variations-on-a-Scheme-_002d_002d_002d-Nondeterministic-Computing"></a>
-<h3 class="section"><span class="secnum">4.3</span><span class="sectitle">Variations on a Scheme — Nondeterministic Computing</span></h3>
+Next: <a href="4_002e4.xhtml#g_t4_002e4" accesskey="n" rel="next">Logic Programming</a>, Previous: <a href="4_002e2.xhtml#g_t4_002e2_002e5a" accesskey="p" rel="prev">Persistent Data Structures and Structural Sharing</a>, Up: <a href="Chapter-4.xhtml" accesskey="u" rel="up">Metalinguistic Abstraction</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
+</div>
+<h3 class="section" id="Variations-on-a-Scheme-_002d_002d_002d-Nondeterministic-Computing"><span>4.3 Variations on a Scheme &mdash; Nondeterministic Computing<a class="copiable-link" href="#Variations-on-a-Scheme-_002d_002d_002d-Nondeterministic-Computing"> &para;</a></span></h3>
 
 <p>In this section, we extend the Scheme evaluator to support a programming
-paradigm called <a id="index-nondeterministic-computing-1"></a>
-<em>nondeterministic computing</em> by building into the
+paradigm called <a class="index-entry-id" id="index-nondeterministic-computing-1"></a>
+<em class="dfn">nondeterministic computing</em> by building into the
 evaluator a facility to support automatic search.  This is a much more profound
 change to the language than the introduction of lazy evaluation in 
-<a href="4_002e2.xhtml#g_t4_002e2">4.2</a>.
+<a class="ref" href="4_002e2.xhtml#g_t4_002e2">Variations on a Scheme &mdash; Lazy Evaluation</a>.
 </p>
-<p>Nondeterministic computing, like stream processing, is useful for “generate
-and test” applications.  Consider the task of starting with two lists of
-positive integers and finding a pair of integers—one from the first list and
-one from the second list—whose sum is prime.  We saw how to handle this with
-finite sequence operations in <a href="2_002e2.xhtml#g_t2_002e2_002e3">2.2.3</a> and with infinite streams in
-<a href="3_002e5.xhtml#g_t3_002e5_002e3">3.5.3</a>.  Our approach was to generate the sequence of all possible
+<p>Nondeterministic computing, like stream processing, is useful for &ldquo;generate
+and test&rdquo; applications.  Consider the task of starting with two lists of
+positive integers and finding a pair of integers&mdash;one from the first list and
+one from the second list&mdash;whose sum is prime.  We saw how to handle this with
+finite sequence operations in <a class="ref" href="2_002e2.xhtml#g_t2_002e2_002e3">Sequences as Conventional Interfaces</a> and with infinite streams in
+<a class="ref" href="3_002e5.xhtml#g_t3_002e5_002e3">Exploiting the Stream Paradigm</a>.  Our approach was to generate the sequence of all possible
 pairs and filter these to select the pairs whose sum is prime.  Whether we
-actually generate the entire sequence of pairs first as in <a href="Chapter-2.xhtml#Chapter-2">Chapter 2</a>, or
-interleave the generating and filtering as in <a href="Chapter-3.xhtml#Chapter-3">Chapter 3</a>, is immaterial to
+actually generate the entire sequence of pairs first as in <a class="ref" href="Chapter-2.xhtml">Building Abstractions with Data</a>, or
+interleave the generating and filtering as in <a class="ref" href="Chapter-3.xhtml">Modularity, Objects, and State</a>, is immaterial to
 the essential image of how the computation is organized.
 </p>
 <p>The nondeterministic approach evokes a different image.  Imagine simply that we
@@ -55,19 +61,26 @@ choose (in some way) a number from the first list and a number from the second
 list and require (using some mechanism) that their sum be prime.  This is
 expressed by following procedure:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">prime-sum-pair list1 list2</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">a </span><span class="opn">(</span><span class="pln">an-element-of list1</span><span class="clo">))</span><span class="pln">
-        </span><span class="opn">(</span><span class="pln">b </span><span class="opn">(</span><span class="pln">an-element-of list2</span><span class="clo">)))</span><span class="pln">
-    </span><span class="opn">(</span><span class="pln">require </span><span class="opn">(</span><span class="pln">prime? </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> a b</span><span class="clo">)))</span><span class="pln">
-    </span><span class="opn">(</span><span class="pln">list a b</span><span class="clo">)))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">// Nondeterministic choice - in Rust, we'd use iterators with backtracking
+fn prime_sum_pair(list1: &amp;[i64], list2: &amp;[i64]) -&gt; Option&lt;(i64, i64)&gt; {
+    for &amp;a in list1 {
+        for &amp;b in list2 {
+            if is_prime(a + b) {
+                return Some((a, b));
+            }
+        }
+    }
+    None
+}
+</pre></div>
 
 <p>It might seem as if this procedure merely restates the problem, rather than
 specifying a way to solve it.  Nevertheless, this is a legitimate
-nondeterministic program.<a class="footnote_link" id="DOCF246" href="#FOOT246"><sup>246</sup></a>
+nondeterministic program.<a class="footnote" id="DOCF227" href="#FOOT227"><sup>227</sup></a>
 </p>
 <p>The key idea here is that expressions in a nondeterministic language can have
-more than one possible value.  For instance, <code>an-element-of</code> might return
+more than one possible value.  For instance, <code class="code">an_element_of</code> might return
 any element of the given list.  Our nondeterministic program evaluator will
 work by automatically choosing a possible value and keeping track of the
 choice.  If a subsequent requirement is not met, the evaluator will try a
@@ -91,119 +104,115 @@ possible execution histories.  When we reach a dead end, we can revisit a
 previous choice point and proceed along a different branch.
 </p>
 <p>The nondeterministic program evaluator implemented below is called the
-<code>amb</code> evaluator because it is based on a new special form called
-<code>amb</code>.  We can type the above definition of <code>prime-sum-pair</code> at the
-<code>amb</code> evaluator driver loop (along with definitions of <code>prime?</code>,
-<code>an-element-of</code>, and <code>require</code>) and run the procedure as follows:
+<code class="code">amb</code> evaluator because it is based on a new special form called
+<code class="code">amb</code>.  We can type the above definition of <code class="code">prime-sum-pair</code> at the
+<code class="code">amb</code> evaluator driver loop (along with definitions of <code class="code">is_prime</code>,
+<code class="code">an_element_of</code>, and <code class="code">require</code>) and run the procedure as follows:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><i><span class="com">;;; Amb-Eval input:</span></i><span class="pln">
-</span><span class="opn">(</span><span class="pln">prime-sum-pair </span><span class="lit">'</span><span class="opn">(</span><span class="lit">1</span><span class="pln"> </span><span class="lit">3</span><span class="pln"> </span><span class="lit">5</span><span class="pln"> </span><span class="lit">8</span><span class="clo">)</span><span class="pln"> </span><span class="lit">'</span><span class="opn">(</span><span class="lit">20</span><span class="pln"> </span><span class="lit">35</span><span class="pln"> </span><span class="lit">110</span><span class="clo">))</span><span class="pln">
+<div class="example">
+<pre class="example-preformatted">// ;;; Amb-Eval input:
+prime_sum_pair(&amp;[1, 3, 5, 8], &amp;[20, 35, 110])
 
-</span><i><span class="com">;;; Starting a new problem</span></i><span class="pln">
-</span><i><span class="com">;;; Amb-Eval value:</span></i><span class="pln">
-</span><i><span class="opn">(</span><span class="lit">3</span><span class="pln"> </span><span class="lit">20</span><span class="clo">)</span></i>
+// ;;; Starting a new problem
+// ;;; Amb-Eval value:
+// Some((3, 20))  // 3 + 20 = 23, which is prime
 </pre></div>
 
 <p>The value returned was obtained after the evaluator repeatedly chose elements
 from each of the lists, until a successful choice was made.
 </p>
-<p>Section <a href="#g_t4_002e3_002e1">4.3.1</a> introduces <code>amb</code> and explains how it supports
-nondeterminism through the evaluator’s automatic search mechanism.  
-<a href="#g_t4_002e3_002e2">4.3.2</a> presents examples of nondeterministic programs, and 
-<a href="#g_t4_002e3_002e3">4.3.3</a> gives the details of how to implement the <code>amb</code> evaluator by
+<p>Section <a class="ref" href="#g_t4_002e3_002e1">Amb and Search</a> introduces <code class="code">amb</code> and explains how it supports
+nondeterminism through the evaluator&rsquo;s automatic search mechanism.  
+<a class="ref" href="#g_t4_002e3_002e2">Examples of Nondeterministic Programs</a> presents examples of nondeterministic programs, and 
+<a class="ref" href="#g_t4_002e3_002e3">Implementing the <code class="code">Amb</code> Evaluator</a> gives the details of how to implement the <code class="code">amb</code> evaluator by
 modifying the ordinary Scheme evaluator.
 </p>
 
-<a id="g_t4_002e3_002e1"></a>
-<a id="Amb-and-Search"></a>
-<h4 class="subsection"><span class="secnum">4.3.1</span><span class="sectitle">Amb and Search</span></h4>
+<hr>
+<div class="subsection-level-extent" id="g_t4_002e3_002e1">
+<h4 class="subsection" id="Amb-and-Search"><span>4.3.1 Amb and Search<a class="copiable-link" href="#Amb-and-Search"> &para;</a></span></h4>
 
 <p>To extend Scheme to support nondeterminism, we introduce a new special form
-called <code>amb</code>.<a class="footnote_link" id="DOCF247" href="#FOOT247"><sup>247</sup></a>
+called <code class="code">amb</code>.<a class="footnote" id="DOCF228" href="#FOOT228"><sup>228</sup></a>
 The expression
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">amb ⟨</span><var><span class="pln">e</span><span class="pun">₁</span></var><span class="pln">⟩ ⟨</span><var><span class="pln">e</span><span class="pun">₂</span></var><span class="pln">⟩ </span><span class="roman"><span class="pun">…</span></span><span class="pln"> ⟨</span><var><span class="pln">e</span><span class="pun">ₙ</span></var><span class="pln">⟩</span><span class="clo">)</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">amb![<var class="var">e_1</var>, <var class="var">e_2</var>, ..., <var class="var">e_n</var>]
+</pre></div>
 
-<p>returns the value of one of the <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <mi>n</mi>
-</math> expressions <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <mrow class="MJX-TeXAtom-ORD">
-    <mo stretchy="false">⟨</mo>
-    <mspace width="0.03em"></mspace>
-    <msub>
-      <mi>e</mi>
-      <mi>i</mi>
-    </msub>
-    <mo stretchy="false">⟩</mo>
-  </mrow>
-</math>
-“ambiguously.”  For example, the expression
+<p>returns the value of one of the <em class="math">n</em> expressions <em class="math">{⟨\kern0.03em e_i⟩}</em>
+&ldquo;ambiguously.&rdquo;  For example, the expression
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">list </span><span class="opn">(</span><span class="pln">amb </span><span class="lit">1</span><span class="pln"> </span><span class="lit">2</span><span class="pln"> </span><span class="lit">3</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">amb </span><span class="lit">'a</span><span class="pln"> </span><span class="lit">'b</span><span class="clo">))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">// All possible combinations via iterators
+[1, 2, 3].iter()
+    .flat_map(|&amp;n| [&quot;a&quot;, &quot;b&quot;].iter().map(move |&amp;c| (n, c)))
+    .collect::&lt;Vec&lt;_&gt;&gt;()
+</pre></div>
 
 <p>can have six possible values:
 </p>
 <div class="example">
-<pre class="example prettyprint"><code>(1 a)</code> <code>(1 b)</code> <code>(2 a)</code> <code>(2 b)</code> <code>(3 a)</code> <code>(3 b)</code>
+<pre class="example-preformatted"><code class="code">(1 a)</code> <code class="code">(1 b)</code> <code class="code">(2 a)</code> <code class="code">(2 b)</code> <code class="code">(3 a)</code> <code class="code">(3 b)</code>
 </pre></div>
 
-<p><code>Amb</code> with a single choice produces an ordinary (single) value.
+<p><code class="code">Amb</code> with a single choice produces an ordinary (single) value.
 </p>
-<p><code>Amb</code> with no choices—the expression <code>(amb)</code>—is an expression
-with no acceptable values.  Operationally, we can think of <code>(amb)</code> as an
-expression that when evaluated causes the computation to “fail”: The
+<p><code class="code">Amb</code> with no choices&mdash;the expression <code class="code">(amb)</code>&mdash;is an expression
+with no acceptable values.  Operationally, we can think of <code class="code">(amb)</code> as an
+expression that when evaluated causes the computation to &ldquo;fail&rdquo;: The
 computation aborts and no value is produced.  Using this idea, we can express
-the requirement that a particular predicate expression <code>p</code> must be true as
+the requirement that a particular predicate expression <code class="code">p</code> must be true as
 follows:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">require p</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pln">not p</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">amb</span><span class="clo">)))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">// require as a filter - fail if predicate is false
+fn require(p: bool) -&gt; Result&lt;(), Backtrack&gt; {
+    if p { Ok(()) } else { Err(Backtrack) }
+}
+</pre></div>
 
-<p>With <code>amb</code> and <code>require</code>, we can implement the <code>an-element-of</code>
+<p>With <code class="code">amb</code> and <code class="code">require</code>, we can implement the <code class="code">an_element_of</code>
 procedure used above:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">an-element-of items</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">require </span><span class="opn">(</span><span class="pln">not </span><span class="opn">(</span><span class="pln">null? items</span><span class="clo">)))</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">amb </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> items</span><span class="clo">)</span><span class="pln"> 
-       </span><span class="opn">(</span><span class="pln">an-element-of </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> items</span><span class="clo">))))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">// an_element_of via iterator - yields each element for backtracking
+fn an_element_of&lt;T: Clone&gt;(items: &amp;[T]) -&gt; impl Iterator&lt;Item = T&gt; + '_ {
+    items.iter().cloned()
+}
+</pre></div>
 
-<p><code>An-element-of</code> fails if the list is empty.  Otherwise it ambiguously
+<p><code class="code">An-element-of</code> fails if the list is empty.  Otherwise it ambiguously
 returns either the first element of the list or an element chosen from the rest
 of the list.
 </p>
 <p>We can also express infinite ranges of choices.  The following procedure
-potentially returns any integer greater than or equal to some given <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <mi>n</mi>
-</math>:
+potentially returns any integer greater than or equal to some given <em class="math">n</em>:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">an-integer-starting-from n</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">amb n </span><span class="opn">(</span><span class="pln">an-integer-starting-from </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> n </span><span class="lit">1</span><span class="clo">))))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">// Infinite integer stream starting from n
+fn an_integer_starting_from(n: i64) -&gt; impl Iterator&lt;Item = i64&gt; {
+    std::iter::successors(Some(n), |&amp;x| Some(x + 1))
+}
+</pre></div>
 
-<p>This is like the stream procedure <code>integers-starting-from</code> described in
-<a href="3_002e5.xhtml#g_t3_002e5_002e2">3.5.2</a>, but with an important difference: The stream procedure
+<p>This is like the stream procedure <code class="code">integers-starting-from</code> described in
+<a class="ref" href="3_002e5.xhtml#g_t3_002e5_002e2">Infinite Streams</a>, but with an important difference: The stream procedure
 returns an object that represents the sequence of all integers beginning with
-<math xmlns="http://www.w3.org/1998/Math/MathML">
-  <mi>n</mi>
-</math>, whereas the <code>amb</code> procedure returns a single integer.<a class="footnote_link" id="DOCF248" href="#FOOT248"><sup>248</sup></a>
+<em class="math">n</em>, whereas the <code class="code">amb</code> procedure returns a single integer.<a class="footnote" id="DOCF229" href="#FOOT229"><sup>229</sup></a>
 </p>
-<p>Abstractly, we can imagine that evaluating an <code>amb</code> expression causes time
+<p>Abstractly, we can imagine that evaluating an <code class="code">amb</code> expression causes time
 to split into branches, where the computation continues on each branch with one
-of the possible values of the expression.  We say that <code>amb</code> represents a
-<a id="index-nondeterministic-choice-point"></a>
-<em>nondeterministic choice point</em>.  If we had a machine with a sufficient
+of the possible values of the expression.  We say that <code class="code">amb</code> represents a
+<a class="index-entry-id" id="index-nondeterministic-choice-point"></a>
+<em class="dfn">nondeterministic choice point</em>.  If we had a machine with a sufficient
 number of processors that could be dynamically allocated, we could implement
 the search in a straightforward way.  Execution would proceed as in a
-sequential machine, until an <code>amb</code> expression is encountered.  At this
+sequential machine, until an <code class="code">amb</code> expression is encountered.  At this
 point, more processors would be allocated and initialized to continue all of
 the parallel executions implied by the choice.  Each processor would proceed
 sequentially as if it were the only choice, until it either terminates by
-encountering a failure, or it further subdivides, or it finishes.<a class="footnote_link" id="DOCF249" href="#FOOT249"><sup>249</sup></a>
+encountering a failure, or it further subdivides, or it finishes.<a class="footnote" id="DOCF230" href="#FOOT230"><sup>230</sup></a>
 </p>
 <p>On the other hand, if we have a machine that can execute only one process (or a
 few concurrent processes), we must consider the alternatives sequentially.  One
@@ -211,229 +220,207 @@ could imagine modifying an evaluator to pick at random a branch to follow
 whenever it encounters a choice point.  Random choice, however, can easily lead
 to failing values.  We might try running the evaluator over and over, making
 random choices and hoping to find a non-failing value, but it is better to
-<a id="index-systematically-search"></a>
-<em>systematically search</em> all possible execution paths.  The <code>amb</code>
+<a class="index-entry-id" id="index-systematically-search"></a>
+<em class="dfn">systematically search</em> all possible execution paths.  The <code class="code">amb</code>
 evaluator that we will develop and work with in this section implements a
 systematic search as follows: When the evaluator encounters an application of
-<code>amb</code>, it initially selects the first alternative.  This selection may
+<code class="code">amb</code>, it initially selects the first alternative.  This selection may
 itself lead to a further choice.  The evaluator will always initially choose
 the first alternative at each choice point.  If a choice results in a failure,
-then the evaluator automagically<a class="footnote_link" id="DOCF250" href="#FOOT250"><sup>250</sup></a> 
-<a id="index-backtracks"></a>
-<em>backtracks</em> to the most
+then the evaluator automagically<a class="footnote" id="DOCF231" href="#FOOT231"><sup>231</sup></a> 
+<a class="index-entry-id" id="index-backtracks"></a>
+<em class="dfn">backtracks</em> to the most
 recent choice point and tries the next alternative.  If it runs out of
 alternatives at any choice point, the evaluator will back up to the previous
 choice point and resume from there.  This process leads to a search strategy
-known as <a id="index-depth_002dfirst-search"></a>
-<em>depth-first search</em> or <a id="index-chronological-backtracking"></a>
-<em>chronological backtracking</em>.<a class="footnote_link" id="DOCF251" href="#FOOT251"><sup>251</sup></a>
+known as <a class="index-entry-id" id="index-depth_002dfirst-search"></a>
+<em class="dfn">depth-first search</em> or <a class="index-entry-id" id="index-chronological-backtracking"></a>
+<em class="dfn">chronological backtracking</em>.<a class="footnote" id="DOCF232" href="#FOOT232"><sup>232</sup></a>
 </p>
-<a id="Driver-loop"></a>
-<h5 class="subsubheading">Driver loop</h5>
+<h4 class="subsubheading" id="Driver-loop"><span>Driver loop<a class="copiable-link" href="#Driver-loop"> &para;</a></span></h4>
 
-<p>The driver loop for the <code>amb</code> evaluator has some unusual properties.  It
+<p>The driver loop for the <code class="code">amb</code> evaluator has some unusual properties.  It
 reads an expression and prints the value of the first non-failing execution, as
-in the <code>prime-sum-pair</code> example shown above.  If we want to see the value
+in the <code class="code">prime_sum_pair</code> example shown above.  If we want to see the value
 of the next successful execution, we can ask the interpreter to backtrack and
-attempt to generate a second non-failing execution.  This is signaled by typing
-the symbol <code>try-again</code>.  If any expression except <code>try-again</code> is
-given, the interpreter will start a new problem, discarding the unexplored
-alternatives in the previous problem.  Here is a sample interaction:
+attempt to generate a second non-failing execution.
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><i><span class="com">;;; Amb-Eval input:</span></i><span class="pln">
-</span><span class="opn">(</span><span class="pln">prime-sum-pair </span><span class="lit">'</span><span class="opn">(</span><span class="lit">1</span><span class="pln"> </span><span class="lit">3</span><span class="pln"> </span><span class="lit">5</span><span class="pln"> </span><span class="lit">8</span><span class="clo">)</span><span class="pln"> </span><span class="lit">'</span><span class="opn">(</span><span class="lit">20</span><span class="pln"> </span><span class="lit">35</span><span class="pln"> </span><span class="lit">110</span><span class="clo">))</span><span class="pln">
+<p>In Rust, this kind of nondeterministic search is naturally modeled using
+<code class="code">Iterator</code>.  A success corresponds to a <code class="code">Some</code> value (or an element
+in the iteration), and a failure corresponds to <code class="code">None</code> (or an empty
+iterator). Backtracking is achieved simply by calling <code class="code">next()</code> on the
+iterator.
+</p>
+<div class="example">
+<pre class="example-preformatted">// In Rust, we use an iterator to generate all solutions
+let mut solutions = find_prime_sum_pairs(&amp;[1, 3, 5, 8], &amp;[20, 35, 110]);
 
-</span><i><span class="com">;;; Starting a new problem</span></i><span class="pln">
-</span><i><span class="com">;;; Amb-Eval value:</span></i><span class="pln">
-</span><i><span class="opn">(</span><span class="lit">3</span><span class="pln"> </span><span class="lit">20</span><span class="clo">)</span></i><span class="pln">
-
-</span><i><span class="com">;;; Amb-Eval input:</span></i><span class="pln">
-try-again
-
-</span><i><span class="com">;;; Amb-Eval value:</span></i><span class="pln">
-</span><i><span class="opn">(</span><span class="lit">3</span><span class="pln"> </span><span class="lit">110</span><span class="clo">)</span></i><span class="pln">
-
-</span><i><span class="com">;;; Amb-Eval input:</span></i><span class="pln">
-try-again
-
-</span><i><span class="com">;;; Amb-Eval value:</span></i><span class="pln">
-</span><i><span class="opn">(</span><span class="lit">8</span><span class="pln"> </span><span class="lit">35</span><span class="clo">)</span></i><span class="pln">
-
-</span><i><span class="com">;;; Amb-Eval input:</span></i><span class="pln">
-try-again
-
-</span><i><span class="com">;;; There are no more values of</span></i><span class="pln">
-</span><i><span class="opn">(</span><span class="pln">prime-sum-pair 
- </span><span class="opn">(</span><span class="kwd">quote</span><span class="pln"> </span><span class="opn">(</span><span class="lit">1</span><span class="pln"> </span><span class="lit">3</span><span class="pln"> </span><span class="lit">5</span><span class="pln"> </span><span class="lit">8</span><span class="clo">))</span><span class="pln"> 
- </span><span class="opn">(</span><span class="kwd">quote</span><span class="pln"> </span><span class="opn">(</span><span class="lit">20</span><span class="pln"> </span><span class="lit">35</span><span class="pln"> </span><span class="lit">110</span><span class="clo">)))</span></i><span class="pln">
-
-</span><i><span class="com">;;; Amb-Eval input:</span></i><span class="pln">
-</span><span class="opn">(</span><span class="pln">prime-sum-pair </span><span class="lit">'</span><span class="opn">(</span><span class="lit">19</span><span class="pln"> </span><span class="lit">27</span><span class="pln"> </span><span class="lit">30</span><span class="clo">)</span><span class="pln"> </span><span class="lit">'</span><span class="opn">(</span><span class="lit">11</span><span class="pln"> </span><span class="lit">36</span><span class="pln"> </span><span class="lit">58</span><span class="clo">))</span><span class="pln">
-
-</span><i><span class="com">;;; Starting a new problem</span></i><span class="pln">
-</span><i><span class="com">;;; Amb-Eval value:</span></i><span class="pln">
-</span><i><span class="opn">(</span><span class="lit">30</span><span class="pln"> </span><span class="lit">11</span><span class="clo">)</span></i>
+solutions.next()  // =&gt; Some((3, 20))
+solutions.next()  // =&gt; Some((3, 110))  // 3 + 110 = 113 (prime)
+solutions.next()  // =&gt; Some((8, 35))   // 8 + 35 = 43 (prime)
+solutions.next()  // =&gt; None (no more solutions)
 </pre></div>
 
-<blockquote>
-<p><strong><a id="Exercise-4_002e35"></a>Exercise 4.35:</strong> Write a procedure
-<code>an-integer-between</code> that returns an integer between two given bounds.
-This can be used to implement a procedure that finds Pythagorean triples, i.e.,
-triples of integers <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <mrow class="MJX-TeXAtom-ORD">
-    <mo stretchy="false">(</mo>
-    <mi>i</mi>
-    <mo>,</mo>
-    <mi>j</mi>
-    <mo>,</mo>
-    <mi>k</mi>
-    <mo stretchy="false">)</mo>
-  </mrow>
-</math> between the given bounds such that
-<math xmlns="http://www.w3.org/1998/Math/MathML">
-  <mrow class="MJX-TeXAtom-ORD">
-    <mi>i</mi>
-    <mo>≤<!-- ≤ --></mo>
-    <mi>j</mi>
-  </mrow>
-</math> and <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <mrow class="MJX-TeXAtom-ORD">
-    <msup>
-      <mi>i</mi>
-      <mn>2</mn>
-    </msup>
-    <mo>+</mo>
-    <msup>
-      <mi>j</mi>
-      <mn>2</mn>
-    </msup>
-    <mo>=</mo>
-    <msup>
-      <mi>k</mi>
-      <mn>2</mn>
-    </msup>
-  </mrow>
-</math>, as follows:
+<blockquote class="quotation">
+<p><strong class="strong"><a class="anchor" id="Exercise-4_002e35"></a>Exercise 4.35:</strong> Write a procedure
+<code class="code">an_integer_between</code> that returns an iterator over integers between two
+given bounds.  This can be used to implement a procedure that finds Pythagorean
+triples, i.e., triples of integers <em class="math">{(i, j, k)}</em> between the given bounds
+such that <em class="math">{i \le j}</em> and <em class="math">{i^2 + j^2 = k^2}</em>, as follows:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">a-pythagorean-triple-between low high</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">i </span><span class="opn">(</span><span class="pln">an-integer-between low high</span><span class="clo">)))</span><span class="pln">
-    </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">j </span><span class="opn">(</span><span class="pln">an-integer-between i high</span><span class="clo">)))</span><span class="pln">
-      </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">k </span><span class="opn">(</span><span class="pln">an-integer-between j high</span><span class="clo">)))</span><span class="pln">
-        </span><span class="opn">(</span><span class="pln">require </span><span class="opn">(</span><span class="pun">=</span><span class="pln"> </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> i i</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> j j</span><span class="clo">))</span><span class="pln"> 
-                    </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> k k</span><span class="clo">)))</span><span class="pln">
-        </span><span class="opn">(</span><span class="pln">list i j k</span><span class="clo">)))))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">fn pythagorean_triples_between(low: i32, high: i32) -&gt; impl Iterator&lt;Item = (i32, i32, i32)&gt; {
+    (low..=high).flat_map(move |i| {
+        (i..=high).flat_map(move |j| {
+            (j..=high).filter_map(move |k| {
+                if i * i + j * j == k * k {
+                    Some((i, j, k))
+                } else {
+                    None
+                }
+            })
+        })
+    })
+}
+
+// Usage: pythagorean_triples_between(3, 50).next()
+// =&gt; Some((3, 4, 5))
+</pre></div>
 </blockquote>
 
-<blockquote>
-<p><strong><a id="Exercise-4_002e36"></a>Exercise 4.36:</strong> <a href="3_002e5.xhtml#Exercise-3_002e69">Exercise 3.69</a> discussed how
-to generate the stream of <em>all</em> Pythagorean triples, with no upper bound
+<blockquote class="quotation">
+<p><strong class="strong"><a class="anchor" id="Exercise-4_002e36"></a>Exercise 4.36:</strong> <a class="ref" href="3_002e5.xhtml#Exercise-3_002e69">Exercise 3.69</a> discussed how
+to generate the stream of <em class="emph">all</em> Pythagorean triples, with no upper bound
 on the size of the integers to be searched.  Explain why simply replacing
-<code>an-integer-between</code> by <code>an-integer-starting-from</code> in the procedure
-in <a href="#Exercise-4_002e35">Exercise 4.35</a> is not an adequate way to generate arbitrary Pythagorean
+<code class="code">an_integer_between</code> by <code class="code">an_integer_starting_from</code> in the procedure
+in <a class="ref" href="#Exercise-4_002e35">Exercise 4.35</a> is not an adequate way to generate arbitrary Pythagorean
 triples.  Write a procedure that actually will accomplish this.  (That is,
-write a procedure for which repeatedly typing <code>try-again</code> would in
+write a procedure for which repeatedly typing <code class="code">try-again</code> would in
 principle eventually generate all Pythagorean triples.)
 </p></blockquote>
 
-<blockquote>
-<p><strong><a id="Exercise-4_002e37"></a>Exercise 4.37:</strong> Ben Bitdiddle claims that the
+<blockquote class="quotation">
+<p><strong class="strong"><a class="anchor" id="Exercise-4_002e37"></a>Exercise 4.37:</strong> Ben Bitdiddle claims that the
 following method for generating Pythagorean triples is more efficient than the
-one in <a href="#Exercise-4_002e35">Exercise 4.35</a>.  Is he correct?  (Hint: Consider the number of
+one in <a class="ref" href="#Exercise-4_002e35">Exercise 4.35</a>.  Is he correct?  (Hint: Consider the number of
 possibilities that must be explored.)
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">a-pythagorean-triple-between low high</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">i </span><span class="opn">(</span><span class="pln">an-integer-between low high</span><span class="clo">))</span><span class="pln">
-        </span><span class="opn">(</span><span class="pln">hsq </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> high high</span><span class="clo">)))</span><span class="pln">
-    </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">j </span><span class="opn">(</span><span class="pln">an-integer-between i high</span><span class="clo">)))</span><span class="pln">
-      </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">ksq </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> i i</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> j j</span><span class="clo">))))</span><span class="pln">
-        </span><span class="opn">(</span><span class="pln">require </span><span class="opn">(</span><span class="pun">&gt;=</span><span class="pln"> hsq ksq</span><span class="clo">))</span><span class="pln">
-        </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">k </span><span class="opn">(</span><span class="pln">sqrt ksq</span><span class="clo">)))</span><span class="pln">
-          </span><span class="opn">(</span><span class="pln">require </span><span class="opn">(</span><span class="pln">integer? k</span><span class="clo">))</span><span class="pln">
-          </span><span class="opn">(</span><span class="pln">list i j k</span><span class="clo">))))))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">fn pythagorean_triples_optimized(low: i64, high: i64) -&gt; impl Iterator&lt;Item = (i64, i64, i64)&gt; {
+    let hsq = high * high;
+    (low..=high).flat_map(move |i| {
+        (i..=high).filter_map(move |j| {
+            let ksq = i * i + j * j;
+            if ksq &lt;= hsq {
+                let k = (ksq as f64).sqrt();
+                if k.fract() == 0.0 {
+                    Some((i, j, k as i64))
+                } else {
+                    None
+                }
+            } else {
+                None
+            }
+        })
+    })
+}
+
+// More efficient: only iterates i,j, computes k directly
+</pre></div>
 </blockquote>
 
-<a id="g_t4_002e3_002e2"></a>
-<a id="Examples-of-Nondeterministic-Programs"></a>
-<h4 class="subsection"><span class="secnum">4.3.2</span><span class="sectitle">Examples of Nondeterministic Programs</span></h4>
+<hr>
+</div>
+<div class="subsection-level-extent" id="g_t4_002e3_002e2">
+<h4 class="subsection" id="Examples-of-Nondeterministic-Programs"><span>4.3.2 Examples of Nondeterministic Programs<a class="copiable-link" href="#Examples-of-Nondeterministic-Programs"> &para;</a></span></h4>
 
-<p>Section <a href="#g_t4_002e3_002e3">4.3.3</a> describes the implementation of the <code>amb</code> evaluator.
+<p>Section <a class="ref" href="#g_t4_002e3_002e3">Implementing the <code class="code">Amb</code> Evaluator</a> describes the implementation of the <code class="code">amb</code> evaluator.
 First, however, we give some examples of how it can be used.  The advantage of
 nondeterministic programming is that we can suppress the details of how search
 is carried out, thereby expressing our programs at a higher level of
 abstraction.
 </p>
-<a id="Logic-Puzzles"></a>
-<h5 class="subsubheading">Logic Puzzles</h5>
+<h4 class="subsubheading" id="Logic-Puzzles"><span>Logic Puzzles<a class="copiable-link" href="#Logic-Puzzles"> &para;</a></span></h4>
 
-<p>The following puzzle (taken from <a href="References.xhtml#Dinesman-1968">Dinesman 1968</a>) is typical of a large class of
+<p>The following puzzle (taken from <a class="ref" href="References.xhtml#Dinesman-1968">Dinesman 1968</a>) is typical of a large class of
 simple logic puzzles:
 </p>
-<blockquote>
+<blockquote class="quotation">
 <p>Baker, Cooper, Fletcher, Miller, and Smith live on different floors of an
 apartment house that contains only five floors.  Baker does not live on the top
 floor.  Cooper does not live on the bottom floor.  Fletcher does not live on
 either the top or the bottom floor.  Miller lives on a higher floor than does
-Cooper.  Smith does not live on a floor adjacent to Fletcher’s.  Fletcher does
-not live on a floor adjacent to Cooper’s.  Where does everyone live?
+Cooper.  Smith does not live on a floor adjacent to Fletcher&rsquo;s.  Fletcher does
+not live on a floor adjacent to Cooper&rsquo;s.  Where does everyone live?
 </p></blockquote>
 
 <p>We can determine who lives on each floor in a straightforward way by
 enumerating all the possibilities and imposing the given
-restrictions:<a class="footnote_link" id="DOCF252" href="#FOOT252"><sup>252</sup></a>
+restrictions:<a class="footnote" id="DOCF233" href="#FOOT233"><sup>233</sup></a>
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">multiple-dwelling</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">baker </span><span class="opn">(</span><span class="pln">amb </span><span class="lit">1</span><span class="pln"> </span><span class="lit">2</span><span class="pln"> </span><span class="lit">3</span><span class="pln"> </span><span class="lit">4</span><span class="pln"> </span><span class="lit">5</span><span class="clo">))</span><span class="pln">
-        </span><span class="opn">(</span><span class="pln">cooper </span><span class="opn">(</span><span class="pln">amb </span><span class="lit">1</span><span class="pln"> </span><span class="lit">2</span><span class="pln"> </span><span class="lit">3</span><span class="pln"> </span><span class="lit">4</span><span class="pln"> </span><span class="lit">5</span><span class="clo">))</span><span class="pln">
-        </span><span class="opn">(</span><span class="pln">fletcher </span><span class="opn">(</span><span class="pln">amb </span><span class="lit">1</span><span class="pln"> </span><span class="lit">2</span><span class="pln"> </span><span class="lit">3</span><span class="pln"> </span><span class="lit">4</span><span class="pln"> </span><span class="lit">5</span><span class="clo">))</span><span class="pln">
-        </span><span class="opn">(</span><span class="pln">miller </span><span class="opn">(</span><span class="pln">amb </span><span class="lit">1</span><span class="pln"> </span><span class="lit">2</span><span class="pln"> </span><span class="lit">3</span><span class="pln"> </span><span class="lit">4</span><span class="pln"> </span><span class="lit">5</span><span class="clo">))</span><span class="pln">
-        </span><span class="opn">(</span><span class="pln">smith </span><span class="opn">(</span><span class="pln">amb </span><span class="lit">1</span><span class="pln"> </span><span class="lit">2</span><span class="pln"> </span><span class="lit">3</span><span class="pln"> </span><span class="lit">4</span><span class="pln"> </span><span class="lit">5</span><span class="clo">)))</span><span class="pln">
-    </span><span class="opn">(</span><span class="pln">require
-     </span><span class="opn">(</span><span class="pln">distinct? </span><span class="opn">(</span><span class="pln">list baker cooper fletcher 
-                      miller smith</span><span class="clo">)))</span><span class="pln">
-    </span><span class="opn">(</span><span class="pln">require </span><span class="opn">(</span><span class="pln">not </span><span class="opn">(</span><span class="pun">=</span><span class="pln"> baker </span><span class="lit">5</span><span class="clo">)))</span><span class="pln">
-    </span><span class="opn">(</span><span class="pln">require </span><span class="opn">(</span><span class="pln">not </span><span class="opn">(</span><span class="pun">=</span><span class="pln"> cooper </span><span class="lit">1</span><span class="clo">)))</span><span class="pln">
-    </span><span class="opn">(</span><span class="pln">require </span><span class="opn">(</span><span class="pln">not </span><span class="opn">(</span><span class="pun">=</span><span class="pln"> fletcher </span><span class="lit">5</span><span class="clo">)))</span><span class="pln">
-    </span><span class="opn">(</span><span class="pln">require </span><span class="opn">(</span><span class="pln">not </span><span class="opn">(</span><span class="pun">=</span><span class="pln"> fletcher </span><span class="lit">1</span><span class="clo">)))</span><span class="pln">
-    </span><span class="opn">(</span><span class="pln">require </span><span class="opn">(</span><span class="pun">&gt;</span><span class="pln"> miller cooper</span><span class="clo">))</span><span class="pln">
-    </span><span class="opn">(</span><span class="pln">require
-     </span><span class="opn">(</span><span class="pln">not </span><span class="opn">(</span><span class="pun">=</span><span class="pln"> </span><span class="opn">(</span><span class="pln">abs </span><span class="opn">(</span><span class="pun">-</span><span class="pln"> smith fletcher</span><span class="clo">))</span><span class="pln"> </span><span class="lit">1</span><span class="clo">)))</span><span class="pln">
-    </span><span class="opn">(</span><span class="pln">require 
-     </span><span class="opn">(</span><span class="pln">not </span><span class="opn">(</span><span class="pun">=</span><span class="pln"> </span><span class="opn">(</span><span class="pln">abs </span><span class="opn">(</span><span class="pun">-</span><span class="pln"> fletcher cooper</span><span class="clo">))</span><span class="pln"> </span><span class="lit">1</span><span class="clo">)))</span><span class="pln">
-    </span><span class="opn">(</span><span class="pln">list </span><span class="opn">(</span><span class="pln">list </span><span class="lit">'baker</span><span class="pln"> baker</span><span class="clo">)</span><span class="pln">
-          </span><span class="opn">(</span><span class="pln">list </span><span class="lit">'cooper</span><span class="pln"> cooper</span><span class="clo">)</span><span class="pln">
-          </span><span class="opn">(</span><span class="pln">list </span><span class="lit">'fletcher</span><span class="pln"> fletcher</span><span class="clo">)</span><span class="pln">
-          </span><span class="opn">(</span><span class="pln">list </span><span class="lit">'miller</span><span class="pln"> miller</span><span class="clo">)</span><span class="pln">
-          </span><span class="opn">(</span><span class="pln">list </span><span class="lit">'smith</span><span class="pln"> smith</span><span class="clo">))))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">fn multiple_dwelling() -&gt; Option&lt;[(&amp;'static str, i32); 5]&gt; {
+    let floors = 1..=5;
+    for baker in floors.clone() {
+        if baker == 5 { continue; }  // Baker not on top
+        for cooper in floors.clone() {
+            if cooper == 1 { continue; }  // Cooper not on bottom
+            if cooper == baker { continue; }
+            for fletcher in floors.clone() {
+                if fletcher == 5 || fletcher == 1 { continue; }
+                if fletcher == baker || fletcher == cooper { continue; }
+                if (fletcher - cooper).abs() == 1 { continue; }
+                for miller in floors.clone() {
+                    if miller &lt;= cooper { continue; }  // Miller above Cooper
+                    if miller == baker || miller == cooper || miller == fletcher {
+                        continue;
+                    }
+                    for smith in floors.clone() {
+                        if smith == baker || smith == cooper
+                            || smith == fletcher || smith == miller {
+                            continue;
+                        }
+                        if (smith - fletcher).abs() == 1 { continue; }
+                        return Some([
+                            (&quot;baker&quot;, baker), (&quot;cooper&quot;, cooper),
+                            (&quot;fletcher&quot;, fletcher), (&quot;miller&quot;, miller),
+                            (&quot;smith&quot;, smith),
+                        ]);
+                    }
+                }
+            }
+        }
+    }
+    None
+}
+</pre></div>
 
-<p>Evaluating the expression <code>(multiple-dwelling)</code> produces the result
+<p>Evaluating the expression <code class="code">(multiple_dwelling)</code> produces the result
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">((</span><span class="pln">baker </span><span class="lit">3</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">cooper </span><span class="lit">2</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">fletcher </span><span class="lit">4</span><span class="clo">)</span><span class="pln">
- </span><span class="opn">(</span><span class="pln">miller </span><span class="lit">5</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">smith </span><span class="lit">1</span><span class="clo">))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">Some([(&quot;baker&quot;, 3), (&quot;cooper&quot;, 2), (&quot;fletcher&quot;, 4),
+      (&quot;miller&quot;, 5), (&quot;smith&quot;, 1)])
+</pre></div>
 
-<p>Although this simple procedure works, it is very slow.  <a href="#Exercise-4_002e39">Exercise 4.39</a> and
-<a href="#Exercise-4_002e40">Exercise 4.40</a> discuss some possible improvements.
+<p>Although this simple procedure works, it is very slow.  <a class="ref" href="#Exercise-4_002e39">Exercise 4.39</a> and
+<a class="ref" href="#Exercise-4_002e40">Exercise 4.40</a> discuss some possible improvements.
 </p>
-<blockquote>
-<p><strong><a id="Exercise-4_002e38"></a>Exercise 4.38:</strong> Modify the multiple-dwelling
+<blockquote class="quotation">
+<p><strong class="strong"><a class="anchor" id="Exercise-4_002e38"></a>Exercise 4.38:</strong> Modify the multiple_dwelling
 procedure to omit the requirement that Smith and Fletcher do not live on
 adjacent floors.  How many solutions are there to this modified puzzle?
 </p></blockquote>
 
-<blockquote>
-<p><strong><a id="Exercise-4_002e39"></a>Exercise 4.39:</strong> Does the order of the
-restrictions in the multiple-dwelling procedure affect the answer? Does it
+<blockquote class="quotation">
+<p><strong class="strong"><a class="anchor" id="Exercise-4_002e39"></a>Exercise 4.39:</strong> Does the order of the
+restrictions in the multiple_dwelling procedure affect the answer? Does it
 affect the time to find an answer?  If you think it matters, demonstrate a
 faster program obtained from the given one by reordering the restrictions.  If
 you think it does not matter, argue your case.
 </p></blockquote>
 
-<blockquote>
-<p><strong><a id="Exercise-4_002e40"></a>Exercise 4.40:</strong> In the multiple dwelling problem,
+<blockquote class="quotation">
+<p><strong class="strong"><a class="anchor" id="Exercise-4_002e40"></a>Exercise 4.40:</strong> In the multiple dwelling problem,
 how many sets of assignments are there of people to floors, both before and
 after the requirement that floor assignments be distinct?  It is very
 inefficient to generate all possible assignments of people to floors and then
@@ -443,346 +430,387 @@ thus be imposed before floors have been selected for all the people.  Write and
 demonstrate a much more efficient nondeterministic procedure that solves this
 problem based upon generating only those possibilities that are not already
 ruled out by previous restrictions.  (Hint: This will require a nest of
-<code>let</code> expressions.)
+<code class="code">let</code> expressions.)
 </p></blockquote>
 
-<blockquote>
-<p><strong><a id="Exercise-4_002e41"></a>Exercise 4.41:</strong> Write an ordinary Scheme program
+<blockquote class="quotation">
+<p><strong class="strong"><a class="anchor" id="Exercise-4_002e41"></a>Exercise 4.41:</strong> Write an ordinary Scheme program
 to solve the multiple dwelling puzzle.
 </p></blockquote>
 
-<blockquote>
-<p><strong><a id="Exercise-4_002e42"></a>Exercise 4.42:</strong> Solve the following “Liars”
-puzzle (from <a href="References.xhtml#Phillips-1934">Phillips 1934</a>):
+<blockquote class="quotation">
+<p><strong class="strong"><a class="anchor" id="Exercise-4_002e42"></a>Exercise 4.42:</strong> Solve the following &ldquo;Liars&rdquo;
+puzzle (from <a class="ref" href="References.xhtml#Phillips-1934">Phillips 1934</a>):
 </p>
-<p>Five schoolgirls sat for an examination.  Their parents—so they
-thought—showed an undue degree of interest in the result.  They therefore
+<p>Five schoolgirls sat for an examination.  Their parents&mdash;so they
+thought&mdash;showed an undue degree of interest in the result.  They therefore
 agreed that, in writing home about the examination, each girl should make one
 true statement and one untrue one.  The following are the relevant passages
 from their letters:
 </p>
-<ul>
-<li> Betty: “Kitty was second in the examination.  I was only third.”
+<ul class="itemize mark-bullet">
+<li>Betty: &ldquo;Kitty was second in the examination.  I was only third.&rdquo;
 
-</li><li> Ethel: “You’ll be glad to hear that I was on top.  Joan was second.”
+</li><li>Ethel: &ldquo;You&rsquo;ll be glad to hear that I was on top.  Joan was second.&rdquo;
 
-</li><li> Joan: “I was third, and poor old Ethel was bottom.”
+</li><li>Joan: &ldquo;I was third, and poor old Ethel was bottom.&rdquo;
 
-</li><li> Kitty: “I came out second.  Mary was only fourth.”
+</li><li>Kitty: &ldquo;I came out second.  Mary was only fourth.&rdquo;
 
-</li><li> Mary: “I was fourth.  Top place was taken by Betty.”
+</li><li>Mary: &ldquo;I was fourth.  Top place was taken by Betty.&rdquo;
 
 </li></ul>
 
 <p>What in fact was the order in which the five girls were placed?
 </p></blockquote>
 
-<blockquote>
-<p><strong><a id="Exercise-4_002e43"></a>Exercise 4.43:</strong> Use the <code>amb</code> evaluator to
-solve the following puzzle:<a class="footnote_link" id="DOCF253" href="#FOOT253"><sup>253</sup></a>
+<blockquote class="quotation">
+<p><strong class="strong"><a class="anchor" id="Exercise-4_002e43"></a>Exercise 4.43:</strong> Use the <code class="code">amb</code> evaluator to
+solve the following puzzle:<a class="footnote" id="DOCF234" href="#FOOT234"><sup>234</sup></a>
 </p>
-<blockquote>
-<p>Mary Ann Moore’s father has a yacht and so has each of his four friends:
+<blockquote class="quotation">
+<p>Mary Ann Moore&rsquo;s father has a yacht and so has each of his four friends:
 Colonel Downing, Mr. Hall, Sir Barnacle Hood, and Dr.  Parker.  Each of the
 five also has one daughter and each has named his yacht after a daughter of one
-of the others.  Sir Barnacle’s yacht is the Gabrielle, Mr. Moore owns the
+of the others.  Sir Barnacle&rsquo;s yacht is the Gabrielle, Mr. Moore owns the
 Lorna; Mr. Hall the Rosalind.  The Melissa, owned by Colonel Downing, is named
-after Sir Barnacle’s daughter.  Gabrielle’s father owns the yacht that is named
-after Dr.  Parker’s daughter.  Who is Lorna’s father?
+after Sir Barnacle&rsquo;s daughter.  Gabrielle&rsquo;s father owns the yacht that is named
+after Dr.  Parker&rsquo;s daughter.  Who is Lorna&rsquo;s father?
 </p></blockquote>
 
-<p>Try to write the program so that it runs efficiently (see <a href="#Exercise-4_002e40">Exercise 4.40</a>).
-Also determine how many solutions there are if we are not told that Mary Ann’s
+<p>Try to write the program so that it runs efficiently (see <a class="ref" href="#Exercise-4_002e40">Exercise 4.40</a>).
+Also determine how many solutions there are if we are not told that Mary Ann&rsquo;s
 last name is Moore.
 </p></blockquote>
 
-<blockquote>
-<p><strong><a id="Exercise-4_002e44"></a>Exercise 4.44:</strong> <a href="2_002e2.xhtml#Exercise-2_002e42">Exercise 2.42</a> described the
-“eight-queens puzzle” of placing queens on a chessboard so that no two attack
+<blockquote class="quotation">
+<p><strong class="strong"><a class="anchor" id="Exercise-4_002e44"></a>Exercise 4.44:</strong> <a class="ref" href="2_002e2.xhtml#Exercise-2_002e42">Exercise 2.42</a> described the
+&ldquo;eight-queens puzzle&rdquo; of placing queens on a chessboard so that no two attack
 each other.  Write a nondeterministic program to solve this puzzle.
 </p></blockquote>
 
-<a id="Parsing-natural-language"></a>
-<h5 class="subsubheading">Parsing natural language</h5>
+<h4 class="subsubheading" id="Parsing-natural-language"><span>Parsing natural language<a class="copiable-link" href="#Parsing-natural-language"> &para;</a></span></h4>
 
 <p>Programs designed to accept natural language as input usually start by
-attempting to <a id="index-parse"></a>
-<em>parse</em> the input, that is, to match the input against
+attempting to <a class="index-entry-id" id="index-parse"></a>
+<em class="dfn">parse</em> the input, that is, to match the input against
 some grammatical structure.  For example, we might try to recognize simple
 sentences consisting of an article followed by a noun followed by a verb, such
-as “The cat eats.”  To accomplish such an analysis, we must be able to
+as &ldquo;The cat eats.&rdquo;  To accomplish such an analysis, we must be able to
 identify the parts of speech of individual words.  We could start with some
-lists that classify various words:<a class="footnote_link" id="DOCF254" href="#FOOT254"><sup>254</sup></a>
+lists that classify various words:<a class="footnote" id="DOCF235" href="#FOOT235"><sup>235</sup></a>
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> nouns 
-  </span><span class="lit">'</span><span class="opn">(</span><span class="pln">noun student professor cat class</span><span class="clo">))</span><span class="pln">
+<div class="example">
+<pre class="example-preformatted">const NOUNS: &amp;[&amp;str] = &amp;[&quot;student&quot;, &quot;professor&quot;, &quot;cat&quot;, &quot;class&quot;];
 
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> verbs 
-  </span><span class="lit">'</span><span class="opn">(</span><span class="pln">verb studies lectures eats sleeps</span><span class="clo">))</span><span class="pln">
+const VERBS: &amp;[&amp;str] = &amp;[&quot;studies&quot;, &quot;lectures&quot;, &quot;eats&quot;, &quot;sleeps&quot;];
 
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> articles </span><span class="lit">'</span><span class="opn">(</span><span class="pln">article the a</span><span class="clo">))</span></pre></div>
+const ARTICLES: &amp;[&amp;str] = &amp;[&quot;the&quot;, &quot;a&quot;];
+</pre></div>
 
-<p>We also need a <a id="index-grammar"></a>
-<em>grammar</em>, that is, a set of rules describing how
+<p>We also need a <a class="index-entry-id" id="index-grammar"></a>
+<em class="dfn">grammar</em>, that is, a set of rules describing how
 grammatical elements are composed from simpler elements.  A very simple grammar
-might stipulate that a sentence always consists of two pieces—a noun phrase
-followed by a verb—and that a noun phrase consists of an article followed by
-a noun.  With this grammar, the sentence “The cat eats” is parsed as follows:
+might stipulate that a sentence always consists of two pieces&mdash;a noun phrase
+followed by a verb&mdash;and that a noun phrase consists of an article followed by
+a noun.  With this grammar, the sentence &ldquo;The cat eats&rdquo; is parsed as follows:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">sentence
- </span><span class="opn">(</span><span class="pln">noun-phrase </span><span class="opn">(</span><span class="pln">article the</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">noun cat</span><span class="clo">))</span><span class="pln">
- </span><span class="opn">(</span><span class="pln">verb eats</span><span class="clo">))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">Sentence {
+    noun_phrase: NounPhrase {
+        article: &quot;the&quot;,
+        noun: &quot;cat&quot;,
+    },
+    verb: &quot;eats&quot;,
+}
+</pre></div>
 
 <p>We can generate such a parse with a simple program that has separate procedures
 for each of the grammatical rules.  To parse a sentence, we identify its two
 constituent pieces and return a list of these two elements, tagged with the
-symbol <code>sentence</code>:
+symbol <code class="code">sentence</code>:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">parse-sentence</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">list </span><span class="lit">'sentence</span><span class="pln">
-         </span><span class="opn">(</span><span class="pln">parse-noun-phrase</span><span class="clo">)</span><span class="pln">
-         </span><span class="opn">(</span><span class="pln">parse-word verbs</span><span class="clo">)))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">fn parse_sentence(input: &amp;mut &amp;[&amp;str]) -&gt; Option&lt;Sentence&gt; {
+    let noun_phrase = parse_noun_phrase(input)?;
+    let verb = parse_word(input, VERBS)?;
+    Some(Sentence { noun_phrase, verb })
+}
+</pre></div>
 
 <p>A noun phrase, similarly, is parsed by finding an article followed by a
 noun:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">parse-noun-phrase</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">list </span><span class="lit">'noun-phrase</span><span class="pln">
-        </span><span class="opn">(</span><span class="pln">parse-word articles</span><span class="clo">)</span><span class="pln">
-        </span><span class="opn">(</span><span class="pln">parse-word nouns</span><span class="clo">)))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">fn parse_noun_phrase(input: &amp;mut &amp;[&amp;str]) -&gt; Option&lt;NounPhrase&gt; {
+    let article = parse_word(input, ARTICLES)?;
+    let noun = parse_word(input, NOUNS)?;
+    Some(NounPhrase { article, noun })
+}
+</pre></div>
 
 <p>At the lowest level, parsing boils down to repeatedly checking that the next
 unparsed word is a member of the list of words for the required part of speech.
-To implement this, we maintain a global variable <code>*unparsed*</code>, which is
+To implement this, we maintain a global variable <code class="code">*unparsed*</code>, which is
 the input that has not yet been parsed.  Each time we check a word, we require
-that <code>*unparsed*</code> must be non-empty and that it should begin with a word
-from the designated list.  If so, we remove that word from <code>*unparsed*</code>
+that <code class="code">*unparsed*</code> must be non-empty and that it should begin with a word
+from the designated list.  If so, we remove that word from <code class="code">*unparsed*</code>
 and return the word together with its part of speech (which is found at the
-head of the list):<a class="footnote_link" id="DOCF255" href="#FOOT255"><sup>255</sup></a>
+head of the list):<a class="footnote" id="DOCF236" href="#FOOT236"><sup>236</sup></a>
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">parse-word word-list</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">require </span><span class="opn">(</span><span class="pln">not </span><span class="opn">(</span><span class="pln">null? </span><span class="pun">*</span><span class="pln">unparsed</span><span class="pun">*</span><span class="clo">)))</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">require </span><span class="opn">(</span><span class="pln">memq </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> </span><span class="pun">*</span><span class="pln">unparsed</span><span class="pun">*</span><span class="clo">)</span><span class="pln"> 
-                 </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> word-list</span><span class="clo">)))</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">found-word </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> </span><span class="pun">*</span><span class="pln">unparsed</span><span class="pun">*</span><span class="clo">)))</span><span class="pln">
-    </span><span class="opn">(</span><span class="kwd">set</span><span class="pun">!</span><span class="pln"> </span><span class="pun">*</span><span class="pln">unparsed</span><span class="pun">*</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> </span><span class="pun">*</span><span class="pln">unparsed</span><span class="pun">*</span><span class="clo">))</span><span class="pln">
-    </span><span class="opn">(</span><span class="pln">list </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> word-list</span><span class="clo">)</span><span class="pln"> found-word</span><span class="clo">)))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">fn parse_word&lt;'a&gt;(
+    input: &amp;mut &amp;'a [&amp;'a str],
+    word_list: &amp;[&amp;str],
+) -&gt; Option&lt;&amp;'a str&gt; {
+    let (&amp;first, rest) = input.split_first()?;
+    if word_list.contains(&amp;first) {
+        *input = rest;  // Advance the input
+        Some(first)
+    } else {
+        None
+    }
+}
+</pre></div>
 
-<p>To start the parsing, all we need to do is set <code>*unparsed*</code> to be the
+<p>To start the parsing, all we need to do is set <code class="code">*unparsed*</code> to be the
 entire input, try to parse a sentence, and check that nothing is left over:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="pun">*</span><span class="pln">unparsed</span><span class="pun">*</span><span class="pln"> </span><span class="lit">'</span><span class="opn">(</span><span class="clo">))</span><span class="pln">
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">parse input</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">set</span><span class="pun">!</span><span class="pln"> </span><span class="pun">*</span><span class="pln">unparsed</span><span class="pun">*</span><span class="pln"> input</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">sent </span><span class="opn">(</span><span class="pln">parse-sentence</span><span class="clo">)))</span><span class="pln">
-    </span><span class="opn">(</span><span class="pln">require </span><span class="opn">(</span><span class="pln">null? </span><span class="pun">*</span><span class="pln">unparsed</span><span class="pun">*</span><span class="clo">))</span><span class="pln">
-    sent</span><span class="clo">))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">fn parse(input: &amp;[&amp;str]) -&gt; Option&lt;Sentence&gt; {
+    let mut remaining = input;
+    let sentence = parse_sentence(&amp;mut remaining)?;
+    if remaining.is_empty() {
+        Some(sentence)
+    } else {
+        None  // Unparsed input remaining
+    }
+}
+</pre></div>
 
 <p>We can now try the parser and verify that it works for our simple test
 sentence:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><i><span class="com">;;; Amb-Eval input:</span></i><span class="pln">
-</span><span class="opn">(</span><span class="pln">parse </span><span class="lit">'</span><span class="opn">(</span><span class="pln">the cat eats</span><span class="clo">))</span><span class="pln">
-
-</span><i><span class="com">;;; Starting a new problem</span></i><span class="pln">
-</span><i><span class="com">;;; Amb-Eval value:</span></i><span class="pln">
-</span><i><span class="opn">(</span><span class="pln">sentence 
- </span><span class="opn">(</span><span class="pln">noun-phrase </span><span class="opn">(</span><span class="pln">article the</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">noun cat</span><span class="clo">))</span><span class="pln">
- </span><span class="opn">(</span><span class="pln">verb eats</span><span class="clo">))</span></i>
+<div class="example">
+<pre class="example-preformatted">parse(&amp;[&quot;the&quot;, &quot;cat&quot;, &quot;eats&quot;])
+// =&gt; Some(Sentence {
+//        noun_phrase: NounPhrase {
+//            article: &quot;the&quot;,
+//            noun: &quot;cat&quot;,
+//        },
+//        verb: &quot;eats&quot;,
+//    })
 </pre></div>
 
-<p>The <code>amb</code> evaluator is useful here because it is convenient to express the
-parsing constraints with the aid of <code>require</code>.  Automatic search and
+<p>The <code class="code">amb</code> evaluator is useful here because it is convenient to express the
+parsing constraints with the aid of <code class="code">require</code>.  Automatic search and
 backtracking really pay off, however, when we consider more complex grammars
 where there are choices for how the units can be decomposed.
 </p>
-<p>Let’s add to our grammar a list of prepositions:
+<p>Let&rsquo;s add to our grammar a list of prepositions:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> prepositions 
-  </span><span class="lit">'</span><span class="opn">(</span><span class="pln">prep for to in by with</span><span class="clo">))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">const PREPOSITIONS: &amp;[&amp;str] = &amp;[&quot;for&quot;, &quot;to&quot;, &quot;in&quot;, &quot;by&quot;, &quot;with&quot;];
+</pre></div>
 
-<p>and define a prepositional phrase (e.g., “for the cat”) to be a preposition
+<p>and define a prepositional phrase (e.g., &ldquo;for the cat&rdquo;) to be a preposition
 followed by a noun phrase:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">parse-prepositional-phrase</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">list </span><span class="lit">'prep-phrase</span><span class="pln">
-        </span><span class="opn">(</span><span class="pln">parse-word prepositions</span><span class="clo">)</span><span class="pln">
-        </span><span class="opn">(</span><span class="pln">parse-noun-phrase</span><span class="clo">)))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">fn parse_prepositional_phrase(input: &amp;mut &amp;[&amp;str]) -&gt; Option&lt;PrepPhrase&gt; {
+    let prep = parse_word(input, PREPOSITIONS)?;
+    let noun_phrase = parse_noun_phrase(input)?;
+    Some(PrepPhrase { prep, noun_phrase })
+}
+</pre></div>
 
 <p>Now we can define a sentence to be a noun phrase followed by a verb phrase,
 where a verb phrase can be either a verb or a verb phrase extended by a
-prepositional phrase:<a class="footnote_link" id="DOCF256" href="#FOOT256"><sup>256</sup></a>
+prepositional phrase:<a class="footnote" id="DOCF237" href="#FOOT237"><sup>237</sup></a>
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">parse-sentence</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">list </span><span class="lit">'sentence</span><span class="pln">
-         </span><span class="opn">(</span><span class="pln">parse-noun-phrase</span><span class="clo">)</span><span class="pln">
-         </span><span class="opn">(</span><span class="pln">parse-verb-phrase</span><span class="clo">)))</span><span class="pln">
+<div class="example">
+<pre class="example-preformatted">fn parse_sentence_ext(input: &amp;mut &amp;[&amp;str]) -&gt; Option&lt;SentenceExt&gt; {
+    let noun_phrase = parse_noun_phrase_ext(input)?;
+    let verb_phrase = parse_verb_phrase(input)?;
+    Some(SentenceExt { noun_phrase, verb_phrase })
+}
 
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">parse-verb-phrase</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">maybe-extend verb-phrase</span><span class="clo">)</span><span class="pln">
-    </span><span class="opn">(</span><span class="pln">amb 
-     verb-phrase
-     </span><span class="opn">(</span><span class="pln">maybe-extend 
-      </span><span class="opn">(</span><span class="pln">list </span><span class="lit">'verb-phrase</span><span class="pln">
-            verb-phrase
-            </span><span class="opn">(</span><span class="pln">parse-prepositional-phrase</span><span class="clo">)))))</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">maybe-extend </span><span class="opn">(</span><span class="pln">parse-word verbs</span><span class="clo">)))</span></pre></div>
+// Returns an iterator of all valid verb phrase parses
+fn parse_verb_phrase(input: &amp;mut &amp;[&amp;str]) -&gt; Option&lt;VerbPhrase&gt; {
+    let verb = parse_word(input, VERBS)?;
+    // Try to extend with prepositional phrases
+    let mut vp = VerbPhrase::Verb(verb);
+    while let Some(prep) = parse_prepositional_phrase(input) {
+        vp = VerbPhrase::Extended(Box::new(vp), prep);
+    }
+    Some(vp)
+}
+</pre></div>
 
-<p>While we’re at it, we can also elaborate the definition of noun phrases to
-permit such things as “a cat in the class.”  What we used to call a noun
-phrase, we’ll now call a simple noun phrase, and a noun phrase will now be
+<p>While we&rsquo;re at it, we can also elaborate the definition of noun phrases to
+permit such things as &ldquo;a cat in the class.&rdquo;  What we used to call a noun
+phrase, we&rsquo;ll now call a simple noun phrase, and a noun phrase will now be
 either a simple noun phrase or a noun phrase extended by a prepositional
 phrase:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">parse-simple-noun-phrase</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">list </span><span class="lit">'simple-noun-phrase</span><span class="pln">
-        </span><span class="opn">(</span><span class="pln">parse-word articles</span><span class="clo">)</span><span class="pln">
-        </span><span class="opn">(</span><span class="pln">parse-word nouns</span><span class="clo">)))</span><span class="pln">
+<div class="example">
+<pre class="example-preformatted">fn parse_simple_noun_phrase(input: &amp;mut &amp;[&amp;str]) -&gt; Option&lt;SimpleNounPhrase&gt; {
+    let article = parse_word(input, ARTICLES)?;
+    let noun = parse_word(input, NOUNS)?;
+    Some(SimpleNounPhrase { article, noun })
+}
 
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">parse-noun-phrase</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">maybe-extend noun-phrase</span><span class="clo">)</span><span class="pln">
-    </span><span class="opn">(</span><span class="pln">amb 
-     noun-phrase
-     </span><span class="opn">(</span><span class="pln">maybe-extend 
-      </span><span class="opn">(</span><span class="pln">list </span><span class="lit">'noun-phrase</span><span class="pln">
-            noun-phrase
-            </span><span class="opn">(</span><span class="pln">parse-prepositional-phrase</span><span class="clo">)))))</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">maybe-extend </span><span class="opn">(</span><span class="pln">parse-simple-noun-phrase</span><span class="clo">)))</span></pre></div>
+fn parse_noun_phrase_ext(input: &amp;mut &amp;[&amp;str]) -&gt; Option&lt;NounPhraseExt&gt; {
+    let simple = parse_simple_noun_phrase(input)?;
+    let mut np = NounPhraseExt::Simple(simple);
+    // Extend with prepositional phrases
+    while let Some(prep) = parse_prepositional_phrase(input) {
+        np = NounPhraseExt::Extended(Box::new(np), prep);
+    }
+    Some(np)
+}
+</pre></div>
 
 <p>Our new grammar lets us parse more complex sentences.  For example
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">parse </span><span class="lit">'</span><span class="opn">(</span><span class="pln">the student with the cat 
-         sleeps in the class</span><span class="clo">))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">parse(&amp;[&quot;the&quot;, &quot;student&quot;, &quot;with&quot;, &quot;the&quot;, &quot;cat&quot;,
+        &quot;sleeps&quot;, &quot;in&quot;, &quot;the&quot;, &quot;class&quot;])
+</pre></div>
 
 <p>produces
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">sentence
- </span><span class="opn">(</span><span class="pln">noun-phrase
-  </span><span class="opn">(</span><span class="pln">simple-noun-phrase </span><span class="opn">(</span><span class="pln">article the</span><span class="clo">)</span><span class="pln"> 
-                      </span><span class="opn">(</span><span class="pln">noun student</span><span class="clo">))</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">prep-phrase </span><span class="opn">(</span><span class="pln">prep with</span><span class="clo">)</span><span class="pln">
-               </span><span class="opn">(</span><span class="pln">simple-noun-phrase
-                </span><span class="opn">(</span><span class="pln">article the</span><span class="clo">)</span><span class="pln">
-                </span><span class="opn">(</span><span class="pln">noun cat</span><span class="clo">))))</span><span class="pln">
- </span><span class="opn">(</span><span class="pln">verb-phrase
-  </span><span class="opn">(</span><span class="pln">verb sleeps</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">prep-phrase </span><span class="opn">(</span><span class="pln">prep in</span><span class="clo">)</span><span class="pln">
-               </span><span class="opn">(</span><span class="pln">simple-noun-phrase
-                </span><span class="opn">(</span><span class="pln">article the</span><span class="clo">)</span><span class="pln">
-                </span><span class="opn">(</span><span class="pln">noun class</span><span class="clo">)))))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">SentenceExt {
+    noun_phrase: NounPhraseExt::Extended(
+        Box::new(NounPhraseExt::Simple(
+            SimpleNounPhrase { article: &quot;the&quot;, noun: &quot;student&quot; }
+        )),
+        PrepPhrase {
+            prep: &quot;with&quot;,
+            noun_phrase: SimpleNounPhrase { article: &quot;the&quot;, noun: &quot;cat&quot; },
+        }
+    ),
+    verb_phrase: VerbPhrase::Extended(
+        Box::new(VerbPhrase::Verb(&quot;sleeps&quot;)),
+        PrepPhrase {
+            prep: &quot;in&quot;,
+            noun_phrase: SimpleNounPhrase { article: &quot;the&quot;, noun: &quot;class&quot; },
+        }
+    ),
+}
+</pre></div>
 
 <p>Observe that a given input may have more than one legal parse.  In the sentence
-“The professor lectures to the student with the cat,” it may be that the
+&ldquo;The professor lectures to the student with the cat,&rdquo; it may be that the
 professor is lecturing with the cat, or that the student has the cat.  Our
 nondeterministic program finds both possibilities:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">parse </span><span class="lit">'</span><span class="opn">(</span><span class="pln">the professor lectures to 
-         the student with the cat</span><span class="clo">))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">parse(&amp;[&quot;the&quot;, &quot;professor&quot;, &quot;lectures&quot;, &quot;to&quot;,
+        &quot;the&quot;, &quot;student&quot;, &quot;with&quot;, &quot;the&quot;, &quot;cat&quot;])
+</pre></div>
 
 <p>produces
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">sentence
- </span><span class="opn">(</span><span class="pln">simple-noun-phrase </span><span class="opn">(</span><span class="pln">article the</span><span class="clo">)</span><span class="pln"> 
-                     </span><span class="opn">(</span><span class="pln">noun professor</span><span class="clo">))</span><span class="pln">
- </span><span class="opn">(</span><span class="pln">verb-phrase
-  </span><span class="opn">(</span><span class="pln">verb-phrase
-   </span><span class="opn">(</span><span class="pln">verb lectures</span><span class="clo">)</span><span class="pln">
-   </span><span class="opn">(</span><span class="pln">prep-phrase </span><span class="opn">(</span><span class="pln">prep to</span><span class="clo">)</span><span class="pln">
-                </span><span class="opn">(</span><span class="pln">simple-noun-phrase
-                 </span><span class="opn">(</span><span class="pln">article the</span><span class="clo">)</span><span class="pln"> 
-                 </span><span class="opn">(</span><span class="pln">noun student</span><span class="clo">))))</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">prep-phrase </span><span class="opn">(</span><span class="pln">prep with</span><span class="clo">)</span><span class="pln">
-               </span><span class="opn">(</span><span class="pln">simple-noun-phrase
-                </span><span class="opn">(</span><span class="pln">article the</span><span class="clo">)</span><span class="pln"> 
-                </span><span class="opn">(</span><span class="pln">noun cat</span><span class="clo">)))))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">// Interpretation 1: The professor lectures (with the cat)
+SentenceExt {
+    noun_phrase: NounPhraseExt::Simple(
+        SimpleNounPhrase { article: &quot;the&quot;, noun: &quot;professor&quot; }
+    ),
+    verb_phrase: VerbPhrase::Extended(
+        Box::new(VerbPhrase::Extended(
+            Box::new(VerbPhrase::Verb(&quot;lectures&quot;)),
+            PrepPhrase { prep: &quot;to&quot;, /* ... student ... */ }
+        )),
+        PrepPhrase { prep: &quot;with&quot;, /* ... cat ... */ }
+    ),
+}
+</pre></div>
 
 <p>Asking the evaluator to try again yields
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">sentence
- </span><span class="opn">(</span><span class="pln">simple-noun-phrase </span><span class="opn">(</span><span class="pln">article the</span><span class="clo">)</span><span class="pln"> 
-                     </span><span class="opn">(</span><span class="pln">noun professor</span><span class="clo">))</span><span class="pln">
- </span><span class="opn">(</span><span class="pln">verb-phrase </span><span class="opn">(</span><span class="pln">verb lectures</span><span class="clo">)</span><span class="pln">
-              </span><span class="opn">(</span><span class="pln">prep-phrase 
-               </span><span class="opn">(</span><span class="pln">prep to</span><span class="clo">)</span><span class="pln">
-               </span><span class="opn">(</span><span class="pln">noun-phrase
-                </span><span class="opn">(</span><span class="pln">simple-noun-phrase
-                 </span><span class="opn">(</span><span class="pln">article the</span><span class="clo">)</span><span class="pln"> 
-                 </span><span class="opn">(</span><span class="pln">noun student</span><span class="clo">))</span><span class="pln">
-                </span><span class="opn">(</span><span class="pln">prep-phrase 
-                 </span><span class="opn">(</span><span class="pln">prep with</span><span class="clo">)</span><span class="pln">
-                 </span><span class="opn">(</span><span class="pln">simple-noun-phrase
-                  </span><span class="opn">(</span><span class="pln">article the</span><span class="clo">)</span><span class="pln"> 
-                  </span><span class="opn">(</span><span class="pln">noun cat</span><span class="clo">)))))))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">// Interpretation 2: The student has the cat
+SentenceExt {
+    noun_phrase: NounPhraseExt::Simple(
+        SimpleNounPhrase { article: &quot;the&quot;, noun: &quot;professor&quot; }
+    ),
+    verb_phrase: VerbPhrase::Extended(
+        Box::new(VerbPhrase::Verb(&quot;lectures&quot;)),
+        PrepPhrase {
+            prep: &quot;to&quot;,
+            noun_phrase: NounPhraseExt::Extended(
+                Box::new(NounPhraseExt::Simple(/* student */)),
+                PrepPhrase { prep: &quot;with&quot;, /* cat */ }
+            ),
+        }
+    ),
+}
+</pre></div>
 
-<blockquote>
-<p><strong><a id="Exercise-4_002e45"></a>Exercise 4.45:</strong> With the grammar given above, the
-following sentence can be parsed in five different ways: “The professor
-lectures to the student in the class with the cat.”  Give the five parses and
+<blockquote class="quotation">
+<p><strong class="strong"><a class="anchor" id="Exercise-4_002e45"></a>Exercise 4.45:</strong> With the grammar given above, the
+following sentence can be parsed in five different ways: &ldquo;The professor
+lectures to the student in the class with the cat.&rdquo;  Give the five parses and
 explain the differences in shades of meaning among them.
 </p></blockquote>
 
-<blockquote>
-<p><strong><a id="Exercise-4_002e46"></a>Exercise 4.46:</strong> The evaluators in 
-<a href="4_002e1.xhtml#g_t4_002e1">4.1</a> and <a href="4_002e2.xhtml#g_t4_002e2">4.2</a> do not determine what order operands are evaluated in.
-We will see that the <code>amb</code> evaluator evaluates them from left to right.
-Explain why our parsing program wouldn’t work if the operands were evaluated in
+<blockquote class="quotation">
+<p><strong class="strong"><a class="anchor" id="Exercise-4_002e46"></a>Exercise 4.46:</strong> The evaluators in 
+<a class="ref" href="4_002e1.xhtml#g_t4_002e1">The Metacircular Evaluator</a> and <a class="ref" href="4_002e2.xhtml#g_t4_002e2">Variations on a Scheme &mdash; Lazy Evaluation</a> do not determine what order operands are evaluated in.
+We will see that the <code class="code">amb</code> evaluator evaluates them from left to right.
+Explain why our parsing program wouldn&rsquo;t work if the operands were evaluated in
 some other order.
 </p></blockquote>
 
-<blockquote>
-<p><strong><a id="Exercise-4_002e47"></a>Exercise 4.47:</strong> Louis Reasoner suggests that,
+<blockquote class="quotation">
+<p><strong class="strong"><a class="anchor" id="Exercise-4_002e47"></a>Exercise 4.47:</strong> Louis Reasoner suggests that,
 since a verb phrase is either a verb or a verb phrase followed by a
 prepositional phrase, it would be much more straightforward to define the
-procedure <code>parse-verb-phrase</code> as follows (and similarly for noun phrases):
+procedure <code class="code">parse_verb_phrase</code> as follows (and similarly for noun phrases):
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">parse-verb-phrase</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">amb </span><span class="opn">(</span><span class="pln">parse-word verbs</span><span class="clo">)</span><span class="pln">
-       </span><span class="opn">(</span><span class="pln">list 
-        </span><span class="lit">'verb-phrase</span><span class="pln">
-        </span><span class="opn">(</span><span class="pln">parse-verb-phrase</span><span class="clo">)</span><span class="pln">
-        </span><span class="opn">(</span><span class="pln">parse-prepositional-phrase</span><span class="clo">))))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">// Louis's version - left-recursive, causes infinite loop!
+fn parse_verb_phrase_louis(input: &amp;mut &amp;[&amp;str]) -&gt; Option&lt;VerbPhrase&gt; {
+    // Either a simple verb...
+    parse_word(input, VERBS).map(VerbPhrase::Verb)
+    // ...or a verb phrase followed by prep phrase
+    // This is left-recursive and will loop infinitely
+    .or_else(|| {
+        let vp = parse_verb_phrase_louis(input)?;  // Infinite recursion!
+        let prep = parse_prepositional_phrase(input)?;
+        Some(VerbPhrase::Extended(Box::new(vp), prep))
+    })
+}
+</pre></div>
 
-<p>Does this work?  Does the program’s behavior change if we interchange the order
-of expressions in the <code>amb</code>?
+<p>Does this work?  Does the program&rsquo;s behavior change if we interchange the order
+of expressions in the <code class="code">amb</code>?
 </p></blockquote>
 
-<blockquote>
-<p><strong><a id="Exercise-4_002e48"></a>Exercise 4.48:</strong> Extend the grammar given above to
+<blockquote class="quotation">
+<p><strong class="strong"><a class="anchor" id="Exercise-4_002e48"></a>Exercise 4.48:</strong> Extend the grammar given above to
 handle more complex sentences.  For example, you could extend noun phrases and
 verb phrases to include adjectives and adverbs, or you could handle compound
-sentences.<a class="footnote_link" id="DOCF257" href="#FOOT257"><sup>257</sup></a>
+sentences.<a class="footnote" id="DOCF238" href="#FOOT238"><sup>238</sup></a>
 </p></blockquote>
 
-<blockquote>
-<p><strong><a id="Exercise-4_002e49"></a>Exercise 4.49:</strong> Alyssa P. Hacker is more
+<blockquote class="quotation">
+<p><strong class="strong"><a class="anchor" id="Exercise-4_002e49"></a>Exercise 4.49:</strong> Alyssa P. Hacker is more
 interested in generating interesting sentences than in parsing them.  She
-reasons that by simply changing the procedure <code>parse-word</code> so that it
-ignores the “input sentence” and instead always succeeds and generates an
+reasons that by simply changing the procedure <code class="code">parse_word</code> so that it
+ignores the &ldquo;input sentence&rdquo; and instead always succeeds and generates an
 appropriate word, we can use the programs we had built for parsing to do
-generation instead.  Implement Alyssa’s idea, and show the first half-dozen or
-so sentences generated.<a class="footnote_link" id="DOCF258" href="#FOOT258"><sup>258</sup></a>
+generation instead.  Implement Alyssa&rsquo;s idea, and show the first half-dozen or
+so sentences generated.<a class="footnote" id="DOCF239" href="#FOOT239"><sup>239</sup></a>
 </p></blockquote>
 
-<a id="g_t4_002e3_002e3"></a>
-<a id="Implementing-the-Amb-Evaluator"></a>
-<h4 class="subsection"><span class="secnum">4.3.3</span><span class="sectitle">Implementing the <code>Amb</code> Evaluator</span></h4>
+<hr>
+</div>
+<div class="subsection-level-extent" id="g_t4_002e3_002e3">
+<h4 class="subsection" id="Implementing-the-Amb-Evaluator"><span>4.3.3 Implementing the <code class="code">Amb</code> Evaluator<a class="copiable-link" href="#Implementing-the-Amb-Evaluator"> &para;</a></span></h4>
 
 <p>The evaluation of an ordinary Scheme expression may return a value, may never
 terminate, or may signal an error.  In nondeterministic Scheme the evaluation
@@ -790,27 +818,26 @@ of an expression may in addition result in the discovery of a dead end, in
 which case evaluation must backtrack to a previous choice point.  The
 interpretation of nondeterministic Scheme is complicated by this extra case.
 </p>
-<p>We will construct the <code>amb</code> evaluator for nondeterministic Scheme by
-modifying the analyzing evaluator of <a href="4_002e1.xhtml#g_t4_002e1_002e7">4.1.7</a>.<a class="footnote_link" id="DOCF259" href="#FOOT259"><sup>259</sup></a>  As in the analyzing
+<p>We will construct the <code class="code">amb</code> evaluator for nondeterministic Scheme by
+modifying the analyzing evaluator of <a class="ref" href="4_002e1.xhtml#g_t4_002e1_002e7">Separating Syntactic Analysis from Execution</a>.<a class="footnote" id="DOCF240" href="#FOOT240"><sup>240</sup></a>  As in the analyzing
 evaluator, evaluation of an expression is accomplished by calling an execution
 procedure produced by analysis of that expression.  The difference between the
 interpretation of ordinary Scheme and the interpretation of nondeterministic
 Scheme will be entirely in the execution procedures.
 </p>
-<a id="Execution-procedures-and-continuations"></a>
-<h5 class="subsubheading">Execution procedures and continuations</h5>
+<h4 class="subsubheading" id="Execution-procedures-and-continuations"><span>Execution procedures and continuations<a class="copiable-link" href="#Execution-procedures-and-continuations"> &para;</a></span></h4>
 
 <p>Recall that the execution procedures for the ordinary evaluator take one
 argument: the environment of execution.  In contrast, the execution procedures
-in the <code>amb</code> evaluator take three arguments: the environment, and two
-procedures called <a id="index-continuation-procedures"></a>
-<em>continuation procedures</em>.  The evaluation of an
+in the <code class="code">amb</code> evaluator take three arguments: the environment, and two
+procedures called <a class="index-entry-id" id="index-continuation-procedures"></a>
+<em class="dfn">continuation procedures</em>.  The evaluation of an
 expression will finish by calling one of these two continuations: If the
-evaluation results in a value, the <a id="index-success-continuation"></a>
-<em>success continuation</em> is called
+evaluation results in a value, the <a class="index-entry-id" id="index-success-continuation"></a>
+<em class="dfn">success continuation</em> is called
 with that value; if the evaluation results in the discovery of a dead end, the
-<a id="index-failure-continuation"></a>
-<em>failure continuation</em> is called.  Constructing and calling appropriate
+<a class="index-entry-id" id="index-failure-continuation"></a>
+<em class="dfn">failure continuation</em> is called.  Constructing and calling appropriate
 continuations is the mechanism by which the nondeterministic evaluator
 implements backtracking.
 </p>
@@ -831,13 +858,13 @@ that can be called later to choose a different alternative.
 </p>
 <p>A failure is triggered during evaluation (that is, a failure continuation is
 called) when a user program explicitly rejects the current line of attack (for
-example, a call to <code>require</code> may result in execution of <code>(amb)</code>, an
-expression that always fails—see <a href="#g_t4_002e3_002e1">4.3.1</a>).  The failure
+example, a call to <code class="code">require</code> may result in execution of <code class="code">(amb)</code>, an
+expression that always fails&mdash;see <a class="ref" href="#g_t4_002e3_002e1">Amb and Search</a>).  The failure
 continuation in hand at that point will cause the most recent choice point to
 choose another alternative.  If there are no more alternatives to be considered
 at that choice point, a failure at an earlier choice point is triggered, and so
 on.  Failure continuations are also invoked by the driver loop in response to a
-<code>try-again</code> request, to find another value of the expression.
+<code class="code">try-again</code> request, to find another value of the expression.
 </p>
 <p>In addition, if a side-effect operation (such as assignment to a variable)
 occurs on a branch of the process resulting from a choice, it may be necessary,
@@ -847,708 +874,798 @@ failure continuation that undoes the side effect and propagates the failure.
 </p>
 <p>In summary, failure continuations are constructed by
 </p>
-<ul>
-<li> <code>amb</code> expressions—to provide a mechanism to make alternative choices if
-the current choice made by the <code>amb</code> expression leads to a dead end;
+<ul class="itemize mark-bullet">
+<li><code class="code">amb</code> expressions&mdash;to provide a mechanism to make alternative choices if
+the current choice made by the <code class="code">amb</code> expression leads to a dead end;
 
-</li><li> the top-level driver—to provide a mechanism to report failure when the
+</li><li>the top-level driver&mdash;to provide a mechanism to report failure when the
 choices are exhausted;
 
-</li><li> assignments—to intercept failures and undo assignments during backtracking.
+</li><li>assignments&mdash;to intercept failures and undo assignments during backtracking.
 
 </li></ul>
 
 <p>Failures are initiated only when a dead end is encountered.  This occurs
 </p>
-<ul>
-<li> if the user program executes <code>(amb)</code>;
+<ul class="itemize mark-bullet">
+<li>if the user program executes <code class="code">(amb)</code>;
 
-</li><li> if the user types <code>try-again</code> at the top-level driver.
+</li><li>if the user types <code class="code">try-again</code> at the top-level driver.
 
 </li></ul>
 
 <p>Failure continuations are also called during processing of a failure:
 </p>
-<ul>
-<li> When the failure continuation created by an assignment finishes undoing a side
+<ul class="itemize mark-bullet">
+<li>When the failure continuation created by an assignment finishes undoing a side
 effect, it calls the failure continuation it intercepted, in order to propagate
 the failure back to the choice point that led to this assignment or to the top
 level.
 
-</li><li> When the failure continuation for an <code>amb</code> runs out of choices, it calls
-the failure continuation that was originally given to the <code>amb</code>, in order
+</li><li>When the failure continuation for an <code class="code">amb</code> runs out of choices, it calls
+the failure continuation that was originally given to the <code class="code">amb</code>, in order
 to propagate the failure back to the previous choice point or to the top level.
 
 </li></ul>
 
-<a id="Structure-of-the-evaluator"></a>
-<h5 class="subsubheading">Structure of the evaluator</h5>
+<h4 class="subsubheading" id="Structure-of-the-evaluator"><span>Structure of the evaluator<a class="copiable-link" href="#Structure-of-the-evaluator"> &para;</a></span></h4>
 
-<p>The syntax- and data-representation procedures for the <code>amb</code> evaluator,
-and also the basic <code>analyze</code> procedure, are identical to those in the
-evaluator of <a href="4_002e1.xhtml#g_t4_002e1_002e7">4.1.7</a>, except for the fact that we need additional
-syntax procedures to recognize the <code>amb</code> special form:<a class="footnote_link" id="DOCF260" href="#FOOT260"><sup>260</sup></a>
+<p>The syntax- and data-representation procedures for the <code class="code">amb</code> evaluator,
+and also the basic <code class="code">analyze</code> procedure, are identical to those in the
+evaluator of <a class="ref" href="4_002e1.xhtml#g_t4_002e1_002e7">Separating Syntactic Analysis from Execution</a>, except for the fact that we need additional
+syntax procedures to recognize the <code class="code">amb</code> special form:<a class="footnote" id="DOCF241" href="#FOOT241"><sup>241</sup></a>
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">amb? exp</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">tagged-list? exp </span><span class="lit">'amb</span><span class="clo">))</span><span class="pln">
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">amb-choices exp</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> exp</span><span class="clo">))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">// In Rust, amb is represented as an enum variant
+enum Expr {
+    // ... other variants ...
+    Amb(Vec&lt;Expr&gt;),  // Nondeterministic choice
+}
 
-<p>We must also add to the dispatch in <code>analyze</code> a clause that will recognize
+fn is_amb(exp: &amp;Expr) -&gt; bool {
+    matches!(exp, Expr::Amb(_))
+}
+
+fn amb_choices(exp: &amp;Expr) -&gt; &amp;[Expr] {
+    match exp {
+        Expr::Amb(choices) =&gt; choices,
+        _ =&gt; panic!(&quot;Not an amb expression&quot;),
+    }
+}
+</pre></div>
+
+<p>We must also add to the dispatch in <code class="code">analyze</code> a clause that will recognize
 this special form and generate an appropriate execution procedure:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">((</span><span class="pln">amb? exp</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">analyze-amb exp</span><span class="clo">))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">Expr::Amb(choices) =&gt; analyze_amb(choices),
+</pre></div>
 
-<p>The top-level procedure <code>ambeval</code> (similar to the version of <code>eval</code>
-given in <a href="4_002e1.xhtml#g_t4_002e1_002e7">4.1.7</a>) analyzes the given expression and applies the
+<p>The top-level procedure <code class="code">ambeval</code> (similar to the version of <code class="code">eval</code>
+given in <a class="ref" href="4_002e1.xhtml#g_t4_002e1_002e7">Separating Syntactic Analysis from Execution</a>) analyzes the given expression and applies the
 resulting execution procedure to the given environment, together with two given
 continuations:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">ambeval exp env succeed fail</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">((</span><span class="pln">analyze exp</span><span class="clo">)</span><span class="pln"> env succeed fail</span><span class="clo">))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">fn ambeval&lt;S, F&gt;(exp: &amp;Expr, env: &amp;Environment, succeed: S, fail: F)
+where
+    S: FnOnce(Value, Box&lt;dyn FnOnce()&gt;),
+    F: FnOnce(),
+{
+    let executor = analyze(exp);
+    executor(env, succeed, fail)
+}
+</pre></div>
 
 <p>A success continuation is a procedure of two arguments: the value just obtained
 and another failure continuation to be used if that value leads to a subsequent
 failure. A failure continuation is a procedure of no arguments.  So the general
 form of an execution procedure is
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">env succeed fail</span><span class="clo">)</span><span class="pln">
-  </span><span class="roman"><span class="com">;; </span><code><span class="com">succeed</span></code><span class="com"> is </span><code><span class="com">(lambda (value fail) </span><span class="roman"><span class="com">…</span></span><span class="com">)</span></code></span><span class="pln">
-  </span><span class="roman"><span class="com">;; </span><code><span class="com">fail</span></code><span class="com"> is </span><code><span class="com">(lambda () </span><span class="roman"><span class="com">…</span></span><span class="com">)</span></code></span><span class="pln">
-  </span><span class="roman"><span class="pun">…</span></span><span class="clo">)</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">// Execution procedure signature:
+type Executor = Box&lt;dyn Fn(
+    &amp;Environment,
+    Box&lt;dyn FnOnce(Value, Box&lt;dyn FnOnce()&gt;)&gt;,  // succeed
+    Box&lt;dyn FnOnce()&gt;,                           // fail
+)&gt;;
+
+// succeed: (value, fail_continuation) -&gt; ()
+// fail: () -&gt; ()
+</pre></div>
 
 <p>For example, executing
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">ambeval ⟨</span><var><span class="pln">exp</span></var><span class="pln">⟩
-         the-global-environment
-         </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">value fail</span><span class="clo">)</span><span class="pln"> value</span><span class="clo">)</span><span class="pln">
-         </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="clo">)</span><span class="pln"> </span><span class="lit">'failed</span><span class="clo">))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">ambeval(
+    &amp;exp,
+    &amp;global_env,
+    Box::new(|value, _fail| value),      // On success, return value
+    Box::new(|| Value::Symbol(&quot;failed&quot;)) // On failure, return 'failed
+)
+</pre></div>
 
 <p>will attempt to evaluate the given expression and will return either the
-expression’s value (if the evaluation succeeds) or the symbol <code>failed</code> (if
-the evaluation fails).  The call to <code>ambeval</code> in the driver loop shown
+expression&rsquo;s value (if the evaluation succeeds) or the symbol <code class="code">failed</code> (if
+the evaluation fails).  The call to <code class="code">ambeval</code> in the driver loop shown
 below uses much more complicated continuation procedures, which continue the
-loop and support the <code>try-again</code> request.
+loop and support the <code class="code">try-again</code> request.
 </p>
-<p>Most of the complexity of the <code>amb</code> evaluator results from the mechanics
+<p>Most of the complexity of the <code class="code">amb</code> evaluator results from the mechanics
 of passing the continuations around as the execution procedures call each
 other.  In going through the following code, you should compare each of the
 execution procedures with the corresponding procedure for the ordinary
-evaluator given in <a href="4_002e1.xhtml#g_t4_002e1_002e7">4.1.7</a>.
+evaluator given in <a class="ref" href="4_002e1.xhtml#g_t4_002e1_002e7">Separating Syntactic Analysis from Execution</a>.
 </p>
-<a id="Simple-expressions"></a>
-<h5 class="subsubheading">Simple expressions</h5>
+<h4 class="subsubheading" id="Simple-expressions"><span>Simple expressions<a class="copiable-link" href="#Simple-expressions"> &para;</a></span></h4>
 
 <p>The execution procedures for the simplest kinds of expressions are essentially
 the same as those for the ordinary evaluator, except for the need to manage the
 continuations.  The execution procedures simply succeed with the value of the
 expression, passing along the failure continuation that was passed to them.
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">analyze-self-evaluating exp</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">env succeed fail</span><span class="clo">)</span><span class="pln">
-    </span><span class="opn">(</span><span class="pln">succeed exp fail</span><span class="clo">)))</span><span class="pln">
+<div class="example">
+<pre class="example-preformatted">fn analyze_self_evaluating(n: i64) -&gt; Executor {
+    Box::new(move |_env, succeed, fail| {
+        succeed(Value::Number(n), fail);
+    })
+}
 
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">analyze-quoted exp</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">qval </span><span class="opn">(</span><span class="pln">text-of-quotation exp</span><span class="clo">)))</span><span class="pln">
-    </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">env succeed fail</span><span class="clo">)</span><span class="pln">
-      </span><span class="opn">(</span><span class="pln">succeed qval fail</span><span class="clo">))))</span><span class="pln">
+fn analyze_quoted(val: Value) -&gt; Executor {
+    Box::new(move |_env, succeed, fail| {
+        succeed(val.clone(), fail);
+    })
+}
 
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">analyze-variable exp</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">env succeed fail</span><span class="clo">)</span><span class="pln">
-    </span><span class="opn">(</span><span class="pln">succeed </span><span class="opn">(</span><span class="pln">lookup-variable-value exp env</span><span class="clo">)</span><span class="pln">
-             fail</span><span class="clo">)))</span><span class="pln">
+fn analyze_variable(name: String) -&gt; Executor {
+    Box::new(move |env, succeed, fail| {
+        let value = env.lookup(&amp;name).expect(&quot;Unbound variable&quot;);
+        succeed(value.clone(), fail);
+    })
+}
 
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">analyze-lambda exp</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">vars </span><span class="opn">(</span><span class="pln">lambda-parameters exp</span><span class="clo">))</span><span class="pln">
-        </span><span class="opn">(</span><span class="pln">bproc </span><span class="opn">(</span><span class="pln">analyze-sequence 
-                </span><span class="opn">(</span><span class="pln">lambda-body exp</span><span class="clo">))))</span><span class="pln">
-    </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">env succeed fail</span><span class="clo">)</span><span class="pln">
-      </span><span class="opn">(</span><span class="pln">succeed </span><span class="opn">(</span><span class="pln">make-procedure vars bproc env</span><span class="clo">)</span><span class="pln">
-               fail</span><span class="clo">))))</span></pre></div>
+fn analyze_lambda(params: Vec&lt;String&gt;, body: Vec&lt;Expr&gt;) -&gt; Executor {
+    let bproc = analyze_sequence(&amp;body);
+    Box::new(move |env, succeed, fail| {
+        succeed(
+            Value::Closure {
+                params: params.clone(),
+                body: bproc.clone(),
+                env: env.clone(),
+            },
+            fail,
+        );
+    })
+}
+</pre></div>
 
-<p>Notice that looking up a variable always ‘succeeds.’  If
-<code>lookup-variable-value</code> fails to find the variable, it signals an error,
-as usual.  Such a “failure” indicates a program bug—a reference to an
+<p>Notice that looking up a variable always &lsquo;succeeds.&rsquo;  If
+<code class="code">lookup_variable_value</code> fails to find the variable, it signals an error,
+as usual.  Such a &ldquo;failure&rdquo; indicates a program bug&mdash;a reference to an
 unbound variable; it is not an indication that we should try another
 nondeterministic choice instead of the one that is currently being tried.
 </p>
-<a id="Conditionals-and-sequences"></a>
-<h5 class="subsubheading">Conditionals and sequences</h5>
+<h4 class="subsubheading" id="Conditionals-and-sequences"><span>Conditionals and sequences<a class="copiable-link" href="#Conditionals-and-sequences"> &para;</a></span></h4>
 
 <p>Conditionals are also handled in a similar way as in the ordinary evaluator.
-The execution procedure generated by <code>analyze-if</code> invokes the predicate
-execution procedure <code>pproc</code> with a success continuation that checks
+The execution procedure generated by <code class="code">analyze_if</code> invokes the predicate
+execution procedure <code class="code">pproc</code> with a success continuation that checks
 whether the predicate value is true and goes on to execute either the
-consequent or the alternative.  If the execution of <code>pproc</code> fails, the
-original failure continuation for the <code>if</code> expression is called.
+consequent or the alternative.  If the execution of <code class="code">pproc</code> fails, the
+original failure continuation for the <code class="code">if</code> expression is called.
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">analyze-if exp</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">pproc </span><span class="opn">(</span><span class="pln">analyze </span><span class="opn">(</span><span class="pln">if-predicate exp</span><span class="clo">)))</span><span class="pln">
-        </span><span class="opn">(</span><span class="pln">cproc </span><span class="opn">(</span><span class="pln">analyze </span><span class="opn">(</span><span class="pln">if-consequent exp</span><span class="clo">)))</span><span class="pln">
-        </span><span class="opn">(</span><span class="pln">aproc </span><span class="opn">(</span><span class="pln">analyze </span><span class="opn">(</span><span class="pln">if-alternative exp</span><span class="clo">))))</span><span class="pln">
-    </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">env succeed fail</span><span class="clo">)</span><span class="pln">
-      </span><span class="opn">(</span><span class="pln">pproc env
-             </span><span class="roman"><span class="com">;; success continuation for evaluating</span></span><span class="pln">
-             </span><span class="roman"><span class="com">;; the predicate to obtain </span><code><span class="com">pred-value</span></code></span><span class="pln">
-             </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">pred-value fail2</span><span class="clo">)</span><span class="pln">
-               </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pln">true? pred-value</span><span class="clo">)</span><span class="pln">
-                   </span><span class="opn">(</span><span class="pln">cproc env succeed fail2</span><span class="clo">)</span><span class="pln">
-                   </span><span class="opn">(</span><span class="pln">aproc env succeed fail2</span><span class="clo">)))</span><span class="pln">
-             </span><span class="roman"><span class="com">;; failure continuation for</span></span><span class="pln">
-             </span><span class="roman"><span class="com">;; evaluating the predicate</span></span><span class="pln">
-             fail</span><span class="clo">))))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">fn analyze_if(predicate: &amp;Expr, consequent: &amp;Expr, alternative: &amp;Expr) -&gt; Executor {
+    let pproc = analyze(predicate);
+    let cproc = analyze(consequent);
+    let aproc = analyze(alternative);
+    Box::new(move |env, succeed, fail| {
+        pproc(
+            env,
+            // Success continuation for predicate
+            Box::new(|pred_value, fail2| {
+                if is_truthy(&amp;pred_value) {
+                    cproc(env, succeed, fail2)
+                } else {
+                    aproc(env, succeed, fail2)
+                }
+            }),
+            // Failure continuation for predicate
+            fail,
+        )
+    })
+}
+</pre></div>
 
 <p>Sequences are also handled in the same way as in the previous evaluator, except
-for the machinations in the subprocedure <code>sequentially</code> that are required
-for passing the continuations.  Namely, to sequentially execute <code>a</code> and
-then <code>b</code>, we call <code>a</code> with a success continuation that calls
-<code>b</code>.
+for the machinations in the subprocedure <code class="code">sequentially</code> that are required
+for passing the continuations.  Namely, to sequentially execute <code class="code">a</code> and
+then <code class="code">b</code>, we call <code class="code">a</code> with a success continuation that calls
+<code class="code">b</code>.
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">analyze-sequence exps</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">sequentially a b</span><span class="clo">)</span><span class="pln">
-    </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">env succeed fail</span><span class="clo">)</span><span class="pln">
-      </span><span class="opn">(</span><span class="pln">a env
-         </span><span class="roman"><span class="com">;; success continuation for calling </span><code><span class="com">a</span></code></span><span class="pln">
-         </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">a-value fail2</span><span class="clo">)</span><span class="pln">
-           </span><span class="opn">(</span><span class="pln">b env succeed fail2</span><span class="clo">))</span><span class="pln">
-         </span><span class="roman"><span class="com">;; failure continuation for calling </span><code><span class="com">a</span></code></span><span class="pln">
-         fail</span><span class="clo">)))</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">loop first-proc rest-procs</span><span class="clo">)</span><span class="pln">
-    </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pln">null? rest-procs</span><span class="clo">)</span><span class="pln">
-        first-proc
-        </span><span class="opn">(</span><span class="pln">loop </span><span class="opn">(</span><span class="pln">sequentially first-proc 
-                            </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> rest-procs</span><span class="clo">))</span><span class="pln">
-              </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> rest-procs</span><span class="clo">))))</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">procs </span><span class="opn">(</span><span class="pln">map analyze exps</span><span class="clo">)))</span><span class="pln">
-    </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pln">null? procs</span><span class="clo">)</span><span class="pln">
-        </span><span class="opn">(</span><span class="err">error</span><span class="pln"> </span><span class="str">"Empty sequence: ANALYZE"</span><span class="clo">))</span><span class="pln">
-    </span><span class="opn">(</span><span class="pln">loop </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> procs</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> procs</span><span class="clo">))))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">fn analyze_sequence(exps: &amp;[Expr]) -&gt; Executor {
+    fn sequentially(a: Executor, b: Executor) -&gt; Executor {
+        Box::new(move |env, succeed, fail| {
+            a(
+                env,
+                // Success continuation: run b after a succeeds
+                Box::new(|_a_value, fail2| {
+                    b(env, succeed, fail2)
+                }),
+                // Failure continuation: propagate
+                fail,
+            )
+        })
+    }
 
-<a id="Definitions-and-assignments"></a>
-<h5 class="subsubheading">Definitions and assignments</h5>
+    let procs: Vec&lt;Executor&gt; = exps.iter().map(analyze).collect();
+    if procs.is_empty() {
+        panic!(&quot;Empty sequence&quot;);
+    }
+
+    procs.into_iter().reduce(sequentially).unwrap()
+}
+</pre></div>
+
+<h4 class="subsubheading" id="Definitions-and-assignments"><span>Definitions and assignments<a class="copiable-link" href="#Definitions-and-assignments"> &para;</a></span></h4>
 
 <p>Definitions are another case where we must go to some trouble to manage the
-continuations, because it is necessary to evaluate the definition-value
+continuations, because it is necessary to evaluate the definition_value
 expression before actually defining the new variable.  To accomplish this, the
-definition-value execution procedure <code>vproc</code> is called with the
+definition_value execution procedure <code class="code">vproc</code> is called with the
 environment, a success continuation, and the failure continuation.  If the
-execution of <code>vproc</code> succeeds, obtaining a value <code>val</code> for the
+execution of <code class="code">vproc</code> succeeds, obtaining a value <code class="code">val</code> for the
 defined variable, the variable is defined and the success is propagated:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">analyze-definition exp</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">var </span><span class="opn">(</span><span class="pln">definition-variable exp</span><span class="clo">))</span><span class="pln">
-        </span><span class="opn">(</span><span class="pln">vproc </span><span class="opn">(</span><span class="pln">analyze 
-                </span><span class="opn">(</span><span class="pln">definition-value exp</span><span class="clo">))))</span><span class="pln">
-    </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">env succeed fail</span><span class="clo">)</span><span class="pln">
-      </span><span class="opn">(</span><span class="pln">vproc env
-             </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">val fail2</span><span class="clo">)</span><span class="pln">
-               </span><span class="opn">(</span><span class="pln">define-variable! var val env</span><span class="clo">)</span><span class="pln">
-               </span><span class="opn">(</span><span class="pln">succeed </span><span class="lit">'ok</span><span class="pln"> fail2</span><span class="clo">))</span><span class="pln">
-             fail</span><span class="clo">))))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">fn analyze_definition(var: String, value_expr: &amp;Expr) -&gt; Executor {
+    let vproc = analyze(value_expr);
+    Box::new(move |env, succeed, fail| {
+        vproc(
+            env,
+            Box::new(|val, fail2| {
+                // Note: In Rust, we'd return a new environment
+                let new_env = env.define(var.clone(), val);
+                succeed(Value::Symbol(&quot;ok&quot;), fail2)
+            }),
+            fail,
+        )
+    })
+}
+</pre></div>
 
 <p>Assignments are more interesting.  This is the first place where we really use
 the continuations, rather than just passing them around.  The execution
 procedure for assignments starts out like the one for definitions.  It first
 attempts to obtain the new value to be assigned to the variable. If this
-evaluation of <code>vproc</code> fails, the assignment fails.
+evaluation of <code class="code">vproc</code> fails, the assignment fails.
 </p>
-<p>If <code>vproc</code> succeeds, however, and we go on to make the assignment, we must
+<p>If <code class="code">vproc</code> succeeds, however, and we go on to make the assignment, we must
 consider the possibility that this branch of the computation might later fail,
 which will require us to backtrack out of the assignment.  Thus, we must
-arrange to undo the assignment as part of the backtracking process.<a class="footnote_link" id="DOCF261" href="#FOOT261"><sup>261</sup></a>
+arrange to undo the assignment as part of the backtracking process.<a class="footnote" id="DOCF242" href="#FOOT242"><sup>242</sup></a>
 </p>
-<p>This is accomplished by giving <code>vproc</code> a success continuation (marked with
-the comment “*1*” below) that saves the old value of the variable before
+<p>This is accomplished by giving <code class="code">vproc</code> a success continuation (marked with
+the comment &ldquo;*1*&rdquo; below) that saves the old value of the variable before
 assigning the new value to the variable and proceeding from the assignment.
 The failure continuation that is passed along with the value of the assignment
-(marked with the comment “*2*” below) restores the old value of the variable
+(marked with the comment &ldquo;*2*&rdquo; below) restores the old value of the variable
 before continuing the failure.  That is, a successful assignment provides a
 failure continuation that will intercept a subsequent failure; whatever failure
-would otherwise have called <code>fail2</code> calls this procedure instead, to undo
-the assignment before actually calling <code>fail2</code>.
+would otherwise have called <code class="code">fail2</code> calls this procedure instead, to undo
+the assignment before actually calling <code class="code">fail2</code>.
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">analyze-assignment exp</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">var </span><span class="opn">(</span><span class="pln">assignment-variable exp</span><span class="clo">))</span><span class="pln">
-        </span><span class="opn">(</span><span class="pln">vproc </span><span class="opn">(</span><span class="pln">analyze 
-                </span><span class="opn">(</span><span class="pln">assignment-value exp</span><span class="clo">))))</span><span class="pln">
-    </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">env succeed fail</span><span class="clo">)</span><span class="pln">
-      </span><span class="opn">(</span><span class="pln">vproc env
-             </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">val fail2</span><span class="clo">)</span><span class="pln">    </span><span class="roman"><span class="com">; *1*</span></span><span class="pln">
-               </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">old-value
-                      </span><span class="opn">(</span><span class="pln">lookup-variable-value 
-                       var 
-                       env</span><span class="clo">)))</span><span class="pln">
-                 </span><span class="opn">(</span><span class="pln">set-variable-value!
-                  var 
-                  val 
-                  env</span><span class="clo">)</span><span class="pln">
-                 </span><span class="opn">(</span><span class="pln">succeed 
-                  </span><span class="lit">'ok</span><span class="pln">
-                  </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="clo">)</span><span class="pln">    </span><span class="roman"><span class="com">; *2*</span></span><span class="pln">
-                    </span><span class="opn">(</span><span class="pln">set-variable-value! 
-                     var
-                     old-value
-                     env</span><span class="clo">)</span><span class="pln">
-                    </span><span class="opn">(</span><span class="pln">fail2</span><span class="clo">)))))</span><span class="pln">
-               fail</span><span class="clo">))))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">fn analyze_assignment(var: String, value_expr: &amp;Expr) -&gt; Executor {
+    let vproc = analyze(value_expr);
+    Box::new(move |env, succeed, fail| {
+        vproc(
+            env,
+            Box::new(|val, fail2| {  // *1* Success continuation
+                let old_value = env.lookup(&amp;var).unwrap().clone();
+                // Note: In functional Rust, we'd return new env
+                // But for backtracking we need undo capability
+                env.set(&amp;var, val);
+                succeed(
+                    Value::Symbol(&quot;ok&quot;),
+                    Box::new(|| {  // *2* Undo on backtrack
+                        env.set(&amp;var, old_value);
+                        fail2()
+                    }),
+                );
+            }),
+            fail,
+        )
+    })
+}
+</pre></div>
 
-<a id="Procedure-applications"></a>
-<h5 class="subsubheading">Procedure applications</h5>
+<h4 class="subsubheading" id="Procedure-applications"><span>Procedure applications<a class="copiable-link" href="#Procedure-applications"> &para;</a></span></h4>
 
 <p>The execution procedure for applications contains no new ideas except for the
 technical complexity of managing the continuations.  This complexity arises in
-<code>analyze-application</code>, due to the need to keep track of the success and
+<code class="code">analyze_application</code>, due to the need to keep track of the success and
 failure continuations as we evaluate the operands.  We use a procedure
-<code>get-args</code> to evaluate the list of operands, rather than a simple
-<code>map</code> as in the ordinary evaluator.
+<code class="code">get_args</code> to evaluate the list of operands, rather than a simple
+<code class="code">map</code> as in the ordinary evaluator.
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">analyze-application exp</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">fproc </span><span class="opn">(</span><span class="pln">analyze </span><span class="opn">(</span><span class="pln">operator exp</span><span class="clo">)))</span><span class="pln">
-        </span><span class="opn">(</span><span class="pln">aprocs </span><span class="opn">(</span><span class="pln">map analyze </span><span class="opn">(</span><span class="pln">operands exp</span><span class="clo">))))</span><span class="pln">
-    </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">env succeed fail</span><span class="clo">)</span><span class="pln">
-      </span><span class="opn">(</span><span class="pln">fproc env
-             </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">proc fail2</span><span class="clo">)</span><span class="pln">
-               </span><span class="opn">(</span><span class="pln">get-args 
-                aprocs
-                env
-                </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">args fail3</span><span class="clo">)</span><span class="pln">
-                  </span><span class="opn">(</span><span class="pln">execute-application
-                   proc args succeed fail3</span><span class="clo">))</span><span class="pln">
-                fail2</span><span class="clo">))</span><span class="pln">
-             fail</span><span class="clo">))))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">fn analyze_application(operator: &amp;Expr, operands: &amp;[Expr]) -&gt; Executor {
+    let fproc = analyze(operator);
+    let aprocs: Vec&lt;Executor&gt; = operands.iter().map(analyze).collect();
+    Box::new(move |env, succeed, fail| {
+        fproc(
+            env,
+            Box::new(|proc, fail2| {
+                get_args(
+                    &amp;aprocs,
+                    env,
+                    Box::new(|args, fail3| {
+                        execute_application(proc, args, succeed, fail3)
+                    }),
+                    fail2,
+                )
+            }),
+            fail,
+        )
+    })
+}
+</pre></div>
 
-<p>In <code>get-args</code>, notice how <code>cdr</code>-ing down the list of <code>aproc</code>
-execution procedures and <code>cons</code>ing up the resulting list of <code>args</code> is
-accomplished by calling each <code>aproc</code> in the list with a success
-continuation that recursively calls <code>get-args</code>.  Each of these recursive
-calls to <code>get-args</code> has a success continuation whose value is the
-<code>cons</code> of the newly obtained argument onto the list of accumulated
+<p>In <code class="code">get_args</code>, notice how <code class="code">cdr</code>-ing down the list of <code class="code">aproc</code>
+execution procedures and <code class="code">cons</code>ing up the resulting list of <code class="code">args</code> is
+accomplished by calling each <code class="code">aproc</code> in the list with a success
+continuation that recursively calls <code class="code">get_args</code>.  Each of these recursive
+calls to <code class="code">get_args</code> has a success continuation whose value is the
+<code class="code">cons</code> of the newly obtained argument onto the list of accumulated
 arguments:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">get-args aprocs env succeed fail</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pln">null? aprocs</span><span class="clo">)</span><span class="pln">
-      </span><span class="opn">(</span><span class="pln">succeed </span><span class="lit">'</span><span class="opn">(</span><span class="clo">)</span><span class="pln"> fail</span><span class="clo">)</span><span class="pln">
-      </span><span class="opn">((</span><span class="kwd">car</span><span class="pln"> aprocs</span><span class="clo">)</span><span class="pln"> 
-       env
-       </span><span class="com">;; </span><span class="roman"><span class="com">success continuation for this </span><code><span class="com">aproc</span></code></span><span class="pln">
-       </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">arg fail2</span><span class="clo">)</span><span class="pln">
-         </span><span class="opn">(</span><span class="pln">get-args 
-          </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> aprocs</span><span class="clo">)</span><span class="pln">
-          env
-          </span><span class="com">;; </span><span class="roman"><span class="com">success continuation for</span></span><span class="pln">
-          </span><span class="com">;; </span><span class="roman"><span class="com">recursive call to </span><code><span class="com">get-args</span></code></span><span class="pln">
-          </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">args fail3</span><span class="clo">)</span><span class="pln">
-            </span><span class="opn">(</span><span class="pln">succeed </span><span class="opn">(</span><span class="kwd">cons</span><span class="pln"> arg args</span><span class="clo">)</span><span class="pln">
-                     fail3</span><span class="clo">))</span><span class="pln">
-          fail2</span><span class="clo">))</span><span class="pln">
-       fail</span><span class="clo">)))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">fn get_args(
+    aprocs: &amp;[Executor],
+    env: &amp;Environment,
+    succeed: Box&lt;dyn FnOnce(Vec&lt;Value&gt;, Box&lt;dyn FnOnce()&gt;)&gt;,
+    fail: Box&lt;dyn FnOnce()&gt;,
+) {
+    if aprocs.is_empty() {
+        succeed(vec![], fail);
+    } else {
+        aprocs[0](
+            env,
+            // Success continuation for this aproc
+            Box::new(|arg, fail2| {
+                get_args(
+                    &amp;aprocs[1..],
+                    env,
+                    // Success continuation for recursive call
+                    Box::new(|mut args, fail3| {
+                        args.insert(0, arg);  // cons arg to front
+                        succeed(args, fail3)
+                    }),
+                    fail2,
+                )
+            }),
+            fail,
+        );
+    }
+}
+</pre></div>
 
 <p>The actual procedure application, which is performed by
-<code>execute-application</code>, is accomplished in the same way as for the ordinary
+<code class="code">execute_application</code>, is accomplished in the same way as for the ordinary
 evaluator, except for the need to manage the continuations.
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">execute-application 
-         proc args succeed fail</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">((</span><span class="pln">primitive-procedure? proc</span><span class="clo">)</span><span class="pln">
-         </span><span class="opn">(</span><span class="pln">succeed 
-          </span><span class="opn">(</span><span class="pln">apply-primitive-procedure 
-           proc args</span><span class="clo">)</span><span class="pln">
-          fail</span><span class="clo">))</span><span class="pln">
-        </span><span class="opn">((</span><span class="pln">compound-procedure? proc</span><span class="clo">)</span><span class="pln">
-         </span><span class="opn">((</span><span class="pln">procedure-body proc</span><span class="clo">)</span><span class="pln">
-          </span><span class="opn">(</span><span class="pln">extend-environment 
-           </span><span class="opn">(</span><span class="pln">procedure-parameters proc</span><span class="clo">)</span><span class="pln">
-           args
-           </span><span class="opn">(</span><span class="pln">procedure-environment proc</span><span class="clo">))</span><span class="pln">
-          succeed
-          fail</span><span class="clo">))</span><span class="pln">
-        </span><span class="opn">(</span><span class="kwd">else</span><span class="pln"> </span><span class="opn">(</span><span class="err">error</span><span class="pln"> </span><span class="str">"Unknown procedure type: 
-                      EXECUTE-APPLICATION"</span><span class="pln">
-                     proc</span><span class="clo">))))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">fn execute_application(
+    proc: Value,
+    args: Vec&lt;Value&gt;,
+    succeed: Box&lt;dyn FnOnce(Value, Box&lt;dyn FnOnce()&gt;)&gt;,
+    fail: Box&lt;dyn FnOnce()&gt;,
+) {
+    match proc {
+        Value::Primitive(f) =&gt; {
+            succeed(f(&amp;args), fail);
+        }
+        Value::Closure { params, body, env } =&gt; {
+            let extended = env.extend(
+                params.into_iter().zip(args)
+            );
+            body(&amp;extended, succeed, fail);
+        }
+        _ =&gt; panic!(&quot;Unknown procedure type&quot;),
+    }
+}
+</pre></div>
 
-<a id="Evaluating-amb-expressions"></a>
-<h5 class="subsubheading">Evaluating <code>amb</code> expressions</h5>
+<h4 class="subsubheading" id="Evaluating-amb-expressions"><span>Evaluating <code class="code">amb</code> expressions<a class="copiable-link" href="#Evaluating-amb-expressions"> &para;</a></span></h4>
 
-<p>The <code>amb</code> special form is the key element in the nondeterministic
+<p>The <code class="code">amb</code> special form is the key element in the nondeterministic
 language.  Here we see the essence of the interpretation process and the reason
-for keeping track of the continuations.  The execution procedure for <code>amb</code>
-defines a loop <code>try-next</code> that cycles through the execution procedures for
-all the possible values of the <code>amb</code> expression.  Each execution procedure
+for keeping track of the continuations.  The execution procedure for <code class="code">amb</code>
+defines a loop <code class="code">try_next</code> that cycles through the execution procedures for
+all the possible values of the <code class="code">amb</code> expression.  Each execution procedure
 is called with a failure continuation that will try the next one.  When there
-are no more alternatives to try, the entire <code>amb</code> expression fails.
+are no more alternatives to try, the entire <code class="code">amb</code> expression fails.
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">analyze-amb exp</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">cprocs
-         </span><span class="opn">(</span><span class="pln">map analyze </span><span class="opn">(</span><span class="pln">amb-choices exp</span><span class="clo">))))</span><span class="pln">
-    </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">env succeed fail</span><span class="clo">)</span><span class="pln">
-      </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">try-next choices</span><span class="clo">)</span><span class="pln">
-        </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pln">null? choices</span><span class="clo">)</span><span class="pln">
-            </span><span class="opn">(</span><span class="pln">fail</span><span class="clo">)</span><span class="pln">
-            </span><span class="opn">((</span><span class="kwd">car</span><span class="pln"> choices</span><span class="clo">)</span><span class="pln"> 
-             env
-             succeed
-             </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="clo">)</span><span class="pln">
-               </span><span class="opn">(</span><span class="pln">try-next </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> choices</span><span class="clo">))))))</span><span class="pln">
-      </span><span class="opn">(</span><span class="pln">try-next cprocs</span><span class="clo">))))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">fn analyze_amb(choices: &amp;[Expr]) -&gt; Executor {
+    let cprocs: Vec&lt;Executor&gt; = choices.iter().map(analyze).collect();
+    Box::new(move |env, succeed, fail| {
+        fn try_next(
+            choices: &amp;[Executor],
+            env: &amp;Environment,
+            succeed: &amp;dyn Fn(Value, Box&lt;dyn FnOnce()&gt;),
+            fail: Box&lt;dyn FnOnce()&gt;,
+        ) {
+            if choices.is_empty() {
+                fail();
+            } else {
+                choices[0](
+                    env,
+                    succeed,
+                    Box::new(|| try_next(&amp;choices[1..], env, succeed, fail)),
+                );
+            }
+        }
+        try_next(&amp;cprocs, env, &amp;*succeed, fail)
+    })
+}
+</pre></div>
 
-<a id="Driver-loop-1"></a>
-<h5 class="subsubheading">Driver loop</h5>
+<h4 class="subsubheading" id="Driver-loop-1"><span>Driver loop<a class="copiable-link" href="#Driver-loop-1"> &para;</a></span></h4>
 
-<p>The driver loop for the <code>amb</code> evaluator is complex, due to the mechanism
+<p>The driver loop for the <code class="code">amb</code> evaluator is complex, due to the mechanism
 that permits the user to try again in evaluating an expression.  The driver
-uses a procedure called <code>internal-loop</code>, which takes as argument a
-procedure <code>try-again</code>.  The intent is that calling <code>try-again</code> should
+uses a procedure called <code class="code">internal_loop</code>, which takes as argument a
+procedure <code class="code">try-again</code>.  The intent is that calling <code class="code">try-again</code> should
 go on to the next untried alternative in the nondeterministic evaluation.
-<code>Internal-loop</code> either calls <code>try-again</code> in response to the user
-typing <code>try-again</code> at the driver loop, or else starts a new evaluation by
-calling <code>ambeval</code>.
+<code class="code">Internal-loop</code> either calls <code class="code">try-again</code> in response to the user
+typing <code class="code">try-again</code> at the driver loop, or else starts a new evaluation by
+calling <code class="code">ambeval</code>.
 </p>
-<p>The failure continuation for this call to <code>ambeval</code> informs the user that
+<p>The failure continuation for this call to <code class="code">ambeval</code> informs the user that
 there are no more values and re-invokes the driver loop.
 </p>
-<p>The success continuation for the call to <code>ambeval</code> is more subtle.  We
+<p>The success continuation for the call to <code class="code">ambeval</code> is more subtle.  We
 print the obtained value and then invoke the internal loop again with a
-<code>try-again</code> procedure that will be able to try the next alternative.  This
-<code>next-alternative</code> procedure is the second argument that was passed to the
+<code class="code">try-again</code> procedure that will be able to try the next alternative.  This
+<code class="code">next-alternative</code> procedure is the second argument that was passed to the
 success continuation.  Ordinarily, we think of this second argument as a
 failure continuation to be used if the current evaluation branch later fails.
 In this case, however, we have completed a successful evaluation, so we can
-invoke the “failure” alternative branch in order to search for additional
+invoke the &ldquo;failure&rdquo; alternative branch in order to search for additional
 successful evaluations.
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> input-prompt  </span><span class="str">";;; Amb-Eval input:"</span><span class="clo">)</span><span class="pln">
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> output-prompt </span><span class="str">";;; Amb-Eval value:"</span><span class="clo">)</span><span class="pln">
+<div class="example">
+<pre class="example-preformatted">const INPUT_PROMPT: &amp;str = &quot;;;; Amb-Eval input:&quot;;
+const OUTPUT_PROMPT: &amp;str = &quot;;;; Amb-Eval value:&quot;;
 
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">driver-loop</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">internal-loop try-again</span><span class="clo">)</span><span class="pln">
-    </span><span class="opn">(</span><span class="pln">prompt-for-input input-prompt</span><span class="clo">)</span><span class="pln">
-    </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">input </span><span class="opn">(</span><span class="pln">read</span><span class="clo">)))</span><span class="pln">
-      </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">eq</span><span class="pun">?</span><span class="pln"> input </span><span class="lit">'try-again</span><span class="clo">)</span><span class="pln">
-          </span><span class="opn">(</span><span class="pln">try-again</span><span class="clo">)</span><span class="pln">
-          </span><span class="opn">(</span><span class="kwd">begin</span><span class="pln">
-            </span><span class="opn">(</span><span class="pln">newline</span><span class="clo">)</span><span class="pln">
-            </span><span class="opn">(</span><span class="pln">display 
-             </span><span class="str">";;; Starting a new problem "</span><span class="clo">)</span><span class="pln">
-            </span><span class="opn">(</span><span class="pln">ambeval 
-             input
-             the-global-environment
-             </span><span class="roman"><span class="com">;; </span><code><span class="com">ambeval</span></code><span class="com"> success</span></span><span class="pln">
-             </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">val next-alternative</span><span class="clo">)</span><span class="pln">
-               </span><span class="opn">(</span><span class="pln">announce-output 
-                output-prompt</span><span class="clo">)</span><span class="pln">
-               </span><span class="opn">(</span><span class="pln">user-print val</span><span class="clo">)</span><span class="pln">
-               </span><span class="opn">(</span><span class="pln">internal-loop 
-                next-alternative</span><span class="clo">))</span><span class="pln">
-             </span><span class="roman"><span class="com">;; </span><code><span class="com">ambeval</span></code><span class="com"> failure</span></span><span class="pln">
-             </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="clo">)</span><span class="pln">
-               </span><span class="opn">(</span><span class="pln">announce-output
-                </span><span class="str">";;; There are no 
-                 more values of"</span><span class="clo">)</span><span class="pln">
-               </span><span class="opn">(</span><span class="pln">user-print input</span><span class="clo">)</span><span class="pln">
-               </span><span class="opn">(</span><span class="pln">driver-loop</span><span class="clo">)))))))</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">internal-loop
-   </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="clo">)</span><span class="pln">
-     </span><span class="opn">(</span><span class="pln">newline</span><span class="clo">)</span><span class="pln">
-     </span><span class="opn">(</span><span class="pln">display 
-      </span><span class="str">";;; There is no current problem"</span><span class="clo">)</span><span class="pln">
-     </span><span class="opn">(</span><span class="pln">driver-loop</span><span class="clo">))))</span></pre></div>
+fn driver_loop(global_env: Environment) {
+    // Store the &quot;try again&quot; continuation
+    let mut try_again: Option&lt;Box&lt;dyn FnOnce()&gt;&gt; = None;
 
-<p>The initial call to <code>internal-loop</code> uses a <code>try-again</code> procedure that
+    loop {
+        println!(&quot;{}&quot;, INPUT_PROMPT);
+        let input = read_input();
+
+        if input == &quot;try-again&quot; {
+            if let Some(cont) = try_again.take() {
+                cont();
+            } else {
+                println!(&quot;No current problem&quot;);
+            }
+        } else {
+            println!(&quot;;;; Starting a new problem&quot;);
+            let expr = parse(&amp;input);
+            ambeval(
+                &amp;expr,
+                &amp;global_env,
+                // Success continuation
+                Box::new(|val, next_alternative| {
+                    println!(&quot;{} {:?}&quot;, OUTPUT_PROMPT, val);
+                    try_again = Some(next_alternative);
+                }),
+                // Failure continuation
+                Box::new(|| {
+                    println!(&quot;;;; No more values of {:?}&quot;, input);
+                }),
+            );
+        }
+    }
+}
+
+// Note: In Rust, this would use an iterator-based approach
+// rather than continuation-passing style for simplicity
+</pre></div>
+
+<p>The initial call to <code class="code">internal_loop</code> uses a <code class="code">try-again</code> procedure that
 complains that there is no current problem and restarts the driver loop.  This
-is the behavior that will happen if the user types <code>try-again</code> when there
+is the behavior that will happen if the user types <code class="code">try-again</code> when there
 is no evaluation in progress.
 </p>
-<blockquote>
-<p><strong><a id="Exercise-4_002e50"></a>Exercise 4.50:</strong> Implement a new special form
-<code>ramb</code> that is like <code>amb</code> except that it searches alternatives in a
+<blockquote class="quotation">
+<p><strong class="strong"><a class="anchor" id="Exercise-4_002e50"></a>Exercise 4.50:</strong> Implement a new special form
+<code class="code">ramb</code> that is like <code class="code">amb</code> except that it searches alternatives in a
 random order, rather than from left to right.  Show how this can help with
-Alyssa’s problem in <a href="#Exercise-4_002e49">Exercise 4.49</a>.
+Alyssa&rsquo;s problem in <a class="ref" href="#Exercise-4_002e49">Exercise 4.49</a>.
 </p></blockquote>
 
-<blockquote>
-<p><strong><a id="Exercise-4_002e51"></a>Exercise 4.51:</strong> Implement a new kind of
-assignment called <code>permanent-set!</code> that is not undone upon failure.  For
+<blockquote class="quotation">
+<p><strong class="strong"><a class="anchor" id="Exercise-4_002e51"></a>Exercise 4.51:</strong> Implement a new kind of
+assignment called <code class="code">permanent-set!</code> that is not undone upon failure.  For
 example, we can choose two distinct elements from a list and count the number
 of trials required to make a successful choice as follows:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> count </span><span class="lit">0</span><span class="clo">)</span><span class="pln">
-</span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">x </span><span class="opn">(</span><span class="pln">an-element-of </span><span class="lit">'</span><span class="opn">(</span><span class="pln">a b c</span><span class="clo">)))</span><span class="pln">
-      </span><span class="opn">(</span><span class="pln">y </span><span class="opn">(</span><span class="pln">an-element-of </span><span class="lit">'</span><span class="opn">(</span><span class="pln">a b c</span><span class="clo">))))</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">permanent-set! count </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> count </span><span class="lit">1</span><span class="clo">))</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">require </span><span class="opn">(</span><span class="pln">not </span><span class="opn">(</span><span class="kwd">eq</span><span class="pun">?</span><span class="pln"> x y</span><span class="clo">)))</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">list x y count</span><span class="clo">))</span><span class="pln">
+<div class="example">
+<pre class="example-preformatted">// Using a Cell to simulate permanent-set! (not rolled back)
+use std::cell::Cell;
+let count = Cell::new(0);
+let elements = [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;];
 
-</span><i><span class="com">;;; Starting a new problem</span></i><span class="pln">
-</span><i><span class="com">;;; Amb-Eval value:</span></i><span class="pln">
-</span><i><span class="opn">(</span><span class="pln">a b </span><span class="lit">2</span><span class="clo">)</span></i><span class="pln">
-
-</span><i><span class="com">;;; Amb-Eval input:</span></i><span class="pln">
-try-again
-
-</span><i><span class="com">;;; Amb-Eval value:</span></i><span class="pln">
-</span><i><span class="opn">(</span><span class="pln">a c </span><span class="lit">3</span><span class="clo">)</span></i>
+for x in &amp;elements {
+    for y in &amp;elements {
+        count.set(count.get() + 1);  // permanent-set!
+        if x != y {
+            println!(&quot;({}, {}, {})&quot;, x, y, count.get());
+            // =&gt; (&quot;a&quot;, &quot;b&quot;, 2)
+            // try-again =&gt; (&quot;a&quot;, &quot;c&quot;, 3)
+        }
+    }
+}
 </pre></div>
 
-<p>What values would have been displayed if we had used <code>set!</code> here
-rather than <code>permanent-set!</code>?
+<p>What values would have been displayed if we had used <code class="code">set!</code> here
+rather than <code class="code">permanent-set!</code>?
 </p></blockquote>
 
-<blockquote>
-<p><strong><a id="Exercise-4_002e52"></a>Exercise 4.52:</strong> Implement a new construct called
-<code>if-fail</code> that permits the user to catch the failure of an expression.
-<code>If-fail</code> takes two expressions.  It evaluates the first expression as
+<blockquote class="quotation">
+<p><strong class="strong"><a class="anchor" id="Exercise-4_002e52"></a>Exercise 4.52:</strong> Implement a new construct called
+<code class="code">if-fail</code> that permits the user to catch the failure of an expression.
+<code class="code">If-fail</code> takes two expressions.  It evaluates the first expression as
 usual and returns as usual if the evaluation succeeds.  If the evaluation
 fails, however, the value of the second expression is returned, as in the
 following example:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><i><span class="com">;;; Amb-Eval input:</span></i><span class="pln">
-</span><span class="opn">(</span><span class="pln">if-fail 
- </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">x </span><span class="opn">(</span><span class="pln">an-element-of </span><span class="lit">'</span><span class="opn">(</span><span class="lit">1</span><span class="pln"> </span><span class="lit">3</span><span class="pln"> </span><span class="lit">5</span><span class="clo">))))</span><span class="pln">
-   </span><span class="opn">(</span><span class="pln">require </span><span class="opn">(</span><span class="pln">even? x</span><span class="clo">))</span><span class="pln">
-   x</span><span class="clo">)</span><span class="pln">
- </span><span class="lit">'all-odd</span><span class="clo">)</span><span class="pln">
+<div class="example">
+<pre class="example-preformatted">// if_fail: try primary, return fallback on failure
+fn find_even(list: &amp;[i64]) -&gt; Result&lt;i64, &amp;'static str&gt; {
+    list.iter()
+        .copied()
+        .find(|x| x % 2 == 0)
+        .ok_or(&quot;all-odd&quot;)
+}
 
-</span><i><span class="com">;;; Starting a new problem</span></i><span class="pln">
-</span><i><span class="com">;;; Amb-Eval value:</span></i><span class="pln">
-</span><i><span class="pln">all-odd</span></i><span class="pln">
+find_even(&amp;[1, 3, 5])
+// =&gt; Err(&quot;all-odd&quot;)
 
-</span><i><span class="com">;;; Amb-Eval input:</span></i><span class="pln">
-</span><span class="opn">(</span><span class="pln">if-fail
- </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">x </span><span class="opn">(</span><span class="pln">an-element-of </span><span class="lit">'</span><span class="opn">(</span><span class="lit">1</span><span class="pln"> </span><span class="lit">3</span><span class="pln"> </span><span class="lit">5</span><span class="pln"> </span><span class="lit">8</span><span class="clo">))))</span><span class="pln">
-   </span><span class="opn">(</span><span class="pln">require </span><span class="opn">(</span><span class="pln">even? x</span><span class="clo">))</span><span class="pln">
-   x</span><span class="clo">)</span><span class="pln">
- </span><span class="lit">'all-odd</span><span class="clo">)</span><span class="pln">
-
-</span><i><span class="com">;;; Starting a new problem</span></i><span class="pln">
-</span><i><span class="com">;;; Amb-Eval value:</span></i><span class="pln">
-</span><i><span class="lit">8</span></i>
+find_even(&amp;[1, 3, 5, 8])
+// =&gt; Ok(8)
 </pre></div>
 </blockquote>
 
-<blockquote>
-<p><strong><a id="Exercise-4_002e53"></a>Exercise 4.53:</strong> With <code>permanent-set!</code> as
-described in <a href="#Exercise-4_002e51">Exercise 4.51</a> and <code>if-fail</code> as in <a href="#Exercise-4_002e52">Exercise 4.52</a>,
+<blockquote class="quotation">
+<p><strong class="strong"><a class="anchor" id="Exercise-4_002e53"></a>Exercise 4.53:</strong> With <code class="code">permanent-set!</code> as
+described in <a class="ref" href="#Exercise-4_002e51">Exercise 4.51</a> and <code class="code">if-fail</code> as in <a class="ref" href="#Exercise-4_002e52">Exercise 4.52</a>,
 what will be the result of evaluating
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">pairs </span><span class="lit">'</span><span class="opn">(</span><span class="clo">)))</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">if-fail 
-   </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">p </span><span class="opn">(</span><span class="pln">prime-sum-pair 
-             </span><span class="lit">'</span><span class="opn">(</span><span class="lit">1</span><span class="pln"> </span><span class="lit">3</span><span class="pln"> </span><span class="lit">5</span><span class="pln"> </span><span class="lit">8</span><span class="clo">)</span><span class="pln"> 
-             </span><span class="lit">'</span><span class="opn">(</span><span class="lit">20</span><span class="pln"> </span><span class="lit">35</span><span class="pln"> </span><span class="lit">110</span><span class="clo">))))</span><span class="pln">
-     </span><span class="opn">(</span><span class="pln">permanent-set! pairs 
-                     </span><span class="opn">(</span><span class="kwd">cons</span><span class="pln"> p pairs</span><span class="clo">))</span><span class="pln">
-     </span><span class="opn">(</span><span class="pln">amb</span><span class="clo">))</span><span class="pln">
-   pairs</span><span class="clo">))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">// Collect all prime-sum pairs
+let list1 = [1, 3, 5, 8];
+let list2 = [20, 35, 110];
+
+let pairs: Vec&lt;_&gt; = list1.iter()
+    .flat_map(|&amp;a| list2.iter().map(move |&amp;b| (a, b)))
+    .filter(|&amp;(a, b)| is_prime(a + b))
+    .collect();
+
+// =&gt; [(3, 20), (3, 110), (8, 35)]
+</pre></div>
 </blockquote>
 
-<blockquote>
-<p><strong><a id="Exercise-4_002e54"></a>Exercise 4.54:</strong> If we had not realized that
-<code>require</code> could be implemented as an ordinary procedure that uses
-<code>amb</code>, to be defined by the user as part of a nondeterministic program, we
+<blockquote class="quotation">
+<p><strong class="strong"><a class="anchor" id="Exercise-4_002e54"></a>Exercise 4.54:</strong> If we had not realized that
+<code class="code">require</code> could be implemented as an ordinary procedure that uses
+<code class="code">amb</code>, to be defined by the user as part of a nondeterministic program, we
 would have had to implement it as a special form.  This would require syntax
 procedures
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">require? exp</span><span class="clo">)</span><span class="pln"> 
-  </span><span class="opn">(</span><span class="pln">tagged-list? exp </span><span class="lit">'require</span><span class="clo">))</span><span class="pln">
+<div class="example">
+<pre class="example-preformatted">fn is_require(exp: &amp;Expr) -&gt; bool {
+    matches!(exp, Expr::Require(_))
+}
 
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">require-predicate exp</span><span class="clo">)</span><span class="pln"> 
-  </span><span class="opn">(</span><span class="kwd">cadr</span><span class="pln"> exp</span><span class="clo">))</span></pre></div>
+fn require_predicate(exp: &amp;Expr) -&gt; &amp;Expr {
+    match exp {
+        Expr::Require(pred) =&gt; pred,
+        _ =&gt; panic!(&quot;Not a require expression&quot;),
+    }
+}
+</pre></div>
 
-<p>and a new clause in the dispatch in <code>analyze</code>
+<p>and a new clause in the dispatch in <code class="code">analyze</code>
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">((</span><span class="pln">require? exp</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">analyze-require exp</span><span class="clo">))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">Expr::Require(pred) =&gt; analyze_require(pred),
+</pre></div>
 
-<p>as well the procedure <code>analyze-require</code> that handles <code>require</code>
-expressions.  Complete the following definition of <code>analyze-require</code>.
+<p>as well the procedure <code class="code">analyze-require</code> that handles <code class="code">require</code>
+expressions.  Complete the following definition of <code class="code">analyze-require</code>.
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">analyze-require exp</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">pproc </span><span class="opn">(</span><span class="pln">analyze 
-                </span><span class="opn">(</span><span class="pln">require-predicate exp</span><span class="clo">))))</span><span class="pln">
-    </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">env succeed fail</span><span class="clo">)</span><span class="pln">
-      </span><span class="opn">(</span><span class="pln">pproc env
-             </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">pred-value fail2</span><span class="clo">)</span><span class="pln">
-               </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> ⟨</span><span class="pun">??</span><span class="pln">⟩
-                   ⟨</span><span class="pun">??</span><span class="pln">⟩
-                   </span><span class="opn">(</span><span class="pln">succeed </span><span class="lit">'ok</span><span class="pln"> fail2</span><span class="clo">)))</span><span class="pln">
-             fail</span><span class="clo">))))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">fn analyze_require(predicate: &amp;Expr) -&gt; Executor {
+    let pproc = analyze(predicate);
+    Box::new(move |env, succeed, fail| {
+        pproc(
+            env,
+            Box::new(|pred_value, fail2| {
+                if !is_truthy(&amp;pred_value) {
+                    // Requirement not met - fail!
+                    fail2()
+                } else {
+                    succeed(Value::Symbol(&quot;ok&quot;), fail2)
+                }
+            }),
+            fail,
+        )
+    })
+}
+</pre></div>
 </blockquote>
 
-<div class="footnote">
+</div>
+</div>
+<div class="footnotes-segment">
+<hr>
 <h4 class="footnotes-heading">Footnotes</h4>
 
-<div id="FOOT246"><p><a class="footnote_backlink" href="#DOCF246"><sup>246</sup></a>
-We assume that we have previously defined a
-procedure <code>prime?</code> that tests whether numbers are prime.  Even with
-<code>prime?</code> defined, the <code>prime-sum-pair</code> procedure may look
-suspiciously like the unhelpful “pseudo-Lisp” attempt to define the
+<h5 class="footnote-body-heading"><a id="FOOT227" href="#DOCF227">(227)</a></h5>
+<p>We assume that we have previously defined a
+procedure <code class="code">is_prime</code> that tests whether numbers are prime.  Even with
+<code class="code">is_prime</code> defined, the <code class="code">prime-sum-pair</code> procedure may look
+suspiciously like the unhelpful &ldquo;pseudo-Lisp&rdquo; attempt to define the
 square-root function, which we described at the beginning of 
-<a href="1_002e1.xhtml#g_t1_002e1_002e7">1.1.7</a>.  In fact, a square-root procedure along those lines can actually
+<a class="ref" href="1_002e1.xhtml#g_t1_002e1_002e7">Example: Square Roots by Newton&rsquo;s Method</a>.  In fact, a square-root procedure along those lines can actually
 be formulated as a nondeterministic program.  By incorporating a search
 mechanism into the evaluator, we are eroding the distinction between purely
 declarative descriptions and imperative specifications of how to compute
-answers.  We’ll go even farther in this direction in <a href="4_002e4.xhtml#g_t4_002e4">4.4</a>.</p>
-</div>
-<div id="FOOT247"><p><a class="footnote_backlink" href="#DOCF247"><sup>247</sup></a>
-The idea of <code>amb</code> for nondeterministic
-programming was first described in 1961 by John McCarthy (see <a href="References.xhtml#McCarthy-1963">McCarthy 1963</a>).</p>
-</div>
-<div id="FOOT248"><p><a class="footnote_backlink" href="#DOCF248"><sup>248</sup></a>
-In
+answers.  We&rsquo;ll go even farther in this direction in <a class="ref" href="4_002e4.xhtml#g_t4_002e4">Logic Programming</a>.</p>
+<h5 class="footnote-body-heading"><a id="FOOT228" href="#DOCF228">(228)</a></h5>
+<p>The idea of <code class="code">amb</code> for nondeterministic
+programming was first described in 1961 by John McCarthy (see <a class="ref" href="References.xhtml#McCarthy-1963">McCarthy 1963</a>).</p>
+<h5 class="footnote-body-heading"><a id="FOOT229" href="#DOCF229">(229)</a></h5>
+<p>In
 actuality, the distinction between nondeterministically returning a single
 choice and returning all choices depends somewhat on our point of view.  From
 the perspective of the code that uses the value, the nondeterministic choice
 returns a single value.  From the perspective of the programmer designing the
 code, the nondeterministic choice potentially returns all possible values, and
 the computation branches so that each value is investigated separately.</p>
-</div>
-<div id="FOOT249"><p><a class="footnote_backlink" href="#DOCF249"><sup>249</sup></a>
-One
+<h5 class="footnote-body-heading"><a id="FOOT230" href="#DOCF230">(230)</a></h5>
+<p>One
 might object that this is a hopelessly inefficient mechanism.  It might require
 millions of processors to solve some easily stated problem this way, and most
 of the time most of those processors would be idle.  This objection should be
 taken in the context of history.  Memory used to be considered just such an
-expensive commodity.  In 1964 a megabyte of <abbr>RAM</abbr> cost about $400,000.  Now every
-personal computer has many megabytes of <abbr>RAM</abbr>, and most of the time most of that
-<abbr>RAM</abbr> is unused.  It is hard to underestimate the cost of mass-produced
+expensive commodity.  In 1964 a megabyte of <abbr class="abbr">RAM</abbr> cost about $400,000.  Now every
+personal computer has many megabytes of <abbr class="abbr">RAM</abbr>, and most of the time most of that
+<abbr class="abbr">RAM</abbr> is unused.  It is hard to underestimate the cost of mass-produced
 electronics.</p>
-</div>
-<div id="FOOT250"><p><a class="footnote_backlink" href="#DOCF250"><sup>250</sup></a>
-<a id="Footnote-250"></a>Automagically: “Automatically, but
+<h5 class="footnote-body-heading"><a id="FOOT231" href="#DOCF231">(231)</a></h5>
+<a class="anchor" id="Footnote-250"></a><p>Automagically: &ldquo;Automatically, but
 in a way which, for some reason (typically because it is too complicated, or
-too ugly, or perhaps even too trivial), the speaker doesn’t feel like
-explaining.”  (<a href="References.xhtml#Steele-et-al_002e-1983">Steele et al. 1983</a>, <a href="References.xhtml#Raymond-1993">Raymond 1993</a>)</p>
-</div>
-<div id="FOOT251"><p><a class="footnote_backlink" href="#DOCF251"><sup>251</sup></a>
-The integration of 
+too ugly, or perhaps even too trivial), the speaker doesn&rsquo;t feel like
+explaining.&rdquo;  (<a class="ref" href="References.xhtml#Steele-et-al_002e-1983">Steele et al. 1983</a>, <a class="ref" href="References.xhtml#Raymond-1993">Raymond 1993</a>)</p>
+<h5 class="footnote-body-heading"><a id="FOOT232" href="#DOCF232">(232)</a></h5>
+<p>The integration of 
 automatic search strategies into programming languages has had a long and
 checkered history.  The first suggestions that nondeterministic algorithms
 might be elegantly encoded in a programming language with search and automatic
-backtracking came from Robert <a href="References.xhtml#Floyd-_00281967_0029">Floyd (1967)</a>.  Carl <a href="References.xhtml#Hewitt-_00281969_0029">Hewitt (1969)</a> invented a
+backtracking came from Robert <a class="ref" href="References.xhtml#Floyd-_00281967_0029">Floyd (1967)</a>.  Carl <a class="ref" href="References.xhtml#Hewitt-_00281969_0029">Hewitt (1969)</a> invented a
 programming language called Planner that explicitly supported automatic
 chronological backtracking, providing for a built-in depth-first search
-strategy.  <a href="References.xhtml#Sussman-et-al_002e-_00281971_0029">Sussman et al. (1971)</a> implemented a subset of this
+strategy.  <a class="ref" href="References.xhtml#Sussman-et-al_002e-_00281971_0029">Sussman et al. (1971)</a> implemented a subset of this
 language, called MicroPlanner, which was used to support work in problem
 solving and robot planning.  Similar ideas, arising from logic and theorem
 proving, led to the genesis in Edinburgh and Marseille of the elegant language
-Prolog (which we will discuss in <a href="4_002e4.xhtml#g_t4_002e4">4.4</a>).  After sufficient
-frustration with automatic search, <a href="References.xhtml#McDermott-and-Sussman-_00281972_0029">McDermott and Sussman (1972)</a> developed a
+Prolog (which we will discuss in <a class="ref" href="4_002e4.xhtml#g_t4_002e4">Logic Programming</a>).  After sufficient
+frustration with automatic search, <a class="ref" href="References.xhtml#McDermott-and-Sussman-_00281972_0029">McDermott and Sussman (1972)</a> developed a
 language called Conniver, which included mechanisms for placing the search
-strategy under programmer control.  This proved unwieldy, however, and <a href="References.xhtml#Sussman-and-Stallman-1975">Sussman and Stallman 1975</a> 
+strategy under programmer control.  This proved unwieldy, however, and <a class="ref" href="References.xhtml#Sussman-and-Stallman-1975">Sussman and Stallman 1975</a> 
 found a more tractable approach while investigating methods
 of symbolic analysis for electrical circuits.  They developed a
 non-chronological backtracking scheme that was based on tracing out the logical
 dependencies connecting facts, a technique that has come to be known as
-<a id="index-dependency_002ddirected-backtracking"></a>
-<em>dependency-directed backtracking</em>.  Although their method was complex,
+<a class="index-entry-id" id="index-dependency_002ddirected-backtracking"></a>
+<em class="dfn">dependency-directed backtracking</em>.  Although their method was complex,
 it produced reasonably efficient programs because it did little redundant
-search.  <a href="References.xhtml#Doyle-_00281979_0029">Doyle (1979)</a> and <a href="References.xhtml#McAllester-_00281978_003b-1980_0029">McAllester (1978; 1980)</a> generalized and clarified the
+search.  <a class="ref" href="References.xhtml#Doyle-_00281979_0029">Doyle (1979)</a> and <a class="ref" href="References.xhtml#McAllester-_00281978_003b-1980_0029">McAllester (1978; 1980)</a> generalized and clarified the
 methods of Stallman and Sussman, developing a new paradigm for formulating
-search that is now called <a id="index-truth-maintenance"></a>
-<em>truth maintenance</em>.  Modern problem-solving
+search that is now called <a class="index-entry-id" id="index-truth-maintenance"></a>
+<em class="dfn">truth maintenance</em>.  Modern problem-solving
 systems all use some form of truth-maintenance system as a substrate.  See
-<a href="References.xhtml#Forbus-and-deKleer-1993">Forbus and deKleer 1993</a> for a discussion of elegant ways to build
+<a class="ref" href="References.xhtml#Forbus-and-deKleer-1993">Forbus and deKleer 1993</a> for a discussion of elegant ways to build
 truth-maintenance systems and applications using truth maintenance.  
-<a href="References.xhtml#Zabih-et-al_002e-1987">Zabih et al. 1987</a> describes a nondeterministic extension to Scheme
-that is based on <code>amb</code>; it is similar to the interpreter described in this
+<a class="ref" href="References.xhtml#Zabih-et-al_002e-1987">Zabih et al. 1987</a> describes a nondeterministic extension to Scheme
+that is based on <code class="code">amb</code>; it is similar to the interpreter described in this
 section, but more sophisticated, because it uses dependency-directed
-backtracking rather than chronological backtracking.  <a href="References.xhtml#Winston-1992">Winston 1992</a> gives an
+backtracking rather than chronological backtracking.  <a class="ref" href="References.xhtml#Winston-1992">Winston 1992</a> gives an
 introduction to both kinds of backtracking.</p>
-</div>
-<div id="FOOT252"><p><a class="footnote_backlink" href="#DOCF252"><sup>252</sup></a>
-Our program uses the following procedure to determine if
+<h5 class="footnote-body-heading"><a id="FOOT233" href="#DOCF233">(233)</a></h5>
+<p>Our program uses the following procedure to determine if
 the elements of a list are distinct:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">distinct? items</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">((</span><span class="pln">null? items</span><span class="clo">)</span><span class="pln"> true</span><span class="clo">)</span><span class="pln">
-        </span><span class="opn">((</span><span class="pln">null? </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> items</span><span class="clo">))</span><span class="pln"> true</span><span class="clo">)</span><span class="pln">
-        </span><span class="opn">((</span><span class="pln">member </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> items</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> items</span><span class="clo">))</span><span class="pln"> false</span><span class="clo">)</span><span class="pln">
-        </span><span class="opn">(</span><span class="kwd">else</span><span class="pln"> </span><span class="opn">(</span><span class="pln">distinct? </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> items</span><span class="clo">)))))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">fn distinct&lt;T: Eq&gt;(items: &amp;[T]) -&gt; bool {
+    for (i, item) in items.iter().enumerate() {
+        if items[i + 1..].contains(item) {
+            return false;
+        }
+    }
+    true
+}
 
-<p><code>Member</code> is like <code>memq</code> except that it uses <code>equal?</code> instead
-of <code>eq?</code> to test for equality.</p>
-</div>
-<div id="FOOT253"><p><a class="footnote_backlink" href="#DOCF253"><sup>253</sup></a>
-This is taken from a booklet called
-“Problematical Recreations,” published in the 1960s by Litton Industries,
-where it is attributed to the <cite>Kansas State Engineer</cite>.</p>
-</div>
-<div id="FOOT254"><p><a class="footnote_backlink" href="#DOCF254"><sup>254</sup></a>
-Here we use the convention that the
+// Or using a HashSet for O(n) complexity:
+// use std::collections::HashSet;
+// items.iter().collect::&lt;HashSet&lt;_&gt;&gt;().len() == items.len()
+</pre></div>
+
+<p><code class="code">Member</code> is like <code class="code">memq</code> except that it uses <code class="code">equal?</code> instead
+of <code class="code">eq?</code> to test for equality.</p>
+<h5 class="footnote-body-heading"><a id="FOOT234" href="#DOCF234">(234)</a></h5>
+<p>This is taken from a booklet called
+&ldquo;Problematical Recreations,&rdquo; published in the 1960s by Litton Industries,
+where it is attributed to the <cite class="cite">Kansas State Engineer</cite>.</p>
+<h5 class="footnote-body-heading"><a id="FOOT235" href="#DOCF235">(235)</a></h5>
+<p>Here we use the convention that the
 first element of each list designates the part of speech for the rest of the
 words in the list.</p>
-</div>
-<div id="FOOT255"><p><a class="footnote_backlink" href="#DOCF255"><sup>255</sup></a>
-Notice that <code>parse-word</code> uses <code>set!</code> to
-modify the unparsed input list.  For this to work, our <code>amb</code> evaluator
-must undo the effects of <code>set!</code> operations when it backtracks.</p>
-</div>
-<div id="FOOT256"><p><a class="footnote_backlink" href="#DOCF256"><sup>256</sup></a>
-Observe that this definition is recursive—a
+<h5 class="footnote-body-heading"><a id="FOOT236" href="#DOCF236">(236)</a></h5>
+<p>Notice that <code class="code">parse_word</code> uses <code class="code">set!</code> to
+modify the unparsed input list.  For this to work, our <code class="code">amb</code> evaluator
+must undo the effects of <code class="code">set!</code> operations when it backtracks.</p>
+<h5 class="footnote-body-heading"><a id="FOOT237" href="#DOCF237">(237)</a></h5>
+<p>Observe that this definition is recursive&mdash;a
 verb may be followed by any number of prepositional phrases.</p>
-</div>
-<div id="FOOT257"><p><a class="footnote_backlink" href="#DOCF257"><sup>257</sup></a>
-This kind of grammar can become arbitrarily complex, but it
+<h5 class="footnote-body-heading"><a id="FOOT238" href="#DOCF238">(238)</a></h5>
+<p>This kind of grammar can become arbitrarily complex, but it
 is only a toy as far as real language understanding is concerned.  Real
 natural-language understanding by computer requires an elaborate mixture of
 syntactic analysis and interpretation of meaning.  On the other hand, even toy
 parsers can be useful in supporting flexible command languages for programs
-such as information-retrieval systems.  <a href="References.xhtml#Winston-1992">Winston 1992</a> discusses computational
+such as information-retrieval systems.  <a class="ref" href="References.xhtml#Winston-1992">Winston 1992</a> discusses computational
 approaches to real language understanding and also the applications of simple
 grammars to command languages.</p>
-</div>
-<div id="FOOT258"><p><a class="footnote_backlink" href="#DOCF258"><sup>258</sup></a>
-Although Alyssa’s idea works just fine (and is
-surprisingly simple), the sentences that it generates are a bit boring—they
-don’t sample the possible sentences of this language in a very interesting way.
-In fact, the grammar is highly recursive in many places, and Alyssa’s technique
-“falls into” one of these recursions and gets stuck.  See <a href="#Exercise-4_002e50">Exercise 4.50</a>
+<h5 class="footnote-body-heading"><a id="FOOT239" href="#DOCF239">(239)</a></h5>
+<p>Although Alyssa&rsquo;s idea works just fine (and is
+surprisingly simple), the sentences that it generates are a bit boring&mdash;they
+don&rsquo;t sample the possible sentences of this language in a very interesting way.
+In fact, the grammar is highly recursive in many places, and Alyssa&rsquo;s technique
+&ldquo;falls into&rdquo; one of these recursions and gets stuck.  See <a class="ref" href="#Exercise-4_002e50">Exercise 4.50</a>
 for a way to deal with this.</p>
-</div>
-<div id="FOOT259"><p><a class="footnote_backlink" href="#DOCF259"><sup>259</sup></a>
-We chose to
-implement the lazy evaluator in <a href="4_002e2.xhtml#g_t4_002e2">4.2</a> as a modification of the
-ordinary metacircular evaluator of <a href="4_002e1.xhtml#g_t4_002e1_002e1">4.1.1</a>.  In contrast, we will
-base the <code>amb</code> evaluator on the analyzing evaluator of 
-<a href="4_002e1.xhtml#g_t4_002e1_002e7">4.1.7</a>, because the execution procedures in that evaluator provide a
+<h5 class="footnote-body-heading"><a id="FOOT240" href="#DOCF240">(240)</a></h5>
+<p>We chose to
+implement the lazy evaluator in <a class="ref" href="4_002e2.xhtml#g_t4_002e2">Variations on a Scheme &mdash; Lazy Evaluation</a> as a modification of the
+ordinary metacircular evaluator of <a class="ref" href="4_002e1.xhtml#g_t4_002e1_002e1">The Core of the Evaluator</a>.  In contrast, we will
+base the <code class="code">amb</code> evaluator on the analyzing evaluator of 
+<a class="ref" href="4_002e1.xhtml#g_t4_002e1_002e7">Separating Syntactic Analysis from Execution</a>, because the execution procedures in that evaluator provide a
 convenient framework for implementing backtracking.</p>
-</div>
-<div id="FOOT260"><p><a class="footnote_backlink" href="#DOCF260"><sup>260</sup></a>
-We assume
-that the evaluator supports <code>let</code> (see <a href="4_002e1.xhtml#Exercise-4_002e22">Exercise 4.22</a>), which we have
+<h5 class="footnote-body-heading"><a id="FOOT241" href="#DOCF241">(241)</a></h5>
+<p>We assume
+that the evaluator supports <code class="code">let</code> (see <a class="ref" href="4_002e1.xhtml#Exercise-4_002e22">Exercise 4.22</a>), which we have
 used in our nondeterministic programs.</p>
+<h5 class="footnote-body-heading"><a id="FOOT242" href="#DOCF242">(242)</a></h5>
+<p>We
+didn&rsquo;t worry about undoing definitions, since we can assume that internal
+definitions are scanned out (<a class="ref" href="4_002e1.xhtml#g_t4_002e1_002e6">Internal Definitions</a>).</p>
 </div>
-<div id="FOOT261"><p><a class="footnote_backlink" href="#DOCF261"><sup>261</sup></a>
-We
-didn’t worry about undoing definitions, since we can assume that internal
-definitions are scanned out (<a href="4_002e1.xhtml#g_t4_002e1_002e6">4.1.6</a>).</p>
-</div>
-</div>
-<nav class="header">
+<hr>
+<div class="nav-panel">
 <p>
-Next: <a href="4_002e4.xhtml#g_t4_002e4" accesskey="n" rel="next">4.4</a>, Prev: <a href="4_002e2.xhtml#g_t4_002e2" accesskey="p" rel="prev">4.2</a>, Up: <a href="#g_t4_002e3" accesskey="u" rel="prev">4.3</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" accesskey="c" rel="contents">Contents</a>]</p>
-</nav>
+Next: <a href="4_002e4.xhtml#g_t4_002e4" accesskey="n" rel="next">Logic Programming</a>, Previous: <a href="4_002e2.xhtml#g_t4_002e2_002e5a" accesskey="p" rel="prev">Persistent Data Structures and Structural Sharing</a>, Up: <a href="Chapter-4.xhtml" accesskey="u" rel="up">Metalinguistic Abstraction</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
+</div>
 
 
-</section><span class="bottom jump" title="Jump to bottom"><a href="#pagebottom" accesskey="b">⇣</a></span><a id="pagebottom"></a>
 
-</body></html>
+</body>
+</html>

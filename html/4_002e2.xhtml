@@ -1,36 +1,42 @@
-<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="en" lang="en"><!-- Created by GNU Texinfo 5.1, http://www.gnu.org/software/texinfo/ --><head>
-<title>Structure and Interpretation of Computer Programs, 2e: 4.2</title>
+<html>
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>4.2 (Structure and Interpretation of Computer Programs, 2e)</title>
 
-<meta name="description" content="Structure and Interpretation of Computer Programs, 2e: 4.2">
-<meta name="keywords" content="Structure and Interpretation of Computer Programs, 2e: 4.2">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="4.2 (Structure and Interpretation of Computer Programs, 2e)">
+<meta name="keywords" content="4.2 (Structure and Interpretation of Computer Programs, 2e)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
 <meta name="Generator" content="texi2any">
-<meta charset="utf-8">
-<link href="index.xhtml#Top" rel="start" title="Top">
-<link href="Term-Index.xhtml#Term-Index" rel="index" title="Term Index">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.xhtml" rel="start" title="Top">
+<link href="Term-Index.xhtml" rel="index" title="Term Index">
 <link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="Chapter-4.xhtml#Chapter-4" rel="prev" title="Chapter 4">
+<link href="Chapter-4.xhtml" rel="up" title="Chapter 4">
 <link href="4_002e3.xhtml#g_t4_002e3" rel="next" title="4.3">
-<link href="4_002e1.xhtml#g_t4_002e1_002e7" rel="prev" title="4.1.7">
+<link href="4_002e1.xhtml#g_t4_002e1_002e8" rel="prev" title="4.1.8">
+<style type="text/css">
+<!--
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+div.example {margin-left: 3.2em}
+span:hover a.copiable-link {visibility: visible}
+ul.mark-bullet {list-style-type: disc}
+-->
+</style>
 
-<link href="css/style.css" rel="stylesheet" type="text/css">
-<link href="css/prettify.css" rel="stylesheet" type="text/css">
 
-<script src="js/jquery.min.js" type="text/javascript"></script>
-<script src="js/footnotes.js" type="text/javascript"></script>
-<script src="js/browsertest.js" type="text/javascript"></script>
 </head>
 
-<body>
-<section><span class="top jump" title="Jump to top"><a href="#pagetop" accesskey="t">⇡</a></span><a id="pagetop"></a><a id="g_t4_002e2"></a>
-<nav class="header">
+<body lang="en">
+<div class="section-level-extent" id="g_t4_002e2">
+<div class="nav-panel">
 <p>
-Next: <a href="4_002e3.xhtml#g_t4_002e3" accesskey="n" rel="next">4.3</a>, Prev: <a href="4_002e1.xhtml#g_t4_002e1" accesskey="p" rel="prev">4.1</a>, Up: <a href="Chapter-4.xhtml#Chapter-4" accesskey="u" rel="prev">Chapter 4</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" accesskey="c" rel="contents">Contents</a>]</p>
-</nav>
-<a id="Variations-on-a-Scheme-_002d_002d_002d-Lazy-Evaluation"></a>
-<h3 class="section"><span class="secnum">4.2</span><span class="sectitle">Variations on a Scheme — Lazy Evaluation</span></h3>
+Next: <a href="4_002e3.xhtml#g_t4_002e3" accesskey="n" rel="next">Variations on a Scheme &mdash; Nondeterministic Computing</a>, Previous: <a href="4_002e1.xhtml#g_t4_002e1_002e8" accesskey="p" rel="prev">Declarative Macros: Code that Generates Code</a>, Up: <a href="Chapter-4.xhtml" accesskey="u" rel="up">Metalinguistic Abstraction</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
+</div>
+<h3 class="section" id="Variations-on-a-Scheme-_002d_002d_002d-Lazy-Evaluation"><span>4.2 Variations on a Scheme &mdash; Lazy Evaluation<a class="copiable-link" href="#Variations-on-a-Scheme-_002d_002d_002d-Lazy-Evaluation"> &para;</a></span></h3>
 
 <p>Now that we have an evaluator expressed as a Lisp program, we can experiment
 with alternative choices in language design simply by modifying the evaluator.
@@ -41,7 +47,7 @@ another member of the Lisp community, we can supply an evaluator that embodies
 the change.  The recipient can then experiment with the new evaluator and send
 back comments as further modifications.  Not only does the high-level
 implementation base make it easier to test and debug the evaluator; in
-addition, the embedding enables the designer to snarf<a class="footnote_link" id="DOCF235" href="#FOOT235"><sup>235</sup></a>
+addition, the embedding enables the designer to snarf<a class="footnote" id="DOCF216" href="#FOOT216"><sup>216</sup></a>
 features from the underlying language, just as our embedded Lisp evaluator uses
 primitives and control structure from the underlying Lisp.  Only later (if
 ever) need the designer go to the trouble of building a complete implementation
@@ -50,748 +56,1473 @@ explore some variations on Scheme that provide significant additional
 expressive power.
 </p>
 
-<a id="g_t4_002e2_002e1"></a>
-<a id="Normal-Order-and-Applicative-Order"></a>
-<h4 class="subsection"><span class="secnum">4.2.1</span><span class="sectitle">Normal Order and Applicative Order</span></h4>
+<hr>
+<div class="subsection-level-extent" id="g_t4_002e2_002e1">
+<h4 class="subsection" id="Normal-Order-and-Applicative-Order"><span>4.2.1 Normal Order and Applicative Order<a class="copiable-link" href="#Normal-Order-and-Applicative-Order"> &para;</a></span></h4>
 
-<p>In <a href="1_002e1.xhtml#g_t1_002e1">1.1</a>, where we began our discussion of models of evaluation, we
-noted that Scheme is an <a id="index-applicative_002dorder"></a>
-<em>applicative-order</em> language, namely, that all
+<p>In <a class="ref" href="1_002e1.xhtml#g_t1_002e1">The Elements of Programming</a>, where we began our discussion of models of evaluation, we
+noted that Scheme is an <a class="index-entry-id" id="index-applicative_002dorder"></a>
+<em class="dfn">applicative-order</em> language, namely, that all
 the arguments to Scheme procedures are evaluated when the procedure is applied.
-In contrast, <a id="index-normal_002dorder"></a>
-<em>normal-order</em> languages delay evaluation of procedure
+In contrast, <a class="index-entry-id" id="index-normal_002dorder"></a>
+<em class="dfn">normal-order</em> languages delay evaluation of procedure
 arguments until the actual argument values are needed.  Delaying evaluation of
 procedure arguments until the last possible moment (e.g., until they are
-required by a primitive operation) is called <a id="index-lazy-evaluation"></a>
-<em>lazy evaluation</em>.<a class="footnote_link" id="DOCF236" href="#FOOT236"><sup>236</sup></a>  Consider the procedure
+required by a primitive operation) is called <a class="index-entry-id" id="index-lazy-evaluation-2"></a>
+<em class="dfn">lazy evaluation</em>.<a class="footnote" id="DOCF217" href="#FOOT217"><sup>217</sup></a>  Consider the procedure
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">try a b</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pun">=</span><span class="pln"> a </span><span class="lit">0</span><span class="clo">)</span><span class="pln"> </span><span class="lit">1</span><span class="pln"> b</span><span class="clo">))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">fn try_it(a: i64, b: i64) -&gt; i64 {
+    if a == 0 { 1 } else { b }
+}
+</pre></div>
 
-<p>Evaluating <code>(try 0 (/ 1 0))</code> generates an error in Scheme.  With lazy
+<p>Evaluating <code class="code">(try 0 (/ 1 0))</code> generates an error in Scheme.  With lazy
 evaluation, there would be no error.  Evaluating the expression would return 1,
-because the argument <code>(/ 1 0)</code> would never be evaluated.
+because the argument <code class="code">(/ 1 0)</code> would never be evaluated.
 </p>
 <p>An example that exploits lazy evaluation is the definition of a procedure
-<code>unless</code>
+<code class="code">unless</code>
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">unless condition 
-                usual-value 
-                exceptional-value</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> condition 
-      exceptional-value 
-      usual-value</span><span class="clo">))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">// With lazy evaluation, arguments would not be evaluated until needed
+fn unless&lt;T&gt;(condition: bool, usual_value: T, exceptional_value: T) -&gt; T {
+    if condition {
+        exceptional_value
+    } else {
+        usual_value
+    }
+}
+</pre></div>
 
 <p>that can be used in expressions such as
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="pln">unless </span><span class="opn">(</span><span class="pun">=</span><span class="pln"> b </span><span class="lit">0</span><span class="clo">)</span><span class="pln">
-        </span><span class="opn">(</span><span class="pun">/</span><span class="pln"> a b</span><span class="clo">)</span><span class="pln">
-        </span><span class="opn">(</span><span class="kwd">begin</span><span class="pln"> 
-          </span><span class="opn">(</span><span class="pln">display </span><span class="str">"exception: returning 0"</span><span class="clo">)</span><span class="pln">
-          </span><span class="lit">0</span><span class="clo">))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">// In Rust, we'd use closures for lazy evaluation
+fn unless_lazy&lt;T, F1, F2&gt;(condition: bool, usual: F1, exceptional: F2) -&gt; T
+where
+    F1: FnOnce() -&gt; T,
+    F2: FnOnce() -&gt; T,
+{
+    if condition {
+        exceptional()
+    } else {
+        usual()
+    }
+}
 
-<p>This won’t work in an applicative-order language because both the usual value
-and the exceptional value will be evaluated before <code>unless</code> is called
-(compare <a href="1_002e1.xhtml#Exercise-1_002e6">Exercise 1.6</a>).  An advantage of lazy evaluation is that some
-procedures, such as <code>unless</code>, can do useful computation even if evaluation
+unless_lazy(
+    b == 0,
+    || a / b,
+    || {
+        println!(&quot;exception: returning 0&quot;);
+        0
+    }
+)
+</pre></div>
+
+<p>This won&rsquo;t work in an applicative-order language because both the usual value
+and the exceptional value will be evaluated before <code class="code">unless</code> is called
+(compare <a class="ref" href="1_002e1.xhtml#Exercise-1_002e6">Exercise 1.6</a>).  An advantage of lazy evaluation is that some
+procedures, such as <code class="code">unless</code>, can do useful computation even if evaluation
 of some of their arguments would produce errors or would not terminate.
 </p>
 <p>If the body of a procedure is entered before an argument has been evaluated we
-say that the procedure is <a id="index-non_002dstrict"></a>
-<em>non-strict</em> in that argument.  If the
+say that the procedure is <a class="index-entry-id" id="index-non_002dstrict"></a>
+<em class="dfn">non-strict</em> in that argument.  If the
 argument is evaluated before the body of the procedure is entered we say that
-the procedure is <a id="index-strict"></a>
-<em>strict</em> in that argument.<a class="footnote_link" id="DOCF237" href="#FOOT237"><sup>237</sup></a>  In a purely applicative-order
+the procedure is <a class="index-entry-id" id="index-strict"></a>
+<em class="dfn">strict</em> in that argument.<a class="footnote" id="DOCF218" href="#FOOT218"><sup>218</sup></a>  In a purely applicative-order
 language, all procedures are strict in each argument.  In a purely normal-order
 language, all compound procedures are non-strict in each argument, and
 primitive procedures may be either strict or non-strict.  There are also
-languages (see <a href="#Exercise-4_002e31">Exercise 4.31</a>) that give programmers detailed control over
+languages (see <a class="ref" href="#Exercise-4_002e31">Exercise 4.31</a>) that give programmers detailed control over
 the strictness of the procedures they define.
 </p>
 <p>A striking example of a procedure that can usefully be made non-strict is
-<code>cons</code> (or, in general, almost any constructor for data structures).  One
+<code class="code">cons</code> (or, in general, almost any constructor for data structures).  One
 can do useful computation, combining elements to form data structures and
 operating on the resulting data structures, even if the values of the elements
 are not known.  It makes perfect sense, for instance, to compute the length of
 a list without knowing the values of the individual elements in the list.  We
-will exploit this idea in <a href="#g_t4_002e2_002e3">4.2.3</a> to implement the streams of
-<a href="Chapter-3.xhtml#Chapter-3">Chapter 3</a> as lists formed of non-strict <code>cons</code> pairs.
+will exploit this idea in <a class="ref" href="#g_t4_002e2_002e3">Streams as Lazy Lists</a> to implement the streams of
+<a class="ref" href="Chapter-3.xhtml">Modularity, Objects, and State</a> as lists formed of non-strict <code class="code">cons</code> pairs.
 </p>
-<blockquote>
-<p><strong><a id="Exercise-4_002e25"></a>Exercise 4.25:</strong> Suppose that (in ordinary
-applicative-order Scheme) we define <code>unless</code> as shown above and then
-define <code>factorial</code> in terms of <code>unless</code> as
+<blockquote class="quotation">
+<p><strong class="strong"><a class="anchor" id="Exercise-4_002e25"></a>Exercise 4.25:</strong> Suppose that (in ordinary
+applicative-order Scheme) we define <code class="code">unless</code> as shown above and then
+define <code class="code">factorial</code> in terms of <code class="code">unless</code> as
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">factorial n</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">unless </span><span class="opn">(</span><span class="pun">=</span><span class="pln"> n </span><span class="lit">1</span><span class="clo">)</span><span class="pln">
-          </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> n </span><span class="opn">(</span><span class="pln">factorial </span><span class="opn">(</span><span class="pun">-</span><span class="pln"> n </span><span class="lit">1</span><span class="clo">)))</span><span class="pln">
-          </span><span class="lit">1</span><span class="clo">))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">fn factorial(n: i64) -&gt; i64 {
+    // This would cause infinite recursion in strict evaluation!
+    // Both branches are evaluated before unless is called
+    unless(
+        n == 1,
+        n * factorial(n - 1),  // Always evaluated!
+        1,
+    )
+}
+</pre></div>
 
-<p>What happens if we attempt to evaluate <code>(factorial 5)</code>?  Will our
+<p>What happens if we attempt to evaluate <code class="code">(factorial 5)</code>?  Will our
 definitions work in a normal-order language?
 </p></blockquote>
 
-<blockquote>
-<p><strong><a id="Exercise-4_002e26"></a>Exercise 4.26:</strong> Ben Bitdiddle and Alyssa
+<blockquote class="quotation">
+<p><strong class="strong"><a class="anchor" id="Exercise-4_002e26"></a>Exercise 4.26:</strong> Ben Bitdiddle and Alyssa
 P. Hacker disagree over the importance of lazy evaluation for implementing
-things such as <code>unless</code>.  Ben points out that it’s possible to implement
-<code>unless</code> in applicative order as a special form.  Alyssa counters that, if
-one did that, <code>unless</code> would be merely syntax, not a procedure that could
+things such as <code class="code">unless</code>.  Ben points out that it&rsquo;s possible to implement
+<code class="code">unless</code> in applicative order as a special form.  Alyssa counters that, if
+one did that, <code class="code">unless</code> would be merely syntax, not a procedure that could
 be used in conjunction with higher-order procedures.  Fill in the details on
-both sides of the argument.  Show how to implement <code>unless</code> as a derived
-expression (like <code>cond</code> or <code>let</code>), and give an example of a situation
-where it might be useful to have <code>unless</code> available as a procedure, rather
+both sides of the argument.  Show how to implement <code class="code">unless</code> as a derived
+expression (like <code class="code">cond</code> or <code class="code">let</code>), and give an example of a situation
+where it might be useful to have <code class="code">unless</code> available as a procedure, rather
 than as a special form.
 </p></blockquote>
 
-<a id="g_t4_002e2_002e2"></a>
-<a id="An-Interpreter-with-Lazy-Evaluation"></a>
-<h4 class="subsection"><span class="secnum">4.2.2</span><span class="sectitle">An Interpreter with Lazy Evaluation</span></h4>
+<hr>
+</div>
+<div class="subsection-level-extent" id="g_t4_002e2_002e2">
+<h4 class="subsection" id="An-Interpreter-with-Lazy-Evaluation"><span>4.2.2 An Interpreter with Lazy Evaluation<a class="copiable-link" href="#An-Interpreter-with-Lazy-Evaluation"> &para;</a></span></h4>
 
 <p>In this section we will implement a normal-order language that is the same as
 Scheme except that compound procedures are non-strict in each argument.
 Primitive procedures will still be strict.  It is not difficult to modify the
-evaluator of <a href="4_002e1.xhtml#g_t4_002e1_002e1">4.1.1</a> so that the language it interprets behaves
+evaluator of <a class="ref" href="4_002e1.xhtml#g_t4_002e1_002e1">The Core of the Evaluator</a> so that the language it interprets behaves
 this way.  Almost all the required changes center around procedure application.
 </p>
 <p>The basic idea is that, when applying a procedure, the interpreter must
 determine which arguments are to be evaluated and which are to be delayed.  The
 delayed arguments are not evaluated; instead, they are transformed into objects
-called <a id="index-thunks"></a>
-<em>thunks</em>.<a class="footnote_link" id="DOCF238" href="#FOOT238"><sup>238</sup></a> The thunk must
+called <a class="index-entry-id" id="index-thunks"></a>
+<em class="dfn">thunks</em>.<a class="footnote" id="DOCF219" href="#FOOT219"><sup>219</sup></a> The thunk must
 contain the information required to produce the value of the argument when it
 is needed, as if it had been evaluated at the time of the application.  Thus,
 the thunk must contain the argument expression and the environment in which the
 procedure application is being evaluated.
 </p>
 <p>The process of evaluating the expression in a thunk is called
-<a id="index-forcing"></a>
-<em>forcing</em>.<a class="footnote_link" id="DOCF239" href="#FOOT239"><sup>239</sup></a>
+<a class="index-entry-id" id="index-forcing"></a>
+<em class="dfn">forcing</em>.<a class="footnote" id="DOCF220" href="#FOOT220"><sup>220</sup></a>
 In general, a thunk will be forced only when its value is needed: when it is
 passed to a primitive procedure that will use the value of the thunk; when it
 is the value of a predicate of a conditional; and when it is the value of an
 operator that is about to be applied as a procedure.  One design choice we have
-available is whether or not to <a id="index-memoize"></a>
-<em>memoize</em> thunks, as we did with delayed
-objects in <a href="3_002e5.xhtml#g_t3_002e5_002e1">3.5.1</a>.  With memoization, the first time a thunk is
+available is whether or not to <a class="index-entry-id" id="index-memoize"></a>
+<em class="dfn">memoize</em> thunks, as we did with delayed
+objects in <a class="ref" href="3_002e5.xhtml#g_t3_002e5_002e1">Streams Are Delayed Lists</a>.  With memoization, the first time a thunk is
 forced, it stores the value that is computed.  Subsequent forcings simply
-return the stored value without repeating the computation.  We’ll make our
+return the stored value without repeating the computation.  We&rsquo;ll make our
 interpreter memoize, because this is more efficient for many applications.
-There are tricky considerations here, however.<a class="footnote_link" id="DOCF240" href="#FOOT240"><sup>240</sup></a>
+There are tricky considerations here, however.<a class="footnote" id="DOCF221" href="#FOOT221"><sup>221</sup></a>
 </p>
-<a id="Modifying-the-evaluator"></a>
-<h5 class="subsubheading">Modifying the evaluator</h5>
+<h4 class="subsubheading" id="Modifying-the-evaluator"><span>Modifying the evaluator<a class="copiable-link" href="#Modifying-the-evaluator"> &para;</a></span></h4>
 
-<p>The main difference between the lazy evaluator and the one in <a href="4_002e1.xhtml#g_t4_002e1">4.1</a>
-is in the handling of procedure applications in <code>eval</code> and <code>apply</code>.
+<p>The main difference between the lazy evaluator and the one in <a class="ref" href="4_002e1.xhtml#g_t4_002e1">The Metacircular Evaluator</a>
+is in the handling of procedure applications in <code class="code">eval</code> and <code class="code">apply</code>.
 </p>
-<p>The <code>application?</code> clause of <code>eval</code> becomes
+<p>The <code class="code">is_application</code> clause of <code class="code">eval</code> becomes
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">((</span><span class="pln">application? exp</span><span class="clo">)</span><span class="pln">
- </span><span class="opn">(</span><span class="pln">apply </span><span class="opn">(</span><span class="pln">actual-value </span><span class="opn">(</span><span class="pln">operator exp</span><span class="clo">)</span><span class="pln"> env</span><span class="clo">)</span><span class="pln">
-        </span><span class="opn">(</span><span class="pln">operands exp</span><span class="clo">)</span><span class="pln">
-        env</span><span class="clo">))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">// In the lazy evaluator, application passes unevaluated operands
+Expr::Application { operator, operands } =&gt; {
+    let proc = actual_value(operator, env)?;
+    apply_lazy(proc, operands, env)
+}
+</pre></div>
 
-<p>This is almost the same as the <code>application?</code> clause of <code>eval</code> in
-<a href="4_002e1.xhtml#g_t4_002e1_002e1">4.1.1</a>.  For lazy evaluation, however, we call <code>apply</code> with
+<p>This is almost the same as the <code class="code">is_application</code> clause of <code class="code">eval</code> in
+<a class="ref" href="4_002e1.xhtml#g_t4_002e1_002e1">The Core of the Evaluator</a>.  For lazy evaluation, however, we call <code class="code">apply</code> with
 the operand expressions, rather than the arguments produced by evaluating them.
 Since we will need the environment to construct thunks if the arguments are to
 be delayed, we must pass this as well.  We still evaluate the operator, because
-<code>apply</code> needs the actual procedure to be applied in order to dispatch on
+<code class="code">apply</code> needs the actual procedure to be applied in order to dispatch on
 its type (primitive versus compound) and apply it.
 </p>
 <p>Whenever we need the actual value of an expression, we use
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">actual-value exp env</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">force-it </span><span class="opn">(</span><span class="pln">eval exp env</span><span class="clo">)))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">fn actual_value(exp: &amp;Expr, env: &amp;Environment) -&gt; Result&lt;Value, EvalError&gt; {
+    let result = eval(exp, env)?;
+    force_it(result)  // If thunk, force evaluation
+}
+</pre></div>
 
-<p>instead of just <code>eval</code>, so that if the expression’s value is a thunk, it
+<p>instead of just <code class="code">eval</code>, so that if the expression&rsquo;s value is a thunk, it
 will be forced.
 </p>
-<p>Our new version of <code>apply</code> is also almost the same as the version in
-<a href="4_002e1.xhtml#g_t4_002e1_002e1">4.1.1</a>.  The difference is that <code>eval</code> has passed in
+<p>Our new version of <code class="code">apply</code> is also almost the same as the version in
+<a class="ref" href="4_002e1.xhtml#g_t4_002e1_002e1">The Core of the Evaluator</a>.  The difference is that <code class="code">eval</code> has passed in
 unevaluated operand expressions: For primitive procedures (which are strict),
 we evaluate all the arguments before applying the primitive; for compound
 procedures (which are non-strict) we delay all the arguments before applying
 the procedure.
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">apply procedure arguments env</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">((</span><span class="pln">primitive-procedure? procedure</span><span class="clo">)</span><span class="pln">
-         </span><span class="opn">(</span><span class="pln">apply-primitive-procedure
-          procedure
-          </span><span class="opn">(</span><span class="pln">list-of-arg-values 
-           arguments 
-           env</span><span class="clo">)))</span><span class="pln">  </span><span class="roman"><span class="com">; changed</span></span><span class="pln">
-        </span><span class="opn">((</span><span class="pln">compound-procedure? procedure</span><span class="clo">)</span><span class="pln">
-         </span><span class="opn">(</span><span class="pln">eval-sequence
-          </span><span class="opn">(</span><span class="pln">procedure-body procedure</span><span class="clo">)</span><span class="pln">
-          </span><span class="opn">(</span><span class="pln">extend-environment
-           </span><span class="opn">(</span><span class="pln">procedure-parameters procedure</span><span class="clo">)</span><span class="pln">
-           </span><span class="opn">(</span><span class="pln">list-of-delayed-args 
-            arguments 
-            env</span><span class="clo">)</span><span class="pln">   </span><span class="roman"><span class="com">; changed</span></span><span class="pln">
-           </span><span class="opn">(</span><span class="pln">procedure-environment procedure</span><span class="clo">))))</span><span class="pln">
-        </span><span class="opn">(</span><span class="kwd">else</span><span class="pln"> </span><span class="opn">(</span><span class="err">error</span><span class="pln"> </span><span class="str">"Unknown procedure 
-                      type: APPLY"</span><span class="pln"> 
-                     procedure</span><span class="clo">))))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">pub fn apply(
+    procedure: Value,
+    operands: Vec&lt;Expr&gt;,
+    env: Environment&lt;Value&gt;,
+) -&gt; Result&lt;Value, EvalError&gt; {
+    match procedure {
+        Value::Primitive(prim) =&gt; {
+            // Primitives are strict: force all arguments
+            let args = list_of_arg_values(operands, env)?;
+            (prim.func)(&amp;args)
+        }
+        Value::Procedure { params, body, env: proc_env, .. } =&gt; {
+            // Compound procedures are non-strict: delay arguments
+            let delayed_args = list_of_delayed_args(operands, env);
+            let extended_env = proc_env.extend(
+                params.into_iter().zip(delayed_args)
+            );
+            let (result, _) = eval(body, extended_env)?;
+            Ok(result)
+        }
+        _ =&gt; Err(EvalError::TypeError(&quot;Not a procedure&quot;.into())),
+    }
+}
+</pre></div>
 
-<p>The procedures that process the arguments are just like <code>list-of-values</code>
-from <a href="4_002e1.xhtml#g_t4_002e1_002e1">4.1.1</a>, except that <code>list-of-delayed-args</code> delays the
-arguments instead of evaluating them, and <code>list-of-arg-values</code> uses
-<code>actual-value</code> instead of <code>eval</code>:
+<p>The procedures that process the arguments are just like <code class="code">eval_list</code>
+from <a class="ref" href="4_002e1.xhtml#g_t4_002e1_002e1">The Core of the Evaluator</a>, except that <code class="code">list_of_delayed_args</code> delays the
+arguments instead of evaluating them, and <code class="code">list_of_arg_values</code> uses
+<code class="code">actual_value</code> instead of <code class="code">eval</code>:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">list-of-arg-values exps env</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pln">no-operands? exps</span><span class="clo">)</span><span class="pln">
-      </span><span class="lit">'</span><span class="opn">(</span><span class="clo">)</span><span class="pln">
-      </span><span class="opn">(</span><span class="kwd">cons</span><span class="pln"> </span><span class="opn">(</span><span class="pln">actual-value 
-             </span><span class="opn">(</span><span class="pln">first-operand exps</span><span class="clo">)</span><span class="pln"> 
-             env</span><span class="clo">)</span><span class="pln">
-            </span><span class="opn">(</span><span class="pln">list-of-arg-values 
-             </span><span class="opn">(</span><span class="pln">rest-operands exps</span><span class="clo">)</span><span class="pln">
-             env</span><span class="clo">))))</span><span class="pln">
+<div class="example">
+<pre class="example-preformatted">fn list_of_arg_values(
+    operands: Vec&lt;Expr&gt;,
+    env: Environment&lt;Value&gt;,
+) -&gt; Result&lt;Vec&lt;Value&gt;, EvalError&gt; {
+    operands.into_iter()
+        .map(|expr| actual_value(expr, env.clone()))
+        .collect()
+}
 
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">list-of-delayed-args exps env</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pln">no-operands? exps</span><span class="clo">)</span><span class="pln">
-      </span><span class="lit">'</span><span class="opn">(</span><span class="clo">)</span><span class="pln">
-      </span><span class="opn">(</span><span class="kwd">cons</span><span class="pln"> </span><span class="opn">(</span><span class="pln">delay-it 
-             </span><span class="opn">(</span><span class="pln">first-operand exps</span><span class="clo">)</span><span class="pln"> 
-             env</span><span class="clo">)</span><span class="pln">
-            </span><span class="opn">(</span><span class="pln">list-of-delayed-args 
-             </span><span class="opn">(</span><span class="pln">rest-operands exps</span><span class="clo">)</span><span class="pln">
-             env</span><span class="clo">))))</span></pre></div>
+fn list_of_delayed_args(
+    operands: Vec&lt;Expr&gt;,
+    env: Environment&lt;Value&gt;,
+) -&gt; Vec&lt;Value&gt; {
+    operands.into_iter()
+        .map(|expr| delay_it(expr, env.clone()))
+        .collect()
+}
+</pre></div>
 
-<p>The other place we must change the evaluator is in the handling of <code>if</code>,
-where we must use <code>actual-value</code> instead of <code>eval</code> to get the value
+<p>The other place we must change the evaluator is in the handling of <code class="code">if</code>,
+where we must use <code class="code">actual_value</code> instead of <code class="code">eval</code> to get the value
 of the predicate expression before testing whether it is true or false:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">eval-if exp env</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pln">true? </span><span class="opn">(</span><span class="pln">actual-value </span><span class="opn">(</span><span class="pln">if-predicate exp</span><span class="clo">)</span><span class="pln"> 
-                           env</span><span class="clo">))</span><span class="pln">
-      </span><span class="opn">(</span><span class="pln">eval </span><span class="opn">(</span><span class="pln">if-consequent exp</span><span class="clo">)</span><span class="pln"> env</span><span class="clo">)</span><span class="pln">
-      </span><span class="opn">(</span><span class="pln">eval </span><span class="opn">(</span><span class="pln">if-alternative exp</span><span class="clo">)</span><span class="pln"> env</span><span class="clo">)))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">fn eval_if_lazy(
+    test: Expr,
+    consequent: Expr,
+    alternative: Expr,
+    env: Environment&lt;Value&gt;,
+) -&gt; Result&lt;(Value, Environment&lt;Value&gt;), EvalError&gt; {
+    let test_val = actual_value(test, env.clone())?;
+    if is_true(&amp;test_val) {
+        eval(consequent, env)
+    } else {
+        eval(alternative, env)
+    }
+}
+</pre></div>
 
-<p>Finally, we must change the <code>driver-loop</code> procedure (<a href="4_002e1.xhtml#g_t4_002e1_002e4">4.1.4</a>)
-to use <code>actual-value</code> instead of <code>eval</code>, so that if a delayed value
+<p>Finally, we must change the <code class="code">driver_loop</code> procedure (<a class="ref" href="4_002e1.xhtml#g_t4_002e1_002e4">Running the Evaluator as a Program</a>)
+to use <code class="code">actual_value</code> instead of <code class="code">eval</code>, so that if a delayed value
 is propagated back to the read-eval-print loop, it will be forced before being
 printed.  We also change the prompts to indicate that this is the lazy
 evaluator:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> input-prompt  </span><span class="str">";;; L-Eval input:"</span><span class="clo">)</span><span class="pln">
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> output-prompt </span><span class="str">";;; L-Eval value:"</span><span class="clo">)</span><span class="pln">
+<div class="example">
+<pre class="example-preformatted">const INPUT_PROMPT: &amp;str = &quot;;;; L-Eval input:&quot;;
+const OUTPUT_PROMPT: &amp;str = &quot;;;; L-Eval value:&quot;;
 
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">driver-loop</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">prompt-for-input input-prompt</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">input </span><span class="opn">(</span><span class="pln">read</span><span class="clo">)))</span><span class="pln">
-    </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">output </span><span class="opn">(</span><span class="pln">actual-value 
-                   input 
-                   the-global-environment</span><span class="clo">)))</span><span class="pln">
-      </span><span class="opn">(</span><span class="pln">announce-output output-prompt</span><span class="clo">)</span><span class="pln">
-      </span><span class="opn">(</span><span class="pln">user-print output</span><span class="clo">)))</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">driver-loop</span><span class="clo">))</span></pre></div>
-
-<p>With these changes made, we can start the evaluator and test it.  The
-successful evaluation of the <code>try</code> expression discussed in 
-<a href="#g_t4_002e2_002e1">4.2.1</a> indicates that the interpreter is performing lazy evaluation:
-</p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> the-global-environment 
-  </span><span class="opn">(</span><span class="pln">setup-environment</span><span class="clo">))</span><span class="pln">
-
-</span><span class="opn">(</span><span class="pln">driver-loop</span><span class="clo">)</span><span class="pln">
-
-</span><i><span class="com">;;; L-Eval input:</span></i><span class="pln">
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">try a b</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pun">=</span><span class="pln"> a </span><span class="lit">0</span><span class="clo">)</span><span class="pln"> </span><span class="lit">1</span><span class="pln"> b</span><span class="clo">))</span><span class="pln">
-
-</span><i><span class="com">;;; L-Eval value:</span></i><span class="pln">
-</span><i><span class="pln">ok</span></i><span class="pln">
-
-</span><i><span class="com">;;; L-Eval input:</span></i><span class="pln">
-</span><span class="opn">(</span><span class="pln">try </span><span class="lit">0</span><span class="pln"> </span><span class="opn">(</span><span class="pun">/</span><span class="pln"> </span><span class="lit">1</span><span class="pln"> </span><span class="lit">0</span><span class="clo">))</span><span class="pln">
-
-</span><i><span class="com">;;; L-Eval value:</span></i><span class="pln">
-</span><i><span class="lit">1</span></i>
+fn driver_loop_lazy(mut env: Environment&lt;Value&gt;) {
+    loop {
+        println!(&quot;\n{}&quot;, INPUT_PROMPT);
+        let input = read_and_parse();
+        // Force the result before printing
+        match actual_value(input, env.clone()) {
+            Ok(output) =&gt; {
+                println!(&quot;{}&quot;, OUTPUT_PROMPT);
+                user_print(&amp;output);
+            }
+            Err(e) =&gt; eprintln!(&quot;Error: {:?}&quot;, e),
+        }
+    }
+}
 </pre></div>
 
-<a id="Representing-thunks"></a>
-<h5 class="subsubheading">Representing thunks</h5>
+<p>With these changes made, we can start the evaluator and test it.  The
+successful evaluation of the <code class="code">try</code> expression discussed in 
+<a class="ref" href="#g_t4_002e2_002e1">Normal Order and Applicative Order</a> indicates that the interpreter is performing lazy evaluation:
+</p>
+<div class="example">
+<pre class="example-preformatted">let mut global_env = setup_environment();
+
+driver_loop_lazy(&amp;mut global_env);
+
+// ;;; L-Eval input:
+// fn try_it(a: i64, b: i64) -&gt; i64 { if a == 0 { 1 } else { b } }
+
+// ;;; L-Eval value:
+// ok
+
+// ;;; L-Eval input:
+// try_it(0, 1/0)  // Division not evaluated due to lazy args!
+
+// ;;; L-Eval value:
+// 1
+</pre></div>
+
+<h4 class="subsubheading" id="Representing-thunks"><span>Representing thunks<a class="copiable-link" href="#Representing-thunks"> &para;</a></span></h4>
 
 <p>Our evaluator must arrange to create thunks when procedures are applied to
 arguments and to force these thunks later.  A thunk must package an expression
 together with the environment, so that the argument can be produced later.  To
 force the thunk, we simply extract the expression and environment from the
 thunk and evaluate the expression in the environment.  We use
-<code>actual-value</code> rather than <code>eval</code> so that in case the value of the
+<code class="code">actual_value</code> rather than <code class="code">eval</code> so that in case the value of the
 expression is itself a thunk, we will force that, and so on, until we reach
 something that is not a thunk:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">force-it obj</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pln">thunk? obj</span><span class="clo">)</span><span class="pln">
-      </span><span class="opn">(</span><span class="pln">actual-value </span><span class="opn">(</span><span class="pln">thunk-exp obj</span><span class="clo">)</span><span class="pln"> 
-                    </span><span class="opn">(</span><span class="pln">thunk-env obj</span><span class="clo">))</span><span class="pln">
-      obj</span><span class="clo">))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">fn force_it(obj: Value) -&gt; Result&lt;Value, EvalError&gt; {
+    match obj {
+        Value::Thunk { expr, env } =&gt; {
+            // Recursively force in case result is also a thunk
+            actual_value(&amp;expr, &amp;env)
+        }
+        other =&gt; Ok(other),  // Already a value
+    }
+}
+</pre></div>
 
 <p>One easy way to package an expression with an environment is to make a list
 containing the expression and the environment.  Thus, we create a thunk as
 follows:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">delay-it exp env</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">list </span><span class="lit">'thunk</span><span class="pln"> exp env</span><span class="clo">))</span><span class="pln">
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">thunk? obj</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">tagged-list? obj </span><span class="lit">'thunk</span><span class="clo">))</span><span class="pln">
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">thunk-exp thunk</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">cadr</span><span class="pln"> thunk</span><span class="clo">))</span><span class="pln">
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">thunk-env thunk</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">caddr</span><span class="pln"> thunk</span><span class="clo">))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">fn delay_it(expr: Expr, env: Environment) -&gt; Value {
+    Value::Thunk { expr, env }
+}
+
+// In the Value enum:
+enum Value {
+    // ...other variants...
+    Thunk { expr: Expr, env: Environment },
+}
+</pre></div>
 
 <p>Actually, what we want for our interpreter is not quite this, but rather thunks
 that have been memoized.  When a thunk is forced, we will turn it into an
 evaluated thunk by replacing the stored expression with its value and changing
-the <code>thunk</code> tag so that it can be recognized as already
-evaluated.<a class="footnote_link" id="DOCF241" href="#FOOT241"><sup>241</sup></a>
+the <code class="code">thunk</code> tag so that it can be recognized as already
+evaluated.<a class="footnote" id="DOCF222" href="#FOOT222"><sup>222</sup></a>
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">evaluated-thunk? obj</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">tagged-list? obj </span><span class="lit">'evaluated-thunk</span><span class="clo">))</span><span class="pln">
+<div class="example">
+<pre class="example-preformatted">use std::cell::OnceCell;
 
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">thunk-value evaluated-thunk</span><span class="clo">)</span><span class="pln"> 
-  </span><span class="opn">(</span><span class="kwd">cadr</span><span class="pln"> evaluated-thunk</span><span class="clo">))</span><span class="pln">
+// Memoized thunk using OnceCell
+struct MemoizedThunk {
+    expr: Expr,
+    env: Environment,
+    cached: OnceCell&lt;Value&gt;,
+}
 
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">force-it obj</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">((</span><span class="pln">thunk? obj</span><span class="clo">)</span><span class="pln">
-         </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">result
-                </span><span class="opn">(</span><span class="pln">actual-value 
-                 </span><span class="opn">(</span><span class="pln">thunk-exp obj</span><span class="clo">)</span><span class="pln">
-                 </span><span class="opn">(</span><span class="pln">thunk-env obj</span><span class="clo">))))</span><span class="pln">
-           </span><span class="opn">(</span><span class="pln">set-car! obj </span><span class="lit">'evaluated-thunk</span><span class="clo">)</span><span class="pln">
-           </span><span class="com">;; </span><span class="roman"><span class="com">replace </span><code><span class="com">exp</span></code><span class="com"> with its value:</span></span><span class="pln">
-           </span><span class="opn">(</span><span class="pln">set-car! </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> obj</span><span class="clo">)</span><span class="pln"> result</span><span class="clo">)</span><span class="pln"> 
-           </span><span class="com">;; </span><span class="roman"><span class="com">forget unneeded </span><code><span class="com">env</span></code><span class="com">:</span></span><span class="pln">
-           </span><span class="opn">(</span><span class="pln">set-cdr! </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> obj</span><span class="clo">)</span><span class="pln"> </span><span class="lit">'</span><span class="opn">(</span><span class="clo">))</span><span class="pln"> 
-           result</span><span class="clo">))</span><span class="pln">
-        </span><span class="opn">((</span><span class="pln">evaluated-thunk? obj</span><span class="clo">)</span><span class="pln">
-         </span><span class="opn">(</span><span class="pln">thunk-value obj</span><span class="clo">))</span><span class="pln">
-        </span><span class="opn">(</span><span class="kwd">else</span><span class="pln"> obj</span><span class="clo">)))</span></pre></div>
+impl MemoizedThunk {
+    fn new(expr: Expr, env: Environment) -&gt; Self {
+        Self { expr, env, cached: OnceCell::new() }
+    }
 
-<p>Notice that the same <code>delay-it</code> procedure works both with and without
+    fn force(&amp;self) -&gt; Result&lt;Value, EvalError&gt; {
+        // OnceCell ensures we only evaluate once
+        self.cached
+            .get_or_try_init(|| actual_value(&amp;self.expr, &amp;self.env))
+            .cloned()
+    }
+}
+
+fn force_it_memoized(obj: &amp;Value) -&gt; Result&lt;Value, EvalError&gt; {
+    match obj {
+        Value::MemoThunk(thunk) =&gt; thunk.force(),
+        Value::EvaluatedThunk(val) =&gt; Ok(val.clone()),
+        other =&gt; Ok(other.clone()),
+    }
+}
+</pre></div>
+
+<p>Notice that the same <code class="code">delay_it</code> procedure works both with and without
 memoization.
 </p>
-<blockquote>
-<p><strong><a id="Exercise-4_002e27"></a>Exercise 4.27:</strong> Suppose we type in the following
+<blockquote class="quotation">
+<p><strong class="strong"><a class="anchor" id="Exercise-4_002e27"></a>Exercise 4.27:</strong> Suppose we type in the following
 definitions to the lazy evaluator:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> count </span><span class="lit">0</span><span class="clo">)</span><span class="pln">
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">id x</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">set</span><span class="pun">!</span><span class="pln"> count </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> count </span><span class="lit">1</span><span class="clo">))</span><span class="pln"> x</span><span class="clo">)</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">use std::cell::Cell;
+
+let count = Cell::new(0);
+fn id(x: i64, count: &amp;Cell&lt;i64&gt;) -&gt; i64 {
+    count.set(count.get() + 1);
+    x
+}
+</pre></div>
 
 <p>Give the missing values in the following sequence of interactions, and explain
-your answers.<a class="footnote_link" id="DOCF242" href="#FOOT242"><sup>242</sup></a>
+your answers.<a class="footnote" id="DOCF223" href="#FOOT223"><sup>223</sup></a>
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> w </span><span class="opn">(</span><span class="pln">id </span><span class="opn">(</span><span class="pln">id </span><span class="lit">10</span><span class="clo">)))</span><span class="pln">
+<div class="example">
+<pre class="example-preformatted">let w = id(id(10, &amp;count), &amp;count);  // Lazy: neither id called yet
 
-</span><i><span class="com">;;; L-Eval input:</span></i><span class="pln">
-count
+// ;;; L-Eval input:
+count.get()
+// ;;; L-Eval value:
+// <var class="var">response</var>  (outer id called during define)
 
-</span><i><span class="com">;;; L-Eval value:</span></i><span class="pln">
-⟨</span><var><span class="pln">response</span></var><span class="pln">⟩
+// ;;; L-Eval input:
+w  // Force w
+// ;;; L-Eval value:
+// <var class="var">response</var>
 
-</span><i><span class="com">;;; L-Eval input:</span></i><span class="pln">
-w
-
-</span><i><span class="com">;;; L-Eval value:</span></i><span class="pln">
-⟨</span><var><span class="pln">response</span></var><span class="pln">⟩
-
-</span><i><span class="com">;;; L-Eval input:</span></i><span class="pln">
-count
-
-</span><i><span class="com">;;; L-Eval value:</span></i><span class="pln">
-⟨</span><var><span class="pln">response</span></var><span class="pln">⟩</span></pre></div>
+// ;;; L-Eval input:
+count.get()
+// ;;; L-Eval value:
+// <var class="var">response</var>  (both ids now called)
+</pre></div>
 </blockquote>
 
-<blockquote>
-<p><strong><a id="Exercise-4_002e28"></a>Exercise 4.28:</strong> <code>Eval</code> uses
-<code>actual-value</code> rather than <code>eval</code> to evaluate the operator before
-passing it to <code>apply</code>, in order to force the value of the operator.  Give
+<blockquote class="quotation">
+<p><strong class="strong"><a class="anchor" id="Exercise-4_002e28"></a>Exercise 4.28:</strong> <code class="code">Eval</code> uses
+<code class="code">actual_value</code> rather than <code class="code">eval</code> to evaluate the operator before
+passing it to <code class="code">apply</code>, in order to force the value of the operator.  Give
 an example that demonstrates the need for this forcing.
 </p>
-<p><strong><a id="Exercise-4_002e29"></a>Exercise 4.29:</strong> Exhibit a program that you would
+<p><strong class="strong"><a class="anchor" id="Exercise-4_002e29"></a>Exercise 4.29:</strong> Exhibit a program that you would
 expect to run much more slowly without memoization than with memoization.
-Also, consider the following interaction, where the <code>id</code> procedure is
-defined as in <a href="#Exercise-4_002e27">Exercise 4.27</a> and <code>count</code> starts at 0:
+Also, consider the following interaction, where the <code class="code">id</code> procedure is
+defined as in <a class="ref" href="#Exercise-4_002e27">Exercise 4.27</a> and <code class="code">count</code> starts at 0:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">square x</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> x x</span><span class="clo">))</span><span class="pln">
+<div class="example">
+<pre class="example-preformatted">fn square(x: i64) -&gt; i64 { x * x }
 
-</span><i><span class="com">;;; L-Eval input:</span></i><span class="pln">
-</span><span class="opn">(</span><span class="pln">square </span><span class="opn">(</span><span class="pln">id </span><span class="lit">10</span><span class="clo">))</span><span class="pln">
+// ;;; L-Eval input:
+square(id(10, &amp;count))
 
-</span><i><span class="com">;;; L-Eval value:</span></i><span class="pln">
-⟨</span><var><span class="pln">response</span></var><span class="pln">⟩
+// ;;; L-Eval value:
+// <var class="var">response</var>
 
-</span><i><span class="com">;;; L-Eval input:</span></i><span class="pln">
-count
+// ;;; L-Eval input:
+count.get()
 
-</span><i><span class="com">;;; L-Eval value:</span></i><span class="pln">
-⟨</span><var><span class="pln">response</span></var><span class="pln">⟩</span></pre></div>
+// ;;; L-Eval value:
+// <var class="var">response</var>
+</pre></div>
 
 <p>Give the responses both when the evaluator memoizes and when it does not.
 </p></blockquote>
 
-<blockquote>
-<p><strong><a id="Exercise-4_002e30"></a>Exercise 4.30:</strong> Cy D. Fect, a reformed C
+<blockquote class="quotation">
+<p><strong class="strong"><a class="anchor" id="Exercise-4_002e30"></a>Exercise 4.30:</strong> Cy D. Fect, a reformed C
 programmer, is worried that some side effects may never take place, because the
-lazy evaluator doesn’t force the expressions in a sequence.  Since the value of
+lazy evaluator doesn&rsquo;t force the expressions in a sequence.  Since the value of
 an expression in a sequence other than the last one is not used (the expression
 is there only for its effect, such as assigning to a variable or printing),
 there can be no subsequent use of this value (e.g., as an argument to a
 primitive procedure) that will cause it to be forced.  Cy thus thinks that when
 evaluating sequences, we must force all expressions in the sequence except the
-final one.  He proposes to modify <code>eval-sequence</code> from <a href="4_002e1.xhtml#g_t4_002e1_002e1">4.1.1</a>
-to use <code>actual-value</code> rather than <code>eval</code>:
+final one.  He proposes to modify <code class="code">eval_sequence</code> from <a class="ref" href="4_002e1.xhtml#g_t4_002e1_002e1">The Core of the Evaluator</a>
+to use <code class="code">actual_value</code> rather than <code class="code">eval</code>:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">eval-sequence exps env</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">((</span><span class="pln">last-exp? exps</span><span class="clo">)</span><span class="pln"> 
-         </span><span class="opn">(</span><span class="pln">eval </span><span class="opn">(</span><span class="pln">first-exp exps</span><span class="clo">)</span><span class="pln"> env</span><span class="clo">))</span><span class="pln">
-        </span><span class="opn">(</span><span class="kwd">else</span><span class="pln"> 
-         </span><span class="opn">(</span><span class="pln">actual-value </span><span class="opn">(</span><span class="pln">first-exp exps</span><span class="clo">)</span><span class="pln"> 
-                       env</span><span class="clo">)</span><span class="pln">
-         </span><span class="opn">(</span><span class="pln">eval-sequence </span><span class="opn">(</span><span class="pln">rest-exps exps</span><span class="clo">)</span><span class="pln"> 
-                        env</span><span class="clo">))))</span></pre></div>
-
-<ol>
-<li> Ben Bitdiddle thinks Cy is wrong.  He shows Cy the <code>for-each</code> procedure
-described in <a href="2_002e2.xhtml#Exercise-2_002e23">Exercise 2.23</a>, which gives an important example of a
-sequence with side effects:
-
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">for-each proc items</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pln">null? items</span><span class="clo">)</span><span class="pln">
-      </span><span class="lit">'done</span><span class="pln">
-      </span><span class="opn">(</span><span class="kwd">begin</span><span class="pln"> </span><span class="opn">(</span><span class="pln">proc </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> items</span><span class="clo">))</span><span class="pln">
-             </span><span class="opn">(</span><span class="pln">for-each proc 
-                       </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> items</span><span class="clo">)))))</span></pre></div>
-
-<p>He claims that the evaluator in the text (with the original
-<code>eval-sequence</code>) handles this correctly:
-</p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><i><span class="com">;;; L-Eval input:</span></i><span class="pln">
-</span><span class="opn">(</span><span class="pln">for-each
- </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">x</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">newline</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">display x</span><span class="clo">))</span><span class="pln">
- </span><span class="opn">(</span><span class="pln">list </span><span class="lit">57</span><span class="pln"> </span><span class="lit">321</span><span class="pln"> </span><span class="lit">88</span><span class="clo">))</span><span class="pln">
-</span><i><span class="lit">57</span></i><span class="pln">
-</span><i><span class="lit">321</span></i><span class="pln">
-</span><i><span class="lit">88</span></i><span class="pln">
-
-</span><i><span class="com">;;; L-Eval value:</span></i><span class="pln">
-</span><i><span class="pln">done</span></i>
+<div class="example">
+<pre class="example-preformatted">fn eval_sequence_cy(exps: &amp;[Expr], env: &amp;Environment) -&gt; Result&lt;Value, EvalError&gt; {
+    if exps.len() == 1 {
+        eval(&amp;exps[0], env)
+    } else {
+        // Cy's version: force non-final expressions
+        actual_value(&amp;exps[0], env)?;
+        eval_sequence_cy(&amp;exps[1..], env)
+    }
+}
 </pre></div>
 
-<p>Explain why Ben is right about the behavior of <code>for-each</code>.
+<ol class="enumerate" type="a" start="1">
+<li> Ben Bitdiddle thinks Cy is wrong.  He shows Cy the <code class="code">for-each</code> procedure
+described in <a class="ref" href="2_002e2.xhtml#Exercise-2_002e23">Exercise 2.23</a>, which gives an important example of a
+sequence with side effects:
+
+<div class="example">
+<pre class="example-preformatted">fn for_each&lt;T, F&gt;(proc: F, items: &amp;[T])
+where
+    F: Fn(&amp;T),
+{
+    for item in items {
+        proc(item);
+    }
+}
+</pre></div>
+
+<p>He claims that the evaluator in the text (with the original
+<code class="code">eval_sequence</code>) handles this correctly:
 </p>
-</li><li> Cy agrees that Ben is right about the <code>for-each</code> example, but says that
-that’s not the kind of program he was thinking about when he proposed his
-change to <code>eval-sequence</code>.  He defines the following two procedures in the
+<div class="example">
+<pre class="example-preformatted">// ;;; L-Eval input:
+for_each(
+    |x| println!(&quot;{}&quot;, x),
+    &amp;[57, 321, 88],
+);
+// 57
+// 321
+// 88
+
+// ;;; L-Eval value:
+// (unit - the for_each returns nothing)
+</pre></div>
+
+<p>Explain why Ben is right about the behavior of <code class="code">for-each</code>.
+</p>
+</li><li> Cy agrees that Ben is right about the <code class="code">for-each</code> example, but says that
+that&rsquo;s not the kind of program he was thinking about when he proposed his
+change to <code class="code">eval_sequence</code>.  He defines the following two procedures in the
 lazy evaluator:
 
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">p1 x</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">set</span><span class="pun">!</span><span class="pln"> x </span><span class="opn">(</span><span class="kwd">cons</span><span class="pln"> x </span><span class="lit">'</span><span class="opn">(</span><span class="lit">2</span><span class="clo">)))</span><span class="pln"> x</span><span class="clo">)</span><span class="pln">
+<div class="example">
+<pre class="example-preformatted">fn p1(mut x: Vec&lt;i64&gt;) -&gt; Vec&lt;i64&gt; {
+    x.push(2);  // Mutate x
+    x           // Return modified x
+}
 
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">p2 x</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">p e</span><span class="clo">)</span><span class="pln"> e x</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">p </span><span class="opn">(</span><span class="kwd">set</span><span class="pun">!</span><span class="pln"> x </span><span class="opn">(</span><span class="kwd">cons</span><span class="pln"> x </span><span class="lit">'</span><span class="opn">(</span><span class="lit">2</span><span class="clo">)))))</span></pre></div>
+fn p2(mut x: Vec&lt;i64&gt;) -&gt; Vec&lt;i64&gt; {
+    fn p&lt;T&gt;(_e: T, x: Vec&lt;i64&gt;) -&gt; Vec&lt;i64&gt; { x }
+    // The set! expression is passed but ignored in p's body
+    x.push(2);
+    p((), x)
+}
+</pre></div>
 
-<p>What are the values of <code>(p1 1)</code> and <code>(p2 1)</code> with the original
-<code>eval-sequence</code>?  What would the values be with Cy’s proposed change to
-<code>eval-sequence</code>?
+<p>What are the values of <code class="code">(p1 1)</code> and <code class="code">(p2 1)</code> with the original
+<code class="code">eval_sequence</code>?  What would the values be with Cy&rsquo;s proposed change to
+<code class="code">eval_sequence</code>?
 </p>
-</li><li> Cy also points out that changing <code>eval-sequence</code> as he proposes does not
+</li><li> Cy also points out that changing <code class="code">eval_sequence</code> as he proposes does not
 affect the behavior of the example in part a.  Explain why this is true.
 
 </li><li> How do you think sequences ought to be treated in the lazy evaluator?  Do you
-like Cy’s approach, the approach in the text, or some other approach?
+like Cy&rsquo;s approach, the approach in the text, or some other approach?
 
 </li></ol>
 </blockquote>
 
-<blockquote>
-<p><strong><a id="Exercise-4_002e31"></a>Exercise 4.31:</strong> The approach taken in this
+<blockquote class="quotation">
+<p><strong class="strong"><a class="anchor" id="Exercise-4_002e31"></a>Exercise 4.31:</strong> The approach taken in this
 section is somewhat unpleasant, because it makes an incompatible change to
 Scheme.  It might be nicer to implement lazy evaluation as an
-<a id="index-upward_002dcompatible-extension"></a>
-<em>upward-compatible extension</em>, that is, so that ordinary Scheme
+<a class="index-entry-id" id="index-upward_002dcompatible-extension"></a>
+<em class="dfn">upward-compatible extension</em>, that is, so that ordinary Scheme
 programs will work as before.  We can do this by extending the syntax of
 procedure declarations to let the user control whether or not arguments are to
-be delayed.  While we’re at it, we may as well also give the user the choice
+be delayed.  While we&rsquo;re at it, we may as well also give the user the choice
 between delaying with and without memoization.  For example, the definition
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">f a </span><span class="opn">(</span><span class="pln">b lazy</span><span class="clo">)</span><span class="pln"> c </span><span class="opn">(</span><span class="pln">d lazy-memo</span><span class="clo">))</span><span class="pln">
-  </span><span class="roman"><span class="pun">…</span></span><span class="clo">)</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">// Rust approach: explicit laziness via closures or OnceCell
+fn f&lt;B, D&gt;(
+    a: i64,                      // Strict (evaluated immediately)
+    b: impl FnOnce() -&gt; B,       // Lazy (closure, not memoized)
+    c: i64,                      // Strict
+    d: Lazy&lt;D&gt;,                  // Lazy and memoized
+) {
+    // ...
+}
+</pre></div>
 
-<p>would define <code>f</code> to be a procedure of four arguments, where the first and
+<p>would define <code class="code">f</code> to be a procedure of four arguments, where the first and
 third arguments are evaluated when the procedure is called, the second argument
 is delayed, and the fourth argument is both delayed and memoized.  Thus,
 ordinary procedure definitions will produce the same behavior as ordinary
-Scheme, while adding the <code>lazy-memo</code> declaration to each parameter of
+Scheme, while adding the <code class="code">lazy-memo</code> declaration to each parameter of
 every compound procedure will produce the behavior of the lazy evaluator
 defined in this section. Design and implement the changes required to produce
 such an extension to Scheme.  You will have to implement new syntax procedures
-to handle the new syntax for <code>define</code>.  You must also arrange for
-<code>eval</code> or <code>apply</code> to determine when arguments are to be delayed, and
+to handle the new syntax for definition.  You must also arrange for
+<code class="code">eval</code> or <code class="code">apply</code> to determine when arguments are to be delayed, and
 to force or delay arguments accordingly, and you must arrange for forcing to
 memoize or not, as appropriate.
 </p></blockquote>
 
-<a id="g_t4_002e2_002e3"></a>
-<a id="Streams-as-Lazy-Lists"></a>
-<h4 class="subsection"><span class="secnum">4.2.3</span><span class="sectitle">Streams as Lazy Lists</span></h4>
+<hr>
+</div>
+<div class="subsection-level-extent" id="g_t4_002e2_002e3">
+<h4 class="subsection" id="Streams-as-Lazy-Lists"><span>4.2.3 Streams as Lazy Lists<a class="copiable-link" href="#Streams-as-Lazy-Lists"> &para;</a></span></h4>
 
-<p>In <a href="3_002e5.xhtml#g_t3_002e5_002e1">3.5.1</a>, we showed how to implement streams as delayed lists.
-We introduced special forms <code>delay</code> and <code>cons-stream</code>, which allowed
-us to construct a “promise” to compute the <code>cdr</code> of a stream, without
+<p>In <a class="ref" href="3_002e5.xhtml#g_t3_002e5_002e1">Streams Are Delayed Lists</a>, we showed how to implement streams as delayed lists.
+We introduced special forms <code class="code">delay</code> and <code class="code">cons-stream</code>, which allowed
+us to construct a &ldquo;promise&rdquo; to compute the <code class="code">cdr</code> of a stream, without
 actually fulfilling that promise until later.  We could use this general
 technique of introducing special forms whenever we need more control over the
 evaluation process, but this is awkward.  For one thing, a special form is not
 a first-class object like a procedure, so we cannot use it together with
-higher-order procedures.<a class="footnote_link" id="DOCF243" href="#FOOT243"><sup>243</sup></a>  Additionally, we were
+higher-order procedures.<a class="footnote" id="DOCF224" href="#FOOT224"><sup>224</sup></a>  Additionally, we were
 forced to create streams as a new kind of data object similar but not identical
 to lists, and this required us to reimplement many ordinary list operations
-(<code>map</code>, <code>append</code>, and so on) for use with streams.
+(<code class="code">map</code>, <code class="code">append</code>, and so on) for use with streams.
 </p>
 <p>With lazy evaluation, streams and lists can be identical, so there is no need
 for special forms or for separate list and stream operations.  All we need to
-do is to arrange matters so that <code>cons</code> is non-strict.  One way to
+do is to arrange matters so that <code class="code">cons</code> is non-strict.  One way to
 accomplish this is to extend the lazy evaluator to allow for non-strict
-primitives, and to implement <code>cons</code> as one of these.  An easier way is to
-recall (<a href="2_002e1.xhtml#g_t2_002e1_002e3">2.1.3</a>) that there is no fundamental need to implement
-<code>cons</code> as a primitive at all.  Instead, we can represent pairs as
-procedures:<a class="footnote_link" id="DOCF244" href="#FOOT244"><sup>244</sup></a>
+primitives, and to implement <code class="code">cons</code> as one of these.  An easier way is to
+recall (<a class="ref" href="2_002e1.xhtml#g_t2_002e1_002e3">What Is Meant by Data?</a>) that there is no fundamental need to implement
+<code class="code">cons</code> as a primitive at all.  Instead, we can represent pairs as
+procedures:<a class="footnote" id="DOCF225" href="#FOOT225"><sup>225</sup></a>
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">cons</span><span class="pln"> x y</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">m</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">m x y</span><span class="clo">)))</span><span class="pln">
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> z</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">z </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">p q</span><span class="clo">)</span><span class="pln"> p</span><span class="clo">)))</span><span class="pln">
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> z</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">z </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">p q</span><span class="clo">)</span><span class="pln"> q</span><span class="clo">)))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">// Procedural representation of pairs
+fn cons&lt;T, U&gt;(x: T, y: U) -&gt; impl Fn(fn(T, U) -&gt; R) -&gt; R
+where
+    T: Clone,
+    U: Clone,
+{
+    move |m| m(x.clone(), y.clone())
+}
+
+fn car&lt;T: Clone, U&gt;(z: impl Fn(fn(T, U) -&gt; T) -&gt; T) -&gt; T {
+    z(|p, _q| p)
+}
+
+fn cdr&lt;T, U: Clone&gt;(z: impl Fn(fn(T, U) -&gt; U) -&gt; U) -&gt; U {
+    z(|_p, q| q)
+}
+</pre></div>
 
 <p>In terms of these basic operations, the standard definitions of the list
 operations will work with infinite lists (streams) as well as finite ones, and
 the stream operations can be implemented as list operations.  Here are some
 examples:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">list-ref items n</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pun">=</span><span class="pln"> n </span><span class="lit">0</span><span class="clo">)</span><span class="pln">
-      </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> items</span><span class="clo">)</span><span class="pln">
-      </span><span class="opn">(</span><span class="pln">list-ref </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> items</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pun">-</span><span class="pln"> n </span><span class="lit">1</span><span class="clo">))))</span><span class="pln">
+<div class="example">
+<pre class="example-preformatted">// With Rust iterators, these become natural operations
+fn list_ref&lt;T: Clone&gt;(items: impl Iterator&lt;Item = T&gt;, n: usize) -&gt; Option&lt;T&gt; {
+    items.skip(n).next()
+}
 
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">map proc items</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pln">null? items</span><span class="clo">)</span><span class="pln">
-      </span><span class="lit">'</span><span class="opn">(</span><span class="clo">)</span><span class="pln">
-      </span><span class="opn">(</span><span class="kwd">cons</span><span class="pln"> </span><span class="opn">(</span><span class="pln">proc </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> items</span><span class="clo">))</span><span class="pln">
-            </span><span class="opn">(</span><span class="pln">map proc </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> items</span><span class="clo">)))))</span><span class="pln">
+// map is built into Iterator::map
+// scale is just .map(|x| x * factor)
 
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">scale-list items factor</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">map </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">x</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> x factor</span><span class="clo">))</span><span class="pln">
-       items</span><span class="clo">))</span><span class="pln">
+fn add_lists(
+    list1: impl Iterator&lt;Item = i64&gt;,
+    list2: impl Iterator&lt;Item = i64&gt;,
+) -&gt; impl Iterator&lt;Item = i64&gt; {
+    list1.zip(list2).map(|(a, b)| a + b)
+}
 
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">add-lists list1 list2</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">((</span><span class="pln">null? list1</span><span class="clo">)</span><span class="pln"> list2</span><span class="clo">)</span><span class="pln">
-        </span><span class="opn">((</span><span class="pln">null? list2</span><span class="clo">)</span><span class="pln"> list1</span><span class="clo">)</span><span class="pln">
-        </span><span class="opn">(</span><span class="kwd">else</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">cons</span><span class="pln"> </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> list1</span><span class="clo">)</span><span class="pln"> 
-                       </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> list2</span><span class="clo">))</span><span class="pln">
-                    </span><span class="opn">(</span><span class="pln">add-lists
-                     </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> list1</span><span class="clo">)</span><span class="pln"> 
-                     </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> list2</span><span class="clo">))))))</span><span class="pln">
+// Infinite streams with std::iter
+let ones = std::iter::repeat(1);
 
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> ones </span><span class="opn">(</span><span class="kwd">cons</span><span class="pln"> </span><span class="lit">1</span><span class="pln"> ones</span><span class="clo">))</span><span class="pln">
+let integers = std::iter::successors(Some(1), |n| Some(n + 1));
 
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> integers 
-  </span><span class="opn">(</span><span class="kwd">cons</span><span class="pln"> </span><span class="lit">1</span><span class="pln"> </span><span class="opn">(</span><span class="pln">add-lists ones integers</span><span class="clo">)))</span><span class="pln">
-
-</span><i><span class="com">;;; L-Eval input:</span></i><span class="pln">
-</span><span class="opn">(</span><span class="pln">list-ref integers </span><span class="lit">17</span><span class="clo">)</span><span class="pln">
-
-</span><i><span class="com">;;; L-Eval value:</span></i><span class="pln">
-</span><i><span class="lit">18</span></i>
+// ;;; L-Eval input:
+integers.clone().nth(17)
+// ;;; L-Eval value:
+// Some(18)
 </pre></div>
 
-<p>Note that these lazy lists are even lazier than the streams of <a href="Chapter-3.xhtml#Chapter-3">Chapter 3</a>:
-The <code>car</code> of the list, as well as the <code>cdr</code>, is
-delayed.<a class="footnote_link" id="DOCF245" href="#FOOT245"><sup>245</sup></a>  In fact, even accessing the <code>car</code> or
-<code>cdr</code> of a lazy pair need not force the value of a list element.  The
-value will be forced only when it is really needed—e.g., for use as the
+<p>Note that these lazy lists are even lazier than the streams of <a class="ref" href="Chapter-3.xhtml">Modularity, Objects, and State</a>:
+The <code class="code">car</code> of the list, as well as the <code class="code">cdr</code>, is
+delayed.<a class="footnote" id="DOCF226" href="#FOOT226"><sup>226</sup></a>  In fact, even accessing the <code class="code">car</code> or
+<code class="code">cdr</code> of a lazy pair need not force the value of a list element.  The
+value will be forced only when it is really needed&mdash;e.g., for use as the
 argument of a primitive, or to be printed as an answer.
 </p>
 <p>Lazy pairs also help with the problem that arose with streams in 
-<a href="3_002e5.xhtml#g_t3_002e5_002e4">3.5.4</a>, where we found that formulating stream models of systems with
-loops may require us to sprinkle our programs with explicit <code>delay</code>
-operations, beyond the ones supplied by <code>cons-stream</code>.  With lazy
+<a class="ref" href="3_002e5.xhtml#g_t3_002e5_002e4">Streams and Delayed Evaluation</a>, where we found that formulating stream models of systems with
+loops may require us to sprinkle our programs with explicit <code class="code">delay</code>
+operations, beyond the ones supplied by <code class="code">cons-stream</code>.  With lazy
 evaluation, all arguments to procedures are delayed uniformly.  For instance,
 we can implement procedures to integrate lists and solve differential equations
-as we originally intended in <a href="3_002e5.xhtml#g_t3_002e5_002e4">3.5.4</a>:
+as we originally intended in <a class="ref" href="3_002e5.xhtml#g_t3_002e5_002e4">Streams and Delayed Evaluation</a>:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">integral integrand initial-value dt</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> int
-    </span><span class="opn">(</span><span class="kwd">cons</span><span class="pln"> initial-value
-          </span><span class="opn">(</span><span class="pln">add-lists </span><span class="opn">(</span><span class="pln">scale-list integrand dt</span><span class="clo">)</span><span class="pln"> 
-                     int</span><span class="clo">)))</span><span class="pln">
-  int</span><span class="clo">)</span><span class="pln">
+<div class="example">
+<pre class="example-preformatted">// With lazy evaluation, the circular dependency resolves naturally
+fn solve&lt;F&gt;(f: F, y0: f64, dt: f64) -&gt; impl Iterator&lt;Item = f64&gt;
+where
+    F: Fn(f64) -&gt; f64,
+{
+    // Using successors for self-referential stream
+    std::iter::successors(Some(y0), move |&amp;y| {
+        let dy = f(y);
+        Some(y + dy * dt)
+    })
+}
 
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">solve f y0 dt</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> y </span><span class="opn">(</span><span class="pln">integral dy y0 dt</span><span class="clo">))</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> dy </span><span class="opn">(</span><span class="pln">map f y</span><span class="clo">))</span><span class="pln">
-  y</span><span class="clo">)</span><span class="pln">
+// ;;; L-Eval input:
+solve(|x| x, 1.0, 0.001).nth(1000)
 
-</span><i><span class="com">;;; L-Eval input:</span></i><span class="pln">
-</span><span class="opn">(</span><span class="pln">list-ref </span><span class="opn">(</span><span class="pln">solve </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">x</span><span class="clo">)</span><span class="pln"> x</span><span class="clo">)</span><span class="pln"> </span><span class="lit">1</span><span class="pln"> </span><span class="lit">0.001</span><span class="clo">)</span><span class="pln"> </span><span class="lit">1000</span><span class="clo">)</span><span class="pln">
-
-</span><i><span class="com">;;; L-Eval value:</span></i><span class="pln">
-</span><i><span class="lit">2.716924</span></i>
+// ;;; L-Eval value:
+// Some(2.716924...)  // Approximates e
 </pre></div>
 
-<blockquote>
-<p><strong><a id="Exercise-4_002e32"></a>Exercise 4.32:</strong> Give some examples that
-illustrate the difference between the streams of <a href="Chapter-3.xhtml#Chapter-3">Chapter 3</a> and the
-“lazier” lazy lists described in this section.  How can you take advantage of
+<blockquote class="quotation">
+<p><strong class="strong"><a class="anchor" id="Exercise-4_002e32"></a>Exercise 4.32:</strong> Give some examples that
+illustrate the difference between the streams of <a class="ref" href="Chapter-3.xhtml">Modularity, Objects, and State</a> and the
+&ldquo;lazier&rdquo; lazy lists described in this section.  How can you take advantage of
 this extra laziness?
 </p></blockquote>
 
-<blockquote>
-<p><strong><a id="Exercise-4_002e33"></a>Exercise 4.33:</strong> Ben Bitdiddle tests the lazy list
+<blockquote class="quotation">
+<p><strong class="strong"><a class="anchor" id="Exercise-4_002e33"></a>Exercise 4.33:</strong> Ben Bitdiddle tests the lazy list
 implementation given above by evaluating the expression
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted prettyprint" style=""><span class="opn">(</span><span class="kwd">car</span><span class="pln"> </span><span class="lit">'</span><span class="opn">(</span><span class="pln">a b c</span><span class="clo">))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">// Attempting to use procedural car on a quoted list
+car(quote!(a b c))  // Error: quoted list is not a closure!
+</pre></div>
 
 <p>To his surprise, this produces an error.  After some thought, he realizes that
-the “lists” obtained by reading in quoted expressions are different from the
-lists manipulated by the new definitions of <code>cons</code>, <code>car</code>, and
-<code>cdr</code>.  Modify the evaluator’s treatment of quoted expressions so that
+the &ldquo;lists&rdquo; obtained by reading in quoted expressions are different from the
+lists manipulated by the new definitions of <code class="code">cons</code>, <code class="code">car</code>, and
+<code class="code">cdr</code>.  Modify the evaluator&rsquo;s treatment of quoted expressions so that
 quoted lists typed at the driver loop will produce true lazy lists.
 </p></blockquote>
 
-<blockquote>
-<p><strong><a id="Exercise-4_002e34"></a>Exercise 4.34:</strong> Modify the driver loop for the
+<blockquote class="quotation">
+<p><strong class="strong"><a class="anchor" id="Exercise-4_002e34"></a>Exercise 4.34:</strong> Modify the driver loop for the
 evaluator so that lazy pairs and lists will print in some reasonable way.
 (What are you going to do about infinite lists?)  You may also need to modify
 the representation of lazy pairs so that the evaluator can identify them in
 order to print them.
 </p></blockquote>
+<hr>
+</div>
+<div class="subsection-level-extent" id="g_t4_002e2_002e5a">
+<h4 class="subsection" id="Persistent-Data-Structures-and-Structural-Sharing"><span>4.2.4 Persistent Data Structures and Structural Sharing<a class="copiable-link" href="#Persistent-Data-Structures-and-Structural-Sharing"> &para;</a></span></h4>
 
-<div class="footnote">
+<a class="index-entry-id" id="index-persistent-data-structures"></a>
+<a class="index-entry-id" id="index-structural-sharing"></a>
+<a class="index-entry-id" id="index-immutability"></a>
+<a class="index-entry-id" id="index-functional-programming-1"></a>
+
+<p>Throughout this chapter, we have emphasized the power of functional programming
+and immutability. Our lazy lists (streams) never modify existing data&mdash;they
+create new structures that share parts of old ones. But what about more complex
+data structures like hash maps, sets, and vectors? Creating complete copies on
+every update would be prohibitively expensive.
+</p>
+<p>The solution is <a class="index-entry-id" id="index-persistent-data-structures-1"></a>
+<em class="dfn">persistent data structures</em>: collections that preserve
+previous versions when modified, while sharing structure between versions to
+avoid unnecessary copying. This gives us the benefits of immutability
+(<em class="emph">all</em> past versions remain accessible) with performance approaching
+mutable structures.
+</p>
+<h4 class="subsubheading" id="What-Does-_0060_0060Persistent_0027_0027-Mean_003f"><span>What Does &ldquo;Persistent&rdquo; Mean?<a class="copiable-link" href="#What-Does-_0060_0060Persistent_0027_0027-Mean_003f"> &para;</a></span></h4>
+
+<a class="index-entry-id" id="index-persistence-_0028data-structures_0029"></a>
+<a class="index-entry-id" id="index-ephemeral-structures"></a>
+<a class="index-entry-id" id="index-version-history"></a>
+
+<p>In the context of data structures, <a class="index-entry-id" id="index-persistence"></a>
+<em class="dfn">persistence</em> has nothing to do with
+saving data to disk. Instead, it means that all versions of a data structure
+remain available after modifications. When you &ldquo;update&rdquo; a persistent
+structure, you get a <em class="emph">new</em> version, but the old version is still intact
+and usable.
+</p>
+<p>Compare these two approaches:
+</p>
+<p><b class="b">Ephemeral (mutable) structure:</b>
+</p><div class="example">
+<pre class="example-preformatted">let mut map = HashMap::new();
+map.insert(&quot;a&quot;, 1);
+map.insert(&quot;b&quot;, 2);
+// The original empty map is gone---we can't access it
+map.insert(&quot;c&quot;, 3);
+// The two-element map is also gone
+</pre></div>
+
+<p><b class="b">Persistent (immutable) structure:</b>
+</p><div class="example">
+<pre class="example-preformatted">use im::HashMap;
+
+let map0 = HashMap::new();
+let map1 = map0.update(&quot;a&quot;, 1);
+let map2 = map1.update(&quot;b&quot;, 2);
+// map0, map1, and map2 are all still accessible!
+let map3 = map2.update(&quot;c&quot;, 3);
+
+assert_eq!(map0.len(), 0);  // Original is unchanged
+assert_eq!(map1.len(), 1);  // First version is preserved
+assert_eq!(map2.len(), 2);  // Second version is preserved
+assert_eq!(map3.len(), 3);  // New version exists
+</pre></div>
+
+<p>The key insight is that <code class="code">map1</code>, <code class="code">map2</code>, and <code class="code">map3</code> <em class="emph">share</em>
+most of their internal structure. Creating <code class="code">map2</code> from <code class="code">map1</code> doesn&rsquo;t
+copy the entire map&mdash;it creates only the small amount of new structure needed
+to represent the change, while reusing most of <code class="code">map1</code>&rsquo;s data.
+</p>
+<h4 class="subsubheading" id="Structural-Sharing"><span>Structural Sharing<a class="copiable-link" href="#Structural-Sharing"> &para;</a></span></h4>
+
+<a class="index-entry-id" id="index-structural-sharing-1"></a>
+<a class="index-entry-id" id="index-memory-efficiency"></a>
+<a class="index-entry-id" id="index-reference-counting"></a>
+
+<a class="index-entry-id" id="index-Structural-sharing"></a>
+<p><em class="dfn">Structural sharing</em> is the technique that makes persistent data
+structures efficient. Instead of copying entire structures, we share the
+unchanged parts between versions.
+</p>
+<p>Consider a simple example with a binary tree. When we insert a new element,
+we create new nodes along the path from the root to the insertion point, but
+we reuse all other nodes:
+</p>
+<div class="example">
+<pre class="example-preformatted">     [Original tree]              [After inserting 6]
+         5                              5
+        / \                            / \
+       3   8              =&gt;          3   8
+      / \                            / \   \
+     1   4                          1   4   6
+                                    ^   ^   ^
+                                    |   |   |
+                                 (shared nodes)
+</pre></div>
+
+<p>In the new tree, nodes 1, 3, and 4 are <em class="emph">the same nodes</em> as in the original
+tree (not copies). Only the nodes along the path from root to the new element
+(5 and 8) need to be copied, plus the new node (6). This is O(log n) new
+structure for a tree with n elements.
+</p>
+<p>In Rust, structural sharing is typically implemented using <code class="code">Arc&lt;T&gt;</code>
+(atomic reference counting), which allows multiple owners to share read-only
+access to data:
+</p>
+<p><b class="b">Rust:</b>
+</p><div class="example">
+<pre class="example-preformatted">use std::sync::Arc;
+
+#[derive(Clone)]
+struct TreeNode&lt;T&gt; {
+    value: T,
+    left: Option&lt;Arc&lt;TreeNode&lt;T&gt;&gt;&gt;,
+    right: Option&lt;Arc&lt;TreeNode&lt;T&gt;&gt;&gt;,
+}
+
+impl&lt;T: Ord + Clone&gt; TreeNode&lt;T&gt; {
+    fn insert(&amp;self, new_value: T) -&gt; Arc&lt;Self&gt; {
+        if new_value &lt; self.value {
+            // Create new node with updated left child
+            Arc::new(TreeNode {
+                value: self.value.clone(),
+                left: Some(match &amp;self.left {
+                    Some(left) =&gt; left.insert(new_value),
+                    None =&gt; Arc::new(TreeNode {
+                        value: new_value,
+                        left: None,
+                        right: None,
+                    }),
+                }),
+                right: self.right.clone(),  // Share right subtree
+            })
+        } else {
+            // Similar for right child
+            Arc::new(TreeNode {
+                value: self.value.clone(),
+                left: self.left.clone(),  // Share left subtree
+                right: Some(match &amp;self.right {
+                    Some(right) =&gt; right.insert(new_value),
+                    None =&gt; Arc::new(TreeNode {
+                        value: new_value,
+                        left: None,
+                        right: None,
+                    }),
+                }),
+            })
+        }
+    }
+}
+</pre></div>
+
+<p>Cloning an <code class="code">Arc&lt;T&gt;</code> is cheap (just incrementing a reference count), so
+<code class="code">self.left.clone()</code> and <code class="code">self.right.clone()</code> are O(1) operations
+that share the existing subtrees.
+</p>
+<h4 class="subsubheading" id="The-im-Crate"><span>The <code class="code">im</code> Crate<a class="copiable-link" href="#The-im-Crate"> &para;</a></span></h4>
+
+<a class="index-entry-id" id="index-im-crate"></a>
+<a class="index-entry-id" id="index-persistent-collections"></a>
+<a class="index-entry-id" id="index-immutable-data-structures"></a>
+
+<p>Implementing efficient persistent data structures from scratch is complex.
+The <code class="code">im</code> crate (<a class="url" href="https://docs.rs/im/">https://docs.rs/im/</a>) provides production-quality
+implementations of common persistent collections:
+</p>
+<ul class="itemize mark-bullet">
+<li><code class="code">im::Vector&lt;T&gt;</code> &mdash; Persistent vector (similar to <code class="code">Vec&lt;T&gt;</code>)
+
+</li><li><code class="code">im::HashMap&lt;K, V&gt;</code> &mdash; Persistent hash map
+
+</li><li><code class="code">im::HashSet&lt;T&gt;</code> &mdash; Persistent hash set
+
+</li><li><code class="code">im::OrdMap&lt;K, V&gt;</code> &mdash; Persistent ordered map (like <code class="code">BTreeMap</code>)
+
+</li><li><code class="code">im::OrdSet&lt;T&gt;</code> &mdash; Persistent ordered set
+
+</li></ul>
+
+<p>Let&rsquo;s explore these with examples:
+</p>
+<p><b class="b">Rust:</b>
+</p><div class="example">
+<pre class="example-preformatted">use im::{HashMap, Vector};
+
+// Persistent vector
+let v0 = Vector::new();
+let v1 = v0.push_back(1);
+let v2 = v1.push_back(2);
+let v3 = v2.push_back(3);
+
+// All versions coexist
+assert_eq!(v0.len(), 0);
+assert_eq!(v1.len(), 1);
+assert_eq!(v2.len(), 2);
+assert_eq!(v3.len(), 3);
+
+// Efficient cloning via structural sharing
+let v4 = v3.clone();
+let v5 = v4.push_back(4);
+
+// Persistent hash map
+let m0 = HashMap::new();
+let m1 = m0.update(&quot;name&quot;, &quot;Alice&quot;);
+let m2 = m1.update(&quot;age&quot;, 30);
+let m3 = m1.update(&quot;name&quot;, &quot;Bob&quot;);  // Branch from m1
+
+assert_eq!(m2.get(&quot;name&quot;), Some(&amp;&quot;Alice&quot;));
+assert_eq!(m3.get(&quot;name&quot;), Some(&amp;&quot;Bob&quot;));
+assert_eq!(m2.get(&quot;age&quot;), Some(&amp;30));
+assert_eq!(m3.get(&quot;age&quot;), None);  // Branched before age was added
+</pre></div>
+
+<p>Notice how <code class="code">m2</code> and <code class="code">m3</code> branch from <code class="code">m1</code>&mdash;they share the
+structure from <code class="code">m0</code> and <code class="code">m1</code>, but diverge afterward. This is the
+essence of persistence.
+</p>
+<h4 class="subsubheading" id="Copy_002don_002dWrite-Semantics"><span>Copy-on-Write Semantics<a class="copiable-link" href="#Copy_002don_002dWrite-Semantics"> &para;</a></span></h4>
+
+<a class="index-entry-id" id="index-copy_002don_002dwrite"></a>
+<a class="index-entry-id" id="index-COW"></a>
+<a class="index-entry-id" id="index-optimization"></a>
+
+<p>Persistent data structures implement <a class="index-entry-id" id="index-copy_002don_002dwrite-1"></a>
+<em class="dfn">copy-on-write</em> (<abbr class="abbr">COW</abbr>)
+semantics. When you modify a structure, only the parts that actually change
+are copied; everything else is shared via references.
+</p>
+<p>This is particularly powerful when combined with Rust&rsquo;s ownership system.
+Consider this pattern:
+</p>
+<p><b class="b">Rust:</b>
+</p><div class="example">
+<pre class="example-preformatted">use im::Vector;
+
+fn process(v: Vector&lt;i32&gt;) -&gt; Vector&lt;i32&gt; {
+    // If v is the only owner, mutation happens in-place
+    // If v is shared, a copy is made first
+    v.push_back(42)
+}
+
+let v1 = Vector::from(vec![1, 2, 3]);
+let v2 = process(v1);  // v1 moved, so update is in-place
+
+let v3 = Vector::from(vec![4, 5, 6]);
+let v4 = v3.clone();
+let v5 = process(v3);  // v3 moved, but v4 still shares, so copy occurs
+</pre></div>
+
+<p>The <code class="code">im</code> crate uses reference counting to detect when a structure is
+uniquely owned. If you&rsquo;re the only owner, it can safely mutate in place
+(O(1) for many operations). If the structure is shared, it makes a copy
+of only the necessary parts.
+</p>
+<h4 class="subsubheading" id="Performance-Characteristics"><span>Performance Characteristics<a class="copiable-link" href="#Performance-Characteristics"> &para;</a></span></h4>
+
+<a class="index-entry-id" id="index-performance-_0028persistent-structures_0029"></a>
+<a class="index-entry-id" id="index-time-complexity"></a>
+<a class="index-entry-id" id="index-space-complexity"></a>
+
+<p>Persistent data structures have different performance characteristics compared
+to their mutable counterparts:
+</p>
+<table class="multitable">
+<thead><tr><th width="30%">Operation</th><th width="35%">Mutable (std)</th><th width="35%">Persistent (im)</th></tr></thead>
+<tbody><tr><td width="30%">Vector push</td><td width="35%">O(1) amortized</td><td width="35%">O(log n) worst-case</td></tr>
+<tr><td width="30%">Vector random access</td><td width="35%">O(1)</td><td width="35%">O(log n) worst-case</td></tr>
+<tr><td width="30%">HashMap insert</td><td width="35%">O(1) average</td><td width="35%">O(log n) worst-case</td></tr>
+<tr><td width="30%">HashMap lookup</td><td width="35%">O(1) average</td><td width="35%">O(log n) worst-case</td></tr>
+<tr><td width="30%">Clone entire structure</td><td width="35%">O(n)</td><td width="35%">O(1)</td></tr>
+</tbody>
+</table>
+
+<p>The key trade-off:
+</p>
+<ul class="itemize mark-bullet">
+<li><b class="b">Mutable structures:</b> Fast updates (O(1)), but cloning is expensive (O(n))
+and all versions can&rsquo;t coexist
+
+</li><li><b class="b">Persistent structures:</b> Slower updates (O(log n)), but cloning is cheap
+(O(1)) and all versions remain available
+
+</li></ul>
+
+<p>For <code class="code">im::Vector</code>, the O(log n) has a very small constant factor. The
+vector uses a technique called <a class="index-entry-id" id="index-RRB_002dtrees"></a>
+<em class="dfn">RRB-trees</em> (Relaxed Radix Balanced
+trees) with a branching factor of 32, so even for a million elements,
+log<em class="math">_{32}</em>(1,000,000) <em class="math">\approx</em> 4 operations.
+</p>
+<p>For <code class="code">im::HashMap</code>, the implementation uses a <a class="index-entry-id" id="index-Hash-Array-Mapped"></a>
+Trie
+<em class="dfn">Hash Array Mapped
+Trie</em> (<abbr class="abbr">HAMT</abbr>), which provides O(log n) operations with excellent cache
+locality and low constant factors.
+</p>
+<h4 class="subsubheading" id="When-to-Use-Persistent-vs-Mutable-Structures"><span>When to Use Persistent vs Mutable Structures<a class="copiable-link" href="#When-to-Use-Persistent-vs-Mutable-Structures"> &para;</a></span></h4>
+
+<a class="index-entry-id" id="index-design-decisions-1"></a>
+<a class="index-entry-id" id="index-trade_002doffs"></a>
+
+<p>Choose persistent structures when:
+</p>
+<ul class="itemize mark-bullet">
+<li>You need to maintain <em class="emph">version history</em> (undo/redo, time-travel debugging)
+
+</li><li>You&rsquo;re implementing <em class="emph">functional algorithms</em> (recursive tree traversal,
+backtracking)
+
+</li><li>You need <em class="emph">cheap snapshots</em> (checkpointing, forking state)
+
+</li><li>You&rsquo;re building an <em class="emph">evaluator</em> or <em class="emph">interpreter</em> (environment frames
+that need to be extended without mutation)
+
+</li><li>You&rsquo;re working with <em class="emph">concurrent</em> or <em class="emph">parallel</em> code where sharing
+immutable data is easier than locking mutable data
+
+</li><li>The structure is <em class="emph">small to medium</em> sized (&lt; 10,000 elements) where
+O(log n) vs O(1) doesn&rsquo;t dominate
+
+</li></ul>
+
+<p>Choose mutable structures when:
+</p>
+<ul class="itemize mark-bullet">
+<li>You&rsquo;re doing <em class="emph">hot-path</em> operations where O(1) vs O(log n) matters
+
+</li><li>You&rsquo;re working with <em class="emph">large structures</em> (millions of elements)
+
+</li><li>You only need the <em class="emph">current version</em> (no history needed)
+
+</li><li>You&rsquo;re doing many <em class="emph">sequential updates</em> to the same structure
+
+</li><li><em class="emph">Memory</em> is constrained (mutable structures have lower overhead)
+
+</li></ul>
+
+<h4 class="subsubheading" id="Connection-to-the-Metacircular-Evaluator"><span>Connection to the Metacircular Evaluator<a class="copiable-link" href="#Connection-to-the-Metacircular-Evaluator"> &para;</a></span></h4>
+
+<a class="index-entry-id" id="index-metacircular-evaluator"></a>
+<a class="index-entry-id" id="index-environment-frames"></a>
+<a class="index-entry-id" id="index-functional-state"></a>
+
+<p>In <a class="ref" href="4_002e1.xhtml#g_t4_002e1">The Metacircular Evaluator</a>, we implemented environments as
+lists of frames. Each frame is a mapping from variables to values. When we
+evaluate a <code class="code">lambda</code>, we extend the environment with a new frame:
+</p>
+<p><b class="b">Rust (using standard library):</b>
+</p><div class="example">
+<pre class="example-preformatted">use std::collections::HashMap;
+
+#[derive(Clone)]
+struct Environment {
+    frames: Vec&lt;HashMap&lt;String, Value&gt;&gt;,
+}
+
+impl Environment {
+    fn extend(&amp;self, bindings: Vec&lt;(String, Value)&gt;) -&gt; Self {
+        let mut new_frames = self.frames.clone();  // O(n) copy!
+        let frame: HashMap&lt;String, Value&gt; = bindings.into_iter().collect();
+        new_frames.push(frame);
+        Environment { frames: new_frames }
+    }
+}
+</pre></div>
+
+<p>This works, but <code class="code">self.frames.clone()</code> copies the <em class="emph">entire</em> environment
+chain on every function call. For deeply nested calls, this becomes expensive.
+</p>
+<p><b class="b">Rust (using persistent structures):</b>
+</p><div class="example">
+<pre class="example-preformatted">use im::{HashMap, Vector};
+
+#[derive(Clone)]
+struct Environment {
+    frames: Vector&lt;HashMap&lt;String, Value&gt;&gt;,
+}
+
+impl Environment {
+    fn extend(&amp;self, bindings: Vec&lt;(String, Value)&gt;) -&gt; Self {
+        let frame: HashMap&lt;String, Value&gt; = bindings.into_iter().collect();
+        Environment {
+            frames: self.frames.push_back(frame),  // O(log n), shares structure!
+        }
+    }
+
+    fn lookup(&amp;self, name: &amp;str) -&gt; Option&lt;&amp;Value&gt; {
+        // Search frames from most recent to oldest
+        self.frames.iter().rev()
+            .find_map(|frame| frame.get(name))
+    }
+}
+</pre></div>
+
+<p>Now extending the environment is much cheaper. The new <code class="code">frames</code> vector
+shares all the old frames with the parent environment. This is exactly the
+kind of structural sharing we want for functional programming.
+</p>
+<h4 class="subsubheading" id="Immutability-and-Concurrency"><span>Immutability and Concurrency<a class="copiable-link" href="#Immutability-and-Concurrency"> &para;</a></span></h4>
+
+<a class="index-entry-id" id="index-concurrency"></a>
+<a class="index-entry-id" id="index-thread-safety-1"></a>
+<a class="index-entry-id" id="index-parallelism"></a>
+
+<p>Persistent data structures shine in concurrent contexts. Because they&rsquo;re
+immutable, they can be safely shared between threads without locks:
+</p>
+<p><b class="b">Rust:</b>
+</p><div class="example">
+<pre class="example-preformatted">use im::HashMap;
+use std::sync::Arc;
+use std::thread;
+
+let shared_map = Arc::new(HashMap::from([
+    (&quot;a&quot;, 1),
+    (&quot;b&quot;, 2),
+    (&quot;c&quot;, 3),
+]));
+
+let handles: Vec&lt;_&gt; = (0..4).map(|i| {
+    let map = Arc::clone(&amp;shared_map);
+    thread::spawn(move || {
+        // Each thread can read without locks
+        let value = map.get(&quot;a&quot;).copied().unwrap_or(0);
+        let new_map = map.update(&quot;d&quot;, value + i);
+        // Each thread gets its own version with &quot;d&quot; inserted
+        new_map
+    })
+}).collect();
+
+for handle in handles {
+    let result = handle.join().unwrap();
+    println!(&quot;Thread produced map with {} entries&quot;, result.len());
+}
+</pre></div>
+
+<p>Each thread can read from <code class="code">shared_map</code> without synchronization and create
+its own modified version without affecting others. No locks, no data races,
+no coordination needed.
+</p>
+<h4 class="subsubheading" id="Advanced_003a-Implementing-a-Simple-Persistent-List"><span>Advanced: Implementing a Simple Persistent List<a class="copiable-link" href="#Advanced_003a-Implementing-a-Simple-Persistent-List"> &para;</a></span></h4>
+
+<a class="index-entry-id" id="index-persistent-list"></a>
+<a class="index-entry-id" id="index-structural-sharing-_0028example_0029"></a>
+
+<p>To understand how persistence works internally, let&rsquo;s implement a simple
+persistent singly-linked list using <code class="code">Arc</code>:
+</p>
+<p><b class="b">Rust:</b>
+</p><div class="example">
+<pre class="example-preformatted">use std::sync::Arc;
+
+#[derive(Clone)]
+pub struct List&lt;T&gt; {
+    head: Option&lt;Arc&lt;Node&lt;T&gt;&gt;&gt;,
+}
+
+struct Node&lt;T&gt; {
+    value: T,
+    next: Option&lt;Arc&lt;Node&lt;T&gt;&gt;&gt;,
+}
+
+impl&lt;T: Clone&gt; List&lt;T&gt; {
+    pub fn new() -&gt; Self {
+        List { head: None }
+    }
+
+    pub fn push_front(&amp;self, value: T) -&gt; Self {
+        List {
+            head: Some(Arc::new(Node {
+                value,
+                next: self.head.clone(),  // Share the tail!
+            })),
+        }
+    }
+
+    pub fn head(&amp;self) -&gt; Option&lt;&amp;T&gt; {
+        self.head.as_ref().map(|node| &amp;node.value)
+    }
+
+    pub fn tail(&amp;self) -&gt; List&lt;T&gt; {
+        List {
+            head: self.head.as_ref().and_then(|node| node.next.clone()),
+        }
+    }
+}
+
+// Usage:
+let list1 = List::new();
+let list2 = list1.push_front(1);
+let list3 = list2.push_front(2);
+let list4 = list2.push_front(3);  // Branch from list2
+
+assert_eq!(list3.head(), Some(&amp;2));
+assert_eq!(list4.head(), Some(&amp;3));
+assert_eq!(list3.tail().head(), Some(&amp;1));
+assert_eq!(list4.tail().head(), Some(&amp;1));  // Shared tail
+</pre></div>
+
+<p><code class="code">list3</code> and <code class="code">list4</code> share the node containing 1 (and everything
+after it). Only their first nodes differ. This is structural sharing in action.
+</p>
+<h4 class="subsubheading" id="Persistent-Vectors_003a-A-Deeper-Look"><span>Persistent Vectors: A Deeper Look<a class="copiable-link" href="#Persistent-Vectors_003a-A-Deeper-Look"> &para;</a></span></h4>
+
+<a class="index-entry-id" id="index-RRB_002dtrees-1"></a>
+<a class="index-entry-id" id="index-persistent-vectors"></a>
+<a class="index-entry-id" id="index-trie"></a>
+
+<p>The <code class="code">im::Vector</code> is more sophisticated than a linked list. It uses an
+<a class="index-entry-id" id="index-RRB_002dtree"></a>
+<em class="dfn">RRB-tree</em> (Relaxed Radix Balanced tree), which provides:
+</p>
+<ul class="itemize mark-bullet">
+<li>O(log n) indexed access (unlike linked lists which are O(n))
+
+</li><li>O(log n) updates
+
+</li><li>O(1) cloning
+
+</li><li>Efficient concatenation (O(log n) instead of O(n))
+
+</li></ul>
+
+<p>The core idea is to store elements in a tree where each node has up to 32
+children. To access element 100:
+</p>
+<ol class="enumerate">
+<li> Compute 100 / 32 = 3 (go to child 3 at the top level)
+</li><li> Compute (100 % 32) / 32 = 0 (go to child 0 at the next level)
+</li><li> Access element 100 % 32 = 4 in the leaf
+</li></ol>
+
+<p>When you update an element, only the nodes along the path from root to that
+element need to be copied&mdash;all other nodes are shared. For a million-element
+vector, only about 4 nodes (one per level) are copied per update.
+</p>
+<h4 class="subsubheading" id="Comparison-with-Standard-Library"><span>Comparison with Standard Library<a class="copiable-link" href="#Comparison-with-Standard-Library"> &para;</a></span></h4>
+
+<a class="index-entry-id" id="index-std_003a_003acollections"></a>
+<a class="index-entry-id" id="index-performance-comparison"></a>
+
+<p>Here&rsquo;s a practical comparison of <code class="code">Vec</code> vs <code class="code">im::Vector</code>:
+</p>
+<p><b class="b">Rust:</b>
+</p><div class="example">
+<pre class="example-preformatted">use im::Vector as PersistentVec;
+
+// Standard library Vec
+let mut std_vec = Vec::new();
+std_vec.push(1);
+std_vec.push(2);
+let std_vec_copy = std_vec.clone();  // O(n) full copy
+std_vec.push(3);
+// std_vec and std_vec_copy are now independent
+
+// Persistent Vector
+let persistent_vec = PersistentVec::new();
+let persistent_vec = persistent_vec.push_back(1);
+let persistent_vec = persistent_vec.push_back(2);
+let vec_copy = persistent_vec.clone();  // O(1) sharing
+let persistent_vec = persistent_vec.push_back(3);
+// Both versions coexist, sharing structure
+</pre></div>
+
+<p>Benchmark results (approximate, varies by use case):
+</p>
+<ul class="itemize mark-bullet">
+<li><b class="b">Clone:</b> <code class="code">Vec::clone()</code> is 1000x slower for large vectors
+
+</li><li><b class="b">Push:</b> <code class="code">Vec::push()</code> is 2-5x faster than <code class="code">Vector::push_back()</code>
+
+</li><li><b class="b">Access:</b> <code class="code">Vec[i]</code> is 2-3x faster than <code class="code">Vector::get(i)</code>
+
+</li><li><b class="b">Memory:</b> <code class="code">Vector</code> uses ~1.5-2x more memory due to tree structure
+
+</li></ul>
+
+<blockquote class="quotation">
+<p><strong class="strong"><a class="anchor" id="Exercise-4_002e28a"></a>Exercise 4.28a:</strong> Implement a persistent binary
+search tree using structural sharing. Your tree should support:
+</p>
+<div class="example">
+<pre class="example-preformatted">pub struct PersistentBST&lt;T&gt; {
+    root: Option&lt;Arc&lt;Node&lt;T&gt;&gt;&gt;,
+}
+
+impl&lt;T: Ord + Clone&gt; PersistentBST&lt;T&gt; {
+    pub fn new() -&gt; Self;
+    pub fn insert(&amp;self, value: T) -&gt; Self;
+    pub fn contains(&amp;self, value: &amp;T) -&gt; bool;
+    pub fn remove(&amp;self, value: &amp;T) -&gt; Self;
+}
+</pre></div>
+
+<ol class="enumerate" type="a" start="1">
+<li> Implement <code class="code">insert</code> to create a new tree with one element added, sharing
+as much structure as possible with the original tree.
+
+</li><li> Implement <code class="code">remove</code> to create a new tree with one element removed. The
+challenge is that removing a node with two children requires restructuring.
+How can you minimize the amount of new structure created?
+
+</li><li> Add a method <code class="code">size(&amp;self) -&gt; usize</code> that returns the number of elements.
+This should run in O(1) time, which means you need to store the size in each
+node. Explain why this doesn&rsquo;t violate structural sharing.
+
+</li></ol>
+</blockquote>
+
+<blockquote class="quotation">
+<p><strong class="strong"><a class="anchor" id="Exercise-4_002e29a"></a>Exercise 4.29a:</strong> Compare persistent and mutable
+structures for implementing the metacircular evaluator&rsquo;s environment.
+</p>
+<ol class="enumerate" type="a" start="1">
+<li> Implement two versions of the environment: one using <code class="code">Vec&lt;HashMap&gt;</code>
+(mutable) and one using <code class="code">im::Vector&lt;im::HashMap&gt;</code> (persistent).
+
+</li><li> Write a benchmark that evaluates a deeply recursive function (like computing
+the 20th Fibonacci number using the naive recursive algorithm). Measure the
+total time and memory usage for both implementations.
+
+</li><li> Explain your results. In which scenarios would the persistent version be
+faster? In which scenarios would the mutable version be faster?
+
+</li><li> Modify the evaluator to support &ldquo;time travel&rdquo;&mdash;the ability to revert the
+environment to any previous state. This is trivial with persistent structures
+but requires significant work with mutable structures. Implement both and
+compare the complexity.
+
+</li></ol>
+</blockquote>
+
+
+</div>
+</div>
+<div class="footnotes-segment">
+<hr>
 <h4 class="footnotes-heading">Footnotes</h4>
 
-<div id="FOOT235"><p><a class="footnote_backlink" href="#DOCF235"><sup>235</sup></a>
-Snarf: “To
+<h5 class="footnote-body-heading"><a id="FOOT216" href="#DOCF216">(216)</a></h5>
+<p>Snarf: &ldquo;To
 grab, especially a large document or file for the purpose of using it either
-with or without the owner’s permission.”  Snarf down: “To snarf, sometimes
-with the connotation of absorbing, processing, or understanding.”  (These
-definitions were snarfed from <a href="References.xhtml#Steele-et-al_002e-1983">Steele et al. 1983</a>.  See also <a href="References.xhtml#Raymond-1993">Raymond 1993</a>.)</p>
-</div>
-<div id="FOOT236"><p><a class="footnote_backlink" href="#DOCF236"><sup>236</sup></a>
-The difference 
-between the “lazy” terminology and the
-“normal-order” terminology is somewhat fuzzy.  Generally, “lazy” refers to
-the mechanisms of particular evaluators, while “normal-order” refers to the
+with or without the owner&rsquo;s permission.&rdquo;  Snarf down: &ldquo;To snarf, sometimes
+with the connotation of absorbing, processing, or understanding.&rdquo;  (These
+definitions were snarfed from <a class="ref" href="References.xhtml#Steele-et-al_002e-1983">Steele et al. 1983</a>.  See also <a class="ref" href="References.xhtml#Raymond-1993">Raymond 1993</a>.)</p>
+<h5 class="footnote-body-heading"><a id="FOOT217" href="#DOCF217">(217)</a></h5>
+<p>The difference 
+between the &ldquo;lazy&rdquo; terminology and the
+&ldquo;normal-order&rdquo; terminology is somewhat fuzzy.  Generally, &ldquo;lazy&rdquo; refers to
+the mechanisms of particular evaluators, while &ldquo;normal-order&rdquo; refers to the
 semantics of languages, independent of any particular evaluation strategy.  But
 this is not a hard-and-fast distinction, and the two terminologies are often
 used interchangeably.</p>
-</div>
-<div id="FOOT237"><p><a class="footnote_backlink" href="#DOCF237"><sup>237</sup></a>
-The “strict”
-versus “non-strict” terminology means essentially the same thing as
-“applicative-order” versus “normal-order,” except that it refers to
+<h5 class="footnote-body-heading"><a id="FOOT218" href="#DOCF218">(218)</a></h5>
+<p>The &ldquo;strict&rdquo;
+versus &ldquo;non-strict&rdquo; terminology means essentially the same thing as
+&ldquo;applicative-order&rdquo; versus &ldquo;normal-order,&rdquo; except that it refers to
 individual procedures and arguments rather than to the language as a whole.  At
-a conference on programming languages you might hear someone say, “The
+a conference on programming languages you might hear someone say, &ldquo;The
 normal-order language Hassle has certain strict primitives.  Other procedures
-take their arguments by lazy evaluation.”</p>
-</div>
-<div id="FOOT238"><p><a class="footnote_backlink" href="#DOCF238"><sup>238</sup></a>
-The word <a id="index-thunk"></a>
-<em>thunk</em> was invented by an
+take their arguments by lazy evaluation.&rdquo;</p>
+<h5 class="footnote-body-heading"><a id="FOOT219" href="#DOCF219">(219)</a></h5>
+<p>The word <a class="index-entry-id" id="index-thunk"></a>
+<em class="dfn">thunk</em> was invented by an
 informal working group that was discussing the implementation of call-by-name
-in Algol 60.  They observed that most of the analysis of (“thinking about”)
+in Algol 60.  They observed that most of the analysis of (&ldquo;thinking about&rdquo;)
 the expression could be done at compile time; thus, at run time, the expression
-would already have been “thunk” about (<a href="References.xhtml#Ingerman-et-al_002e-1960">Ingerman et al. 1960</a>).</p>
-</div>
-<div id="FOOT239"><p><a class="footnote_backlink" href="#DOCF239"><sup>239</sup></a>
-This is analogous to the use of <code>force</code> on the
-delayed objects that were introduced in <a href="Chapter-3.xhtml#Chapter-3">Chapter 3</a> to represent streams.
+would already have been &ldquo;thunk&rdquo; about (<a class="ref" href="References.xhtml#Ingerman-et-al_002e-1960">Ingerman et al. 1960</a>).</p>
+<h5 class="footnote-body-heading"><a id="FOOT220" href="#DOCF220">(220)</a></h5>
+<p>This is analogous to the use of <code class="code">force</code> on the
+delayed objects that were introduced in <a class="ref" href="Chapter-3.xhtml">Modularity, Objects, and State</a> to represent streams.
 The critical difference between what we are doing here and what we did in
-<a href="Chapter-3.xhtml#Chapter-3">Chapter 3</a> is that we are building delaying and forcing into the
+<a class="ref" href="Chapter-3.xhtml">Modularity, Objects, and State</a> is that we are building delaying and forcing into the
 evaluator, and thus making this uniform and automatic throughout the language.</p>
-</div>
-<div id="FOOT240"><p><a class="footnote_backlink" href="#DOCF240"><sup>240</sup></a>
-Lazy evaluation
-combined with memoization is sometimes referred to as <a id="index-call_002dby_002dneed-1"></a>
-<em>call-by-need</em>
-argument passing, in contrast to <a id="index-call_002dby_002dname-1"></a>
-<em>call-by-name</em> argument passing.
+<h5 class="footnote-body-heading"><a id="FOOT221" href="#DOCF221">(221)</a></h5>
+<p>Lazy evaluation
+combined with memoization is sometimes referred to as <a class="index-entry-id" id="index-call_002dby_002dneed-1"></a>
+<em class="dfn">call-by-need</em>
+argument passing, in contrast to <a class="index-entry-id" id="index-call_002dby_002dname-1"></a>
+<em class="dfn">call-by-name</em> argument passing.
 (Call-by-name, introduced in Algol 60, is similar to non-memoized lazy
 evaluation.)  As language designers, we can build our evaluator to memoize, not
-to memoize, or leave this an option for programmers (<a href="#Exercise-4_002e31">Exercise 4.31</a>).  As
-you might expect from <a href="Chapter-3.xhtml#Chapter-3">Chapter 3</a>, these choices raise issues that become
-both subtle and confusing in the presence of assignments.  (See <a href="#Exercise-4_002e27">Exercise 4.27</a> 
-and <a href="#Exercise-4_002e29">Exercise 4.29</a>.)  An excellent article by <a href="References.xhtml#Clinger-_00281982_0029">Clinger (1982)</a>
+to memoize, or leave this an option for programmers (<a class="ref" href="#Exercise-4_002e31">Exercise 4.31</a>).  As
+you might expect from <a class="ref" href="Chapter-3.xhtml">Modularity, Objects, and State</a>, these choices raise issues that become
+both subtle and confusing in the presence of assignments.  (See <a class="ref" href="#Exercise-4_002e27">Exercise 4.27</a> 
+and <a class="ref" href="#Exercise-4_002e29">Exercise 4.29</a>.)  An excellent article by <a class="ref" href="References.xhtml#Clinger-_00281982_0029">Clinger (1982)</a>
 attempts to clarify the multiple dimensions of confusion that arise here.</p>
-</div>
-<div id="FOOT241"><p><a class="footnote_backlink" href="#DOCF241"><sup>241</sup></a>
-Notice that we also erase the <code>env</code> from the thunk
-once the expression’s value has been computed.  This makes no difference in the
+<h5 class="footnote-body-heading"><a id="FOOT222" href="#DOCF222">(222)</a></h5>
+<p>Notice that we also erase the <code class="code">env</code> from the thunk
+once the expression&rsquo;s value has been computed.  This makes no difference in the
 values returned by the interpreter.  It does help save space, however, because
-removing the reference from the thunk to the <code>env</code> once it is no longer
-needed allows this structure to be <a id="index-garbage_002dcollected"></a>
-<em>garbage-collected</em> and its space
-recycled, as we will discuss in <a href="5_002e3.xhtml#g_t5_002e3">5.3</a>.
+removing the reference from the thunk to the <code class="code">env</code> once it is no longer
+needed allows this structure to be <a class="index-entry-id" id="index-garbage_002dcollected"></a>
+<em class="dfn">garbage-collected</em> and its space
+recycled, as we will discuss in <a class="ref" href="5_002e3.xhtml#g_t5_002e3">Storage Allocation and Garbage Collection</a>.
 </p>
 <p>Similarly, we could have allowed unneeded environments in the memoized delayed
-objects of <a href="3_002e5.xhtml#g_t3_002e5_002e1">3.5.1</a> to be garbage-collected, by having
-<code>memo-proc</code> do something like <code>(set! proc '())</code> to discard the
-procedure <code>proc</code> (which includes the environment in which the <code>delay</code>
+objects of <a class="ref" href="3_002e5.xhtml#g_t3_002e5_002e1">Streams Are Delayed Lists</a> to be garbage-collected, by having
+<code class="code">memo-proc</code> do something like <code class="code">(set! proc '())</code> to discard the
+procedure <code class="code">proc</code> (which includes the environment in which the <code class="code">delay</code>
 was evaluated) after storing its value.</p>
-</div>
-<div id="FOOT242"><p><a class="footnote_backlink" href="#DOCF242"><sup>242</sup></a>
-This exercise demonstrates that the interaction between
+<h5 class="footnote-body-heading"><a id="FOOT223" href="#DOCF223">(223)</a></h5>
+<p>This exercise demonstrates that the interaction between
 lazy evaluation and side effects can be very confusing.  This is just what you
-might expect from the discussion in <a href="Chapter-3.xhtml#Chapter-3">Chapter 3</a>.</p>
-</div>
-<div id="FOOT243"><p><a class="footnote_backlink" href="#DOCF243"><sup>243</sup></a>
-This is precisely the issue with the
-<code>unless</code> procedure, as in <a href="#Exercise-4_002e26">Exercise 4.26</a>.</p>
-</div>
-<div id="FOOT244"><p><a class="footnote_backlink" href="#DOCF244"><sup>244</sup></a>
-This is the procedural representation described in
-<a href="2_002e1.xhtml#Exercise-2_002e4">Exercise 2.4</a>.  Essentially any procedural representation (e.g., a
+might expect from the discussion in <a class="ref" href="Chapter-3.xhtml">Modularity, Objects, and State</a>.</p>
+<h5 class="footnote-body-heading"><a id="FOOT224" href="#DOCF224">(224)</a></h5>
+<p>This is precisely the issue with the
+<code class="code">unless</code> procedure, as in <a class="ref" href="#Exercise-4_002e26">Exercise 4.26</a>.</p>
+<h5 class="footnote-body-heading"><a id="FOOT225" href="#DOCF225">(225)</a></h5>
+<p>This is the procedural representation described in
+<a class="ref" href="2_002e1.xhtml#Exercise-2_002e4">Exercise 2.4</a>.  Essentially any procedural representation (e.g., a
 message-passing implementation) would do as well.  Notice that we can install
 these definitions in the lazy evaluator simply by typing them at the driver
-loop.  If we had originally included <code>cons</code>, <code>car</code>, and <code>cdr</code> as
+loop.  If we had originally included <code class="code">cons</code>, <code class="code">car</code>, and <code class="code">cdr</code> as
 primitives in the global environment, they will be redefined.  (Also see
-<a href="#Exercise-4_002e33">Exercise 4.33</a> and <a href="#Exercise-4_002e34">Exercise 4.34</a>.)</p>
+<a class="ref" href="#Exercise-4_002e33">Exercise 4.33</a> and <a class="ref" href="#Exercise-4_002e34">Exercise 4.34</a>.)</p>
+<h5 class="footnote-body-heading"><a id="FOOT226" href="#DOCF226">(226)</a></h5>
+<p>This permits us to create delayed versions of more general
+kinds of list structures, not just sequences.  <a class="ref" href="References.xhtml#Hughes-1990">Hughes 1990</a> discusses some
+applications of &ldquo;lazy trees.&rdquo;</p>
 </div>
-<div id="FOOT245"><p><a class="footnote_backlink" href="#DOCF245"><sup>245</sup></a>
-This permits us to create delayed versions of more general
-kinds of list structures, not just sequences.  <a href="References.xhtml#Hughes-1990">Hughes 1990</a> discusses some
-applications of “lazy trees.”</p>
-</div>
-</div>
-<nav class="header">
+<hr>
+<div class="nav-panel">
 <p>
-Next: <a href="4_002e3.xhtml#g_t4_002e3" accesskey="n" rel="next">4.3</a>, Prev: <a href="4_002e1.xhtml#g_t4_002e1" accesskey="p" rel="prev">4.1</a>, Up: <a href="#g_t4_002e2" accesskey="u" rel="prev">4.2</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" accesskey="c" rel="contents">Contents</a>]</p>
-</nav>
+Next: <a href="4_002e3.xhtml#g_t4_002e3" accesskey="n" rel="next">Variations on a Scheme &mdash; Nondeterministic Computing</a>, Previous: <a href="4_002e1.xhtml#g_t4_002e1_002e8" accesskey="p" rel="prev">Declarative Macros: Code that Generates Code</a>, Up: <a href="Chapter-4.xhtml" accesskey="u" rel="up">Metalinguistic Abstraction</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
+</div>
 
 
-</section><span class="bottom jump" title="Jump to bottom"><a href="#pagebottom" accesskey="b">⇣</a></span><a id="pagebottom"></a>
 
-</body></html>
+</body>
+</html>
