@@ -102,9 +102,9 @@ of time that is independent of the index.<a class="footnote" id="DOCF269" href="
 standard Rust-like indexing for manipulating vectors:
 </p>
 <ul class="itemize mark-bullet">
-<li><code class="code">v[n]</code> returns the <em class="math">n^{\text{th}}</em> element of the vector <code class="code">v</code>.
+<li><code class="code">v[n]</code> returns the <em class="math">n^{th}</em> element of the vector <code class="code">v</code>.
 
-</li><li><code class="code">v[n] = value</code> sets the <em class="math">n^{\text{th}}</em> element of the vector <code class="code">v</code> to the designated value.
+</li><li><code class="code">v[n] = value</code> sets the <em class="math">n^{th}</em> element of the vector <code class="code">v</code> to the designated value.
 
 </li></ul>
 
@@ -1138,7 +1138,7 @@ management over a garbage collector&#8217;s automatic cycle detection?
 <h5 class="footnote-body-heading"><a id="FOOT269" href="#DOCF269">(269)</a></h5>
 <p>We could represent memory as
 lists of items.  However, the access time would then not be independent of the
-index, since accessing the <em class="math">n^{\text{th}}</em> element of a list requires <em class="math">{n - 1}</em>
+index, since accessing the <em class="math">n^{th}</em> element of a list requires <em class="math">{n - 1}</em>
 <code class="code">cdr</code> operations.</p>
 <h5 class="footnote-body-heading"><a id="FOOT270" href="#DOCF270">(270)</a></h5>
 <p>For
@@ -1194,7 +1194,7 @@ essentially the implementation of <code class="code">cons</code> in terms of <co
 <p>This may not be true eventually, because
 memories may get large enough so that it would be impossible to run out of free
 memory in the lifetime of the computer.  For example, there are about
-<em class="math">{3\cdot10^{13}}</em> microseconds in a year, so if we were to <code class="code">cons</code> once per
+<em class="math">{3·10^{13}}</em> microseconds in a year, so if we were to <code class="code">cons</code> once per
 microsecond we would need about <em class="math">10^{15}</em> cells of memory to build a machine that
 could operate for 30 years without running out of memory.  That much memory
 seems absurdly large by today&#8217;s standards, but it is not physically impossible.

@@ -144,7 +144,7 @@ The expression
 <pre class="example-preformatted">amb![<var class="var">e_1</var>, <var class="var">e_2</var>, ..., <var class="var">e_n</var>]
 </pre></div>
 
-<p>returns the value of one of the <em class="math">n</em> expressions <em class="math">{⟨\kern0.03em e_i⟩}</em>
+<p>returns the value of one of the <em class="math">n</em> expressions <em class="math">{⟨e_i⟩}</em>
 &#8220;ambiguously.&#8221;  For example, the expression
 </p>
 <div class="example">
@@ -270,7 +270,7 @@ solutions.next()  // =&gt; None (no more solutions)
 <code class="code">an_integer_between</code> that returns an iterator over integers between two
 given bounds.  This can be used to implement a procedure that finds Pythagorean
 triples, i.e., triples of integers <em class="math">{(i, j, k)}</em> between the given bounds
-such that <em class="math">{i \le j}</em> and <em class="math">{i^2 + j^2 = k^2}</em>, as follows:
+such that <em class="math">{i ≤ j}</em> and <em class="math">{i^2 + j^2 = k^2}</em>, as follows:
 </p>
 <div class="example">
 <pre class="example-preformatted">fn pythagorean_triples_between(low: i32, high: i32) -&gt; impl Iterator&lt;Item = (i32, i32, i32)&gt; {

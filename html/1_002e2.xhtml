@@ -217,8 +217,8 @@ counter and the product simultaneously change from one step to the next
 according to the rule
 </p>
 <div class="example">
-<pre class="example-preformatted">product <em class="math">\gets</em> counter * product
-counter <em class="math">\gets</em> counter + 1
+<pre class="example-preformatted">product <em class="math">←</em> counter * product
+counter <em class="math">←</em> counter + 1
 </pre></div>
 
 <p>and stipulating that <em class="math">{n!}</em> is the value of the product when the counter
@@ -545,10 +545,10 @@ computation.  Notice in <a class="ref" href="#Figure-1_002e5">Figure 1.5</a> tha
 <code class="code">fib(3)</code>&#8212;almost half the work&#8212;is duplicated.  In fact, it is not hard
 to show that the number of times the procedure will compute <code class="code">fib(1)</code> or
 <code class="code">fib(0)</code> (the number of leaves in the above tree, in general) is
-precisely <em class="math">{\text{Fib}(n+1)}</em>.  To get an idea of how bad this is, one can
-show that the value of <em class="math">{\text{Fib}(n)}</em> grows exponentially with <em class="math">n</em>.  More
-precisely (see <a class="ref" href="#Exercise-1_002e13">Exercise 1.13</a>), <em class="math">{\text{Fib}(n)}</em> is the closest integer
-to <em class="math">{\varphi^n / \sqrt{5}}</em>, where
+precisely <em class="math">{Fib(n+1)}</em>.  To get an idea of how bad this is, one can
+show that the value of <em class="math">{Fib(n)}</em> grows exponentially with <em class="math">n</em>.  More
+precisely (see <a class="ref" href="#Exercise-1_002e13">Exercise 1.13</a>), <em class="math">{Fib(n)}</em> is the closest integer
+to <em class="math">{φ^n / √{5}}</em>, where
 
 <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
   <mi>&#x3C6;</mi>
@@ -610,7 +610,7 @@ while the space required will be proportional to the maximum depth of the tree.
 </p>
 <p>We can also formulate an iterative process for computing the Fibonacci numbers.
 The idea is to use a pair of integers <em class="math">a</em> and <em class="math">b</em>, initialized to
-<em class="math">{\text{Fib(1) = 1}}</em> and <em class="math">{\text{Fib(0) = 0}}</em>, and to repeatedly apply the
+<em class="math">{Fib(1) = 1}</em> and <em class="math">{Fib(0) = 0}</em>, and to repeatedly apply the
 simultaneous transformations
 </p>
 
@@ -650,8 +650,8 @@ simultaneous transformations
 </math>
 
 <p>It is not hard to show that, after applying this transformation <em class="math">n</em> times,
-<em class="math">a</em> and <em class="math">b</em> will be equal, respectively, to <em class="math">{\text{Fib}(n+1)}</em> and
-<em class="math">{\text{Fib}(n)}</em>.  Thus, we can compute Fibonacci numbers iteratively using
+<em class="math">a</em> and <em class="math">b</em> will be equal, respectively, to <em class="math">{Fib(n+1)}</em> and
+<em class="math">{Fib(n)}</em>.  Thus, we can compute Fibonacci numbers iteratively using
 the procedure
 </p>
 <div class="example">
@@ -668,9 +668,9 @@ fn fib_iter(a: u64, b: u64, count: u64) -&gt; u64 {
 }
 </pre></div>
 
-<p>This second method for computing <em class="math">{\text{Fib}(n)}</em> is a linear iteration.  The
+<p>This second method for computing <em class="math">{Fib(n)}</em> is a linear iteration.  The
 difference in number of steps required by the two methods&#8212;one linear in
-<em class="math">n</em>, one growing as fast as <em class="math">{\text{Fib}(n)}</em> itself&#8212;is enormous, even for
+<em class="math">n</em>, one growing as fast as <em class="math">{Fib(n)}</em> itself&#8212;is enormous, even for
 small inputs.
 </p>
 <p>One should not conclude from this that tree-recursive processes are useless.
@@ -784,7 +784,7 @@ procedures that compute the same result.<a class="footnote" id="DOCF29" href="#F
 </p>
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-1_002e11"></a>Exercise 1.11:</strong> A function <em class="math">f</em> is defined by
-the rule that <em class="math">{f(n) = n}</em> if <em class="math">{n &lt; 3}</em> and <em class="math">{f(n)} = {f(n-1)} + {2f(n-2)} + {3f(n-3)}</em> if <em class="math">{n \ge 3}</em>.
+the rule that <em class="math">{f(n) = n}</em> if <em class="math">{n &lt; 3}</em> and <em class="math">{f(n)} = {f(n-1)} + {2f(n-2)} + {3f(n-3)}</em> if <em class="math">{n ≥ 3}</em>.
 Write a procedure that computes <em class="math">f</em> by means of a recursive process.  Write a procedure that
 computes <em class="math">f</em> by means of an iterative process.
 </p></blockquote>
@@ -809,11 +809,11 @@ means of a recursive process.
 </p></blockquote>
 
 <blockquote class="quotation">
-<p><strong class="strong"><a class="anchor" id="Exercise-1_002e13"></a>Exercise 1.13:</strong> Prove that <em class="math">{\text{Fib}(n)}</em> is
-the closest integer to <em class="math">{\varphi^n / \sqrt{5}}</em>, where <em class="math">\varphi = {(1 + \sqrt{5}) / 2}</em>.
-Hint: Let <em class="math">\psi = {(1 - \sqrt{5}) / 2}</em>.
+<p><strong class="strong"><a class="anchor" id="Exercise-1_002e13"></a>Exercise 1.13:</strong> Prove that <em class="math">{Fib(n)}</em> is
+the closest integer to <em class="math">{φ^n / √{5}}</em>, where <em class="math">φ = {(1 + √{5}) / 2}</em>.
+Hint: Let <em class="math">ψ = {(1 - √{5}) / 2}</em>.
 Use induction and the definition of the Fibonacci numbers (see <a class="ref" href="#g_t1_002e2_002e2">Tree Recursion</a>)
-to prove that <em class="math">{\text{Fib}(n)} = {(\varphi^n - \psi^n) / \sqrt{5}}</em>.
+to prove that <em class="math">{Fib(n)} = {(φ^n - ψ^n) / √{5}}</em>.
 </p></blockquote>
 
 <hr />
@@ -842,10 +842,10 @@ number of elementary machine operations performed, and so on.  In computers
 that do only a fixed number of operations at a time, the time required will be
 proportional to the number of elementary machine operations performed.
 </p>
-<p>We say that <em class="math">{R(n)}</em> has order of growth <em class="math">{\Theta(f(n))}</em>, written
-<em class="math">{R(n)} = {\Theta(f(n))}</em> (pronounced &#8220;theta of
+<p>We say that <em class="math">{R(n)}</em> has order of growth <em class="math">{Θ(f(n))}</em>, written
+<em class="math">{R(n)} = {Θ(f(n))}</em> (pronounced &#8220;theta of
 <em class="math">{f(n)}</em>&#8221;), if there are positive constants <em class="math">k_1</em> and <em class="math">k_2</em>
-independent of <em class="math">n</em> such that <em class="math">{k_1 f(n)} \le {R(n)} \le {k_2 f(n)}</em>
+independent of <em class="math">n</em> such that <em class="math">{k_1 f(n)} ≤ {R(n)} ≤ {k_2 f(n)}</em>
 for any sufficiently large value of <em class="math">n</em>.  (In other words, for large <em class="math">n</em>,
 the value <em class="math">{R(n)}</em> is sandwiched between <em class="math">{k_1 f(n)}</em> and
 <em class="math">{k_2 f(n)}</em>.)
@@ -853,20 +853,20 @@ the value <em class="math">{R(n)}</em> is sandwiched between <em class="math">{k
 <p>For instance, with the linear recursive process for computing factorial
 described in <a class="ref" href="#g_t1_002e2_002e1">Linear Recursion and Iteration</a> the number of steps grows proportionally to
 the input <em class="math">n</em>.  Thus, the steps required for this process grows as
-<em class="math">{\Theta(n)}</em>.  We also saw that the space required grows as
-<em class="math">{\Theta(n)}</em>.  For the iterative factorial, the number of steps is still
-<em class="math">{\Theta(n)}</em> but the space is <em class="math">{\Theta(1)}</em>&#8212;that is,
+<em class="math">{Θ(n)}</em>.  We also saw that the space required grows as
+<em class="math">{Θ(n)}</em>.  For the iterative factorial, the number of steps is still
+<em class="math">{Θ(n)}</em> but the space is <em class="math">{Θ(1)}</em>&#8212;that is,
 constant.<a class="footnote" id="DOCF31" href="#FOOT31"><sup>31</sup></a> The
-tree-recursive Fibonacci computation requires <em class="math">{\Theta(\varphi^n)}</em>
-steps and space <em class="math">{\Theta(n)}</em>, where <em class="math">\varphi</em> is the golden ratio
+tree-recursive Fibonacci computation requires <em class="math">{Θ(φ^n)}</em>
+steps and space <em class="math">{Θ(n)}</em>, where <em class="math">φ</em> is the golden ratio
 described in <a class="ref" href="#g_t1_002e2_002e2">Tree Recursion</a>.
 </p>
 <p>Orders of growth provide only a crude description of the behavior of a process.
 For example, a process requiring <em class="math">n^2</em> steps and a process requiring
 <em class="math">{1000n^2}</em> steps and a process requiring <em class="math">{3n^2} + {10n} + 17</em> steps all
-have <em class="math">{\Theta(n^2)}</em> order of growth.  On the other hand, order of growth
+have <em class="math">{Θ(n^2)}</em> order of growth.  On the other hand, order of growth
 provides a useful indication of how we may expect the behavior of the process
-to change as we change the size of the problem.  For a <em class="math">{\Theta(n)}</em>
+to change as we change the size of the problem.  For a <em class="math">{Θ(n)}</em>
 (linear) process, doubling the size will roughly double the amount of resources
 used.  For an exponential process, each increment in problem size will multiply
 the resource utilization by a constant factor.  In the remainder of
@@ -884,7 +884,7 @@ number of steps used by this process as the amount to be changed increases?
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-1_002e15"></a>Exercise 1.15:</strong> The sine of an angle (specified
 in radians) can be computed by making use of the approximation
-<em class="math">{\sin x  \approx x}</em> if <em class="math">x</em> is sufficiently small, and the trigonometric
+<em class="math">{sin x  ≈ x}</em> if <em class="math">x</em> is sufficiently small, and the trigonometric
 identity
 
 <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
@@ -1028,8 +1028,8 @@ which translates readily into the procedure
 }
 </pre></div>
 
-<p>This is a linear recursive process, which requires <em class="math">{\Theta(n)}</em> steps and
-<em class="math">{\Theta(n)}</em> space.  Just as with factorial, we can readily formulate an
+<p>This is a linear recursive process, which requires <em class="math">{Θ(n)}</em> steps and
+<em class="math">{Θ(n)}</em> space.  Just as with factorial, we can readily formulate an
 equivalent linear iteration:
 </p>
 <div class="example">
@@ -1046,7 +1046,7 @@ fn expt_iter(b: u64, counter: u64, product: u64) -&gt; u64 {
 }
 </pre></div>
 
-<p>This version requires <em class="math">{\Theta(n)}</em> steps and <em class="math">{\Theta(1)}</em> space.
+<p>This version requires <em class="math">{Θ(n)}</em> steps and <em class="math">{Θ(1)}</em> space.
 </p>
 <p>We can compute exponentials in fewer steps by using successive squaring.  For
 instance, rather than computing <em class="math">b^8</em> as
@@ -1291,10 +1291,10 @@ than computing <em class="math">b^n</em>.  The size of the exponent we can compu
 doubles (approximately) with every new multiplication we are allowed.  Thus,
 the number of multiplications required for an exponent of <em class="math">n</em> grows about as
 fast as the logarithm of <em class="math">n</em> to the base 2.  The process has
-<em class="math">{\Theta(\log n)}</em> growth.<a class="footnote" id="DOCF32" href="#FOOT32"><sup>32</sup></a>
+<em class="math">{Θ(log n)}</em> growth.<a class="footnote" id="DOCF32" href="#FOOT32"><sup>32</sup></a>
 </p>
-<p>The difference between <em class="math">{\Theta(\log n)}</em> growth and
-<em class="math">{\Theta(n)}</em> growth becomes striking as <em class="math">n</em> becomes large.  For
+<p>The difference between <em class="math">{Θ(log n)}</em> growth and
+<em class="math">{Θ(n)}</em> growth becomes striking as <em class="math">n</em> becomes large.  For
 example, <code class="code">fast-expt</code> for <em class="math">n</em> = 1000 requires only 14
 multiplications.<a class="footnote" id="DOCF33" href="#FOOT33"><sup>33</sup></a> It is also possible to
 use the idea of successive squaring to devise an iterative algorithm that
@@ -1353,15 +1353,15 @@ and halving and uses a logarithmic number of steps.<a class="footnote" id="DOCF3
 <p><strong class="strong"><a class="anchor" id="Exercise-1_002e19"></a>Exercise 1.19:</strong> There is a clever algorithm for
 computing the Fibonacci numbers in a logarithmic number of steps.  Recall the
 transformation of the state variables <em class="math">a</em> and <em class="math">b</em> in the <code class="code">fib-iter</code>
-process of <a class="ref" href="#g_t1_002e2_002e2">Tree Recursion</a>: <em class="math">a \gets a + b</em> and <em class="math">b \gets a</em>.
+process of <a class="ref" href="#g_t1_002e2_002e2">Tree Recursion</a>: <em class="math">a ← a + b</em> and <em class="math">b ← a</em>.
 Call this transformation <em class="math">T</em>, and observe that applying <em class="math">T</em> over and over
-again <em class="math">n</em> times, starting with 1 and 0, produces the pair <em class="math">{\text{Fib}(n+1)}</em> and
-<em class="math">{\text{Fib}(n)}</em>.  In other words, the Fibonacci numbers are produced
-by applying <em class="math">T^n</em>, the <em class="math">n^{\text{th}}</em> power of the transformation <em class="math">T</em>,
+again <em class="math">n</em> times, starting with 1 and 0, produces the pair <em class="math">{Fib(n+1)}</em> and
+<em class="math">{Fib(n)}</em>.  In other words, the Fibonacci numbers are produced
+by applying <em class="math">T^n</em>, the <em class="math">n^{th}</em> power of the transformation <em class="math">T</em>,
 starting with the pair (1, 0).  Now consider <em class="math">T</em> to be the special case of
 <em class="math">{p=0}</em> and <em class="math">{q=1}</em> in a family of transformations <em class="math">T_{pq}</em>,
 where <em class="math">T_{pq}</em> transforms the pair <em class="math">{(a, b)}</em> according to
-<em class="math">a \gets {bq} + {aq} + {ap}</em> and <em class="math">b \gets {bp} + {aq}</em>.
+<em class="math">a ← {bq} + {aq} + {ap}</em> and <em class="math">b ← {bp} + {aq}</em>.
 Show that if we apply such a transformation <em class="math">T_{pq}</em> twice, the
 effect is the same as using a single transformation <em class="math">T_{p'q'}</em> of the
 same form, and compute <em class="math">p'\!</em> and <em class="math">q'\!</em> in terms of <em class="math">p</em> and <em class="math">q</em>.  This
@@ -1760,15 +1760,15 @@ logarithmic growth bears an interesting relation to the Fibonacci numbers:
 <blockquote class="quotation">
 <p><strong class="strong">Lam&#233;&#8217;s Theorem:</strong> If Euclid&#8217;s Algorithm requires <em class="math">k</em> steps to
 compute the <abbr class="abbr">GCD</abbr> of some pair, then the smaller number in the pair
-must be greater than or equal to the <em class="math">k^{\text{th}}</em> Fibonacci number.<a class="footnote" id="DOCF38" href="#FOOT38"><sup>38</sup></a>
+must be greater than or equal to the <em class="math">k^{th}</em> Fibonacci number.<a class="footnote" id="DOCF38" href="#FOOT38"><sup>38</sup></a>
 </p></blockquote>
 
 <p>We can use this theorem to get an order-of-growth estimate for Euclid&#8217;s
 Algorithm.  Let <em class="math">n</em> be the smaller of the two inputs to the procedure.  If
 the process takes <em class="math">k</em> steps, then we must have
-<em class="math">n \ge {\text{Fib}(k)} \approx {\varphi^k / \sqrt{5}}</em>.  Therefore the number of steps <em class="math">k</em>
-grows as the logarithm (to the base <em class="math">\varphi</em>) of <em class="math">n</em>.  Hence, the order of
-growth is <em class="math">{\Theta(\log n)}</em>.
+<em class="math">n ≥ {Fib(k)} ≈ {φ^k / √{5}}</em>.  Therefore the number of steps <em class="math">k</em>
+grows as the logarithm (to the base <em class="math">φ</em>) of <em class="math">n</em>.  Hence, the order of
+growth is <em class="math">{Θ(log n)}</em>.
 </p>
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-1_002e20"></a>Exercise 1.20:</strong> The process that a procedure
@@ -1789,8 +1789,8 @@ evaluation of <code class="code">gcd(206, 40)</code>?  In the applicative-order 
 <h4 class="subsection" id="Example_003a-Testing-for-Primality"><span>1.2.7 Example: Testing for Primality<a class="copiable-link" href="#Example_003a-Testing-for-Primality"> &#182;</a></span></h4>
 
 <p>This section describes two methods for checking the primality of an integer
-<em class="math">n</em>, one with order of growth <em class="math">{\Theta(\sqrt{n})}</em>, and a
-&#8220;probabilistic&#8221; algorithm with order of growth <em class="math">{\Theta(\log n)}</em>.
+<em class="math">n</em>, one with order of growth <em class="math">{Θ(√{n})}</em>, and a
+&#8220;probabilistic&#8221; algorithm with order of growth <em class="math">{Θ(log n)}</em>.
 The exercises at the end of this section suggest programming projects based on
 these algorithms.
 </p>
@@ -1835,19 +1835,19 @@ fn divides(a: u64, b: u64) -&gt; bool {
 
 <p>The end test for <code class="code">find_divisor</code> is based on the fact that if <em class="math">n</em> is not
 prime it must have a divisor less than or equal to
-<em class="math">\sqrt{n}</em>.<a class="footnote" id="DOCF39" href="#FOOT39"><sup>39</sup></a>  This means that the algorithm need only test divisors
-between 1 and <em class="math">\sqrt{n}</em>.  Consequently, the number of steps required
+<em class="math">√{n}</em>.<a class="footnote" id="DOCF39" href="#FOOT39"><sup>39</sup></a>  This means that the algorithm need only test divisors
+between 1 and <em class="math">√{n}</em>.  Consequently, the number of steps required
 to identify <em class="math">n</em> as prime will have order of growth
-<em class="math">{\Theta(\sqrt{n})}</em>.
+<em class="math">{Θ(√{n})}</em>.
 </p>
 <h4 class="subsubheading" id="The-Fermat-test"><span>The Fermat test<a class="copiable-link" href="#The-Fermat-test"> &#182;</a></span></h4>
 
-<p>The <em class="math">{\Theta(\log n)}</em> primality test is based on a result from
+<p>The <em class="math">{Θ(log n)}</em> primality test is based on a result from
 number theory known as Fermat&#8217;s Little Theorem.<a class="footnote" id="DOCF40" href="#FOOT40"><sup>40</sup></a>
 </p>
 <blockquote class="quotation">
 <p><strong class="strong">Fermat&#8217;s Little Theorem:</strong> If <em class="math">n</em> is a prime number and <em class="math">a</em> is any
-positive integer less than <em class="math">n</em>, then <em class="math">a</em> raised to the <em class="math">n^{\text{th}}</em> power is
+positive integer less than <em class="math">n</em>, then <em class="math">a</em> raised to the <em class="math">n^{th}</em> power is
 congruent to <em class="math">a</em> modulo <em class="math">n</em>.
 </p></blockquote>
 
@@ -1892,7 +1892,7 @@ with the exponent.<a class="footnote" id="DOCF41" href="#FOOT41"><sup>41</sup></
 </p>
 <p>The Fermat test is performed by choosing at random a number <em class="math">a</em> between 1 and
 <em class="math">{n-1}</em> inclusive and checking whether the remainder modulo <em class="math">n</em> of the
-<em class="math">n^{\text{th}}</em> power of <em class="math">a</em> is equal to <em class="math">a</em>.  The random number <em class="math">a</em> is chosen
+<em class="math">n^{th}</em> power of <em class="math">a</em> is equal to <em class="math">a</em>.  The random number <em class="math">a</em> is chosen
 using a procedure <code class="code">random</code>, which we assume is available in our environment
 (in Rust, this would typically come from the <code class="code">rand</code> crate).
 <code class="code">Random</code> returns a nonnegative integer less than its integer input.  Hence, to obtain a random number between 1 and <em class="math">{n-1}</em>, we call
@@ -2006,10 +2006,10 @@ the primality of consecutive odd integers in a specified range.  Use your
 procedure to find the three smallest primes larger than 1000; larger than
 10,000; larger than 100,000; larger than 1,000,000.  Note the time needed to
 test each prime.  Since the testing algorithm has order of growth of
-<em class="math">{\Theta(\sqrt{n})}</em>, you should expect that testing for primes
-around 10,000 should take about <em class="math">\sqrt{10}</em> times as long as testing for
+<em class="math">{Θ(√{n})}</em>, you should expect that testing for primes
+around 10,000 should take about <em class="math">√{10}</em> times as long as testing for
 primes around 1000.  Do your timing data bear this out?  How well do the data
-for 100,000 and 1,000,000 support the <em class="math">{\Theta(\sqrt{n})}</em> prediction?  Is your
+for 100,000 and 1,000,000 support the <em class="math">{Θ(√{n})}</em> prediction?  Is your
 result compatible with the notion that programs on your machine run in time
 proportional to the number of steps required for the computation?
 </p></blockquote>
@@ -2036,7 +2036,7 @@ algorithms, and how do you explain the fact that it is different from 2?
 <p><strong class="strong"><a class="anchor" id="Exercise-1_002e24"></a>Exercise 1.24:</strong> Modify the
 <code class="code">timed_prime_test</code> procedure of <a class="ref" href="#Exercise-1_002e22">Exercise 1.22</a> to use
 <code class="code">fast_prime</code> (the Fermat method), and test each of the 12 primes you
-found in that exercise.  Since the Fermat test has <em class="math">{\Theta(\log n)}</em>
+found in that exercise.  Since the Fermat test has <em class="math">{Θ(log n)}</em>
 growth, how would you expect the time to test primes near 1,000,000 to
 compare with the time needed to test primes near 1000?  Do your data bear this
 out?  Can you explain any discrepancy you find?
@@ -2079,7 +2079,7 @@ calling <code class="code">square</code>:
 
 <p>&#8220;I don&#8217;t see what difference that could make,&#8221; says Louis.  &#8220;I&#160;do.&#8221;<!-- /@w -->  says
 Eva.  &#8220;By writing the procedure like that, you have transformed the
-<em class="math">{\Theta(\log n)}</em> process into a <em class="math">{\Theta(n)}</em> process.&#8221;
+<em class="math">{Θ(log n)}</em> process into a <em class="math">{Θ(n)}</em> process.&#8221;
 Explain.
 </p></blockquote>
 
@@ -2183,7 +2183,7 @@ linearly with the input.  See <a class="ref" href="3_002e3.xhtml#Exercise-3_002e
 <p>The elements of
 Pascal&#8217;s triangle are called the <a class="index-entry-id" id="index-binomial-coefficients"></a>
 <em class="dfn">binomial coefficients</em>, because the
-<em class="math">{n^{\text{th}}}</em> row consists of the coefficients of the terms in the expansion of
+<em class="math">{n^{th}}</em> row consists of the coefficients of the terms in the expansion of
 <em class="math">{(x + y)^n}</em>.  This pattern for computing the coefficients appeared in
 Blaise Pascal&#8217;s 1653 seminal work on probability theory, <cite class="cite">Trait&#233; du
 triangle arithm&#233;tique</cite>.  According to <a class="ref" href="References.xhtml#Knuth-_00281973_0029">Knuth (1973)</a>, the same pattern appears
@@ -2207,7 +2207,7 @@ the number of ones in the binary representation of <em class="math">n</em>.  Thi
 less than twice the log base 2 of <em class="math">n</em>.  The arbitrary constants <em class="math">k_1</em> and
 <em class="math">k_2</em> in the definition of order notation imply that, for a logarithmic
 process, the base to which logarithms are taken does not matter, so all such
-processes are described as <em class="math">{\Theta(\log n)}</em>.</p>
+processes are described as <em class="math">{Θ(log n)}</em>.</p>
 <h5 class="footnote-body-heading"><a id="FOOT33" href="#DOCF33">(33)</a></h5>
 <p>You may wonder why anyone would care about raising
 numbers to the 1000th power.  See <a class="ref" href="#g_t1_002e2_002e6">Example: Testing for Primality</a>.</p>
@@ -2238,33 +2238,33 @@ examples.</p>
 <p>This
 theorem was proved in 1845 by Gabriel Lam&#233;, a French mathematician and
 engineer known chiefly for his contributions to mathematical physics.  To prove
-the theorem, we consider pairs <em class="math">{(a_k, b_k)}</em>, where <em class="math">{a_k \ge b_k}</em>,
+the theorem, we consider pairs <em class="math">{(a_k, b_k)}</em>, where <em class="math">{a_k ≥ b_k}</em>,
 for which Euclid&#8217;s Algorithm terminates in <em class="math">k</em> steps.  The proof
-is based on the claim that, if <em class="math">{(a_{k+1}, b_{k+1})} \to {(a_k, b_k)} \to {(a_{k-1}, b_{k-1})}</em>
+is based on the claim that, if <em class="math">{(a_{k+1}, b_{k+1})} → {(a_k, b_k)} → {(a_{k-1}, b_{k-1})}</em>
 are three successive pairs
-in the reduction process, then we must have <em class="math">b_{k+1} \ge b_k + b_{k-1}</em>.
+in the reduction process, then we must have <em class="math">b_{k+1} ≥ b_k + b_{k-1}</em>.
 To verify the claim, consider that a reduction step is defined by applying the
 transformation <em class="math">{a_{k-1} = b_k}</em>, <em class="math">{b_{k-1} =}</em> remainder of <em class="math">a_k</em>
 divided by <em class="math">b_k</em>.  The second equation means that <em class="math">a_k = {qb_k} + {b_{k-1}}</em>
 for some positive integer <em class="math">q</em>.  And since <em class="math">q</em> must be at least 1 we have
-<em class="math">a_k = {qb_k} + b_{k-1} \ge b_k + b_{k-1}</em>.  But in the previous reduction
-step we have <em class="math">b_{k+1} = a_k</em>.  Therefore, <em class="math">b_{k+1} = a_k \ge b_k + b_{k-1}</em>.
+<em class="math">a_k = {qb_k} + b_{k-1} ≥ b_k + b_{k-1}</em>.  But in the previous reduction
+step we have <em class="math">b_{k+1} = a_k</em>.  Therefore, <em class="math">b_{k+1} = a_k ≥ b_k + b_{k-1}</em>.
 This verifies the claim.  Now we can prove the theorem by induction on <em class="math">k</em>,
 the number of steps that the algorithm requires to terminate.  The result is true for
-<em class="math">{k = 1}</em>, since this merely requires that <em class="math">b</em> be at least as large as <em class="math">{\text{Fib}(1) = 1}</em>.
+<em class="math">{k = 1}</em>, since this merely requires that <em class="math">b</em> be at least as large as <em class="math">{Fib(1) = 1}</em>.
 Now, assume that the result is true for all integers less than or equal
 to <em class="math">k</em> and establish the result for <em class="math">{k + 1}</em>.
-Let <em class="math">{(a_{k+1}, b_{k+1})} \to {(a_k, b_k)} \to {(a_{k-1}, b_{k-1})}</em>
+Let <em class="math">{(a_{k+1}, b_{k+1})} → {(a_k, b_k)} → {(a_{k-1}, b_{k-1})}</em>
 be successive pairs in the reduction
-process.  By our induction hypotheses, we have <em class="math">b_{k-1} \ge {\text{Fib}(k - 1)}</em>
-and <em class="math">b_k \ge {\text{Fib}(k)}</em>.  Thus, applying the claim we just proved together with
+process.  By our induction hypotheses, we have <em class="math">b_{k-1} ≥ {Fib(k - 1)}</em>
+and <em class="math">b_k ≥ {Fib(k)}</em>.  Thus, applying the claim we just proved together with
 the definition of the Fibonacci numbers gives
-<em class="math">b_{k+1} \ge b_k + b_{k-1} \ge {\text{Fib}(k)} + {\text{Fib}(k-1)} = {\text{Fib}(k+1)}</em>,
+<em class="math">b_{k+1} ≥ b_k + b_{k-1} ≥ {Fib(k)} + {Fib(k-1)} = {Fib(k+1)}</em>,
 which completes the proof of Lam&#233;&#8217;s Theorem.</p>
 <h5 class="footnote-body-heading"><a id="FOOT39" href="#DOCF39">(39)</a></h5>
 <p>If <em class="math">d</em> is a divisor of <em class="math">n</em>, then so is
 <em class="math">{n \,/\, d}</em>.  But <em class="math">d</em> and <em class="math">{n \,/\, d}</em> cannot both be greater than
-<em class="math">\sqrt{n}</em>.</p>
+<em class="math">√{n}</em>.</p>
 <h5 class="footnote-body-heading"><a id="FOOT40" href="#DOCF40">(40)</a></h5>
 <p>Pierre de Fermat
 (1601-1665) is considered to be the founder of modern number theory.  He

@@ -1383,7 +1383,7 @@ values.
 of <em class="math">n</em>.  What is that depth?
 
 </li><li> Determine from your data a formula in terms of <em class="math">n</em> for the total number of
-push operations used in evaluating <em class="math">{n!}</em> for any <em class="math">{n \ge 1}</em>.  Note that the
+push operations used in evaluating <em class="math">{n!}</em> for any <em class="math">{n ≥ 1}</em>.  Note that the
 number of operations used is a linear function of <em class="math">n</em> and is thus determined
 by two constants.
 
@@ -1403,7 +1403,7 @@ recursively:
 
 <p>By running this procedure with the monitored stack, determine, as a function of
 <em class="math">n</em>, the maximum depth of the stack and the total number of pushes used in
-evaluating <em class="math">{n!}</em> for <em class="math">{n \ge 1}</em>.  (Again, these functions will be linear.)
+evaluating <em class="math">{n!}</em> for <em class="math">{n ≥ 1}</em>.  (Again, these functions will be linear.)
 Summarize your experiments by filling in the following table with the
 appropriate expressions in terms of <em class="math">n</em>:
 <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
@@ -1538,18 +1538,18 @@ the tree-recursive Fibonacci computation:
 
 <ol class="enumerate" type="a" start="1">
 <li> Give a formula in terms of <em class="math">n</em> for the maximum depth of the stack required to
-compute <em class="math">{\text{Fib}(n)}</em> for <em class="math">{n \ge 2}</em>.  Hint: In <a class="ref" href="1_002e2.xhtml#g_t1_002e2_002e2">Tree Recursion</a> we
+compute <em class="math">{Fib(n)}</em> for <em class="math">{n ≥ 2}</em>.  Hint: In <a class="ref" href="1_002e2.xhtml#g_t1_002e2_002e2">Tree Recursion</a> we
 argued that the space used by this process grows linearly with <em class="math">n</em>.
 
-</li><li> Give a formula for the total number of pushes used to compute <em class="math">{\text{Fib}(n)}</em>
-for <em class="math">{n \ge 2}</em>.  You should find that the number of pushes (which correlates
+</li><li> Give a formula for the total number of pushes used to compute <em class="math">{Fib(n)}</em>
+for <em class="math">{n ≥ 2}</em>.  You should find that the number of pushes (which correlates
 well with the time used) grows exponentially with <em class="math">n</em>.  Hint: Let
-<em class="math">{S(n)}</em> be the number of pushes used in computing <em class="math">{\text{Fib}(n)}</em>.  You
+<em class="math">{S(n)}</em> be the number of pushes used in computing <em class="math">{Fib(n)}</em>.  You
 should be able to argue that there is a formula that expresses <em class="math">{S(n)}</em> in
 terms of <em class="math">{S(n - 1)}</em>, <em class="math">{S(n - 2)}</em>, and some fixed &#8220;overhead&#8221;
 constant <em class="math">k</em> that is independent of <em class="math">n</em>.  Give the formula, and say what
 <em class="math">k</em> is.  Then show that <em class="math">{S(n)}</em> can be expressed as
-<em class="math">{a\cdot\text{Fib}(n + 1) + b}</em> and give the values of <em class="math">a</em> and <em class="math">b</em>.
+<em class="math">{a·Fib(n + 1) + b}</em> and give the values of <em class="math">a</em> and <em class="math">b</em>.
 
 </li></ol>
 </blockquote>

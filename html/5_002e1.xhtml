@@ -213,7 +213,7 @@ example only hints at the generality of these descriptions, since the
 and each button and test is used only once in the controller.
 </p>
 <blockquote class="quotation">
-<p><strong class="strong"><a class="anchor" id="Figure-5_002e3"></a>Figure 5.3:</strong> <em class="math">\downarrow</em> A specification of the <abbr class="abbr">GCD</abbr>
+<p><strong class="strong"><a class="anchor" id="Figure-5_002e3"></a>Figure 5.3:</strong> <em class="math">↓</em> A specification of the <abbr class="abbr">GCD</abbr>
 machine.
 </p>
 <div class="example">
@@ -431,7 +431,7 @@ instructions that contains a loop, as shown in <a class="ref" href="#Figure-5_00
 <a class="anchor" id="Figure-5_002e5"></a><img class="image" src="fig/chap5/Fig5.5b.std.svg" alt="fig/chap5/Fig5.5b" />
 <div class="caption"><p><strong class="strong">Figure 5.5:</strong> Data paths and controller for the elaborated <abbr class="abbr">GCD</abbr> machine.</p></div></div>
 <blockquote class="quotation">
-<p><strong class="strong"><a class="anchor" id="Figure-5_002e6"></a>Figure 5.6:</strong> <em class="math">\downarrow</em> Controller instruction sequence for the
+<p><strong class="strong"><a class="anchor" id="Figure-5_002e6"></a>Figure 5.6:</strong> <em class="math">↓</em> Controller instruction sequence for the
 <abbr class="abbr">GCD</abbr> machine in <a class="ref" href="#Figure-5_002e5">Figure 5.5</a>.
 </p>
 <div class="example">
@@ -540,7 +540,7 @@ as the first.  If we do this, we obtain the controller sequence shown in
 <a class="ref" href="#Figure-5_002e8">Figure 5.8</a>.
 </p>
 <blockquote class="quotation">
-<p><strong class="strong"><a class="anchor" id="Figure-5_002e8"></a>Figure 5.8:</strong> <em class="math">\downarrow</em> Portions of the controller sequence for
+<p><strong class="strong"><a class="anchor" id="Figure-5_002e8"></a>Figure 5.8:</strong> <em class="math">↓</em> Portions of the controller sequence for
 a machine that uses the same data-path components for two different
 <abbr class="abbr">GCD</abbr> computations.
 </p>
@@ -583,7 +583,7 @@ portion of the resulting controller sequence, which includes only a single copy
 of the <code class="code">gcd</code> instructions.
 </p>
 <blockquote class="quotation">
-<p><strong class="strong"><a class="anchor" id="Figure-5_002e9"></a>Figure 5.9:</strong> <em class="math">\downarrow</em> Using a <code class="code">continue</code> register to
+<p><strong class="strong"><a class="anchor" id="Figure-5_002e9"></a>Figure 5.9:</strong> <em class="math">↓</em> Using a <code class="code">continue</code> register to
 avoid the duplicate controller sequence in <a class="ref" href="#Figure-5_002e8">Figure 5.8</a>.
 </p>
 <div class="example">
@@ -635,7 +635,7 @@ terminate the <code class="code">gcd</code> subroutine with a branch to the loca
 <a class="ref" href="#Figure-5_002e10">Figure 5.10</a>.
 </p>
 <blockquote class="quotation">
-<p><strong class="strong"><a class="anchor" id="Figure-5_002e10"></a>Figure 5.10:</strong> <em class="math">\downarrow</em> Assigning labels to the
+<p><strong class="strong"><a class="anchor" id="Figure-5_002e10"></a>Figure 5.10:</strong> <em class="math">↓</em> Assigning labels to the
 <code class="code">continue</code> register simplifies and generalizes the strategy shown in
 <a class="ref" href="#Figure-5_002e9">Figure 5.9</a>.
 </p>
@@ -849,7 +849,7 @@ of the Fibonacci numbers, which we introduced in <a class="ref" href="1_002e2.xh
 a register machine with registers <code class="code">n</code>, <code class="code">val</code>, and <code class="code">continue</code>.
 The machine is more complex than the one for factorial, because there are two
 places in the controller sequence where we need to perform recursive
-calls&#8212;once to compute <em class="math">{\text{Fib}(n - 1)}</em> and once to compute <em class="math">{\text{Fib}(n - 2)}</em>.  To
+calls&#8212;once to compute <em class="math">{Fib(n - 1)}</em> and once to compute <em class="math">{Fib(n - 2)}</em>.  To
 set up for each of these calls, we save the registers whose values will be
 needed later, set the <code class="code">n</code> register to the number whose Fib we need to
 compute recursively (<em class="math">{n - 1}</em> or <em class="math">{n - 2}</em>), and assign to <code class="code">continue</code> the
@@ -859,7 +859,7 @@ return from the recursive call, the answer is in <code class="code">val</code>. 
 shows the controller sequence for this machine.
 </p>
 <blockquote class="quotation">
-<p><strong class="strong"><a class="anchor" id="Figure-5_002e12"></a>Figure 5.12:</strong> <em class="math">\downarrow</em> Controller for a machine to compute
+<p><strong class="strong"><a class="anchor" id="Figure-5_002e12"></a>Figure 5.12:</strong> <em class="math">↓</em> Controller for a machine to compute
 Fibonacci numbers.
 </p>
 <div class="example">

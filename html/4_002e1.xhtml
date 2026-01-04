@@ -867,7 +867,7 @@ impl&lt;V: Clone&gt; Environment&lt;V&gt; {
 }
 </pre></div>
 
-<p>The method described here uses <code class="code">im::HashMap</code> to provide <em class="math">O(\log n)</em>
+<p>The method described here uses <code class="code">im::HashMap</code> to provide <em class="math">O(log n)</em>
 operations with structural sharing.  This replaces the traditional Lisp
 representation of environments as lists of frames, which would require
 linear-time lookups. In Rust, this functional approach allows closures to own
@@ -1460,8 +1460,8 @@ fn <var class="var">var_n</var>(...) -&gt; T { <var class="var">exp_n</var> }
 </pre></div>
 
 <p>are a variation on <code class="code">let</code> in which the expressions
-<em class="math">{⟨\kern0.1em exp_k⟩}</em> that provide the initial values for the
-variables <em class="math">{⟨\kern0.06em var_k⟩}</em> are evaluated in an environment
+<em class="math">{⟨exp_k⟩}</em> that provide the initial values for the
+variables <em class="math">{⟨var_k⟩}</em> are evaluated in an environment
 that includes all the <code class="code">letrec</code> bindings.  This permits recursion in the
 bindings, such as the mutual recursion of <code class="code">is_even</code> and <code class="code">is_odd</code> in the
 example above, or the evaluation of 10 factorial with

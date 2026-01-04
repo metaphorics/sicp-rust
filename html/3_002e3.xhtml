@@ -576,10 +576,10 @@ end of the list, and deleting an item from the queue would just be taking the
 <code class="code">cdr</code> of the list.  However, this representation is inefficient, because
 in order to insert an item we must scan the list until we reach the end.  Since
 the only method we have for scanning a list is by successive <code class="code">cdr</code>
-operations, this scanning requires <em class="math">{\Theta(n)}</em> steps for a list of <em class="math">n</em>
+operations, this scanning requires <em class="math">{Θ(n)}</em> steps for a list of <em class="math">n</em>
 items.  A simple modification to the list representation overcomes this
 disadvantage by allowing the queue operations to be implemented so that they
-require <em class="math">{\Theta(1)}</em> steps; that is, so that the number of steps needed is
+require <em class="math">{Θ(1)}</em> steps; that is, so that the number of steps needed is
 independent of the length of the queue.
 </p>
 <p>The difficulty with the list representation arises from the need to scan to
@@ -589,7 +589,7 @@ with a pointer to the beginning of the list, it gives us no easily accessible
 pointer to the end.
 </p>
 <p>In Rust, the standard library provides <code class="code">std::collections::VecDeque</code>, which
-efficiently handles insertions and deletions at both ends in <em class="math">{\Theta(1)}</em>
+efficiently handles insertions and deletions at both ends in <em class="math">{Θ(1)}</em>
 time. This replaces the need for manual pointer manipulation. However, to
 understand the underlying principles, we can still represent a queue as a list,
 together with an additional pointer that indicates the final pair in the list.
@@ -739,7 +739,7 @@ the predicate <code class="code">empty-deque?</code>, selectors <code class="cod
 <code class="code">rear-insert-deque!</code>, <code class="code">front-delete-deque!</code>,
 <code class="code">rear-delete-deque!</code>.  Show how to represent deques using pairs, and give
 implementations of the operations.<a class="footnote" id="DOCF144" href="#FOOT144"><sup>144</sup></a>
-All operations should be accomplished in <em class="math">{\Theta(1)}</em> steps.
+All operations should be accomplished in <em class="math">{Θ(1)}</em> steps.
 </p></blockquote>
 
 <hr />
@@ -1036,7 +1036,7 @@ where
 </pre></div>
 
 <p>Draw an environment diagram to analyze the computation of <code class="code">(memo-fib 3)</code>.
-Explain why <code class="code">memo-fib</code> computes the <em class="math">n^{\text{th}}</em> Fibonacci number in a number
+Explain why <code class="code">memo-fib</code> computes the <em class="math">n^{th}</em> Fibonacci number in a number
 of steps proportional to <em class="math">n</em>.  Would the scheme still work if we had simply
 defined <code class="code">memo-fib</code> to be <code class="code">(memoize fib)</code>?
 </p></blockquote>
@@ -2347,7 +2347,7 @@ constant boxes to 9, 5, and 32, respectively.  The connectors awaken the
 multipliers and the adder, which determine that there is not enough information
 to proceed.  If the user (or some other part of the network) sets <em class="math">C</em> to a
 value (say 25), the leftmost multiplier will be awakened, and it will set <em class="math">u</em>
-to <em class="math">{25 \cdot 9 = 225}</em>.  Then <em class="math">u</em> awakens the second multiplier, which sets <em class="math">v</em> to
+to <em class="math">{25 · 9 = 225}</em>.  Then <em class="math">u</em> awakens the second multiplier, which sets <em class="math">v</em> to
 45, and <em class="math">v</em> awakens the adder, which sets <em class="math">f</em> to 77.
 </p>
 <h4 class="subsubheading" id="Using-the-constraint-system"><span>Using the constraint system<a class="copiable-link" href="#Using-the-constraint-system"> &#182;</a></span></h4>
@@ -2942,9 +2942,9 @@ interpreter try to print a structure that contains cycles.  (See <a class="ref" 
 <h5 class="footnote-body-heading"><a id="FOOT145" href="#DOCF145">(145)</a></h5>
 <p>A full-adder is a basic circuit element used in adding
 two binary numbers.  Here A and B are the bits at corresponding positions in
-the two numbers to be added, and <em class="math">\rm C_{in}</em> is the carry bit from the
+the two numbers to be added, and <em class="math">C_{in}</em> is the carry bit from the
 addition one place to the right.  The circuit generates SUM, which is the sum
-bit in the corresponding position, and <em class="math">\rm C_{out}</em>, which is the carry
+bit in the corresponding position, and <em class="math">C_{out}</em>, which is the carry
 bit to be propagated to the left.</p>
 <h5 class="footnote-body-heading"><a id="FOOT146" href="#DOCF146">(146)</a></h5>
 <a class="anchor" id="Footnote-155"></a><p>These procedures are simply
@@ -2993,7 +2993,7 @@ because it avoids the need to name the intermediate expressions in a
 computation.  Our original formulation of the constraint language is cumbersome
 in the same way that many languages are cumbersome when dealing with operations
 on compound data.  For example, if we wanted to compute the product
-<em class="math">{(a + b) \cdot (c + d)}</em>, where the variables represent vectors, we could work
+<em class="math">{(a + b) · (c + d)}</em>, where the variables represent vectors, we could work
 in &#8220;imperative style,&#8221; using procedures that set the values of designated
 vector arguments but do not themselves return vectors as values:
 </p>

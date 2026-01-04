@@ -165,7 +165,7 @@ of as a sequence of no elements, the <a class="index-entry-id" id="index-empty-l
 <p>The use of pairs to represent sequences of elements as lists is accompanied by
 conventional programming techniques for manipulating lists by successively
 &#8220;<code class="code">cdr</code>ing down&#8221; the lists.  For example, the procedure <code class="code">list-ref</code>
-takes as arguments a list and a number <em class="math">n</em> and returns the <em class="math">n^{\text{th}}</em> item of
+takes as arguments a list and a number <em class="math">n</em> and returns the <em class="math">n^{th}</em> item of
 the list.  It is customary to number the elements of the list beginning with 0.
 The method for computing <code class="code">list-ref</code> is the following:
 </p>
@@ -964,7 +964,7 @@ argument and computes the sum of the squares of the leaves that are odd:
 </pre></div>
 
 <p>On the surface, this procedure is very different from the following one, which
-constructs a list of all the even Fibonacci numbers <em class="math">{\text{Fib}(k)}</em>, where
+constructs a list of all the even Fibonacci numbers <em class="math">{Fib(k)}</em>, where
 <em class="math">k</em> is less than or equal to a given integer <em class="math">n</em>:
 </p>
 <div class="example">
@@ -1843,7 +1843,7 @@ fn reverse&lt;T: Clone&gt;(sequence: &amp;[T]) -&gt; Vec&lt;T&gt; {
 <p>We can extend the sequence paradigm to include many computations that are
 commonly expressed using nested loops.<a class="footnote" id="DOCF77" href="#FOOT77"><sup>77</sup></a> Consider this problem: Given a positive integer <em class="math">n</em>, find all
 ordered pairs of distinct positive integers <em class="math">i</em> and <em class="math">j</em>, where
-<em class="math">{1 \le j} &lt; {i \le n}</em>, such that <em class="math">{i + j}</em> is prime.  For example, if <em class="math">n</em> is 6,
+<em class="math">{1 ≤ j} &lt; {i ≤ n}</em>, such that <em class="math">{i + j}</em> is prime.  For example, if <em class="math">n</em> is 6,
 then the pairs are the following:
 <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
   <mtable columnalign="center center center center center center center center" columnspacing="1em" rowspacing="4pt" columnlines="solid none none none none none none" rowlines="none solid">
@@ -2018,7 +2018,7 @@ ordered pairs of positive integers less than or equal to <em class="math">n</em>
 select those pairs whose sum is prime, and then, for each pair <em class="math">{(i, j)}</em>
 that passes through the filter, produce the triple <em class="math">{(i, j, i + j)}</em>.
 </p>
-<p>Here is a way to generate the sequence of pairs: For each integer <em class="math">{i \le n}</em>,
+<p>Here is a way to generate the sequence of pairs: For each integer <em class="math">{i ≤ n}</em>,
 enumerate the integers <em class="math">{j &lt; i}</em>, and for each such <em class="math">i</em> and <em class="math">j</em>
 generate the pair <em class="math">{(i, j)}</em>.  In terms of sequence operations, we map along
 the sequence <code class="code">(enumerate-interval 1 n)</code>.  For each <em class="math">i</em> in this sequence,
@@ -2139,7 +2139,7 @@ filter:
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-2_002e40"></a>Exercise 2.40:</strong> Define a procedure
 <code class="code">unique-pairs</code> that, given an integer <em class="math">n</em>, generates the sequence of
-pairs <em class="math">{(i, j)}</em> with <em class="math">{1 \le j} &lt; {i \le n}</em>.  Use <code class="code">unique-pairs</code>
+pairs <em class="math">{(i, j)}</em> with <em class="math">{1 ≤ j} &lt; {i ≤ n}</em>.  Use <code class="code">unique-pairs</code>
 to simplify the definition of <code class="code">prime-sum-pairs</code> given above.
 </p></blockquote>
 
@@ -2155,13 +2155,13 @@ how to place eight queens on a chessboard so that no queen is in check from any
 other (i.e., no two queens are in the same row, column, or diagonal).  One
 possible solution is shown in <a class="ref" href="#Figure-2_002e8">Figure 2.8</a>.  One way to solve the puzzle is
 to work across the board, placing a queen in each column.  Once we have placed
-<em class="math">{k - 1}</em> queens, we must place the <em class="math">k^{\text{th}}</em> queen in a position where it does
+<em class="math">{k - 1}</em> queens, we must place the <em class="math">k^{th}</em> queen in a position where it does
 not check any of the queens already on the board.  We can formulate this
 approach recursively: Assume that we have already generated the sequence of all
 possible ways to place <em class="math">{k - 1}</em> queens in the first <em class="math">{k - 1}</em> columns of the
 board.  For each of these ways, generate an extended set of positions by
-placing a queen in each row of the <em class="math">k^{\text{th}}</em> column.  Now filter these, keeping
-only the positions for which the queen in the <em class="math">k^{\text{th}}</em> column is safe with
+placing a queen in each row of the <em class="math">k^{th}</em> column.  Now filter these, keeping
+only the positions for which the queen in the <em class="math">k^{th}</em> column is safe with
 respect to the other queens.  This produces the sequence of all ways to place
 <em class="math">k</em> queens in the first <em class="math">k</em> columns.  By continuing this process, we will
 produce not only one solution, but all solutions to the puzzle.
@@ -2171,7 +2171,7 @@ produce not only one solution, but all solutions to the puzzle.
 <div class="caption"><p><strong class="strong">Figure 2.8:</strong> A solution to the eight-queens puzzle.</p></div></div>
 <p>We implement this solution as a procedure <code class="code">queens</code>, which returns a
 sequence of all solutions to the problem of placing <em class="math">n</em> queens on an
-<em class="math">{n \times n}</em> chessboard.  <code class="code">Queens</code> has an internal procedure
+<em class="math">{n × n}</em> chessboard.  <code class="code">Queens</code> has an internal procedure
 <code class="code">queen-cols</code> that returns the sequence of all ways to place queens in the
 first <em class="math">k</em> columns of the board.
 </p>
@@ -2206,12 +2206,12 @@ fn queens(board_size: usize) -&gt; Vec&lt;Board&gt; {
 
 <p>In this procedure <code class="code">rest-of-queens</code> is a way to place <em class="math">{k - 1}</em> queens in
 the first <em class="math">{k - 1}</em> columns, and <code class="code">new-row</code> is a proposed row in which to
-place the queen for the <em class="math">k^{\text{th}}</em> column.  Complete the program by implementing
+place the queen for the <em class="math">k^{th}</em> column.  Complete the program by implementing
 the representation for sets of board positions, including the procedure
 <code class="code">adjoin-position</code>, which adjoins a new row-column position to a set of
 positions, and <code class="code">empty-board</code>, which represents an empty set of positions.
 You must also write the procedure <code class="code">safe?</code>, which determines for a set of
-positions, whether the queen in the <em class="math">k^{\text{th}}</em> column is safe with respect to the
+positions, whether the queen in the <em class="math">k^{th}</em> column is safe with respect to the
 others.  (Note that we need only check whether the new queen is safe&#8212;the
 other queens are already guaranteed safe with respect to each other.)
 </p></blockquote>
@@ -2220,7 +2220,7 @@ other queens are already guaranteed safe with respect to each other.)
 <p><strong class="strong"><a class="anchor" id="Exercise-2_002e43"></a>Exercise 2.43:</strong> Louis Reasoner is having a
 terrible time doing <a class="ref" href="#Exercise-2_002e42">Exercise 2.42</a>.  His <code class="code">queens</code> procedure seems to
 work, but it runs extremely slowly.  (Louis never does manage to wait long
-enough for it to solve even the <em class="math">{6\times6}</em> case.)  When Louis asks Eva Lu Ator for
+enough for it to solve even the <em class="math">{6×6}</em> case.)  When Louis asks Eva Lu Ator for
 help, she points out that he has interchanged the order of the nested mappings
 in the <code class="code">flatmap</code>, writing it as
 </p>
@@ -2489,11 +2489,11 @@ corresponding selectors <code class="code">origin_frame</code>, <code class="cod
 <div class="float">
 <a class="anchor" id="Figure-2_002e15"></a><img class="image" src="fig/chap2/Fig2.15a.std.svg" alt="fig/chap2/Fig2.15a" />
 <div class="caption"><p><strong class="strong">Figure 2.15:</strong> A frame is described by three vectors &#8212; an origin and two edges.</p></div></div>
-<p>We will use coordinates in the unit square <em class="math">{(0 \le x, y \le 1)}</em> to specify
+<p>We will use coordinates in the unit square <em class="math">{(0 ≤ x, y ≤ 1)}</em> to specify
 images.  With each frame, we associate a <a class="index-entry-id" id="index-frame-coordinate-map"></a>
 <em class="dfn">frame coordinate map</em>, which
 will be used to shift and scale images to fit the frame.  The map transforms
-the unit square into the frame by mapping the vector <em class="math">{{\bf v} = (x, y)}</em> to
+the unit square into the frame by mapping the vector <em class="math">{{v} = (x, y)}</em> to
 the vector sum
 <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
   <mrow data-mjx-texclass="ORD">
@@ -2551,7 +2551,7 @@ square, the result vector will be in the frame.  For example,
 </pre></div>
 
 <blockquote class="quotation">
-<p><strong class="strong"><a class="anchor" id="Exercise-2_002e46"></a>Exercise 2.46:</strong> A two-dimensional vector <em class="math">\bf v</em>
+<p><strong class="strong"><a class="anchor" id="Exercise-2_002e46"></a>Exercise 2.46:</strong> A two-dimensional vector <em class="math">v</em>
 running from the origin to a point can be represented as a pair consisting of
 an <em class="math">x</em>-coordinate and a <em class="math">y</em>-coordinate.  Implement a data abstraction for
 vectors by giving a constructor <code class="code">Vec2::new</code> and corresponding selectors
@@ -3075,7 +3075,7 @@ type Point3D = (f64, f64, f64);
 
 <p>The number of possible values of a product type is the <em class="emph">product</em> of the
 number of values of each component. If <code class="code">bool</code> has 2 values and <code class="code">u8</code>
-has 256 values, then <code class="code">(bool, u8)</code> has <em class="math">{2 \times 256 = 512}</em> possible
+has 256 values, then <code class="code">(bool, u8)</code> has <em class="math">{2 × 256 = 512}</em> possible
 values. This multiplicative property is why we call them product types.
 </p>
 <h4 class="subsubheading" id="Sum-Types_003a-Choosing-Alternatives"><span>Sum Types: Choosing Alternatives<a class="copiable-link" href="#Sum-Types_003a-Choosing-Alternatives"> &#182;</a></span></h4>
@@ -3494,7 +3494,7 @@ compile-time verification.
 
 </li><li><strong class="strong">Never type <code class="code">!</code></strong>: 0 values (represents divergence)
 
-</li><li><strong class="strong">Product <code class="code">(A, B)</code></strong>: <em class="math">{|A| \times |B|}</em> values
+</li><li><strong class="strong">Product <code class="code">(A, B)</code></strong>: <em class="math">{|A| × |B|}</em> values
 
 </li><li><strong class="strong">Sum <code class="code">enum { A, B }</code></strong>: <em class="math">{|A| + |B|}</em> values
 
@@ -3502,9 +3502,9 @@ compile-time verification.
 </li></ul>
 
 <p>These algebraic properties have practical implications. For instance, the type
-<code class="code">(A, !)</code> has 0 values (since <em class="math">{|A| \times 0 = 0}</em>), making it
+<code class="code">(A, !)</code> has 0 values (since <em class="math">{|A| × 0 = 0}</em>), making it
 uninhabitable. Similarly, <code class="code">(A, ())</code> is isomorphic to <code class="code">A</code> (since
-<em class="math">{|A| \times 1 = |A|}</em>).
+<em class="math">{|A| × 1 = |A|}</em>).
 </p>
 <p>More profoundly, we can use algebraic reasoning to derive data structure
 properties. The type of a list:
@@ -3527,13 +3527,12 @@ properties. The type of a list:
 
 <p>Solving for <em class="math">L</em>:
 </p>
-\begin{align*}
-  L &amp;= 1 + A \times L \\
-  L - A \times L &amp;= 1 \\
-  L(1 - A) &amp;= 1 \\
-  L &amp;= \frac{1}{1-A} \\
-  L &amp;= 1 + A + A^2 + A^3 + \cdots
-\end{align*}
+<pre class="example-preformatted">L = 1 + A × L
+L - A × L = 1
+L(1 - A) = 1
+L = 1/(1-A)
+L = 1 + A + A² + A³ + …
+</pre>
 
 <p>This says a list is either empty (1), or one element (<em class="math">A</em>), or two elements
 (<em class="math">{A^2}</em>), and so on&#8212;exactly the intuition!

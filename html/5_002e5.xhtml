@@ -307,8 +307,8 @@ expression is accomplished by evaluating the component expressions.
 <p>The simplest method for combining instruction sequences is a procedure called
 <code class="code">append_instruction_sequences</code>.  It takes as arguments any number of
 instruction sequences that are to be executed sequentially; it appends them and
-returns the combined sequence.  That is, if <em class="math">{⟨\kern0.1em seq_1⟩}</em>
-and <em class="math">{⟨\kern0.1em seq_2⟩}</em> are sequences of instructions, then
+returns the combined sequence.  That is, if <em class="math">{⟨seq_1⟩}</em>
+and <em class="math">{⟨seq_2⟩}</em> are sequences of instructions, then
 evaluating
 </p>
 <div class="example lisp">
@@ -357,8 +357,8 @@ Otherwise, <code class="code">preserving</code> simply returns the appended inst
 Thus, for example,
 <code class="code">(preserving (list ⟨<var class="var">reg₁</var>⟩ ⟨<var class="var">reg₂</var>⟩) ⟨<var class="var">seg₁</var>⟩ ⟨<var class="var">seg₂</var>⟩)</code>
 produces one of the following four sequences of instructions, depending on how
-<em class="math">{⟨\kern0.1em seq_1⟩}</em> and <em class="math">{⟨\kern0.1em seq_2⟩}</em>
-use <em class="math">{⟨\kern0.1em reg_1⟩}</em> and <em class="math">{⟨\kern0.1em reg_2⟩}</em>:
+<em class="math">{⟨seq_1⟩}</em> and <em class="math">{⟨seq_2⟩}</em>
+use <em class="math">{⟨reg_1⟩}</em> and <em class="math">{⟨reg_2⟩}</em>:
 <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
   <mtable columnalign="left left left left" columnspacing="1em" rowspacing="4pt" columnlines="solid solid solid">
     <mtr>
@@ -2235,7 +2235,7 @@ procedure call in the predicate and needed for the procedure call and the
 <code class="code">return</code> linkage in the branches.
 </p>
 <blockquote class="quotation">
-<p><strong class="strong"><a class="anchor" id="Figure-5_002e17"></a>Figure 5.17:</strong> <em class="math">\downarrow</em> Compilation of the definition of the <code class="code">factorial</code> procedure.
+<p><strong class="strong"><a class="anchor" id="Figure-5_002e17"></a>Figure 5.17:</strong> <em class="math">↓</em> Compilation of the definition of the <code class="code">factorial</code> procedure.
 </p>
 <div class="example">
 <pre class="example-preformatted">vec![
@@ -2403,7 +2403,7 @@ produce the code shown in <a class="ref" href="#Figure-5_002e18">Figure 5.18</a>
 </p></blockquote>
 
 <blockquote class="quotation">
-<p><strong class="strong"><a class="anchor" id="Figure-5_002e18"></a>Figure 5.18:</strong> <em class="math">\downarrow</em> An example of compiler output.  See
+<p><strong class="strong"><a class="anchor" id="Figure-5_002e18"></a>Figure 5.18:</strong> <em class="math">↓</em> An example of compiler output.  See
 <a class="ref" href="#Exercise-5_002e35">Exercise 5.35</a>.
 </p>
 <div class="example lisp">

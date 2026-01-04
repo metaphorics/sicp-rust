@@ -835,7 +835,7 @@ fn primes() -&gt; impl Iterator&lt;Item = u64&gt; {
 
 <p>This definition is not so straightforward as it appears, because we will test
 whether a number <em class="math">n</em> is prime by checking whether <em class="math">n</em> is divisible by a
-prime (not by just any integer) less than or equal to <em class="math">\sqrt{n}</em>:
+prime (not by just any integer) less than or equal to <em class="math">√{n}</em>:
 </p>
 <div class="example">
 <pre class="example-preformatted">// Test primality using previously computed primes
@@ -860,7 +860,7 @@ next.  That is, for every <em class="math">n</em> we test for primality, either 
 prime (in which case there is a prime already generated that divides it) or
 <em class="math">n</em> is prime (in which case there is a prime already generated&#8212;i.e., a
 prime less than <em class="math">n</em>&#8212;that is greater than
-<em class="math">\sqrt{n}</em>).<a class="footnote" id="DOCF182" href="#FOOT182"><sup>182</sup></a>
+<em class="math">√{n}</em>).<a class="footnote" id="DOCF182" href="#FOOT182"><sup>182</sup></a>
 </p>
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-3_002e53"></a>Exercise 3.53:</strong> Without running the program,
@@ -878,7 +878,7 @@ let s = std::iter::successors(Some(1_i64), |&amp;n| Some(n + n));
 <code class="code">mul_streams</code>, analogous to <code class="code">add_streams</code>, that produces the
 elementwise product of its two input streams.  Use this together with the
 stream of <code class="code">integers</code> to complete the following definition of the stream
-whose <em class="math">n^{\text{th}}</em> element (counting from 0) is <em class="math">{n + 1}</em> factorial:
+whose <em class="math">n^{th}</em> element (counting from 0) is <em class="math">{n + 1}</em> factorial:
 </p>
 <div class="example">
 <pre class="example-preformatted">// factorials: 1!, 2!, 3!, 4!, ... = 1, 2, 6, 24, ...
@@ -896,7 +896,7 @@ fn factorials() -&gt; impl Iterator&lt;Item = u64&gt; {
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-3_002e55"></a>Exercise 3.55:</strong> Define a procedure
 <code class="code">partial_sums</code> that takes as argument a stream <em class="math">S</em> and returns the
-stream whose elements are <em class="math">S_0</em>, <em class="math">{S_0 + S_1}</em>, <em class="math">{S_0 + S_1} + {S_2, \dots}</em>.
+stream whose elements are <em class="math">S_0</em>, <em class="math">{S_0 + S_1}</em>, <em class="math">{S_0 + S_1} + {S_2, …}</em>.
 For example, <code class="code">(partial-sums integers)</code> should be the
 stream 1, 3, 6, 10, 15, &#8230;.
 </p></blockquote>
@@ -967,7 +967,7 @@ where
 
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-3_002e57"></a>Exercise 3.57:</strong> How many additions are performed
-when we compute the <em class="math">n^{\text{th}}</em> Fibonacci number using the definition of
+when we compute the <em class="math">n^{th}</em> Fibonacci number using the definition of
 <code class="code">fibs</code> based on the <code class="code">add_streams</code> procedure?  Show that the number of
 additions would be exponentially greater if we had implemented <code class="code">delay(⟨<var class="var">exp</var>⟩)</code>
 simply as <code class="code">|| ⟨<var class="var">exp</var>⟩</code>, without using the
@@ -1171,11 +1171,11 @@ of terms.  In a similar way, we can work with <a class="index-entry-id" id="inde
   </mtable>
 </math>
 represented as infinite streams.  We will represent the series <em class="math">{a_0 +
-a_1 x} + {a_2 x^2} + {a_3 x^3 + \dots}</em> as the stream whose
+a_1 x} + {a_2 x^2} + {a_3 x^3 + …}</em> as the stream whose
 elements are the coefficients <em class="math">a_0</em>, <em class="math">a_1</em>, <em class="math">a_2</em>, <em class="math">a_3</em>, &#8230;.
 </p>
 <ol class="enumerate" type="a" start="1">
-<li> The integral of the series <em class="math">{a_0 + a_1 x} + {a_2 x^2} + {a_3 x^3 + \dots}</em> is the series
+<li> The integral of the series <em class="math">{a_0 + a_1 x} + {a_2 x^2} + {a_3 x^3 + …}</em> is the series
 <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
   <mi>c</mi>
   <mo>+</mo>
@@ -1237,12 +1237,12 @@ elements are the coefficients <em class="math">a_0</em>, <em class="math">a_1</e
 </math>
 where <em class="math">c</em> is any constant.  Define a procedure <code class="code">integrate_series</code> that
 takes as input a stream <em class="math">a_0</em>, <em class="math">a_1</em>, <em class="math">a_2</em>, &#8230; representing a power
-series and returns the stream <em class="math">a_0</em>, <em class="math">{{1\over2}a_1}</em>, <em class="math">{{1\over3}a_2}</em>, &#8230; of
+series and returns the stream <em class="math">a_0</em>, <em class="math">{{1/2}a_1}</em>, <em class="math">{{1/3}a_2}</em>, &#8230; of
 coefficients of the non-constant terms of the integral of the series.  (Since
 the result has no constant term, it doesn&#8217;t represent a power series; when we
 use <code class="code">integrate_series</code>, we will <code class="code">cons</code> on the appropriate constant.)
 
-</li><li> The function <em class="math">{x \mapsto e^x}</em> is its own derivative.  This implies that
+</li><li> The function <em class="math">{x ↦ e^x}</em> is its own derivative.  This implies that
 <em class="math">e^x</em> and the integral of <em class="math">e^x</em> are the same series, except for the
 constant term, which is <em class="math">{e^0 = 1}</em>.  Accordingly, we can generate the series
 for <em class="math">e^x</em> as
@@ -1314,7 +1314,7 @@ where
 }
 </pre></div>
 
-<p>You can test your procedure by verifying that <em class="math">{\sin^2x + \cos^2x = 1,}</em>
+<p>You can test your procedure by verifying that <em class="math">{sin^2x + cos^2x = 1,}</em>
 using the series from <a class="ref" href="#Exercise-3_002e59">Exercise 3.59</a>.
 </p></blockquote>
 
@@ -1504,7 +1504,7 @@ guesses.  If we like, we can write a procedure that keeps generating terms
 until the answer is good enough.  (See <a class="ref" href="#Exercise-3_002e64">Exercise 3.64</a>.)
 </p>
 <p>Another iteration that we can treat in the same way is to generate an
-approximation to <em class="math">\pi</em>, based upon the alternating series that we saw in
+approximation to <em class="math">π</em>, based upon the alternating series that we saw in
 <a class="ref" href="1_002e3.xhtml#g_t1_002e3_002e1">Procedures as Arguments</a>:
 <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
   <mrow data-mjx-texclass="ORD">
@@ -1574,9 +1574,9 @@ fn pi_stream() -&gt; impl Iterator&lt;Item = f64&gt; {
 //     3.339..., 2.976..., 3.283..., 3.017...]
 </pre></div>
 
-<p>This gives us a stream of better and better approximations to <em class="math">\pi</em>,
+<p>This gives us a stream of better and better approximations to <em class="math">π</em>,
 although the approximations converge rather slowly.  Eight terms of the
-sequence bound the value of <em class="math">\pi</em> between 3.284 and 3.017.
+sequence bound the value of <em class="math">π</em> between 3.284 and 3.017.
 </p>
 <p>So far, our use of the stream of states approach is not much different from
 updating state variables.  But streams give us an opportunity to do some
@@ -1588,7 +1588,7 @@ new sequence that converges to the same value as the original, only faster.
 <p>One such accelerator, due to the eighteenth-century Swiss mathematician
 Leonhard Euler, works well with sequences that are partial sums of alternating
 series (series of terms with alternating signs).  In Euler&#8217;s technique, if
-<em class="math">S_n</em> is the <em class="math">n^{\text{th}}</em> term of the original sum sequence, then the
+<em class="math">S_n</em> is the <em class="math">n^{th}</em> term of the original sum sequence, then the
 accelerated sequence has terms
 <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
   <msub>
@@ -1675,7 +1675,7 @@ fn euler_transform&lt;I: Iterator&lt;Item = f64&gt;&gt;(s: I) -&gt; impl Iterato
 </pre></div>
 
 <p>We can demonstrate Euler acceleration with our sequence of approximations to
-<em class="math">\pi</em>:
+<em class="math">π</em>:
 </p>
 <div class="example">
 <pre class="example-preformatted">// euler_transform(pi_stream().take(20)).take(8)
@@ -1934,7 +1934,7 @@ where
 }
 </pre></div>
 
-<p>We can demonstrate this kind of &#8220;super-acceleration&#8221; of the <em class="math">\pi</em>
+<p>We can demonstrate this kind of &#8220;super-acceleration&#8221; of the <em class="math">π</em>
 sequence:
 </p>
 <div class="example">
@@ -1946,8 +1946,8 @@ sequence:
 </pre></div>
 
 <p>The result is impressive.  Taking eight terms of the sequence yields the
-correct value of <em class="math">\pi</em> to 14 decimal places.  If we had used only the
-original <em class="math">\pi</em> sequence, we would need to compute on the order of <em class="math">10^{13}</em>
+correct value of <em class="math">π</em> to 14 decimal places.  If we had used only the
+original <em class="math">π</em> sequence, we would need to compute on the order of <em class="math">10^{13}</em>
 terms (i.e., expanding the series far enough so that the individual terms are
 less than <em class="math">10^{-13}</em>) to get that much accuracy!
 </p>
@@ -2049,7 +2049,7 @@ fn stream_limit&lt;I: Iterator&lt;Item = f64&gt;&gt;(stream: I, tolerance: f64) 
   <mo>&#x2026;</mo>
 </math>
 to compute three sequences of approximations to the natural logarithm of 2, in
-the same way we did above for <em class="math">\pi</em>.  How rapidly do these sequences
+the same way we did above for <em class="math">π</em>.  How rapidly do these sequences
 converge?
 </p></blockquote>
 
@@ -2062,9 +2062,9 @@ represented as loops, because the &#8220;looping&#8221; must range over an infin
 </p>
 <p>For example, suppose we want to generalize the <code class="code">prime-sum-pairs</code> procedure
 of <a class="ref" href="2_002e2.xhtml#g_t2_002e2_002e3">Sequences as Conventional Interfaces</a> to produce the stream of pairs of <em class="emph">all</em> integers
-<em class="math">{(i, j)}</em> with <em class="math">{i \le j}</em> such that <em class="math">{i + j}</em> is prime.  If
+<em class="math">{(i, j)}</em> with <em class="math">{i ≤ j}</em> such that <em class="math">{i + j}</em> is prime.  If
 <code class="code">int_pairs</code> is the sequence of all pairs of integers <em class="math">{(i, j)}</em> with
-<em class="math">{i \le j}</em>, then our required stream is simply<a class="footnote" id="DOCF185" href="#FOOT185"><sup>185</sup></a>
+<em class="math">{i ≤ j}</em>, then our required stream is simply<a class="footnote" id="DOCF185" href="#FOOT185"><sup>185</sup></a>
 </p>
 <div class="example">
 <pre class="example-preformatted">// Filter integer pairs (i, j) where i &lt;= j and i + j is prime
@@ -2713,7 +2713,7 @@ more qualitative answers if you find yourself getting bogged down.)
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-3_002e67"></a>Exercise 3.67:</strong> Modify the <code class="code">pairs</code> procedure
 so that <code class="code">(pairs integers integers)</code> will produce the stream of <em class="emph">all</em>
-pairs of integers <em class="math">{(i, j)}</em> (without the condition <em class="math">{i \le j}</em>).  Hint:
+pairs of integers <em class="math">{(i, j)}</em> (without the condition <em class="math">{i ≤ j}</em>).  Hint:
 You will need to mix in an additional stream.
 </p></blockquote>
 
@@ -2750,10 +2750,10 @@ integers)</code> using Louis&#8217;s definition of <code class="code">pairs</cod
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-3_002e69"></a>Exercise 3.69:</strong> Write a procedure <code class="code">triples</code>
 that takes three infinite streams, <em class="math">S</em>, <em class="math">T</em>, and <em class="math">U</em>, and produces the
-stream of triples <em class="math">{(S_i, T_j, U_k)}</em> such that <em class="math">{i \le j \le k}</em>.
+stream of triples <em class="math">{(S_i, T_j, U_k)}</em> such that <em class="math">{i ≤ j ≤ k}</em>.
 Use <code class="code">triples</code> to generate the stream of all Pythagorean
 triples of positive integers, i.e., the triples <em class="math">{(i, j, k)}</em> such that
-<em class="math">{i \le j}</em> and <em class="math">{i^2 + j^2 = k^2}</em>.
+<em class="math">{i ≤ j}</em> and <em class="math">{i^2 + j^2 = k^2}</em>.
 </p></blockquote>
 
 <blockquote class="quotation">
@@ -2775,10 +2775,10 @@ computes a weighting function, and generates the stream of pairs, ordered
 according to weight.  Use your procedure to generate
 </p>
 <ol class="enumerate" type="a" start="1">
-<li> the stream of all pairs of positive integers <em class="math">{(i, j)}</em> with <em class="math">{i \le j}</em>
+<li> the stream of all pairs of positive integers <em class="math">{(i, j)}</em> with <em class="math">{i ≤ j}</em>
 ordered according to the sum <em class="math">{i + j}</em>,
 
-</li><li> the stream of all pairs of positive integers <em class="math">{(i, j)}</em> with <em class="math">{i \le j}</em>,
+</li><li> the stream of all pairs of positive integers <em class="math">{(i, j)}</em> with <em class="math">{i ≤ j}</em>,
 where neither <em class="math">i</em> nor <em class="math">j</em> is divisible by 2, 3, or 5, and the pairs are
 ordered according to the sum <em class="math">{2i + 3j + 5ij}</em>.
 
@@ -3130,7 +3130,7 @@ where
 
 <p>In general, every caller of <code class="code">integral</code> must now <code class="code">delay</code> the integrand
 argument.  We can demonstrate that the <code class="code">solve</code> procedure works by
-approximating <em class="math">{e \approx 2.718}</em> by computing the value at <em class="math">{y = 1}</em> of the
+approximating <em class="math">{e ≈ 2.718}</em> by computing the value at <em class="math">{y = 1}</em> of the
 solution to the differential equation <em class="math">{dy / dt = y}</em> with initial
 condition <em class="math">{y(0) = 1}</em>:
 </p>
@@ -4221,7 +4221,7 @@ assignment is that we can increase the modularity of our systems by
 encapsulating, or &#8220;hiding,&#8221; parts of the state of a large system within local
 variables.  Stream models can provide an equivalent modularity without the use
 of assignment.  As an illustration, we can reimplement the Monte Carlo
-estimation of <em class="math">\pi</em>, which we examined in <a class="ref" href="3_002e1.xhtml#g_t3_002e1_002e2">The Benefits of Introducing Assignment</a>, from a
+estimation of <em class="math">π</em>, which we examined in <a class="ref" href="3_002e1.xhtml#g_t3_002e1_002e2">The Benefits of Introducing Assignment</a>, from a
 stream-processing point of view.
 </p>
 <p>The key modularity issue was that we wished to hide the internal state of a
@@ -4281,9 +4281,9 @@ let cesaro_stream = map_successive_pairs(
 
 <p>The <code class="code">cesaro-stream</code> is now fed to a <code class="code">monte-carlo</code> procedure, which
 produces a stream of estimates of probabilities.  The results are then
-converted into a stream of estimates of <em class="math">\pi</em>.  This version of the program
+converted into a stream of estimates of <em class="math">π</em>.  This version of the program
 doesn&#8217;t need a parameter telling how many trials to perform.  Better estimates
-of <em class="math">\pi</em> (from performing more experiments) are obtained by looking farther
+of <em class="math">π</em> (from performing more experiments) are obtained by looking farther
 into the <code class="code">pi</code> stream:
 </p>
 <div class="example">
@@ -4563,12 +4563,12 @@ indicates that this is a single value rather than a stream.</p>
 <a class="ref" href="#Exercise-3_002e50">Exercise 3.50</a>.</p>
 <h5 class="footnote-body-heading"><a id="FOOT182" href="#DOCF182">(182)</a></h5>
 <p>This last point is very subtle and relies on
-the fact that <em class="math">{p_{n+1} \le p_n^2}.</em>  (Here, <em class="math">p_k</em> denotes the
-<em class="math">k^{\text{th}}</em> prime.)  Estimates such as these are very difficult to establish.  The
+the fact that <em class="math">{p_{n+1} ≤ p_n^2}.</em>  (Here, <em class="math">p_k</em> denotes the
+<em class="math">k^{th}</em> prime.)  Estimates such as these are very difficult to establish.  The
 ancient proof by Euclid that there are an infinite number of primes shows that
-<em class="math">p_{n+1} \le {p_1 p_2 \cdots p_n + 1}</em>, and no substantially
+<em class="math">p_{n+1} ≤ {p_1 p_2 ·s p_n + 1}</em>, and no substantially
 better result was proved until 1851, when the Russian mathematician
-P. L. Chebyshev established that <em class="math">p_{n+1} \le 2p_n</em> for all <em class="math">n</em>.
+P. L. Chebyshev established that <em class="math">p_{n+1} ≤ 2p_n</em> for all <em class="math">n</em>.
 This result, originally conjectured in 1845, is known as <a class="index-entry-id" id="index-Bertrand_0027s-hypothesis"></a>
 <em class="dfn">Bertrand&#8217;s hypothesis</em>.
 A proof can be found in section 22.3 of <a class="ref" href="References.xhtml#Hardy-and-Wright-1960">Hardy and Wright 1960</a>.</p>

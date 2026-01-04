@@ -642,7 +642,7 @@ It is true that
     <mo>,</mo>
   </mrow>
 </math>
-but we would like the program to know that <em class="math">{x \cdot 0 = 0}</em>, <em class="math">{1 \cdot y = y}</em>,
+but we would like the program to know that <em class="math">{x · 0 = 0}</em>, <em class="math">{1 · y = y}</em>,
 and <em class="math">{0 + y = y}</em>.  The answer for the second example should have been
 simply <code class="code">y</code>.  As the third example shows, this becomes a serious issue when
 the expressions are complex.
@@ -898,11 +898,11 @@ order to check whether an object is a member of a set, <code class="code">elemen
 may have to scan the entire set. (In the worst case, the object turns out not
 to be in the set.)  Hence, if the set has <em class="math">n</em> elements,
 <code class="code">element_of_set</code>  might take up to <em class="math">n</em> steps.  Thus, the number of
-steps required grows as <em class="math">{\Theta(n)}</em>.  The number of steps required by
-<code class="code">adjoin_set</code>, which uses this operation, also grows as <em class="math">{\Theta(n)}</em>.
+steps required grows as <em class="math">{Θ(n)}</em>.  The number of steps required by
+<code class="code">adjoin_set</code>, which uses this operation, also grows as <em class="math">{Θ(n)}</em>.
 For <code class="code">intersection_set</code>, which does an <code class="code">element_of_set</code> check for
 each element of <code class="code">set1</code>, the number of steps required grows as the product
-of the sizes of the sets involved, or <em class="math">{\Theta(n^2)}</em> for two sets of size
+of the sizes of the sets involved, or <em class="math">{Θ(n^2)}</em> for two sets of size
 <em class="math">n</em>.  The same will be true of <code class="code">union_set</code>.
 </p>
 <blockquote class="quotation">
@@ -962,11 +962,11 @@ searching at a point near the beginning of the list and that other times we
 will still need to examine most of the list.  On the average we should expect
 to have to examine about half of the items in the set.  Thus, the average
 number of steps required will be about <em class="math">{n / 2}</em>.  This is still
-<em class="math">{\Theta(n)}</em> growth, but it does save us, on the average, a factor of 2
+<em class="math">{Θ(n)}</em> growth, but it does save us, on the average, a factor of 2
 in number of steps over the previous implementation.
 </p>
 <p>We obtain a more impressive speedup with <code class="code">intersection_set</code>.  In the
-unordered representation this operation required <em class="math">{\Theta(n^2)}</em> steps,
+unordered representation this operation required <em class="math">{Θ(n^2)}</em> steps,
 because we performed a complete scan of <code class="code">set2</code> for each element of
 <code class="code">set1</code>.  But with the ordered representation, we can use a more clever
 method.  Begin by comparing the initial elements, <code class="code">x1</code> and <code class="code">x2</code>, of
@@ -1005,8 +1005,8 @@ step we reduce the intersection problem to computing intersections of smaller
 sets&#8212;removing the first element from <code class="code">set1</code> or <code class="code">set2</code> or both.
 Thus, the number of steps required is at most the sum of the sizes of
 <code class="code">set1</code> and <code class="code">set2</code>, rather than the product of the sizes as with the
-unordered representation.  This is <em class="math">{\Theta(n)}</em> growth rather than
-<em class="math">{\Theta(n^2)}</em>&#8212;a considerable speedup, even for sets of moderate size.
+unordered representation.  This is <em class="math">{Θ(n)}</em> growth rather than
+<em class="math">{Θ(n^2)}</em>&#8212;a considerable speedup, even for sets of moderate size.
 </p>
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-2_002e61"></a>Exercise 2.61:</strong> Give an implementation of
@@ -1017,7 +1017,7 @@ unordered representation.
 </p></blockquote>
 
 <blockquote class="quotation">
-<p><strong class="strong"><a class="anchor" id="Exercise-2_002e62"></a>Exercise 2.62:</strong> Give a <em class="math">{\Theta(n)}</em>
+<p><strong class="strong"><a class="anchor" id="Exercise-2_002e62"></a>Exercise 2.62:</strong> Give a <em class="math">{Θ(n)}</em>
 implementation of <code class="code">union_set</code> for sets represented as ordered lists.
 </p></blockquote>
 
@@ -1046,7 +1046,7 @@ be about half the size of the original.  Thus, in one step we have reduced the
 problem of searching a tree of size <em class="math">n</em> to searching a tree of size <em class="math">{n / 2}</em>.
 Since the size of the tree is halved at each step, we should expect that the
 number of steps needed to search a tree of size <em class="math">n</em> grows as
-<em class="math">{\Theta(\log n)}</em>.<a class="footnote" id="DOCF97" href="#FOOT97"><sup>97</sup></a> For large sets, this will be a
+<em class="math">{Θ(log n)}</em>.<a class="footnote" id="DOCF97" href="#FOOT97"><sup>97</sup></a> For large sets, this will be a
 significant speedup over the previous representations.
 </p>
 <p>We can represent trees by using lists.  Each node will be a list of three
@@ -1092,7 +1092,7 @@ described above:
 </pre></div>
 
 <p>Adjoining an item to a set is implemented similarly and also requires
-<em class="math">{\Theta(\log n)}</em> steps.  To adjoin an item <code class="code">x</code>, we compare
+<em class="math">{Θ(log n)}</em> steps.  To adjoin an item <code class="code">x</code>, we compare
 <code class="code">x</code> with the node entry to determine whether <code class="code">x</code> should be added to
 the right or to the left branch, and having adjoined <code class="code">x</code> to the
 appropriate branch we piece this newly constructed branch together with the
@@ -1140,7 +1140,7 @@ that transforms an arbitrary tree into a balanced tree with the same elements.
 Then we can perform this transformation after every few <code class="code">adjoin_set</code>
 operations to keep our set in balance.  There are also other ways to solve this
 problem, most of which involve designing new data structures for which
-searching and insertion both can be done in <em class="math">{\Theta(\log n)}</em>
+searching and insertion both can be done in <em class="math">{Θ(log n)}</em>
 steps.<a class="footnote" id="DOCF99" href="#FOOT99"><sup>99</sup></a>
 </p>
 <div class="float">
@@ -1232,7 +1232,7 @@ the list <code class="code">(1 3 5 7 9 11)</code>.
 
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-2_002e65"></a>Exercise 2.65:</strong> Use the results of <a class="ref" href="#Exercise-2_002e63">Exercise 2.63</a>
-and <a class="ref" href="#Exercise-2_002e64">Exercise 2.64</a> to give <em class="math">{\Theta(n)}</em> implementations of
+and <a class="ref" href="#Exercise-2_002e64">Exercise 2.64</a> to give <em class="math">{Θ(n)}</em> implementations of
 <code class="code">union_set</code> and <code class="code">intersection_set</code> for sets implemented as (balanced)
 binary trees.<a class="footnote" id="DOCF100" href="#FOOT100"><sup>100</sup></a>
 </p></blockquote>
@@ -1309,7 +1309,7 @@ representing data as sequences of ones and zeros (bits).  For example, the
 ASCII standard code used to represent text in computers encodes each character
 as a sequence of seven bits.  Using seven bits allows us to distinguish <em class="math">2^7</em>,
 or 128, possible different characters.  In general, if we want to distinguish
-<em class="math">n</em> different symbols, we will need to use <em class="math">{\log_2n}</em> bits per
+<em class="math">n</em> different symbols, we will need to use <em class="math">{log_2n}</em> bits per
 symbol.  If all our messages are made up of the eight symbols A, B, C, D, E, F,
 G, and H, we can choose a code with three bits per character, for example
 </p>
@@ -1731,7 +1731,7 @@ for the eight-symbol alphabet?
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-2_002e71"></a>Exercise 2.71:</strong> Suppose we have a Huffman tree
 for an alphabet of <em class="math">n</em> symbols, and that the relative frequencies of the
-symbols are <em class="math">{1, 2, 4, \dots, 2^{n-1}}</em>.  Sketch the tree for <em class="math">{n=5}</em>; for
+symbols are <em class="math">{1, 2, 4, …, 2^{n-1}}</em>.  Sketch the tree for <em class="math">{n=5}</em>; for
 <em class="math">{n=10}</em>.  In such a tree (for general <em class="math">n</em>) how many bits are required to
 encode the most frequent symbol?  The least frequent symbol?
 </p></blockquote>

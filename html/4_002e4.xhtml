@@ -807,7 +807,7 @@ db.employees.iter()
 </pre></div>
 
 <p>is satisfied by all sets of values for the pattern variables that
-simultaneously satisfy <em class="math">{⟨\kern0.1em query_1⟩}</em> <span class="r">…</span> <em class="math">{⟨\kern0.1em query_n⟩}</em>.
+simultaneously satisfy <em class="math">{⟨query_1⟩}</em> <span class="r">…</span> <em class="math">{⟨query_n⟩}</em>.
 </p>
 <p>As for simple queries, the system processes a compound query by finding all
 assignments to the pattern variables that satisfy the query, then displaying
@@ -843,7 +843,7 @@ db.employees.iter()
 </pre></div>
 
 <p>is satisfied by all sets of values for the pattern variables that satisfy at
-least one of <em class="math">{⟨\kern0.1em query_1⟩}</em> <span class="r">…</span> <em class="math">{⟨\kern0.1em query_n⟩}</em>.
+least one of <em class="math">{⟨query_1⟩}</em> <span class="r">…</span> <em class="math">{⟨query_n⟩}</em>.
 </p>
 <p>Compound queries can also be formed with <code class="code">not</code>. For example,
 </p>
@@ -863,7 +863,7 @@ In general,
 </pre></div>
 
 <p>is satisfied by all assignments to the pattern variables that do not satisfy
-<em class="math">{⟨\kern0.1em query_1⟩}</em>.<a class="footnote" id="DOCF248" href="#FOOT248"><sup>248</sup></a>
+<em class="math">{⟨query_1⟩}</em>.<a class="footnote" id="DOCF248" href="#FOOT248"><sup>248</sup></a>
 </p>
 <p>The final combining form is called <code class="code">lisp-value</code>.  When <code class="code">lisp-value</code>
 is the first element of a pattern, it specifies that the next element is a Lisp
@@ -876,8 +876,8 @@ arguments.  In general,
 </pre></div>
 
 <p>will be satisfied by assignments to the pattern variables for which the
-<code class="code">⟨</code><var class="var">predicate</var><code class="code">⟩</code> applied to the instantiated <em class="math">{⟨\kern0.1em arg_1⟩}</em> <span class="r">…</span>
-<em class="math">{⟨\kern0.1em arg_n⟩}</em> is true.  For example, to find all people whose salary is
+<code class="code">⟨</code><var class="var">predicate</var><code class="code">⟩</code> applied to the instantiated <em class="math">{⟨arg_1⟩}</em> <span class="r">…</span>
+<em class="math">{⟨arg_n⟩}</em> is true.  For example, to find all people whose salary is
 greater than $30,000 we could write<a class="footnote" id="DOCF249" href="#FOOT249"><sup>249</sup></a>
 </p>
 <div class="example">

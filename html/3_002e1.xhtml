@@ -512,14 +512,14 @@ using random numbers to implement a technique called <a class="index-entry-id" i
 <p>The Monte Carlo method consists of choosing sample experiments at random from a
 large set and then making deductions on the basis of the probabilities
 estimated from tabulating the results of those experiments.  For example, we
-can approximate <em class="math">\pi</em> using the fact that <em class="math">{6/\pi^2}</em> is the probability
+can approximate <em class="math">π</em> using the fact that <em class="math">{6/π^2}</em> is the probability
 that two integers chosen at random will have no factors in common; that is,
 that their greatest common divisor will be 1.<a class="footnote" id="DOCF128" href="#FOOT128"><sup>128</sup></a> To
-obtain the approximation to <em class="math">\pi</em>, we perform a large number of experiments.
+obtain the approximation to <em class="math">π</em>, we perform a large number of experiments.
 In each experiment we choose two integers at random and perform a test to see
 if their <abbr class="abbr">GCD</abbr> is 1.  The fraction of times that the test is passed
-gives us our estimate of <em class="math">{6/\pi^2}</em>, and from this we obtain our
-approximation to <em class="math">\pi</em>.
+gives us our estimate of <em class="math">{6/π^2}</em>, and from this we obtain our
+approximation to <em class="math">π</em>.
 </p>
 <p>The heart of our program is a procedure <code class="code">monte-carlo</code>, which takes as
 arguments the number of times to try an experiment, together with the
@@ -611,7 +611,7 @@ simulation.  Consider computing the area of a region of space described by a
 predicate <em class="math">{P(x, y)}</em> that is true for points <em class="math">{(x, y)}</em> in the
 region and false for points not in the region.  For example, the region
 contained within a circle of radius 3 centered at (5, 7) is described by the
-predicate that tests whether <em class="math">{(x - 5)^2} + {(y - 7)^2 \le 3^2}</em>.  To estimate
+predicate that tests whether <em class="math">{(x - 5)^2} + {(y - 7)^2 ≤ 3^2}</em>.  To estimate
 the area of the region described by such a predicate, begin by choosing a
 rectangle that contains the region.  For example, a rectangle with diagonally
 opposite corners at (2, 4) and (8, 10) contains the circle above.  The desired
@@ -628,8 +628,8 @@ estimate of the integral.
 takes as arguments a predicate <code class="code">P</code>, upper and lower bounds <code class="code">x1</code>,
 <code class="code">x2</code>, <code class="code">y1</code>, and <code class="code">y2</code> for the rectangle, and the number of trials
 to perform in order to produce the estimate.  Your procedure should use the
-same <code class="code">monte-carlo</code> procedure that was used above to estimate <em class="math">\pi</em>.
-Use your <code class="code">estimate-integral</code> to produce an estimate of <em class="math">\pi</em> by
+same <code class="code">monte-carlo</code> procedure that was used above to estimate <em class="math">π</em>.
+Use your <code class="code">estimate-integral</code> to produce an estimate of <em class="math">π</em> by
 measuring the area of a unit circle.
 </p>
 <p>You will find it useful to have a procedure that returns a number chosen at

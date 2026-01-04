@@ -151,7 +151,7 @@ integers from <code class="code">a</code> through <code class="code">b</code>:
   </mrow>
 </math>
 
-which converges to <em class="math">{\pi / 8}</em> (very slowly):<a class="footnote" id="DOCF44" href="#FOOT44"><sup>44</sup></a>
+which converges to <em class="math">{π / 8}</em> (very slowly):<a class="footnote" id="DOCF44" href="#FOOT44"><sup>44</sup></a>
 </p>
 <div class="example">
 <pre class="example-preformatted">fn pi_sum(a: i64, b: i64) -&gt; f64 {
@@ -312,7 +312,7 @@ fn sum_integers(a: i64, b: i64) -&gt; i64 {
 }
 </pre></div>
 
-<p>Using these procedures, we can compute an approximation to <em class="math">\pi</em>:
+<p>Using these procedures, we can compute an approximation to <em class="math">π</em>:
 </p>
 <div class="example">
 <pre class="example-preformatted">8.0 * pi_sum(1, 1000)
@@ -605,7 +605,7 @@ abstractions that can be captured as higher-order procedures.<a class="footnote"
 procedure called <code class="code">product</code> that returns the product of the values of a
 function at points over a given range.  Show how to define <code class="code">factorial</code> in
 terms of <code class="code">product</code>.  Also use <code class="code">product</code> to compute approximations to
-<em class="math">\pi</em> using the formula<a class="footnote" id="DOCF47" href="#FOOT47"><sup>47</sup></a>
+<em class="math">π</em> using the formula<a class="footnote" id="DOCF47" href="#FOOT47"><sup>47</sup></a>
 
 <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
   <mfrac>
@@ -707,7 +707,7 @@ Show how to express the following using <code class="code">filtered_accumulate</
 
 </li><li> the product of all the positive integers less than <em class="math">n</em> that are relatively
 prime to <em class="math">n</em> (i.e., all positive integers <em class="math">{i &lt; n}</em> such that
-<em class="math">{\text{GCD}(i, n) = 1}</em>).
+<em class="math">{GCD(i, n) = 1}</em>).
 
 </li></ol>
 </blockquote>
@@ -1152,7 +1152,7 @@ between <em class="math">x</em> and <em class="math">b</em>.  Continuing in this
 smaller intervals on which <em class="math">f</em> must have a zero.  When we reach a point where
 the interval is small enough, the process stops.  Since the interval of
 uncertainty is reduced by half at each step of the process, the number of steps
-required grows as <em class="math">{\Theta(\log(L\, /\, T))}</em>, where <em class="math">L</em> is the
+required grows as <em class="math">{Θ(log(L\, /\, T))}</em>, where <em class="math">L</em> is the
 length of the original interval and <em class="math">T</em> is the error tolerance (that is, the
 size of the interval we will consider &#8220;small enough&#8221;).  Here is a procedure
 that implements this strategy:
@@ -1225,8 +1225,8 @@ where
 }
 </pre></div>
 
-<p>The following example uses the half-interval method to approximate <em class="math">\pi</em> as
-the root between 2 and 4 of <em class="math">{\sin x = 0}</em>:
+<p>The following example uses the half-interval method to approximate <em class="math">π</em> as
+the root between 2 and 4 of <em class="math">{sin x = 0}</em>:
 </p>
 <div class="example">
 <pre class="example-preformatted">half_interval_method(f64::sin, 2.0, 4.0)
@@ -1339,7 +1339,7 @@ cosine function, starting with 1 as an initial approximation:<a class="footnote"
 </pre></div>
 
 <p>Similarly, we can find a solution to the equation
-<em class="math">{y = \sin y + \cos y}</em>:
+<em class="math">{y = sin y + cos y}</em>:
 </p>
 <div class="example">
 <pre class="example-preformatted">fixed_point(|y| y.sin() + y.cos(), 1.0)
@@ -1353,7 +1353,7 @@ readily formulate the square-root computation as a fixed-point search.
 Computing the square root of some number <em class="math">x</em> requires finding a <em class="math">y</em> such
 that <em class="math">{y^2 = x}</em>.  Putting this equation into the equivalent form
 <em class="math">{y = x / y}</em>, we recognize that we are looking for a fixed point of the
-function<a class="footnote" id="DOCF53" href="#FOOT53"><sup>53</sup></a> <em class="math">{y \mapsto x / y}</em>,
+function<a class="footnote" id="DOCF53" href="#FOOT53"><sup>53</sup></a> <em class="math">{y ↦ x / y}</em>,
 and we can therefore try to compute square roots as
 </p>
 <div class="example">
@@ -1372,10 +1372,10 @@ over, oscillating about the answer.
 much.  Since the answer is always between our guess <em class="math">y</em> and <em class="math">{x / y}</em>, we
 can make a new guess that is not as far from <em class="math">y</em> as <em class="math">{x / y}</em> by averaging
 <em class="math">y</em> with <em class="math">{x / y}</em>, so that the next guess after <em class="math">y</em> is
-<em class="math">{{1\over2}(y + x / y)}</em>
+<em class="math">{{1/2}(y + x / y)}</em>
 instead of <em class="math">{x / y}</em>.  The process of making such a sequence of
 guesses is simply the process of looking for a fixed point of
-<em class="math">y \mapsto {{1\over2}(y + x / y)}</em>:
+<em class="math">y ↦ {{1/2}(y + x / y)}</em>:
 </p>
 <div class="example">
 <pre class="example-preformatted">fn sqrt(x: f64) -&gt; f64 {
@@ -1383,7 +1383,7 @@ guesses is simply the process of looking for a fixed point of
 }
 </pre></div>
 
-<p>(Note that <em class="math">y = {{1\over2}(y + x / y)}</em> is a simple transformation of the
+<p>(Note that <em class="math">y = {{1/2}(y + x / y)}</em> is a simple transformation of the
 equation <em class="math">{y = x / y;}</em> to derive it, add <em class="math">y</em> to both sides of the
 equation and divide by 2.)
 </p>
@@ -1397,8 +1397,8 @@ averaging successive approximations to a solution, a technique that we call
 </p>
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-1_002e35"></a>Exercise 1.35:</strong> Show that the golden ratio
-<em class="math">\varphi</em> (<a class="ref" href="1_002e2.xhtml#g_t1_002e2_002e2">Tree Recursion</a>) is a fixed point of the transformation
-<em class="math">{x \mapsto 1 + 1 / x}</em>, and use this fact to compute <em class="math">\varphi</em> by means
+<em class="math">φ</em> (<a class="ref" href="1_002e2.xhtml#g_t1_002e2_002e2">Tree Recursion</a>) is a fixed point of the transformation
+<em class="math">{x ↦ 1 + 1 / x}</em>, and use this fact to compute <em class="math">φ</em> by means
 of the <code class="code">fixed_point</code> procedure.
 </p></blockquote>
 
@@ -1406,12 +1406,12 @@ of the <code class="code">fixed_point</code> procedure.
 <p><strong class="strong"><a class="anchor" id="Exercise-1_002e36"></a>Exercise 1.36:</strong> Modify <code class="code">fixed_point</code> so that
 it prints the sequence of approximations it generates, using the <code class="code">newline</code>
 and <code class="code">display</code> primitives shown in <a class="ref" href="1_002e2.xhtml#Exercise-1_002e22">Exercise 1.22</a>.  Then find a
-solution to <em class="math">{x^x = 1000}</em> by finding a fixed point of <em class="math">x \mapsto
-{\log(1000) / \log(x)}</em>.  (Use Scheme&#8217;s primitive <code class="code">log</code>
+solution to <em class="math">{x^x = 1000}</em> by finding a fixed point of <em class="math">x ↦
+{log(1000) / log(x)}</em>.  (Use Scheme&#8217;s primitive <code class="code">log</code>
 procedure, which computes natural logarithms.)  Compare the number of steps
 this takes with and without average damping.  (Note that you cannot start
 <code class="code">fixed_point</code> with a guess of 1, as this would cause division by
-<em class="math">{\log(1) = 0}</em>.)
+<em class="math">{log(1) = 0}</em>.)
 </p></blockquote>
 
 <blockquote class="quotation">
@@ -1476,8 +1476,8 @@ this takes with and without average damping.  (Note that you cannot start
 </math>
 
 As an example, one can show that the infinite continued fraction expansion with
-the <em class="math">N_i</em> and the <em class="math">D_i</em> all equal to 1 produces <em class="math">{1 / \varphi}</em>, where
-<em class="math">\varphi</em> is the golden ratio (described in <a class="ref" href="1_002e2.xhtml#g_t1_002e2_002e2">Tree Recursion</a>).  One way to
+the <em class="math">N_i</em> and the <em class="math">D_i</em> all equal to 1 produces <em class="math">{1 / φ}</em>, where
+<em class="math">φ</em> is the golden ratio (described in <a class="ref" href="1_002e2.xhtml#g_t1_002e2_002e2">Tree Recursion</a>).  One way to
 approximate an infinite continued fraction is to truncate the expansion after a
 given number of terms.  Such a truncation&#8212;a so-called <a class="index-entry-id" id="index-k_002dterm"></a>
 finite continued fraction
@@ -1527,7 +1527,7 @@ Suppose that <code class="code">n</code> and <code class="code">d</code> are pro
 index <em class="math">i</em>) that return the <em class="math">N_i</em> and <em class="math">D_i</em> of the terms of the
 continued fraction.  Define a procedure <code class="code">cont_frac</code> such that evaluating
 <code class="code">(cont-frac n d k)</code> computes the value of the <em class="math">k</em>-term finite continued
-fraction.  Check your procedure by approximating <em class="math">{1 / \varphi}</em> using
+fraction.  Check your procedure by approximating <em class="math">{1 / φ}</em> using
 
 <div class="example">
 <pre class="example-preformatted">cont_frac(|_i| 1.0, |_i| 1.0, k)
@@ -1625,7 +1625,7 @@ values are themselves procedures.
 <p>We can illustrate this idea by looking again at the fixed-point example
 described at the end of <a class="ref" href="#g_t1_002e3_002e3">Procedures as General Methods</a>.  We formulated a new version of
 the square-root procedure as a fixed-point search, starting with the
-observation that <em class="math">\sqrt{x}</em> is a fixed-point of the function <em class="math">{y \mapsto
+observation that <em class="math">√{x}</em> is a fixed-point of the function <em class="math">{y ↦
 x / y}</em>.  Then we used average damping to make the approximations converge.
 Average damping is a useful general technique in itself.  Namely, given a
 function <em class="math">f</em>, we consider the function whose value at <em class="math">x</em> is equal to the
@@ -1674,7 +1674,7 @@ follows:
 </pre></div>
 
 <p>Notice how this formulation makes explicit the three ideas in the method:
-fixed-point search, average damping, and the function <em class="math">{y \mapsto x / y}</em>.
+fixed-point search, average damping, and the function <em class="math">{y ↦ x / y}</em>.
 It is instructive to compare this formulation of the square-root method with
 the original version given in <a class="ref" href="1_002e1.xhtml#g_t1_002e1_002e7">Example: Square Roots by Newton&#8217;s Method</a>.  Bear in mind that these
 procedures express the same process, and notice how much clearer the idea
@@ -1684,7 +1684,7 @@ Experienced programmers know how to choose procedural formulations that are
 particularly perspicuous, and where useful elements of the process are exposed
 as separate entities that can be reused in other applications.  As a simple
 example of reuse, notice that the cube root of <em class="math">x</em> is a fixed point of the
-function <em class="math">{y \mapsto x / y^2}</em>, so we can immediately generalize our
+function <em class="math">{y ↦ x / y^2}</em>, so we can immediately generalize our
 square-root procedure to one that extracts cube roots:<a class="footnote" id="DOCF55" href="#FOOT55"><sup>55</sup></a>
 </p>
 <div class="example">
@@ -1701,8 +1701,8 @@ square-root procedure to one that extracts cube roots:<a class="footnote" id="DO
 <p>When we first introduced the square-root procedure, in <a class="ref" href="1_002e1.xhtml#g_t1_002e1_002e7">Example: Square Roots by Newton&#8217;s Method</a>, we
 mentioned that this was a special case of <a class="index-entry-id" id="index-Newton_0027s-method"></a>
 <em class="dfn">Newton&#8217;s method</em>.
-If <em class="math">{x \mapsto g(x)}</em> is a differentiable function, then a solution of the equation
-<em class="math">{g(x) = 0}</em> is a fixed point of the function <em class="math">{x \mapsto f(x)}</em> where
+If <em class="math">{x ↦ g(x)}</em> is a differentiable function, then a solution of the equation
+<em class="math">{g(x) = 0}</em> is a fixed point of the function <em class="math">{x ↦ f(x)}</em> where
 
 <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
   <mrow data-mjx-texclass="ORD">
@@ -1748,7 +1748,7 @@ Newton&#8217;s method converges very rapidly to a solution of <em class="math">{
 <p>In order to implement Newton&#8217;s method as a procedure, we must first express the
 idea of derivative.  Note that &#8220;derivative,&#8221; like average damping, is
 something that transforms a function into another function.  For instance, the
-derivative of the function <em class="math">{x \mapsto x^3}</em> is the function <em class="math">{x \mapsto 3x^2}</em>.
+derivative of the function <em class="math">{x ↦ x^3}</em> is the function <em class="math">{x ↦ 3x^2}</em>.
 In general, if <em class="math">g</em> is a function and <em class="math">{dx}</em> is a small number,
 then the derivative <em class="math">{Dg}</em> of <em class="math">g</em> is the function whose value at any
 number <em class="math">x</em> is given (in the limit of small <em class="math">{dx}</em>) by
@@ -1807,7 +1807,7 @@ where
 
 <p>Like <code class="code">average_damp</code>, <code class="code">deriv</code> is a procedure that takes a procedure as
 argument and returns a procedure as value.  For example, to approximate the
-derivative of <em class="math">{x \mapsto x^3}</em> at 5 (whose exact value is 75) we can evaluate
+derivative of <em class="math">{x ↦ x^3}</em> at 5 (whose exact value is 75) we can evaluate
 </p>
 <div class="example">
 <pre class="example-preformatted">fn cube(x: f64) -&gt; f64 {
@@ -1847,7 +1847,7 @@ this section, and <code class="code">newtons_method</code> is readily defined in
 It takes as arguments a procedure that computes the function for which we want
 to find a zero, together with an initial guess.  For instance, to find the
 square root of <em class="math">x</em>, we can use Newton&#8217;s method to find a zero of the function
-<em class="math">{y \mapsto y^2 - x}</em> starting with an initial guess of 1.<a class="footnote" id="DOCF58" href="#FOOT58"><sup>58</sup></a>
+<em class="math">{y ↦ y^2 - x}</em> starting with an initial guess of 1.<a class="footnote" id="DOCF58" href="#FOOT58"><sup>58</sup></a>
 </p>
 <p>This provides yet another form of the square-root procedure:
 </p>
@@ -1888,7 +1888,7 @@ guess.  The returned result is a fixed point of the transformed function.
 </p>
 <p>Using this abstraction, we can recast the first square-root computation from
 this section (where we look for a fixed point of the average-damped version of
-<em class="math">{y \mapsto x / y}</em>) as an instance of this general method:
+<em class="math">{y ↦ x / y}</em>) as an instance of this general method:
 </p>
 <div class="example">
 <pre class="example-preformatted">fn sqrt(x: f64) -&gt; f64 {
@@ -1898,7 +1898,7 @@ this section (where we look for a fixed point of the average-damped version of
 
 <p>Similarly, we can express the second square-root computation from this section
 (an instance of Newton&#8217;s method that finds a fixed point of the Newton
-transform of <em class="math">{y \mapsto y^2 - x}</em>) as
+transform of <em class="math">{y ↦ y^2 - x}</em>) as
 </p>
 <div class="example">
 <pre class="example-preformatted">fn sqrt(x: f64) -&gt; f64 {
@@ -1991,7 +1991,7 @@ with any type. The <code class="code">Clone</code> bound is required because we 
 <p><strong class="strong"><a class="anchor" id="Exercise-1_002e42"></a>Exercise 1.42:</strong> Let <em class="math">f</em> and <em class="math">g</em> be two
 one-argument functions.  The <a class="index-entry-id" id="index-composition"></a>
 <em class="dfn">composition</em> <em class="math">f</em> after <em class="math">g</em> is defined
-to be the function <em class="math">{x \mapsto f(g(x))}</em>.  Define a procedure
+to be the function <em class="math">{x ↦ f(g(x))}</em>.  Define a procedure
 <code class="code">compose</code> that implements composition.  For example, if <code class="code">inc</code> is a
 procedure that adds 1 to its argument,
 </p>
@@ -2020,15 +2020,15 @@ functions with different input and output types.
 
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-1_002e43"></a>Exercise 1.43:</strong> If <em class="math">f</em> is a numerical function
-and <em class="math">n</em> is a positive integer, then we can form the <em class="math">n^{\text{th}}</em> repeated
+and <em class="math">n</em> is a positive integer, then we can form the <em class="math">n^{th}</em> repeated
 application of <em class="math">f</em>, which is defined to be the function whose value at <em class="math">x</em>
-is <em class="math">{f(f(\dots (f(x))\dots ))}</em>.  For example, if <em class="math">f</em> is the
-function <em class="math">{x \mapsto x + 1}</em>, then the <em class="math">n^{\text{th}}</em> repeated application of <em class="math">f</em> is
-the function <em class="math">{x \mapsto x + n}</em>.  If <em class="math">f</em> is the operation of squaring a
-number, then the <em class="math">n^{\text{th}}</em> repeated application of <em class="math">f</em> is the function that
-raises its argument to the <em class="math">{2^n\text{-th}}</em> power.  Write a procedure that takes as
+is <em class="math">{f(f(… (f(x))… ))}</em>.  For example, if <em class="math">f</em> is the
+function <em class="math">{x ↦ x + 1}</em>, then the <em class="math">n^{th}</em> repeated application of <em class="math">f</em> is
+the function <em class="math">{x ↦ x + n}</em>.  If <em class="math">f</em> is the operation of squaring a
+number, then the <em class="math">n^{th}</em> repeated application of <em class="math">f</em> is the function that
+raises its argument to the <em class="math">{2^n-th}</em> power.  Write a procedure that takes as
 inputs a procedure that computes <em class="math">f</em> and a positive integer <em class="math">n</em> and returns
-the procedure that computes the <em class="math">n^{\text{th}}</em> repeated application of <em class="math">f</em>.  Your
+the procedure that computes the <em class="math">n^{th}</em> repeated application of <em class="math">f</em>.  Your
 procedure should be able to be used as follows:
 </p>
 <div class="example">
@@ -2077,17 +2077,17 @@ the <i class="i">n</i>-fold smoothed function of any given function using <code 
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-1_002e45"></a>Exercise 1.45:</strong> We saw in <a class="ref" href="#g_t1_002e3_002e3">Procedures as General Methods</a>
 that attempting to compute square roots by naively finding a fixed point of
-<em class="math">{y \mapsto x / y}</em> does not converge, and that this can be fixed by average
+<em class="math">{y ↦ x / y}</em> does not converge, and that this can be fixed by average
 damping.  The same method works for finding cube roots as fixed points of the
-average-damped <em class="math">{y \mapsto x / y^2}</em>.  Unfortunately, the process does not
+average-damped <em class="math">{y ↦ x / y^2}</em>.  Unfortunately, the process does not
 work for fourth roots&#8212;a single average damp is not enough to make a
-fixed-point search for <em class="math">{y \mapsto x / y^3}</em> converge.  On the other hand, if
+fixed-point search for <em class="math">{y ↦ x / y^3}</em> converge.  On the other hand, if
 we average damp twice (i.e., use the average damp of the average damp of
-<em class="math">{y \mapsto x / y^3}</em>) the fixed-point search does converge.  Do some experiments
-to determine how many average damps are required to compute <em class="math">n^{\text{th}}</em> roots as a
-fixed-point search based upon repeated average damping of <em class="math">{y \mapsto x / y^{\kern0.1em n-1}}</em>.
+<em class="math">{y ↦ x / y^3}</em>) the fixed-point search does converge.  Do some experiments
+to determine how many average damps are required to compute <em class="math">n^{th}</em> roots as a
+fixed-point search based upon repeated average damping of <em class="math">{y ↦ x / y^{n-1}}</em>.
 Use this to implement a simple procedure for computing
-<em class="math">n^{\text{th}}</em> roots using <code class="code">fixed_point</code>, <code class="code">average_damp</code>, and the
+<em class="math">n^{th}</em> roots using <code class="code">fixed_point</code>, <code class="code">average_damp</code>, and the
 <code class="code">repeated</code> procedure of <a class="ref" href="#Exercise-1_002e43">Exercise 1.43</a>.  Assume that any arithmetic
 operations you need are available as primitives.
 </p></blockquote>
@@ -2569,8 +2569,8 @@ for <em class="math">i</em> in <em class="math">[a, b]</em>.
 
 </li><li> <code class="code">factorial(n: u64) -&gt; u64</code>&#8212;product of integers from 1 to <em class="math">n</em>.
 
-</li><li> The continued fraction from <a class="ref" href="#Exercise-1_002e37">Exercise 1.37</a>, computing <em class="math">1/\varphi</em>
-where <em class="math">\varphi</em> is the golden ratio.  Use <code class="code">fold</code> to compute the
+</li><li> The continued fraction from <a class="ref" href="#Exercise-1_002e37">Exercise 1.37</a>, computing <em class="math">1/φ</em>
+where <em class="math">φ</em> is the golden ratio.  Use <code class="code">fold</code> to compute the
 continued fraction from the bottom up.  (Hint: fold over an iterator of
 <code class="code">N</code> and <code class="code">D</code> values.)
 </li></ol>
@@ -2589,7 +2589,7 @@ it&#8217;s needed versus <code class="code">fold</code>.
 <h5 class="footnote-body-heading"><a id="FOOT44" href="#DOCF44">(44)</a></h5>
 <p>This series, usually
 written in the equivalent form
-<em class="math">{\pi\over4} = {1 - {1\over3} + {1\over5}} - {{1\over7} + \dots}</em>,
+<em class="math">{π/4} = {1 - {1/3} + {1/5}} - {{1/7} + …}</em>,
 is due to Leibniz.  We&#8217;ll see how to use this as the basis for some
 fancy numerical tricks in <a class="ref" href="3_002e5.xhtml#g_t3_002e5_002e3">Exploiting the Stream Paradigm</a>.</p>
 <h5 class="footnote-body-heading"><a id="FOOT45" href="#DOCF45">(45)</a></h5>
@@ -2646,8 +2646,8 @@ arguments a number of items that are printed as error messages.</p>
 during a boring lecture: Set your calculator to radians mode and then
 repeatedly press the <code class="code">cos</code> button until you obtain the fixed point.</p>
 <h5 class="footnote-body-heading"><a id="FOOT53" href="#DOCF53">(53)</a></h5>
-<p><em class="math">\mapsto</em> (pronounced &#8220;maps to&#8221;) is the mathematician&#8217;s way of
-writing functions.  <em class="math">{y \mapsto x / y}</em> means <code class="code">|y| x / y</code>,
+<p><em class="math">↦</em> (pronounced &#8220;maps to&#8221;) is the mathematician&#8217;s way of
+writing functions.  <em class="math">{y ↦ x / y}</em> means <code class="code">|y| x / y</code>,
 that is, the function whose value at <em class="math">y</em> is <em class="math">{x / y}</em>.</p>
 <h5 class="footnote-body-heading"><a id="FOOT54" href="#DOCF54">(54)</a></h5>
 <p>Observe that this is a combination whose
