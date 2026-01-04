@@ -12,12 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
-
 /**
  * @fileoverview
  * Registers a language handler for Common Lisp and related languages.
- *
  *
  * To use, include prettify.js and this file in your HTML page.
  * Then put your code in an HTML tag like
@@ -29,7 +26,6 @@
  *     lang-lisp - Lisp
  *     lang-scm - Scheme
  *     lang-lsp - FAT 8.3 filename version of lang-lisp.
- *
  *
  * I used http://www.devincook.com/goldparser/doc/meta-language/grammar-LISP.htm
  * as the basis, but added line comments that start with ; and changed the atom
@@ -57,41 +53,42 @@
  * [Quote]  ::= ''      !Quote = do not evaluate
  *            |
  *
- *
  * I used <a href="http://gigamonkeys.com/book/">Practical Common Lisp</a> as
  * the basis for the reserved word list.
- *
  *
  * @author mikesamuel@gmail.com
  */
 
-PR['registerLangHandler'](
-    PR['createSimpleLexer'](
-        [
-         ['opn',             /^\(+/, null, '('],
-         ['clo',             /^\)+/, null, ')'],
-         ['err',             /error/, null],  // (A.R)
-         // A line comment that starts with ;
-         [PR['PR_COMMENT'],     /^;[^\r\n]*/, null, ';'],
-         // Whitespace
-         [PR['PR_PLAIN'],       /^[\t\n\r \xA0]+/, null, '\t\n\r \xA0'],
-         // A double quoted, possibly multi-line, string.
-         [PR['PR_STRING'],      /^\"(?:[^\"\\]|\\[\s\S])*(?:\"|$)/, null, '"']
-        ],
-        [
-         [PR['PR_KEYWORD'],     /^(?:and|begin|c[ad]+r|case|catch|con[ds]|def(?:ine|un)|delay|do|else|eq|equal|if|lambda|let(?:rec)?|or|(?:quasi|un)?quote(?:-splicing)?|set)\b(?!-)/, null],
-         // For highlighting the 'error' keyword and angle brackets (A.R)
-         [PR['PR_ERROR'],     /^error\b/, null],
-         [PR['PR_LITERAL'],
-          /^[+\-]?(?:[0#]x[0-9a-f]+|\d+\/\d+|(?:\.\d+|\d+(?:\.\d*)?)(?:[ed][+\-]?\d+)?)/i],
-         // A single quote possibly followed by a word that optionally ends with
-         // = ! or ?.
-         [PR['PR_LITERAL'],
-          /^\'(?:-*(?:\w|\\[\x21-\x7e])(?:[\w-]*|\\[\x21-\x7e])[=!?]?)?/],
-         // A word that optionally ends with = ! or ?.
-         [PR['PR_PLAIN'],
-          /^-*(?:[a-z_]|\\[\x21-\x7e])(?:[\w-]*|\\[\x21-\x7e])[=!?]?/i],
-         // A printable non-space non-special character. (A.R. added angle brackets)
-         [PR['PR_PUNCTUATION'], /^[^\w\t\n\r \xA0()\"\\\';⟨⟩]+/]
-        ]),
-    ['cl', 'el', 'lisp', 'lsp', 'scm', 'ss', 'rkt']);
+PR["registerLangHandler"](
+  PR["createSimpleLexer"](
+    [
+      ["opn", /^\(+/, null, "("],
+      ["clo", /^\)+/, null, ")"],
+      ["err", /error/, null], // (A.R)
+      // A line comment that starts with ;
+      [PR["PR_COMMENT"], /^;[^\r\n]*/, null, ";"],
+      // Whitespace
+      [PR["PR_PLAIN"], /^[\t\n\r \xA0]+/, null, "\t\n\r \xA0"],
+      // A double quoted, possibly multi-line, string.
+      [PR["PR_STRING"], /^\"(?:[^\"\\]|\\[\s\S])*(?:\"|$)/, null, "\""],
+    ],
+    [
+      [
+        PR["PR_KEYWORD"],
+        /^(?:and|begin|c[ad]+r|case|catch|con[ds]|def(?:ine|un)|delay|do|else|eq|equal|if|lambda|let(?:rec)?|or|(?:quasi|un)?quote(?:-splicing)?|set)\b(?!-)/,
+        null,
+      ],
+      // For highlighting the 'error' keyword and angle brackets (A.R)
+      [PR["PR_ERROR"], /^error\b/, null],
+      [PR["PR_LITERAL"], /^[+\-]?(?:[0#]x[0-9a-f]+|\d+\/\d+|(?:\.\d+|\d+(?:\.\d*)?)(?:[ed][+\-]?\d+)?)/i],
+      // A single quote possibly followed by a word that optionally ends with
+      // = ! or ?.
+      [PR["PR_LITERAL"], /^\'(?:-*(?:\w|\\[\x21-\x7e])(?:[\w-]*|\\[\x21-\x7e])[=!?]?)?/],
+      // A word that optionally ends with = ! or ?.
+      [PR["PR_PLAIN"], /^-*(?:[a-z_]|\\[\x21-\x7e])(?:[\w-]*|\\[\x21-\x7e])[=!?]?/i],
+      // A printable non-space non-special character. (A.R. added angle brackets)
+      [PR["PR_PUNCTUATION"], /^[^\w\t\n\r \xA0()\"\\\';⟨⟩]+/],
+    ],
+  ),
+  ["cl", "el", "lisp", "lsp", "scm", "ss", "rkt"],
+);

@@ -1,303 +1,338 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="en" lang="en">
-<!-- Created by GNU Texinfo 5.1, http://www.gnu.org/software/texinfo/ -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
-<title>Structure and Interpretation of Computer Programs, 2e: 5.3</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>5.3 (Structure and Interpretation of Computer Programs, 2e)</title>
 
-<meta name="description" content="Structure and Interpretation of Computer Programs, 2e: 5.3" />
-<meta name="keywords" content="Structure and Interpretation of Computer Programs, 2e: 5.3" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="5.3 (Structure and Interpretation of Computer Programs, 2e)" />
+<meta name="keywords" content="5.3 (Structure and Interpretation of Computer Programs, 2e)" />
+<meta name="resource-type" content="document" />
+<meta name="distribution" content="global" />
 <meta name="Generator" content="texi2any" />
-<meta charset="utf-8" />
-<link href="index.xhtml#Top" rel="start" title="Top" />
-<link href="Term-Index.xhtml#Term-Index" rel="index" title="Term Index" />
-<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents" />
-<link href="Chapter-5.xhtml#Chapter-5" rel="prev" title="Chapter 5" />
-<link href="5_002e4.xhtml#g_t5_002e4" rel="next" title="5.4" />
-<link href="5_002e2.xhtml#g_t5_002e2_002e4" rel="prev" title="5.2.4" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 
+<link href="index.xhtml" rel="start" title="Top" />
+<link href="Term-Index.xhtml" rel="index" title="Term Index" />
+<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents" />
+<link href="Chapter-5.xhtml" rel="up" title="Chapter 5" />
+<link href="5_002e4.xhtml#g_t5_002e4" rel="next" title="5.4" />
+<link href="5_002e2.xhtml#g_t5_002e2_002e5" rel="prev" title="5.2.5" />
+<style type="text/css">
+<!--
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+div.example {margin-left: 3.2em}
+span.r {font-family: initial; font-weight: normal; font-style: normal}
+span:hover a.copiable-link {visibility: visible}
+ul.mark-bullet {list-style-type: disc}
+-->
+</style>
 <link href="css/style.css" rel="stylesheet" type="text/css" />
 <link href="css/prettify.css" rel="stylesheet" type="text/css" />
-
-<script src="js/jquery.min.js" type="text/javascript"></script>
-<script src="js/footnotes.js" type="text/javascript"></script>
-<script src="js/browsertest.js" type="text/javascript"></script>
+<script src="js/highlight/prettify.js" type="text/javascript"></script>
+<script src="js/highlight/lang-lisp.js" type="text/javascript"></script>
+<script src="js/highlight/lang-rust.js" type="text/javascript"></script>
 </head>
 
-<body>
-<section><span class="top jump" title="Jump to top"><a href="#pagetop" accesskey="t">⇡</a></span><a id="pagetop"></a><a id="g_t5_002e3"></a>
-<nav class="header">
+<body lang="en">
+<div class="section-level-extent" id="g_t5_002e3">
+<div class="nav-panel">
 <p>
-Next: <a href="5_002e4.xhtml#g_t5_002e4" accesskey="n" rel="next">5.4</a>, Prev: <a href="5_002e2.xhtml#g_t5_002e2" accesskey="p" rel="prev">5.2</a>, Up: <a href="Chapter-5.xhtml#Chapter-5" accesskey="u" rel="prev">Chapter 5</a>   [<a href="index.xhtml#SEC_Contents" title="Table of contents" accesskey="c" rel="contents">Contents</a>]</p>
-</nav>
-<a id="Storage-Allocation-and-Garbage-Collection"></a>
-<h3 class="section"><span class="secnum">5.3</span><span class="sectitle">Storage Allocation and Garbage Collection</span></h3>
+Next: <a href="5_002e4.xhtml#g_t5_002e4" accesskey="n" rel="next">The Explicit-Control Evaluator</a>, Previous: <a href="5_002e2.xhtml#g_t5_002e2_002e5" accesskey="p" rel="prev">WebAssembly Backend</a>, Up: <a href="Chapter-5.xhtml" accesskey="u" rel="up">Computing with Register Machines</a> &#160; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
+</div>
+<h3 class="section" id="Storage-Allocation-and-Garbage-Collection"><span>5.3 Storage Allocation and Garbage Collection<a class="copiable-link" href="#Storage-Allocation-and-Garbage-Collection"> &#182;</a></span></h3>
 
-<p>In section <a href="5_002e4.xhtml#g_t5_002e4">5.4</a>, we will show how to implement a Scheme evaluator as a
+<p>In section <a class="ref" href="5_002e4.xhtml#g_t5_002e4">The Explicit-Control Evaluator</a>, we will show how to implement a Scheme evaluator as a
 register machine.  In order to simplify the discussion, we will assume that our
-register machines can be equipped with a <a id="index-list_002dstructured-memory"></a>
-<em>list-structured memory</em>, in
+register machines can be equipped with a <a class="index-entry-id" id="index-list_002dstructured-memory"></a>
+<em class="dfn">list-structured memory</em>, in
 which the basic operations for manipulating list-structured data are primitive.
 Postulating the existence of such a memory is a useful abstraction when one is
 focusing on the mechanisms of control in a Scheme interpreter, but this does
 not reflect a realistic view of the actual primitive data operations of
-contemporary computers.  To obtain a more complete picture of how a Lisp system
+contemporary computers.  To obtain a more complete picture of how a
+language implementation
 operates, we must investigate how list structure can be represented in a way
 that is compatible with conventional computer memories.
 </p>
 <p>There are two considerations in implementing list structure.  The first is
-purely an issue of representation: how to represent the “box-and-pointer”
-structure of Lisp pairs, using only the storage and addressing capabilities of
+purely an issue of representation: how to represent the &#8220;box-and-pointer&#8221;
+structure of pairs, using only the storage and addressing capabilities of
 typical computer memories.  The second issue concerns the management of memory
-as a computation proceeds.  The operation of a Lisp system depends crucially on
-the ability to continually create new data objects.  These include objects that
-are explicitly created by the Lisp procedures being interpreted as well as
-structures created by the interpreter itself, such as environments and argument
-lists.  Although the constant creation of new data objects would pose no
-problem on a computer with an infinite amount of rapidly addressable memory,
-computer memories are available only in finite sizes (more’s the pity).  Lisp
-systems thus provide an <a id="index-automatic-storage-allocation"></a>
-<em>automatic storage allocation</em> facility to
-support the illusion of an infinite memory.  When a data object is no longer
+as a computation proceeds.  The operation of a dynamic language depends
+crucially on the ability to continually create new data objects.  These include
+objects that are explicitly created by the procedures being interpreted as well
+as structures created by the interpreter itself, such as environments and
+argument lists.  Although the constant creation of new data objects would pose
+no problem on a computer with an infinite amount of rapidly addressable memory,
+computer memories are available only in finite sizes (more&#8217;s the pity).
+Dynamic systems thus provide an <a class="index-entry-id" id="index-automatic-storage-allocation"></a>
+<em class="dfn">automatic storage allocation</em> facility
+to support the illusion of an infinite memory.  When a data object is no longer
 needed, the memory allocated to it is automatically recycled and used to
 construct new data objects.  There are various techniques for providing such
 automatic storage allocation.  The method we shall discuss in this section is
-called <a id="index-garbage-collection"></a>
-<em>garbage collection</em>.
+called <a class="index-entry-id" id="index-garbage-collection"></a>
+<em class="dfn">garbage collection</em>.
 </p>
-<a id="g_t5_002e3_002e1"></a>
-<a id="Memory-as-Vectors"></a>
-<h4 class="subsection"><span class="secnum">5.3.1</span><span class="sectitle">Memory as Vectors</span></h4>
+<hr />
+<div class="subsection-level-extent" id="g_t5_002e3_002e1">
+<h4 class="subsection" id="Memory-as-Vectors"><span>5.3.1 Memory as Vectors<a class="copiable-link" href="#Memory-as-Vectors"> &#182;</a></span></h4>
 
 <p>A conventional computer memory can be thought of as an array of cubbyholes,
 each of which can contain a piece of information.  Each cubbyhole has a unique
-name, called its <a id="index-address"></a>
-<em>address</em> or <a id="index-location"></a>
-<em>location</em>.  Typical memory
+name, called its <a class="index-entry-id" id="index-address"></a>
+<em class="dfn">address</em> or <a class="index-entry-id" id="index-location"></a>
+<em class="dfn">location</em>.  Typical memory
 systems provide two primitive operations: one that fetches the data stored in a
 specified location and one that assigns new data to a specified location.
 Memory addresses can be incremented to support sequential access to some set of
 the cubbyholes.  More generally, many important data operations require that
 memory addresses be treated as data, which can be stored in memory locations
 and manipulated in machine registers.  The representation of list structure is
-one application of such <a id="index-address-arithmetic"></a>
-<em>address arithmetic</em>.
+one application of such <a class="index-entry-id" id="index-address-arithmetic"></a>
+<em class="dfn">address arithmetic</em>.
 </p>
 <p>To model computer memory, we use a new kind of data structure called a
-<a id="index-vector"></a>
-<em>vector</em>.  Abstractly, a vector is a compound data object whose
+<a class="index-entry-id" id="index-vector-1"></a>
+<em class="dfn">vector</em>.  Abstractly, a vector is a compound data object whose
 individual elements can be accessed by means of an integer index in an amount
-of time that is independent of the index.<a class="footnote_link" id="DOCF290" href="#FOOT290"><sup>290</sup></a> In order to describe memory operations, we use two
-primitive Scheme procedures for manipulating vectors:
+of time that is independent of the index.<a class="footnote" id="DOCF269" href="#FOOT269"><sup>269</sup></a> In order to describe memory operations, we use
+standard Rust-like indexing for manipulating vectors:
 </p>
-<ul>
-<li> <code>(vector-ref ⟨<var>vector</var>⟩ ⟨<var>n</var>⟩)</code> returns the <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <msup>
-    <mi>n</mi>
-    <mrow class="MJX-TeXAtom-ORD">
-      <mtext>th</mtext>
-    </mrow>
-  </msup>
-</math>
-element of the vector.
+<ul class="itemize mark-bullet">
+<li><code class="code">v[n]</code> returns the <em class="math">n^{th}</em> element of the vector <code class="code">v</code>.
 
-</li><li> <code>(vector-set! ⟨<var>vector</var>⟩ ⟨<var>n</var>⟩ ⟨<var>value</var>⟩)</code>
-sets the <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <msup>
-    <mi>n</mi>
-    <mrow class="MJX-TeXAtom-ORD">
-      <mtext>th</mtext>
-    </mrow>
-  </msup>
-</math> element of the vector to the designated value.
+</li><li><code class="code">v[n] = value</code> sets the <em class="math">n^{th}</em> element of the vector <code class="code">v</code> to the designated value.
 
 </li></ul>
 
-<p>For example, if <code>v</code> is a vector, then <code>(vector-ref v 5)</code> gets the
-fifth entry in the vector <code>v</code> and <code>(vector-set! v 5 7)</code> changes the
-value of the fifth entry of the vector <code>v</code> to 7.<a class="footnote_link" id="DOCF291" href="#FOOT291"><sup>291</sup></a>  For computer memory, this access can
-be implemented through the use of address arithmetic to combine a <a id="index-base-address"></a>
-<em>base address</em> 
+<p>For example, if <code class="code">v</code> is a vector, then <code class="code">v[5]</code> gets the
+fifth entry in the vector <code class="code">v</code> and <code class="code">v[5] = 7</code> changes the
+value of the fifth entry of the vector <code class="code">v</code> to 7.<a class="footnote" id="DOCF270" href="#FOOT270"><sup>270</sup></a>  For computer memory, this access can
+be implemented through the use of address arithmetic to combine a <a class="index-entry-id" id="index-base-address"></a>
+<em class="dfn">base address</em>
 that specifies the beginning location of a vector in memory with an
-<a id="index-index"></a>
-<em>index</em> that specifies the offset of a particular element of the
+<a class="index-entry-id" id="index-index"></a>
+<em class="dfn">index</em> that specifies the offset of a particular element of the
 vector.
 </p>
-<a id="Representing-Lisp-data"></a>
-<h5 class="subsubheading">Representing Lisp data</h5>
+<h4 class="subsubheading" id="Representing-Lisp-data"><span>Representing Lisp data<a class="copiable-link" href="#Representing-Lisp-data"> &#182;</a></span></h4>
 
 <p>We can use vectors to implement the basic pair structures required for a
 list-structured memory.  Let us imagine that computer memory is divided into
-two vectors: <code>the-cars</code> and <code>the-cdrs</code>.  We will represent list
+two vectors: <code class="code">the-cars</code> and <code class="code">the-cdrs</code>.  We will represent list
 structure as follows: A pointer to a pair is an index into the two vectors.
-The <code>car</code> of the pair is the entry in <code>the-cars</code> with the designated
-index, and the <code>cdr</code> of the pair is the entry in <code>the-cdrs</code> with the
+The <code class="code">car</code> of the pair is the entry in <code class="code">the-cars</code> with the designated
+index, and the <code class="code">cdr</code> of the pair is the entry in <code class="code">the-cdrs</code> with the
 designated index.  We also need a representation for objects other than pairs
 (such as numbers and symbols) and a way to distinguish one kind of data from
 another.  There are many methods of accomplishing this, but they all reduce to
-using <a id="index-typed-pointers"></a>
-<em>typed pointers</em>, that is, to extending the notion of “pointer”
-to include information on data type.<a class="footnote_link" id="DOCF292" href="#FOOT292"><sup>292</sup></a> The data type
+using <a class="index-entry-id" id="index-typed-pointers"></a>
+<em class="dfn">typed pointers</em>, that is, to extending the notion of &#8220;pointer&#8221;
+to include information on data type.<a class="footnote" id="DOCF271" href="#FOOT271"><sup>271</sup></a> The data type
 enables the system to distinguish a pointer to a pair (which consists of the
-“pair” data type and an index into the memory vectors) from pointers to other
+&#8220;pair&#8221; data type and an index into the memory vectors) from pointers to other
 kinds of data (which consist of some other data type and whatever is being used
 to represent data of that type).  Two data objects are considered to be the
-same (<code>eq?</code>) if their pointers are identical.<a class="footnote_link" id="DOCF293" href="#FOOT293"><sup>293</sup></a> 
-<a href="#Figure-5_002e14">Figure 5.14</a> illustrates the use of this method to
-represent the list <code>((1 2) 3 4)</code>, whose box-and-pointer diagram is also
+same (<code class="code">eq?</code>) if their pointers are identical.<a class="footnote" id="DOCF272" href="#FOOT272"><sup>272</sup></a>
+<a class="ref" href="#Figure-5_002e14">Figure 5.14</a> illustrates the use of this method to
+represent the list <code class="code">((1 2) 3 4)</code>, whose box-and-pointer diagram is also
 shown.  We use letter prefixes to denote the data-type information.  Thus, a
-pointer to the pair with index 5 is denoted <code>p5</code>, the empty list is
-denoted by the pointer <code>e0</code>, and a pointer to the number 4 is denoted
-<code>n4</code>.  In the box-and-pointer diagram, we have indicated at the lower left
-of each pair the vector index that specifies where the <code>car</code> and
-<code>cdr</code> of the pair are stored.  The blank locations in <code>the-cars</code> and
-<code>the-cdrs</code> may contain parts of other list structures (not of interest
+pointer to the pair with index 5 is denoted <code class="code">p5</code>, the empty list is
+denoted by the pointer <code class="code">e0</code>, and a pointer to the number 4 is denoted
+<code class="code">n4</code>.  In the box-and-pointer diagram, we have indicated at the lower left
+of each pair the vector index that specifies where the <code class="code">car</code> and
+<code class="code">cdr</code> of the pair are stored.  The blank locations in <code class="code">the-cars</code> and
+<code class="code">the-cdrs</code> may contain parts of other list structures (not of interest
 here).
 </p>
-<figure class="float">
-<a id="Figure-5_002e14"></a>
-<object style="width: 53.44ex; height: 41.96ex;" data="fig/chap5/Fig5.14b.std.svg" type="image/svg+xml">SVG</object>
-
-<figcaption class="float-caption">
-<p><strong>Figure 5.14:</strong> Box-and-pointer and memory-vector representations of the list <code>((1 2) 3 4)</code>.</p>
-</figcaption>
-</figure>
-
-<p>A pointer to a number, such as <code>n4</code>, might consist of a type indicating
+<div class="float">
+<a class="anchor" id="Figure-5_002e14"></a><img class="image" src="fig/chap5/Fig5.14b.std.svg" alt="fig/chap5/Fig5.14b" />
+<div class="caption"><p><strong class="strong">Figure 5.14:</strong> Box-and-pointer and memory-vector representations of the list <code class="code">((1 2) 3 4)</code>.</p></div></div>
+<p>A pointer to a number, such as <code class="code">n4</code>, might consist of a type indicating
 numeric data together with the actual representation of the number
-4.<a class="footnote_link" id="DOCF294" href="#FOOT294"><sup>294</sup></a>  To deal with numbers that are too large to be represented in the
+4.<a class="footnote" id="DOCF273" href="#FOOT273"><sup>273</sup></a>  To deal with numbers that are too large to be represented in the
 fixed amount of space allocated for a single pointer, we could use a distinct
-<a id="index-bignum"></a>
-<em>bignum</em> data type, for which the pointer designates a list in which
-the parts of the number are stored.<a class="footnote_link" id="DOCF295" href="#FOOT295"><sup>295</sup></a>
+<a class="index-entry-id" id="index-bignum"></a>
+<em class="dfn">bignum</em> data type, for which the pointer designates a list in which
+</p>
+<p><b class="b">Rust (memory structure):</b>
+</p><div class="example">
+<pre class="example-preformatted">pub struct Memory {
+    pub the_cars: Vec&lt;Value&gt;,
+    pub the_cdrs: Vec&lt;Value&gt;,
+    pub free: usize,
+    capacity: usize,
+}
+
+impl Memory {
+    pub fn new(capacity: usize) -&gt; Self {
+        Memory {
+            the_cars: vec![Value::Nil; capacity],
+            the_cdrs: vec![Value::Nil; capacity],
+            free: 0,
+            capacity,
+        }
+    }
+}
+</pre></div>
+
+<p>the parts of the number are stored.<a class="footnote" id="DOCF274" href="#FOOT274"><sup>274</sup></a>
 </p>
 <p>A symbol might be represented as a typed pointer that designates a sequence of
-the characters that form the symbol’s printed representation.  This sequence is
+the characters that form the symbol&#8217;s printed representation.  This sequence is
 constructed by the Lisp reader when the character string is initially
 encountered in input.  Since we want two instances of a symbol to be recognized
-as the “same” symbol by <code>eq?</code> and we want <code>eq?</code> to be a simple test
+as the &#8220;same&#8221; symbol by <code class="code">eq?</code> and we want <code class="code">eq?</code> to be a simple test
 for equality of pointers, we must ensure that if the reader sees the same
 character string twice, it will use the same pointer (to the same sequence of
 characters) to represent both occurrences.  To accomplish this, the reader
-maintains a table, traditionally called the <a id="index-obarray"></a>
-<em>obarray</em>, of all the
+maintains a table, traditionally called the <a class="index-entry-id" id="index-obarray"></a>
+<em class="dfn">obarray</em>, of all the
 symbols it has ever encountered.  When the reader encounters a character string
 and is about to construct a symbol, it checks the obarray to see if it has ever
 before seen the same character string.  If it has not, it uses the characters
 to construct a new symbol (a typed pointer to a new character sequence) and
 enters this pointer in the obarray.  If the reader has seen the string before,
 it returns the symbol pointer stored in the obarray.  This process of replacing
-character strings by unique pointers is called <a id="index-interning"></a>
-<em>interning</em> symbols.
+character strings by unique pointers is called <a class="index-entry-id" id="index-interning"></a>
+<em class="dfn">interning</em> symbols.
 </p>
-<a id="Implementing-the-primitive-list-operations"></a>
-<h5 class="subsubheading">Implementing the primitive list operations</h5>
+<h4 class="subsubheading" id="Implementing-the-primitive-list-operations"><span>Implementing the primitive list operations<a class="copiable-link" href="#Implementing-the-primitive-list-operations"> &#182;</a></span></h4>
 
-<p>Given the above representation scheme, we can replace each “primitive” list
+<p>Given the above representation scheme, we can replace each &#8220;primitive&#8221; list
 operation of a register machine with one or more primitive vector operations.
-We will use two registers, <code>the-cars</code> and <code>the-cdrs</code>, to identify the
-memory vectors, and will assume that <code>vector-ref</code> and <code>vector-set!</code>
+We will use two registers, <code class="code">the-cars</code> and <code class="code">the-cdrs</code>, to identify the
+memory vectors, and will assume that <code class="code">vector-ref</code> and <code class="code">vector-set!</code>
 are available as primitive operations.  We also assume that numeric operations
 on pointers (such as incrementing a pointer, using a pair pointer to index a
 vector, or adding two numbers) use only the index portion of the typed pointer.
 </p>
 <p>For example, we can make a register machine support the instructions
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">assign ⟨</span><var><span class="pln">reg</span><span class="pun">₁</span></var><span class="pln">⟩ </span><span class="opn">(</span><span class="pln">op </span><span class="kwd">car</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">reg ⟨</span><var><span class="pln">reg</span><span class="pun">₂</span></var><span class="pln">⟩</span><span class="clo">))</span><span class="pln">
-</span><span class="opn">(</span><span class="pln">assign ⟨</span><var><span class="pln">reg</span><span class="pun">₁</span></var><span class="pln">⟩ </span><span class="opn">(</span><span class="pln">op </span><span class="kwd">cdr</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">reg ⟨</span><var><span class="pln">reg</span><span class="pun">₂</span></var><span class="pln">⟩</span><span class="clo">))</span></pre></div>
+<div class="example lisp">
+<pre class="lisp-preformatted">(assign ⟨<var class="var">reg₁</var>⟩ (op car) (reg ⟨<var class="var">reg₂</var>⟩))
+(assign ⟨<var class="var">reg₁</var>⟩ (op cdr) (reg ⟨<var class="var">reg₂</var>⟩))
+</pre></div>
 
 <p>if we implement these, respectively, as
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">assign ⟨</span><var><span class="pln">reg</span><span class="pun">₁</span></var><span class="pln">⟩ 
-        </span><span class="opn">(</span><span class="pln">op vector-ref</span><span class="clo">)</span><span class="pln">
-        </span><span class="opn">(</span><span class="pln">reg the-cars</span><span class="clo">)</span><span class="pln">
-        </span><span class="opn">(</span><span class="pln">reg ⟨</span><var><span class="pln">reg</span><span class="pun">₂</span></var><span class="pln">⟩</span><span class="clo">))</span><span class="pln">
-</span><span class="opn">(</span><span class="pln">assign ⟨</span><var><span class="pln">reg</span><span class="pun">₁</span></var><span class="pln">⟩
-        </span><span class="opn">(</span><span class="pln">op vector-ref</span><span class="clo">)</span><span class="pln">
-        </span><span class="opn">(</span><span class="pln">reg the-cdrs</span><span class="clo">)</span><span class="pln">
-        </span><span class="opn">(</span><span class="pln">reg ⟨</span><var><span class="pln">reg</span><span class="pun">₂</span></var><span class="pln">⟩</span><span class="clo">))</span></pre></div>
+<div class="example lisp">
+<pre class="lisp-preformatted">(assign ⟨<var class="var">reg₁</var>⟩
+        (op vector-ref)
+        (reg the-cars)
+        (reg ⟨<var class="var">reg₂</var>⟩))
+(assign ⟨<var class="var">reg₁</var>⟩
+        (op vector-ref)
+        (reg the-cdrs)
+        (reg ⟨<var class="var">reg₂</var>⟩))
+</pre></div>
 
 <p>The instructions
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">perform </span><span class="opn">(</span><span class="pln">op set-car!</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">reg ⟨</span><var><span class="pln">reg</span><span class="pun">₁</span></var><span class="pln">⟩</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">reg ⟨</span><var><span class="pln">reg</span><span class="pun">₂</span></var><span class="pln">⟩</span><span class="clo">))</span><span class="pln">
-</span><span class="opn">(</span><span class="pln">perform </span><span class="opn">(</span><span class="pln">op set-cdr!</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">reg ⟨</span><var><span class="pln">reg</span><span class="pun">₁</span></var><span class="pln">⟩</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">reg ⟨</span><var><span class="pln">reg</span><span class="pun">₂</span></var><span class="pln">⟩</span><span class="clo">))</span></pre></div>
+<div class="example lisp">
+<pre class="lisp-preformatted">(perform (op set_car) (reg ⟨<var class="var">reg₁</var>⟩) (reg ⟨<var class="var">reg₂</var>⟩))
+(perform (op set_cdr) (reg ⟨<var class="var">reg₁</var>⟩) (reg ⟨<var class="var">reg₂</var>⟩))
+</pre></div>
 
 <p>are implemented as
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">perform </span><span class="opn">(</span><span class="pln">op vector-set!</span><span class="clo">)</span><span class="pln">
-         </span><span class="opn">(</span><span class="pln">reg the-cars</span><span class="clo">)</span><span class="pln">
-         </span><span class="opn">(</span><span class="pln">reg ⟨</span><var><span class="pln">reg</span><span class="pun">₁</span></var><span class="pln">⟩</span><span class="clo">)</span><span class="pln">
-         </span><span class="opn">(</span><span class="pln">reg ⟨</span><var><span class="pln">reg</span><span class="pun">₂</span></var><span class="pln">⟩</span><span class="clo">))</span><span class="pln">
-</span><span class="opn">(</span><span class="pln">perform </span><span class="opn">(</span><span class="pln">op vector-set!</span><span class="clo">)</span><span class="pln">
-         </span><span class="opn">(</span><span class="pln">reg the-cdrs</span><span class="clo">)</span><span class="pln">
-         </span><span class="opn">(</span><span class="pln">reg ⟨</span><var><span class="pln">reg</span><span class="pun">₁</span></var><span class="pln">⟩</span><span class="clo">)</span><span class="pln">
-         </span><span class="opn">(</span><span class="pln">reg ⟨</span><var><span class="pln">reg</span><span class="pun">₂</span></var><span class="pln">⟩</span><span class="clo">))</span></pre></div>
+<div class="example lisp">
+<pre class="lisp-preformatted">(perform (op vector-set!)
+         (reg the-cars)
+         (reg ⟨<var class="var">reg₁</var>⟩)
+         (reg ⟨<var class="var">reg₂</var>⟩))
+(perform (op vector-set!)
+         (reg the-cdrs)
+         (reg ⟨<var class="var">reg₁</var>⟩)
+         (reg ⟨<var class="var">reg₂</var>⟩))
+</pre></div>
 
-<p><code>Cons</code> is performed by allocating an unused index and storing the
-arguments to <code>cons</code> in <code>the-cars</code> and <code>the-cdrs</code> at that indexed
-vector position.  We presume that there is a special register, <code>free</code>,
+<p><code class="code">Cons</code> is performed by allocating an unused index and storing the
+arguments to <code class="code">cons</code> in <code class="code">the-cars</code> and <code class="code">the-cdrs</code> at that indexed
+vector position.  We presume that there is a special register, <code class="code">free</code>,
 that always holds a pair pointer containing the next available index, and that
 we can increment the index part of that pointer to find the next free
-location.<a class="footnote_link" id="DOCF296" href="#FOOT296"><sup>296</sup></a>  For example, the instruction
+location.<a class="footnote" id="DOCF275" href="#FOOT275"><sup>275</sup></a>  For example, the instruction
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">assign ⟨</span><var><span class="pln">reg</span><span class="pun">₁</span></var><span class="pln">⟩
-        </span><span class="opn">(</span><span class="pln">op </span><span class="kwd">cons</span><span class="clo">)</span><span class="pln">
-        </span><span class="opn">(</span><span class="pln">reg ⟨</span><var><span class="pln">reg</span><span class="pun">₂</span></var><span class="pln">⟩</span><span class="clo">)</span><span class="pln">
-        </span><span class="opn">(</span><span class="pln">reg ⟨</span><var><span class="pln">reg</span><span class="pun">₃</span></var><span class="pln">⟩</span><span class="clo">))</span></pre></div>
+<div class="example lisp">
+<pre class="lisp-preformatted">(assign ⟨<var class="var">reg₁</var>⟩
+        (op cons)
+        (reg ⟨<var class="var">reg₂</var>⟩)
+        (reg ⟨<var class="var">reg₃</var>⟩))
+</pre></div>
 
-<p>is implemented as the following sequence of vector operations:<a class="footnote_link" id="DOCF297" href="#FOOT297"><sup>297</sup></a>
+<p>is implemented as the following sequence of vector operations:<a class="footnote" id="DOCF276" href="#FOOT276"><sup>276</sup></a>
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">perform </span><span class="opn">(</span><span class="pln">op vector-set!</span><span class="clo">)</span><span class="pln">
-         </span><span class="opn">(</span><span class="pln">reg the-cars</span><span class="clo">)</span><span class="pln">
-         </span><span class="opn">(</span><span class="pln">reg free</span><span class="clo">)</span><span class="pln">
-         </span><span class="opn">(</span><span class="pln">reg ⟨</span><var><span class="pln">reg</span><span class="pun">₂</span></var><span class="pln">⟩</span><span class="clo">))</span><span class="pln">
-</span><span class="opn">(</span><span class="pln">perform </span><span class="opn">(</span><span class="pln">op vector-set!</span><span class="clo">)</span><span class="pln">
-         </span><span class="opn">(</span><span class="pln">reg the-cdrs</span><span class="clo">)</span><span class="pln">
-         </span><span class="opn">(</span><span class="pln">reg free</span><span class="clo">)</span><span class="pln">
-         </span><span class="opn">(</span><span class="pln">reg ⟨</span><var><span class="pln">reg</span><span class="pun">₃</span></var><span class="pln">⟩</span><span class="clo">))</span><span class="pln">
-</span><span class="opn">(</span><span class="pln">assign ⟨</span><var><span class="pln">reg</span><span class="pun">₁</span></var><span class="pln">⟩ </span><span class="opn">(</span><span class="pln">reg free</span><span class="clo">))</span><span class="pln">
-</span><span class="opn">(</span><span class="pln">assign free </span><span class="opn">(</span><span class="pln">op </span><span class="pun">+</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">reg free</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">const </span><span class="lit">1</span><span class="clo">))</span></pre></div>
+<div class="example lisp">
+<pre class="lisp-preformatted">(perform (op vector-set!)
+         (reg the-cars)
+         (reg free)
+         (reg ⟨<var class="var">reg₂</var>⟩))
+(perform (op vector-set!)
+         (reg the-cdrs)
+         (reg free)
+         (reg ⟨<var class="var">reg₃</var>⟩))
+(assign ⟨<var class="var">reg₁</var>⟩ (reg free))
+(assign free (op +) (reg free) (const 1))
+</pre></div>
 
-<p>The <code>eq?</code> operation
+<p>The <code class="code">eq?</code> operation
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">op </span><span class="kwd">eq</span><span class="pun">?</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">reg ⟨</span><var><span class="pln">reg</span><span class="pun">₁</span></var><span class="pln">⟩</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">reg ⟨</span><var><span class="pln">reg</span><span class="pun">₂</span></var><span class="pln">⟩</span><span class="clo">)</span></pre></div>
+<div class="example lisp">
+<pre class="lisp-preformatted">(op eq?) (reg ⟨<var class="var">reg₁</var>⟩) (reg ⟨<var class="var">reg₂</var>⟩)
+</pre></div>
 
 <p>simply tests the equality of all fields in the registers, and predicates such
-as <code>pair?</code>, <code>null?</code>, <code>symbol?</code>, and <code>number?</code> need only
+as <code class="code">pair?</code>, <code class="code">null?</code>, <code class="code">symbol?</code>, and <code class="code">number?</code> need only
 check the type field.
 </p>
-<a id="Implementing-stacks"></a>
-<h5 class="subsubheading">Implementing stacks</h5>
+<h4 class="subsubheading" id="Implementing-stacks"><span>Implementing stacks<a class="copiable-link" href="#Implementing-stacks"> &#182;</a></span></h4>
 
 <p>Although our register machines use stacks, we need do nothing special here,
 since stacks can be modeled in terms of lists.  The stack can be a list of the
-saved values, pointed to by a special register <code>the-stack</code>.  Thus, 
-<code>(save ⟨<var>reg</var>⟩)</code> can be implemented as
+saved values, pointed to by a special register <code class="code">the-stack</code>.  Thus,
+<code class="code">(save ⟨<var class="var">reg</var>⟩)</code> can be implemented as
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">assign the-stack 
-        </span><span class="opn">(</span><span class="pln">op </span><span class="kwd">cons</span><span class="clo">)</span><span class="pln">
-        </span><span class="opn">(</span><span class="pln">reg ⟨</span><var><span class="pln">reg</span></var><span class="pln">⟩</span><span class="clo">)</span><span class="pln">
-        </span><span class="opn">(</span><span class="pln">reg the-stack</span><span class="clo">))</span></pre></div>
+<div class="example lisp">
+<pre class="lisp-preformatted">(assign the-stack
+        (op cons)
+        (reg ⟨<var class="var">reg</var>⟩)
+        (reg the-stack))
+</pre></div>
 
-<p>Similarly, <code>(restore ⟨<var>reg</var>⟩)</code> can be implemented as
+<p>Similarly, <code class="code">(restore ⟨<var class="var">reg</var>⟩)</code> can be implemented as
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">assign ⟨</span><var><span class="pln">reg</span></var><span class="pln">⟩ </span><span class="opn">(</span><span class="pln">op </span><span class="kwd">car</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">reg the-stack</span><span class="clo">))</span><span class="pln">
-</span><span class="opn">(</span><span class="pln">assign the-stack </span><span class="opn">(</span><span class="pln">op </span><span class="kwd">cdr</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">reg the-stack</span><span class="clo">))</span></pre></div>
+<div class="example lisp">
+<pre class="lisp-preformatted">(assign ⟨<var class="var">reg</var>⟩ (op car) (reg the-stack))
+(assign the-stack (op cdr) (reg the-stack))
+</pre></div>
 
-<p>and <code>(perform (op initialize-stack))</code> can be implemented as
+<p>and <code class="code">(perform (op initialize_stack))</code> can be implemented as
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">assign the-stack </span><span class="opn">(</span><span class="pln">const </span><span class="opn">(</span><span class="clo">)))</span></pre></div>
+
+<p><b class="b">Rust (car/cdr operations):</b>
+</p><div class="example">
+<pre class="example-preformatted">pub fn car(&amp;self, pair: &amp;Value) -&gt; Result&lt;&amp;Value, &amp;'static str&gt; {
+    match pair {
+        Value::Pair(index) =&gt; Ok(&amp;self.the_cars[*index]),
+        _ =&gt; Err(&quot;Not a pair&quot;),
+    }
+}
+
+pub fn cdr(&amp;self, pair: &amp;Value) -&gt; Result&lt;&amp;Value, &amp;'static str&gt; {
+    match pair {
+        Value::Pair(index) =&gt; Ok(&amp;self.the_cdrs[*index]),
+        _ =&gt; Err(&quot;Not a pair&quot;),
+    }
+}
+</pre></div>
+
+<div class="example lisp">
+<pre class="lisp-preformatted">(assign the-stack (const ()))
+</pre></div>
 
 <p>These operations can be further expanded in terms of the vector operations
 given above.  In conventional computer architectures, however, it is usually
@@ -305,81 +340,90 @@ advantageous to allocate the stack as a separate vector.  Then pushing and
 popping the stack can be accomplished by incrementing or decrementing an index
 into that vector.
 </p>
-<blockquote>
-<p><strong><a id="Exercise-5_002e20"></a>Exercise 5.20:</strong> Draw the box-and-pointer
-representation and the memory-vector representation (as in <a href="#Figure-5_002e14">Figure 5.14</a>)
+<blockquote class="quotation">
+<p><strong class="strong"><a class="anchor" id="Exercise-5_002e20"></a>Exercise 5.20:</strong> Draw the box-and-pointer
+representation and the memory-vector representation (as in <a class="ref" href="#Figure-5_002e14">Figure 5.14</a>)
 of the list structure produced by
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> x </span><span class="opn">(</span><span class="kwd">cons</span><span class="pln"> </span><span class="lit">1</span><span class="pln"> </span><span class="lit">2</span><span class="clo">))</span><span class="pln">
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> y </span><span class="opn">(</span><span class="pln">list x x</span><span class="clo">))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">let x = cons(1, 2);
+let y = list(x.clone(), x.clone());
+</pre></div>
 
-<p>with the <code>free</code> pointer initially <code>p1</code>.  What is the final value of
-<code>free</code>?  What pointers represent the values of <code>x</code> and <code>y</code>?
+<p>with the <code class="code">free</code> pointer initially <code class="code">p1</code>.  What is the final value of
+<code class="code">free</code>?  What pointers represent the values of <code class="code">x</code> and <code class="code">y</code>?
 </p></blockquote>
 
-<blockquote>
-<p><strong><a id="Exercise-5_002e21"></a>Exercise 5.21:</strong> Implement register machines for
+<blockquote class="quotation">
+<p><strong class="strong"><a class="anchor" id="Exercise-5_002e21"></a>Exercise 5.21:</strong> Implement register machines for
 the following procedures.  Assume that the list-structure memory operations are
 available as machine primitives.
 </p>
-<ol>
-<li> Recursive <code>count-leaves</code>:
+<ol class="enumerate" type="a" start="1">
+<li> Recursive <code class="code">count-leaves</code>:
 
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">count-leaves tree</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">((</span><span class="pln">null? tree</span><span class="clo">)</span><span class="pln"> </span><span class="lit">0</span><span class="clo">)</span><span class="pln">
-        </span><span class="opn">((</span><span class="pln">not </span><span class="opn">(</span><span class="pln">pair? tree</span><span class="clo">))</span><span class="pln"> </span><span class="lit">1</span><span class="clo">)</span><span class="pln">
-        </span><span class="opn">(</span><span class="kwd">else</span><span class="pln"> 
-         </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="opn">(</span><span class="pln">count-leaves </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> tree</span><span class="clo">))</span><span class="pln">
-            </span><span class="opn">(</span><span class="pln">count-leaves </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> tree</span><span class="clo">))))))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">fn count_leaves(tree: &amp;Value) -&gt; i64 {
+    match tree {
+        Value::Nil =&gt; 0,
+        Value::Pair(car, cdr) =&gt; {
+            count_leaves(car) + count_leaves(cdr)
+        }
+        _ =&gt; 1,
+    }
+}
+</pre></div>
 
-</li><li> Recursive <code>count-leaves</code> with explicit counter:
+</li><li> Recursive <code class="code">count-leaves</code> with explicit counter:
 
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">count-leaves tree</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">count-iter tree n</span><span class="clo">)</span><span class="pln">
-    </span><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">((</span><span class="pln">null? tree</span><span class="clo">)</span><span class="pln"> n</span><span class="clo">)</span><span class="pln">
-          </span><span class="opn">((</span><span class="pln">not </span><span class="opn">(</span><span class="pln">pair? tree</span><span class="clo">))</span><span class="pln"> </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> n </span><span class="lit">1</span><span class="clo">))</span><span class="pln">
-          </span><span class="opn">(</span><span class="kwd">else</span><span class="pln"> 
-           </span><span class="opn">(</span><span class="pln">count-iter 
-            </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> tree</span><span class="clo">)</span><span class="pln">
-            </span><span class="opn">(</span><span class="pln">count-iter </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> tree</span><span class="clo">)</span><span class="pln"> 
-                        n</span><span class="clo">)))))</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">count-iter tree </span><span class="lit">0</span><span class="clo">))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">fn count_leaves(tree: &amp;Value) -&gt; i64 {
+    fn count_iter(tree: &amp;Value, n: i64) -&gt; i64 {
+        match tree {
+            Value::Nil =&gt; n,
+            Value::Pair(car, cdr) =&gt; {
+                count_iter(cdr, count_iter(car, n))
+            }
+            _ =&gt; n + 1,
+        }
+    }
+    count_iter(tree, 0)
+}
+</pre></div>
 </li></ol>
 </blockquote>
 
-<blockquote>
-<p><strong><a id="Exercise-5_002e22"></a>Exercise 5.22:</strong> <a href="3_002e3.xhtml#Exercise-3_002e12">Exercise 3.12</a> of 
-<a href="3_002e3.xhtml#g_t3_002e3_002e1">3.3.1</a> presented an <code>append</code> procedure that appends two lists to form
-a new list and an <code>append!</code> procedure that splices two lists together.
+<blockquote class="quotation">
+<p><strong class="strong"><a class="anchor" id="Exercise-5_002e22"></a>Exercise 5.22:</strong> <a class="ref" href="3_002e3.xhtml#Exercise-3_002e12">Exercise 3.12</a> of
+<a class="ref" href="3_002e3.xhtml#g_t3_002e3_002e1">Mutable List Structure</a> presented an <code class="code">append</code> procedure that appends two lists to form
+a new list and an <code class="code">append!</code> procedure that splices two lists together.
 Design a register machine to implement each of these procedures.  Assume that
 the list-structure memory operations are available as primitive operations.
 </p></blockquote>
 
-<a id="g_t5_002e3_002e2"></a>
-<a id="Maintaining-the-Illusion-of-Infinite-Memory"></a>
-<h4 class="subsection"><span class="secnum">5.3.2</span><span class="sectitle">Maintaining the Illusion of Infinite Memory</span></h4>
+<hr />
+</div>
+<div class="subsection-level-extent" id="g_t5_002e3_002e2">
+<h4 class="subsection" id="Maintaining-the-Illusion-of-Infinite-Memory"><span>5.3.2 Maintaining the Illusion of Infinite Memory<a class="copiable-link" href="#Maintaining-the-Illusion-of-Infinite-Memory"> &#182;</a></span></h4>
 
-<p>The representation method outlined in <a href="#g_t5_002e3_002e1">5.3.1</a> solves the problem of
+<p>The representation method outlined in <a class="ref" href="#g_t5_002e3_002e1">Memory as Vectors</a> solves the problem of
 implementing list structure, provided that we have an infinite amount of
 memory.  With a real computer we will eventually run out of free space in which
-to construct new pairs.<a class="footnote_link" id="DOCF298" href="#FOOT298"><sup>298</sup></a>  However,
+to construct new pairs.<a class="footnote" id="DOCF277" href="#FOOT277"><sup>277</sup></a>  However,
 most of the pairs generated in a typical computation are used only to hold
 intermediate results.  After these results are accessed, the pairs are no
-longer needed—they are <a id="index-garbage"></a>
-<em>garbage</em>.  For instance, the computation
+longer needed&#8212;they are <a class="index-entry-id" id="index-garbage"></a>
+<em class="dfn">garbage</em>.  For instance, the computation
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">accumulate 
- </span><span class="pun">+</span><span class="pln"> 
- </span><span class="lit">0</span><span class="pln">
- </span><span class="opn">(</span><span class="pln">filter odd? </span><span class="opn">(</span><span class="pln">enumerate-interval </span><span class="lit">0</span><span class="pln"> n</span><span class="clo">)))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">(0..=n)
+    .filter(|&amp;x| x % 2 != 0)
+    .sum::&lt;i64&gt;()
+</pre></div>
 
-<p>constructs two lists: the enumeration and the result of filtering the
-enumeration.  When the accumulation is complete, these lists are no longer
-needed, and the allocated memory can be reclaimed.  If we can arrange to
+<p>constructs two iterators: the enumeration and the result of filtering the
+enumeration.  When the accumulation is complete, these objects are no longer
+needed, and any memory allocated by them can be reclaimed.  If we can arrange to
 collect all the garbage periodically, and if this turns out to recycle memory
 at about the same rate at which we construct new pairs, we will have preserved
 the illusion that there is an infinite amount of memory.
@@ -387,22 +431,22 @@ the illusion that there is an infinite amount of memory.
 <p>In order to recycle pairs, we must have a way to determine which allocated
 pairs are not needed (in the sense that their contents can no longer influence
 the future of the computation).  The method we shall examine for accomplishing
-this is known as <a id="index-garbage-collection-1"></a>
-<em>garbage collection</em>.  Garbage collection is based on
+this is known as <a class="index-entry-id" id="index-garbage-collection-1"></a>
+<em class="dfn">garbage collection</em>.  Garbage collection is based on
 the observation that, at any moment in a Lisp interpretation, the only objects
 that can affect the future of the computation are those that can be reached by
-some succession of <code>car</code> and <code>cdr</code> operations starting from the
-pointers that are currently in the machine registers.<a class="footnote_link" id="DOCF299" href="#FOOT299"><sup>299</sup></a>
+some succession of <code class="code">car</code> and <code class="code">cdr</code> operations starting from the
+pointers that are currently in the machine registers.<a class="footnote" id="DOCF278" href="#FOOT278"><sup>278</sup></a>
 Any memory cell that is not so accessible may be recycled.
 </p>
 <p>There are many ways to perform garbage collection.  The method we shall examine
-here is called <a id="index-stop_002dand_002dcopy"></a>
-<em>stop-and-copy</em>.  The basic idea is to divide memory
-into two halves: “working memory” and “free memory.”  When <code>cons</code>
+here is called <a class="index-entry-id" id="index-stop_002dand_002dcopy"></a>
+<em class="dfn">stop-and-copy</em>.  The basic idea is to divide memory
+into two halves: &#8220;working memory&#8221; and &#8220;free memory.&#8221;  When <code class="code">cons</code>
 constructs pairs, it allocates these in working memory.  When working memory is
 full, we perform garbage collection by locating all the useful pairs in working
 memory and copying these into consecutive locations in free memory.  (The
-useful pairs are located by tracing all the <code>car</code> and <code>cdr</code> pointers,
+useful pairs are located by tracing all the <code class="code">car</code> and <code class="code">cdr</code> pointers,
 starting with the machine registers.)  Since we do not copy the garbage, there
 will presumably be additional free memory that we can use to allocate new
 pairs.  In addition, nothing in the working memory is needed, since all the
@@ -410,402 +454,813 @@ useful pairs in it have been copied.  Thus, if we interchange the roles of
 working memory and free memory, we can continue processing; new pairs will be
 allocated in the new working memory (which was the old free memory).  When this
 is full, we can copy the useful pairs into the new free memory (which was the
-old working memory).<a class="footnote_link" id="DOCF300" href="#FOOT300"><sup>300</sup></a>
+old working memory).<a class="footnote" id="DOCF279" href="#FOOT279"><sup>279</sup></a>
 </p>
-<a id="Implementation-of-a-stop_002dand_002dcopy-garbage-collector"></a>
-<h5 class="subsubheading">Implementation of a stop-and-copy garbage collector</h5>
+<h4 class="subsubheading" id="Implementation-of-a-stop_002dand_002dcopy-garbage-collector"><span>Implementation of a stop-and-copy garbage collector<a class="copiable-link" href="#Implementation-of-a-stop_002dand_002dcopy-garbage-collector"> &#182;</a></span></h4>
 
 <p>We now use our register-machine language to describe the stop-and-copy
 algorithm in more detail.  We will assume that there is a register called
-<code>root</code> that contains a pointer to a structure that eventually points at
+<code class="code">root</code> that contains a pointer to a structure that eventually points at
 all accessible data.  This can be arranged by storing the contents of all the
-machine registers in a pre-allocated list pointed at by <code>root</code> just before
-starting garbage collection.<a class="footnote_link" id="DOCF301" href="#FOOT301"><sup>301</sup></a> We also assume that, in addition to the current
+machine registers in a pre-allocated list pointed at by <code class="code">root</code> just before
+starting garbage collection.<a class="footnote" id="DOCF280" href="#FOOT280"><sup>280</sup></a> We also assume that, in addition to the current
 working memory, there is free memory available into which we can copy the
 useful data.  The current working memory consists of vectors whose base
-addresses are in registers called <code>the-cars</code> and <code>the-cdrs</code>, and the
-free memory is in registers called <code>new-cars</code> and <code>new-cdrs</code>.
+addresses are in registers called <code class="code">the-cars</code> and <code class="code">the-cdrs</code>, and the
+free memory is in registers called <code class="code">new-cars</code> and <code class="code">new-cdrs</code>.
 </p>
 <p>Garbage collection is triggered when we exhaust the free cells in the current
-working memory, that is, when a <code>cons</code> operation attempts to increment the
-<code>free</code> pointer beyond the end of the memory vector.  When the
-garbage-collection process is complete, the <code>root</code> pointer will point into
-the new memory, all objects accessible from the <code>root</code> will have been
-moved to the new memory, and the <code>free</code> pointer will indicate the next
+working memory, that is, when a <code class="code">cons</code> operation attempts to increment the
+<code class="code">free</code> pointer beyond the end of the memory vector.  When the
+garbage-collection process is complete, the <code class="code">root</code> pointer will point into
+the new memory, all objects accessible from the <code class="code">root</code> will have been
+moved to the new memory, and the <code class="code">free</code> pointer will indicate the next
 place in the new memory where a new pair can be allocated.  In addition, the
-roles of working memory and new memory will have been interchanged—new pairs
+roles of working memory and new memory will have been interchanged&#8212;new pairs
 will be constructed in the new memory, beginning at the place indicated by
-<code>free</code>, and the (previous) working memory will be available as the new
-memory for the next garbage collection.  <a href="#Figure-5_002e15">Figure 5.15</a> shows the
+<code class="code">free</code>, and the (previous) working memory will be available as the new
+memory for the next garbage collection.  <a class="ref" href="#Figure-5_002e15">Figure 5.15</a> shows the
 arrangement of memory just before and just after garbage collection.
 </p>
-<figure class="float">
-<a id="Figure-5_002e15"></a>
-<object style="width: 57.59ex; height: 44.47ex;" data="fig/chap5/Fig5.15c.std.svg" type="image/svg+xml">SVG</object>
-
-<figcaption class="float-caption">
-<p><strong>Figure 5.15:</strong> Reconfiguration of memory by the garbage-collection process.</p>
-</figcaption>
-</figure>
-
+<div class="float">
+<a class="anchor" id="Figure-5_002e15"></a><img class="image" src="fig/chap5/Fig5.15c.std.svg" alt="fig/chap5/Fig5.15c" />
+<div class="caption"><p><strong class="strong">Figure 5.15:</strong> Reconfiguration of memory by the garbage-collection process.</p></div></div>
 <p>The state of the garbage-collection process is controlled by maintaining two
-pointers: <code>free</code> and <code>scan</code>.  These are initialized to point to the
+pointers: <code class="code">free</code> and <code class="code">scan</code>.  These are initialized to point to the
 beginning of the new memory.  The algorithm begins by relocating the pair
-pointed at by <code>root</code> to the beginning of the new memory.  The pair is
-copied, the <code>root</code> pointer is adjusted to point to the new location, and
-the <code>free</code> pointer is incremented.  In addition, the old location of the
+pointed at by <code class="code">root</code> to the beginning of the new memory.  The pair is
+copied, the <code class="code">root</code> pointer is adjusted to point to the new location, and
+the <code class="code">free</code> pointer is incremented.  In addition, the old location of the
 pair is marked to show that its contents have been moved.  This marking is done
-as follows: In the <code>car</code> position, we place a special tag that signals
+as follows: In the <code class="code">car</code> position, we place a special tag that signals
 that this is an already-moved object.  (Such an object is traditionally called
-a <a id="index-broken-heart"></a>
-<em>broken heart</em>.)<a class="footnote_link" id="DOCF302" href="#FOOT302"><sup>302</sup></a>  In the <code>cdr</code> position
-we place a <a id="index-forwarding-address"></a>
-<em>forwarding address</em> that points at the location to which
+a <a class="index-entry-id" id="index-broken-heart"></a>
+<em class="dfn">broken heart</em>.)<a class="footnote" id="DOCF281" href="#FOOT281"><sup>281</sup></a>  In the <code class="code">cdr</code> position
+we place a <a class="index-entry-id" id="index-forwarding-address"></a>
+<em class="dfn">forwarding address</em> that points at the location to which
 the object has been moved.
 </p>
 <p>After relocating the root, the garbage collector enters its basic cycle.  At
-each step in the algorithm, the <code>scan</code> pointer (initially pointing at the
+each step in the algorithm, the <code class="code">scan</code> pointer (initially pointing at the
 relocated root) points at a pair that has been moved to the new memory but
-whose <code>car</code> and <code>cdr</code> pointers still refer to objects in the old
-memory.  These objects are each relocated, and the <code>scan</code> pointer is
+whose <code class="code">car</code> and <code class="code">cdr</code> pointers still refer to objects in the old
+memory.  These objects are each relocated, and the <code class="code">scan</code> pointer is
 incremented.  To relocate an object (for example, the object indicated by the
-<code>car</code> pointer of the pair we are scanning) we check to see if the object
+<code class="code">car</code> pointer of the pair we are scanning) we check to see if the object
 has already been moved (as indicated by the presence of a broken-heart tag in
-the <code>car</code> position of the object).  If the object has not already been
-moved, we copy it to the place indicated by <code>free</code>, update <code>free</code>,
-set up a broken heart at the object’s old location, and update the pointer to
-the object (in this example, the <code>car</code> pointer of the pair we are
+the <code class="code">car</code> position of the object).  If the object has not already been
+moved, we copy it to the place indicated by <code class="code">free</code>, update <code class="code">free</code>,
+set up a broken heart at the object&#8217;s old location, and update the pointer to
+the object (in this example, the <code class="code">car</code> pointer of the pair we are
 scanning) to point to the new location.  If the object has already been moved,
-its forwarding address (found in the <code>cdr</code> position of the broken heart)
+its forwarding address (found in the <code class="code">cdr</code> position of the broken heart)
 is substituted for the pointer in the pair being scanned.  Eventually, all
 accessible objects will have been moved and scanned, at which point the
-<code>scan</code> pointer will overtake the <code>free</code> pointer and the process will
+<code class="code">scan</code> pointer will overtake the <code class="code">free</code> pointer and the process will
 terminate.
 </p>
 <p>We can specify the stop-and-copy algorithm as a sequence of instructions for a
 register machine.  The basic step of relocating an object is accomplished by a
-subroutine called <code>relocate-old-result-in-new</code>.  This subroutine gets its
+subroutine called <code class="code">relocate-old-result-in-new</code>.  This subroutine gets its
 argument, a pointer to the object to be relocated, from a register named
-<code>old</code>.  It relocates the designated object (incrementing <code>free</code> in
+<code class="code">old</code>.  It relocates the designated object (incrementing <code class="code">free</code> in
 the process), puts a pointer to the relocated object into a register called
-<code>new</code>, and returns by branching to the entry point stored in the register
-<code>relocate-continue</code>.  To begin garbage collection, we invoke this
-subroutine to relocate the <code>root</code> pointer, after initializing <code>free</code>
-and <code>scan</code>.  When the relocation of <code>root</code> has been accomplished, we
-install the new pointer as the new <code>root</code> and enter the main loop of the
+<code class="code">new</code>, and returns by branching to the entry point stored in the register
+<code class="code">relocate-continue</code>.  To begin garbage collection, we invoke this
+subroutine to relocate the <code class="code">root</code> pointer, after initializing <code class="code">free</code>
+and <code class="code">scan</code>.  When the relocation of <code class="code">root</code> has been accomplished, we
+install the new pointer as the new <code class="code">root</code> and enter the main loop of the
 garbage collector.
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="pln">begin-garbage-collection
-  </span><span class="opn">(</span><span class="pln">assign free </span><span class="opn">(</span><span class="pln">const </span><span class="lit">0</span><span class="clo">))</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">assign scan </span><span class="opn">(</span><span class="pln">const </span><span class="lit">0</span><span class="clo">))</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">assign old </span><span class="opn">(</span><span class="pln">reg root</span><span class="clo">))</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">assign relocate-continue 
-          </span><span class="opn">(</span><span class="pln">label reassign-root</span><span class="clo">))</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">goto </span><span class="opn">(</span><span class="pln">label relocate-old-result-in-new</span><span class="clo">))</span><span class="pln">
+<div class="example lisp">
+<pre class="lisp-preformatted">begin-garbage-collection
+  (assign free (const 0))
+  (assign scan (const 0))
+  (assign old (reg root))
+  (assign relocate-continue
+          (label reassign-root))
+  (goto (label relocate-old-result-in-new))
 reassign-root
-  </span><span class="opn">(</span><span class="pln">assign root </span><span class="opn">(</span><span class="pln">reg new</span><span class="clo">))</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">goto </span><span class="opn">(</span><span class="pln">label gc-loop</span><span class="clo">))</span></pre></div>
+  (assign root (reg new))
+  (goto (label gc-loop))
+</pre></div>
+
+
+<p><b class="b">Rust (stop-and-copy GC relocate):</b>
+</p><div class="example">
+<pre class="example-preformatted">fn relocate(&amp;mut self, value: Value) -&gt; Result&lt;Value, &amp;'static str&gt; {
+    match value {
+        Value::Pair(old_index) =&gt; {
+            // Check if already relocated (broken heart)
+            if let Value::BrokenHeart(new_index) =
+                self.working.the_cars[old_index] {
+                return Ok(Value::Pair(new_index));
+            }
+
+            // Copy to new memory
+            let car = self.working.the_cars[old_index].clone();
+            let cdr = self.working.the_cdrs[old_index].clone();
+            let new_index = self.free_space.free;
+
+            self.free_space.the_cars[new_index] = car;
+            self.free_space.the_cdrs[new_index] = cdr;
+            self.free_space.free += 1;
+
+            // Mark with broken heart
+            self.working.the_cars[old_index] =
+                Value::BrokenHeart(new_index);
+
+            Ok(Value::Pair(new_index))
+        }
+        _ =&gt; Ok(value),  // Non-pairs unchanged
+    }
+}
+</pre></div>
 
 <p>In the main loop of the garbage collector we must determine whether there are
-any more objects to be scanned.  We do this by testing whether the <code>scan</code>
-pointer is coincident with the <code>free</code> pointer.  If the pointers are equal,
+any more objects to be scanned.  We do this by testing whether the <code class="code">scan</code>
+pointer is coincident with the <code class="code">free</code> pointer.  If the pointers are equal,
 then all accessible objects have been relocated, and we branch to
-<code>gc-flip</code>, which cleans things up so that we can continue the interrupted
+<code class="code">gc-flip</code>, which cleans things up so that we can continue the interrupted
 computation.  If there are still pairs to be scanned, we call the relocate
-subroutine to relocate the <code>car</code> of the next pair (by placing the
-<code>car</code> pointer in <code>old</code>).  The <code>relocate-continue</code> register is
-set up so that the subroutine will return to update the <code>car</code> pointer.
+subroutine to relocate the <code class="code">car</code> of the next pair (by placing the
+<code class="code">car</code> pointer in <code class="code">old</code>).  The <code class="code">relocate-continue</code> register is
+set up so that the subroutine will return to update the <code class="code">car</code> pointer.
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="pln">gc-loop
-  </span><span class="opn">(</span><span class="pln">test </span><span class="opn">(</span><span class="pln">op </span><span class="pun">=</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">reg scan</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">reg free</span><span class="clo">))</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">branch </span><span class="opn">(</span><span class="pln">label gc-flip</span><span class="clo">))</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">assign old 
-          </span><span class="opn">(</span><span class="pln">op vector-ref</span><span class="clo">)</span><span class="pln">
-          </span><span class="opn">(</span><span class="pln">reg new-cars</span><span class="clo">)</span><span class="pln">
-          </span><span class="opn">(</span><span class="pln">reg scan</span><span class="clo">))</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">assign relocate-continue 
-          </span><span class="opn">(</span><span class="pln">label update-car</span><span class="clo">))</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">goto </span><span class="opn">(</span><span class="pln">label relocate-old-result-in-new</span><span class="clo">))</span></pre></div>
+<div class="example lisp">
+<pre class="lisp-preformatted">// gc-loop
+Label(&quot;gc-loop&quot;.into()),
+Test(Op(&quot;=&quot;.into(), vec![Reg(&quot;scan&quot;.into()), Reg(&quot;free&quot;.into())])),
+Branch(&quot;gc-flip&quot;.into()),
+Assign(&quot;old&quot;.into(), Op(&quot;vector-ref&quot;.into(),
+    vec![Reg(&quot;new-cars&quot;.into()), Reg(&quot;scan&quot;.into())])),
+Assign(&quot;relocate-continue&quot;.into(), Label(&quot;update-car&quot;.into())),
+Goto(Label(&quot;relocate-old-result-in-new&quot;.into())),
 
-<p>At <code>update-car</code>, we modify the <code>car</code> pointer of the pair being
-scanned, then proceed to relocate the <code>cdr</code> of the pair.  We return to
-<code>update-cdr</code> when that relocation has been accomplished.  After relocating
-and updating the <code>cdr</code>, we are finished scanning that pair, so we continue
+<b class="b">Rust (GC structure):</b>
+</pre><div class="example">
+<pre class="example-preformatted">pub struct StopAndCopyGC {
+    working: Memory,
+    free_space: Memory,
+    roots: Vec&lt;Value&gt;,
+}
+
+impl StopAndCopyGC {
+    pub fn collect(&amp;mut self) -&gt; Result&lt;(), &amp;'static str&gt; {
+        self.free_space = Memory::new(self.working.capacity);
+        let mut scan = 0;
+
+        // Relocate roots
+        for root in &amp;mut self.roots {
+            *root = self.relocate(root.clone())?;
+        }
+
+        // Scan and relocate
+        while scan &lt; self.free_space.free {
+            // ... relocate car/cdr ...
+            scan += 1;
+        }
+
+        std::mem::swap(&amp;mut self.working, &amp;mut self.free_space);
+        Ok(())
+    }
+}
+</pre></div>
+<pre class="lisp-preformatted">
+
+</pre></div>
+
+<p>At <code class="code">update-car</code>, we modify the <code class="code">car</code> pointer of the pair being
+scanned, then proceed to relocate the <code class="code">cdr</code> of the pair.  We return to
+<code class="code">update-cdr</code> when that relocation has been accomplished.  After relocating
+and updating the <code class="code">cdr</code>, we are finished scanning that pair, so we continue
 with the main loop.
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="pln">update-car
-  </span><span class="opn">(</span><span class="pln">perform </span><span class="opn">(</span><span class="pln">op vector-set!</span><span class="clo">)</span><span class="pln">
-           </span><span class="opn">(</span><span class="pln">reg new-cars</span><span class="clo">)</span><span class="pln">
-           </span><span class="opn">(</span><span class="pln">reg scan</span><span class="clo">)</span><span class="pln">
-           </span><span class="opn">(</span><span class="pln">reg new</span><span class="clo">))</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">assign  old 
-           </span><span class="opn">(</span><span class="pln">op vector-ref</span><span class="clo">)</span><span class="pln">
-           </span><span class="opn">(</span><span class="pln">reg new-cdrs</span><span class="clo">)</span><span class="pln">
-           </span><span class="opn">(</span><span class="pln">reg scan</span><span class="clo">))</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">assign  relocate-continue
-           </span><span class="opn">(</span><span class="pln">label update-cdr</span><span class="clo">))</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">goto </span><span class="opn">(</span><span class="pln">label relocate-old-result-in-new</span><span class="clo">))</span><span class="pln">
+<div class="example lisp">
+<pre class="lisp-preformatted">update-car
+  (perform (op vector-set!)
+           (reg new-cars)
+           (reg scan)
+           (reg new))
+  (assign  old
+           (op vector-ref)
+           (reg new-cdrs)
+           (reg scan))
+  (assign  relocate-continue
+           (label update-cdr))
+  (goto (label relocate-old-result-in-new))
 update-cdr
-  </span><span class="opn">(</span><span class="pln">perform </span><span class="opn">(</span><span class="pln">op vector-set!</span><span class="clo">)</span><span class="pln">
-           </span><span class="opn">(</span><span class="pln">reg new-cdrs</span><span class="clo">)</span><span class="pln">
-           </span><span class="opn">(</span><span class="pln">reg scan</span><span class="clo">)</span><span class="pln">
-           </span><span class="opn">(</span><span class="pln">reg new</span><span class="clo">))</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">assign  scan </span><span class="opn">(</span><span class="pln">op </span><span class="pun">+</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">reg scan</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">const </span><span class="lit">1</span><span class="clo">))</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">goto </span><span class="opn">(</span><span class="pln">label gc-loop</span><span class="clo">))</span></pre></div>
+  (perform (op vector-set!)
+           (reg new-cdrs)
+           (reg scan)
+           (reg new))
+  (assign  scan (op +) (reg scan) (const 1))
+  (goto (label gc-loop))
+</pre></div>
 
-<p>The subroutine <code>relocate-old-result-in-new</code> relocates objects as follows:
-If the object to be relocated (pointed at by <code>old</code>) is not a pair, then we
-return the same pointer to the object unchanged (in <code>new</code>).  (For example,
-we may be scanning a pair whose <code>car</code> is the number 4.  If we represent
-the <code>car</code> by <code>n4</code>, as described in <a href="#g_t5_002e3_002e1">5.3.1</a>, then we want
-the “relocated” <code>car</code> pointer to still be <code>n4</code>.)  Otherwise, we
-must perform the relocation.  If the <code>car</code> position of the pair to be
+<p>The subroutine <code class="code">relocate-old-result-in-new</code> relocates objects as follows:
+If the object to be relocated (pointed at by <code class="code">old</code>) is not a pair, then we
+return the same pointer to the object unchanged (in <code class="code">new</code>).  (For example,
+we may be scanning a pair whose <code class="code">car</code> is the number 4.  If we represent
+the <code class="code">car</code> by <code class="code">n4</code>, as described in <a class="ref" href="#g_t5_002e3_002e1">Memory as Vectors</a>, then we want
+the &#8220;relocated&#8221; <code class="code">car</code> pointer to still be <code class="code">n4</code>.)  Otherwise, we
+must perform the relocation.  If the <code class="code">car</code> position of the pair to be
 relocated contains a broken-heart tag, then the pair has in fact already been
-moved, so we retrieve the forwarding address (from the <code>cdr</code> position of
-the broken heart) and return this in <code>new</code>.  If the pointer in <code>old</code>
+moved, so we retrieve the forwarding address (from the <code class="code">cdr</code> position of
+the broken heart) and return this in <code class="code">new</code>.  If the pointer in <code class="code">old</code>
 points at a yet-unmoved pair, then we move the pair to the first free cell in
-new memory (pointed at by <code>free</code>) and set up the broken heart by storing a
+new memory (pointed at by <code class="code">free</code>) and set up the broken heart by storing a
 broken-heart tag and forwarding address at the old location.
-<code>Relocate-old-result-in-new</code> uses a register <code>oldcr</code> to hold the
-<code>car</code> or the <code>cdr</code> of the object pointed at by
-<code>old</code>.<a class="footnote_link" id="DOCF303" href="#FOOT303"><sup>303</sup></a>
+<code class="code">Relocate-old-result-in-new</code> uses a register <code class="code">oldcr</code> to hold the
+<code class="code">car</code> or the <code class="code">cdr</code> of the object pointed at by
+<code class="code">old</code>.<a class="footnote" id="DOCF282" href="#FOOT282"><sup>282</sup></a>
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="pln">relocate-old-result-in-new
-  </span><span class="opn">(</span><span class="pln">test </span><span class="opn">(</span><span class="pln">op pointer-to-pair?</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">reg old</span><span class="clo">))</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">branch </span><span class="opn">(</span><span class="pln">label pair</span><span class="clo">))</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">assign new </span><span class="opn">(</span><span class="pln">reg old</span><span class="clo">))</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">goto </span><span class="opn">(</span><span class="pln">reg relocate-continue</span><span class="clo">))</span><span class="pln">
+<div class="example lisp">
+<pre class="lisp-preformatted">relocate-old-result-in-new
+  (test (op pointer-to-pair?) (reg old))
+  (branch (label pair))
+  (assign new (reg old))
+  (goto (reg relocate-continue))
 pair
-  </span><span class="opn">(</span><span class="pln">assign  oldcr 
-           </span><span class="opn">(</span><span class="pln">op vector-ref</span><span class="clo">)</span><span class="pln">
-           </span><span class="opn">(</span><span class="pln">reg the-cars</span><span class="clo">)</span><span class="pln">
-           </span><span class="opn">(</span><span class="pln">reg old</span><span class="clo">))</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">test </span><span class="opn">(</span><span class="pln">op broken-heart?</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">reg oldcr</span><span class="clo">))</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">branch  </span><span class="opn">(</span><span class="pln">label already-moved</span><span class="clo">))</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">assign  new </span><span class="opn">(</span><span class="pln">reg free</span><span class="clo">))</span><span class="pln"> </span><span class="roman"><span class="com">; new location for pair</span></span><span class="pln">
-  </span><span class="roman"><span class="com">;; Update </span><code><span class="com">free</span></code><span class="com"> pointer.</span></span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">assign free </span><span class="opn">(</span><span class="pln">op </span><span class="pun">+</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">reg free</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">const </span><span class="lit">1</span><span class="clo">))</span><span class="pln">
-  </span><span class="roman"><span class="com">;; Copy the </span><code><span class="com">car</span></code><span class="com"> and </span><code><span class="com">cdr</span></code><span class="com"> to new memory.</span></span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">perform </span><span class="opn">(</span><span class="pln">op vector-set!</span><span class="clo">)</span><span class="pln">
-           </span><span class="opn">(</span><span class="pln">reg new-cars</span><span class="clo">)</span><span class="pln">
-           </span><span class="opn">(</span><span class="pln">reg new</span><span class="clo">)</span><span class="pln">
-           </span><span class="opn">(</span><span class="pln">reg oldcr</span><span class="clo">))</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">assign  oldcr 
-           </span><span class="opn">(</span><span class="pln">op vector-ref</span><span class="clo">)</span><span class="pln">
-           </span><span class="opn">(</span><span class="pln">reg the-cdrs</span><span class="clo">)</span><span class="pln">
-           </span><span class="opn">(</span><span class="pln">reg old</span><span class="clo">))</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">perform </span><span class="opn">(</span><span class="pln">op vector-set!</span><span class="clo">)</span><span class="pln">
-           </span><span class="opn">(</span><span class="pln">reg new-cdrs</span><span class="clo">)</span><span class="pln">
-           </span><span class="opn">(</span><span class="pln">reg new</span><span class="clo">)</span><span class="pln">
-           </span><span class="opn">(</span><span class="pln">reg oldcr</span><span class="clo">))</span><span class="pln">
-  </span><span class="roman"><span class="com">;; Construct the broken heart.</span></span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">perform </span><span class="opn">(</span><span class="pln">op vector-set!</span><span class="clo">)</span><span class="pln">
-           </span><span class="opn">(</span><span class="pln">reg the-cars</span><span class="clo">)</span><span class="pln">
-           </span><span class="opn">(</span><span class="pln">reg old</span><span class="clo">)</span><span class="pln">
-           </span><span class="opn">(</span><span class="pln">const broken-heart</span><span class="clo">))</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">perform </span><span class="opn">(</span><span class="pln">op vector-set!</span><span class="clo">)</span><span class="pln">
-           </span><span class="opn">(</span><span class="pln">reg the-cdrs</span><span class="clo">)</span><span class="pln">
-           </span><span class="opn">(</span><span class="pln">reg old</span><span class="clo">)</span><span class="pln">
-           </span><span class="opn">(</span><span class="pln">reg new</span><span class="clo">))</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">goto </span><span class="opn">(</span><span class="pln">reg relocate-continue</span><span class="clo">))</span><span class="pln">
+  (assign  oldcr
+           (op vector-ref)
+           (reg the-cars)
+           (reg old))
+  (test (op broken-heart?) (reg oldcr))
+  (branch  (label already-moved))
+  (assign  new (reg free)) <span class="r">; new location for pair</span>
+  <span class="r">;; Update <code class="code">free</code> pointer.</span>
+  (assign free (op +) (reg free) (const 1))
+  <span class="r">;; Copy the <code class="code">car</code> and <code class="code">cdr</code> to new memory.</span>
+  (perform (op vector-set!)
+           (reg new-cars)
+           (reg new)
+           (reg oldcr))
+  (assign  oldcr
+           (op vector-ref)
+           (reg the-cdrs)
+           (reg old))
+  (perform (op vector-set!)
+           (reg new-cdrs)
+           (reg new)
+           (reg oldcr))
+  <span class="r">;; Construct the broken heart.</span>
+  (perform (op vector-set!)
+           (reg the-cars)
+           (reg old)
+           (const broken-heart))
+  (perform (op vector-set!)
+           (reg the-cdrs)
+           (reg old)
+           (reg new))
+  (goto (reg relocate-continue))
 already-moved
-  </span><span class="opn">(</span><span class="pln">assign  new
-           </span><span class="opn">(</span><span class="pln">op vector-ref</span><span class="clo">)</span><span class="pln">
-           </span><span class="opn">(</span><span class="pln">reg the-cdrs</span><span class="clo">)</span><span class="pln">
-           </span><span class="opn">(</span><span class="pln">reg old</span><span class="clo">))</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">goto </span><span class="opn">(</span><span class="pln">reg relocate-continue</span><span class="clo">))</span></pre></div>
+  (assign  new
+           (op vector-ref)
+           (reg the-cdrs)
+           (reg old))
+  (goto (reg relocate-continue))
+</pre></div>
 
 <p>At the very end of the garbage-collection process, we interchange the role of
-old and new memories by interchanging pointers: interchanging <code>the-cars</code>
-with <code>new-cars</code>, and <code>the-cdrs</code> with <code>new-cdrs</code>.  We will then
+old and new memories by interchanging pointers: interchanging <code class="code">the-cars</code>
+with <code class="code">new-cars</code>, and <code class="code">the-cdrs</code> with <code class="code">new-cdrs</code>.  We will then
 be ready to perform another garbage collection the next time memory runs out.
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="pln">gc-flip
-  </span><span class="opn">(</span><span class="pln">assign temp </span><span class="opn">(</span><span class="pln">reg the-cdrs</span><span class="clo">))</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">assign the-cdrs </span><span class="opn">(</span><span class="pln">reg new-cdrs</span><span class="clo">))</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">assign new-cdrs </span><span class="opn">(</span><span class="pln">reg temp</span><span class="clo">))</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">assign temp </span><span class="opn">(</span><span class="pln">reg the-cars</span><span class="clo">))</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">assign the-cars </span><span class="opn">(</span><span class="pln">reg new-cars</span><span class="clo">))</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">assign new-cars </span><span class="opn">(</span><span class="pln">reg temp</span><span class="clo">))</span></pre></div>
+<div class="example lisp">
+<pre class="lisp-preformatted">gc-flip
+  (assign temp (reg the-cdrs))
+  (assign the-cdrs (reg new-cdrs))
+  (assign new-cdrs (reg temp))
+  (assign temp (reg the-cars))
+  (assign the-cars (reg new-cars))
+  (assign new-cars (reg temp))
+</pre></div>
 
-<div class="footnote">
+<hr />
+</div>
+<div class="subsection-level-extent" id="g_t5_002e3_002e3">
+<h4 class="subsection" id="Ownership-as-Compile_002dTime-Garbage-Collection"><span>5.3.3 Ownership as Compile-Time Garbage Collection<a class="copiable-link" href="#Ownership-as-Compile_002dTime-Garbage-Collection"> &#182;</a></span></h4>
+
+<a class="index-entry-id" id="index-ownership-system"></a>
+<a class="index-entry-id" id="index-compile_002dtime-memory-management"></a>
+<a class="index-entry-id" id="index-RAII-1"></a>
+<a class="index-entry-id" id="index-deterministic-cleanup"></a>
+
+<p>In <a class="ref" href="#g_t5_002e3_002e1">Memory as Vectors</a> and <a class="ref" href="#g_t5_002e3_002e2">Maintaining the Illusion of Infinite Memory</a>, we explored the mechanisms by which dynamic
+languages maintain the illusion of infinite memory through garbage collection.
+These runtime systems automatically reclaim memory that is no longer needed,
+freeing programmers from explicit memory management. However, this convenience
+comes at a cost: unpredictable pause times, runtime overhead, and the need for
+sophisticated algorithms to track object liveness.
+</p>
+<p>Rust takes a radically different approach: it performs garbage collection at
+<em class="emph">compile time</em> through its <a class="index-entry-id" id="index-ownership-system-1"></a>
+<em class="dfn">ownership system</em>. Rather than
+tracking object lifetimes at runtime, the Rust compiler statically verifies
+that every allocation has a clear owner and that memory is reclaimed
+deterministically when that owner goes out of scope. This section explores how
+ownership achieves the safety guarantees of garbage collection without its
+runtime costs.
+</p>
+<h4 class="subsubheading" id="Resource-Acquisition-Is-Initialization-_0028RAII_0029"><span>Resource Acquisition Is Initialization (RAII)<a class="copiable-link" href="#Resource-Acquisition-Is-Initialization-_0028RAII_0029"> &#182;</a></span></h4>
+
+<a class="index-entry-id" id="index-RAII-2"></a>
+<a class="index-entry-id" id="index-resource-management"></a>
+<a class="index-entry-id" id="index-scope_002dbased-cleanup"></a>
+<p>The foundation of Rust&#8217;s memory management is <a class="index-entry-id" id="index-Resource-Acquisition-Is"></a>
+Initialization
+<em class="dfn">Resource Acquisition Is
+Initialization</em> (<abbr class="abbr">RAII</abbr>), a principle borrowed from C++ but enforced with
+mathematical rigor. The core idea is deceptively simple: tie resource lifetime
+to scope. When a value is created, its resource is acquired; when the value
+goes out of scope, the resource is automatically released.
+</p>
+<p>Consider a simple example:
+</p>
+<div class="example">
+<pre class="example-preformatted">fn process_file() -&gt; std::io::Result&lt;()&gt; {
+    let file = std::fs::File::open(&quot;data.txt&quot;)?;
+    // Use file...
+    // File is automatically closed here when `file` goes out of scope
+    Ok(())
+}
+</pre></div>
+
+<p>Unlike garbage-collected languages where the file handle might remain open until
+the next collection cycle, Rust guarantees that the file is closed exactly at
+the closing brace. This determinism is crucial for managing limited resources
+like file handles, network connections, and locks.
+</p>
+<p>The mechanism behind this automatic cleanup is the <code class="code">Drop</code> trait:
+</p>
+<div class="example">
+<pre class="example-preformatted">pub trait Drop {
+    fn drop(&amp;mut self);
+}
+</pre></div>
+
+<p>When a value goes out of scope, Rust automatically calls its <code class="code">drop</code> method.
+For <code class="code">File</code>, this method closes the file handle. For <code class="code">Vec&lt;T&gt;</code>, it
+deallocates the heap buffer. For more complex types, <code class="code">drop</code> recursively
+cleans up all owned resources.
+</p>
+<h4 class="subsubheading" id="The-Drop-Trait-and-Deterministic-Cleanup"><span>The Drop Trait and Deterministic Cleanup<a class="copiable-link" href="#The-Drop-Trait-and-Deterministic-Cleanup"> &#182;</a></span></h4>
+
+<a class="index-entry-id" id="index-Drop-trait"></a>
+<a class="index-entry-id" id="index-destructor"></a>
+<a class="index-entry-id" id="index-cleanup-semantics"></a>
+<p>Let&#8217;s implement a simple type to understand <code class="code">Drop</code> semantics:
+</p>
+<div class="example">
+<pre class="example-preformatted">struct Transaction {
+    id: u64,
+    committed: bool,
+}
+
+impl Transaction {
+    fn new(id: u64) -&gt; Self {
+        println!(&quot;Starting transaction {}&quot;, id);
+        Transaction { id, committed: false }
+    }
+
+    fn commit(&amp;mut self) {
+        println!(&quot;Committing transaction {}&quot;, self.id);
+        self.committed = true;
+    }
+}
+
+impl Drop for Transaction {
+    fn drop(&amp;mut self) {
+        if !self.committed {
+            println!(&quot;Rolling back transaction {}&quot;, self.id);
+        }
+    }
+}
+</pre></div>
+
+<p>Now observe the behavior:
+</p>
+<div class="example">
+<pre class="example-preformatted">fn example() {
+    let mut tx1 = Transaction::new(1);
+    tx1.commit();
+
+    let tx2 = Transaction::new(2);
+    // tx2 is never committed
+}  // Both transactions are dropped here
+</pre></div>
+
+<p>Output:
+</p>
+<div class="example">
+<pre class="example-preformatted">Starting transaction 1
+Committing transaction 1
+Starting transaction 2
+Rolling back transaction 2
+</pre></div>
+
+<p>The cleanup happens in reverse order of creation (stack unwinding), and it
+happens <em class="emph">precisely</em> when the values go out of scope—no waiting for a
+garbage collector, no finalizers that might never run. This predictability
+makes <abbr class="abbr">RAII</abbr> suitable for managing critical resources with strict lifetime
+requirements.
+</p>
+<h4 class="subsubheading" id="Zero-Runtime-Overhead"><span>Zero Runtime Overhead<a class="copiable-link" href="#Zero-Runtime-Overhead"> &#182;</a></span></h4>
+
+<a class="index-entry-id" id="index-zero_002dcost-abstraction-4"></a>
+<a class="index-entry-id" id="index-runtime-overhead"></a>
+<a class="index-entry-id" id="index-performance"></a>
+<p>Contrast this with garbage collection (<a class="ref" href="#g_t5_002e3_002e2">Maintaining the Illusion of Infinite Memory</a>). A copying garbage collector
+must:
+</p>
+<ol class="enumerate">
+<li> Periodically scan the heap to identify live objects
+</li><li> Copy live objects to a new memory region
+</li><li> Update all pointers to reflect new locations
+</li><li> Pause program execution during collection
+</li></ol>
+
+<p>These operations impose runtime costs that scale with heap size and object count.
+In contrast, Rust&#8217;s ownership system operates entirely at compile time. The
+generated machine code contains simple deallocation instructions at scope exits:
+</p>
+<div class="example">
+<div class="group"><pre class="example-preformatted">// Rust source
+fn example() {
+    let vec = vec![1, 2, 3, 4, 5];
+    println!(&quot;Sum: {}&quot;, vec.iter().sum::&lt;i32&gt;());
+}
+
+// Simplified assembly (conceptual)
+example:
+    call    vec_allocate      // Allocate heap buffer
+    call    println
+    call    vec_deallocate    // Deallocate heap buffer
+    ret
+</pre></div></div>
+
+<p>There is no runtime system, no stop-the-world pauses, no memory overhead for
+tracking metadata. The only cost is the deallocation itself—work that must be
+done regardless of the memory management strategy.
+</p>
+<p>This zero-overhead property extends beyond simple allocations. Consider a
+complex data structure:
+</p>
+<div class="example">
+<pre class="example-preformatted">struct Database {
+    connection_pool: Vec&lt;Connection&gt;,
+    cache: HashMap&lt;String, Value&gt;,
+    metrics: Arc&lt;Mutex&lt;Metrics&gt;&gt;,
+}
+</pre></div>
+
+<p>When a <code class="code">Database</code> is dropped, the compiler generates code to recursively
+drop each field in declaration order. No runtime traversal is needed—the
+structure of cleanup mirrors the structure of the type, determined entirely at
+compile time.
+</p>
+<h4 class="subsubheading" id="When-Runtime-Management-Is-Still-Needed"><span>When Runtime Management Is Still Needed<a class="copiable-link" href="#When-Runtime-Management-Is-Still-Needed"> &#182;</a></span></h4>
+
+<a class="index-entry-id" id="index-reference-counting-1"></a>
+<a class="index-entry-id" id="index-Rc"></a>
+<a class="index-entry-id" id="index-Arc-1"></a>
+<a class="index-entry-id" id="index-shared-ownership"></a>
+<p>While ownership handles most memory management, some scenarios require runtime
+flexibility. Rust provides <a class="index-entry-id" id="index-reference_002dcounted"></a>
+<em class="dfn">reference-counted</em> types for these cases:
+</p>
+<ul class="itemize mark-bullet">
+<li><code class="code">Rc&lt;T&gt;</code> — Single-threaded reference counting
+</li><li><code class="code">Arc&lt;T&gt;</code> — Thread-safe atomic reference counting
+</li></ul>
+
+<p>These types use runtime counting to manage shared ownership:
+</p>
+<div class="example">
+<pre class="example-preformatted">use std::rc::Rc;
+
+#[derive(Debug)]
+struct Node {
+    value: i32,
+    next: Option&lt;Rc&lt;Node&gt;&gt;,
+}
+
+fn build_shared_list() -&gt; (Rc&lt;Node&gt;, Rc&lt;Node&gt;) {
+    let tail = Rc::new(Node { value: 3, next: None });
+
+    let middle = Rc::new(Node {
+        value: 2,
+        next: Some(Rc::clone(&amp;tail)),
+    });
+
+    let head = Rc::new(Node {
+        value: 1,
+        next: Some(Rc::clone(&amp;middle)),
+    });
+
+    // Both paths share the tail node
+    (head, middle)
+}
+</pre></div>
+
+<p><code class="code">Rc</code> maintains a count of active references. When the count reaches zero,
+the resource is deallocated. This is still deterministic—deallocation happens
+precisely when the last reference is dropped—but the decision requires runtime
+information.
+</p>
+<p>Critically, reference counting is <em class="emph">opt-in</em>. The default is move semantics
+with static ownership. Only when you explicitly use <code class="code">Rc</code> or <code class="code">Arc</code> do
+you incur the overhead of reference counting. This contrasts with garbage
+collected languages where all objects carry the overhead of runtime tracking.
+</p>
+<h4 class="subsubheading" id="Comparison_003a-Garbage-Collection-vs_002e-Ownership"><span>Comparison: Garbage Collection vs. Ownership<a class="copiable-link" href="#Comparison_003a-Garbage-Collection-vs_002e-Ownership"> &#182;</a></span></h4>
+
+<a class="index-entry-id" id="index-GC-vs-ownership"></a>
+<a class="index-entry-id" id="index-memory-management-tradeoffs"></a>
+<p>The trade-offs between garbage collection and ownership reveal different points
+in the design space:
+</p>
+<table class="multitable">
+<thead><tr><th width="25%">Property</th><th width="35%">Garbage Collection</th><th width="40%">Ownership</th></tr></thead>
+<tbody><tr><td width="25%">Memory reclamation</td><td width="35%">Automatic, runtime</td><td width="40%">Automatic, compile-time</td></tr>
+<tr><td width="25%">Timing</td><td width="35%">Non-deterministic</td><td width="40%">Deterministic (scope-based)</td></tr>
+<tr><td width="25%">Overhead</td><td width="35%">Memory + CPU for <abbr class="abbr">GC</abbr></td><td width="40%">Compile time only</td></tr>
+<tr><td width="25%">Pause times</td><td width="35%">Unpredictable</td><td width="40%">None (no runtime <abbr class="abbr">GC</abbr>)</td></tr>
+<tr><td width="25%">Cycles</td><td width="35%">Handled automatically</td><td width="40%">Require <code class="code">Rc</code>/weak refs</td></tr>
+<tr><td width="25%">Shared ownership</td><td width="35%">Natural</td><td width="40%">Explicit (<code class="code">Rc</code>/<code class="code">Arc</code>)</td></tr>
+<tr><td width="25%">Learning curve</td><td width="35%">Gentle</td><td width="40%">Steep</td></tr>
+<tr><td width="25%">Resource management</td><td width="35%">Finalizers (unreliable)</td><td width="40%"><abbr class="abbr">RAII</abbr> (guaranteed)</td></tr>
+</tbody>
+</table>
+
+<p>Garbage collection excels in scenarios where:
+</p>
+<ul class="itemize mark-bullet">
+<li>Complex object graphs with frequent sharing
+</li><li>Prototyping and rapid iteration
+</li><li>Applications where pause times are acceptable
+</li><li>Programs with abundant memory
+</li></ul>
+
+<p>Ownership excels where:
+</p>
+<ul class="itemize mark-bullet">
+<li>Predictable latency is critical (real-time systems, game engines)
+</li><li>Memory is constrained (embedded systems)
+</li><li>Resource management beyond memory (files, locks, transactions)
+</li><li>Maximum performance is required
+</li></ul>
+
+<h4 class="subsubheading" id="The-Zero_002dCost-Abstraction-Philosophy"><span>The Zero-Cost Abstraction Philosophy<a class="copiable-link" href="#The-Zero_002dCost-Abstraction-Philosophy"> &#182;</a></span></h4>
+
+<a class="index-entry-id" id="index-zero_002dcost-abstraction-5"></a>
+<a class="index-entry-id" id="index-abstraction-without-overhead"></a>
+<p>Rust&#8217;s ownership system embodies the <a class="index-entry-id" id="index-zero_002dcost-abstraction-6"></a>
+<em class="dfn">zero-cost abstraction</em> principle:
+what you don&#8217;t use, you don&#8217;t pay for; what you do use, you couldn&#8217;t hand-code
+any better.
+</p>
+<p>Consider this high-level code using iterators:
+</p>
+<div class="example">
+<pre class="example-preformatted">fn sum_of_squares(data: &amp;[i32]) -&gt; i32 {
+    data.iter()
+        .map(|x| x * x)
+        .sum()
+}
+</pre></div>
+
+<p>Despite the abstraction layers (iterator, closure, map combinator), this
+compiles to a tight loop with no heap allocation, no virtual dispatch, and no
+runtime overhead:
+</p>
+<div class="example">
+<div class="group"><pre class="example-preformatted">// Conceptual assembly output
+sum_of_squares:
+    xor    eax, eax          ; sum = 0
+.loop:
+    mov    ecx, [rsi]        ; load element
+    imul   ecx, ecx          ; square it
+    add    eax, ecx          ; add to sum
+    add    rsi, 4            ; next element
+    dec    rdi               ; decrement count
+    jnz    .loop             ; continue if not zero
+    ret
+</pre></div></div>
+
+<p>The ownership system enables this because the compiler knows:
+</p>
+<ul class="itemize mark-bullet">
+<li>The slice <code class="code">&amp;[i32]</code> cannot be modified during iteration
+</li><li>No allocation is needed for the iterator or closure
+</li><li>The closure cannot escape or outlive the slice
+</li><li>All bounds checks can be elided (the iterator guarantees safety)
+</li></ul>
+
+<p>These guarantees, proven at compile time, allow aggressive optimization without
+sacrificing safety.
+</p>
+<h4 class="subsubheading" id="Ownership-as-a-Type-System-for-Aliasing"><span>Ownership as a Type System for Aliasing<a class="copiable-link" href="#Ownership-as-a-Type-System-for-Aliasing"> &#182;</a></span></h4>
+
+<a class="index-entry-id" id="index-aliasing-1"></a>
+<a class="index-entry-id" id="index-borrowing-2"></a>
+<a class="index-entry-id" id="index-mutable-references"></a>
+<p>At a deeper level, ownership is a <a class="index-entry-id" id="index-type-system-for-aliasing-control"></a>
+<em class="dfn">type system for aliasing control</em>.
+The fundamental insight is that most bugs involving memory arise from
+unsynchronized mutable aliasing—multiple references to the same data where at
+least one can mutate it.
+</p>
+<p>Rust&#8217;s borrowing rules eliminate this:
+</p>
+<div class="example">
+<pre class="example-preformatted">// Either ONE mutable reference...
+let mut data = vec![1, 2, 3];
+let r = &amp;mut data;
+r.push(4);
+
+// ...OR any number of immutable references
+let data = vec![1, 2, 3];
+let r1 = &amp;data;
+let r2 = &amp;data;
+println!(&quot;{:?} {:?}&quot;, r1, r2);
+
+// But NEVER both simultaneously (compile error)
+let mut data = vec![1, 2, 3];
+let r1 = &amp;data;
+let r2 = &amp;mut data;  // ERROR: cannot borrow as mutable
+</pre></div>
+
+<p>This rule, enforced at compile time, prevents entire classes of bugs:
+</p>
+<ul class="itemize mark-bullet">
+<li>Iterator invalidation
+</li><li>Data races
+</li><li>Use-after-free
+</li><li>Double-free
+</li><li>Null pointer dereference
+</li></ul>
+
+<p>Where garbage collection prevents memory errors through runtime tracking,
+ownership prevents them through compile-time verification. The result is
+memory safety without garbage collection—a property once thought impossible.
+</p>
+<blockquote class="quotation">
+<p><strong class="strong"><a class="anchor" id="Exercise-5_002e22a"></a>Exercise 5.22a:</strong> Implement a simple arena allocator
+in Rust using <abbr class="abbr">RAII</abbr> principles. Your <code class="code">Arena</code> type should own a
+large buffer and provide a <code class="code">alloc</code> method that hands out non-overlapping
+slices of that buffer. When the <code class="code">Arena</code> is dropped, all allocated memory
+should be reclaimed at once. Compare the performance of your arena allocator to
+individual <code class="code">Box</code> allocations for creating 10,000 small objects. What are
+the safety trade-offs of arena allocation, and how does Rust&#8217;s lifetime system
+ensure that references into the arena don&#8217;t outlive the arena itself?
+</p></blockquote>
+
+<blockquote class="quotation">
+<p><strong class="strong"><a class="anchor" id="Exercise-5_002e23a"></a>Exercise 5.23a:</strong> Implement a simple graph structure
+using <code class="code">Rc&lt;RefCell&lt;T&gt;&gt;</code> to allow cycles. Create a cycle (A points to B, B
+points to C, C points to A) and observe that the memory is not reclaimed when
+you drop the initial references. Then modify your implementation to use
+<code class="code">Rc&lt;T&gt;</code> with <code class="code">Weak&lt;T&gt;</code> references to break cycles, ensuring proper
+cleanup. Instrument your <code class="code">Drop</code> implementations to verify when cleanup
+occurs. What does this reveal about the relationship between ownership, reference
+counting, and garbage collection? When would you prefer Rust&#8217;s manual cycle
+management over a garbage collector&#8217;s automatic cycle detection?
+</p></blockquote>
+
+</div>
+</div>
+<div class="footnotes-segment">
+<hr />
 <h4 class="footnotes-heading">Footnotes</h4>
 
-<div id="FOOT290"><p><a class="footnote_backlink" href="#DOCF290"><sup>290</sup></a>
-We could represent memory as
+<h5 class="footnote-body-heading"><a id="FOOT269" href="#DOCF269">(269)</a></h5>
+<p>We could represent memory as
 lists of items.  However, the access time would then not be independent of the
-index, since accessing the <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <msup>
-    <mi>n</mi>
-    <mrow class="MJX-TeXAtom-ORD">
-      <mtext>th</mtext>
-    </mrow>
-  </msup>
-</math> element of a list requires <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <mrow class="MJX-TeXAtom-ORD">
-    <mi>n</mi>
-    <mo>−<!-- − --></mo>
-    <mn>1</mn>
-  </mrow>
-</math>
-<code>cdr</code> operations.</p>
-</div>
-<div id="FOOT291"><p><a class="footnote_backlink" href="#DOCF291"><sup>291</sup></a>
-For
-completeness, we should specify a <code>make-vector</code> operation that constructs
+index, since accessing the <em class="math">n^{th}</em> element of a list requires <em class="math">{n - 1}</em>
+<code class="code">cdr</code> operations.</p>
+<h5 class="footnote-body-heading"><a id="FOOT270" href="#DOCF270">(270)</a></h5>
+<p>For
+completeness, we should specify a <code class="code">make-vector</code> operation that constructs
 vectors.  However, in the present application we will use vectors only to model
 fixed divisions of the computer memory.</p>
-</div>
-<div id="FOOT292"><p><a class="footnote_backlink" href="#DOCF292"><sup>292</sup></a>
-This is precisely the same
-“tagged data” idea we introduced in <a href="Chapter-2.xhtml#Chapter-2">Chapter 2</a> for dealing with generic
+<h5 class="footnote-body-heading"><a id="FOOT271" href="#DOCF271">(271)</a></h5>
+<p>This is precisely the same
+&#8220;tagged data&#8221; idea we introduced in <a class="ref" href="Chapter-2.xhtml">Building Abstractions with Data</a> for dealing with generic
 operations.  Here, however, the data types are included at the primitive
 machine level rather than constructed through the use of lists.</p>
-</div>
-<div id="FOOT293"><p><a class="footnote_backlink" href="#DOCF293"><sup>293</sup></a>
-Type information
+<h5 class="footnote-body-heading"><a id="FOOT272" href="#DOCF272">(272)</a></h5>
+<p>Type information
 may be encoded in a variety of ways, depending on the details of the machine on
 which the Lisp system is to be implemented.  The execution efficiency of Lisp
 programs will be strongly dependent on how cleverly this choice is made, but it
 is difficult to formulate general design rules for good choices.  The most
 straightforward way to implement typed pointers is to allocate a fixed set of
-bits in each pointer to be a <a id="index-type-field"></a>
-<em>type field</em> that encodes the data type.
+bits in each pointer to be a <a class="index-entry-id" id="index-type-field"></a>
+<em class="dfn">type field</em> that encodes the data type.
 Important questions to be addressed in designing such a representation include
 the following: How many type bits are required?  How large must the vector
 indices be?  How efficiently can the primitive machine instructions be used to
 manipulate the type fields of pointers?  Machines that include special hardware
-for the efficient handling of type fields are said to have <a id="index-tagged-architectures"></a>
-<em>tagged architectures</em>.</p>
-</div>
-<div id="FOOT294"><p><a class="footnote_backlink" href="#DOCF294"><sup>294</sup></a>
-This decision on the representation of numbers determines whether
-<code>eq?</code>, which tests equality of pointers, can be used to test for equality
+for the efficient handling of type fields are said to have <a class="index-entry-id" id="index-tagged-architectures"></a>
+<em class="dfn">tagged architectures</em>.</p>
+<h5 class="footnote-body-heading"><a id="FOOT273" href="#DOCF273">(273)</a></h5>
+<p>This decision on the representation of numbers determines whether
+<code class="code">eq?</code>, which tests equality of pointers, can be used to test for equality
 of numbers.  If the pointer contains the number itself, then equal numbers will
 have the same pointer.  But if the pointer contains the index of a location
 where the number is stored, equal numbers will be guaranteed to have equal
 pointers only if we are careful never to store the same number in more than one
 location.</p>
-</div>
-<div id="FOOT295"><p><a class="footnote_backlink" href="#DOCF295"><sup>295</sup></a>
-This is just like writing a number
-as a sequence of digits, except that each “digit” is a number between 0 and
+<h5 class="footnote-body-heading"><a id="FOOT274" href="#DOCF274">(274)</a></h5>
+<p>This is just like writing a number
+as a sequence of digits, except that each &#8220;digit&#8221; is a number between 0 and
 the largest number that can be stored in a single pointer.</p>
-</div>
-<div id="FOOT296"><p><a class="footnote_backlink" href="#DOCF296"><sup>296</sup></a>
-There are other ways of finding free storage.  For example,
-we could link together all the unused pairs into a <a id="index-free-list"></a>
-<em>free list</em>.  Our
+<h5 class="footnote-body-heading"><a id="FOOT275" href="#DOCF275">(275)</a></h5>
+<p>There are other ways of finding free storage.  For example,
+we could link together all the unused pairs into a <a class="index-entry-id" id="index-free-list"></a>
+<em class="dfn">free list</em>.  Our
 free locations are consecutive (and hence can be accessed by incrementing a
 pointer) because we are using a compacting garbage collector, as we will see in
-<a href="#g_t5_002e3_002e2">5.3.2</a>.</p>
-</div>
-<div id="FOOT297"><p><a class="footnote_backlink" href="#DOCF297"><sup>297</sup></a>
-This is
-essentially the implementation of <code>cons</code> in terms of <code>set-car!</code> and
-<code>set-cdr!</code>, as described in <a href="3_002e3.xhtml#g_t3_002e3_002e1">3.3.1</a>.  The operation
-<code>get-new-pair</code> used in that implementation is realized here by the
-<code>free</code> pointer.</p>
-</div>
-<div id="FOOT298"><p><a class="footnote_backlink" href="#DOCF298"><sup>298</sup></a>
-This may not be true eventually, because
+<a class="ref" href="#g_t5_002e3_002e2">Maintaining the Illusion of Infinite Memory</a>.</p>
+<h5 class="footnote-body-heading"><a id="FOOT276" href="#DOCF276">(276)</a></h5>
+<p>This is
+essentially the implementation of <code class="code">cons</code> in terms of <code class="code">set_car</code> (or similar mutator) and
+<code class="code">set_cdr</code> (or similar mutator), as described in <a class="ref" href="3_002e3.xhtml#g_t3_002e3_002e1">Mutable List Structure</a>.  The operation
+<code class="code">get-new-pair</code> used in that implementation is realized here by the
+<code class="code">free</code> pointer.</p>
+<h5 class="footnote-body-heading"><a id="FOOT277" href="#DOCF277">(277)</a></h5>
+<p>This may not be true eventually, because
 memories may get large enough so that it would be impossible to run out of free
 memory in the lifetime of the computer.  For example, there are about
-<math xmlns="http://www.w3.org/1998/Math/MathML">
-  <mrow class="MJX-TeXAtom-ORD">
-    <mn>3</mn>
-    <mo>⋅<!-- ⋅ --></mo>
-    <msup>
-      <mn>10</mn>
-      <mrow class="MJX-TeXAtom-ORD">
-        <mn>13</mn>
-      </mrow>
-    </msup>
-  </mrow>
-</math> microseconds in a year, so if we were to <code>cons</code> once per
-microsecond we would need about <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <msup>
-    <mn>10</mn>
-    <mrow class="MJX-TeXAtom-ORD">
-      <mn>15</mn>
-    </mrow>
-  </msup>
-</math> cells of memory to build a machine that
+<em class="math">{3·10^{13}}</em> microseconds in a year, so if we were to <code class="code">cons</code> once per
+microsecond we would need about <em class="math">10^{15}</em> cells of memory to build a machine that
 could operate for 30 years without running out of memory.  That much memory
-seems absurdly large by today’s standards, but it is not physically impossible.
+seems absurdly large by today&#8217;s standards, but it is not physically impossible.
 On the other hand, processors are getting faster and a future computer may have
 large numbers of processors operating in parallel on a single memory, so it may
 be possible to use up memory much faster than we have postulated.</p>
-</div>
-<div id="FOOT299"><p><a class="footnote_backlink" href="#DOCF299"><sup>299</sup></a>
-We assume here
-that the stack is represented as a list as described in <a href="#g_t5_002e3_002e1">5.3.1</a>, so
+<h5 class="footnote-body-heading"><a id="FOOT278" href="#DOCF278">(278)</a></h5>
+<p>We assume here
+that the stack is represented as a list as described in <a class="ref" href="#g_t5_002e3_002e1">Memory as Vectors</a>, so
 that items on the stack are accessible via the pointer in the stack register.</p>
-</div>
-<div id="FOOT300"><p><a class="footnote_backlink" href="#DOCF300"><sup>300</sup></a>
-This idea was invented and first implemented by
+<h5 class="footnote-body-heading"><a id="FOOT279" href="#DOCF279">(279)</a></h5>
+<p>This idea was invented and first implemented by
 Minsky, as part of the implementation of Lisp for the PDP-1 at the
-<abbr>MIT</abbr> Research Laboratory of Electronics.  It was further developed by
-<a href="References.xhtml#Fenichel-and-Yochelson-_00281969_0029">Fenichel and Yochelson (1969)</a> for use in the Lisp implementation for the
-Multics time-sharing system.  Later, <a href="References.xhtml#Baker-_00281978_0029">Baker (1978)</a> developed a “real-time”
+<abbr class="abbr">MIT</abbr> Research Laboratory of Electronics.  It was further developed by
+<a class="ref" href="References.xhtml#Fenichel-and-Yochelson-_00281969_0029">Fenichel and Yochelson (1969)</a> for use in the Lisp implementation for the
+Multics time-sharing system.  Later, <a class="ref" href="References.xhtml#Baker-_00281978_0029">Baker (1978)</a> developed a &#8220;real-time&#8221;
 version of the method, which does not require the computation to stop during
-garbage collection.  Baker’s idea was extended by Hewitt, Lieberman, and Moon
-(see <a href="References.xhtml#Lieberman-and-Hewitt-1983">Lieberman and Hewitt 1983</a>) to take advantage of the fact that some
+garbage collection.  Baker&#8217;s idea was extended by Hewitt, Lieberman, and Moon
+(see <a class="ref" href="References.xhtml#Lieberman-and-Hewitt-1983">Lieberman and Hewitt 1983</a>) to take advantage of the fact that some
 structure is more volatile and other structure is more permanent.
 </p>
 <p>An alternative commonly used garbage-collection technique is the
-<a id="index-mark_002dsweep"></a>
-<em>mark-sweep</em> method.  This consists of tracing all the structure
+<a class="index-entry-id" id="index-mark_002dsweep"></a>
+<em class="dfn">mark-sweep</em> method.  This consists of tracing all the structure
 accessible from the machine registers and marking each pair we reach.  We then
-scan all of memory, and any location that is unmarked is “swept up” as
+scan all of memory, and any location that is unmarked is &#8220;swept up&#8221; as
 garbage and made available for reuse.  A full discussion of the mark-sweep
-method can be found in <a href="References.xhtml#Allen-1978">Allen 1978</a>.
+method can be found in <a class="ref" href="References.xhtml#Allen-1978">Allen 1978</a>.
 </p>
 <p>The Minsky-Fenichel-Yochelson algorithm is the dominant algorithm in use for
 large-memory systems because it examines only the useful part of memory.  This
 is in contrast to mark-sweep, in which the sweep phase must check all of
 memory.  A second advantage of stop-and-copy is that it is a
-<a id="index-compacting"></a>
-<em>compacting</em> garbage collector.  That is, at the end of the
+<a class="index-entry-id" id="index-compacting"></a>
+<em class="dfn">compacting</em> garbage collector.  That is, at the end of the
 garbage-collection phase the useful data will have been moved to consecutive
 memory locations, with all garbage pairs compressed out.  This can be an
 extremely important performance consideration in machines with virtual memory,
 in which accesses to widely separated memory addresses may require extra paging
 operations.</p>
-</div>
-<div id="FOOT301"><p><a class="footnote_backlink" href="#DOCF301"><sup>301</sup></a>
-This list of registers does not include
-the registers used by the storage-allocation system—<code>root</code>,
-<code>the-cars</code>, <code>the-cdrs</code>, and the other registers that will be
+<h5 class="footnote-body-heading"><a id="FOOT280" href="#DOCF280">(280)</a></h5>
+<p>This list of registers does not include
+the registers used by the storage-allocation system&#8212;<code class="code">root</code>,
+<code class="code">the-cars</code>, <code class="code">the-cdrs</code>, and the other registers that will be
 introduced in this section.</p>
-</div>
-<div id="FOOT302"><p><a class="footnote_backlink" href="#DOCF302"><sup>302</sup></a>
-The term <em>broken heart</em> was coined by
+<h5 class="footnote-body-heading"><a id="FOOT281" href="#DOCF281">(281)</a></h5>
+<p>The term <em class="emph">broken heart</em> was coined by
 David Cressey, who wrote a garbage collector for MDL, a dialect of Lisp
-developed at <abbr>MIT</abbr> during the early 1970s.</p>
-</div>
-<div id="FOOT303"><p><a class="footnote_backlink" href="#DOCF303"><sup>303</sup></a>
-The garbage collector uses the low-level predicate
-<code>pointer-to-pair?</code> instead of the list-structure <code>pair?</code>  operation
+developed at <abbr class="abbr">MIT</abbr> during the early 1970s.</p>
+<h5 class="footnote-body-heading"><a id="FOOT282" href="#DOCF282">(282)</a></h5>
+<p>The garbage collector uses the low-level predicate
+<code class="code">pointer-to-pair?</code> instead of the list-structure <code class="code">pair?</code>  operation
 because in a real system there might be various things that are treated as
 pairs for garbage-collection purposes.  For example, in a Scheme system that
-conforms to the <abbr>IEEE</abbr> standard a procedure object may be implemented
-as a special kind of “pair” that doesn’t satisfy the <code>pair?</code> predicate.
-For simulation purposes, <code>pointer-to-pair?</code> can be implemented as
-<code>pair?</code>.</p>
+conforms to the <abbr class="abbr">IEEE</abbr> standard a procedure object may be implemented
+as a special kind of &#8220;pair&#8221; that doesn&#8217;t satisfy the <code class="code">pair?</code> predicate.
+For simulation purposes, <code class="code">pointer-to-pair?</code> can be implemented as
+<code class="code">pair?</code>.</p>
 </div>
-</div>
-<nav class="header">
+<hr />
+<div class="nav-panel">
 <p>
-Next: <a href="5_002e4.xhtml#g_t5_002e4" accesskey="n" rel="next">5.4</a>, Prev: <a href="5_002e2.xhtml#g_t5_002e2" accesskey="p" rel="prev">5.2</a>, Up: <a href="#g_t5_002e3" accesskey="u" rel="prev">5.3</a>   [<a href="index.xhtml#SEC_Contents" title="Table of contents" accesskey="c" rel="contents">Contents</a>]</p>
-</nav>
+Next: <a href="5_002e4.xhtml#g_t5_002e4" accesskey="n" rel="next">The Explicit-Control Evaluator</a>, Previous: <a href="5_002e2.xhtml#g_t5_002e2_002e5" accesskey="p" rel="prev">WebAssembly Backend</a>, Up: <a href="Chapter-5.xhtml" accesskey="u" rel="up">Computing with Register Machines</a> &#160; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
+</div>
 
 
-</section><span class="bottom jump" title="Jump to bottom"><a href="#pagebottom" accesskey="b">⇣</a></span><a id="pagebottom"></a>
+
 </body>
 </html>

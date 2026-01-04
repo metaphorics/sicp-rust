@@ -1,47 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="en" lang="en">
-<!-- Created by GNU Texinfo 5.1, http://www.gnu.org/software/texinfo/ -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
-<title>Structure and Interpretation of Computer Programs, 2e: 3.1</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>3.1 (Structure and Interpretation of Computer Programs, 2e)</title>
 
-<meta name="description" content="Structure and Interpretation of Computer Programs, 2e: 3.1" />
-<meta name="keywords" content="Structure and Interpretation of Computer Programs, 2e: 3.1" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="3.1 (Structure and Interpretation of Computer Programs, 2e)" />
+<meta name="keywords" content="3.1 (Structure and Interpretation of Computer Programs, 2e)" />
+<meta name="resource-type" content="document" />
+<meta name="distribution" content="global" />
 <meta name="Generator" content="texi2any" />
-<meta charset="utf-8" />
-<link href="index.xhtml#Top" rel="start" title="Top" />
-<link href="Term-Index.xhtml#Term-Index" rel="index" title="Term Index" />
-<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents" />
-<link href="Chapter-3.xhtml#Chapter-3" rel="prev" title="Chapter 3" />
-<link href="3_002e2.xhtml#g_t3_002e2" rel="next" title="3.2" />
-<link href="Chapter-3.xhtml#Chapter-3" rel="prev" title="Chapter 3" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 
+<link href="index.xhtml" rel="start" title="Top" />
+<link href="Term-Index.xhtml" rel="index" title="Term Index" />
+<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents" />
+<link href="Chapter-3.xhtml" rel="up" title="Chapter 3" />
+<link href="3_002e2.xhtml#g_t3_002e2" rel="next" title="3.2" />
+<link href="Chapter-3.xhtml" rel="prev" title="Chapter 3" />
+<style type="text/css">
+<!--
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+div.example {margin-left: 3.2em}
+span:hover a.copiable-link {visibility: visible}
+-->
+</style>
 <link href="css/style.css" rel="stylesheet" type="text/css" />
 <link href="css/prettify.css" rel="stylesheet" type="text/css" />
-
-<script src="js/jquery.min.js" type="text/javascript"></script>
-<script src="js/footnotes.js" type="text/javascript"></script>
-<script src="js/browsertest.js" type="text/javascript"></script>
+<script src="js/highlight/prettify.js" type="text/javascript"></script>
+<script src="js/highlight/lang-lisp.js" type="text/javascript"></script>
+<script src="js/highlight/lang-rust.js" type="text/javascript"></script>
 </head>
 
-<body>
-<section><span class="top jump" title="Jump to top"><a href="#pagetop" accesskey="t">⇡</a></span><a id="pagetop"></a><a id="g_t3_002e1"></a>
-<nav class="header">
+<body lang="en">
+<div class="section-level-extent" id="g_t3_002e1">
+<div class="nav-panel">
 <p>
-Next: <a href="3_002e2.xhtml#g_t3_002e2" accesskey="n" rel="next">3.2</a>, Prev: <a href="Chapter-3.xhtml#Chapter-3" accesskey="p" rel="prev">Chapter 3</a>, Up: <a href="Chapter-3.xhtml#Chapter-3" accesskey="u" rel="prev">Chapter 3</a>   [<a href="index.xhtml#SEC_Contents" title="Table of contents" accesskey="c" rel="contents">Contents</a>]</p>
-</nav>
-<a id="Assignment-and-Local-State"></a>
-<h3 class="section"><span class="secnum">3.1</span><span class="sectitle">Assignment and Local State</span></h3>
+Next: <a href="3_002e2.xhtml#g_t3_002e2" accesskey="n" rel="next">The Environment Model of Evaluation</a>, Previous: <a href="Chapter-3.xhtml" accesskey="p" rel="prev">Modularity, Objects, and State</a>, Up: <a href="Chapter-3.xhtml" accesskey="u" rel="up">Modularity, Objects, and State</a> &#160; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
+</div>
+<h3 class="section" id="Assignment-and-Local-State"><span>3.1 Assignment and Local State<a class="copiable-link" href="#Assignment-and-Local-State"> &#182;</a></span></h3>
 
 <p>We ordinarily view the world as populated by independent objects, each of which
-has a state that changes over time.  An object is said to “have state” if its
+has a state that changes over time.  An object is said to &#8220;have state&#8221; if its
 behavior is influenced by its history.  A bank account, for example, has state
-in that the answer to the question “Can I withdraw $100?”  depends upon the
+in that the answer to the question &#8220;Can I withdraw $100?&#8221;  depends upon the
 history of deposit and withdrawal transactions.  We can characterize an
-object’s state by one or more <a id="index-state-variables-1"></a>
-<em>state variables</em>, which among them
-maintain enough information about history to determine the object’s current
+object&#8217;s state by one or more <a class="index-entry-id" id="index-state-variables-1"></a>
+<em class="dfn">state variables</em>, which among them
+maintain enough information about history to determine the object&#8217;s current
 behavior.  In a simple banking system, we could characterize the state of an
 account by a current balance rather than by remembering the entire history of
 account transactions.
@@ -56,531 +63,530 @@ coupled subsystems that are only loosely coupled to other subsystems.
 <p>This view of a system can be a powerful framework for organizing computational
 models of the system.  For such a model to be modular, it should be decomposed
 into computational objects that model the actual objects in the system.  Each
-computational object must have its own <a id="index-local-state-variables"></a>
-<em>local state variables</em>
-describing the actual object’s state.  Since the states of objects in the
+computational object must have its own <a class="index-entry-id" id="index-local-state-variables"></a>
+<em class="dfn">local state variables</em>
+describing the actual object&#8217;s state.  Since the states of objects in the
 system being modeled change over time, the state variables of the corresponding
 computational objects must also change.  If we choose to model the flow of time
 in the system by the elapsed time in the computer, then we must have a way to
 construct computational objects whose behaviors change as our programs run.  In
 particular, if we wish to model state variables by ordinary symbolic names in
-the programming language, then the language must provide an <a id="index-assignment-operator"></a>
-<em>assignment operator</em> 
+the programming language, then the language must provide an <a class="index-entry-id" id="index-assignment-operator"></a>
+<em class="dfn">assignment operator</em>
 to enable us to change the value associated with a name.
 </p>
 
-<a id="g_t3_002e1_002e1"></a>
-<a id="Local-State-Variables"></a>
-<h4 class="subsection"><span class="secnum">3.1.1</span><span class="sectitle">Local State Variables</span></h4>
+<hr />
+<div class="subsection-level-extent" id="g_t3_002e1_002e1">
+<h4 class="subsection" id="Local-State-Variables"><span>3.1.1 Local State Variables<a class="copiable-link" href="#Local-State-Variables"> &#182;</a></span></h4>
 
 <p>To illustrate what we mean by having a computational object with time-varying
 state, let us model the situation of withdrawing money from a bank account.  We
-will do this using a procedure <code>withdraw</code>, which takes as argument an
-<code>amount</code> to be withdrawn.  If there is enough money in the account to
-accommodate the withdrawal, then <code>withdraw</code> should return the balance
-remaining after the withdrawal.  Otherwise, <code>withdraw</code> should return the
-message <em>Insufficient funds</em>. For example, if we begin with $100 in the
+will do this using a procedure <code class="code">withdraw</code>, which takes as argument an
+<code class="code">amount</code> to be withdrawn.  If there is enough money in the account to
+accommodate the withdrawal, then <code class="code">withdraw</code> should return the balance
+remaining after the withdrawal.  Otherwise, <code class="code">withdraw</code> should return the
+message <em class="emph">Insufficient funds</em>. For example, if we begin with $100 in the
 account, we should obtain the following sequence of responses using
-<code>withdraw</code>:
+<code class="code">withdraw</code>:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">withdraw </span><span class="lit">25</span><span class="clo">)</span><span class="pln">
-</span><i><span class="lit">75</span></i><span class="pln">
+<div class="example">
+<pre class="example-preformatted">account.withdraw(25);
+// =&gt; Ok(75)
 
-</span><span class="opn">(</span><span class="pln">withdraw </span><span class="lit">25</span><span class="clo">)</span><span class="pln">
-</span><i><span class="lit">50</span></i><span class="pln">
+account.withdraw(25);
+// =&gt; Ok(50)
 
-</span><span class="opn">(</span><span class="pln">withdraw </span><span class="lit">60</span><span class="clo">)</span><span class="pln">
-</span><i><span class="str">"Insufficient funds"</span></i><span class="pln">
+account.withdraw(60);
+// =&gt; Err(&quot;Insufficient funds&quot;)
 
-</span><span class="opn">(</span><span class="pln">withdraw </span><span class="lit">15</span><span class="clo">)</span><span class="pln">
-</span><i><span class="lit">35</span></i>
+account.withdraw(15);
+// =&gt; Ok(35)
 </pre></div>
 
-<p>Observe that the expression <code>(withdraw 25)</code>, evaluated twice, yields
+<p>Observe that the expression <code class="code">(withdraw 25)</code>, evaluated twice, yields
 different values.  This is a new kind of behavior for a procedure.  Until now,
 all our procedures could be viewed as specifications for computing mathematical
 functions.  A call to a procedure computed the value of the function applied to
 the given arguments, and two calls to the same procedure with the same
-arguments always produced the same result.<a class="footnote_link" id="DOCF129" href="#FOOT129"><sup>129</sup></a>
+arguments always produced the same result.<a class="footnote" id="DOCF122" href="#FOOT122"><sup>122</sup></a>
 </p>
-<p>To implement <code>withdraw</code>, we can use a variable <code>balance</code> to indicate
-the balance of money in the account and define <code>withdraw</code> as a procedure
-that accesses <code>balance</code>.  The <code>withdraw</code> procedure checks to see if
-<code>balance</code> is at least as large as the requested <code>amount</code>.  If so,
-<code>withdraw</code> decrements <code>balance</code> by <code>amount</code> and returns the new
-value of <code>balance</code>.  Otherwise, <code>withdraw</code> returns the
-<em>Insufficient funds</em> message.  Here are the definitions of <code>balance</code>
-and <code>withdraw</code>:
+<p>To implement <code class="code">withdraw</code>, we can use a variable <code class="code">balance</code> to indicate
+the balance of money in the account and define <code class="code">withdraw</code> as a procedure
+that accesses <code class="code">balance</code>.  The <code class="code">withdraw</code> procedure checks to see if
+<code class="code">balance</code> is at least as large as the requested <code class="code">amount</code>.  If so,
+<code class="code">withdraw</code> decrements <code class="code">balance</code> by <code class="code">amount</code> and returns the new
+value of <code class="code">balance</code>.  Otherwise, <code class="code">withdraw</code> returns the
+<em class="emph">Insufficient funds</em> message.  Here are the definitions of <code class="code">balance</code>
+and <code class="code">withdraw</code>:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> balance </span><span class="lit">100</span><span class="clo">)</span><span class="pln">
+<div class="example">
+<pre class="example-preformatted">use std::cell::Cell;
 
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">withdraw amount</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pun">&gt;=</span><span class="pln"> balance amount</span><span class="clo">)</span><span class="pln">
-      </span><span class="opn">(</span><span class="kwd">begin</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">set</span><span class="pun">!</span><span class="pln"> balance </span><span class="opn">(</span><span class="pun">-</span><span class="pln"> balance amount</span><span class="clo">))</span><span class="pln">
-             balance</span><span class="clo">)</span><span class="pln">
-      </span><span class="str">"Insufficient funds"</span><span class="clo">))</span></pre></div>
+struct Account {
+    balance: Cell&lt;i64&gt;,
+}
 
-<p>Decrementing <code>balance</code> is accomplished by the expression
-</p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">set</span><span class="pun">!</span><span class="pln"> balance </span><span class="opn">(</span><span class="pun">-</span><span class="pln"> balance amount</span><span class="clo">))</span></pre></div>
+impl Account {
+    fn new(initial: i64) -&gt; Self {
+        Account { balance: Cell::new(initial) }
+    }
 
-<p>This uses the <code>set!</code> special form, whose syntax is
-</p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">set</span><span class="pun">!</span><span class="pln"> ⟨</span><var><span class="pln">name</span></var><span class="pln">⟩ ⟨</span><var><span class="pln">new-value</span></var><span class="pln">⟩</span><span class="clo">)</span></pre></div>
+    fn withdraw(&amp;self, amount: i64) -&gt; Result&lt;i64, &amp;'static str&gt; {
+        let current = self.balance.get();
+        if current &gt;= amount {
+            self.balance.set(current - amount);
+            Ok(self.balance.get())
+        } else {
+            Err(&quot;Insufficient funds&quot;)
+        }
+    }
+}
 
-<p>Here <code>⟨</code><var>name</var><code>⟩</code> is a symbol and <code>⟨</code><var>new-value</var><code>⟩</code> is any expression.
-<code>Set!</code> changes <code>⟨</code><var>name</var><code>⟩</code> so that its value is the result obtained by
-evaluating <code>⟨</code><var>new-value</var><code>⟩</code>.  In the case at hand, we are changing
-<code>balance</code> so that its new value will be the result of subtracting
-<code>amount</code> from the previous value of <code>balance</code>.<a class="footnote_link" id="DOCF130" href="#FOOT130"><sup>130</sup></a>
+let account = Account::new(100);
+</pre></div>
+
+<p><b class="b">Rust:</b>
+</p><div class="example">
+<pre class="example-preformatted">use std::cell::RefCell;
+
+thread_local! {
+    static BALANCE: RefCell&lt;i64&gt; = RefCell::new(100);
+}
+
+fn withdraw(amount: i64) -&gt; Result&lt;i64, &amp;'static str&gt; {
+    BALANCE.with(|balance| {
+        let mut b = balance.borrow_mut();
+        if *b &gt;= amount {
+            *b -= amount;
+            Ok(*b)
+        } else {
+            Err(&quot;Insufficient funds&quot;)
+        }
+    })
+}
+</pre></div>
+
+<p>Decrementing <code class="code">balance</code> is accomplished by the expression
 </p>
-<p><code>Withdraw</code> also uses the <code>begin</code> special form to cause two
-expressions to be evaluated in the case where the <code>if</code> test is true: first
-decrementing <code>balance</code> and then returning the value of <code>balance</code>.  In
+<div class="example">
+<pre class="example-preformatted">self.balance.set(current - amount)
+</pre></div>
+
+<p>This uses the <code class="code">set!</code> special form, whose syntax is
+</p>
+<div class="example">
+<pre class="example-preformatted">// Rust uses .set() for Cell&lt;T&gt;:
+name.set(new_value)
+// Or mutable binding for simple cases:
+name = new_value;
+</pre></div>
+
+<p>Here <code class="code">⟨</code><var class="var">name</var><code class="code">⟩</code> is a symbol and <code class="code">⟨</code><var class="var">new-value</var><code class="code">⟩</code> is any expression.
+<code class="code">Set!</code> changes <code class="code">⟨</code><var class="var">name</var><code class="code">⟩</code> so that its value is the result obtained by
+evaluating <code class="code">⟨</code><var class="var">new-value</var><code class="code">⟩</code>.  In the case at hand, we are changing
+<code class="code">balance</code> so that its new value will be the result of subtracting
+<code class="code">amount</code> from the previous value of <code class="code">balance</code>.<a class="footnote" id="DOCF123" href="#FOOT123"><sup>123</sup></a>
+</p>
+<p><code class="code">Withdraw</code> also uses the <code class="code">begin</code> special form to cause two
+expressions to be evaluated in the case where the <code class="code">if</code> test is true: first
+decrementing <code class="code">balance</code> and then returning the value of <code class="code">balance</code>.  In
 general, evaluating the expression
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">begin</span><span class="pln"> ⟨</span><var><span class="pln">exp</span><span class="pun">₁</span></var><span class="pln">⟩ ⟨</span><var><span class="pln">exp</span><span class="pun">₂</span></var><span class="pln">⟩ </span><span class="roman"><span class="pun">…</span></span><span class="pln"> ⟨</span><var><span class="pln">exp</span><span class="pun">ₖ</span></var><span class="pln">⟩</span><span class="clo">)</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">// Rust block expression - last value is returned:
+{
+    exp_1;
+    exp_2;
+    // ...
+    exp_k  // no semicolon - this is the return value
+}
+</pre></div>
 
-<p>causes the expressions <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <mrow class="MJX-TeXAtom-ORD">
-    <mo stretchy="false">⟨</mo>
-    <mi>e</mi>
-    <mi>x</mi>
-    <msub>
-      <mi>p</mi>
-      <mn>1</mn>
-    </msub>
-    <mo stretchy="false">⟩</mo>
-  </mrow>
-</math> through <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <mrow class="MJX-TeXAtom-ORD">
-    <mo stretchy="false">⟨</mo>
-    <mi>e</mi>
-    <mi>x</mi>
-    <msub>
-      <mi>p</mi>
-      <mi>k</mi>
-    </msub>
-    <mo stretchy="false">⟩</mo>
-  </mrow>
-</math> to be evaluated
-in sequence and the value of the final expression <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <mrow class="MJX-TeXAtom-ORD">
-    <mo stretchy="false">⟨</mo>
-    <mi>e</mi>
-    <mi>x</mi>
-    <msub>
-      <mi>p</mi>
-      <mi>k</mi>
-    </msub>
-    <mo stretchy="false">⟩</mo>
-  </mrow>
-</math> to be
-returned as the value of the entire <code>begin</code> form.<a class="footnote_link" id="DOCF131" href="#FOOT131"><sup>131</sup></a>
+<p>causes the expressions <em class="math">{⟨exp_1⟩}</em> through <em class="math">{⟨exp_k⟩}</em> to be evaluated
+in sequence and the value of the final expression <em class="math">{⟨exp_k⟩}</em> to be
+returned as the value of the entire <code class="code">begin</code> form.<a class="footnote" id="DOCF124" href="#FOOT124"><sup>124</sup></a>
 </p>
-<p>Although <code>withdraw</code> works as desired, the variable <code>balance</code> presents
-a problem.  As specified above, <code>balance</code> is a name defined in the global
+<p>Although <code class="code">withdraw</code> works as desired, the variable <code class="code">balance</code> presents
+a problem.  As specified above, <code class="code">balance</code> is a name defined in the global
 environment and is freely accessible to be examined or modified by any
-procedure.  It would be much better if we could somehow make <code>balance</code>
-internal to <code>withdraw</code>, so that <code>withdraw</code> would be the only
-procedure that could access <code>balance</code> directly and any other procedure
-could access <code>balance</code> only indirectly (through calls to <code>withdraw</code>).
-This would more accurately model the notion that <code>balance</code> is a local
-state variable used by <code>withdraw</code> to keep track of the state of the
+procedure.  It would be much better if we could somehow make <code class="code">balance</code>
+internal to <code class="code">withdraw</code>, so that <code class="code">withdraw</code> would be the only
+procedure that could access <code class="code">balance</code> directly and any other procedure
+could access <code class="code">balance</code> only indirectly (through calls to <code class="code">withdraw</code>).
+This would more accurately model the notion that <code class="code">balance</code> is a local
+state variable used by <code class="code">withdraw</code> to keep track of the state of the
 account.
 </p>
-<p>We can make <code>balance</code> internal to <code>withdraw</code> by rewriting the
+<p>We can make <code class="code">balance</code> internal to <code class="code">withdraw</code> by rewriting the
 definition as follows:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> new-withdraw
-  </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">balance </span><span class="lit">100</span><span class="clo">))</span><span class="pln">
-    </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">amount</span><span class="clo">)</span><span class="pln">
-      </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pun">&gt;=</span><span class="pln"> balance amount</span><span class="clo">)</span><span class="pln">
-          </span><span class="opn">(</span><span class="kwd">begin</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">set</span><span class="pun">!</span><span class="pln"> balance 
-                       </span><span class="opn">(</span><span class="pun">-</span><span class="pln"> balance amount</span><span class="clo">))</span><span class="pln">
-                 balance</span><span class="clo">)</span><span class="pln">
-          </span><span class="str">"Insufficient funds"</span><span class="clo">))))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">// Closure capturing mutable state
+fn make_withdraw(initial: i64) -&gt; impl FnMut(i64) -&gt; Result&lt;i64, &amp;'static str&gt; {
+    let balance = std::cell::Cell::new(initial);
+    move |amount| {
+        let current = balance.get();
+        if current &gt;= amount {
+            balance.set(current - amount);
+            Ok(balance.get())
+        } else {
+            Err(&quot;Insufficient funds&quot;)
+        }
+    }
+}
 
-<p>What we have done here is use <code>let</code> to establish an environment with a
-local variable <code>balance</code>, bound to the initial value 100.  Within this
-local environment, we use <code>lambda</code> to create a procedure that takes
-<code>amount</code> as an argument and behaves like our previous <code>withdraw</code>
-procedure.  This procedure—returned as the result of evaluating the
-<code>let</code> expression—is <code>new-withdraw</code>, which behaves in precisely the
-same way as <code>withdraw</code> but whose variable <code>balance</code> is not accessible
-by any other procedure.<a class="footnote_link" id="DOCF132" href="#FOOT132"><sup>132</sup></a>
+let mut new_withdraw = make_withdraw(100);
+</pre></div>
+
+<p>What we have done here is use <code class="code">let</code> to establish an environment with a
+local variable <code class="code">balance</code>, bound to the initial value 100.  Within this
+local environment, we use <code class="code">lambda</code> to create a procedure that takes
+<code class="code">amount</code> as an argument and behaves like our previous <code class="code">withdraw</code>
+procedure.  This procedure&#8212;returned as the result of evaluating the
+<code class="code">let</code> expression&#8212;is <code class="code">new_withdraw</code>, which behaves in precisely the
+same way as <code class="code">withdraw</code> but whose variable <code class="code">balance</code> is not accessible
+by any other procedure.<a class="footnote" id="DOCF125" href="#FOOT125"><sup>125</sup></a>
 </p>
-<p>Combining <code>set!</code> with local variables is the general programming technique
+<p>Combining <code class="code">set!</code> with local variables is the general programming technique
 we will use for constructing computational objects with local state.
 Unfortunately, using this technique raises a serious problem: When we first
 introduced procedures, we also introduced the substitution model of evaluation
-(<a href="1_002e1.xhtml#g_t1_002e1_002e5">1.1.5</a>) to provide an interpretation of what procedure
+(<a class="ref" href="1_002e1.xhtml#g_t1_002e1_002e5">The Substitution Model for Procedure Application</a>) to provide an interpretation of what procedure
 application means.  We said that applying a procedure should be interpreted as
 evaluating the body of the procedure with the formal parameters replaced by
 their values.  The trouble is that, as soon as we introduce assignment into our
 language, substitution is no longer an adequate model of procedure application.
-(We will see why this is so in <a href="#g_t3_002e1_002e3">3.1.3</a>.)  As a consequence, we
-technically have at this point no way to understand why the <code>new-withdraw</code>
+(We will see why this is so in <a class="ref" href="#g_t3_002e1_002e3">The Costs of Introducing Assignment</a>.)  As a consequence, we
+technically have at this point no way to understand why the <code class="code">new_withdraw</code>
 procedure behaves as claimed above.  In order to really understand a procedure
-such as <code>new-withdraw</code>, we will need to develop a new model of procedure
-application.  In <a href="3_002e2.xhtml#g_t3_002e2">3.2</a> we will introduce such a model, together
-with an explanation of <code>set!</code> and local variables.  First, however, we
-examine some variations on the theme established by <code>new-withdraw</code>.
+such as <code class="code">new_withdraw</code>, we will need to develop a new model of procedure
+application.  In <a class="ref" href="3_002e2.xhtml#g_t3_002e2">The Environment Model of Evaluation</a> we will introduce such a model, together
+with an explanation of <code class="code">set!</code> and local variables.  First, however, we
+examine some variations on the theme established by <code class="code">new_withdraw</code>.
 </p>
-<p>The following procedure, <code>make-withdraw</code>, creates “withdrawal
-processors.”  The formal parameter <code>balance</code> in <code>make-withdraw</code>
-specifies the initial amount of money in the account.<a class="footnote_link" id="DOCF133" href="#FOOT133"><sup>133</sup></a>
+<p>The following procedure, <code class="code">make_withdraw</code>, creates &#8220;withdrawal
+processors.&#8221;  The formal parameter <code class="code">balance</code> in <code class="code">make_withdraw</code>
+specifies the initial amount of money in the account.<a class="footnote" id="DOCF126" href="#FOOT126"><sup>126</sup></a>
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-withdraw balance</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">amount</span><span class="clo">)</span><span class="pln">
-    </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pun">&gt;=</span><span class="pln"> balance amount</span><span class="clo">)</span><span class="pln">
-        </span><span class="opn">(</span><span class="kwd">begin</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">set</span><span class="pun">!</span><span class="pln"> balance 
-                     </span><span class="opn">(</span><span class="pun">-</span><span class="pln"> balance amount</span><span class="clo">))</span><span class="pln">
-               balance</span><span class="clo">)</span><span class="pln">
-        </span><span class="str">"Insufficient funds"</span><span class="clo">)))</span></pre></div>
-
-<p><code>Make-withdraw</code> can be used as follows to create two objects <code>W1</code> and
-<code>W2</code>:
-</p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> W1 </span><span class="opn">(</span><span class="pln">make-withdraw </span><span class="lit">100</span><span class="clo">))</span><span class="pln">
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> W2 </span><span class="opn">(</span><span class="pln">make-withdraw </span><span class="lit">100</span><span class="clo">))</span><span class="pln">
-
-</span><span class="opn">(</span><span class="pln">W1 </span><span class="lit">50</span><span class="clo">)</span><span class="pln">
-</span><i><span class="lit">50</span></i><span class="pln">
-
-</span><span class="opn">(</span><span class="pln">W2 </span><span class="lit">70</span><span class="clo">)</span><span class="pln">
-</span><i><span class="lit">30</span></i><span class="pln">
-
-</span><span class="opn">(</span><span class="pln">W2 </span><span class="lit">40</span><span class="clo">)</span><span class="pln">
-</span><i><span class="str">"Insufficient funds"</span></i><span class="pln">
-
-</span><span class="opn">(</span><span class="pln">W1 </span><span class="lit">40</span><span class="clo">)</span><span class="pln">
-</span><i><span class="lit">10</span></i>
+<div class="example">
+<pre class="example-preformatted">fn make_withdraw(initial: i64) -&gt; impl FnMut(i64) -&gt; Result&lt;i64, &amp;'static str&gt; {
+    let balance = std::cell::Cell::new(initial);
+    move |amount| {
+        let current = balance.get();
+        if current &gt;= amount {
+            balance.set(current - amount);
+            Ok(balance.get())
+        } else {
+            Err(&quot;Insufficient funds&quot;)
+        }
+    }
+}
 </pre></div>
 
-<p>Observe that <code>W1</code> and <code>W2</code> are completely independent objects, each
-with its own local state variable <code>balance</code>.  Withdrawals from one do not
+<p><code class="code">Make-withdraw</code> can be used as follows to create two objects <code class="code">W1</code> and
+<code class="code">W2</code>:
+</p>
+<div class="example">
+<pre class="example-preformatted">let mut w1 = make_withdraw(100);
+let mut w2 = make_withdraw(100);
+
+w1(50);
+// =&gt; Ok(50)
+
+w2(70);
+// =&gt; Ok(30)
+
+w2(40);
+// =&gt; Err(&quot;Insufficient funds&quot;)
+
+w1(40);
+// =&gt; Ok(10)
+</pre></div>
+
+<p>Observe that <code class="code">W1</code> and <code class="code">W2</code> are completely independent objects, each
+with its own local state variable <code class="code">balance</code>.  Withdrawals from one do not
 affect the other.
 </p>
 <p>We can also create objects that handle deposits as well as withdrawals, and
 thus we can represent simple bank accounts.  Here is a procedure that returns a
-“bank-account object” with a specified initial balance:
+&#8220;bank-account object&#8221; with a specified initial balance:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-account balance</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">withdraw amount</span><span class="clo">)</span><span class="pln">
-    </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pun">&gt;=</span><span class="pln"> balance amount</span><span class="clo">)</span><span class="pln">
-        </span><span class="opn">(</span><span class="kwd">begin</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">set</span><span class="pun">!</span><span class="pln"> balance 
-                     </span><span class="opn">(</span><span class="pun">-</span><span class="pln"> balance amount</span><span class="clo">))</span><span class="pln">
-               balance</span><span class="clo">)</span><span class="pln">
-        </span><span class="str">"Insufficient funds"</span><span class="clo">))</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">deposit amount</span><span class="clo">)</span><span class="pln">
-    </span><span class="opn">(</span><span class="kwd">set</span><span class="pun">!</span><span class="pln"> balance </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> balance amount</span><span class="clo">))</span><span class="pln">
-    balance</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">dispatch m</span><span class="clo">)</span><span class="pln">
-    </span><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">((</span><span class="kwd">eq</span><span class="pun">?</span><span class="pln"> m </span><span class="lit">'withdraw</span><span class="clo">)</span><span class="pln"> withdraw</span><span class="clo">)</span><span class="pln">
-          </span><span class="opn">((</span><span class="kwd">eq</span><span class="pun">?</span><span class="pln"> m </span><span class="lit">'deposit</span><span class="clo">)</span><span class="pln"> deposit</span><span class="clo">)</span><span class="pln">
-          </span><span class="opn">(</span><span class="kwd">else</span><span class="pln"> </span><span class="opn">(</span><span class="err">error</span><span class="pln"> </span><span class="str">"Unknown request: 
-                 MAKE-ACCOUNT"</span><span class="pln"> m</span><span class="clo">))))</span><span class="pln">
-  dispatch</span><span class="clo">)</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">use std::cell::Cell;
 
-<p>Each call to <code>make-account</code> sets up an environment with a local state
-variable <code>balance</code>.  Within this environment, <code>make-account</code> defines
-procedures <code>deposit</code> and <code>withdraw</code> that access <code>balance</code> and an
-additional procedure <code>dispatch</code> that takes a “message” as input and
-returns one of the two local procedures.  The <code>dispatch</code> procedure itself
+struct Account {
+    balance: Cell&lt;i64&gt;,
+}
+
+impl Account {
+    fn new(initial: i64) -&gt; Self {
+        Account { balance: Cell::new(initial) }
+    }
+
+    fn withdraw(&amp;self, amount: i64) -&gt; Result&lt;i64, &amp;'static str&gt; {
+        let current = self.balance.get();
+        if current &gt;= amount {
+            self.balance.set(current - amount);
+            Ok(self.balance.get())
+        } else {
+            Err(&quot;Insufficient funds&quot;)
+        }
+    }
+
+    fn deposit(&amp;self, amount: i64) -&gt; i64 {
+        self.balance.set(self.balance.get() + amount);
+        self.balance.get()
+    }
+}
+</pre></div>
+
+<p>Each call to <code class="code">Account::new</code> sets up an environment with a local state
+variable <code class="code">balance</code>.  Within this environment, <code class="code">Account::new</code> defines
+procedures <code class="code">deposit</code> and <code class="code">withdraw</code> that access <code class="code">balance</code> and an
+additional procedure <code class="code">dispatch</code> that takes a &#8220;message&#8221; as input and
+returns one of the two local procedures.  The <code class="code">dispatch</code> procedure itself
 is returned as the value that represents the bank-account object.  This is
-precisely the <a id="index-message_002dpassing"></a>
-<em>message-passing</em> style of programming that we saw in
-<a href="2_002e4.xhtml#g_t2_002e4_002e3">2.4.3</a>, although here we are using it in conjunction with the
+precisely the <a class="index-entry-id" id="index-message_002dpassing"></a>
+<em class="dfn">message-passing</em> style of programming that we saw in
+<a class="ref" href="2_002e4.xhtml#g_t2_002e4_002e3">Data-Directed Programming and Additivity</a>, although here we are using it in conjunction with the
 ability to modify local variables.
 </p>
-<p><code>Make-account</code> can be used as follows:
+<p><code class="code">Make-account</code> can be used as follows:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> acc </span><span class="opn">(</span><span class="pln">make-account </span><span class="lit">100</span><span class="clo">))</span><span class="pln">
+<div class="example">
+<pre class="example-preformatted">let acc = Account::new(100);
 
-</span><span class="opn">((</span><span class="pln">acc </span><span class="lit">'withdraw</span><span class="clo">)</span><span class="pln"> </span><span class="lit">50</span><span class="clo">)</span><span class="pln">
-</span><i><span class="lit">50</span></i><span class="pln">
+acc.withdraw(50);
+// =&gt; Ok(50)
 
-</span><span class="opn">((</span><span class="pln">acc </span><span class="lit">'withdraw</span><span class="clo">)</span><span class="pln"> </span><span class="lit">60</span><span class="clo">)</span><span class="pln">
-</span><i><span class="str">"Insufficient funds"</span></i><span class="pln">
+acc.withdraw(60);
+// =&gt; Err(&quot;Insufficient funds&quot;)
 
-</span><span class="opn">((</span><span class="pln">acc </span><span class="lit">'deposit</span><span class="clo">)</span><span class="pln"> </span><span class="lit">40</span><span class="clo">)</span><span class="pln">
-</span><i><span class="lit">90</span></i><span class="pln">
+acc.deposit(40);
+// =&gt; 90
 
-</span><span class="opn">((</span><span class="pln">acc </span><span class="lit">'withdraw</span><span class="clo">)</span><span class="pln"> </span><span class="lit">60</span><span class="clo">)</span><span class="pln">
-</span><i><span class="lit">30</span></i>
+acc.withdraw(60);
+// =&gt; Ok(30)
 </pre></div>
 
-<p>Each call to <code>acc</code> returns the locally defined <code>deposit</code> or
-<code>withdraw</code> procedure, which is then applied to the specified
-<code>amount</code>.  As was the case with <code>make-withdraw</code>, another call to
-<code>make-account</code>
+<p>Each call to <code class="code">acc</code> returns the locally defined <code class="code">deposit</code> or
+<code class="code">withdraw</code> procedure, which is then applied to the specified
+<code class="code">amount</code>.  As was the case with <code class="code">make_withdraw</code>, another call to
+<code class="code">Account::new</code>
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> acc2 </span><span class="opn">(</span><span class="pln">make-account </span><span class="lit">100</span><span class="clo">))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">let acc2 = Account::new(100);
+</pre></div>
 
 <p>will produce a completely separate account object, which maintains its own
-local <code>balance</code>.
+local <code class="code">balance</code>.
 </p>
-<blockquote>
-<p><strong><a id="Exercise-3_002e1"></a>Exercise 3.1:</strong> An <a id="index-accumulator-1"></a>
-<em>accumulator</em> is a
+<blockquote class="quotation">
+<p><strong class="strong"><a class="anchor" id="Exercise-3_002e1"></a>Exercise 3.1:</strong> An <a class="index-entry-id" id="index-accumulator-1"></a>
+<em class="dfn">accumulator</em> is a
 procedure that is called repeatedly with a single numeric argument and
 accumulates its arguments into a sum.  Each time it is called, it returns the
-currently accumulated sum.  Write a procedure <code>make-accumulator</code> that
+currently accumulated sum.  Write a procedure <code class="code">make_accumulator</code> that
 generates accumulators, each maintaining an independent sum.  The input to
-<code>make-accumulator</code> should specify the initial value of the sum; for
+<code class="code">make_accumulator</code> should specify the initial value of the sum; for
 example
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> A </span><span class="opn">(</span><span class="pln">make-accumulator </span><span class="lit">5</span><span class="clo">))</span><span class="pln">
+<div class="example">
+<pre class="example-preformatted">let mut a = make_accumulator(5);
 
-</span><span class="opn">(</span><span class="pln">A </span><span class="lit">10</span><span class="clo">)</span><span class="pln">
-</span><i><span class="lit">15</span></i><span class="pln">
+a(10);
+// =&gt; 15
 
-</span><span class="opn">(</span><span class="pln">A </span><span class="lit">10</span><span class="clo">)</span><span class="pln">
-</span><i><span class="lit">25</span></i>
+a(10);
+// =&gt; 25
 </pre></div>
 </blockquote>
 
-<blockquote>
-<p><strong><a id="Exercise-3_002e2"></a>Exercise 3.2:</strong> In software-testing applications,
+<blockquote class="quotation">
+<p><strong class="strong"><a class="anchor" id="Exercise-3_002e2"></a>Exercise 3.2:</strong> In software-testing applications,
 it is useful to be able to count the number of times a given procedure is
 called during the course of a computation.  Write a procedure
-<code>make-monitored</code> that takes as input a procedure, <code>f</code>, that itself
-takes one input.  The result returned by <code>make-monitored</code> is a third
-procedure, say <code>mf</code>, that keeps track of the number of times it has been
-called by maintaining an internal counter.  If the input to <code>mf</code> is the
-special symbol <code>how-many-calls?</code>, then <code>mf</code> returns the value of the
-counter.  If the input is the special symbol <code>reset-count</code>, then <code>mf</code>
-resets the counter to zero.  For any other input, <code>mf</code> returns the result
-of calling <code>f</code> on that input and increments the counter.  For instance, we
-could make a monitored version of the <code>sqrt</code> procedure:
+<code class="code">make_monitored</code> that takes as input a procedure, <code class="code">f</code>, that itself
+takes one input.  The result returned by <code class="code">make_monitored</code> is a third
+procedure, say <code class="code">mf</code>, that keeps track of the number of times it has been
+called by maintaining an internal counter.  If the input to <code class="code">mf</code> is the
+special symbol <code class="code">how-many-calls?</code>, then <code class="code">mf</code> returns the value of the
+counter.  If the input is the special symbol <code class="code">reset-count</code>, then <code class="code">mf</code>
+resets the counter to zero.  For any other input, <code class="code">mf</code> returns the result
+of calling <code class="code">f</code> on that input and increments the counter.  For instance, we
+could make a monitored version of the <code class="code">sqrt</code> procedure:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> s </span><span class="opn">(</span><span class="pln">make-monitored sqrt</span><span class="clo">))</span><span class="pln">
+<div class="example">
+<pre class="example-preformatted">let mut s = make_monitored(|x: f64| x.sqrt());
 
-</span><span class="opn">(</span><span class="pln">s </span><span class="lit">100</span><span class="clo">)</span><span class="pln">
-</span><i><span class="lit">10</span></i><span class="pln">
+s.call(100.0);
+// =&gt; 10.0
 
-</span><span class="opn">(</span><span class="pln">s </span><span class="lit">'how-many-calls?</span><span class="clo">)</span><span class="pln">
-</span><i><span class="lit">1</span></i>
+s.call_count();
+// =&gt; 1
 </pre></div>
 </blockquote>
 
-<blockquote>
-<p><strong><a id="Exercise-3_002e3"></a>Exercise 3.3:</strong> Modify the <code>make-account</code>
+<blockquote class="quotation">
+<p><strong class="strong"><a class="anchor" id="Exercise-3_002e3"></a>Exercise 3.3:</strong> Modify the <code class="code">Account::new</code>
 procedure so that it creates password-protected accounts.  That is,
-<code>make-account</code> should take a symbol as an additional argument, as in
+<code class="code">Account::new</code> should take a symbol as an additional argument, as in
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> acc 
-  </span><span class="opn">(</span><span class="pln">make-account </span><span class="lit">100</span><span class="pln"> </span><span class="lit">'secret-password</span><span class="clo">))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">let acc = Account::new_with_password(100, &quot;secret-password&quot;);
+</pre></div>
 
 <p>The resulting account object should process a request only if it is accompanied
 by the password with which the account was created, and should otherwise return
 a complaint:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">((</span><span class="pln">acc </span><span class="lit">'secret-password</span><span class="pln"> </span><span class="lit">'withdraw</span><span class="clo">)</span><span class="pln"> </span><span class="lit">40</span><span class="clo">)</span><span class="pln">
-</span><i><span class="lit">60</span></i><span class="pln">
+<div class="example">
+<pre class="example-preformatted">acc.withdraw_with_password(&quot;secret-password&quot;, 40);
+// =&gt; Ok(60)
 
-</span><span class="opn">((</span><span class="pln">acc </span><span class="lit">'some-other-password</span><span class="pln"> </span><span class="lit">'deposit</span><span class="clo">)</span><span class="pln"> </span><span class="lit">50</span><span class="clo">)</span><span class="pln">
-</span><i><span class="str">"Incorrect password"</span></i>
+acc.deposit_with_password(&quot;some-other-password&quot;, 50);
+// =&gt; Err(&quot;Incorrect password&quot;)
 </pre></div>
 </blockquote>
 
-<blockquote>
-<p><strong><a id="Exercise-3_002e4"></a>Exercise 3.4:</strong> Modify the <code>make-account</code>
-procedure of <a href="#Exercise-3_002e3">Exercise 3.3</a> by adding another local state variable so that,
+<blockquote class="quotation">
+<p><strong class="strong"><a class="anchor" id="Exercise-3_002e4"></a>Exercise 3.4:</strong> Modify the <code class="code">Account::new</code>
+procedure of <a class="ref" href="#Exercise-3_002e3">Exercise 3.3</a> by adding another local state variable so that,
 if an account is accessed more than seven consecutive times with an incorrect
-password, it invokes the procedure <code>call-the-cops</code>.
+password, it invokes the procedure <code class="code">call-the-cops</code>.
 </p></blockquote>
 
-<a id="g_t3_002e1_002e2"></a>
-<a id="The-Benefits-of-Introducing-Assignment"></a>
-<h4 class="subsection"><span class="secnum">3.1.2</span><span class="sectitle">The Benefits of Introducing Assignment</span></h4>
+<hr />
+</div>
+<div class="subsection-level-extent" id="g_t3_002e1_002e2">
+<h4 class="subsection" id="The-Benefits-of-Introducing-Assignment"><span>3.1.2 The Benefits of Introducing Assignment<a class="copiable-link" href="#The-Benefits-of-Introducing-Assignment"> &#182;</a></span></h4>
 
 <p>As we shall see, introducing assignment into our programming language leads us
 into a thicket of difficult conceptual issues.  Nevertheless, viewing systems
 as collections of objects with local state is a powerful technique for
 maintaining a modular design.  As a simple example, consider the design of a
-procedure <code>rand</code> that, whenever it is called, returns an integer chosen at
+procedure <code class="code">rand</code> that, whenever it is called, returns an integer chosen at
 random.
 </p>
-<p>It is not at all clear what is meant by “chosen at random.”  What we
-presumably want is for successive calls to <code>rand</code> to produce a sequence of
+<p>It is not at all clear what is meant by &#8220;chosen at random.&#8221;  What we
+presumably want is for successive calls to <code class="code">rand</code> to produce a sequence of
 numbers that has statistical properties of uniform distribution.  We will not
 discuss methods for generating suitable sequences here.  Rather, let us assume
-that we have a procedure <code>rand-update</code> that has the property that if we
-start with a given number <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <msub>
-    <mi>x</mi>
-    <mn>1</mn>
-  </msub>
-</math> and form
+that we have a procedure <code class="code">rand-update</code> that has the property that if we
+start with a given number <em class="math">x_1</em> and form
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><var><span class="pln">x</span><span class="pun">₂</span></var><span class="pln"> </span><span class="pun">=</span><span class="pln"> </span><span class="opn">(</span><span class="pln">rand-update </span><var><span class="pln">x</span><span class="pun">₁</span></var><span class="clo">)</span><span class="pln">
-</span><var><span class="pln">x</span><span class="pun">₃</span></var><span class="pln"> </span><span class="pun">=</span><span class="pln"> </span><span class="opn">(</span><span class="pln">rand-update </span><var><span class="pln">x</span><span class="pun">₂</span></var><span class="clo">)</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">let x2 = rand_update(x1);
+let x3 = rand_update(x2);
+</pre></div>
 
-<p>then the sequence of values <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <msub>
-    <mi>x</mi>
-    <mn>1</mn>
-  </msub>
-</math>, <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <msub>
-    <mi>x</mi>
-    <mn>2</mn>
-  </msub>
-</math>, <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <msub>
-    <mi>x</mi>
-    <mn>3</mn>
-  </msub>
-</math>, … will have the
-desired statistical properties.<a class="footnote_link" id="DOCF134" href="#FOOT134"><sup>134</sup></a>
+<p>then the sequence of values <em class="math">x_1</em>, <em class="math">x_2</em>, <em class="math">x_3</em>, &#8230; will have the
+desired statistical properties.<a class="footnote" id="DOCF127" href="#FOOT127"><sup>127</sup></a>
 </p>
-<p>We can implement <code>rand</code> as a procedure with a local state variable
-<code>x</code> that is initialized to some fixed value <code>random-init</code>.  Each call
-to <code>rand</code> computes <code>rand-update</code> of the current value of <code>x</code>,
+<p>We can implement <code class="code">rand</code> as a procedure with a local state variable
+<code class="code">x</code> that is initialized to some fixed value <code class="code">random-init</code>.  Each call
+to <code class="code">rand</code> computes <code class="code">rand-update</code> of the current value of <code class="code">x</code>,
 returns this as the random number, and also stores this as the new value of
-<code>x</code>.
+<code class="code">x</code>.
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> rand
-  </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">x random-init</span><span class="clo">))</span><span class="pln">
-    </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">set</span><span class="pun">!</span><span class="pln"> x </span><span class="opn">(</span><span class="pln">rand-update x</span><span class="clo">))</span><span class="pln"> x</span><span class="clo">)))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">fn make_rand(random_init: u64) -&gt; impl FnMut() -&gt; u64 {
+    let x = std::cell::Cell::new(random_init);
+    move || {
+        let new_x = rand_update(x.get());
+        x.set(new_x);
+        new_x
+    }
+}
+</pre></div>
 
 <p>Of course, we could generate the same sequence of random numbers without using
-assignment by simply calling <code>rand-update</code> directly.  However, this would
+assignment by simply calling <code class="code">rand-update</code> directly.  However, this would
 mean that any part of our program that used random numbers would have to
-explicitly remember the current value of <code>x</code> to be passed as an argument
-to <code>rand-update</code>.  To realize what an annoyance this would be, consider
-using random numbers to implement a technique called <a id="index-Monte-Carlo-simulation"></a>
-<em>Monte Carlo simulation</em>.
+explicitly remember the current value of <code class="code">x</code> to be passed as an argument
+to <code class="code">rand-update</code>.  To realize what an annoyance this would be, consider
+using random numbers to implement a technique called <a class="index-entry-id" id="index-Monte-Carlo-simulation"></a>
+<em class="dfn">Monte Carlo simulation</em>.
 </p>
 <p>The Monte Carlo method consists of choosing sample experiments at random from a
 large set and then making deductions on the basis of the probabilities
 estimated from tabulating the results of those experiments.  For example, we
-can approximate <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <mi>π<!-- π --></mi>
-</math> using the fact that <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <mrow class="MJX-TeXAtom-ORD">
-    <mn>6</mn>
-    <mrow class="MJX-TeXAtom-ORD">
-      <mo>/</mo>
-    </mrow>
-    <msup>
-      <mi>π<!-- π --></mi>
-      <mn>2</mn>
-    </msup>
-  </mrow>
-</math> is the probability
+can approximate <em class="math">π</em> using the fact that <em class="math">{6/π^2}</em> is the probability
 that two integers chosen at random will have no factors in common; that is,
-that their greatest common divisor will be 1.<a class="footnote_link" id="DOCF135" href="#FOOT135"><sup>135</sup></a> To
-obtain the approximation to <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <mi>π<!-- π --></mi>
-</math>, we perform a large number of experiments.
+that their greatest common divisor will be 1.<a class="footnote" id="DOCF128" href="#FOOT128"><sup>128</sup></a> To
+obtain the approximation to <em class="math">π</em>, we perform a large number of experiments.
 In each experiment we choose two integers at random and perform a test to see
-if their <abbr>GCD</abbr> is 1.  The fraction of times that the test is passed
-gives us our estimate of <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <mrow class="MJX-TeXAtom-ORD">
-    <mn>6</mn>
-    <mrow class="MJX-TeXAtom-ORD">
-      <mo>/</mo>
-    </mrow>
-    <msup>
-      <mi>π<!-- π --></mi>
-      <mn>2</mn>
-    </msup>
-  </mrow>
-</math>, and from this we obtain our
-approximation to <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <mi>π<!-- π --></mi>
-</math>.
+if their <abbr class="abbr">GCD</abbr> is 1.  The fraction of times that the test is passed
+gives us our estimate of <em class="math">{6/π^2}</em>, and from this we obtain our
+approximation to <em class="math">π</em>.
 </p>
-<p>The heart of our program is a procedure <code>monte-carlo</code>, which takes as
+<p>The heart of our program is a procedure <code class="code">monte-carlo</code>, which takes as
 arguments the number of times to try an experiment, together with the
 experiment, represented as a no-argument procedure that will return either true
-or false each time it is run.  <code>Monte-carlo</code> runs the experiment for the
+or false each time it is run.  <code class="code">Monte-carlo</code> runs the experiment for the
 designated number of trials and returns a number telling the fraction of the
 trials in which the experiment was found to be true.
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">estimate-pi trials</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">sqrt </span><span class="opn">(</span><span class="pun">/</span><span class="pln"> </span><span class="lit">6</span><span class="pln"> </span><span class="opn">(</span><span class="pln">monte-carlo trials 
-                          cesaro-test</span><span class="clo">))))</span><span class="pln">
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">cesaro-test</span><span class="clo">)</span><span class="pln">
-   </span><span class="opn">(</span><span class="pun">=</span><span class="pln"> </span><span class="opn">(</span><span class="pln">gcd </span><span class="opn">(</span><span class="pln">rand</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">rand</span><span class="clo">))</span><span class="pln"> </span><span class="lit">1</span><span class="clo">))</span><span class="pln">
+<div class="example">
+<pre class="example-preformatted">fn estimate_pi(trials: u64) -&gt; f64 {
+    (6.0 / monte_carlo(trials, cesaro_test)).sqrt()
+}
 
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">monte-carlo trials experiment</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">iter trials-remaining trials-passed</span><span class="clo">)</span><span class="pln">
-    </span><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">((</span><span class="pun">=</span><span class="pln"> trials-remaining </span><span class="lit">0</span><span class="clo">)</span><span class="pln">
-           </span><span class="opn">(</span><span class="pun">/</span><span class="pln"> trials-passed trials</span><span class="clo">))</span><span class="pln">
-          </span><span class="opn">((</span><span class="pln">experiment</span><span class="clo">)</span><span class="pln">
-           </span><span class="opn">(</span><span class="pln">iter </span><span class="opn">(</span><span class="pun">-</span><span class="pln"> trials-remaining </span><span class="lit">1</span><span class="clo">)</span><span class="pln"> 
-                 </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> trials-passed </span><span class="lit">1</span><span class="clo">)))</span><span class="pln">
-          </span><span class="opn">(</span><span class="kwd">else</span><span class="pln">
-           </span><span class="opn">(</span><span class="pln">iter </span><span class="opn">(</span><span class="pun">-</span><span class="pln"> trials-remaining </span><span class="lit">1</span><span class="clo">)</span><span class="pln"> 
-                 trials-passed</span><span class="clo">))))</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">iter trials </span><span class="lit">0</span><span class="clo">))</span></pre></div>
+fn cesaro_test(rand: &amp;mut impl FnMut() -&gt; u64) -&gt; bool {
+    gcd(rand(), rand()) == 1
+}
 
-<p>Now let us try the same computation using <code>rand-update</code> directly rather
-than <code>rand</code>, the way we would be forced to proceed if we did not use
+fn monte_carlo&lt;F&gt;(trials: u64, mut experiment: F) -&gt; f64
+where
+    F: FnMut() -&gt; bool,
+{
+    let passed = (0..trials).filter(|_| experiment()).count();
+    passed as f64 / trials as f64
+}
+</pre></div>
+
+<p>Now let us try the same computation using <code class="code">rand-update</code> directly rather
+than <code class="code">rand</code>, the way we would be forced to proceed if we did not use
 assignment to model local state:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">estimate-pi trials</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">sqrt </span><span class="opn">(</span><span class="pun">/</span><span class="pln"> </span><span class="lit">6</span><span class="pln"> </span><span class="opn">(</span><span class="pln">random-gcd-test trials 
-                              random-init</span><span class="clo">))))</span><span class="pln">
+<div class="example">
+<pre class="example-preformatted">fn estimate_pi_explicit(trials: u64, random_init: u64) -&gt; f64 {
+    (6.0 / random_gcd_test(trials, random_init)).sqrt()
+}
 
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">random-gcd-test trials initial-x</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">iter trials-remaining 
-                trials-passed 
-                x</span><span class="clo">)</span><span class="pln">
-    </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">x1 </span><span class="opn">(</span><span class="pln">rand-update x</span><span class="clo">)))</span><span class="pln">
-      </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">x2 </span><span class="opn">(</span><span class="pln">rand-update x1</span><span class="clo">)))</span><span class="pln">
-        </span><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">((</span><span class="pun">=</span><span class="pln"> trials-remaining </span><span class="lit">0</span><span class="clo">)</span><span class="pln">
-               </span><span class="opn">(</span><span class="pun">/</span><span class="pln"> trials-passed trials</span><span class="clo">))</span><span class="pln">
-              </span><span class="opn">((</span><span class="pun">=</span><span class="pln"> </span><span class="opn">(</span><span class="pln">gcd x1 x2</span><span class="clo">)</span><span class="pln"> </span><span class="lit">1</span><span class="clo">)</span><span class="pln">
-               </span><span class="opn">(</span><span class="pln">iter </span><span class="opn">(</span><span class="pun">-</span><span class="pln"> trials-remaining </span><span class="lit">1</span><span class="clo">)</span><span class="pln">
-                     </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> trials-passed </span><span class="lit">1</span><span class="clo">)</span><span class="pln">
-                     x2</span><span class="clo">))</span><span class="pln">
-              </span><span class="opn">(</span><span class="kwd">else</span><span class="pln">
-               </span><span class="opn">(</span><span class="pln">iter </span><span class="opn">(</span><span class="pun">-</span><span class="pln"> trials-remaining </span><span class="lit">1</span><span class="clo">)</span><span class="pln">
-                     trials-passed
-                     x2</span><span class="clo">))))))</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">iter trials </span><span class="lit">0</span><span class="pln"> initial-x</span><span class="clo">))</span></pre></div>
+fn random_gcd_test(trials: u64, initial_x: u64) -&gt; f64 {
+    let mut passed = 0;
+    let mut x = initial_x;
+    for _ in 0..trials {
+        let x1 = rand_update(x);
+        let x2 = rand_update(x1);
+        if gcd(x1, x2) == 1 {
+            passed += 1;
+        }
+        x = x2;
+    }
+    passed as f64 / trials as f64
+}
+</pre></div>
 
 <p>While the program is still simple, it betrays some painful breaches of
-modularity.  In our first version of the program, using <code>rand</code>, we can
-express the Monte Carlo method directly as a general <code>monte-carlo</code>
-procedure that takes as an argument an arbitrary <code>experiment</code> procedure.
+modularity.  In our first version of the program, using <code class="code">rand</code>, we can
+express the Monte Carlo method directly as a general <code class="code">monte-carlo</code>
+procedure that takes as an argument an arbitrary <code class="code">experiment</code> procedure.
 In our second version of the program, with no local state for the random-number
-generator, <code>random-gcd-test</code> must explicitly manipulate the random numbers
-<code>x1</code> and <code>x2</code> and recycle <code>x2</code> through the iterative loop as the
-new input to <code>rand-update</code>.  This explicit handling of the random numbers
+generator, <code class="code">random-gcd-test</code> must explicitly manipulate the random numbers
+<code class="code">x1</code> and <code class="code">x2</code> and recycle <code class="code">x2</code> through the iterative loop as the
+new input to <code class="code">rand-update</code>.  This explicit handling of the random numbers
 intertwines the structure of accumulating test results with the fact that our
 particular experiment uses two random numbers, whereas other Monte Carlo
 experiments might use one random number or three.  Even the top-level procedure
-<code>estimate-pi</code> has to be concerned with supplying an initial random number.
-The fact that the random-number generator’s insides are leaking out into other
+<code class="code">estimate-pi</code> has to be concerned with supplying an initial random number.
+The fact that the random-number generator&#8217;s insides are leaking out into other
 parts of the program makes it difficult for us to isolate the Monte Carlo idea
 so that it can be applied to other tasks.  In the first version of the program,
 assignment encapsulates the state of the random-number generator within the
-<code>rand</code> procedure, so that the details of random-number generation remain
+<code class="code">rand</code> procedure, so that the details of random-number generation remain
 independent of the rest of the program.
 </p>
 <p>The general phenomenon illustrated by the Monte Carlo example is this: From the
@@ -597,584 +603,1020 @@ structure systems in a more modular fashion than if all state had to be
 manipulated explicitly, by passing additional parameters.  Unfortunately, as we
 shall see, the story is not so simple.
 </p>
-<blockquote>
-<p><strong><a id="Exercise-3_002e5"></a>Exercise 3.5:</strong> <a id="index-Monte-Carlo-integration"></a>
-<em>Monte Carlo integration</em>
+<blockquote class="quotation">
+<p><strong class="strong"><a class="anchor" id="Exercise-3_002e5"></a>Exercise 3.5:</strong> <a class="index-entry-id" id="index-Monte-Carlo-integration"></a>
+<em class="dfn">Monte Carlo integration</em>
 is a method of estimating definite integrals by means of Monte Carlo
 simulation.  Consider computing the area of a region of space described by a
-predicate <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <mrow class="MJX-TeXAtom-ORD">
-    <mi>P</mi>
-    <mo stretchy="false">(</mo>
-    <mi>x</mi>
-    <mo>,</mo>
-    <mi>y</mi>
-    <mo stretchy="false">)</mo>
-  </mrow>
-</math> that is true for points <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <mrow class="MJX-TeXAtom-ORD">
-    <mo stretchy="false">(</mo>
-    <mi>x</mi>
-    <mo>,</mo>
-    <mi>y</mi>
-    <mo stretchy="false">)</mo>
-  </mrow>
-</math> in the
+predicate <em class="math">{P(x, y)}</em> that is true for points <em class="math">{(x, y)}</em> in the
 region and false for points not in the region.  For example, the region
 contained within a circle of radius 3 centered at (5, 7) is described by the
-predicate that tests whether <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <mrow class="MJX-TeXAtom-ORD">
-    <mo stretchy="false">(</mo>
-    <mi>x</mi>
-    <mo>−<!-- − --></mo>
-    <mn>5</mn>
-    <msup>
-      <mo stretchy="false">)</mo>
-      <mn>2</mn>
-    </msup>
-  </mrow>
-  <mo>+</mo>
-  <mrow class="MJX-TeXAtom-ORD">
-    <mo stretchy="false">(</mo>
-    <mi>y</mi>
-    <mo>−<!-- − --></mo>
-    <mn>7</mn>
-    <msup>
-      <mo stretchy="false">)</mo>
-      <mn>2</mn>
-    </msup>
-    <mo>≤<!-- ≤ --></mo>
-    <msup>
-      <mn>3</mn>
-      <mn>2</mn>
-    </msup>
-  </mrow>
-</math>.  To estimate
+predicate that tests whether <em class="math">{(x - 5)^2} + {(y - 7)^2 ≤ 3^2}</em>.  To estimate
 the area of the region described by such a predicate, begin by choosing a
 rectangle that contains the region.  For example, a rectangle with diagonally
 opposite corners at (2, 4) and (8, 10) contains the circle above.  The desired
 integral is the area of that portion of the rectangle that lies in the region.
-We can estimate the integral by picking, at random, points <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <mrow class="MJX-TeXAtom-ORD">
-    <mo stretchy="false">(</mo>
-    <mi>x</mi>
-    <mo>,</mo>
-    <mi>y</mi>
-    <mo stretchy="false">)</mo>
-  </mrow>
-</math> that
-lie in the rectangle, and testing <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <mrow class="MJX-TeXAtom-ORD">
-    <mi>P</mi>
-    <mo stretchy="false">(</mo>
-    <mi>x</mi>
-    <mo>,</mo>
-    <mi>y</mi>
-    <mo stretchy="false">)</mo>
-  </mrow>
-</math> for each point to
+We can estimate the integral by picking, at random, points <em class="math">{(x, y)}</em> that
+lie in the rectangle, and testing <em class="math">{P(x, y)}</em> for each point to
 determine whether the point lies in the region.  If we try this with many
 points, then the fraction of points that fall in the region should give an
 estimate of the proportion of the rectangle that lies in the region.  Hence,
 multiplying this fraction by the area of the entire rectangle should produce an
 estimate of the integral.
 </p>
-<p>Implement Monte Carlo integration as a procedure <code>estimate-integral</code> that
-takes as arguments a predicate <code>P</code>, upper and lower bounds <code>x1</code>,
-<code>x2</code>, <code>y1</code>, and <code>y2</code> for the rectangle, and the number of trials
+<p>Implement Monte Carlo integration as a procedure <code class="code">estimate-integral</code> that
+takes as arguments a predicate <code class="code">P</code>, upper and lower bounds <code class="code">x1</code>,
+<code class="code">x2</code>, <code class="code">y1</code>, and <code class="code">y2</code> for the rectangle, and the number of trials
 to perform in order to produce the estimate.  Your procedure should use the
-same <code>monte-carlo</code> procedure that was used above to estimate <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <mi>π<!-- π --></mi>
-</math>.
-Use your <code>estimate-integral</code> to produce an estimate of <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <mi>π<!-- π --></mi>
-</math> by
+same <code class="code">monte-carlo</code> procedure that was used above to estimate <em class="math">π</em>.
+Use your <code class="code">estimate-integral</code> to produce an estimate of <em class="math">π</em> by
 measuring the area of a unit circle.
 </p>
 <p>You will find it useful to have a procedure that returns a number chosen at
-random from a given range.  The following <code>random-in-range</code> procedure
-implements this in terms of the <code>random</code> procedure used in 
-<a href="1_002e2.xhtml#g_t1_002e2_002e6">1.2.6</a>, which returns a nonnegative number less than its
-input.<a class="footnote_link" id="DOCF136" href="#FOOT136"><sup>136</sup></a>
+random from a given range.  The following <code class="code">random-in-range</code> procedure
+implements this in terms of the <code class="code">random</code> procedure used in
+<a class="ref" href="1_002e2.xhtml#g_t1_002e2_002e6">Example: Testing for Primality</a>, which returns a nonnegative number less than its
+input.<a class="footnote" id="DOCF129" href="#FOOT129"><sup>129</sup></a>
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">random-in-range low high</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">range </span><span class="opn">(</span><span class="pun">-</span><span class="pln"> high low</span><span class="clo">)))</span><span class="pln">
-    </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> low </span><span class="opn">(</span><span class="pln">random range</span><span class="clo">))))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">fn random_in_range(low: f64, high: f64) -&gt; f64 {
+    let range = high - low;
+    low + rand::random::&lt;f64&gt;() * range
+}
+</pre></div>
 </blockquote>
 
-<blockquote>
-<p><strong><a id="Exercise-3_002e6"></a>Exercise 3.6:</strong> It is useful to be able to reset a
+<blockquote class="quotation">
+<p><strong class="strong"><a class="anchor" id="Exercise-3_002e6"></a>Exercise 3.6:</strong> It is useful to be able to reset a
 random-number generator to produce a sequence starting from a given value.
-Design a new <code>rand</code> procedure that is called with an argument that is
-either the symbol <code>generate</code> or the symbol <code>reset</code> and behaves as
-follows: <code>(rand 'generate)</code> produces a new random number; <code>((rand
-'reset) ⟨<var>new-value</var>⟩)</code> resets the internal state variable to the
-designated <code>⟨</code><var>new-value</var><code>⟩</code>.  Thus, by resetting the state, one can generate
+Design a new <code class="code">rand</code> procedure that is called with an argument that is
+either the symbol <code class="code">generate</code> or the symbol <code class="code">reset</code> and behaves as
+follows: <code class="code">(rand 'generate)</code> produces a new random number; <code class="code">((rand
+'reset) ⟨<var class="var">new-value</var>⟩)</code> resets the internal state variable to the
+designated <code class="code">⟨</code><var class="var">new-value</var><code class="code">⟩</code>.  Thus, by resetting the state, one can generate
 repeatable sequences.  These are very handy to have when testing and debugging
 programs that use random numbers.
 </p></blockquote>
 
-<a id="g_t3_002e1_002e3"></a>
-<a id="The-Costs-of-Introducing-Assignment"></a>
-<h4 class="subsection"><span class="secnum">3.1.3</span><span class="sectitle">The Costs of Introducing Assignment</span></h4>
+<hr />
+</div>
+<div class="subsection-level-extent" id="g_t3_002e1_002e3">
+<h4 class="subsection" id="The-Costs-of-Introducing-Assignment"><span>3.1.3 The Costs of Introducing Assignment<a class="copiable-link" href="#The-Costs-of-Introducing-Assignment"> &#182;</a></span></h4>
 
-<p>As we have seen, the <code>set!</code> operation enables us to model objects that
+<p>As we have seen, the <code class="code">set!</code> operation enables us to model objects that
 have local state.  However, this advantage comes at a price.  Our programming
 language can no longer be interpreted in terms of the substitution model of
-procedure application that we introduced in <a href="1_002e1.xhtml#g_t1_002e1_002e5">1.1.5</a>.  Moreover, no
-simple model with “nice” mathematical properties can be an adequate framework
+procedure application that we introduced in <a class="ref" href="1_002e1.xhtml#g_t1_002e1_002e5">The Substitution Model for Procedure Application</a>.  Moreover, no
+simple model with &#8220;nice&#8221; mathematical properties can be an adequate framework
 for dealing with objects and assignment in programming languages.
 </p>
 <p>So long as we do not use assignments, two evaluations of the same procedure
 with the same arguments will produce the same result, so that procedures can be
 viewed as computing mathematical functions.  Programming without any use of
 assignments, as we did throughout the first two chapters of this book, is
-accordingly known as <a id="index-functional-programming"></a>
-<em>functional programming</em>.
+accordingly known as <a class="index-entry-id" id="index-functional-programming"></a>
+<em class="dfn">functional programming</em>.
 </p>
 <p>To understand how assignment complicates matters, consider a simplified version
-of the <code>make-withdraw</code> procedure of <a href="#g_t3_002e1_002e1">3.1.1</a> that does not
+of the <code class="code">make_withdraw</code> procedure of <a class="ref" href="#g_t3_002e1_002e1">Local State Variables</a> that does not
 bother to check for an insufficient amount:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-simplified-withdraw balance</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">amount</span><span class="clo">)</span><span class="pln">
-    </span><span class="opn">(</span><span class="kwd">set</span><span class="pun">!</span><span class="pln"> balance </span><span class="opn">(</span><span class="pun">-</span><span class="pln"> balance amount</span><span class="clo">))</span><span class="pln">
-    balance</span><span class="clo">))</span><span class="pln">
+<div class="example">
+<pre class="example-preformatted">fn make_simplified_withdraw(initial: i64) -&gt; impl FnMut(i64) -&gt; i64 {
+    let balance = std::cell::Cell::new(initial);
+    move |amount| {
+        balance.set(balance.get() - amount);
+        balance.get()
+    }
+}
 
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> W </span><span class="opn">(</span><span class="pln">make-simplified-withdraw </span><span class="lit">25</span><span class="clo">))</span><span class="pln">
+let mut w = make_simplified_withdraw(25);
 
-</span><span class="opn">(</span><span class="pln">W </span><span class="lit">20</span><span class="clo">)</span><span class="pln">
-</span><i><span class="lit">5</span></i><span class="pln">
+w(20);
+// =&gt; 5
 
-</span><span class="opn">(</span><span class="pln">W </span><span class="lit">10</span><span class="clo">)</span><span class="pln">
-</span><i><span class="lit">-5</span></i>
+w(10);
+// =&gt; -5
 </pre></div>
 
-<p>Compare this procedure with the following <code>make-decrementer</code> procedure,
-which does not use <code>set!</code>:
+<p>Compare this procedure with the following <code class="code">make-decrementer</code> procedure,
+which does not use <code class="code">set!</code>:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-decrementer balance</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">amount</span><span class="clo">)</span><span class="pln">
-    </span><span class="opn">(</span><span class="pun">-</span><span class="pln"> balance amount</span><span class="clo">)))</span></pre></div>
-
-<p><code>Make-decrementer</code> returns a procedure that subtracts its input from a
-designated amount <code>balance</code>, but there is no accumulated effect over
-successive calls, as with <code>make-simplified-withdraw</code>:
-</p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> D </span><span class="opn">(</span><span class="pln">make-decrementer </span><span class="lit">25</span><span class="clo">))</span><span class="pln">
-
-</span><span class="opn">(</span><span class="pln">D </span><span class="lit">20</span><span class="clo">)</span><span class="pln">
-</span><i><span class="lit">5</span></i><span class="pln">
-
-</span><span class="opn">(</span><span class="pln">D </span><span class="lit">10</span><span class="clo">)</span><span class="pln">
-</span><i><span class="lit">15</span></i>
+<div class="example">
+<pre class="example-preformatted">fn make_decrementer(balance: i64) -&gt; impl Fn(i64) -&gt; i64 {
+    move |amount| balance - amount
+}
 </pre></div>
 
-<p>We can use the substitution model to explain how <code>make-decrementer</code> works.
+<p><code class="code">Make-decrementer</code> returns a procedure that subtracts its input from a
+designated amount <code class="code">balance</code>, but there is no accumulated effect over
+successive calls, as with <code class="code">make-simplified-withdraw</code>:
+</p>
+<div class="example">
+<pre class="example-preformatted">let d = make_decrementer(25);
+
+d(20);
+// =&gt; 5
+
+d(10);
+// =&gt; 15
+</pre></div>
+
+<p>We can use the substitution model to explain how <code class="code">make-decrementer</code> works.
 For instance, let us analyze the evaluation of the expression
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">((</span><span class="pln">make-decrementer </span><span class="lit">25</span><span class="clo">)</span><span class="pln"> </span><span class="lit">20</span><span class="clo">)</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">make_decrementer(25)(20)
+</pre></div>
 
 <p>We first simplify the operator of the combination by substituting 25 for
-<code>balance</code> in the body of <code>make-decrementer</code>.  This reduces the
+<code class="code">balance</code> in the body of <code class="code">make-decrementer</code>.  This reduces the
 expression to
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">((</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">amount</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pun">-</span><span class="pln"> </span><span class="lit">25</span><span class="pln"> amount</span><span class="clo">))</span><span class="pln"> </span><span class="lit">20</span><span class="clo">)</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">(|amount| 25 - amount)(20)
+</pre></div>
 
-<p>Now we apply the operator by substituting 20 for <code>amount</code> in the body of
-the <code>lambda</code> expression:
+<p>Now we apply the operator by substituting 20 for <code class="code">amount</code> in the body of
+the <code class="code">lambda</code> expression:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pun">-</span><span class="pln"> </span><span class="lit">25</span><span class="pln"> </span><span class="lit">20</span><span class="clo">)</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">25 - 20
+</pre></div>
 
 <p>The final answer is 5.
 </p>
 <p>Observe, however, what happens if we attempt a similar substitution analysis
-with <code>make-simplified-withdraw</code>:
+with <code class="code">make-simplified-withdraw</code>:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">((</span><span class="pln">make-simplified-withdraw </span><span class="lit">25</span><span class="clo">)</span><span class="pln"> </span><span class="lit">20</span><span class="clo">)</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">make_simplified_withdraw(25)(20)
+</pre></div>
 
-<p>We first simplify the operator by substituting 25 for <code>balance</code> in the
-body of <code>make-simplified-withdraw</code>.  This reduces the expression
-to<a class="footnote_link" id="DOCF137" href="#FOOT137"><sup>137</sup></a>
+<p>We first simplify the operator by substituting 25 for <code class="code">balance</code> in the
+body of <code class="code">make-simplified-withdraw</code>.  This reduces the expression
+to<a class="footnote" id="DOCF130" href="#FOOT130"><sup>130</sup></a>
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">((</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">amount</span><span class="clo">)</span><span class="pln"> 
-   </span><span class="opn">(</span><span class="kwd">set</span><span class="pun">!</span><span class="pln"> balance </span><span class="opn">(</span><span class="pun">-</span><span class="pln"> </span><span class="lit">25</span><span class="pln"> amount</span><span class="clo">))</span><span class="pln"> </span><span class="lit">25</span><span class="clo">)</span><span class="pln">
- </span><span class="lit">20</span><span class="clo">)</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">// Rust equivalent with explicit Cell mutation:
+(|amount| {
+    balance.set(25 - amount);
+    25  // returns old value, not new!
+})(20)
+</pre></div>
 
-<p>Now we apply the operator by substituting 20 for <code>amount</code> in the body of
-the <code>lambda</code> expression:
+<p>Now we apply the operator by substituting 20 for <code class="code">amount</code> in the body of
+the <code class="code">lambda</code> expression:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">set</span><span class="pun">!</span><span class="pln"> balance </span><span class="opn">(</span><span class="pun">-</span><span class="pln"> </span><span class="lit">25</span><span class="pln"> </span><span class="lit">20</span><span class="clo">))</span><span class="pln"> </span><span class="lit">25</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">{ balance.set(25 - 20); 25 }
+</pre></div>
 
 <p>If we adhered to the substitution model, we would have to say that the meaning
-of the procedure application is to first set <code>balance</code> to 5 and then
+of the procedure application is to first set <code class="code">balance</code> to 5 and then
 return 25 as the value of the expression.  This gets the wrong answer.  In
 order to get the correct answer, we would have to somehow distinguish the first
-occurrence of <code>balance</code> (before the effect of the <code>set!</code>)  from the
-second occurrence of <code>balance</code> (after the effect of the <code>set!</code>), and
+occurrence of <code class="code">balance</code> (before the effect of the <code class="code">set!</code>)  from the
+second occurrence of <code class="code">balance</code> (after the effect of the <code class="code">set!</code>), and
 the substitution model cannot do this.
 </p>
 <p>The trouble here is that substitution is based ultimately on the notion that
 the symbols in our language are essentially names for values.  But as soon as
-we introduce <code>set!</code> and the idea that the value of a variable can change,
+we introduce <code class="code">set!</code> and the idea that the value of a variable can change,
 a variable can no longer be simply a name.  Now a variable somehow refers to a
 place where a value can be stored, and the value stored at this place can
-change.  In <a href="3_002e2.xhtml#g_t3_002e2">3.2</a> we will see how environments play this role of
-“place” in our computational model.
+change.  In <a class="ref" href="3_002e2.xhtml#g_t3_002e2">The Environment Model of Evaluation</a> we will see how environments play this role of
+&#8220;place&#8221; in our computational model.
 </p>
-<a id="Sameness-and-change"></a>
-<h5 class="subsubheading">Sameness and change</h5>
+<h4 class="subsubheading" id="Sameness-and-change"><span>Sameness and change<a class="copiable-link" href="#Sameness-and-change"> &#182;</a></span></h4>
 
 <p>The issue surfacing here is more profound than the mere breakdown of a
 particular model of computation.  As soon as we introduce change into our
 computational models, many notions that were previously straightforward become
-problematical.  Consider the concept of two things being “the same.”
+problematical.  Consider the concept of two things being &#8220;the same.&#8221;
 </p>
-<p>Suppose we call <code>make-decrementer</code> twice with the same argument to create
+<p>Suppose we call <code class="code">make-decrementer</code> twice with the same argument to create
 two procedures:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> D1 </span><span class="opn">(</span><span class="pln">make-decrementer </span><span class="lit">25</span><span class="clo">))</span><span class="pln">
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> D2 </span><span class="opn">(</span><span class="pln">make-decrementer </span><span class="lit">25</span><span class="clo">))</span></pre></div>
-
-<p>Are <code>D1</code> and <code>D2</code> the same?  An acceptable answer is yes, because
-<code>D1</code> and <code>D2</code> have the same computational behavior—each is a
-procedure that subtracts its input from 25.  In fact, <code>D1</code> could be
-substituted for <code>D2</code> in any computation without changing the result.
-</p>
-<p>Contrast this with making two calls to <code>make-simplified-withdraw</code>:
-</p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> W1 </span><span class="opn">(</span><span class="pln">make-simplified-withdraw </span><span class="lit">25</span><span class="clo">))</span><span class="pln">
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> W2 </span><span class="opn">(</span><span class="pln">make-simplified-withdraw </span><span class="lit">25</span><span class="clo">))</span></pre></div>
-
-<p>Are <code>W1</code> and <code>W2</code> the same?  Surely not, because calls to <code>W1</code>
-and <code>W2</code> have distinct effects, as shown by the following sequence of
-interactions:
-</p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">W1 </span><span class="lit">20</span><span class="clo">)</span><span class="pln">
-</span><i><span class="lit">5</span></i><span class="pln">
-
-</span><span class="opn">(</span><span class="pln">W1 </span><span class="lit">20</span><span class="clo">)</span><span class="pln">
-</span><i><span class="lit">-15</span></i><span class="pln">
-
-</span><span class="opn">(</span><span class="pln">W2 </span><span class="lit">20</span><span class="clo">)</span><span class="pln">
-</span><i><span class="lit">5</span></i>
+<div class="example">
+<pre class="example-preformatted">let d1 = make_decrementer(25);
+let d2 = make_decrementer(25);
 </pre></div>
 
-<p>Even though <code>W1</code> and <code>W2</code> are “equal” in the sense that they are
-both created by evaluating the same expression, <code>(make-simplified-withdraw
-25)</code>, it is not true that <code>W1</code> could be substituted for <code>W2</code> in any
+<p>Are <code class="code">D1</code> and <code class="code">D2</code> the same?  An acceptable answer is yes, because
+<code class="code">D1</code> and <code class="code">D2</code> have the same computational behavior&#8212;each is a
+procedure that subtracts its input from 25.  In fact, <code class="code">D1</code> could be
+substituted for <code class="code">D2</code> in any computation without changing the result.
+</p>
+<p>Contrast this with making two calls to <code class="code">make-simplified-withdraw</code>:
+</p>
+<div class="example">
+<pre class="example-preformatted">let mut w1 = make_simplified_withdraw(25);
+let mut w2 = make_simplified_withdraw(25);
+</pre></div>
+
+<p>Are <code class="code">W1</code> and <code class="code">W2</code> the same?  Surely not, because calls to <code class="code">W1</code>
+and <code class="code">W2</code> have distinct effects, as shown by the following sequence of
+interactions:
+</p>
+<div class="example">
+<pre class="example-preformatted">w1(20);
+// =&gt; Ok(5)
+
+w1(20);
+// =&gt; Ok(-15)
+
+w2(20);
+// =&gt; Ok(5)
+</pre></div>
+
+<p>Even though <code class="code">W1</code> and <code class="code">W2</code> are &#8220;equal&#8221; in the sense that they are
+both created by evaluating the same expression, <code class="code">(make-simplified-withdraw
+25)</code>, it is not true that <code class="code">W1</code> could be substituted for <code class="code">W2</code> in any
 expression without changing the result of evaluating the expression.
 </p>
-<p>A language that supports the concept that “equals can be substituted for
-equals” in an expression without changing the value of the expression is said
-to be <a id="index-referentially-transparent"></a>
-<em>referentially transparent</em>.  Referential transparency is
-violated when we include <code>set!</code> in our computer language.  This makes it
+<p>A language that supports the concept that &#8220;equals can be substituted for
+equals&#8221; in an expression without changing the value of the expression is said
+to be <a class="index-entry-id" id="index-referentially-transparent"></a>
+<em class="dfn">referentially transparent</em>.  Referential transparency is
+violated when we include <code class="code">set!</code> in our computer language.  This makes it
 tricky to determine when we can simplify expressions by substituting equivalent
 expressions.  Consequently, reasoning about programs that use assignment
 becomes drastically more difficult.
 </p>
 <p>Once we forgo referential transparency, the notion of what it means for
-computational objects to be “the same” becomes difficult to capture in a
-formal way.  Indeed, the meaning of “same” in the real world that our
+computational objects to be &#8220;the same&#8221; becomes difficult to capture in a
+formal way.  Indeed, the meaning of &#8220;same&#8221; in the real world that our
 programs model is hardly clear in itself.  In general, we can determine that
-two apparently identical objects are indeed “the same one” only by modifying
+two apparently identical objects are indeed &#8220;the same one&#8221; only by modifying
 one object and then observing whether the other object has changed in the same
-way.  But how can we tell if an object has “changed” other than by observing
-the “same” object twice and seeing whether some property of the object
-differs from one observation to the next?  Thus, we cannot determine “change”
-without some <em>a priori</em> notion of “sameness,” and we cannot determine
+way.  But how can we tell if an object has &#8220;changed&#8221; other than by observing
+the &#8220;same&#8221; object twice and seeing whether some property of the object
+differs from one observation to the next?  Thus, we cannot determine &#8220;change&#8221;
+without some <em class="emph">a priori</em> notion of &#8220;sameness,&#8221; and we cannot determine
 sameness without observing the effects of change.
 </p>
 <p>As an example of how this issue arises in programming, consider the situation
 where Peter and Paul have a bank account with $100 in it.  There is a
 substantial difference between modeling this as
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> peter-acc </span><span class="opn">(</span><span class="pln">make-account </span><span class="lit">100</span><span class="clo">))</span><span class="pln">
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> paul-acc </span><span class="opn">(</span><span class="pln">make-account </span><span class="lit">100</span><span class="clo">))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">let peter_acc = Account::new(100);
+let paul_acc = Account::new(100);
+</pre></div>
 
 <p>and modeling it as
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> peter-acc </span><span class="opn">(</span><span class="pln">make-account </span><span class="lit">100</span><span class="clo">))</span><span class="pln">
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> paul-acc peter-acc</span><span class="clo">)</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">use std::rc::Rc;
+let peter_acc = Rc::new(Account::new(100));
+let paul_acc = Rc::clone(&amp;peter_acc);  // Both refer to same account
+</pre></div>
 
 <p>In the first situation, the two bank accounts are distinct.  Transactions made
-by Peter will not affect Paul’s account, and vice versa.  In the second
-situation, however, we have defined <code>paul-acc</code> to be <em>the same thing</em>
-as <code>peter-acc</code>.  In effect, Peter and Paul now have a joint bank account,
-and if Peter makes a withdrawal from <code>peter-acc</code> Paul will observe less
-money in <code>paul-acc</code>.  These two similar but distinct situations can cause
+by Peter will not affect Paul&#8217;s account, and vice versa.  In the second
+situation, however, we have defined <code class="code">paul-acc</code> to be <em class="emph">the same thing</em>
+as <code class="code">peter-acc</code>.  In effect, Peter and Paul now have a joint bank account,
+and if Peter makes a withdrawal from <code class="code">peter-acc</code> Paul will observe less
+money in <code class="code">paul-acc</code>.  These two similar but distinct situations can cause
 confusion in building computational models.  With the shared account, in
 particular, it can be especially confusing that there is one object (the bank
-account) that has two different names (<code>peter-acc</code> and <code>paul-acc</code>);
-if we are searching for all the places in our program where <code>paul-acc</code> can
+account) that has two different names (<code class="code">peter-acc</code> and <code class="code">paul-acc</code>);
+if we are searching for all the places in our program where <code class="code">paul-acc</code> can
 be changed, we must remember to look also at things that change
-<code>peter-acc</code>.<a class="footnote_link" id="DOCF138" href="#FOOT138"><sup>138</sup></a>
+<code class="code">peter-acc</code>.<a class="footnote" id="DOCF131" href="#FOOT131"><sup>131</sup></a>
 </p>
-<p>With reference to the above remarks on “sameness” and “change,” observe
+<p>With reference to the above remarks on &#8220;sameness&#8221; and &#8220;change,&#8221; observe
 that if Peter and Paul could only examine their bank balances, and could not
 perform operations that changed the balance, then the issue of whether the two
 accounts are distinct would be moot.  In general, so long as we never modify
 data objects, we can regard a compound data object to be precisely the totality
 of its pieces.  For example, a rational number is determined by giving its
 numerator and its denominator.  But this view is no longer valid in the
-presence of change, where a compound data object has an “identity” that is
+presence of change, where a compound data object has an &#8220;identity&#8221; that is
 something different from the pieces of which it is composed.  A bank account is
-still “the same” bank account even if we change the balance by making a
+still &#8220;the same&#8221; bank account even if we change the balance by making a
 withdrawal; conversely, we could have two different bank accounts with the same
 state information.  This complication is a consequence, not of our programming
 language, but of our perception of a bank account as an object.  We do not, for
 example, ordinarily regard a rational number as a changeable object with
-identity, such that we could change the numerator and still have “the same”
+identity, such that we could change the numerator and still have &#8220;the same&#8221;
 rational number.
 </p>
-<a id="Pitfalls-of-imperative-programming"></a>
-<h5 class="subsubheading">Pitfalls of imperative programming</h5>
+<h4 class="subsubheading" id="Pitfalls-of-imperative-programming"><span>Pitfalls of imperative programming<a class="copiable-link" href="#Pitfalls-of-imperative-programming"> &#182;</a></span></h4>
 
 <p>In contrast to functional programming, programming that makes extensive use of
-assignment is known as <a id="index-imperative-programming"></a>
-<em>imperative programming</em>.  In addition to
+assignment is known as <a class="index-entry-id" id="index-imperative-programming"></a>
+<em class="dfn">imperative programming</em>.  In addition to
 raising complications about computational models, programs written in
 imperative style are susceptible to bugs that cannot occur in functional
-programs.  For example, recall the iterative factorial program from 
-<a href="1_002e2.xhtml#g_t1_002e2_002e1">1.2.1</a>:
+programs.  For example, recall the iterative factorial program from
+<a class="ref" href="1_002e2.xhtml#g_t1_002e2_002e1">Linear Recursion and Iteration</a>:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">factorial n</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">iter product counter</span><span class="clo">)</span><span class="pln">
-    </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pun">&gt;</span><span class="pln"> counter n</span><span class="clo">)</span><span class="pln">
-        product
-        </span><span class="opn">(</span><span class="pln">iter </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> counter product</span><span class="clo">)</span><span class="pln">
-              </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> counter </span><span class="lit">1</span><span class="clo">))))</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">iter </span><span class="lit">1</span><span class="pln"> </span><span class="lit">1</span><span class="clo">))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">fn factorial(n: u64) -&gt; u64 {
+    fn iter(product: u64, counter: u64, n: u64) -&gt; u64 {
+        if counter &gt; n {
+            product
+        } else {
+            iter(counter * product, counter + 1, n)
+        }
+    }
+    iter(1, 1, n)
+}
+</pre></div>
 
 <p>Instead of passing arguments in the internal iterative loop, we could adopt a
 more imperative style by using explicit assignment to update the values of the
-variables <code>product</code> and <code>counter</code>:
+variables <code class="code">product</code> and <code class="code">counter</code>:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">factorial n</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">product </span><span class="lit">1</span><span class="clo">)</span><span class="pln">
-        </span><span class="opn">(</span><span class="pln">counter </span><span class="lit">1</span><span class="clo">))</span><span class="pln">
-    </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">iter</span><span class="clo">)</span><span class="pln">
-      </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pun">&gt;</span><span class="pln"> counter n</span><span class="clo">)</span><span class="pln">
-          product
-          </span><span class="opn">(</span><span class="kwd">begin</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">set</span><span class="pun">!</span><span class="pln"> product </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> counter 
-                                  product</span><span class="clo">))</span><span class="pln">
-                 </span><span class="opn">(</span><span class="kwd">set</span><span class="pun">!</span><span class="pln"> counter </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> counter </span><span class="lit">1</span><span class="clo">))</span><span class="pln">
-                 </span><span class="opn">(</span><span class="pln">iter</span><span class="clo">))))</span><span class="pln">
-    </span><span class="opn">(</span><span class="pln">iter</span><span class="clo">)))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">fn factorial(n: u64) -&gt; u64 {
+    let mut product = 1u64;
+    let mut counter = 1u64;
+    while counter &lt;= n {
+        product *= counter;
+        counter += 1;
+    }
+    product
+}
+</pre></div>
 
 <p>This does not change the results produced by the program, but it does introduce
 a subtle trap.  How do we decide the order of the assignments?  As it happens,
 the program is correct as written.  But writing the assignments in the opposite
 order
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">set</span><span class="pun">!</span><span class="pln"> counter </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> counter </span><span class="lit">1</span><span class="clo">))</span><span class="pln">
-</span><span class="opn">(</span><span class="kwd">set</span><span class="pun">!</span><span class="pln"> product </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> counter product</span><span class="clo">))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">counter += 1;
+product *= counter;  // Wrong: uses incremented counter
+</pre></div>
 
 <p>would have produced a different, incorrect result.  In general, programming
 with assignment forces us to carefully consider the relative orders of the
 assignments to make sure that each statement is using the correct version of
 the variables that have been changed.  This issue simply does not arise in
-functional programs.<a class="footnote_link" id="DOCF139" href="#FOOT139"><sup>139</sup></a>
+functional programs.<a class="footnote" id="DOCF132" href="#FOOT132"><sup>132</sup></a>
 </p>
 <p>The complexity of imperative programs becomes even worse if we consider
 applications in which several processes execute concurrently.  We will return
-to this in <a href="3_002e4.xhtml#g_t3_002e4">3.4</a>.  First, however, we will address the issue of
+to this in <a class="ref" href="3_002e4.xhtml#g_t3_002e4">Concurrency: Time Is of the Essence</a>.  First, however, we will address the issue of
 providing a computational model for expressions that involve assignment, and
 explore the uses of objects with local state in designing simulations.
 </p>
-<blockquote>
-<p><strong><a id="Exercise-3_002e7"></a>Exercise 3.7:</strong> Consider the bank account objects
-created by <code>make-account</code>, with the password modification described in
-<a href="#Exercise-3_002e3">Exercise 3.3</a>.  Suppose that our banking system requires the ability to
-make joint accounts.  Define a procedure <code>make-joint</code> that accomplishes
-this.  <code>Make-joint</code> should take three arguments.  The first is a
+<blockquote class="quotation">
+<p><strong class="strong"><a class="anchor" id="Exercise-3_002e7"></a>Exercise 3.7:</strong> Consider the bank account objects
+created by <code class="code">Account::new</code>, with the password modification described in
+<a class="ref" href="#Exercise-3_002e3">Exercise 3.3</a>.  Suppose that our banking system requires the ability to
+make joint accounts.  Define a procedure <code class="code">make-joint</code> that accomplishes
+this.  <code class="code">Make-joint</code> should take three arguments.  The first is a
 password-protected account.  The second argument must match the password with
-which the account was defined in order for the <code>make-joint</code> operation to
-proceed.  The third argument is a new password.  <code>Make-joint</code> is to create
+which the account was defined in order for the <code class="code">make-joint</code> operation to
+proceed.  The third argument is a new password.  <code class="code">Make-joint</code> is to create
 an additional access to the original account using the new password.  For
-example, if <code>peter-acc</code> is a bank account with password
-<code>open-sesame</code>, then
+example, if <code class="code">peter-acc</code> is a bank account with password
+<code class="code">open-sesame</code>, then
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> paul-acc
-  </span><span class="opn">(</span><span class="pln">make-joint peter-acc 
-              </span><span class="lit">'open-sesame</span><span class="pln"> 
-              </span><span class="lit">'rosebud</span><span class="clo">))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">let paul_acc = make_joint(
+    &amp;peter_acc,
+    &quot;open-sesame&quot;,
+    &quot;rosebud&quot;
+);
+</pre></div>
 
-<p>will allow one to make transactions on <code>peter-acc</code> using the name
-<code>paul-acc</code> and the password <code>rosebud</code>.  You may wish to modify your
-solution to <a href="#Exercise-3_002e3">Exercise 3.3</a> to accommodate this new feature.
+<p>will allow one to make transactions on <code class="code">peter-acc</code> using the name
+<code class="code">paul-acc</code> and the password <code class="code">rosebud</code>.  You may wish to modify your
+solution to <a class="ref" href="#Exercise-3_002e3">Exercise 3.3</a> to accommodate this new feature.
 </p></blockquote>
 
-<blockquote>
-<p><strong><a id="Exercise-3_002e8"></a>Exercise 3.8:</strong> When we defined the evaluation
-model in <a href="1_002e1.xhtml#g_t1_002e1_002e3">1.1.3</a>, we said that the first step in evaluating an
+<blockquote class="quotation">
+<p><strong class="strong"><a class="anchor" id="Exercise-3_002e8"></a>Exercise 3.8:</strong> When we defined the evaluation
+model in <a class="ref" href="1_002e1.xhtml#g_t1_002e1_002e3">Evaluating Combinations</a>, we said that the first step in evaluating an
 expression is to evaluate its subexpressions.  But we never specified the order
 in which the subexpressions should be evaluated (e.g., left to right or right
 to left).  When we introduce assignment, the order in which the arguments to a
 procedure are evaluated can make a difference to the result.  Define a simple
-procedure <code>f</code> such that evaluating 
+procedure <code class="code">f</code> such that evaluating
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="opn">(</span><span class="pln">f </span><span class="lit">0</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">f </span><span class="lit">1</span><span class="clo">))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">f(0) + f(1)
+</pre></div>
 
 <p>will return 0 if
-the arguments to <code>+</code> are evaluated from left to right but will return 1 if
+the arguments to <code class="code">+</code> are evaluated from left to right but will return 1 if
 the arguments are evaluated from right to left.
 </p></blockquote>
 
-<div class="footnote">
+<hr />
+</div>
+<div class="subsection-level-extent" id="g_t3_002e1_002e4">
+<h4 class="subsection" id="The-Borrow-Checker-as-Guardian"><span>3.1.4 The Borrow Checker as Guardian<a class="copiable-link" href="#The-Borrow-Checker-as-Guardian"> &#182;</a></span></h4>
+<a class="index-entry-id" id="index-ownership"></a>
+<a class="index-entry-id" id="index-borrowing"></a>
+<a class="index-entry-id" id="index-borrow-checker"></a>
+<a class="index-entry-id" id="index-lifetimes"></a>
+<a class="index-entry-id" id="index-data-races"></a>
+<a class="index-entry-id" id="index-memory-safety"></a>
+
+<p>In the previous section, we explored how assignment complicates our computational
+model, breaking the substitution model and introducing thorny questions about
+sameness and change. In Rust, these challenges are addressed through a
+compile-time system called the <a class="index-entry-id" id="index-borrow-checker-1"></a>
+<em class="dfn">borrow checker</em>, which enforces strict
+rules about ownership and borrowing. Rather than relying on runtime garbage
+collection or manual memory management, Rust&#8217;s ownership system provides memory
+safety and prevents data races at compile time&#8212;with zero runtime overhead.
+</p>
+<p>The borrow checker is Rust&#8217;s guardian against an entire class of bugs that plague
+systems programming: use-after-free, double-free, data races, iterator
+invalidation, and dangling pointers. By encoding ownership and borrowing rules
+in the type system, Rust transforms these runtime errors into compile-time
+errors, preventing them before the program ever runs.
+</p>
+<h4 class="subsubheading" id="Ownership_003a-Each-Value-Has-One-Owner"><span>Ownership: Each Value Has One Owner<a class="copiable-link" href="#Ownership_003a-Each-Value-Has-One-Owner"> &#182;</a></span></h4>
+
+<p>The foundation of Rust&#8217;s memory model is the principle that <a class="index-entry-id" id="index-every-value"></a>
+has exactly one owner
+<em class="dfn">every value
+has exactly one owner</em>. When the owner goes out of scope, the value is
+automatically dropped, freeing its resources. This is called <a class="index-entry-id" id="index-RAII"></a>
+<em class="dfn">RAII</em>
+(Resource Acquisition Is Initialization), a pattern that ensures resources are
+cleaned up deterministically.
+</p>
+<div class="example">
+<pre class="example-preformatted"><a class="index-entry-id" id="index-ownership-transfer"></a><a class="index-entry-id" id="index-drop"></a>fn demonstrate_ownership() {
+    let s1 = String::from(&quot;hello&quot;);
+    // s1 owns the String allocation
+
+    println!(&quot;{}&quot;, s1);
+
+}  // s1 goes out of scope, String is dropped
+
+// The String's memory is freed here automatically
+</pre></div>
+
+<p>This simple principle has profound implications. Unlike languages with garbage
+collection, Rust knows <em class="emph">exactly</em> when to free memory: when the owner goes
+out of scope. There&#8217;s no need for a runtime garbage collector scanning memory,
+no unpredictable pauses, no reference counting overhead.
+</p>
+<h4 class="subsubheading" id="Move-Semantics_003a-Ownership-Transfer"><span>Move Semantics: Ownership Transfer<a class="copiable-link" href="#Move-Semantics_003a-Ownership-Transfer"> &#182;</a></span></h4>
+
+<p>When we assign a value to another variable or pass it to a function, ownership
+is <a class="index-entry-id" id="index-transferred"></a>
+<em class="dfn">transferred</em>. The original binding becomes invalid, preventing
+use-after-move errors:
+</p>
+<div class="example">
+<pre class="example-preformatted"><a class="index-entry-id" id="index-move-semantics"></a>fn demonstrate_move() {
+    let s1 = String::from(&quot;hello&quot;);
+    let s2 = s1;  // Ownership moves from s1 to s2
+
+    // println!(&quot;{}&quot;, s1);  // Error: s1 is no longer valid!
+    println!(&quot;{}&quot;, s2);      // OK: s2 now owns the String
+}
+</pre></div>
+
+<p>This prevents double-free bugs: since only one binding owns the value at a time,
+it can only be freed once. Compare this to C++, where both variables might try
+to free the same memory, or to languages with garbage collection, where the
+runtime must track all references.
+</p>
+<p>The move semantics extend to function calls. When we pass a value to a function,
+ownership transfers to the function&#8217;s parameter:
+</p>
+<div class="example">
+<pre class="example-preformatted">fn take_ownership(s: String) {
+    println!(&quot;{}&quot;, s);
+}  // s is dropped here
+
+fn demonstrate_function_move() {
+    let s = String::from(&quot;hello&quot;);
+    take_ownership(s);
+    // println!(&quot;{}&quot;, s);  // Error: s was moved!
+}
+</pre></div>
+
+<p>To use the value after the function call, we must either return it or use
+borrowing, which we&#8217;ll explore next.
+</p>
+<h4 class="subsubheading" id="Copy-vs_002e-Move_003a-The-Copy-Trait"><span>Copy vs. Move: The Copy Trait<a class="copiable-link" href="#Copy-vs_002e-Move_003a-The-Copy-Trait"> &#182;</a></span></h4>
+
+<p>Not all types move by default. Types that implement the <code class="code">Copy</code> trait are
+copied implicitly instead of moved. The <code class="code">Copy</code> trait can only be
+implemented for types that can be safely duplicated by simply copying their bits:
+</p>
+<div class="example">
+<pre class="example-preformatted"><a class="index-entry-id" id="index-Copy-trait"></a>fn demonstrate_copy() {
+    let x = 5;        // i32 implements Copy
+    let y = x;        // x is copied, not moved
+
+    println!(&quot;{}, {}&quot;, x, y);  // Both are valid
+
+    let s1 = String::from(&quot;hello&quot;);  // String does NOT implement Copy
+    let s2 = s1;                    // s1 is moved
+    // println!(&quot;{}&quot;, s1);          // Error: s1 was moved
+}
+</pre></div>
+
+<p>Types that implement <code class="code">Copy</code> are typically simple scalar values: integers,
+floating-point numbers, booleans, characters, and tuples/arrays containing only
+<code class="code">Copy</code> types. Types that own heap-allocated data (like <code class="code">String</code> or
+<code class="code">Vec&lt;T&gt;</code>) cannot be <code class="code">Copy</code>, as duplicating them requires allocating
+new memory.
+</p>
+<h4 class="subsubheading" id="Borrowing_003a-Temporary-Access-Without-Ownership"><span>Borrowing: Temporary Access Without Ownership<a class="copiable-link" href="#Borrowing_003a-Temporary-Access-Without-Ownership"> &#182;</a></span></h4>
+
+<p>While move semantics prevent many bugs, moving values in and out of functions
+would be cumbersome. Rust&#8217;s <a class="index-entry-id" id="index-borrowing-1"></a>
+<em class="dfn">borrowing</em> system allows functions to
+temporarily access values without taking ownership:
+</p>
+<div class="example">
+<pre class="example-preformatted"><a class="index-entry-id" id="index-shared-borrow"></a><a class="index-entry-id" id="index-immutable-reference"></a>fn calculate_length(s: &amp;String) -&gt; usize {
+    s.len()
+}  // s goes out of scope, but nothing is dropped
+
+fn demonstrate_borrowing() {
+    let s1 = String::from(&quot;hello&quot;);
+    let len = calculate_length(&amp;s1);  // Borrow s1
+
+    println!(&quot;Length of '{}' is {}&quot;, s1, len);  // s1 is still valid
+}
+</pre></div>
+
+<p>The <code class="code">&amp;</code> operator creates a <a class="index-entry-id" id="index-reference"></a>
+<em class="dfn">reference</em>&#8212;a pointer that borrows the
+value without taking ownership. When the reference goes out of scope, nothing is
+dropped because the reference never owned the value.
+</p>
+<h4 class="subsubheading" id="The-Borrowing-Rules_003a-Multiple-Readers-or-One-Writer"><span>The Borrowing Rules: Multiple Readers or One Writer<a class="copiable-link" href="#The-Borrowing-Rules_003a-Multiple-Readers-or-One-Writer"> &#182;</a></span></h4>
+
+<p>Rust&#8217;s borrowing system enforces two fundamental rules that prevent data races:
+</p>
+<ol class="enumerate">
+<li> You can have <em class="emph">either</em> any number of immutable references (<code class="code">&amp;T</code>)
+</li><li> <em class="emph">or</em> exactly one mutable reference (<code class="code">&amp;mut T</code>)
+</li><li> But never both at the same time
+</li></ol>
+
+<p>These rules are enforced at compile time, within a scope. Here&#8217;s why they matter:
+</p>
+<div class="example">
+<pre class="example-preformatted"><a class="index-entry-id" id="index-mutable-borrow"></a><a class="index-entry-id" id="index-exclusive-access"></a>fn demonstrate_mutable_borrowing() {
+    let mut s = String::from(&quot;hello&quot;);
+
+    // Mutable borrow grants exclusive access
+    let r1 = &amp;mut s;
+    r1.push_str(&quot; world&quot;);
+
+    // Cannot have another mutable or immutable borrow while r1 exists
+    // let r2 = &amp;s;       // Error: cannot borrow as immutable
+    // let r3 = &amp;mut s;   // Error: cannot borrow as mutable
+
+    println!(&quot;{}&quot;, r1);
+}  // r1 goes out of scope here
+
+fn demonstrate_multiple_immutable_borrows() {
+    let s = String::from(&quot;hello&quot;);
+
+    let r1 = &amp;s;
+    let r2 = &amp;s;
+    let r3 = &amp;s;
+
+    println!(&quot;{}, {}, {}&quot;, r1, r2, r3);  // All valid
+
+    // let r4 = &amp;mut s;  // Error: cannot borrow as mutable while immutable borrows exist
+}
+</pre></div>
+
+<p>These rules prevent data races&#8212;situations where two or more pointers access
+the same memory location simultaneously, with at least one writing. By ensuring
+either multiple readers <em class="emph">or</em> one writer, Rust guarantees that data cannot
+be modified while others are reading it.
+</p>
+<p>The borrow checker tracks the <a class="index-entry-id" id="index-scope-1"></a>
+<em class="dfn">scope</em> of references, not just their
+lexical scope:
+</p>
+<div class="example">
+<pre class="example-preformatted"><a class="index-entry-id" id="index-non_002dlexical-lifetimes"></a>fn demonstrate_non_lexical_lifetimes() {
+    let mut s = String::from(&quot;hello&quot;);
+
+    let r1 = &amp;s;
+    let r2 = &amp;s;
+    println!(&quot;{} and {}&quot;, r1, r2);
+    // r1 and r2 are no longer used after this point
+
+    let r3 = &amp;mut s;  // OK: r1 and r2's lifetimes have ended
+    r3.push_str(&quot; world&quot;);
+    println!(&quot;{}&quot;, r3);
+}
+</pre></div>
+
+<p>This feature, called <a class="index-entry-id" id="index-non_002dlexical-lifetimes-1"></a>
+<em class="dfn">non-lexical lifetimes</em> (NLL), makes the borrow
+checker more precise: references are only considered active from where they&#8217;re
+created to their last use, not necessarily until the end of their lexical scope.
+</p>
+<h4 class="subsubheading" id="Lifetimes_003a-Relating-Borrowed-References"><span>Lifetimes: Relating Borrowed References<a class="copiable-link" href="#Lifetimes_003a-Relating-Borrowed-References"> &#182;</a></span></h4>
+
+<p>When functions return references, Rust needs to ensure they remain valid. This
+is where <a class="index-entry-id" id="index-lifetime-annotations"></a>
+<em class="dfn">lifetime annotations</em> come in&#8212;they describe the relationship
+between the lifetimes of different references:
+</p>
+<div class="example">
+<pre class="example-preformatted"><a class="index-entry-id" id="index-lifetime-annotations-1"></a><a class="index-entry-id" id="index-lifetime-parameters"></a>// Without lifetime annotation, this won't compile
+fn longest&lt;'a&gt;(x: &amp;'a str, y: &amp;'a str) -&gt; &amp;'a str {
+    if x.len() &gt; y.len() {
+        x
+    } else {
+        y
+    }
+}
+
+fn demonstrate_lifetimes() {
+    let string1 = String::from(&quot;long string&quot;);
+    let string2 = String::from(&quot;short&quot;);
+
+    let result = longest(&amp;string1, &amp;string2);
+    println!(&quot;Longest: {}&quot;, result);
+}
+</pre></div>
+
+<p>The lifetime annotation <code class="code">'a</code> (pronounced &quot;lifetime a&quot;) says: &quot;the returned
+reference is valid for as long as both input references are valid.&quot; It doesn&#8217;t
+change how long anything lives; it merely describes the relationship to the
+borrow checker.
+</p>
+<p>Without this annotation, the compiler cannot determine whether the returned
+reference points to <code class="code">x</code> or <code class="code">y</code>, and thus cannot verify it remains
+valid. The lifetime parameter makes this relationship explicit.
+</p>
+<h4 class="subsubheading" id="Lifetime-Elision-Rules"><span>Lifetime Elision Rules<a class="copiable-link" href="#Lifetime-Elision-Rules"> &#182;</a></span></h4>
+
+<p>Most of the time, we don&#8217;t need to write lifetime annotations. The Rust compiler
+applies <a class="index-entry-id" id="index-lifetime-elision-rules"></a>
+<em class="dfn">lifetime elision rules</em> to infer lifetimes in common patterns:
+</p>
+<ol class="enumerate">
+<li> Each reference parameter gets its own lifetime parameter
+</li><li> If there&#8217;s exactly one input lifetime, it&#8217;s assigned to all output lifetimes
+</li><li> If there&#8217;s a <code class="code">&amp;self</code> or <code class="code">&amp;mut self</code> parameter, its lifetime is assigned to all output lifetimes
+</li></ol>
+
+<div class="example">
+<pre class="example-preformatted"><a class="index-entry-id" id="index-lifetime-elision"></a>// These are equivalent due to elision:
+fn first_word(s: &amp;str) -&gt; &amp;str { /* ... */ }
+fn first_word&lt;'a&gt;(s: &amp;'a str) -&gt; &amp;'a str { /* ... */ }
+
+// Multiple parameters need explicit lifetimes:
+fn longest&lt;'a&gt;(x: &amp;'a str, y: &amp;'a str) -&gt; &amp;'a str { /* ... */ }
+</pre></div>
+
+<p>For methods, rule 3 is particularly helpful:
+</p>
+<div class="example">
+<pre class="example-preformatted"><a class="index-entry-id" id="index-method-lifetimes"></a>struct Parser&lt;'a&gt; {
+    source: &amp;'a str,
+    pos: usize,
+}
+
+impl&lt;'a&gt; Parser&lt;'a&gt; {
+    // Elided: fn next_token(&amp;self) -&gt; &amp;str
+    fn next_token(&amp;self) -&gt; &amp;'a str {
+        // Return a slice of self.source
+        &amp;self.source[self.pos..self.pos + 5]
+    }
+}
+</pre></div>
+
+<h4 class="subsubheading" id="Common-Borrow-Checker-Errors-and-Solutions"><span>Common Borrow Checker Errors and Solutions<a class="copiable-link" href="#Common-Borrow-Checker-Errors-and-Solutions"> &#182;</a></span></h4>
+
+<p>Let&#8217;s examine common patterns that trigger borrow checker errors and their
+solutions:
+</p>
+<p><strong class="strong">Problem 1: Returning a reference to local data</strong>
+</p>
+<div class="example">
+<pre class="example-preformatted"><a class="index-entry-id" id="index-dangling-reference"></a>// Error: dangling reference
+fn create_string() -&gt; &amp;str {
+    let s = String::from(&quot;hello&quot;);
+    &amp;s[..]  // Error: s is dropped at end of function
+}
+
+// Solution: Return owned data
+fn create_string() -&gt; String {
+    String::from(&quot;hello&quot;)
+}
+</pre></div>
+
+<p><strong class="strong">Problem 2: Modifying while iterating</strong>
+</p>
+<div class="example">
+<pre class="example-preformatted"><a class="index-entry-id" id="index-iterator-invalidation"></a>// Error: cannot modify while borrowed
+fn remove_evens(v: &amp;mut Vec&lt;i32&gt;) {
+    for x in v.iter() {  // Immutable borrow
+        if *x % 2 == 0 {
+            v.retain(|&amp;y| y != *x);  // Error: cannot borrow as mutable
+        }
+    }
+}
+
+// Solution: Collect indices to remove
+fn remove_evens(v: &amp;mut Vec&lt;i32&gt;) {
+    v.retain(|&amp;x| x % 2 != 0);
+}
+</pre></div>
+
+<p><strong class="strong">Problem 3: Splitting borrows</strong>
+</p>
+<div class="example">
+<pre class="example-preformatted"><a class="index-entry-id" id="index-split-borrows"></a>struct Data {
+    field1: Vec&lt;i32&gt;,
+    field2: Vec&lt;i32&gt;,
+}
+
+impl Data {
+    // Error: cannot borrow self as mutable twice
+    fn process_wrong(&amp;mut self) {
+        // let a = &amp;mut self.field1;
+        // let b = &amp;mut self.field2;  // Error: self already borrowed
+        // process(a, b);
+    }
+
+    // Solution: Borrow fields directly
+    fn process_right(&amp;mut self) {
+        let a = &amp;mut self.field1;
+        let b = &amp;mut self.field2;  // OK: different fields
+        // process(a, b);
+    }
+}
+</pre></div>
+
+<h4 class="subsubheading" id="Preventing-Data-Races-at-Compile-Time"><span>Preventing Data Races at Compile Time<a class="copiable-link" href="#Preventing-Data-Races-at-Compile-Time"> &#182;</a></span></h4>
+
+<p>The borrowing rules directly prevent data races in concurrent programs. Consider
+this example that would cause a data race in other languages:
+</p>
+<div class="example">
+<pre class="example-preformatted"><a class="index-entry-id" id="index-thread-safety"></a><a class="index-entry-id" id="index-Send-and-Sync"></a>use std::thread;
+
+fn data_race_prevented() {
+    let mut data = vec![1, 2, 3];
+
+    // This won't compile:
+    // thread::spawn(|| {
+    //     data.push(4);  // Error: closure may outlive current function
+    // });
+    // data.push(5);     // Would be a data race if allowed
+
+    // Correct: Use message passing or Arc&lt;Mutex&lt;T&gt;&gt;
+}
+</pre></div>
+
+<p>The borrow checker prevents the closure from capturing <code class="code">&amp;mut data</code> because
+it cannot guarantee the closure won&#8217;t outlive the function. This static analysis
+eliminates entire classes of concurrency bugs that would only appear at runtime
+in other languages&#8212;often intermittently and irreproducibly.
+</p>
+<h4 class="subsubheading" id="Connection-to-Chapter-3_003a-State-and-Time"><span>Connection to Chapter 3: State and Time<a class="copiable-link" href="#Connection-to-Chapter-3_003a-State-and-Time"> &#182;</a></span></h4>
+
+<p>Returning to the themes of Chapter 3, we see how Rust&#8217;s ownership system
+addresses the challenges we identified with assignment and state:
+</p>
+<ol class="enumerate">
+<li> <strong class="strong">The substitution model:</strong> By restricting mutation to exclusive mutable
+borrows, Rust maintains local reasoning&#8212;within a scope with an immutable
+reference, we know the value cannot change.
+
+</li><li> <strong class="strong">Sameness and identity:</strong> Ownership makes identity explicit. Two
+references might point to the same data (<code class="code">&amp;</code>), or we might have two distinct
+owned values. The type system prevents confusion between these cases.
+
+</li><li> <strong class="strong">Pitfalls of imperative programming:</strong> The borrow checker prevents the bugs
+that plague imperative programs: use-after-free, double-free, data races,
+iterator invalidation. These are not runtime errors to debug&#8212;they are
+impossible by construction.
+</li></ol>
+
+<p>The borrow checker is strict, but its strictness serves a purpose: it transforms
+the nebulous runtime concept of &quot;who can access this data and when&quot; into a
+compile-time guarantee. The result is a language where we can use mutation and
+shared state safely, without sacrificing the performance of direct memory access.
+</p>
+<blockquote class="quotation">
+<p><strong class="strong"><a class="anchor" id="Exercise-3_002e15a"></a>Exercise 3.15a:</strong> Consider the following function
+that attempts to find the longest common prefix of two strings:
+</p>
+<div class="example">
+<pre class="example-preformatted">fn longest_common_prefix(s1: &amp;str, s2: &amp;str) -&gt; &amp;str {
+    let mut end = 0;
+    for (c1, c2) in s1.chars().zip(s2.chars()) {
+        if c1 == c2 {
+            end += c1.len_utf8();
+        } else {
+            break;
+        }
+    }
+    &amp;s1[0..end]
+}
+</pre></div>
+
+<ol class="enumerate" type="a" start="1">
+<li> Will this function compile? If not, what is the error?
+</li><li> Add appropriate lifetime annotations to make it compile.
+</li><li> What does the lifetime annotation tell the caller about the returned reference?
+</li><li> Why doesn&#8217;t the function need to know which input string the result came from?
+</li></ol>
+</blockquote>
+
+<blockquote class="quotation">
+<p><strong class="strong"><a class="anchor" id="Exercise-3_002e15b"></a>Exercise 3.15b:</strong> The following code attempts to
+maintain a cache of computed values:
+</p>
+<div class="example">
+<pre class="example-preformatted">struct Cache {
+    data: Vec&lt;(String, i32)&gt;,
+}
+
+impl Cache {
+    fn get(&amp;self, key: &amp;str) -&gt; Option&lt;&amp;i32&gt; {
+        self.data
+            .iter()
+            .find(|(k, _)| k == key)
+            .map(|(_, v)| v)
+    }
+
+    fn get_or_insert(&amp;mut self, key: String, value: i32) -&gt; &amp;i32 {
+        if let Some(v) = self.get(key.as_str()) {
+            return v;  // Error: cannot return value referencing self
+        }
+        self.data.push((key, value));
+        &amp;self.data.last().unwrap().1
+    }
+}
+</pre></div>
+
+<ol class="enumerate" type="a" start="1">
+<li> Why does the borrow checker reject <code class="code">get_or_insert</code>?
+</li><li> Identify all the borrows and their lifetimes.
+</li><li> Propose a solution that satisfies the borrow checker. (Hint: Avoid calling
+<code class="code">get</code> from <code class="code">get_or_insert</code>.)
+</li><li> Explain why this pattern is dangerous in languages without a borrow checker.
+What runtime error might occur?
+</li></ol>
+</blockquote>
+
+<blockquote class="quotation">
+<p><strong class="strong"><a class="anchor" id="Exercise-3_002e15c"></a>Exercise 3.15c:</strong> Create a function
+<code class="code">split_at_mut</code> that splits a mutable slice into two non-overlapping mutable
+slices at a given index:
+</p>
+<div class="example">
+<pre class="example-preformatted">fn split_at_mut&lt;T&gt;(slice: &amp;mut [T], mid: usize)
+    -&gt; (&amp;mut [T], &amp;mut [T])
+{
+    assert!(mid &lt;= slice.len());
+
+    // This naive approach doesn't work:
+    // (&amp;mut slice[..mid], &amp;mut slice[mid..])
+    // Error: cannot borrow slice as mutable more than once
+
+    // Implement using unsafe code or slice methods
+}
+</pre></div>
+
+<ol class="enumerate" type="a" start="1">
+<li> Why does the naive approach of borrowing two slices from the same source fail?
+</li><li> Implement <code class="code">split_at_mut</code> using <code class="code">slice::split_at_mut</code>.
+</li><li> Explain how this function creates two mutable references from one. Does this
+violate the borrowing rules?
+</li><li> Bonus: Implement it using unsafe code with <code class="code">std::ptr::slice_from_raw_parts_mut</code>.
+What invariants must you uphold to maintain memory safety?
+</li></ol>
+</blockquote>
+
+<p>The borrow checker may seem restrictive at first, but this restriction is
+precisely its value. By encoding ownership and borrowing rules in the type
+system, Rust provides memory safety and prevents data races without garbage
+collection or manual memory management. The result is a language where we can
+reason locally about code behavior, confident that the compiler has verified our
+assumptions about ownership and access patterns.
+</p>
+
+</div>
+</div>
+<div class="footnotes-segment">
+<hr />
 <h4 class="footnotes-heading">Footnotes</h4>
 
-<div id="FOOT129"><p><a class="footnote_backlink" href="#DOCF129"><sup>129</sup></a>
-Actually, this is not quite
-true.  One exception was the random-number generator in <a href="1_002e2.xhtml#g_t1_002e2_002e6">1.2.6</a>.
-Another exception involved the operation/type tables we introduced in 
-<a href="2_002e4.xhtml#g_t2_002e4_002e3">2.4.3</a>, where the values of two calls to <code>get</code> with the same
-arguments depended on intervening calls to <code>put</code>.  On the other hand,
+<h5 class="footnote-body-heading"><a id="FOOT122" href="#DOCF122">(122)</a></h5>
+<p>Actually, this is not quite
+true.  One exception was the random-number generator in <a class="ref" href="1_002e2.xhtml#g_t1_002e2_002e6">Example: Testing for Primality</a>.
+Another exception involved the operation/type tables we introduced in
+<a class="ref" href="2_002e4.xhtml#g_t2_002e4_002e3">Data-Directed Programming and Additivity</a>, where the values of two calls to <code class="code">get</code> with the same
+arguments depended on intervening calls to <code class="code">put</code>.  On the other hand,
 until we introduce assignment, we have no way to create such procedures
 ourselves.</p>
-</div>
-<div id="FOOT130"><p><a class="footnote_backlink" href="#DOCF130"><sup>130</sup></a>
-The value of
-a <code>set!</code> expression is implementation-dependent.  <code>Set!</code> should be
+<h5 class="footnote-body-heading"><a id="FOOT123" href="#DOCF123">(123)</a></h5>
+<p>The value of
+a <code class="code">set!</code> expression is implementation-dependent.  <code class="code">Set!</code> should be
 used only for its effect, not for its value.
 </p>
-<p>The name <code>set!</code> reflects a naming convention used in Scheme: Operations
+<p>The name <code class="code">set!</code> reflects a naming convention used in Scheme: Operations
 that change the values of variables (or that change data structures, as we will
-see in <a href="3_002e3.xhtml#g_t3_002e3">3.3</a>) are given names that end with an exclamation point.
+see in <a class="ref" href="3_002e3.xhtml#g_t3_002e3">Modeling with Mutable Data</a>) are given names that end with an exclamation point.
 This is similar to the convention of designating predicates by names that end
 with a question mark.</p>
-</div>
-<div id="FOOT131"><p><a class="footnote_backlink" href="#DOCF131"><sup>131</sup></a>
-We have already
-used <code>begin</code> implicitly in our programs, because in Scheme the body of a
-procedure can be a sequence of expressions.  Also, the <code>⟨</code><var>consequent</var><code>⟩</code> part
-of each clause in a <code>cond</code> expression can be a sequence of expressions
+<h5 class="footnote-body-heading"><a id="FOOT124" href="#DOCF124">(124)</a></h5>
+<p>We have already
+used <code class="code">begin</code> implicitly in our programs, because in Scheme the body of a
+procedure can be a sequence of expressions.  Also, the <code class="code">⟨</code><var class="var">consequent</var><code class="code">⟩</code> part
+of each clause in a <code class="code">cond</code> expression can be a sequence of expressions
 rather than a single expression.</p>
-</div>
-<div id="FOOT132"><p><a class="footnote_backlink" href="#DOCF132"><sup>132</sup></a>
-In programming-language jargon, the variable
-<code>balance</code> is said to be <a id="index-encapsulated"></a>
-<em>encapsulated</em> within the
-<code>new-withdraw</code> procedure.  Encapsulation reflects the general
-system-design principle known as the <a id="index-hiding-principle"></a>
-<em>hiding principle</em>: One can make a
+<h5 class="footnote-body-heading"><a id="FOOT125" href="#DOCF125">(125)</a></h5>
+<p>In programming-language jargon, the variable
+<code class="code">balance</code> is said to be <a class="index-entry-id" id="index-encapsulated"></a>
+<em class="dfn">encapsulated</em> within the
+<code class="code">new_withdraw</code> procedure.  Encapsulation reflects the general
+system-design principle known as the <a class="index-entry-id" id="index-hiding-principle"></a>
+<em class="dfn">hiding principle</em>: One can make a
 system more modular and robust by protecting parts of the system from each
 other; that is, by providing information access only to those parts of the
-system that have a “need to know.”</p>
-</div>
-<div id="FOOT133"><p><a class="footnote_backlink" href="#DOCF133"><sup>133</sup></a>
-In contrast with
-<code>new-withdraw</code> above, we do not have to use <code>let</code> to make
-<code>balance</code> a local variable, since formal parameters are already local.
+system that have a &#8220;need to know.&#8221;</p>
+<h5 class="footnote-body-heading"><a id="FOOT126" href="#DOCF126">(126)</a></h5>
+<p>In contrast with
+<code class="code">new_withdraw</code> above, we do not have to use <code class="code">let</code> to make
+<code class="code">balance</code> a local variable, since formal parameters are already local.
 This will be clearer after the discussion of the environment model of
-evaluation in <a href="3_002e2.xhtml#g_t3_002e2">3.2</a>.  (See also <a href="3_002e2.xhtml#Exercise-3_002e10">Exercise 3.10</a>.)</p>
-</div>
-<div id="FOOT134"><p><a class="footnote_backlink" href="#DOCF134"><sup>134</sup></a>
-One common way to implement
-<code>rand-update</code> is to use the rule that <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <mi>x</mi>
-</math> is updated to <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <mrow class="MJX-TeXAtom-ORD">
-    <mi>a</mi>
-    <mi>x</mi>
-    <mo>+</mo>
-    <mi>b</mi>
-  </mrow>
-</math> 
-modulo <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <mi>m</mi>
-</math>, where <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <mi>a</mi>
-</math>, <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <mi>b</mi>
-</math>, and <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <mi>m</mi>
-</math> are appropriately chosen
-integers.  Chapter 3 of <a href="References.xhtml#Knuth-1981">Knuth 1981</a> includes an extensive discussion of
+evaluation in <a class="ref" href="3_002e2.xhtml#g_t3_002e2">The Environment Model of Evaluation</a>.  (See also <a class="ref" href="3_002e2.xhtml#Exercise-3_002e10">Exercise 3.10</a>.)</p>
+<h5 class="footnote-body-heading"><a id="FOOT127" href="#DOCF127">(127)</a></h5>
+<p>One common way to implement
+<code class="code">rand-update</code> is to use the rule that <em class="math">x</em> is updated to <em class="math">{ax + b}</em>
+modulo <em class="math">m</em>, where <em class="math">a</em>, <em class="math">b</em>, and <em class="math">m</em> are appropriately chosen
+integers.  Chapter 3 of <a class="ref" href="References.xhtml#Knuth-1981">Knuth 1981</a> includes an extensive discussion of
 techniques for generating sequences of random numbers and establishing their
-statistical properties.  Notice that the <code>rand-update</code> procedure computes
+statistical properties.  Notice that the <code class="code">rand-update</code> procedure computes
 a mathematical function: Given the same input twice, it produces the same
-output.  Therefore, the number sequence produced by <code>rand-update</code>
-certainly is not “random,” if by “random” we insist that each number in the
-sequence is unrelated to the preceding number.  The relation between “real
-randomness” and so-called <a id="index-pseudo_002drandom"></a>
-<em>pseudo-random</em> sequences, which are
+output.  Therefore, the number sequence produced by <code class="code">rand-update</code>
+certainly is not &#8220;random,&#8221; if by &#8220;random&#8221; we insist that each number in the
+sequence is unrelated to the preceding number.  The relation between &#8220;real
+randomness&#8221; and so-called <a class="index-entry-id" id="index-pseudo_002drandom"></a>
+<em class="dfn">pseudo-random</em> sequences, which are
 produced by well-determined computations and yet have suitable statistical
 properties, is a complex question involving difficult issues in mathematics and
 philosophy.  Kolmogorov, Solomonoff, and Chaitin have made great progress in
-clarifying these issues; a discussion can be found in <a href="References.xhtml#Chaitin-1975">Chaitin 1975</a>.</p>
-</div>
-<div id="FOOT135"><p><a class="footnote_backlink" href="#DOCF135"><sup>135</sup></a>
-This theorem is due to
-E. Cesàro.  See section 4.5.2 of <a href="References.xhtml#Knuth-1981">Knuth 1981</a> for a discussion and a proof.</p>
-</div>
-<div id="FOOT136"><p><a class="footnote_backlink" href="#DOCF136"><sup>136</sup></a>
-<abbr>MIT</abbr> Scheme provides such a procedure.  If
-<code>random</code> is given an exact integer (as in <a href="1_002e2.xhtml#g_t1_002e2_002e6">1.2.6</a>) it returns
+clarifying these issues; a discussion can be found in <a class="ref" href="References.xhtml#Chaitin-1975">Chaitin 1975</a>.</p>
+<h5 class="footnote-body-heading"><a id="FOOT128" href="#DOCF128">(128)</a></h5>
+<p>This theorem is due to
+E. Ces&#224;ro.  See section 4.5.2 of <a class="ref" href="References.xhtml#Knuth-1981">Knuth 1981</a> for a discussion and a proof.</p>
+<h5 class="footnote-body-heading"><a id="FOOT129" href="#DOCF129">(129)</a></h5>
+<p><abbr class="abbr">MIT</abbr> Scheme provides such a procedure.  If
+<code class="code">random</code> is given an exact integer (as in <a class="ref" href="1_002e2.xhtml#g_t1_002e2_002e6">Example: Testing for Primality</a>) it returns
 an exact integer, but if it is given a decimal value (as in this exercise) it
 returns a decimal value.</p>
-</div>
-<div id="FOOT137"><p><a class="footnote_backlink" href="#DOCF137"><sup>137</sup></a>
-We don’t substitute for the occurrence of <code>balance</code> in the
-<code>set!</code> expression because the <code>⟨</code><var>name</var><code>⟩</code> in a <code>set!</code> is not
-evaluated.  If we did substitute for it, we would get <code>(set! 25 (- 25
+<h5 class="footnote-body-heading"><a id="FOOT130" href="#DOCF130">(130)</a></h5>
+<p>We don&#8217;t substitute for the occurrence of <code class="code">balance</code> in the
+<code class="code">set!</code> expression because the <code class="code">⟨</code><var class="var">name</var><code class="code">⟩</code> in a <code class="code">set!</code> is not
+evaluated.  If we did substitute for it, we would get <code class="code">(set! 25 (- 25
 amount))</code>, which makes no sense.</p>
-</div>
-<div id="FOOT138"><p><a class="footnote_backlink" href="#DOCF138"><sup>138</sup></a>
-The phenomenon of a single computational object
-being accessed by more than one name is known as <a id="index-aliasing"></a>
-<em>aliasing</em>.  The joint
+<h5 class="footnote-body-heading"><a id="FOOT131" href="#DOCF131">(131)</a></h5>
+<p>The phenomenon of a single computational object
+being accessed by more than one name is known as <a class="index-entry-id" id="index-aliasing"></a>
+<em class="dfn">aliasing</em>.  The joint
 bank account situation illustrates a very simple example of an alias.  In
-<a href="3_002e3.xhtml#g_t3_002e3">3.3</a> we will see much more complex examples, such as “distinct”
+<a class="ref" href="3_002e3.xhtml#g_t3_002e3">Modeling with Mutable Data</a> we will see much more complex examples, such as &#8220;distinct&#8221;
 compound data structures that share parts.  Bugs can occur in our programs if
-we forget that a change to an object may also, as a “side effect,” change a
-“different” object because the two “different” objects are actually a
+we forget that a change to an object may also, as a &#8220;side effect,&#8221; change a
+&#8220;different&#8221; object because the two &#8220;different&#8221; objects are actually a
 single object appearing under different aliases.  These so-called
-<a id="index-side_002deffect-bugs"></a>
-<em>side-effect bugs</em> are so difficult to locate and to analyze that some
+<a class="index-entry-id" id="index-side_002deffect-bugs"></a>
+<em class="dfn">side-effect bugs</em> are so difficult to locate and to analyze that some
 people have proposed that programming languages be designed in such a way as to
-not allow side effects or aliasing (<a href="References.xhtml#Lampson-et-al_002e-1981">Lampson et al. 1981</a>; 
-<a href="References.xhtml#Morris-et-al_002e-1980">Morris et al. 1980</a>).</p>
-</div>
-<div id="FOOT139"><p><a class="footnote_backlink" href="#DOCF139"><sup>139</sup></a>
-In view of this, it is ironic that introductory
+not allow side effects or aliasing (<a class="ref" href="References.xhtml#Lampson-et-al_002e-1981">Lampson et al. 1981</a>;
+<a class="ref" href="References.xhtml#Morris-et-al_002e-1980">Morris et al. 1980</a>).</p>
+<h5 class="footnote-body-heading"><a id="FOOT132" href="#DOCF132">(132)</a></h5>
+<p>In view of this, it is ironic that introductory
 programming is most often taught in a highly imperative style.  This may be a
 vestige of a belief, common throughout the 1960s and 1970s, that programs that
 call procedures must inherently be less efficient than programs that perform
-assignments.  (<a href="References.xhtml#Steele-1977">Steele 1977</a> debunks this argument.)  Alternatively it may
+assignments.  (<a class="ref" href="References.xhtml#Steele-1977">Steele 1977</a> debunks this argument.)  Alternatively it may
 reflect a view that step-by-step assignment is easier for beginners to
 visualize than procedure call.  Whatever the reason, it often saddles beginning
-programmers with “should I set this variable before or after that one”
+programmers with &#8220;should I set this variable before or after that one&#8221;
 concerns that can complicate programming and obscure the important ideas.</p>
 </div>
-</div>
-<nav class="header">
+<hr />
+<div class="nav-panel">
 <p>
-Next: <a href="3_002e2.xhtml#g_t3_002e2" accesskey="n" rel="next">3.2</a>, Prev: <a href="Chapter-3.xhtml#Chapter-3" accesskey="p" rel="prev">Chapter 3</a>, Up: <a href="#g_t3_002e1" accesskey="u" rel="prev">3.1</a>   [<a href="index.xhtml#SEC_Contents" title="Table of contents" accesskey="c" rel="contents">Contents</a>]</p>
-</nav>
+Next: <a href="3_002e2.xhtml#g_t3_002e2" accesskey="n" rel="next">The Environment Model of Evaluation</a>, Previous: <a href="Chapter-3.xhtml" accesskey="p" rel="prev">Modularity, Objects, and State</a>, Up: <a href="Chapter-3.xhtml" accesskey="u" rel="up">Modularity, Objects, and State</a> &#160; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
+</div>
 
 
-</section><span class="bottom jump" title="Jump to bottom"><a href="#pagebottom" accesskey="b">⇣</a></span><a id="pagebottom"></a>
+
 </body>
 </html>

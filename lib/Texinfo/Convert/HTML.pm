@@ -1015,7 +1015,8 @@ my %defaults = (
 <link href="css/prettify.css" rel="stylesheet" type="text/css" />
 
 <script class="prettifier" src="js/highlight/prettify.js" type="text/javascript"></script>
-<script class="prettifier" src="js/highlight/lang-lisp.js" type="text/javascript"></script>',
+<script class="prettifier" src="js/highlight/lang-lisp.js" type="text/javascript"></script>
+<script class="prettifier" src="js/highlight/lang-rust.js" type="text/javascript"></script>',
   'AFTER_BODY_OPEN'      => '<section><span class="top jump" title="Jump to top"><a href="#pagetop" accesskey="t">&#8673;</a></span><a id="pagetop"></a>',
   'PRE_BODY_CLOSE'       => '</section><span class="bottom jump" title="Jump to bottom"><a href="#pagebottom" accesskey="b">&#8675;</a></span><a id="pagebottom"></a>',         # --> (A.R)
   'DEFAULT_RULE'         => '',              # (A.R)
@@ -1105,7 +1106,7 @@ $pre_class_commands{'menu'} = 'menu-preformatted';
 $pre_class_types{'menu_comment'} = 'menu-comment';
 
 my %indented_block_commands;
-foreach my $indented_format ('example', 'display', 'lisp') {
+foreach my $indented_format ('example', 'display', 'lisp', 'rust') {
   $indented_block_commands{$indented_format} = 1;
   $indented_block_commands{"small$indented_format"} = 1;
 

@@ -1,61 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="en" lang="en">
-<!-- Created by GNU Texinfo 5.1, http://www.gnu.org/software/texinfo/ -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
-<title>Structure and Interpretation of Computer Programs, 2e: 2.4</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>2.4 (Structure and Interpretation of Computer Programs, 2e)</title>
 
-<meta name="description" content="Structure and Interpretation of Computer Programs, 2e: 2.4" />
-<meta name="keywords" content="Structure and Interpretation of Computer Programs, 2e: 2.4" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="2.4 (Structure and Interpretation of Computer Programs, 2e)" />
+<meta name="keywords" content="2.4 (Structure and Interpretation of Computer Programs, 2e)" />
+<meta name="resource-type" content="document" />
+<meta name="distribution" content="global" />
 <meta name="Generator" content="texi2any" />
-<meta charset="utf-8" />
-<link href="index.xhtml#Top" rel="start" title="Top" />
-<link href="Term-Index.xhtml#Term-Index" rel="index" title="Term Index" />
-<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents" />
-<link href="Chapter-2.xhtml#Chapter-2" rel="prev" title="Chapter 2" />
-<link href="2_002e5.xhtml#g_t2_002e5" rel="next" title="2.5" />
-<link href="2_002e3.xhtml#g_t2_002e3_002e4" rel="prev" title="2.3.4" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 
+<link href="index.xhtml" rel="start" title="Top" />
+<link href="Term-Index.xhtml" rel="index" title="Term Index" />
+<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents" />
+<link href="Chapter-2.xhtml" rel="up" title="Chapter 2" />
+<link href="2_002e5.xhtml#g_t2_002e5" rel="next" title="2.5" />
+<link href="2_002e3.xhtml#g_t2_002e3_002e4a" rel="prev" title="2.3.4a" />
+<style type="text/css">
+<!--
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+div.example {margin-left: 3.2em}
+span:hover a.copiable-link {visibility: visible}
+ul.mark-bullet {list-style-type: disc}
+-->
+</style>
 <link href="css/style.css" rel="stylesheet" type="text/css" />
 <link href="css/prettify.css" rel="stylesheet" type="text/css" />
-
-<script src="js/jquery.min.js" type="text/javascript"></script>
-<script src="js/footnotes.js" type="text/javascript"></script>
-<script src="js/browsertest.js" type="text/javascript"></script>
+<script src="js/highlight/prettify.js" type="text/javascript"></script>
+<script src="js/highlight/lang-lisp.js" type="text/javascript"></script>
+<script src="js/highlight/lang-rust.js" type="text/javascript"></script>
 </head>
 
-<body>
-<section><span class="top jump" title="Jump to top"><a href="#pagetop" accesskey="t">⇡</a></span><a id="pagetop"></a><a id="g_t2_002e4"></a>
-<nav class="header">
+<body lang="en">
+<div class="section-level-extent" id="g_t2_002e4">
+<div class="nav-panel">
 <p>
-Next: <a href="2_002e5.xhtml#g_t2_002e5" accesskey="n" rel="next">2.5</a>, Prev: <a href="2_002e3.xhtml#g_t2_002e3" accesskey="p" rel="prev">2.3</a>, Up: <a href="Chapter-2.xhtml#Chapter-2" accesskey="u" rel="prev">Chapter 2</a>   [<a href="index.xhtml#SEC_Contents" title="Table of contents" accesskey="c" rel="contents">Contents</a>]</p>
-</nav>
-<a id="Multiple-Representations-for-Abstract-Data"></a>
-<h3 class="section"><span class="secnum">2.4</span><span class="sectitle">Multiple Representations for Abstract Data</span></h3>
+Next: <a href="2_002e5.xhtml#g_t2_002e5" accesskey="n" rel="next">Systems with Generic Operations</a>, Previous: <a href="2_002e3.xhtml#g_t2_002e3_002e4a" accesskey="p" rel="prev">The Newtype Pattern: Zero-Cost Type Safety</a>, Up: <a href="Chapter-2.xhtml" accesskey="u" rel="up">Building Abstractions with Data</a> &#160; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
+</div>
+<h3 class="section" id="Multiple-Representations-for-Abstract-Data"><span>2.4 Multiple Representations for Abstract Data<a class="copiable-link" href="#Multiple-Representations-for-Abstract-Data"> &#182;</a></span></h3>
 
 <p>We have introduced data abstraction, a methodology for structuring systems in
 such a way that much of a program can be specified independent of the choices
 involved in implementing the data objects that the program manipulates.  For
-example, we saw in <a href="2_002e1.xhtml#g_t2_002e1_002e1">2.1.1</a> how to separate the task of designing a
+example, we saw in <a class="ref" href="2_002e1.xhtml#g_t2_002e1_002e1">Example: Arithmetic Operations for Rational Numbers</a> how to separate the task of designing a
 program that uses rational numbers from the task of implementing rational
-numbers in terms of the computer language’s primitive mechanisms for
+numbers in terms of the computer language&#8217;s primitive mechanisms for
 constructing compound data.  The key idea was to erect an abstraction barrier
-– in this case, the selectors and constructors for rational numbers
-(<code>make-rat</code>, <code>numer</code>, <code>denom</code>)—that isolates the way rational
+&#8211; in this case, the selectors and constructors for rational numbers
+(<code class="code">Rational::new</code>, <code class="code">num</code>, <code class="code">denom</code>)&#8212;that isolates the way rational
 numbers are used from their underlying representation in terms of list
 structure.  A similar abstraction barrier isolates the details of the
-procedures that perform rational arithmetic (<code>add-rat</code>, <code>sub-rat</code>,
-<code>mul-rat</code>, and <code>div-rat</code>) from the “higher-level” procedures that
+procedures that perform rational arithmetic (<code class="code">add_rat</code>, <code class="code">sub_rat</code>,
+<code class="code">mul_rat</code>, and <code class="code">div_rat</code>) from the &#8220;higher-level&#8221; procedures that
 use rational numbers.  The resulting program has the structure shown in
-<a href="2_002e1.xhtml#Figure-2_002e1">Figure 2.1</a>.
+<a class="ref" href="2_002e1.xhtml#Figure-2_002e1">Figure 2.1</a>.
 </p>
 <p>These data-abstraction barriers are powerful tools for controlling complexity.
 By isolating the underlying representations of data objects, we can divide the
 task of designing a large program into smaller tasks that can be performed
 separately.  But this kind of data abstraction is not yet powerful enough,
-because it may not always make sense to speak of “the underlying
-representation” for a data object.
+because it may not always make sense to speak of &#8220;the underlying
+representation&#8221; for a data object.
 </p>
 <p>For one thing, there might be more than one useful representation for a data
 object, and we might like to design systems that can deal with multiple
@@ -76,101 +84,70 @@ abstraction barriers that isolate different design choices from each other and
 permit different choices to coexist in a single program.  Furthermore, since
 large programs are often created by combining pre-existing modules that were
 designed in isolation, we need conventions that permit programmers to
-incorporate modules into larger systems <a id="index-additively-1"></a>
-<em>additively</em>, that is, without
+incorporate modules into larger systems <a class="index-entry-id" id="index-additively-1"></a>
+<em class="dfn">additively</em>, that is, without
 having to redesign or reimplement these modules.
 </p>
 <p>In this section, we will learn how to cope with data that may be represented in
 different ways by different parts of a program.  This requires constructing
-<a id="index-generic-procedures-1"></a>
-<em>generic procedures</em>—procedures that can operate on data that may be
+<a class="index-entry-id" id="index-generic-procedures-1"></a>
+<em class="dfn">generic procedures</em>&#8212;procedures that can operate on data that may be
 represented in more than one way.  Our main technique for building generic
-procedures will be to work in terms of data objects that have <a id="index-type-tags"></a>
-<em>type tags</em>, 
+procedures will be to work in terms of data objects that have <a class="index-entry-id" id="index-type-tags"></a>
+<em class="dfn">type tags</em>,
 that is, data objects that include explicit information about how they
-are to be processed.  We will also discuss <a id="index-data_002ddirected"></a>
-<em>data-directed</em> programming,
+are to be processed.  We will also discuss <a class="index-entry-id" id="index-data_002ddirected"></a>
+<em class="dfn">data-directed</em> programming,
 a powerful and convenient implementation strategy for additively assembling
 systems with generic operations.
 </p>
 <p>We begin with the simple complex-number example. We will see how type tags and
 data-directed style enable us to design separate rectangular and polar
 representations for complex numbers while maintaining the notion of an abstract
-“complex-number” data object.  We will accomplish this by defining arithmetic
-procedures for complex numbers (<code>add-complex</code>, <code>sub-complex</code>,
-<code>mul-complex</code>, and <code>div-complex</code>) in terms of generic selectors that
+&#8220;complex-number&#8221; data object.  We will accomplish this by defining arithmetic
+procedures for complex numbers (<code class="code">add_complex</code>, <code class="code">sub_complex</code>,
+<code class="code">mul_complex</code>, and <code class="code">div_complex</code>) in terms of generic selectors that
 access parts of a complex number independent of how the number is represented.
-The resulting complex-number system, as shown in <a href="#Figure-2_002e19">Figure 2.19</a>, contains
-two different kinds of abstraction barriers.  The “horizontal” abstraction
-barriers play the same role as the ones in <a href="2_002e1.xhtml#Figure-2_002e1">Figure 2.1</a>.  They isolate
-“higher-level” operations from “lower-level” representations.  In addition,
-there is a “vertical” barrier that gives us the ability to separately design
+The resulting complex-number system, as shown in <a class="ref" href="#Figure-2_002e19">Figure 2.19</a>, contains
+two different kinds of abstraction barriers.  The &#8220;horizontal&#8221; abstraction
+barriers play the same role as the ones in <a class="ref" href="2_002e1.xhtml#Figure-2_002e1">Figure 2.1</a>.  They isolate
+&#8220;higher-level&#8221; operations from &#8220;lower-level&#8221; representations.  In addition,
+there is a &#8220;vertical&#8221; barrier that gives us the ability to separately design
 and install alternative representations.
 </p>
-<figure class="float">
-<a id="Figure-2_002e19"></a>
-<object style="width: 40.41ex; height: 33.41ex;" data="fig/chap2/Fig2.19a.std.svg" type="image/svg+xml">SVG</object>
-
-<figcaption class="float-caption">
-<p><strong>Figure 2.19:</strong> Data-abstraction barriers in the complex-number system.</p>
-</figcaption>
-</figure>
-
-<p>In <a href="2_002e5.xhtml#g_t2_002e5">2.5</a> we will show how to use type tags and data-directed style
-to develop a generic arithmetic package.  This provides procedures (<code>add</code>,
-<code>mul</code>, and so on) that can be used to manipulate all sorts of “numbers”
-and can be easily extended when a new kind of number is needed.  In 
-<a href="2_002e5.xhtml#g_t2_002e5_002e3">2.5.3</a>, we’ll show how to use generic arithmetic in a system that performs
+<div class="float">
+<a class="anchor" id="Figure-2_002e19"></a><img class="image" src="fig/chap2/Fig2.19a.std.svg" alt="fig/chap2/Fig2.19a" />
+<div class="caption"><p><strong class="strong">Figure 2.19:</strong> Data-abstraction barriers in the complex-number system.</p></div></div>
+<p>In <a class="ref" href="2_002e5.xhtml#g_t2_002e5">Systems with Generic Operations</a> we will show how to use type tags and data-directed style
+to develop a generic arithmetic package.  This provides procedures (<code class="code">add</code>,
+<code class="code">mul</code>, and so on) that can be used to manipulate all sorts of &#8220;numbers&#8221;
+and can be easily extended when a new kind of number is needed.  In
+<a class="ref" href="2_002e5.xhtml#g_t2_002e5_002e3">Example: Symbolic Algebra</a>, we&#8217;ll show how to use generic arithmetic in a system that performs
 symbolic algebra.
 </p>
 
-<a id="g_t2_002e4_002e1"></a>
-<a id="Representations-for-Complex-Numbers"></a>
-<h4 class="subsection"><span class="secnum">2.4.1</span><span class="sectitle">Representations for Complex Numbers</span></h4>
+<hr />
+<div class="subsection-level-extent" id="g_t2_002e4_002e1">
+<h4 class="subsection" id="Representations-for-Complex-Numbers"><span>2.4.1 Representations for Complex Numbers<a class="copiable-link" href="#Representations-for-Complex-Numbers"> &#182;</a></span></h4>
 
 <p>We will develop a system that performs arithmetic operations on complex numbers
 as a simple but unrealistic example of a program that uses generic operations.
 We begin by discussing two plausible representations for complex numbers as
 ordered pairs: rectangular form (real part and imaginary part) and polar form
-(magnitude and angle).<a class="footnote_link" id="DOCF109" href="#FOOT109"><sup>109</sup></a>  
-Section <a href="#g_t2_002e4_002e2">2.4.2</a> will show how both representations can be made to coexist in a
+(magnitude and angle).<a class="footnote" id="DOCF102" href="#FOOT102"><sup>102</sup></a>
+Section <a class="ref" href="#g_t2_002e4_002e2">Tagged data</a> will show how both representations can be made to coexist in a
 single system through the use of type tags and generic operations.
 </p>
 <p>Like rational numbers, complex numbers are naturally represented as ordered
 pairs.  The set of complex numbers can be thought of as a two-dimensional space
-with two orthogonal axes, the “real” axis and the “imaginary” axis. (See
-<a href="#Figure-2_002e20">Figure 2.20</a>.)  From this point of view, the complex number 
-<math xmlns="http://www.w3.org/1998/Math/MathML">
-  <mrow class="MJX-TeXAtom-ORD">
-    <mi>z</mi>
-    <mo>=</mo>
-    <mi>x</mi>
-    <mo>+</mo>
-    <mi>i</mi>
-    <mi>y</mi>
-  </mrow>
-</math> (where <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <mrow class="MJX-TeXAtom-ORD">
-    <msup>
-      <mi>i</mi>
-      <mrow class="MJX-TeXAtom-ORD">
-        <mspace width="0.1em"/>
-        <mn>2</mn>
-      </mrow>
-    </msup>
-    <mo>=</mo>
-    <mtext>−1</mtext>
-  </mrow>
-</math>) can be thought of as the point in the plane
-whose real coordinate is <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <mi>x</mi>
-</math> and whose imaginary coordinate is <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <mi>y</mi>
-</math>.
+with two orthogonal axes, the &#8220;real&#8221; axis and the &#8220;imaginary&#8221; axis. (See
+<a class="ref" href="#Figure-2_002e20">Figure 2.20</a>.)  From this point of view, the complex number
+<em class="math">{z = x + iy}</em> (where <em class="math">{i^{2} = −1}</em>) can be thought of as the point in the plane
+whose real coordinate is <em class="math">x</em> and whose imaginary coordinate is <em class="math">y</em>.
 Addition of complex numbers reduces in this representation to addition of
 coordinates:
 <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
-  <mtable columnalign="right center left" rowspacing="3pt" columnspacing="thickmathspace">
+  <mtable displaystyle="true" columnalign="right center left" columnspacing="0em 0.278em" rowspacing="3pt">
     <mtr>
       <mtd>
         <mtext>Real-part</mtext>
@@ -187,9 +164,17 @@ coordinates:
         <mo stretchy="false">)</mo>
       </mtd>
       <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
         <mo>=</mo>
       </mtd>
       <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
         <mtext>Real-part</mtext>
         <mo stretchy="false">(</mo>
         <msub>
@@ -201,9 +186,18 @@ coordinates:
       </mtd>
     </mtr>
     <mtr>
-      <mtd/>
-      <mtd/>
+      <mtd></mtd>
       <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
         <mtext>Real-part</mtext>
         <mo stretchy="false">(</mo>
         <msub>
@@ -230,9 +224,17 @@ coordinates:
         <mo stretchy="false">)</mo>
       </mtd>
       <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
         <mo>=</mo>
       </mtd>
       <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
         <mtext>Imaginary-part</mtext>
         <mo stretchy="false">(</mo>
         <msub>
@@ -244,9 +246,18 @@ coordinates:
       </mtd>
     </mtr>
     <mtr>
-      <mtd/>
-      <mtd/>
+      <mtd></mtd>
       <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
+      </mtd>
+      <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
         <mtext>Imaginary-part</mtext>
         <mo stretchy="false">(</mo>
         <msub>
@@ -260,26 +271,16 @@ coordinates:
   </mtable>
 </math>
 </p>
-<figure class="float">
-<a id="Figure-2_002e20"></a>
-<object style="width: 51.98ex; height: 30.74ex;" data="fig/chap2/Fig2.20.std.svg" type="image/svg+xml">SVG</object>
-
-<figcaption class="float-caption">
-<p><strong>Figure 2.20:</strong> Complex numbers as points in the plane.</p>
-</figcaption>
-</figure>
-
+<div class="float">
+<a class="anchor" id="Figure-2_002e20"></a><img class="image" src="fig/chap2/Fig2.20.std.svg" alt="fig/chap2/Fig2.20" />
+<div class="caption"><p><strong class="strong">Figure 2.20:</strong> Complex numbers as points in the plane.</p></div></div>
 <p>When multiplying complex numbers, it is more natural to think in terms of
-representing a complex number in polar form, as a magnitude and an angle (<math xmlns="http://www.w3.org/1998/Math/MathML">
-  <mi>r</mi>
-</math>
-and <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <mi>A</mi>
-</math> in <a href="#Figure-2_002e20">Figure 2.20</a>).  The product of two complex numbers is the
+representing a complex number in polar form, as a magnitude and an angle (<em class="math">r</em>
+and <em class="math">A</em> in <a class="ref" href="#Figure-2_002e20">Figure 2.20</a>).  The product of two complex numbers is the
 vector obtained by stretching one complex number by the length of the other and
 then rotating it through the angle of the other:
 <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
-  <mtable columnalign="right center left" rowspacing="3pt" columnspacing="thickmathspace">
+  <mtable displaystyle="true" columnalign="right center left" columnspacing="0em 0.278em" rowspacing="3pt">
     <mtr>
       <mtd>
         <mtext>Magnitude</mtext>
@@ -288,7 +289,7 @@ then rotating it through the angle of the other:
           <mi>z</mi>
           <mn>1</mn>
         </msub>
-        <mo>⋅<!-- ⋅ --></mo>
+        <mo>&#x22C5;</mo>
         <msub>
           <mi>z</mi>
           <mn>2</mn>
@@ -296,9 +297,17 @@ then rotating it through the angle of the other:
         <mo stretchy="false">)</mo>
       </mtd>
       <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
         <mo>=</mo>
       </mtd>
       <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
         <mtext>Magnitude</mtext>
         <mo stretchy="false">(</mo>
         <msub>
@@ -306,7 +315,7 @@ then rotating it through the angle of the other:
           <mn>1</mn>
         </msub>
         <mo stretchy="false">)</mo>
-        <mo>⋅<!-- ⋅ --></mo>
+        <mo>&#x22C5;</mo>
         <mtext>Magnitude</mtext>
         <mo stretchy="false">(</mo>
         <msub>
@@ -325,7 +334,7 @@ then rotating it through the angle of the other:
           <mi>z</mi>
           <mn>1</mn>
         </msub>
-        <mo>⋅<!-- ⋅ --></mo>
+        <mo>&#x22C5;</mo>
         <msub>
           <mi>z</mi>
           <mn>2</mn>
@@ -333,9 +342,17 @@ then rotating it through the angle of the other:
         <mo stretchy="false">)</mo>
       </mtd>
       <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
         <mo>=</mo>
       </mtd>
       <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
         <mtext>Angle</mtext>
         <mo stretchy="false">(</mo>
         <msub>
@@ -368,60 +385,65 @@ useful to be able to determine the real part of a complex number that is
 specified by polar coordinates.
 </p>
 <p>To design such a system, we can follow the same data-abstraction strategy we
-followed in designing the rational-number package in <a href="2_002e1.xhtml#g_t2_002e1_002e1">2.1.1</a>.
+followed in designing the rational-number package in <a class="ref" href="2_002e1.xhtml#g_t2_002e1_002e1">Example: Arithmetic Operations for Rational Numbers</a>.
 Assume that the operations on complex numbers are implemented in terms of four
-selectors: <code>real-part</code>, <code>imag-part</code>, <code>magnitude</code>, and
-<code>angle</code>.  Also assume that we have two procedures for constructing complex
-numbers: <code>make-from-real-imag</code> returns a complex number with specified
-real and imaginary parts, and <code>make-from-mag-ang</code> returns a complex number
+selectors: <code class="code">real_part</code>, <code class="code">imag_part</code>, <code class="code">magnitude</code>, and
+<code class="code">angle</code>.  Also assume that we have two procedures for constructing complex
+numbers: <code class="code">make_from_real_imag</code> returns a complex number with specified
+real and imaginary parts, and <code class="code">make_from_mag_ang</code> returns a complex number
 with specified magnitude and angle.  These procedures have the property that,
-for any complex number <code>z</code>, both
+for any complex number <code class="code">z</code>, both
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">make-from-real-imag </span><span class="opn">(</span><span class="pln">real-part z</span><span class="clo">)</span><span class="pln"> 
-                     </span><span class="opn">(</span><span class="pln">imag-part z</span><span class="clo">))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">make_from_real_imag(z.real_part(), z.imag_part())
+</pre></div>
 
 <p>and
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">make-from-mag-ang </span><span class="opn">(</span><span class="pln">magnitude z</span><span class="clo">)</span><span class="pln"> 
-                   </span><span class="opn">(</span><span class="pln">angle z</span><span class="clo">))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">make_from_mag_ang(z.magnitude(), z.angle())
+</pre></div>
 
-<p>produce complex numbers that are equal to <code>z</code>.
+<p>produce complex numbers that are equal to <code class="code">z</code>.
 </p>
 <p>Using these constructors and selectors, we can implement arithmetic on complex
-numbers using the “abstract data” specified by the constructors and
-selectors, just as we did for rational numbers in <a href="2_002e1.xhtml#g_t2_002e1_002e1">2.1.1</a>.  As
+numbers using the &#8220;abstract data&#8221; specified by the constructors and
+selectors, just as we did for rational numbers in <a class="ref" href="2_002e1.xhtml#g_t2_002e1_002e1">Example: Arithmetic Operations for Rational Numbers</a>.  As
 shown in the formulas above, we can add and subtract complex numbers in terms
 of real and imaginary parts while multiplying and dividing complex numbers in
 terms of magnitudes and angles:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">add-complex z1 z2</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">make-from-real-imag 
-   </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="opn">(</span><span class="pln">real-part z1</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">real-part z2</span><span class="clo">))</span><span class="pln">
-   </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="opn">(</span><span class="pln">imag-part z1</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">imag-part z2</span><span class="clo">))))</span><span class="pln">
+<div class="example">
+<pre class="example-preformatted">fn add_complex(z1: &amp;impl ComplexOps, z2: &amp;impl ComplexOps) -&gt; Complex {
+    make_from_real_imag(
+        z1.real_part() + z2.real_part(),
+        z1.imag_part() + z2.imag_part())
+}
 
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">sub-complex z1 z2</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">make-from-real-imag 
-   </span><span class="opn">(</span><span class="pun">-</span><span class="pln"> </span><span class="opn">(</span><span class="pln">real-part z1</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">real-part z2</span><span class="clo">))</span><span class="pln">
-   </span><span class="opn">(</span><span class="pun">-</span><span class="pln"> </span><span class="opn">(</span><span class="pln">imag-part z1</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">imag-part z2</span><span class="clo">))))</span><span class="pln">
+fn sub_complex(z1: &amp;impl ComplexOps, z2: &amp;impl ComplexOps) -&gt; Complex {
+    make_from_real_imag(
+        z1.real_part() - z2.real_part(),
+        z1.imag_part() - z2.imag_part())
+}
 
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">mul-complex z1 z2</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">make-from-mag-ang 
-   </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> </span><span class="opn">(</span><span class="pln">magnitude z1</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">magnitude z2</span><span class="clo">))</span><span class="pln">
-   </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="opn">(</span><span class="pln">angle z1</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">angle z2</span><span class="clo">))))</span><span class="pln">
+fn mul_complex(z1: &amp;impl ComplexOps, z2: &amp;impl ComplexOps) -&gt; Complex {
+    make_from_mag_ang(
+        z1.magnitude() * z2.magnitude(),
+        z1.angle() + z2.angle())
+}
 
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">div-complex z1 z2</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">make-from-mag-ang 
-   </span><span class="opn">(</span><span class="pun">/</span><span class="pln"> </span><span class="opn">(</span><span class="pln">magnitude z1</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">magnitude z2</span><span class="clo">))</span><span class="pln">
-   </span><span class="opn">(</span><span class="pun">-</span><span class="pln"> </span><span class="opn">(</span><span class="pln">angle z1</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">angle z2</span><span class="clo">))))</span></pre></div>
+fn div_complex(z1: &amp;impl ComplexOps, z2: &amp;impl ComplexOps) -&gt; Complex {
+    make_from_mag_ang(
+        z1.magnitude() / z2.magnitude(),
+        z1.angle() - z2.angle())
+}
+</pre></div>
 
 <p>To complete the complex-number package, we must choose a representation and we
 must implement the constructors and selectors in terms of primitive numbers and
 primitive list structure.  There are two obvious ways to do this: We can
-represent a complex number in “rectangular form” as a pair (real part,
-imaginary part) or in “polar form” as a pair (magnitude, angle).  Which shall
+represent a complex number in &#8220;rectangular form&#8221; as a pair (real part,
+imaginary part) or in &#8220;polar form&#8221; as a pair (magnitude, angle).  Which shall
 we choose?
 </p>
 <p>In order to make the different choices concrete, imagine that there are two
@@ -434,18 +456,26 @@ magnitude and the angle, or to construct a complex number with a given
 magnitude and angle, he uses the trigonometric relations
 </p>
 <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
-  <mtable columnalign="right center left" rowspacing="3pt" columnspacing="thickmathspace">
+  <mtable displaystyle="true" columnalign="right center left" columnspacing="0em 0.278em" rowspacing="3pt">
     <mtr>
       <mtd>
         <mi>x</mi>
       </mtd>
       <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
         <mo>=</mo>
       </mtd>
       <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
         <mi>r</mi>
         <mi>cos</mi>
-        <mo>⁡<!-- ⁡ --></mo>
+        <mo data-mjx-texclass="NONE">&#x2061;</mo>
         <mi>A</mi>
         <mo>,</mo>
       </mtd>
@@ -455,12 +485,20 @@ magnitude and angle, he uses the trigonometric relations
         <mi>y</mi>
       </mtd>
       <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
         <mo>=</mo>
       </mtd>
       <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
         <mi>r</mi>
         <mi>sin</mi>
-        <mo>⁡<!-- ⁡ --></mo>
+        <mo data-mjx-texclass="NONE">&#x2061;</mo>
         <mi>A</mi>
         <mo>,</mo>
       </mtd>
@@ -470,9 +508,17 @@ magnitude and angle, he uses the trigonometric relations
         <mi>r</mi>
       </mtd>
       <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
         <mo>=</mo>
       </mtd>
       <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
         <msqrt>
           <msup>
             <mi>x</mi>
@@ -492,11 +538,19 @@ magnitude and angle, he uses the trigonometric relations
         <mi>A</mi>
       </mtd>
       <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
         <mo>=</mo>
       </mtd>
       <mtd>
+        <mi>a</mi>
+        <mi>m</mi>
+        <mi>p</mi>
+        <mo>;</mo>
         <mi>arctan</mi>
-        <mo>⁡<!-- ⁡ --></mo>
+        <mo data-mjx-texclass="NONE">&#x2061;</mo>
         <mo stretchy="false">(</mo>
         <mi>y</mi>
         <mo>,</mo>
@@ -508,290 +562,305 @@ magnitude and angle, he uses the trigonometric relations
   </mtable>
 </math>
 
-<p>which relate the real and imaginary parts <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <mrow class="MJX-TeXAtom-ORD">
-    <mo stretchy="false">(</mo>
-    <mi>x</mi>
-    <mo>,</mo>
-    <mi>y</mi>
-    <mo stretchy="false">)</mo>
-  </mrow>
-</math> to the magnitude and
-the angle <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <mrow class="MJX-TeXAtom-ORD">
-    <mo stretchy="false">(</mo>
-    <mi>r</mi>
-    <mo>,</mo>
-    <mi>A</mi>
-    <mo stretchy="false">)</mo>
-  </mrow>
-</math>.<a class="footnote_link" id="DOCF110" href="#FOOT110"><sup>110</sup></a>  Ben’s
+<p>which relate the real and imaginary parts <em class="math">{(x, y)}</em> to the magnitude and
+the angle <em class="math">{(r, A)}</em>.<a class="footnote" id="DOCF103" href="#FOOT103"><sup>103</sup></a>  Ben&#8217;s
 representation is therefore given by the following selectors and constructors:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">real-part z</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> z</span><span class="clo">))</span><span class="pln">
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">imag-part z</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> z</span><span class="clo">))</span><span class="pln">
+<div class="example">
+<pre class="example-preformatted">// Ben's rectangular representation
+struct Rectangular {
+    x: f64,
+    y: f64,
+}
 
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">magnitude z</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">sqrt </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="opn">(</span><span class="pln">square </span><span class="opn">(</span><span class="pln">real-part z</span><span class="clo">))</span><span class="pln"> 
-           </span><span class="opn">(</span><span class="pln">square </span><span class="opn">(</span><span class="pln">imag-part z</span><span class="clo">)))))</span><span class="pln">
+impl Rectangular {
+    fn real_part(&amp;self) -&gt; f64 { self.x }
+    fn imag_part(&amp;self) -&gt; f64 { self.y }
 
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">angle z</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">atan </span><span class="opn">(</span><span class="pln">imag-part z</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">real-part z</span><span class="clo">)))</span><span class="pln">
+    fn magnitude(&amp;self) -&gt; f64 {
+        (self.real_part().powi(2) + self.imag_part().powi(2)).sqrt()
+    }
 
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-from-real-imag x y</span><span class="clo">)</span><span class="pln"> 
-  </span><span class="opn">(</span><span class="kwd">cons</span><span class="pln"> x y</span><span class="clo">))</span><span class="pln">
+    fn angle(&amp;self) -&gt; f64 {
+        self.imag_part().atan2(self.real_part())
+    }
 
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-from-mag-ang r a</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">cons</span><span class="pln"> </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> r </span><span class="opn">(</span><span class="pln">cos a</span><span class="clo">))</span><span class="pln"> </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> r </span><span class="opn">(</span><span class="pln">sin a</span><span class="clo">))))</span></pre></div>
+    fn make_from_real_imag(x: f64, y: f64) -&gt; Self {
+        Rectangular { x, y }
+    }
+
+    fn make_from_mag_ang(r: f64, a: f64) -&gt; Self {
+        Rectangular { x: r * a.cos(), y: r * a.sin() }
+    }
+}
+</pre></div>
 
 <p>Alyssa, in contrast, chooses to represent complex numbers in polar form.  For
 her, selecting the magnitude and angle is straightforward, but she has to use
-the trigonometric relations to obtain the real and imaginary parts.  Alyssa’s
+the trigonometric relations to obtain the real and imaginary parts.  Alyssa&#8217;s
 representation is:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">real-part z</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> </span><span class="opn">(</span><span class="pln">magnitude z</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">cos </span><span class="opn">(</span><span class="pln">angle z</span><span class="clo">))))</span><span class="pln">
+<div class="example">
+<pre class="example-preformatted">// Alyssa's polar representation
+struct Polar {
+    r: f64,
+    angle: f64,
+}
 
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">imag-part z</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> </span><span class="opn">(</span><span class="pln">magnitude z</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">sin </span><span class="opn">(</span><span class="pln">angle z</span><span class="clo">))))</span><span class="pln">
+impl Polar {
+    fn real_part(&amp;self) -&gt; f64 {
+        self.magnitude() * self.angle().cos()
+    }
 
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">magnitude z</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> z</span><span class="clo">))</span><span class="pln">
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">angle z</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> z</span><span class="clo">))</span><span class="pln">
+    fn imag_part(&amp;self) -&gt; f64 {
+        self.magnitude() * self.angle().sin()
+    }
 
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-from-real-imag x y</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">cons</span><span class="pln"> </span><span class="opn">(</span><span class="pln">sqrt </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="opn">(</span><span class="pln">square x</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">square y</span><span class="clo">)))</span><span class="pln">
-        </span><span class="opn">(</span><span class="pln">atan y x</span><span class="clo">)))</span><span class="pln">
+    fn magnitude(&amp;self) -&gt; f64 { self.r }
+    fn angle(&amp;self) -&gt; f64 { self.angle }
 
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-from-mag-ang r a</span><span class="clo">)</span><span class="pln"> 
-  </span><span class="opn">(</span><span class="kwd">cons</span><span class="pln"> r a</span><span class="clo">))</span></pre></div>
+    fn make_from_real_imag(x: f64, y: f64) -&gt; Self {
+        Polar {
+            r: (x.powi(2) + y.powi(2)).sqrt(),
+            angle: y.atan2(x),
+        }
+    }
+
+    fn make_from_mag_ang(r: f64, a: f64) -&gt; Self {
+        Polar { r, angle: a }
+    }
+}
+</pre></div>
 
 <p>The discipline of data abstraction ensures that the same implementation of
-<code>add-complex</code>, <code>sub-complex</code>, <code>mul-complex</code>, and
-<code>div-complex</code> will work with either Ben’s representation or Alyssa’s
+<code class="code">add_complex</code>, <code class="code">sub_complex</code>, <code class="code">mul_complex</code>, and
+<code class="code">div_complex</code> will work with either Ben&#8217;s representation or Alyssa&#8217;s
 representation.
 </p>
-<a id="g_t2_002e4_002e2"></a>
-<a id="Tagged-data"></a>
-<h4 class="subsection"><span class="secnum">2.4.2</span><span class="sectitle">Tagged data</span></h4>
+<hr />
+</div>
+<div class="subsection-level-extent" id="g_t2_002e4_002e2">
+<h4 class="subsection" id="Tagged-data"><span>2.4.2 Tagged data<a class="copiable-link" href="#Tagged-data"> &#182;</a></span></h4>
 
-<p>One way to view data abstraction is as an application of the “principle of
-least commitment.”  In implementing the complex-number system in 
-<a href="#g_t2_002e4_002e1">2.4.1</a>, we can use either Ben’s rectangular representation or Alyssa’s
+<p>One way to view data abstraction is as an application of the &#8220;principle of
+least commitment.&#8221;  In implementing the complex-number system in
+<a class="ref" href="#g_t2_002e4_002e1">Representations for Complex Numbers</a>, we can use either Ben&#8217;s rectangular representation or Alyssa&#8217;s
 polar representation.  The abstraction barrier formed by the selectors and
 constructors permits us to defer to the last possible moment the choice of a
 concrete representation for our data objects and thus retain maximum
 flexibility in our system design.
 </p>
 <p>The principle of least commitment can be carried to even further extremes.  If
-we desire, we can maintain the ambiguity of representation even <em>after</em> we
-have designed the selectors and constructors, and elect to use both Ben’s
-representation <em>and</em> Alyssa’s representation.  If both representations are
+we desire, we can maintain the ambiguity of representation even <em class="emph">after</em> we
+have designed the selectors and constructors, and elect to use both Ben&#8217;s
+representation <em class="emph">and</em> Alyssa&#8217;s representation.  If both representations are
 included in a single system, however, we will need some way to distinguish data
 in polar form from data in rectangular form.  Otherwise, if we were asked, for
-instance, to find the <code>magnitude</code> of the pair (3, 4), we wouldn’t know
+instance, to find the <code class="code">magnitude</code> of the pair (3, 4), we wouldn&#8217;t know
 whether to answer 5 (interpreting the number in rectangular form) or 3
 (interpreting the number in polar form).  A straightforward way to accomplish
-this distinction is to include a <a id="index-type-tag"></a>
-<em>type tag</em>—the symbol
-<code>rectangular</code> or <code>polar</code>—as part of each complex number.  Then
+this distinction is to include a <a class="index-entry-id" id="index-type-tag"></a>
+<em class="dfn">type tag</em>&#8212;the symbol
+<code class="code">rectangular</code> or <code class="code">polar</code>&#8212;as part of each complex number.  Then
 when we need to manipulate a complex number we can use the tag to decide which
 selector to apply.
 </p>
 <p>In order to manipulate tagged data, we will assume that we have procedures
-<code>type-tag</code> and <code>contents</code> that extract from a data object the tag and
+<code class="code">type_tag</code> and <code class="code">contents</code> that extract from a data object the tag and
 the actual contents (the polar or rectangular coordinates, in the case of a
-complex number).  We will also postulate a procedure <code>attach-tag</code> that
+complex number).  We will also postulate a procedure <code class="code">attach_tag</code> that
 takes a tag and contents and produces a tagged data object.  A straightforward
 way to implement this is to use ordinary list structure:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">attach-tag type-tag contents</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">cons</span><span class="pln"> type-tag contents</span><span class="clo">))</span><span class="pln">
+<div class="example">
+<pre class="example-preformatted">// Tagged data using Rust enums
+enum Complex {
+    Rectangular(f64, f64),  // (x, y)
+    Polar(f64, f64),        // (r, angle)
+}
 
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">type-tag datum</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pln">pair? datum</span><span class="clo">)</span><span class="pln">
-      </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> datum</span><span class="clo">)</span><span class="pln">
-      </span><span class="opn">(</span><span class="err">error</span><span class="pln"> </span><span class="str">"Bad tagged datum: 
-              TYPE-TAG"</span><span class="pln"> datum</span><span class="clo">)))</span><span class="pln">
+impl Complex {
+    // Pattern matching automatically handles type tags
+    fn type_tag(&amp;self) -&gt; &amp;str {
+        match self {
+            Complex::Rectangular(_, _) =&gt; &quot;rectangular&quot;,
+            Complex::Polar(_, _) =&gt; &quot;polar&quot;,
+        }
+    }
 
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">contents datum</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pln">pair? datum</span><span class="clo">)</span><span class="pln">
-      </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> datum</span><span class="clo">)</span><span class="pln">
-      </span><span class="opn">(</span><span class="err">error</span><span class="pln"> </span><span class="str">"Bad tagged datum: 
-              CONTENTS"</span><span class="pln"> datum</span><span class="clo">)))</span></pre></div>
+    fn contents(&amp;self) -&gt; (f64, f64) {
+        match self {
+            Complex::Rectangular(x, y) =&gt; (*x, *y),
+            Complex::Polar(r, a) =&gt; (*r, *a),
+        }
+    }
+}
+</pre></div>
 
-<p>Using these procedures, we can define predicates <code>rectangular?</code>  and
-<code>polar?</code>, which recognize rectangular and polar numbers, respectively:
+<p>Using these procedures, we can define predicates <code class="code">rectangular?</code>  and
+<code class="code">polar?</code>, which recognize rectangular and polar numbers, respectively:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">rectangular? z</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">eq</span><span class="pun">?</span><span class="pln"> </span><span class="opn">(</span><span class="pln">type-tag z</span><span class="clo">)</span><span class="pln"> </span><span class="lit">'rectangular</span><span class="clo">))</span><span class="pln">
+<div class="example">
+<pre class="example-preformatted">impl Complex {
+    fn is_rectangular(&amp;self) -&gt; bool {
+        matches!(self, Complex::Rectangular(_, _))
+    }
 
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">polar? z</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">eq</span><span class="pun">?</span><span class="pln"> </span><span class="opn">(</span><span class="pln">type-tag z</span><span class="clo">)</span><span class="pln"> </span><span class="lit">'polar</span><span class="clo">))</span></pre></div>
+    fn is_polar(&amp;self) -&gt; bool {
+        matches!(self, Complex::Polar(_, _))
+    }
+}
+</pre></div>
 
 <p>With type tags, Ben and Alyssa can now modify their code so that their two
 different representations can coexist in the same system.  Whenever Ben
 constructs a complex number, he tags it as rectangular.  Whenever Alyssa
 constructs a complex number, she tags it as polar.  In addition, Ben and Alyssa
 must make sure that the names of their procedures do not conflict.  One way to
-do this is for Ben to append the suffix <code>rectangular</code> to the name of each
-of his representation procedures and for Alyssa to append <code>polar</code> to the
-names of hers.  Here is Ben’s revised rectangular representation from 
-<a href="#g_t2_002e4_002e1">2.4.1</a>:
+do this is for Ben to append the suffix <code class="code">rectangular</code> to the name of each
+of his representation procedures and for Alyssa to append <code class="code">polar</code> to the
+names of hers.  Here is Ben&#8217;s revised rectangular representation from
+<a class="ref" href="#g_t2_002e4_002e1">Representations for Complex Numbers</a>:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">real-part-rectangular z</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> z</span><span class="clo">))</span><span class="pln">
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">imag-part-rectangular z</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> z</span><span class="clo">))</span><span class="pln">
+<div class="example">
+<pre class="example-preformatted">// Ben's rectangular representation as an enum variant
+#[derive(Debug, Clone)]
+enum Complex {
+    Rectangular(f64, f64),  // (real, imag)
+    Polar(f64, f64),        // (magnitude, angle)
+}
 
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">magnitude-rectangular z</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">sqrt </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="opn">(</span><span class="pln">square </span><span class="opn">(</span><span class="pln">real-part-rectangular z</span><span class="clo">))</span><span class="pln">
-           </span><span class="opn">(</span><span class="pln">square </span><span class="opn">(</span><span class="pln">imag-part-rectangular z</span><span class="clo">)))))</span><span class="pln">
+impl Complex {
+    fn make_from_real_imag(x: f64, y: f64) -&gt; Self {
+        Complex::Rectangular(x, y)
+    }
 
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">angle-rectangular z</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">atan </span><span class="opn">(</span><span class="pln">imag-part-rectangular z</span><span class="clo">)</span><span class="pln">
-        </span><span class="opn">(</span><span class="pln">real-part-rectangular z</span><span class="clo">)))</span><span class="pln">
+    fn make_from_mag_ang(r: f64, a: f64) -&gt; Self {
+        Complex::Polar(r, a)
+    }
+}
+</pre></div>
 
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-from-real-imag-rectangular x y</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">attach-tag </span><span class="lit">'rectangular</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">cons</span><span class="pln"> x y</span><span class="clo">)))</span><span class="pln">
-
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-from-mag-ang-rectangular r a</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">attach-tag 
-   </span><span class="lit">'rectangular</span><span class="pln">
-   </span><span class="opn">(</span><span class="kwd">cons</span><span class="pln"> </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> r </span><span class="opn">(</span><span class="pln">cos a</span><span class="clo">))</span><span class="pln"> </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> r </span><span class="opn">(</span><span class="pln">sin a</span><span class="clo">)))))</span></pre></div>
-
-<p>and here is Alyssa’s revised polar representation:
+<p>In Rust, the polar representation is simply another variant of the <code class="code">Complex</code>
+enum.  The type system ensures correct dispatch through pattern matching:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">real-part-polar z</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> </span><span class="opn">(</span><span class="pln">magnitude-polar z</span><span class="clo">)</span><span class="pln"> 
-     </span><span class="opn">(</span><span class="pln">cos </span><span class="opn">(</span><span class="pln">angle-polar z</span><span class="clo">))))</span><span class="pln">
-
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">imag-part-polar z</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> </span><span class="opn">(</span><span class="pln">magnitude-polar z</span><span class="clo">)</span><span class="pln"> 
-     </span><span class="opn">(</span><span class="pln">sin </span><span class="opn">(</span><span class="pln">angle-polar z</span><span class="clo">))))</span><span class="pln">
-
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">magnitude-polar z</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> z</span><span class="clo">))</span><span class="pln">
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">angle-polar z</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> z</span><span class="clo">))</span><span class="pln">
-
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-from-real-imag-polar x y</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">attach-tag 
-   </span><span class="lit">'polar</span><span class="pln">
-   </span><span class="opn">(</span><span class="kwd">cons</span><span class="pln"> </span><span class="opn">(</span><span class="pln">sqrt </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="opn">(</span><span class="pln">square x</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">square y</span><span class="clo">)))</span><span class="pln">
-         </span><span class="opn">(</span><span class="pln">atan y x</span><span class="clo">))))</span><span class="pln">
-
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-from-mag-ang-polar r a</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">attach-tag </span><span class="lit">'polar</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">cons</span><span class="pln"> r a</span><span class="clo">)))</span></pre></div>
-
 <p>Each generic selector is implemented as a procedure that checks the tag of its
 argument and calls the appropriate procedure for handling data of that type.
-For example, to obtain the real part of a complex number, <code>real-part</code>
-examines the tag to determine whether to use Ben’s <code>real-part-rectangular</code>
-or Alyssa’s <code>real-part-polar</code>.  In either case, we use <code>contents</code> to
+For example, to obtain the real part of a complex number, <code class="code">real_part</code>
+examines the tag to determine whether to use Ben&#8217;s <code class="code">real-part-rectangular</code>
+or Alyssa&#8217;s <code class="code">real-part-polar</code>.  In either case, we use <code class="code">contents</code> to
 extract the bare, untagged datum and send this to the rectangular or polar
 procedure as required:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">real-part z</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">((</span><span class="pln">rectangular? z</span><span class="clo">)</span><span class="pln">
-         </span><span class="opn">(</span><span class="pln">real-part-rectangular </span><span class="opn">(</span><span class="pln">contents z</span><span class="clo">)))</span><span class="pln">
-        </span><span class="opn">((</span><span class="pln">polar? z</span><span class="clo">)</span><span class="pln">
-         </span><span class="opn">(</span><span class="pln">real-part-polar </span><span class="opn">(</span><span class="pln">contents z</span><span class="clo">)))</span><span class="pln">
-        </span><span class="opn">(</span><span class="kwd">else</span><span class="pln"> </span><span class="opn">(</span><span class="err">error</span><span class="pln"> </span><span class="str">"Unknown type: 
-               REAL-PART"</span><span class="pln"> z</span><span class="clo">))))</span><span class="pln">
+<div class="example">
+<pre class="example-preformatted">// Generic selectors using pattern matching
+trait ComplexOps {
+    fn real_part(&amp;self) -&gt; f64;
+    fn imag_part(&amp;self) -&gt; f64;
+    fn magnitude(&amp;self) -&gt; f64;
+    fn angle(&amp;self) -&gt; f64;
+}
 
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">imag-part z</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">((</span><span class="pln">rectangular? z</span><span class="clo">)</span><span class="pln">
-         </span><span class="opn">(</span><span class="pln">imag-part-rectangular </span><span class="opn">(</span><span class="pln">contents z</span><span class="clo">)))</span><span class="pln">
-        </span><span class="opn">((</span><span class="pln">polar? z</span><span class="clo">)</span><span class="pln">
-         </span><span class="opn">(</span><span class="pln">imag-part-polar </span><span class="opn">(</span><span class="pln">contents z</span><span class="clo">)))</span><span class="pln">
-        </span><span class="opn">(</span><span class="kwd">else</span><span class="pln"> </span><span class="opn">(</span><span class="err">error</span><span class="pln"> </span><span class="str">"Unknown type: 
-               IMAG-PART"</span><span class="pln"> z</span><span class="clo">))))</span><span class="pln">
+impl ComplexOps for Complex {
+    fn real_part(&amp;self) -&gt; f64 {
+        match self {
+            Complex::Rectangular(x, _y) =&gt; *x,
+            Complex::Polar(r, a) =&gt; r * a.cos(),
+        }
+    }
 
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">magnitude z</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">((</span><span class="pln">rectangular? z</span><span class="clo">)</span><span class="pln">
-         </span><span class="opn">(</span><span class="pln">magnitude-rectangular </span><span class="opn">(</span><span class="pln">contents z</span><span class="clo">)))</span><span class="pln">
-        </span><span class="opn">((</span><span class="pln">polar? z</span><span class="clo">)</span><span class="pln">
-         </span><span class="opn">(</span><span class="pln">magnitude-polar </span><span class="opn">(</span><span class="pln">contents z</span><span class="clo">)))</span><span class="pln">
-        </span><span class="opn">(</span><span class="kwd">else</span><span class="pln"> </span><span class="opn">(</span><span class="err">error</span><span class="pln"> </span><span class="str">"Unknown type: 
-               MAGNITUDE"</span><span class="pln"> z</span><span class="clo">))))</span><span class="pln">
+    fn imag_part(&amp;self) -&gt; f64 {
+        match self {
+            Complex::Rectangular(_x, y) =&gt; *y,
+            Complex::Polar(r, a) =&gt; r * a.sin(),
+        }
+    }
 
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">angle z</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">((</span><span class="pln">rectangular? z</span><span class="clo">)</span><span class="pln">
-         </span><span class="opn">(</span><span class="pln">angle-rectangular </span><span class="opn">(</span><span class="pln">contents z</span><span class="clo">)))</span><span class="pln">
-        </span><span class="opn">((</span><span class="pln">polar? z</span><span class="clo">)</span><span class="pln">
-         </span><span class="opn">(</span><span class="pln">angle-polar </span><span class="opn">(</span><span class="pln">contents z</span><span class="clo">)))</span><span class="pln">
-        </span><span class="opn">(</span><span class="kwd">else</span><span class="pln"> </span><span class="opn">(</span><span class="err">error</span><span class="pln"> </span><span class="str">"Unknown type: 
-               ANGLE"</span><span class="pln"> z</span><span class="clo">))))</span></pre></div>
+    fn magnitude(&amp;self) -&gt; f64 {
+        match self {
+            Complex::Rectangular(x, y) =&gt;
+                (x.powi(2) + y.powi(2)).sqrt(),
+            Complex::Polar(r, _a) =&gt; *r,
+        }
+    }
+
+    fn angle(&amp;self) -&gt; f64 {
+        match self {
+            Complex::Rectangular(x, y) =&gt; y.atan2(*x),
+            Complex::Polar(_r, a) =&gt; *a,
+        }
+    }
+}
+</pre></div>
 
 <p>To implement the complex-number arithmetic operations, we can use the same
-procedures <code>add-complex</code>, <code>sub-complex</code>, <code>mul-complex</code>, and
-<code>div-complex</code> from <a href="#g_t2_002e4_002e1">2.4.1</a>, because the selectors they call
+procedures <code class="code">add_complex</code>, <code class="code">sub_complex</code>, <code class="code">mul_complex</code>, and
+<code class="code">div_complex</code> from <a class="ref" href="#g_t2_002e4_002e1">Representations for Complex Numbers</a>, because the selectors they call
 are generic, and so will work with either representation.  For example, the
-procedure <code>add-complex</code> is still
+procedure <code class="code">add_complex</code> is still
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">add-complex z1 z2</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">make-from-real-imag 
-   </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="opn">(</span><span class="pln">real-part z1</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">real-part z2</span><span class="clo">))</span><span class="pln">
-   </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="opn">(</span><span class="pln">imag-part z1</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">imag-part z2</span><span class="clo">))))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">fn add_complex(z1: &amp;Complex, z2: &amp;Complex) -&gt; Complex {
+    Complex::make_from_real_imag(
+        z1.real_part() + z2.real_part(),
+        z1.imag_part() + z2.imag_part(),
+    )
+}
+</pre></div>
 
-<p>Finally, we must choose whether to construct complex numbers using Ben’s
-representation or Alyssa’s representation.  One reasonable choice is to
+<p>Finally, we must choose whether to construct complex numbers using Ben&#8217;s
+representation or Alyssa&#8217;s representation.  One reasonable choice is to
 construct rectangular numbers whenever we have real and imaginary parts and to
 construct polar numbers whenever we have magnitudes and angles:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-from-real-imag x y</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">make-from-real-imag-rectangular x y</span><span class="clo">))</span><span class="pln">
+<div class="example">
+<pre class="example-preformatted">// Top-level constructors delegate to appropriate representations
+fn make_from_real_imag(x: f64, y: f64) -&gt; Complex {
+    Complex::Rectangular(x, y)  // Use rectangular for real/imag
+}
 
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-from-mag-ang r a</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">make-from-mag-ang-polar r a</span><span class="clo">))</span></pre></div>
+fn make_from_mag_ang(r: f64, a: f64) -&gt; Complex {
+    Complex::Polar(r, a)  // Use polar for magnitude/angle
+}
+</pre></div>
 
-<p>The resulting complex-number system has the structure shown in <a href="#Figure-2_002e21">Figure 2.21</a>.  
+<p>The resulting complex-number system has the structure shown in <a class="ref" href="#Figure-2_002e21">Figure 2.21</a>.
 The system has been decomposed into three relatively independent parts:
-the complex-number-arithmetic operations, Alyssa’s polar implementation, and
-Ben’s rectangular implementation.  The polar and rectangular implementations
+the complex-number-arithmetic operations, Alyssa&#8217;s polar implementation, and
+Ben&#8217;s rectangular implementation.  The polar and rectangular implementations
 could have been written by Ben and Alyssa working separately, and both of these
 can be used as underlying representations by a third programmer implementing
 the complex-arithmetic procedures in terms of the abstract constructor/selector
 interface.
 </p>
-<figure class="float">
-<a id="Figure-2_002e21"></a>
-<object style="width: 65.01ex; height: 33.59ex;" data="fig/chap2/Fig2.21a.std.svg" type="image/svg+xml">SVG</object>
-
-<figcaption class="float-caption">
-<p><strong>Figure 2.21:</strong> Structure of the generic complex-arithmetic system.</p>
-</figcaption>
-</figure>
-
+<div class="float">
+<a class="anchor" id="Figure-2_002e21"></a><img class="image" src="fig/chap2/Fig2.21a.std.svg" alt="fig/chap2/Fig2.21a" />
+<div class="caption"><p><strong class="strong">Figure 2.21:</strong> Structure of the generic complex-arithmetic system.</p></div></div>
 <p>Since each data object is tagged with its type, the selectors operate on the
 data in a generic manner.  That is, each selector is defined to have a behavior
 that depends upon the particular type of data it is applied to.  Notice the
 general mechanism for interfacing the separate representations: Within a given
-representation implementation (say, Alyssa’s polar package) a complex number is
+representation implementation (say, Alyssa&#8217;s polar package) a complex number is
 an untyped pair (magnitude, angle).  When a generic selector operates on a
-number of <code>polar</code> type, it strips off the tag and passes the contents on
-to Alyssa’s code.  Conversely, when Alyssa constructs a number for general use,
+number of <code class="code">polar</code> type, it strips off the tag and passes the contents on
+to Alyssa&#8217;s code.  Conversely, when Alyssa constructs a number for general use,
 she tags it with a type so that it can be appropriately recognized by the
 higher-level procedures.  This discipline of stripping off and attaching tags
 as data objects are passed from level to level can be an important
-organizational strategy, as we shall see in <a href="2_002e5.xhtml#g_t2_002e5">2.5</a>.
+organizational strategy, as we shall see in <a class="ref" href="2_002e5.xhtml#g_t2_002e5">Systems with Generic Operations</a>.
 </p>
-<a id="g_t2_002e4_002e3"></a>
-<a id="Data_002dDirected-Programming-and-Additivity"></a>
-<h4 class="subsection"><span class="secnum">2.4.3</span><span class="sectitle">Data-Directed Programming and Additivity</span></h4>
+<hr />
+</div>
+<div class="subsection-level-extent" id="g_t2_002e4_002e3">
+<h4 class="subsection" id="Data_002dDirected-Programming-and-Additivity"><span>2.4.3 Data-Directed Programming and Additivity<a class="copiable-link" href="#Data_002dDirected-Programming-and-Additivity"> &#182;</a></span></h4>
 
 <p>The general strategy of checking the type of a datum and calling an appropriate
-procedure is called <a id="index-dispatching-on-type"></a>
-<em>dispatching on type</em>.  This is a powerful strategy
+procedure is called <a class="index-entry-id" id="index-dispatching-on-type"></a>
+<em class="dfn">dispatching on type</em>.  This is a powerful strategy
 for obtaining modularity in system design.  On the other hand, implementing the
-dispatch as in <a href="#g_t2_002e4_002e2">2.4.2</a> has two significant weaknesses.  One
-weakness is that the generic interface procedures (<code>real-part</code>,
-<code>imag-part</code>, <code>magnitude</code>, and <code>angle</code>) must know about all the
+dispatch as in <a class="ref" href="#g_t2_002e4_002e2">Tagged data</a> has two significant weaknesses.  One
+weakness is that the generic interface procedures (<code class="code">real_part</code>,
+<code class="code">imag_part</code>, <code class="code">magnitude</code>, and <code class="code">angle</code>) must know about all the
 different representations.  For instance, suppose we wanted to incorporate a
 new representation for complex numbers into our complex-number system.  We
 would need to identify this new representation with a type, and then add a
@@ -801,11 +870,11 @@ and apply the appropriate selector for that representation.
 <p>Another weakness of the technique is that even though the individual
 representations can be designed separately, we must guarantee that no two
 procedures in the entire system have the same name.  This is why Ben and Alyssa
-had to change the names of their original procedures from <a href="#g_t2_002e4_002e1">2.4.1</a>.
+had to change the names of their original procedures from <a class="ref" href="#g_t2_002e4_002e1">Representations for Complex Numbers</a>.
 </p>
 <p>The issue underlying both of these weaknesses is that the technique for
-implementing generic interfaces is not <a id="index-additive"></a>
-<em>additive</em>.  The person
+implementing generic interfaces is not <a class="index-entry-id" id="index-additive"></a>
+<em class="dfn">additive</em>.  The person
 implementing the generic selector procedures must modify those procedures each
 time a new representation is installed, and the people interfacing the
 individual representations must modify their code to avoid name conflicts.  In
@@ -820,8 +889,8 @@ representations.  The problem is real and must be addressed in such programs as
 large-scale data-base-management systems.
 </p>
 <p>What we need is a means for modularizing the system design even further.  This
-is provided by the programming technique known as <a id="index-data_002ddirected-programming-1"></a>
-<em>data-directed programming</em>.  
+is provided by the programming technique known as <a class="index-entry-id" id="index-data_002ddirected-programming-2"></a>
+<em class="dfn">data-directed programming</em>.
 To understand how data-directed programming works, begin with
 the observation that whenever we deal with a set of generic operations that are
 common to a set of different types we are, in effect, dealing with a
@@ -831,17 +900,11 @@ that implement each operation for each type of argument presented.  In the
 complex-number system developed in the previous section, the correspondence
 between operation name, data type, and actual procedure was spread out among
 the various conditional clauses in the generic interface procedures.  But the
-same information could have been organized in a table, as shown in <a href="#Figure-2_002e22">Figure 2.22</a>.
+same information could have been organized in a table, as shown in <a class="ref" href="#Figure-2_002e22">Figure 2.22</a>.
 </p>
-<figure class="float">
-<a id="Figure-2_002e22"></a>
-<object style="width: 63.29ex; height: 20.98ex;" data="fig/chap2/Fig2.22.std.svg" type="image/svg+xml">SVG</object>
-
-<figcaption class="float-caption">
-<p><strong>Figure 2.22:</strong> Table of operations for the complex-number system.</p>
-</figcaption>
-</figure>
-
+<div class="float">
+<a class="anchor" id="Figure-2_002e22"></a><img class="image" src="fig/chap2/Fig2.22.std.svg" alt="fig/chap2/Fig2.22" />
+<div class="caption"><p><strong class="strong">Figure 2.22:</strong> Table of operations for the complex-number system.</p></div></div>
 <p>Data-directed programming is the technique of designing programs to work with
 such a table directly.  Previously, we implemented the mechanism that
 interfaces the complex-arithmetic code with the two representation packages as
@@ -853,262 +916,288 @@ argument.  If we do this, then to add a new representation package to the
 system we need not change any existing procedures; we need only add new entries
 to the table.
 </p>
-<p>To implement this plan, assume that we have two procedures, <code>put</code> and
-<code>get</code>, for manipulating the operation-and-type table:
+<p>To implement this plan, assume that we have two procedures, <code class="code">put</code> and
+<code class="code">get</code>, for manipulating the operation-and-type table:
 </p>
-<ul>
-<li> <code>(put ⟨<var>op</var>⟩ ⟨<var>type</var>⟩ ⟨<var>item</var>⟩)</code> installs the 
-<code>⟨</code><var>item</var><code>⟩</code> in the table, indexed by the 
-<code>⟨</code><var>op</var><code>⟩</code> and the <code>⟨</code><var>type</var><code>⟩</code>.
+<ul class="itemize mark-bullet">
+<li><code class="code">(put ⟨<var class="var">op</var>⟩ ⟨<var class="var">type</var>⟩ ⟨<var class="var">item</var>⟩)</code> installs the
+<code class="code">⟨</code><var class="var">item</var><code class="code">⟩</code> in the table, indexed by the
+<code class="code">⟨</code><var class="var">op</var><code class="code">⟩</code> and the <code class="code">⟨</code><var class="var">type</var><code class="code">⟩</code>.
 
-</li><li> <code>(get ⟨<var>op</var>⟩ ⟨<var>type</var>⟩)</code> looks up the <code>⟨</code><var>op</var><code>⟩</code>, 
-<code>⟨</code><var>type</var><code>⟩</code> entry in the table and returns the item found there.  
-If no item is found, <code>get</code> returns false.
+</li><li><code class="code">(get ⟨<var class="var">op</var>⟩ ⟨<var class="var">type</var>⟩)</code> looks up the <code class="code">⟨</code><var class="var">op</var><code class="code">⟩</code>,
+<code class="code">⟨</code><var class="var">type</var><code class="code">⟩</code> entry in the table and returns the item found there.
+If no item is found, <code class="code">get</code> returns false.
 
 </li></ul>
 
-<p>For now, we can assume that <code>put</code> and <code>get</code> are included in our
-language.  In <a href="Chapter-3.xhtml#Chapter-3">Chapter 3</a> (<a href="3_002e3.xhtml#g_t3_002e3_002e3">3.3.3</a>) we
+<p>For now, we can assume that <code class="code">put</code> and <code class="code">get</code> are included in our
+language.  In <a class="ref" href="Chapter-3.xhtml">Modularity, Objects, and State</a> (<a class="ref" href="3_002e3.xhtml#g_t3_002e3_002e3">Representing Tables</a>) we
 will see how to implement these and other operations for manipulating tables.
 </p>
 <p>Here is how data-directed programming can be used in the complex-number system.
 Ben, who developed the rectangular representation, implements his code just as
 he did originally.  He defines a collection of procedures, or a
-<a id="index-package"></a>
-<em>package</em>, and interfaces these to the rest of the system by adding
+<a class="index-entry-id" id="index-package"></a>
+<em class="dfn">package</em>, and interfaces these to the rest of the system by adding
 entries to the table that tell the system how to operate on rectangular
 numbers.  This is accomplished by calling the following procedure:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">install-rectangular-package</span><span class="clo">)</span><span class="pln">
-  </span><span class="roman"><span class="com">;; internal procedures</span></span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">real-part z</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> z</span><span class="clo">))</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">imag-part z</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> z</span><span class="clo">))</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-from-real-imag x y</span><span class="clo">)</span><span class="pln"> 
-    </span><span class="opn">(</span><span class="kwd">cons</span><span class="pln"> x y</span><span class="clo">))</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">magnitude z</span><span class="clo">)</span><span class="pln">
-    </span><span class="opn">(</span><span class="pln">sqrt </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="opn">(</span><span class="pln">square </span><span class="opn">(</span><span class="pln">real-part z</span><span class="clo">))</span><span class="pln">
-             </span><span class="opn">(</span><span class="pln">square </span><span class="opn">(</span><span class="pln">imag-part z</span><span class="clo">)))))</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">angle z</span><span class="clo">)</span><span class="pln">
-    </span><span class="opn">(</span><span class="pln">atan </span><span class="opn">(</span><span class="pln">imag-part z</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">real-part z</span><span class="clo">)))</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-from-mag-ang r a</span><span class="clo">)</span><span class="pln">
-    </span><span class="opn">(</span><span class="kwd">cons</span><span class="pln"> </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> r </span><span class="opn">(</span><span class="pln">cos a</span><span class="clo">))</span><span class="pln"> </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> r </span><span class="opn">(</span><span class="pln">sin a</span><span class="clo">))))</span><span class="pln">
-  </span><span class="roman"><span class="com">;; interface to the rest of the system</span></span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">tag x</span><span class="clo">)</span><span class="pln"> 
-    </span><span class="opn">(</span><span class="pln">attach-tag </span><span class="lit">'rectangular</span><span class="pln"> x</span><span class="clo">))</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">put </span><span class="lit">'real-part</span><span class="pln"> </span><span class="lit">'</span><span class="opn">(</span><span class="pln">rectangular</span><span class="clo">)</span><span class="pln"> real-part</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">put </span><span class="lit">'imag-part</span><span class="pln"> </span><span class="lit">'</span><span class="opn">(</span><span class="pln">rectangular</span><span class="clo">)</span><span class="pln"> imag-part</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">put </span><span class="lit">'magnitude</span><span class="pln"> </span><span class="lit">'</span><span class="opn">(</span><span class="pln">rectangular</span><span class="clo">)</span><span class="pln"> magnitude</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">put </span><span class="lit">'angle</span><span class="pln"> </span><span class="lit">'</span><span class="opn">(</span><span class="pln">rectangular</span><span class="clo">)</span><span class="pln"> angle</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">put </span><span class="lit">'make-from-real-imag</span><span class="pln"> </span><span class="lit">'rectangular</span><span class="pln">
-       </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">x y</span><span class="clo">)</span><span class="pln"> 
-         </span><span class="opn">(</span><span class="pln">tag </span><span class="opn">(</span><span class="pln">make-from-real-imag x y</span><span class="clo">))))</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">put </span><span class="lit">'make-from-mag-ang</span><span class="pln"> </span><span class="lit">'rectangular</span><span class="pln">
-       </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">r a</span><span class="clo">)</span><span class="pln"> 
-         </span><span class="opn">(</span><span class="pln">tag </span><span class="opn">(</span><span class="pln">make-from-mag-ang r a</span><span class="clo">))))</span><span class="pln">
-  </span><span class="lit">'done</span><span class="clo">)</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">fn install_rectangular_package(table: &amp;mut OperationTable) {
+    // internal procedures
+    fn real_part(x: f64, _y: f64) -&gt; f64 { x }
+    fn imag_part(_x: f64, y: f64) -&gt; f64 { y }
 
-<p>Notice that the internal procedures here are the same procedures from 
-<a href="#g_t2_002e4_002e1">2.4.1</a> that Ben wrote when he was working in isolation.  No changes are
+    fn magnitude(x: f64, y: f64) -&gt; f64 {
+        (x.powi(2) + y.powi(2)).sqrt()
+    }
+
+    fn angle(x: f64, y: f64) -&gt; f64 {
+        y.atan2(x)
+    }
+
+    // interface to the rest of the system
+    table.put(&quot;real-part&quot;, &quot;rectangular&quot;,
+        Box::new(real_part));
+    table.put(&quot;imag-part&quot;, &quot;rectangular&quot;,
+        Box::new(imag_part));
+    table.put(&quot;magnitude&quot;, &quot;rectangular&quot;,
+        Box::new(magnitude));
+    table.put(&quot;angle&quot;, &quot;rectangular&quot;,
+        Box::new(angle));
+
+    table.put_constructor(&quot;make_from_real_imag&quot;, &quot;rectangular&quot;,
+        Box::new(|x, y| Complex::Rectangular(x, y)));
+
+    table.put_constructor(&quot;make_from_mag_ang&quot;, &quot;rectangular&quot;,
+        Box::new(|r, a| Complex::Rectangular(r * a.cos(), r * a.sin())));
+}
+</pre></div>
+
+<p>Notice that the internal procedures here are the same procedures from
+<a class="ref" href="#g_t2_002e4_002e1">Representations for Complex Numbers</a> that Ben wrote when he was working in isolation.  No changes are
 necessary in order to interface them to the rest of the system.  Moreover,
 since these procedure definitions are internal to the installation procedure,
-Ben needn’t worry about name conflicts with other procedures outside the
+Ben needn&#8217;t worry about name conflicts with other procedures outside the
 rectangular package.  To interface these to the rest of the system, Ben
-installs his <code>real-part</code> procedure under the operation name
-<code>real-part</code> and the type <code>(rectangular)</code>, and similarly for the other
-selectors.<a class="footnote_link" id="DOCF111" href="#FOOT111"><sup>111</sup></a>  The interface also defines the
-constructors to be used by the external system.<a class="footnote_link" id="DOCF112" href="#FOOT112"><sup>112</sup></a>  These are identical to
-Ben’s internally defined constructors, except that they attach the tag.
+installs his <code class="code">real_part</code> procedure under the operation name
+<code class="code">real_part</code> and the type <code class="code">(rectangular)</code>, and similarly for the other
+selectors.<a class="footnote" id="DOCF104" href="#FOOT104"><sup>104</sup></a>  The interface also defines the
+constructors to be used by the external system.<a class="footnote" id="DOCF105" href="#FOOT105"><sup>105</sup></a>  These are identical to
+Ben&#8217;s internally defined constructors, except that they attach the tag.
 </p>
-<p>Alyssa’s polar package is analogous:
+<p>Alyssa&#8217;s polar package is analogous:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">install-polar-package</span><span class="clo">)</span><span class="pln">
-  </span><span class="roman"><span class="com">;; internal procedures</span></span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">magnitude z</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> z</span><span class="clo">))</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">angle z</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> z</span><span class="clo">))</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-from-mag-ang r a</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">cons</span><span class="pln"> r a</span><span class="clo">))</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">real-part z</span><span class="clo">)</span><span class="pln">
-    </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> </span><span class="opn">(</span><span class="pln">magnitude z</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">cos </span><span class="opn">(</span><span class="pln">angle z</span><span class="clo">))))</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">imag-part z</span><span class="clo">)</span><span class="pln">
-    </span><span class="opn">(</span><span class="pun">*</span><span class="pln"> </span><span class="opn">(</span><span class="pln">magnitude z</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">sin </span><span class="opn">(</span><span class="pln">angle z</span><span class="clo">))))</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-from-real-imag x y</span><span class="clo">)</span><span class="pln">
-    </span><span class="opn">(</span><span class="kwd">cons</span><span class="pln"> </span><span class="opn">(</span><span class="pln">sqrt </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="opn">(</span><span class="pln">square x</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">square y</span><span class="clo">)))</span><span class="pln">
-          </span><span class="opn">(</span><span class="pln">atan y x</span><span class="clo">)))</span><span class="pln">
-  </span><span class="roman"><span class="com">;; interface to the rest of the system</span></span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">tag x</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">attach-tag </span><span class="lit">'polar</span><span class="pln"> x</span><span class="clo">))</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">put </span><span class="lit">'real-part</span><span class="pln"> </span><span class="lit">'</span><span class="opn">(</span><span class="pln">polar</span><span class="clo">)</span><span class="pln"> real-part</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">put </span><span class="lit">'imag-part</span><span class="pln"> </span><span class="lit">'</span><span class="opn">(</span><span class="pln">polar</span><span class="clo">)</span><span class="pln"> imag-part</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">put </span><span class="lit">'magnitude</span><span class="pln"> </span><span class="lit">'</span><span class="opn">(</span><span class="pln">polar</span><span class="clo">)</span><span class="pln"> magnitude</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">put </span><span class="lit">'angle</span><span class="pln"> </span><span class="lit">'</span><span class="opn">(</span><span class="pln">polar</span><span class="clo">)</span><span class="pln"> angle</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">put </span><span class="lit">'make-from-real-imag</span><span class="pln"> </span><span class="lit">'polar</span><span class="pln">
-       </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">x y</span><span class="clo">)</span><span class="pln"> 
-         </span><span class="opn">(</span><span class="pln">tag </span><span class="opn">(</span><span class="pln">make-from-real-imag x y</span><span class="clo">))))</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">put </span><span class="lit">'make-from-mag-ang</span><span class="pln"> </span><span class="lit">'polar</span><span class="pln">
-       </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">r a</span><span class="clo">)</span><span class="pln"> 
-         </span><span class="opn">(</span><span class="pln">tag </span><span class="opn">(</span><span class="pln">make-from-mag-ang r a</span><span class="clo">))))</span><span class="pln">
-  </span><span class="lit">'done</span><span class="clo">)</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">fn install_polar_package(table: &amp;mut OperationTable) {
+    // internal procedures
+    fn magnitude(r: f64, _angle: f64) -&gt; f64 { r }
+    fn angle(_r: f64, angle: f64) -&gt; f64 { angle }
+
+    fn real_part(r: f64, angle: f64) -&gt; f64 {
+        r * angle.cos()
+    }
+
+    fn imag_part(r: f64, angle: f64) -&gt; f64 {
+        r * angle.sin()
+    }
+
+    // interface to the rest of the system
+    table.put(&quot;real-part&quot;, &quot;polar&quot;,
+        Box::new(real_part));
+    table.put(&quot;imag-part&quot;, &quot;polar&quot;,
+        Box::new(imag_part));
+    table.put(&quot;magnitude&quot;, &quot;polar&quot;,
+        Box::new(magnitude));
+    table.put(&quot;angle&quot;, &quot;polar&quot;,
+        Box::new(angle));
+
+    table.put_constructor(&quot;make_from_real_imag&quot;, &quot;polar&quot;,
+        Box::new(|x, y| Complex::Polar(
+            (x.powi(2) + y.powi(2)).sqrt(), y.atan2(x))));
+
+    table.put_constructor(&quot;make_from_mag_ang&quot;, &quot;polar&quot;,
+        Box::new(|r, a| Complex::Polar(r, a)));
+}
+</pre></div>
 
 <p>Even though Ben and Alyssa both still use their original procedures defined
-with the same names as each other’s (e.g., <code>real-part</code>), these definitions
-are now internal to different procedures (see <a href="1_002e1.xhtml#g_t1_002e1_002e8">1.1.8</a>), so there is
+with the same names as each other&#8217;s (e.g., <code class="code">real_part</code>), these definitions
+are now internal to different procedures (see <a class="ref" href="1_002e1.xhtml#g_t1_002e1_002e8">Procedures as Black-Box Abstractions</a>), so there is
 no name conflict.
 </p>
 <p>The complex-arithmetic selectors access the table by means of a general
-“operation” procedure called <code>apply-generic</code>, which applies a generic
-operation to some arguments.  <code>Apply-generic</code> looks in the table under the
+&#8220;operation&#8221; procedure called <code class="code">apply-generic</code>, which applies a generic
+operation to some arguments.  <code class="code">Apply-generic</code> looks in the table under the
 name of the operation and the types of the arguments and applies the resulting
-procedure if one is present:<a class="footnote_link" id="DOCF113" href="#FOOT113"><sup>113</sup></a>
+procedure if one is present:<a class="footnote" id="DOCF106" href="#FOOT106"><sup>106</sup></a>
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">apply-generic op </span><span class="pun">.</span><span class="pln"> args</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">type-tags </span><span class="opn">(</span><span class="pln">map type-tag args</span><span class="clo">)))</span><span class="pln">
-    </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">proc </span><span class="opn">(</span><span class="pln">get op type-tags</span><span class="clo">)))</span><span class="pln">
-      </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> proc
-          </span><span class="opn">(</span><span class="pln">apply proc </span><span class="opn">(</span><span class="pln">map contents args</span><span class="clo">))</span><span class="pln">
-          </span><span class="opn">(</span><span class="err">error</span><span class="pln">
-            </span><span class="str">"No method for these types: 
-             APPLY-GENERIC"</span><span class="pln">
-            </span><span class="opn">(</span><span class="pln">list op type-tags</span><span class="clo">))))))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">fn apply_generic(op: &amp;str, z: &amp;Complex,
+                 table: &amp;OperationTable) -&gt; f64 {
+    let type_tag = z.type_tag();
+    let contents = z.contents();
 
-<p>Using <code>apply-generic</code>, we can define our generic selectors as follows:
+    if let Some(proc) = table.get(op, type_tag) {
+        proc(contents.0, contents.1)
+    } else {
+        panic!(&quot;No method for type: {} ({})&quot;, op, type_tag)
+    }
+}
+</pre></div>
+
+<p>Using <code class="code">apply-generic</code>, we can define our generic selectors as follows:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">real-part z</span><span class="clo">)</span><span class="pln"> 
-  </span><span class="opn">(</span><span class="pln">apply-generic </span><span class="lit">'real-part</span><span class="pln"> z</span><span class="clo">))</span><span class="pln">
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">imag-part z</span><span class="clo">)</span><span class="pln"> 
-  </span><span class="opn">(</span><span class="pln">apply-generic </span><span class="lit">'imag-part</span><span class="pln"> z</span><span class="clo">))</span><span class="pln">
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">magnitude z</span><span class="clo">)</span><span class="pln"> 
-  </span><span class="opn">(</span><span class="pln">apply-generic </span><span class="lit">'magnitude</span><span class="pln"> z</span><span class="clo">))</span><span class="pln">
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">angle z</span><span class="clo">)</span><span class="pln"> 
-  </span><span class="opn">(</span><span class="pln">apply-generic </span><span class="lit">'angle</span><span class="pln"> z</span><span class="clo">))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">fn real_part(z: &amp;Complex, table: &amp;OperationTable) -&gt; f64 {
+    apply_generic(&quot;real-part&quot;, z, table)
+}
+
+fn imag_part(z: &amp;Complex, table: &amp;OperationTable) -&gt; f64 {
+    apply_generic(&quot;imag-part&quot;, z, table)
+}
+
+fn magnitude(z: &amp;Complex, table: &amp;OperationTable) -&gt; f64 {
+    apply_generic(&quot;magnitude&quot;, z, table)
+}
+
+fn angle(z: &amp;Complex, table: &amp;OperationTable) -&gt; f64 {
+    apply_generic(&quot;angle&quot;, z, table)
+}
+</pre></div>
 
 <p>Observe that these do not change at all if a new representation is added to the
 system.
 </p>
 <p>We can also extract from the table the constructors to be used by the programs
 external to the packages in making complex numbers from real and imaginary
-parts and from magnitudes and angles.  As in <a href="#g_t2_002e4_002e2">2.4.2</a>, we construct
+parts and from magnitudes and angles.  As in <a class="ref" href="#g_t2_002e4_002e2">Tagged data</a>, we construct
 rectangular numbers whenever we have real and imaginary parts, and polar
 numbers whenever we have magnitudes and angles:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-from-real-imag x y</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">((</span><span class="pln">get </span><span class="lit">'make-from-real-imag</span><span class="pln"> 
-        </span><span class="lit">'rectangular</span><span class="clo">)</span><span class="pln"> 
-   x y</span><span class="clo">))</span><span class="pln">
+<div class="example">
+<pre class="example-preformatted">fn make_from_real_imag(x: f64, y: f64, table: &amp;OperationTable) -&gt; Complex {
+    let constructor = table.get(&quot;make_from_real_imag&quot;, &quot;rectangular&quot;)
+        .expect(&quot;constructor not found&quot;);
+    constructor(x, y)
+}
 
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-from-mag-ang r a</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">((</span><span class="pln">get </span><span class="lit">'make-from-mag-ang</span><span class="pln"> 
-        </span><span class="lit">'polar</span><span class="clo">)</span><span class="pln"> 
-   r a</span><span class="clo">))</span></pre></div>
+fn make_from_mag_ang(r: f64, a: f64, table: &amp;OperationTable) -&gt; Complex {
+    let constructor = table.get(&quot;make_from_mag_ang&quot;, &quot;polar&quot;)
+        .expect(&quot;constructor not found&quot;);
+    constructor(r, a)
+}
+</pre></div>
 
-<blockquote>
-<p><strong><a id="Exercise-2_002e73"></a>Exercise 2.73:</strong> <a href="2_002e3.xhtml#g_t2_002e3_002e2">2.3.2</a> described a
+<blockquote class="quotation">
+<p><strong class="strong"><a class="anchor" id="Exercise-2_002e73"></a>Exercise 2.73:</strong> <a class="ref" href="2_002e3.xhtml#g_t2_002e3_002e2">Example: Symbolic Differentiation</a> described a
 program that performs symbolic differentiation:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">deriv exp var</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">((</span><span class="pln">number? exp</span><span class="clo">)</span><span class="pln"> </span><span class="lit">0</span><span class="clo">)</span><span class="pln">
-        </span><span class="opn">((</span><span class="pln">variable? exp</span><span class="clo">)</span><span class="pln"> 
-         </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pln">same-variable? exp var</span><span class="clo">)</span><span class="pln"> </span><span class="lit">1</span><span class="pln"> </span><span class="lit">0</span><span class="clo">))</span><span class="pln">
-        </span><span class="opn">((</span><span class="pln">sum? exp</span><span class="clo">)</span><span class="pln">
-         </span><span class="opn">(</span><span class="pln">make-sum </span><span class="opn">(</span><span class="pln">deriv </span><span class="opn">(</span><span class="pln">addend exp</span><span class="clo">)</span><span class="pln"> var</span><span class="clo">)</span><span class="pln">
-                   </span><span class="opn">(</span><span class="pln">deriv </span><span class="opn">(</span><span class="pln">augend exp</span><span class="clo">)</span><span class="pln"> var</span><span class="clo">)))</span><span class="pln">
-        </span><span class="opn">((</span><span class="pln">product? exp</span><span class="clo">)</span><span class="pln">
-         </span><span class="opn">(</span><span class="pln">make-sum
-           </span><span class="opn">(</span><span class="pln">make-product 
-            </span><span class="opn">(</span><span class="pln">multiplier exp</span><span class="clo">)</span><span class="pln">
-            </span><span class="opn">(</span><span class="pln">deriv </span><span class="opn">(</span><span class="pln">multiplicand exp</span><span class="clo">)</span><span class="pln"> var</span><span class="clo">))</span><span class="pln">
-           </span><span class="opn">(</span><span class="pln">make-product 
-            </span><span class="opn">(</span><span class="pln">deriv </span><span class="opn">(</span><span class="pln">multiplier exp</span><span class="clo">)</span><span class="pln"> var</span><span class="clo">)</span><span class="pln">
-            </span><span class="opn">(</span><span class="pln">multiplicand exp</span><span class="clo">))))</span><span class="pln">
-        ⟨</span><var><span class="pln">more rules can be added here</span></var><span class="pln">⟩
-        </span><span class="opn">(</span><span class="kwd">else</span><span class="pln"> </span><span class="opn">(</span><span class="err">error</span><span class="pln"> </span><span class="str">"unknown expression type:
-                      DERIV"</span><span class="pln"> exp</span><span class="clo">))))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">fn deriv(exp: &amp;Expr, var: &amp;str) -&gt; Expr {
+    match exp {
+        Expr::Const(_) =&gt; Expr::Const(0.0),
+        Expr::Var(v) =&gt; {
+            if *v == var { Expr::Const(1.0) } else { Expr::Const(0.0) }
+        }
+        Expr::Sum(a, b) =&gt; make_sum(
+            deriv(a, var),
+            deriv(b, var),
+        ),
+        Expr::Product(m, c) =&gt; make_sum(
+            make_product((**m).clone(), deriv(c, var)),
+            make_product(deriv(m, var), (**c).clone()),
+        ),
+        // more rules can be added via new enum variants
+    }
+}
+</pre></div>
 
 <p>We can regard this program as performing a dispatch on the type of the
-expression to be differentiated.  In this situation the “type tag” of the
-datum is the algebraic operator symbol (such as <code>+</code>) and the operation
-being performed is <code>deriv</code>.  We can transform this program into
+expression to be differentiated.  In this situation the &#8220;type tag&#8221; of the
+datum is the algebraic operator symbol (such as <code class="code">+</code>) and the operation
+being performed is <code class="code">deriv</code>.  We can transform this program into
 data-directed style by rewriting the basic derivative procedure as
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">deriv exp var</span><span class="clo">)</span><span class="pln">
-   </span><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">((</span><span class="pln">number? exp</span><span class="clo">)</span><span class="pln"> </span><span class="lit">0</span><span class="clo">)</span><span class="pln">
-         </span><span class="opn">((</span><span class="pln">variable? exp</span><span class="clo">)</span><span class="pln"> 
-           </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pln">same-variable? exp var</span><span class="clo">)</span><span class="pln"> 
-               </span><span class="lit">1</span><span class="pln"> 
-               </span><span class="lit">0</span><span class="clo">))</span><span class="pln">
-         </span><span class="opn">(</span><span class="kwd">else</span><span class="pln"> </span><span class="opn">((</span><span class="pln">get </span><span class="lit">'deriv</span><span class="pln"> </span><span class="opn">(</span><span class="pln">operator exp</span><span class="clo">))</span><span class="pln"> 
-                </span><span class="opn">(</span><span class="pln">operands exp</span><span class="clo">)</span><span class="pln"> 
-                var</span><span class="clo">))))</span><span class="pln">
+<div class="example">
+<pre class="example-preformatted">fn deriv(exp: &amp;Expr, var: &amp;str, table: &amp;DerivTable) -&gt; Expr {
+    match exp {
+        Expr::Const(_) =&gt; Expr::Const(0.0),
+        Expr::Var(v) =&gt; {
+            if *v == var { Expr::Const(1.0) } else { Expr::Const(0.0) }
+        }
+        _ =&gt; {
+            // Dispatch on operator type from table
+            let op = exp.operator();
+            let operands = exp.operands();
+            table.get(&quot;deriv&quot;, op)(operands, var)
+        }
+    }
+}
+</pre></div>
 
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">operator exp</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> exp</span><span class="clo">))</span><span class="pln">
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">operands exp</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> exp</span><span class="clo">))</span></pre></div>
-
-<ol>
-<li> Explain what was done above.  Why can’t we assimilate the predicates
-<code>number?</code> and <code>variable?</code> into the data-directed dispatch?
+<ol class="enumerate" type="a" start="1">
+<li> Explain what was done above.  Why can&#8217;t we assimilate the predicates
+<code class="code">number?</code> and <code class="code">is_variable</code> into the data-directed dispatch?
 
 </li><li> Write the procedures for derivatives of sums and products, and the auxiliary
 code required to install them in the table used by the program above.
 
 </li><li> Choose any additional differentiation rule that you like, such as the one for
-exponents (<a href="2_002e3.xhtml#Exercise-2_002e56">Exercise 2.56</a>), and install it in this data-directed
+exponents (<a class="ref" href="2_002e3.xhtml#Exercise-2_002e56">Exercise 2.56</a>), and install it in this data-directed
 system.
 
 </li><li> In this simple algebraic manipulator the type of an expression is the algebraic
 operator that binds it together.  Suppose, however, we indexed the procedures
-in the opposite way, so that the dispatch line in <code>deriv</code> looked like
+in the opposite way, so that the dispatch line in <code class="code">deriv</code> looked like
 
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">((</span><span class="pln">get </span><span class="opn">(</span><span class="pln">operator exp</span><span class="clo">)</span><span class="pln"> </span><span class="lit">'deriv</span><span class="clo">)</span><span class="pln"> 
- </span><span class="opn">(</span><span class="pln">operands exp</span><span class="clo">)</span><span class="pln"> var</span><span class="clo">)</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">table.get(exp.operator(), &quot;deriv&quot;)(exp.operands(), var)
+</pre></div>
 
 <p>What corresponding changes to the derivative system are required?
 </p>
 </li></ol>
 </blockquote>
 
-<blockquote>
-<p><strong><a id="Exercise-2_002e74"></a>Exercise 2.74:</strong> Insatiable Enterprises, Inc., is
+<blockquote class="quotation">
+<p><strong class="strong"><a class="anchor" id="Exercise-2_002e74"></a>Exercise 2.74:</strong> Insatiable Enterprises, Inc., is
 a highly decentralized conglomerate company consisting of a large number of
-independent divisions located all over the world.  The company’s computer
+independent divisions located all over the world.  The company&#8217;s computer
 facilities have just been interconnected by means of a clever
 network-interfacing scheme that makes the entire network appear to any user to
-be a single computer.  Insatiable’s president, in her first attempt to exploit
+be a single computer.  Insatiable&#8217;s president, in her first attempt to exploit
 the ability of the network to extract administrative information from division
 files, is dismayed to discover that, although all the division files have been
 implemented as data structures in Scheme, the particular data structure used
 varies from division to division.  A meeting of division managers is hastily
 called to search for a strategy to integrate the files that will satisfy
-headquarters’ needs while preserving the existing autonomy of the divisions.
+headquarters&#8217; needs while preserving the existing autonomy of the divisions.
 </p>
 <p>Show how such a strategy can be implemented with data-directed programming.  As
-an example, suppose that each division’s personnel records consist of a single
-file, which contains a set of records keyed on employees’ names.  The structure
-of the set varies from division to division.  Furthermore, each employee’s
+an example, suppose that each division&#8217;s personnel records consist of a single
+file, which contains a set of records keyed on employees&#8217; names.  The structure
+of the set varies from division to division.  Furthermore, each employee&#8217;s
 record is itself a set (structured differently from division to division) that
-contains information keyed under identifiers such as <code>address</code> and
-<code>salary</code>.  In particular:
+contains information keyed under identifiers such as <code class="code">address</code> and
+<code class="code">salary</code>.  In particular:
 </p>
-<ol>
-<li> Implement for headquarters a <code>get-record</code> procedure that retrieves a
-specified employee’s record from a specified personnel file.  The procedure
-should be applicable to any division’s file.  Explain how the individual
-divisions’ files should be structured.  In particular, what type information
+<ol class="enumerate" type="a" start="1">
+<li> Implement for headquarters a <code class="code">get-record</code> procedure that retrieves a
+specified employee&#8217;s record from a specified personnel file.  The procedure
+should be applicable to any division&#8217;s file.  Explain how the individual
+divisions&#8217; files should be structured.  In particular, what type information
 must be supplied?
 
-</li><li> Implement for headquarters a <code>get-salary</code> procedure that returns the
-salary information from a given employee’s record from any division’s personnel
+</li><li> Implement for headquarters a <code class="code">get-salary</code> procedure that returns the
+salary information from a given employee&#8217;s record from any division&#8217;s personnel
 file.  How should the record be structured in order to make this operation
 work?
 
-</li><li> Implement for headquarters a <code>find-employee-record</code> procedure.  This
-should search all the divisions’ files for the record of a given employee and
-return the record.  Assume that this procedure takes as arguments an employee’s
-name and a list of all the divisions’ files.
+</li><li> Implement for headquarters a <code class="code">find-employee-record</code> procedure.  This
+should search all the divisions&#8217; files for the record of a given employee and
+return the record.  Assume that this procedure takes as arguments an employee&#8217;s
+name and a list of all the divisions&#8217; files.
 
 </li><li> When Insatiable takes over a new company, what changes must be made in order to
 incorporate the new personnel information into the central system?
@@ -1116,145 +1205,657 @@ incorporate the new personnel information into the central system?
 </li></ol>
 </blockquote>
 
-<a id="Message-passing"></a>
-<h5 class="subsubheading">Message passing</h5>
+<h4 class="subsubheading" id="Message-passing"><span>Message passing<a class="copiable-link" href="#Message-passing"> &#182;</a></span></h4>
 
 <p>The key idea of data-directed programming is to handle generic operations in
 programs by dealing explicitly with operation-and-type tables, such as the
-table in <a href="#Figure-2_002e22">Figure 2.22</a>.  The style of programming we used in 
-<a href="#g_t2_002e4_002e2">2.4.2</a> organized the required dispatching on type by having each operation
+table in <a class="ref" href="#Figure-2_002e22">Figure 2.22</a>.  The style of programming we used in
+<a class="ref" href="#g_t2_002e4_002e2">Tagged data</a> organized the required dispatching on type by having each operation
 take care of its own dispatching.  In effect, this decomposes the
 operation-and-type table into rows, with each generic operation procedure
 representing a row of the table.
 </p>
 <p>An alternative implementation strategy is to decompose the table into columns
-and, instead of using “intelligent operations” that dispatch on data types,
-to work with “intelligent data objects” that dispatch on operation names.  We
+and, instead of using &#8220;intelligent operations&#8221; that dispatch on data types,
+to work with &#8220;intelligent data objects&#8221; that dispatch on operation names.  We
 can do this by arranging things so that a data object, such as a rectangular
 number, is represented as a procedure that takes as input the required
 operation name and performs the operation indicated.  In such a discipline,
-<code>make-from-real-imag</code> could be written as
+<code class="code">make_from_real_imag</code> could be written as
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-from-real-imag x y</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">dispatch op</span><span class="clo">)</span><span class="pln">
-    </span><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">((</span><span class="kwd">eq</span><span class="pun">?</span><span class="pln"> op </span><span class="lit">'real-part</span><span class="clo">)</span><span class="pln"> x</span><span class="clo">)</span><span class="pln">
-          </span><span class="opn">((</span><span class="kwd">eq</span><span class="pun">?</span><span class="pln"> op </span><span class="lit">'imag-part</span><span class="clo">)</span><span class="pln"> y</span><span class="clo">)</span><span class="pln">
-          </span><span class="opn">((</span><span class="kwd">eq</span><span class="pun">?</span><span class="pln"> op </span><span class="lit">'magnitude</span><span class="clo">)</span><span class="pln">
-           </span><span class="opn">(</span><span class="pln">sqrt </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="opn">(</span><span class="pln">square x</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">square y</span><span class="clo">))))</span><span class="pln">
-          </span><span class="opn">((</span><span class="kwd">eq</span><span class="pun">?</span><span class="pln"> op </span><span class="lit">'angle</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">atan y x</span><span class="clo">))</span><span class="pln">
-          </span><span class="opn">(</span><span class="kwd">else</span><span class="pln">
-           </span><span class="opn">(</span><span class="err">error</span><span class="pln"> </span><span class="str">"Unknown op: 
-            MAKE-FROM-REAL-IMAG"</span><span class="pln"> op</span><span class="clo">))))</span><span class="pln">
-  dispatch</span><span class="clo">)</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">fn make_from_real_imag(x: f64, y: f64) -&gt; Box&lt;dyn Fn(&amp;str) -&gt; f64&gt; {
+    Box::new(move |op: &amp;str| {
+        match op {
+            &quot;real-part&quot; =&gt; x,
+            &quot;imag-part&quot; =&gt; y,
+            &quot;magnitude&quot; =&gt; (x.powi(2) + y.powi(2)).sqrt(),
+            &quot;angle&quot; =&gt; y.atan2(x),
+            _ =&gt; panic!(&quot;Unknown op: MAKE-FROM-REAL-IMAG {}&quot;, op),
+        }
+    })
+}
+</pre></div>
 
-<p>The corresponding <code>apply-generic</code> procedure, which applies a generic
-operation to an argument, now simply feeds the operation’s name to the data
-object and lets the object do the work:<a class="footnote_link" id="DOCF114" href="#FOOT114"><sup>114</sup></a>
+<p>The corresponding <code class="code">apply-generic</code> procedure, which applies a generic
+operation to an argument, now simply feeds the operation&#8217;s name to the data
+object and lets the object do the work:<a class="footnote" id="DOCF107" href="#FOOT107"><sup>107</sup></a>
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">apply-generic op arg</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">arg op</span><span class="clo">))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">fn apply_generic(op: &amp;str, arg: &amp;Box&lt;dyn Fn(&amp;str) -&gt; f64&gt;) -&gt; f64 {
+    arg(op)
+}
+</pre></div>
 
-<p>Note that the value returned by <code>make-from-real-imag</code> is a procedure—the
-internal <code>dispatch</code> procedure.  This is the procedure that is invoked when
-<code>apply-generic</code> requests an operation to be performed.
+<p>Note that the value returned by <code class="code">make_from_real_imag</code> is a procedure&#8212;the
+internal <code class="code">dispatch</code> procedure.  This is the procedure that is invoked when
+<code class="code">apply-generic</code> requests an operation to be performed.
 </p>
-<p>This style of programming is called <a id="index-message-passing-1"></a>
-<em>message passing</em>.  The name comes
+<p>This style of programming is called <a class="index-entry-id" id="index-message-passing-1"></a>
+<em class="dfn">message passing</em>.  The name comes
 from the image that a data object is an entity that receives the requested
-operation name as a “message.”  We have already seen an example of message
-passing in <a href="2_002e1.xhtml#g_t2_002e1_002e3">2.1.3</a>, where we saw how <code>cons</code>, <code>car</code>, and
-<code>cdr</code> could be defined with no data objects but only procedures.  Here we
+operation name as a &#8220;message.&#8221;  We have already seen an example of message
+passing in <a class="ref" href="2_002e1.xhtml#g_t2_002e1_002e3">What Is Meant by Data?</a>, where we saw how <code class="code">cons</code>, <code class="code">car</code>, and
+<code class="code">cdr</code> could be defined with no data objects but only procedures.  Here we
 see that message passing is not a mathematical trick but a useful technique for
 organizing systems with generic operations.  In the remainder of this chapter
 we will continue to use data-directed programming, rather than message passing,
-to discuss generic arithmetic operations.  In <a href="Chapter-3.xhtml#Chapter-3">Chapter 3</a> we will return to
+to discuss generic arithmetic operations.  In <a class="ref" href="Chapter-3.xhtml">Modularity, Objects, and State</a> we will return to
 message passing, and we will see that it can be a powerful tool for structuring
 simulation programs.
 </p>
-<blockquote>
-<p><strong><a id="Exercise-2_002e75"></a>Exercise 2.75:</strong> Implement the constructor
-<code>make-from-mag-ang</code> in message-passing style.  This procedure should be
-analogous to the <code>make-from-real-imag</code> procedure given above.
+<blockquote class="quotation">
+<p><strong class="strong"><a class="anchor" id="Exercise-2_002e75"></a>Exercise 2.75:</strong> Implement the constructor
+<code class="code">make_from_mag_ang</code> in message-passing style.  This procedure should be
+analogous to the <code class="code">make_from_real_imag</code> procedure given above.
 </p></blockquote>
 
-<blockquote>
-<p><strong><a id="Exercise-2_002e76"></a>Exercise 2.76:</strong> As a large system with generic
+<blockquote class="quotation">
+<p><strong class="strong"><a class="anchor" id="Exercise-2_002e76"></a>Exercise 2.76:</strong> As a large system with generic
 operations evolves, new types of data objects or new operations may be needed.
-For each of the three strategies—generic operations with explicit dispatch,
-data-directed style, and message-passing-style—describe the changes that
+For each of the three strategies&#8212;generic operations with explicit dispatch,
+data-directed style, and message-passing-style&#8212;describe the changes that
 must be made to a system in order to add new types or new operations.  Which
 organization would be most appropriate for a system in which new types must
 often be added?  Which would be most appropriate for a system in which new
 operations must often be added?
 </p></blockquote>
 
-<div class="footnote">
+<hr />
+</div>
+<div class="subsection-level-extent" id="g_t2_002e4_002e3a">
+<h4 class="subsection" id="Traits-as-Interfaces_003a-Static-and-Dynamic-Dispatch"><span>2.4.4 Traits as Interfaces: Static and Dynamic Dispatch<a class="copiable-link" href="#Traits-as-Interfaces_003a-Static-and-Dynamic-Dispatch"> &#182;</a></span></h4>
+<a class="index-entry-id" id="index-traits"></a>
+<a class="index-entry-id" id="index-interfaces"></a>
+<a class="index-entry-id" id="index-polymorphism"></a>
+<a class="index-entry-id" id="index-dispatch"></a>
+<a class="index-entry-id" id="index-static-dispatch"></a>
+<a class="index-entry-id" id="index-dynamic-dispatch-1"></a>
+
+<p>In <a class="ref" href="#g_t2_002e4_002e3">Data-Directed Programming and Additivity</a>, we explored data-directed programming where operations are
+selected based on the type of data. Rust provides a powerful mechanism for this
+through <a class="index-entry-id" id="index-traits-1"></a>
+<em class="dfn">traits</em>, which define shared behavior across different types.
+Traits serve as interfaces that types can implement, enabling polymorphism&#8212;the
+ability to write code that works with multiple types.
+</p>
+<p>Rust&#8217;s trait system supports two fundamentally different approaches to
+polymorphism: <a class="index-entry-id" id="index-static-dispatch-1"></a>
+<em class="dfn">static dispatch</em> using generics, where the concrete type
+is known at compile time, and <a class="index-entry-id" id="index-dynamic-dispatch-2"></a>
+<em class="dfn">dynamic dispatch</em> using trait objects,
+where the type is determined at runtime. Understanding when to use each
+approach is crucial for writing both performant and flexible Rust code.
+</p>
+<h4 class="subsubheading" id="Traits-Define-Shared-Behavior"><span>Traits Define Shared Behavior<a class="copiable-link" href="#Traits-Define-Shared-Behavior"> &#182;</a></span></h4>
+
+<p>A trait definition declares a set of method signatures that implementing types
+must provide. Consider a trait for drawable objects in a graphics system:
+</p>
+<div class="example">
+<pre class="example-preformatted"><a class="index-entry-id" id="index-trait-definition"></a>trait Drawable {
+    fn draw(&amp;self);
+    fn bounds(&amp;self) -&gt; Rectangle;
+
+    // Default implementation
+    fn area(&amp;self) -&gt; f64 {
+        let rect = self.bounds();
+        rect.width * rect.height
+    }
+}
+
+struct Rectangle {
+    x: f64,
+    y: f64,
+    width: f64,
+    height: f64,
+}
+
+struct Circle {
+    x: f64,
+    y: f64,
+    radius: f64,
+}
+</pre></div>
+
+<p>Traits can include method signatures (which implementers must define), default
+implementations (which implementers can override), and associated types or
+constants. This is similar to interfaces in languages like Java or protocols
+in languages like Swift, but with crucial differences in how they&#8217;re dispatched.
+</p>
+<h4 class="subsubheading" id="Implementing-Traits-for-Types"><span>Implementing Traits for Types<a class="copiable-link" href="#Implementing-Traits-for-Types"> &#182;</a></span></h4>
+
+<p>To make a type implement a trait, we use <code class="code">impl Trait for Type</code> blocks:
+</p>
+<div class="example">
+<pre class="example-preformatted"><a class="index-entry-id" id="index-trait-implementation-1"></a>impl Drawable for Rectangle {
+    fn draw(&amp;self) {
+        println!(&quot;Drawing rectangle at ({}, {}) with size {}x{}&quot;,
+                 self.x, self.y, self.width, self.height);
+    }
+
+    fn bounds(&amp;self) -&gt; Rectangle {
+        Rectangle {
+            x: self.x,
+            y: self.y,
+            width: self.width,
+            height: self.height,
+        }
+    }
+}
+
+impl Drawable for Circle {
+    fn draw(&amp;self) {
+        println!(&quot;Drawing circle at ({}, {}) with radius {}&quot;,
+                 self.x, self.y, self.radius);
+    }
+
+    fn bounds(&amp;self) -&gt; Rectangle {
+        Rectangle {
+            x: self.x - self.radius,
+            y: self.y - self.radius,
+            width: self.radius * 2.0,
+            height: self.radius * 2.0,
+        }
+    }
+}
+</pre></div>
+
+<p>Both types now implement the <code class="code">Drawable</code> trait, meaning they provide the
+required methods. Note that they inherit the default <code class="code">area</code> implementation
+from the trait, though either could override it if needed.
+</p>
+<h4 class="subsubheading" id="Static-Dispatch-with-Generics"><span>Static Dispatch with Generics<a class="copiable-link" href="#Static-Dispatch-with-Generics"> &#182;</a></span></h4>
+
+<p>The most common way to write code that works with trait implementations is
+through <a class="index-entry-id" id="index-generic-functions"></a>
+<em class="dfn">generic functions</em> with <a class="index-entry-id" id="index-trait-bounds"></a>
+<em class="dfn">trait bounds</em>:
+</p>
+<div class="example">
+<pre class="example-preformatted"><a class="index-entry-id" id="index-generic-functions-1"></a><a class="index-entry-id" id="index-trait-bounds-1"></a>fn render&lt;T: Drawable&gt;(shape: &amp;T) {
+    shape.draw();
+    println!(&quot;Area: {}&quot;, shape.area());
+}
+
+let rect = Rectangle { x: 0.0, y: 0.0, width: 10.0, height: 20.0 };
+let circle = Circle { x: 5.0, y: 5.0, radius: 3.0 };
+
+render(&amp;rect);    // T = Rectangle
+render(&amp;circle);  // T = Circle
+</pre></div>
+
+<p>The notation <code class="code">&lt;T: Drawable&gt;</code> declares that <code class="code">T</code> is a generic type
+parameter that must implement the <code class="code">Drawable</code> trait. This is called a
+<a class="index-entry-id" id="index-trait-bound"></a>
+<em class="dfn">trait bound</em>. When we call <code class="code">render(&amp;rect)</code>, the compiler
+generates specialized code for <code class="code">Rectangle</code>. When we call
+<code class="code">render(&amp;circle)</code>, it generates different specialized code for
+<code class="code">Circle</code>.
+</p>
+<p>This process is called <a class="index-entry-id" id="index-monomorphization"></a>
+<em class="dfn">monomorphization</em>&#8212;the compiler generates a
+separate copy of the function for each concrete type used. It&#8217;s as if we wrote:
+</p>
+<div class="example">
+<pre class="example-preformatted">// Compiler-generated specializations
+fn render_rectangle(shape: &amp;Rectangle) {
+    shape.draw();
+    println!(&quot;Area: {}&quot;, shape.area());
+}
+
+fn render_circle(shape: &amp;Circle) {
+    shape.draw();
+    println!(&quot;Area: {}&quot;, shape.area());
+}
+</pre></div>
+
+<p>Static dispatch has zero runtime overhead&#8212;method calls are resolved at
+compile time and can be inlined. The price is increased binary size (code
+duplication) and longer compilation times.
+</p>
+<h4 class="subsubheading" id="The-impl-Trait-Syntax"><span>The impl Trait Syntax<a class="copiable-link" href="#The-impl-Trait-Syntax"> &#182;</a></span></h4>
+
+<p>Rust provides two convenient syntaxes for trait bounds: <code class="code">impl Trait</code> in
+argument position and return position.
+</p>
+<p>In <a class="index-entry-id" id="index-argument-position"></a>
+<em class="dfn">argument position</em>, <code class="code">impl Trait</code> is syntactic sugar for a
+generic parameter:
+</p>
+<div class="example">
+<pre class="example-preformatted"><a class="index-entry-id" id="index-impl-Trait-syntax"></a>// These are equivalent
+fn render(shape: &amp;impl Drawable) { /* ... */ }
+fn render&lt;T: Drawable&gt;(shape: &amp;T) { /* ... */ }
+</pre></div>
+
+<p>The <code class="code">impl Trait</code> syntax is more concise for simple cases, but the generic
+syntax is more flexible when you need to refer to the type multiple times or
+add multiple constraints:
+</p>
+<div class="example">
+<pre class="example-preformatted">// With generics, we can ensure both arguments have the same type
+fn compare_areas&lt;T: Drawable&gt;(a: &amp;T, b: &amp;T) -&gt; bool {
+    a.area() &gt; b.area()
+}
+
+// With impl Trait, these could be different types
+fn compare_areas_different(a: &amp;impl Drawable, b: &amp;impl Drawable) -&gt; bool {
+    a.area() &gt; b.area()
+}
+</pre></div>
+
+<p>In <a class="index-entry-id" id="index-return-position"></a>
+<em class="dfn">return position</em>, <code class="code">impl Trait</code> means &quot;returns some type that
+implements this trait&quot;:
+</p>
+<div class="example">
+<pre class="example-preformatted"><a class="index-entry-id" id="index-opaque-return-types"></a>fn make_shape(use_circle: bool) -&gt; impl Drawable {
+    if use_circle {
+        Circle { x: 0.0, y: 0.0, radius: 5.0 }
+    } else {
+        // ERROR: all branches must return the same concrete type
+        Rectangle { x: 0.0, y: 0.0, width: 10.0, height: 10.0 }
+    }
+}
+</pre></div>
+
+<p>This attempts to compile but fails because <code class="code">impl Trait</code> in return position
+means the function returns a single concrete type (known at compile time) that
+implements the trait&#8212;not that it can return different types. All code paths
+must return the same type. For truly dynamic return types, we need trait objects.
+</p>
+<h4 class="subsubheading" id="Dynamic-Dispatch-with-Trait-Objects"><span>Dynamic Dispatch with Trait Objects<a class="copiable-link" href="#Dynamic-Dispatch-with-Trait-Objects"> &#182;</a></span></h4>
+
+<p>When we need genuine runtime polymorphism&#8212;the ability to store different
+types in the same collection or return different types from different code
+paths&#8212;we use <a class="index-entry-id" id="index-trait-objects-1"></a>
+<em class="dfn">trait objects</em>. A trait object is written as
+<code class="code">dyn Trait</code> and must be behind a pointer (<code class="code">&amp;dyn Trait</code>,
+<code class="code">Box&lt;dyn Trait&gt;</code>, etc.):
+</p>
+<div class="example">
+<pre class="example-preformatted"><a class="index-entry-id" id="index-trait-objects-2"></a><a class="index-entry-id" id="index-dyn-keyword"></a>fn render_dynamic(shape: &amp;dyn Drawable) {
+    shape.draw();
+    println!(&quot;Area: {}&quot;, shape.area());
+}
+
+let rect = Rectangle { x: 0.0, y: 0.0, width: 10.0, height: 20.0 };
+let circle = Circle { x: 5.0, y: 5.0, radius: 3.0 };
+
+render_dynamic(&amp;rect);    // &amp;Rectangle coerced to &amp;dyn Drawable
+render_dynamic(&amp;circle);  // &amp;Circle coerced to &amp;dyn Drawable
+
+// We can store different types in a collection
+let shapes: Vec&lt;Box&lt;dyn Drawable&gt;&gt; = vec![
+    Box::new(Rectangle { x: 0.0, y: 0.0, width: 10.0, height: 20.0 }),
+    Box::new(Circle { x: 5.0, y: 5.0, radius: 3.0 }),
+];
+
+for shape in &amp;shapes {
+    shape.draw();
+}
+</pre></div>
+
+<p>With trait objects, method dispatch happens at runtime using a <a class="index-entry-id" id="index-vtable"></a>
+<em class="dfn">vtable</em>
+(virtual method table). The trait object consists of two pointers: one to the
+data and one to the vtable containing function pointers for the trait methods:
+</p>
+<div class="example">
+<pre class="example-preformatted">// Conceptual representation of &amp;dyn Drawable
+struct TraitObject {
+    data: *const (),           // Pointer to the actual data
+    vtable: *const VTable,     // Pointer to method implementations
+}
+
+struct VTable {
+    draw: fn(*const ()),
+    bounds: fn(*const ()) -&gt; Rectangle,
+    area: fn(*const ()) -&gt; f64,
+    // Also includes destructor, size, alignment info
+}
+</pre></div>
+
+<p>When we call <code class="code">shape.draw()</code>, the compiler generates code that:
+</p><ol class="enumerate">
+<li> Looks up the <code class="code">draw</code> function pointer in the vtable
+</li><li> Calls it with the data pointer
+</li></ol>
+
+<p>This indirection has a small runtime cost (one pointer dereference) and
+prevents inlining, but gives us true runtime polymorphism.
+</p>
+<h4 class="subsubheading" id="Object-Safety_003a-Not-All-Traits-Can-Be-Trait-Objects"><span>Object Safety: Not All Traits Can Be Trait Objects<a class="copiable-link" href="#Object-Safety_003a-Not-All-Traits-Can-Be-Trait-Objects"> &#182;</a></span></h4>
+
+<p>Not every trait can be made into a trait object. A trait is <a class="index-entry-id" id="index-object_002dsafe"></a>
+<em class="dfn">object-safe</em>
+only if all its methods follow certain rules:
+</p>
+<div class="example">
+<pre class="example-preformatted"><a class="index-entry-id" id="index-object-safety"></a>// Object-safe: all methods take &amp;self, &amp;mut self, or self
+trait ObjectSafe {
+    fn method(&amp;self);
+}
+
+// NOT object-safe: has generic method
+trait NotObjectSafe1 {
+    fn generic_method&lt;T&gt;(&amp;self, value: T);
+}
+
+// NOT object-safe: returns Self
+trait NotObjectSafe2 {
+    fn clone_self(&amp;self) -&gt; Self;
+}
+
+// NOT object-safe: has associated function (no receiver)
+trait NotObjectSafe3 {
+    fn new() -&gt; Self;
+}
+</pre></div>
+
+<p>The restriction exists because trait objects erase the concrete type. At
+runtime, the compiler only knows &quot;this is something that implements
+<code class="code">Drawable</code>&quot;&#8212;it doesn&#8217;t know whether it&#8217;s a <code class="code">Rectangle</code> or
+<code class="code">Circle</code>. Therefore:
+</p>
+<ul class="itemize mark-bullet">
+<li>Generic methods can&#8217;t be dispatched&#8212;we&#8217;d need an infinite vtable with an
+entry for every possible type <code class="code">T</code>
+</li><li>Methods returning <code class="code">Self</code> can&#8217;t work&#8212;we don&#8217;t know the size or type of
+what to return
+</li><li>Associated functions (like constructors) can&#8217;t be called&#8212;there&#8217;s no object
+yet to provide the vtable pointer
+</li></ul>
+
+<p>Many standard library traits are not object-safe. For example, <code class="code">Clone</code>
+returns <code class="code">Self</code>, so you cannot write <code class="code">&amp;dyn Clone</code>. To work around this,
+you can create an object-safe wrapper:
+</p>
+<div class="example">
+<pre class="example-preformatted"><a class="index-entry-id" id="index-object_002dsafe-wrappers"></a>trait CloneBox {
+    fn clone_box(&amp;self) -&gt; Box&lt;dyn CloneBox&gt;;
+}
+
+impl&lt;T: Clone + 'static&gt; CloneBox for T {
+    fn clone_box(&amp;self) -&gt; Box&lt;dyn CloneBox&gt; {
+        Box::new(self.clone())
+    }
+}
+</pre></div>
+
+<h4 class="subsubheading" id="Performance_003a-Static-vs-Dynamic-Dispatch"><span>Performance: Static vs Dynamic Dispatch<a class="copiable-link" href="#Performance_003a-Static-vs-Dynamic-Dispatch"> &#182;</a></span></h4>
+
+<p>The choice between static and dynamic dispatch involves tradeoffs:
+</p>
+<table class="multitable">
+<thead><tr><th width="25%">Aspect</th><th width="35%">Static Dispatch</th><th width="40%">Dynamic Dispatch</th></tr></thead>
+<tbody><tr><td width="25%"><strong class="strong">Performance</strong></td><td width="35%">Zero overhead, inlining</td><td width="40%">Small vtable lookup cost</td></tr>
+<tr><td width="25%"><strong class="strong">Binary Size</strong></td><td width="35%">Larger (duplication)</td><td width="40%">Smaller (one copy)</td></tr>
+<tr><td width="25%"><strong class="strong">Compilation</strong></td><td width="35%">Slower (monomorphization)</td><td width="40%">Faster</td></tr>
+<tr><td width="25%"><strong class="strong">Flexibility</strong></td><td width="35%">Type known at compile time</td><td width="40%">Type known at runtime</td></tr>
+<tr><td width="25%"><strong class="strong">Collections</strong></td><td width="35%">Homogeneous types only</td><td width="40%">Mixed types allowed</td></tr>
+<tr><td width="25%"><strong class="strong">Optimization</strong></td><td width="35%">Full inlining possible</td><td width="40%">Limited by indirection</td></tr>
+</tbody>
+</table>
+
+<p>Benchmark example showing the difference:
+</p>
+<div class="example">
+<pre class="example-preformatted"><a class="index-entry-id" id="index-benchmarking"></a>use std::time::Instant;
+
+trait Compute {
+    fn compute(&amp;self) -&gt; i64;
+}
+
+struct Adder(i64);
+impl Compute for Adder {
+    #[inline]
+    fn compute(&amp;self) -&gt; i64 { self.0 + self.0 }
+}
+
+// Static dispatch - can inline completely
+fn static_dispatch&lt;T: Compute&gt;(c: &amp;T, iterations: usize) -&gt; i64 {
+    let mut sum = 0;
+    for _ in 0..iterations {
+        sum += c.compute();
+    }
+    sum
+}
+
+// Dynamic dispatch - cannot inline compute()
+fn dynamic_dispatch(c: &amp;dyn Compute, iterations: usize) -&gt; i64 {
+    let mut sum = 0;
+    for _ in 0..iterations {
+        sum += c.compute();
+    }
+    sum
+}
+
+let adder = Adder(5);
+let iterations = 100_000_000;
+
+let start = Instant::now();
+static_dispatch(&amp;adder, iterations);
+println!(&quot;Static: {?}&quot;, start.elapsed());
+
+let start = Instant::now();
+dynamic_dispatch(&amp;adder, iterations);
+println!(&quot;Dynamic: {?}&quot;, start.elapsed());
+
+// Typical results on modern hardware:
+// Static: 0ns (optimized away completely)
+// Dynamic: 200-300ms (cannot optimize vtable call)
+</pre></div>
+
+<h4 class="subsubheading" id="Choosing-Between-Static-and-Dynamic-Dispatch"><span>Choosing Between Static and Dynamic Dispatch<a class="copiable-link" href="#Choosing-Between-Static-and-Dynamic-Dispatch"> &#182;</a></span></h4>
+
+<p>Use <strong class="strong">static dispatch</strong> (generics) when:
+</p><ul class="itemize mark-bullet">
+<li>Performance is critical (hot loops, embedded systems)
+</li><li>You want the compiler to inline and optimize aggressively
+</li><li>You know all types at compile time
+</li><li>You&#8217;re working with a small number of types (acceptable code duplication)
+</li></ul>
+
+<p>Use <strong class="strong">dynamic dispatch</strong> (trait objects) when:
+</p><ul class="itemize mark-bullet">
+<li>You need heterogeneous collections (vectors of different types)
+</li><li>You want to reduce binary size or compilation time
+</li><li>Types are determined at runtime (plugins, dynamic loading)
+</li><li>You&#8217;re returning different types from different code paths
+</li><li>The dispatch overhead is negligible compared to the work being done
+</li></ul>
+
+<blockquote class="quotation">
+<p><strong class="strong"><a class="anchor" id="Exercise-2_002e75a"></a>Exercise 2.75a:</strong> Implement a simple expression
+evaluator that supports different operation types (addition, multiplication,
+negation) using both static and dynamic dispatch approaches.
+</p>
+<p>First, using <strong class="strong">static dispatch</strong>:
+</p>
+<div class="example">
+<pre class="example-preformatted">trait Expr {
+    fn eval(&amp;self) -&gt; i64;
+}
+
+struct Literal(i64);
+struct Add&lt;L, R&gt; { left: L, right: R }
+struct Mul&lt;L, R&gt; { left: L, right: R }
+struct Neg&lt;E&gt; { expr: E }
+
+// Implement Expr for each type
+// Example usage should build expressions like:
+// Add { left: Literal(5), right: Mul { left: Literal(3), right: Literal(4) } }
+</pre></div>
+
+<p>Then, using <strong class="strong">dynamic dispatch</strong>:
+</p>
+<div class="example">
+<pre class="example-preformatted">enum DynExpr {
+    Literal(i64),
+    Add(Box&lt;DynExpr&gt;, Box&lt;DynExpr&gt;),
+    Mul(Box&lt;DynExpr&gt;, Box&lt;DynExpr&gt;),
+    Neg(Box&lt;DynExpr&gt;),
+}
+
+impl DynExpr {
+    fn eval(&amp;self) -&gt; i64 { /* ... */ }
+}
+</pre></div>
+
+<p>Compare both approaches:
+</p><ol class="enumerate">
+<li> Which version allows evaluating expressions without knowing the exact type at compile time?
+</li><li> Which version will have better performance for small expressions?
+</li><li> Which version produces smaller binary code?
+</li><li> What are the ergonomic differences in constructing expressions?
+</li></ol>
+</blockquote>
+
+<blockquote class="quotation">
+<p><strong class="strong"><a class="anchor" id="Exercise-2_002e75b"></a>Exercise 2.75b:</strong> Design a plugin system for a
+text editor that supports different text transformations. The system should
+allow users to register custom transformations at runtime.
+</p>
+<div class="example">
+<pre class="example-preformatted">trait TextTransform {
+    fn name(&amp;self) -&gt; &amp;str;
+    fn transform(&amp;self, input: &amp;str) -&gt; String;
+}
+
+struct TransformRegistry {
+    transforms: Vec&lt;Box&lt;dyn TextTransform&gt;&gt;,
+}
+
+impl TransformRegistry {
+    fn new() -&gt; Self { /* ... */ }
+
+    fn register(&amp;mut self, transform: Box&lt;dyn TextTransform&gt;) { /* ... */ }
+
+    fn apply(&amp;self, name: &amp;str, input: &amp;str) -&gt; Option&lt;String&gt; { /* ... */ }
+
+    fn list_transforms(&amp;self) -&gt; Vec&lt;&amp;str&gt; { /* ... */ }
+}
+</pre></div>
+
+<p>Implement:
+</p><ol class="enumerate">
+<li> The <code class="code">TransformRegistry</code> with methods to register and apply transformations
+</li><li> At least three built-in transformations: <code class="code">Uppercase</code>, <code class="code">Lowercase</code>,
+and <code class="code">ReverseWords</code>
+</li><li> A demonstration showing registration and application of transforms
+</li><li> Explain why this system requires dynamic dispatch and cannot use static dispatch
+</li></ol>
+</blockquote>
+
+<blockquote class="quotation">
+<p><strong class="strong"><a class="anchor" id="Exercise-2_002e75c"></a>Exercise 2.75c:</strong> Explore the limits of object
+safety by attempting to create trait objects from non-object-safe traits.
+</p>
+<ol class="enumerate">
+<li> Try to create a <code class="code">Box&lt;dyn Clone&gt;</code> and explain why it fails
+</li><li> Implement the <code class="code">CloneBox</code> workaround shown earlier and demonstrate it working
+</li><li> Create a trait <code class="code">Factory</code> with an associated function <code class="code">fn create() -&gt; Self</code>
+and explain why it&#8217;s not object-safe
+</li><li> Design an object-safe version of <code class="code">Factory</code> that can be used with trait objects:
+
+<div class="example">
+<pre class="example-preformatted">trait Factory {
+    fn create(&amp;self) -&gt; Box&lt;dyn Factory&gt;;
+}
+</pre></div>
+
+</li><li> Implement <code class="code">Factory</code> for at least two types and show a collection of
+<code class="code">Box&lt;dyn Factory&gt;</code> where you can call <code class="code">create()</code> on each element
+</li></ol>
+</blockquote>
+
+<p>The trait system in Rust provides a powerful foundation for abstraction and
+code reuse. By understanding the difference between static and dynamic dispatch,
+we can write code that is both flexible and performant. Static dispatch gives
+us zero-cost abstractions with full optimization potential, while dynamic
+dispatch gives us runtime polymorphism when we need it. The key is choosing
+the right tool for each situation.
+</p>
+<p>In the next section, we will see how generic types and traits work together to
+create more sophisticated abstractions, including how to use trait bounds to
+express complex constraints on generic type parameters.
+</p>
+</div>
+</div>
+<div class="footnotes-segment">
+<hr />
 <h4 class="footnotes-heading">Footnotes</h4>
 
-<div id="FOOT109"><p><a class="footnote_backlink" href="#DOCF109"><sup>109</sup></a>
-In actual computational systems, rectangular
+<h5 class="footnote-body-heading"><a id="FOOT102" href="#DOCF102">(102)</a></h5>
+<p>In actual computational systems, rectangular
 form is preferable to polar form most of the time because of roundoff errors in
 conversion between rectangular and polar form.  This is why the complex-number
 example is unrealistic.  Nevertheless, it provides a clear illustration of the
 design of a system using generic operations and a good introduction to the more
 substantial systems to be developed later in this chapter.</p>
-</div>
-<div id="FOOT110"><p><a class="footnote_backlink" href="#DOCF110"><sup>110</sup></a>
-The arctangent function referred to here,
-computed by Scheme’s <code>atan</code> procedure, is defined so as to take two
-arguments <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <mi>y</mi>
-</math> and <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <mi>x</mi>
-</math> and to return the angle whose tangent is <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <mrow class="MJX-TeXAtom-ORD">
-    <mi>y</mi>
-    <mrow class="MJX-TeXAtom-ORD">
-      <mo>/</mo>
-    </mrow>
-    <mi>x</mi>
-  </mrow>
-</math>.
+<h5 class="footnote-body-heading"><a id="FOOT103" href="#DOCF103">(103)</a></h5>
+<p>The arctangent function referred to here,
+computed by Scheme&#8217;s <code class="code">atan</code> procedure, is defined so as to take two
+arguments <em class="math">y</em> and <em class="math">x</em> and to return the angle whose tangent is <em class="math">{y / x}</em>.
 The signs of the arguments determine the quadrant of the angle.</p>
-</div>
-<div id="FOOT111"><p><a class="footnote_backlink" href="#DOCF111"><sup>111</sup></a>
-We use the list <code>(rectangular)</code> rather than the symbol
-<code>rectangular</code> to allow for the possibility of operations with multiple
+<h5 class="footnote-body-heading"><a id="FOOT104" href="#DOCF104">(104)</a></h5>
+<p>We use the list <code class="code">(rectangular)</code> rather than the symbol
+<code class="code">rectangular</code> to allow for the possibility of operations with multiple
 arguments, not all of the same type.</p>
-</div>
-<div id="FOOT112"><p><a class="footnote_backlink" href="#DOCF112"><sup>112</sup></a>
-The type the
-constructors are installed under needn’t be a list because a constructor is
+<h5 class="footnote-body-heading"><a id="FOOT105" href="#DOCF105">(105)</a></h5>
+<p>The type the
+constructors are installed under needn&#8217;t be a list because a constructor is
 always used to make an object of one particular type.</p>
-</div>
-<div id="FOOT113"><p><a class="footnote_backlink" href="#DOCF113"><sup>113</sup></a>
-<code>Apply-generic</code> uses the dotted-tail
-notation described in <a href="2_002e2.xhtml#Exercise-2_002e20">Exercise 2.20</a>, because different generic operations
-may take different numbers of arguments.  In <code>apply-generic</code>, <code>op</code>
-has as its value the first argument to <code>apply-generic</code> and <code>args</code> has
+<h5 class="footnote-body-heading"><a id="FOOT106" href="#DOCF106">(106)</a></h5>
+<p><code class="code">Apply-generic</code> uses the dotted-tail
+notation described in <a class="ref" href="2_002e2.xhtml#Exercise-2_002e20">Exercise 2.20</a>, because different generic operations
+may take different numbers of arguments.  In <code class="code">apply-generic</code>, <code class="code">op</code>
+has as its value the first argument to <code class="code">apply-generic</code> and <code class="code">args</code> has
 as its value a list of the remaining arguments.
 </p>
-<p><code>Apply-generic</code> also uses the primitive procedure <code>apply</code>, which
-takes two arguments, a procedure and a list.  <code>Apply</code> applies the
+<p><code class="code">Apply-generic</code> also uses the primitive procedure <code class="code">apply</code>, which
+takes two arguments, a procedure and a list.  <code class="code">Apply</code> applies the
 procedure, using the elements in the list as arguments.  For example,
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">apply </span><span class="pun">+</span><span class="pln"> </span><span class="opn">(</span><span class="pln">list </span><span class="lit">1</span><span class="pln"> </span><span class="lit">2</span><span class="pln"> </span><span class="lit">3</span><span class="pln"> </span><span class="lit">4</span><span class="clo">))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">// In Rust: [1, 2, 3, 4].iter().sum::&lt;i32&gt;()
+// =&gt; 10
+</pre></div>
 
 <p>returns 10.</p>
-</div>
-<div id="FOOT114"><p><a class="footnote_backlink" href="#DOCF114"><sup>114</sup></a>
-One limitation of this
+<h5 class="footnote-body-heading"><a id="FOOT107" href="#DOCF107">(107)</a></h5>
+<p>One limitation of this
 organization is it permits only generic procedures of one argument.</p>
 </div>
-</div>
-<nav class="header">
+<hr />
+<div class="nav-panel">
 <p>
-Next: <a href="2_002e5.xhtml#g_t2_002e5" accesskey="n" rel="next">2.5</a>, Prev: <a href="2_002e3.xhtml#g_t2_002e3" accesskey="p" rel="prev">2.3</a>, Up: <a href="#g_t2_002e4" accesskey="u" rel="prev">2.4</a>   [<a href="index.xhtml#SEC_Contents" title="Table of contents" accesskey="c" rel="contents">Contents</a>]</p>
-</nav>
+Next: <a href="2_002e5.xhtml#g_t2_002e5" accesskey="n" rel="next">Systems with Generic Operations</a>, Previous: <a href="2_002e3.xhtml#g_t2_002e3_002e4a" accesskey="p" rel="prev">The Newtype Pattern: Zero-Cost Type Safety</a>, Up: <a href="Chapter-2.xhtml" accesskey="u" rel="up">Building Abstractions with Data</a> &#160; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
+</div>
 
 
-</section><span class="bottom jump" title="Jump to bottom"><a href="#pagebottom" accesskey="b">⇣</a></span><a id="pagebottom"></a>
+
 </body>
 </html>

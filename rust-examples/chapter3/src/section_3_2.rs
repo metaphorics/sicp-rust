@@ -1,0 +1,487 @@
+//! Section 3.2: The Environment Model of Evaluation
+//!
+//! This section translates SICP's environment model to Rust using idiomatic patterns.
+//! Instead of `Rc<RefCell<T>>`, we use:
+//!
+//! - **Persistent environments**: Immutable `Environment<V>` with structural sharing
+//! - **Functional updates**: Operations return new state
+//! - **Cell<T>**: For simple `Copy` types when interior mutability is needed
+//!
+//! Key concepts:
+//! - Environments as persistent chains of frames
+//! - Procedures as (code, environment) pairs - environment is owned, not shared
+//! - Variable lookup walks the environment chain (immutably)
+//! - Closures capture their defining environment (by clone, which is O(1) due to sharing)
+
+use sicp_common::Environment;
+use std::cell::Cell;
+use std::fmt;
+
+// =============================================================================
+// PART 1: VALUE TYPE FOR RUNTIME REPRESENTATION
+// =============================================================================
+
+/// Runtime value type for demonstrating the environment model.
+/// Procedures own their captured environment (no Rc<RefCell<>>).
+#[derive(Clone)]
+pub enum Value {
+    Number(f64),
+    String(String),
+    /// A procedure represented as (code, environment)
+    /// The environment is OWNED, not shared via Rc<RefCell<>>
+    Procedure {
+        params: Vec<String>,
+        body: String,
+        env: Environment<Value>,
+    },
+}
+
+impl fmt::Display for Value {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            Value::Number(n) => write!(f, "{}", n),
+            Value::String(s) => write!(f, "\"{}\"", s),
+            Value::Procedure { params, .. } => {
+                write!(f, "#<procedure ({})>", params.join(" "))
+            }
+        }
+    }
+}
+
+impl fmt::Debug for Value {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "{}", self)
+    }
+}
+
+// =============================================================================
+// PART 2: ENVIRONMENT EXAMPLES
+// =============================================================================
+
+/// Demonstrates the persistent environment model.
+///
+/// # Example
+///
+/// ```
+/// use sicp_chapter3::section_3_2::env_demo;
+///
+/// let (result_x, result_y, result_z) = env_demo();
+/// assert_eq!(result_x, Some(7));  // Shadowed in inner
+/// assert_eq!(result_y, Some(5));  // From outer
+/// assert_eq!(result_z, Some(6));  // From inner
+/// ```
+pub fn env_demo() -> (Option<i64>, Option<i64>, Option<i64>) {
+    // Create outer environment (like global frame)
+    let outer = Environment::<i64>::new()
+        .define("x".to_string(), 3)
+        .define("y".to_string(), 5);
+
+    // Create inner environment extending outer (shadows x)
+    let inner = outer.extend([("z".to_string(), 6), ("x".to_string(), 7)]);
+
+    // Lookups
+    let x = inner.lookup("x").copied(); // 7 (shadowed)
+    let y = inner.lookup("y").copied(); // 5 (from outer)
+    let z = inner.lookup("z").copied(); // 6 (from inner)
+
+    (x, y, z)
+}
+
+// =============================================================================
+// PART 3: RUST CLOSURE SEMANTICS (Native Implementation)
+// =============================================================================
+
+/// Demonstrates how Rust closures naturally implement the environment model.
+/// The closure captures its environment, similar to SICP's (code, environment) pairs.
+pub fn square(x: i64) -> i64 {
+    x * x
+}
+
+/// Figure 3.4: Three procedures in the global frame.
+pub fn sum_of_squares(x: i64, y: i64) -> i64 {
+    square(x) + square(y)
+}
+
+pub fn f(a: i64) -> i64 {
+    sum_of_squares(a + 1, a * 2)
+}
+
+// =============================================================================
+// PART 4: LOCAL STATE - FUNCTIONAL APPROACH
+// =============================================================================
+
+/// A withdraw function using functional state (returns new state).
+///
+/// Instead of mutating internal state, returns (new_balance, result).
+/// This is the idiomatic Rust/functional approach.
+#[derive(Debug, Clone, Copy, PartialEq)]
+pub struct Wallet {
+    balance: f64,
+}
+
+impl Wallet {
+    pub fn new(initial_balance: f64) -> Self {
+        Self {
+            balance: initial_balance,
+        }
+    }
+
+    pub fn balance(&self) -> f64 {
+        self.balance
+    }
+
+    /// Withdraw returns (new_wallet, result)
+    pub fn withdraw(&self, amount: f64) -> (Self, Result<f64, &'static str>) {
+        if self.balance >= amount {
+            let new_balance = self.balance - amount;
+            (
+                Self {
+                    balance: new_balance,
+                },
+                Ok(new_balance),
+            )
+        } else {
+            (*self, Err("Insufficient funds"))
+        }
+    }
+
+    /// Deposit returns (new_wallet, new_balance)
+    #[must_use]
+    pub fn deposit(&self, amount: f64) -> (Self, f64) {
+        let new_balance = self.balance + amount;
+        (
+            Self {
+                balance: new_balance,
+            },
+            new_balance,
+        )
+    }
+}
+
+/// Creates a withdraw closure using Cell<f64> for interior mutability.
+///
+/// This is simpler than RefCell for Copy types.
+pub fn make_withdraw(initial_balance: f64) -> impl FnMut(f64) -> Result<f64, &'static str> {
+    let balance = Cell::new(initial_balance);
+
+    move |amount: f64| {
+        let current = balance.get();
+        if current >= amount {
+            let new_balance = current - amount;
+            balance.set(new_balance);
+            Ok(new_balance)
+        } else {
+            Err("Insufficient funds")
+        }
+    }
+}
+
+/// Struct-based withdraw processor using Cell<f64>.
+pub struct WithdrawProcessor {
+    balance: Cell<f64>,
+}
+
+impl WithdrawProcessor {
+    pub fn new(initial_balance: f64) -> Self {
+        Self {
+            balance: Cell::new(initial_balance),
+        }
+    }
+
+    pub fn withdraw(&self, amount: f64) -> Result<f64, &'static str> {
+        let current = self.balance.get();
+        if current >= amount {
+            let new_balance = current - amount;
+            self.balance.set(new_balance);
+            Ok(new_balance)
+        } else {
+            Err("Insufficient funds")
+        }
+    }
+
+    pub fn balance(&self) -> f64 {
+        self.balance.get()
+    }
+}
+
+// =============================================================================
+// PART 5: EXERCISE 3.9 - FACTORIAL ENVIRONMENTS
+// =============================================================================
+
+/// Recursive factorial (corresponds to SICP Exercise 3.9 first version)
+pub fn factorial_recursive(n: i64) -> i64 {
+    if n == 1 {
+        1
+    } else {
+        n * factorial_recursive(n - 1)
+    }
+}
+
+/// Iterative factorial using an internal helper (Exercise 3.9 second version)
+pub fn factorial_iterative(n: i64) -> i64 {
+    fn fact_iter(product: i64, counter: i64, max_count: i64) -> i64 {
+        if counter > max_count {
+            product
+        } else {
+            fact_iter(counter * product, counter + 1, max_count)
+        }
+    }
+    fact_iter(1, 1, n)
+}
+
+// =============================================================================
+// PART 6: EXERCISE 3.11 - MESSAGE-PASSING ACCOUNT
+// =============================================================================
+
+/// A bank account using functional state pattern.
+#[derive(Debug, Clone, Copy, PartialEq)]
+pub struct Account {
+    balance: f64,
+}
+
+impl Account {
+    pub fn new(initial_balance: f64) -> Self {
+        Self {
+            balance: initial_balance,
+        }
+    }
+
+    pub fn balance(&self) -> f64 {
+        self.balance
+    }
+
+    pub fn withdraw(&self, amount: f64) -> (Self, Result<f64, &'static str>) {
+        if self.balance >= amount {
+            let new_balance = self.balance - amount;
+            (
+                Self {
+                    balance: new_balance,
+                },
+                Ok(new_balance),
+            )
+        } else {
+            (*self, Err("Insufficient funds"))
+        }
+    }
+
+    #[must_use]
+    pub fn deposit(&self, amount: f64) -> (Self, f64) {
+        let new_balance = self.balance + amount;
+        (
+            Self {
+                balance: new_balance,
+            },
+            new_balance,
+        )
+    }
+}
+
+/// Message-passing account using Cell for interior mutability.
+pub struct MutableAccount {
+    balance: Cell<f64>,
+}
+
+impl MutableAccount {
+    pub fn new(initial_balance: f64) -> Self {
+        Self {
+            balance: Cell::new(initial_balance),
+        }
+    }
+
+    pub fn balance(&self) -> f64 {
+        self.balance.get()
+    }
+
+    pub fn withdraw(&self, amount: f64) -> Result<f64, &'static str> {
+        let current = self.balance.get();
+        if current >= amount {
+            let new_balance = current - amount;
+            self.balance.set(new_balance);
+            Ok(new_balance)
+        } else {
+            Err("Insufficient funds")
+        }
+    }
+
+    pub fn deposit(&self, amount: f64) -> f64 {
+        let new_balance = self.balance.get() + amount;
+        self.balance.set(new_balance);
+        new_balance
+    }
+}
+
+// =============================================================================
+// TESTS
+// =============================================================================
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_env_demo() {
+        let (x, y, z) = env_demo();
+        assert_eq!(x, Some(7)); // Shadowed
+        assert_eq!(y, Some(5)); // From outer
+        assert_eq!(z, Some(6)); // From inner
+    }
+
+    #[test]
+    fn test_persistent_environment() {
+        let env1 = Environment::<i64>::new().define("x".to_string(), 10);
+
+        // Functional update creates new environment
+        let env2 = env1.define("x".to_string(), 20);
+
+        // Original unchanged (persistent)
+        assert_eq!(env1.lookup("x"), Some(&10));
+        assert_eq!(env2.lookup("x"), Some(&20));
+    }
+
+    #[test]
+    fn test_environment_extend() {
+        let outer = Environment::<i64>::new()
+            .define("a".to_string(), 1)
+            .define("b".to_string(), 2);
+
+        let inner = outer.extend([
+            ("c".to_string(), 3),
+            ("a".to_string(), 100), // Shadows a
+        ]);
+
+        assert_eq!(inner.lookup("a"), Some(&100)); // Shadowed
+        assert_eq!(inner.lookup("b"), Some(&2)); // From parent
+        assert_eq!(inner.lookup("c"), Some(&3)); // Local
+        assert_eq!(outer.lookup("a"), Some(&1)); // Unchanged
+    }
+
+    #[test]
+    fn test_square_procedure() {
+        assert_eq!(square(5), 25);
+    }
+
+    #[test]
+    fn test_nested_procedure_calls() {
+        // (f 5) = (sum-of-squares 6 10) = 36 + 100 = 136
+        assert_eq!(f(5), 136);
+    }
+
+    #[test]
+    fn test_wallet_functional() {
+        let w = Wallet::new(100.0);
+
+        let (w, result) = w.withdraw(50.0);
+        assert_eq!(result, Ok(50.0));
+
+        let (w, result) = w.withdraw(30.0);
+        assert_eq!(result, Ok(20.0));
+
+        let (_, result) = w.withdraw(25.0);
+        assert_eq!(result, Err("Insufficient funds"));
+    }
+
+    #[test]
+    fn test_make_withdraw() {
+        let mut w1 = make_withdraw(100.0);
+
+        assert_eq!(w1(50.0), Ok(50.0));
+        assert_eq!(w1(30.0), Ok(20.0));
+        assert_eq!(w1(25.0), Err("Insufficient funds"));
+        assert_eq!(w1(10.0), Ok(10.0));
+    }
+
+    #[test]
+    fn test_independent_withdraw_objects() {
+        let mut w1 = make_withdraw(100.0);
+        let mut w2 = make_withdraw(100.0);
+
+        assert_eq!(w1(50.0), Ok(50.0));
+        assert_eq!(w2(30.0), Ok(70.0));
+        assert_eq!(w1(10.0), Ok(40.0));
+        assert_eq!(w2(10.0), Ok(60.0));
+    }
+
+    #[test]
+    fn test_withdraw_processor() {
+        let w = WithdrawProcessor::new(100.0);
+
+        assert_eq!(w.withdraw(50.0), Ok(50.0));
+        assert_eq!(w.withdraw(30.0), Ok(20.0));
+        assert_eq!(w.withdraw(25.0), Err("Insufficient funds"));
+        assert_eq!(w.balance(), 20.0);
+    }
+
+    #[test]
+    fn test_factorial_recursive() {
+        assert_eq!(factorial_recursive(1), 1);
+        assert_eq!(factorial_recursive(6), 720);
+    }
+
+    #[test]
+    fn test_factorial_iterative() {
+        assert_eq!(factorial_iterative(1), 1);
+        assert_eq!(factorial_iterative(6), 720);
+    }
+
+    #[test]
+    fn test_account_functional() {
+        let acc = Account::new(50.0);
+
+        let (acc, balance) = acc.deposit(40.0);
+        assert_eq!(balance, 90.0);
+
+        let (acc, result) = acc.withdraw(60.0);
+        assert_eq!(result, Ok(30.0));
+
+        let (_, result) = acc.withdraw(50.0);
+        assert_eq!(result, Err("Insufficient funds"));
+    }
+
+    #[test]
+    fn test_mutable_account() {
+        let acc = MutableAccount::new(50.0);
+
+        assert_eq!(acc.deposit(40.0), 90.0);
+        assert_eq!(acc.withdraw(60.0), Ok(30.0));
+        assert_eq!(acc.balance(), 30.0);
+        assert_eq!(acc.withdraw(50.0), Err("Insufficient funds"));
+    }
+
+    #[test]
+    fn test_independent_accounts() {
+        let acc1 = MutableAccount::new(50.0);
+        let acc2 = MutableAccount::new(100.0);
+
+        acc1.deposit(40.0);
+        acc2.withdraw(30.0).ok();
+
+        assert_eq!(acc1.balance(), 90.0);
+        assert_eq!(acc2.balance(), 70.0);
+    }
+
+    #[test]
+    fn test_closure_captures_environment() {
+        let x = 10;
+        let add_x = |y| x + y;
+        assert_eq!(add_x(5), 15);
+    }
+
+    #[test]
+    fn test_value_procedure() {
+        let env = Environment::<Value>::new().define("x".to_string(), Value::Number(42.0));
+
+        let proc = Value::Procedure {
+            params: vec!["y".to_string()],
+            body: "(+ x y)".to_string(),
+            env: env.clone(),
+        };
+
+        // The procedure owns its environment
+        if let Value::Procedure {
+            env: captured_env, ..
+        } = proc
+        {
+            assert!(captured_env.lookup("x").is_some());
+        }
+    }
+}

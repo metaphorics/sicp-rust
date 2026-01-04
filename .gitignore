@@ -6,3 +6,6 @@ toc.xhtml
 *.swp
 *~
 \#*\#
+**/target/
+*.lock
+node_modules/

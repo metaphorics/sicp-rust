@@ -16,7 +16,7 @@ JS = $(DIR)js/*.js              # javascript libraries
 CONV = texi2any lib/Texinfo/Convert/HTML.pm     # Texinfo converter scripts
 MATH = get-math.js put-math.js mathcell.xhtml   # LaTeX -> MathML converter
 HIGHL = $(DIR)js/highlight/
-PRETTY = $(HIGHL)prettify.js $(HIGHL)lang-lisp.js batch-prettify.js
+PRETTY = $(HIGHL)prettify.js $(HIGHL)lang-lisp.js $(HIGHL)lang-rust.js batch-prettify-node.js
 COVER = index.in.xhtml $(DIR)fig/coverpage.std.svg $(DIR)fig/bookwheel.jpg
 THUMB = $(DIR)fig/cover.png     # thumbnail cover image
 SHELL = /bin/bash
@@ -24,6 +24,11 @@ SHELL = /bin/bash
 JQ = <script src=\"js/jquery.min.js\" type=\"text/javascript\"></script>
 FT = <script src=\"js/footnotes.js\" type=\"text/javascript\"></script>
 BR = <script src=\"js/browsertest.js\" type=\"text/javascript\"></script>
+SCSS = <link href=\"css/style.css\" rel=\"stylesheet\" type=\"text/css\" />
+PCSS = <link href=\"css/prettify.css\" rel=\"stylesheet\" type=\"text/css\" />
+PJS = <script src=\"js/highlight/prettify.js\" type=\"text/javascript\"></script>
+PLSP = <script src=\"js/highlight/lang-lisp.js\" type=\"text/javascript\"></script>
+PRST = <script src=\"js/highlight/lang-rust.js\" type=\"text/javascript\"></script>
 
 GITHUB = <a href=\"https://github.com/sarabander/sicp\"><img style=\"position: absolute; top: 0; right: 0; border: 0; width: 149px; height: 149px; z-index: 10; opacity: 0.5;\" src=\"http://aral.github.com/fork-me-on-github-retina-ribbons/right-red\@2x.png\" alt=\"Fork me on GitHub\" /></a>
 
@@ -34,7 +39,7 @@ all: $(GOAL)
 	@if ! grep -m 1 -l 'browsertest' $(NEXUS); then \
 	  for file in $(HTML); do \
 	    perl -0p -i.bak -e \
-	      "s{\s*</head>}{\n\n$(JQ)\n$(FT)\n$(BR)\n</head>}" $$file; \
+	      "s{\s*</head>}{\n$(SCSS)\n$(PCSS)\n\n$(JQ)\n$(FT)\n$(BR)\n$(PJS)\n$(PLSP)\n$(PRST)\n</head>}" $$file; \
 	  done; \
 	  rm $(DIR)*.bak; \
 	fi; \
@@ -50,7 +55,7 @@ exercises.texi figures.texi: ex-fig-ref.pl
 
 $(NEXUS): $(SRC) $(CONV) $(MATH) $(PRETTY) exercises.texi figures.texi
 	@echo -n "Converting Texinfo file to HTML..."; \
-	./texi2any --no-warn --html --split=section --no-headers --iftex $(SRC)
+	PERL5LIB=lib texi2any --no-warn --html --split=section --no-headers --iftex $(SRC)
 	@# Remove temporary files.
 	@grep -lZ 'This file redirects' $(HTML) | xargs -0 rm -f --
 	@echo "done."
@@ -60,8 +65,8 @@ $(NEXUS): $(SRC) $(CONV) $(MATH) $(PRETTY) exercises.texi figures.texi
 	./put-math.js db.json $(HTML); \
 	echo "done."
 
-	@echo -n "Syntax highlighting Scheme code..."; \
-	./batch-prettify.js $(HTML); \
+	@echo -n "Syntax highlighting code..."; \
+	node ./batch-prettify-node.js $(HTML); \
 	echo "done."
 
 	@# Add xml declaration
@@ -87,7 +92,7 @@ $(META): $(NEXUS) create_metafiles.rb
 	./create_metafiles.rb
 
 $(THUMB): $(COVER)
-	@inkscape -b "#fbfbfb" -C -e $(THUMB) -f $(DIR)fig/coverpage.std.svg > /dev/null
+	@inkscape --export-background="#fbfbfb" --export-area-page --export-filename=$(THUMB) $(DIR)fig/coverpage.std.svg > /dev/null
 
 $(GOAL): $(META) $(THUMB) $(FIG) $(CSS) $(FONT) mimetype META-INF/* LICENSE
 	@if [ -f $(GOAL) ]; then rm $(GOAL); fi; \
@@ -104,4 +109,10 @@ $(GOAL): $(META) $(THUMB) $(FIG) $(CSS) $(FONT) mimetype META-INF/* LICENSE
 	  index.xhtml $(DIR)css/* $(DIR)fig/* ; \
 	echo "done."
 
-.PHONY: all epub html
+# Rust examples testing
+test-rust:
+	@echo "Testing Rust examples..."; \
+	cd rust-examples && cargo test --workspace; \
+	echo "done."
+
+.PHONY: all epub html test-rust

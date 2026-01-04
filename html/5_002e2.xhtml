@@ -1,401 +1,403 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="en" lang="en">
-<!-- Created by GNU Texinfo 5.1, http://www.gnu.org/software/texinfo/ -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
-<title>Structure and Interpretation of Computer Programs, 2e: 5.2</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>5.2 (Structure and Interpretation of Computer Programs, 2e)</title>
 
-<meta name="description" content="Structure and Interpretation of Computer Programs, 2e: 5.2" />
-<meta name="keywords" content="Structure and Interpretation of Computer Programs, 2e: 5.2" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="5.2 (Structure and Interpretation of Computer Programs, 2e)" />
+<meta name="keywords" content="5.2 (Structure and Interpretation of Computer Programs, 2e)" />
+<meta name="resource-type" content="document" />
+<meta name="distribution" content="global" />
 <meta name="Generator" content="texi2any" />
-<meta charset="utf-8" />
-<link href="index.xhtml#Top" rel="start" title="Top" />
-<link href="Term-Index.xhtml#Term-Index" rel="index" title="Term Index" />
-<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents" />
-<link href="Chapter-5.xhtml#Chapter-5" rel="prev" title="Chapter 5" />
-<link href="5_002e3.xhtml#g_t5_002e3" rel="next" title="5.3" />
-<link href="5_002e1.xhtml#g_t5_002e1_002e5" rel="prev" title="5.1.5" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 
+<link href="index.xhtml" rel="start" title="Top" />
+<link href="Term-Index.xhtml" rel="index" title="Term Index" />
+<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents" />
+<link href="Chapter-5.xhtml" rel="up" title="Chapter 5" />
+<link href="5_002e3.xhtml#g_t5_002e3" rel="next" title="5.3" />
+<link href="5_002e1.xhtml#g_t5_002e1" rel="prev" title="5.1" />
+<style type="text/css">
+<!--
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+div.example {margin-left: 3.2em}
+span:hover a.copiable-link {visibility: visible}
+ul.mark-bullet {list-style-type: disc}
+-->
+</style>
 <link href="css/style.css" rel="stylesheet" type="text/css" />
 <link href="css/prettify.css" rel="stylesheet" type="text/css" />
-
-<script src="js/jquery.min.js" type="text/javascript"></script>
-<script src="js/footnotes.js" type="text/javascript"></script>
-<script src="js/browsertest.js" type="text/javascript"></script>
+<script src="js/highlight/prettify.js" type="text/javascript"></script>
+<script src="js/highlight/lang-lisp.js" type="text/javascript"></script>
+<script src="js/highlight/lang-rust.js" type="text/javascript"></script>
 </head>
 
-<body>
-<section><span class="top jump" title="Jump to top"><a href="#pagetop" accesskey="t">⇡</a></span><a id="pagetop"></a><a id="g_t5_002e2"></a>
-<nav class="header">
+<body lang="en">
+<div class="section-level-extent" id="g_t5_002e2">
+<div class="nav-panel">
 <p>
-Next: <a href="5_002e3.xhtml#g_t5_002e3" accesskey="n" rel="next">5.3</a>, Prev: <a href="5_002e1.xhtml#g_t5_002e1" accesskey="p" rel="prev">5.1</a>, Up: <a href="Chapter-5.xhtml#Chapter-5" accesskey="u" rel="prev">Chapter 5</a>   [<a href="index.xhtml#SEC_Contents" title="Table of contents" accesskey="c" rel="contents">Contents</a>]</p>
-</nav>
-<a id="A-Register_002dMachine-Simulator"></a>
-<h3 class="section"><span class="secnum">5.2</span><span class="sectitle">A Register-Machine Simulator</span></h3>
+Next: <a href="5_002e3.xhtml#g_t5_002e3" accesskey="n" rel="next">Storage Allocation and Garbage Collection</a>, Previous: <a href="5_002e1.xhtml#g_t5_002e1" accesskey="p" rel="prev">Designing Register Machines</a>, Up: <a href="Chapter-5.xhtml" accesskey="u" rel="up">Computing with Register Machines</a> &#160; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
+</div>
+<h3 class="section" id="A-Register_002dMachine-Simulator"><span>5.2 A Register-Machine Simulator<a class="copiable-link" href="#A-Register_002dMachine-Simulator"> &#182;</a></span></h3>
 
 <p>In order to gain a good understanding of the design of register machines, we
 must test the machines we design to see if they perform as expected.  One way
 to test a design is to hand-simulate the operation of the controller, as in
-<a href="5_002e1.xhtml#Exercise-5_002e5">Exercise 5.5</a>.  But this is extremely tedious for all but the simplest
+<a class="ref" href="5_002e1.xhtml#Exercise-5_002e5">Exercise 5.5</a>.  But this is extremely tedious for all but the simplest
 machines.  In this section we construct a simulator for machines described in
-the register-machine language.  The simulator is a Scheme program with four
-interface procedures.  The first uses a description of a register machine to
-construct a model of the machine (a data structure whose parts correspond to
-the parts of the machine to be simulated), and the other three allow us to
-simulate the machine by manipulating the model:
+the register-machine language.  The simulator is a Rust program with several
+key methods on the <code class="code">Machine</code> struct:
 </p>
-<blockquote>
+<blockquote class="quotation">
 
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">make-machine ⟨</span><var><span class="pln">register-names</span></var><span class="pln">⟩
-              ⟨</span><var><span class="pln">operations</span></var><span class="pln">⟩
-              ⟨</span><var><span class="pln">controller</span></var><span class="pln">⟩</span><span class="clo">)</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">MachineBuilder::new()
+    .register(⟨<var class="var">name</var>⟩)
+    .operation(⟨<var class="var">name</var>⟩, ⟨<var class="var">func</var>⟩)
+    .controller(⟨<var class="var">instructions</var>⟩)
+    .build()
+</pre></div>
 
 <p>constructs and returns a model of the machine with the given registers,
 operations, and controller.
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">set-register-contents! ⟨</span><var><span class="pln">machine-model</span></var><span class="pln">⟩ 
-                        ⟨</span><var><span class="pln">register-name</span></var><span class="pln">⟩ 
-                        ⟨</span><var><span class="pln">value</span></var><span class="pln">⟩</span><span class="clo">)</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">machine.set_register(⟨<var class="var">register_name</var>⟩, ⟨<var class="var">value</var>⟩)
+</pre></div>
 
 <p>stores a value in a simulated register in the given machine.
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">get-register-contents ⟨</span><var><span class="pln">machine-model</span></var><span class="pln">⟩
-                       ⟨</span><var><span class="pln">register-name</span></var><span class="pln">⟩</span><span class="clo">)</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">machine.get_register(⟨<var class="var">register_name</var>⟩)
+</pre></div>
 
 <p>returns the contents of a simulated register in the given machine.
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">start ⟨</span><var><span class="pln">machine-model</span></var><span class="pln">⟩</span><span class="clo">)</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">machine.start()
+</pre></div>
 
 <p>simulates the execution of the given machine, starting from the beginning of
 the controller sequence and stopping when it reaches the end of the sequence.
 </p></blockquote>
 
 <p>As an example of how these procedures are used, we can define
-<code>gcd-machine</code> to be a model of the <abbr>GCD</abbr> machine of 
-<a href="5_002e1.xhtml#g_t5_002e1_002e1">5.1.1</a> as follows:
+<code class="code">gcd-machine</code> to be a model of the <abbr class="abbr">GCD</abbr> machine of
+<a class="ref" href="5_002e1.xhtml#g_t5_002e1_002e1">A Language for Describing Register Machines</a> as follows:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> gcd-machine
-  </span><span class="opn">(</span><span class="pln">make-machine
-   </span><span class="lit">'</span><span class="opn">(</span><span class="pln">a b t</span><span class="clo">)</span><span class="pln">
-   </span><span class="opn">(</span><span class="pln">list </span><span class="opn">(</span><span class="pln">list </span><span class="lit">'rem</span><span class="pln"> remainder</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">list </span><span class="lit">'</span><span class="pun">=</span><span class="pln"> </span><span class="pun">=</span><span class="clo">))</span><span class="pln">
-   </span><span class="lit">'</span><span class="opn">(</span><span class="pln">test-b
-       </span><span class="opn">(</span><span class="pln">test </span><span class="opn">(</span><span class="pln">op </span><span class="pun">=</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">reg b</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">const </span><span class="lit">0</span><span class="clo">))</span><span class="pln">
-       </span><span class="opn">(</span><span class="pln">branch </span><span class="opn">(</span><span class="pln">label gcd-done</span><span class="clo">))</span><span class="pln">
-       </span><span class="opn">(</span><span class="pln">assign t </span><span class="opn">(</span><span class="pln">op rem</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">reg a</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">reg b</span><span class="clo">))</span><span class="pln">
-       </span><span class="opn">(</span><span class="pln">assign a </span><span class="opn">(</span><span class="pln">reg b</span><span class="clo">))</span><span class="pln">
-       </span><span class="opn">(</span><span class="pln">assign b </span><span class="opn">(</span><span class="pln">reg t</span><span class="clo">))</span><span class="pln">
-       </span><span class="opn">(</span><span class="pln">goto </span><span class="opn">(</span><span class="pln">label test-b</span><span class="clo">))</span><span class="pln">
-     gcd-done</span><span class="clo">)))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">// In Rust, we build the machine using the MachineBuilder:
+let mut gcd_machine = MachineBuilder::new()
+    .register(&quot;a&quot;)
+    .register(&quot;b&quot;)
+    .register(&quot;t&quot;)
+    .operation(&quot;rem&quot;, |args| {
+        let a = args[0].as_number();
+        let b = args[1].as_number();
+        Value::Number(a % b)
+    })
+    .operation(&quot;=&quot;, |args| {
+        Value::Bool(args[0] == args[1])
+    })
+    .controller(vec![
+        Inst::Label(&quot;test-b&quot;.to_string()),
+        Inst::Test(OpExp::new(&quot;=&quot;, vec![VExp::Reg(&quot;b&quot;.to_string()), VExp::Const(Value::Number(0))])),
+        Inst::Branch(&quot;gcd-done&quot;.to_string()),
+        Inst::Assign(&quot;t&quot;.to_string(), VExp::Op(OpExp::new(&quot;rem&quot;, vec![VExp::Reg(&quot;a&quot;.to_string()), VExp::Reg(&quot;b&quot;.to_string())]))),
+        Inst::Assign(&quot;a&quot;.to_string(), VExp::Reg(&quot;b&quot;.to_string())),
+        Inst::Assign(&quot;b&quot;.to_string(), VExp::Reg(&quot;t&quot;.to_string())),
+        Inst::Goto(GotoDest::Label(&quot;test-b&quot;.to_string())),
+        Inst::Label(&quot;gcd-done&quot;.to_string()),
+    ])
+    .build();
+</pre></div>
 
-<p>The first argument to <code>make-machine</code> is a list of register names.  The
+<p>The first argument to <code class="code">make_machine</code> is a list of register names.  The
 next argument is a table (a list of two-element lists) that pairs each
 operation name with a Scheme procedure that implements the operation (that is,
 produces the same output value given the same input values).  The last argument
 specifies the controller as a list of labels and machine instructions, as in
-<a href="5_002e1.xhtml#g_t5_002e1">5.1</a>.
+<a class="ref" href="5_002e1.xhtml#g_t5_002e1">Designing Register Machines</a>.
 </p>
-<p>To compute <abbr>GCD</abbr>s with this machine, we set the input registers, start
+<p>To compute <abbr class="abbr">GCD</abbr>s with this machine, we set the input registers, start
 the machine, and examine the result when the simulation terminates:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">set-register-contents! gcd-machine </span><span class="lit">'a</span><span class="pln"> </span><span class="lit">206</span><span class="clo">)</span><span class="pln">
-</span><i><span class="pln">done</span></i><span class="pln">
+<div class="example">
+<pre class="example-preformatted">gcd_machine.set_register(&quot;a&quot;, Value::Number(206));
+gcd_machine.set_register(&quot;b&quot;, Value::Number(40));
+gcd_machine.start();
 
-</span><span class="opn">(</span><span class="pln">set-register-contents! gcd-machine </span><span class="lit">'b</span><span class="pln"> </span><span class="lit">40</span><span class="clo">)</span><span class="pln">
-</span><i><span class="pln">done</span></i><span class="pln">
-
-</span><span class="opn">(</span><span class="pln">start gcd-machine</span><span class="clo">)</span><span class="pln">
-</span><i><span class="pln">done</span></i><span class="pln">
-
-</span><span class="opn">(</span><span class="pln">get-register-contents gcd-machine </span><span class="lit">'a</span><span class="clo">)</span><span class="pln">
-</span><i><span class="lit">2</span></i>
+gcd_machine.get_register(&quot;a&quot;)
+// =&gt; Value::Number(2)
 </pre></div>
 
-<p>This computation will run much more slowly than a <code>gcd</code> procedure written
-in Scheme, because we will simulate low-level machine instructions, such as
-<code>assign</code>, by much more complex operations.
+<p>This computation will run much more slowly than a <code class="code">gcd</code> procedure written
+in Rust, because we will simulate low-level machine instructions, such as
+<code class="code">assign</code>, by much more complex operations.
 </p>
-<blockquote>
-<p><strong><a id="Exercise-5_002e7"></a>Exercise 5.7:</strong> Use the simulator to test the
-machines you designed in <a href="5_002e1.xhtml#Exercise-5_002e4">Exercise 5.4</a>.
+<blockquote class="quotation">
+<p><strong class="strong"><a class="anchor" id="Exercise-5_002e7"></a>Exercise 5.7:</strong> Use the simulator to test the
+</p>
+<p><b class="b">Rust (recursive factorial machine):</b>
+</p><div class="example">
+<pre class="example-preformatted">vec![
+    Assign(&quot;continue&quot;.into(), Source::Label(&quot;fact-done&quot;.into())),
+    // fact-loop
+    Test(Op(&quot;=&quot;.into(), vec![Reg(&quot;n&quot;.into()), Const(1)])),
+    Branch(&quot;base-case&quot;.into()),
+    Save(&quot;continue&quot;.into()),
+    Save(&quot;n&quot;.into()),
+    Assign(&quot;n&quot;.into(), Op(&quot;-&quot;.into(), vec![Reg(&quot;n&quot;.into()), Const(1)])),
+    Assign(&quot;continue&quot;.into(), Source::Label(&quot;after-fact&quot;.into())),
+    Goto(Label(&quot;fact-loop&quot;.into())),
+    // after-fact
+    Restore(&quot;n&quot;.into()),
+    Restore(&quot;continue&quot;.into()),
+    Assign(&quot;val&quot;.into(), Op(&quot;*&quot;.into(),
+        vec![Reg(&quot;n&quot;.into()), Reg(&quot;val&quot;.into())])),
+    Goto(Reg(&quot;continue&quot;.into())),
+    // base-case
+    Assign(&quot;val&quot;.into(), Const(1)),
+    Goto(Reg(&quot;continue&quot;.into())),
+]
+</pre></div>
+
+<p>machines you designed in <a class="ref" href="5_002e1.xhtml#Exercise-5_002e4">Exercise 5.4</a>.
 </p></blockquote>
 
 
-<a id="g_t5_002e2_002e1"></a>
-<a id="The-Machine-Model"></a>
-<h4 class="subsection"><span class="secnum">5.2.1</span><span class="sectitle">The Machine Model</span></h4>
+<hr />
+<div class="subsection-level-extent" id="g_t5_002e2_002e1">
+<h4 class="subsection" id="The-Machine-Model"><span>5.2.1 The Machine Model<a class="copiable-link" href="#The-Machine-Model"> &#182;</a></span></h4>
 
-<p>The machine model generated by <code>make-machine</code> is represented as a
+<p>The machine model generated by <code class="code">make_machine</code> is represented as a
 procedure with local state using the message-passing techniques developed in
-<a href="Chapter-3.xhtml#Chapter-3">Chapter 3</a>.  To build this model, <code>make-machine</code> begins by calling
-the procedure <code>make-new-machine</code> to construct the parts of the machine
+<a class="ref" href="Chapter-3.xhtml">Modularity, Objects, and State</a>.  To build this model, <code class="code">make_machine</code> begins by calling
+the procedure <code class="code">make_new_machine</code> to construct the parts of the machine
 model that are common to all register machines.  This basic machine model
-constructed by <code>make-new-machine</code> is essentially a container for some
+constructed by <code class="code">make_new_machine</code> is essentially a container for some
 registers and a stack, together with an execution mechanism that processes the
 controller instructions one by one.
 </p>
-<p><code>Make-machine</code> then extends this basic model (by sending it messages) to
+<p><code class="code">Make_machine</code> then extends this basic model (by sending it messages) to
 include the registers, operations, and controller of the particular machine
 being defined.  First it allocates a register in the new machine for each of
 the supplied register names and installs the designated operations in the
-machine.  Then it uses an <a id="index-assembler"></a>
-<em>assembler</em> (described below in 
-<a href="#g_t5_002e2_002e2">5.2.2</a>) to transform the controller list into instructions for the new
-machine and installs these as the machine’s instruction sequence.
-<code>Make-machine</code> returns as its value the modified machine model.
+machine.  Then it uses an <a class="index-entry-id" id="index-assembler"></a>
+<em class="dfn">assembler</em> (described below in
+<a class="ref" href="#g_t5_002e2_002e2">The Assembler</a>) to transform the controller list into instructions for the new
+machine and installs these as the machine&#8217;s instruction sequence.
+<code class="code">Make_machine</code> returns as its value the modified machine model.
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-machine register-names 
-                      ops 
-                      controller-text</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">machine </span><span class="opn">(</span><span class="pln">make-new-machine</span><span class="clo">)))</span><span class="pln">
-    </span><span class="opn">(</span><span class="pln">for-each </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">register-name</span><span class="clo">)</span><span class="pln">
-                </span><span class="opn">((</span><span class="pln">machine </span><span class="lit">'allocate-register</span><span class="clo">)</span><span class="pln"> 
-                 register-name</span><span class="clo">))</span><span class="pln">
-              register-names</span><span class="clo">)</span><span class="pln">
-    </span><span class="opn">((</span><span class="pln">machine </span><span class="lit">'install-operations</span><span class="clo">)</span><span class="pln"> ops</span><span class="clo">)</span><span class="pln">
-    </span><span class="opn">((</span><span class="pln">machine </span><span class="lit">'install-instruction-sequence</span><span class="clo">)</span><span class="pln">
-     </span><span class="opn">(</span><span class="pln">assemble controller-text machine</span><span class="clo">))</span><span class="pln">
-    machine</span><span class="clo">))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">pub fn make_machine(
+    register_names: &amp;[&amp;str],
+    operations: Vec&lt;(&amp;str, OpFn)&gt;,
+    controller: Vec&lt;Inst&gt;,
+) -&gt; Machine {
+    let mut builder = MachineBuilder::new();
 
-<a id="Registers"></a>
-<h5 class="subsubheading">Registers</h5>
+    for name in register_names {
+        builder = builder.register(name);
+    }
+
+    for (name, op) in operations {
+        builder = builder.operation(name, op);
+    }
+
+    builder.controller(controller).build()
+}
+</pre></div>
+
+<h4 class="subsubheading" id="Registers"><span>Registers<a class="copiable-link" href="#Registers"> &#182;</a></span></h4>
 
 <p>We will represent a register as a procedure with local state, as in
-<a href="Chapter-3.xhtml#Chapter-3">Chapter 3</a>.  The procedure <code>make-register</code> creates a register that
+<a class="ref" href="Chapter-3.xhtml">Modularity, Objects, and State</a>.  The procedure <code class="code">make_register</code> creates a register that
 holds a value that can be accessed or changed:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-register name</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">contents </span><span class="lit">'</span><span class="pun">*</span><span class="pln">unassigned</span><span class="pun">*</span><span class="clo">))</span><span class="pln">
-    </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">dispatch message</span><span class="clo">)</span><span class="pln">
-      </span><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">((</span><span class="kwd">eq</span><span class="pun">?</span><span class="pln"> message </span><span class="lit">'get</span><span class="clo">)</span><span class="pln"> contents</span><span class="clo">)</span><span class="pln">
-            </span><span class="opn">((</span><span class="kwd">eq</span><span class="pun">?</span><span class="pln"> message </span><span class="lit">'set</span><span class="clo">)</span><span class="pln">
-             </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">value</span><span class="clo">)</span><span class="pln"> 
-               </span><span class="opn">(</span><span class="kwd">set</span><span class="pun">!</span><span class="pln"> contents value</span><span class="clo">)))</span><span class="pln">
-            </span><span class="opn">(</span><span class="kwd">else</span><span class="pln">
-             </span><span class="opn">(</span><span class="err">error</span><span class="pln"> </span><span class="str">"Unknown request: 
-                     REGISTER"</span><span class="pln">
-                    message</span><span class="clo">))))</span><span class="pln">
-    dispatch</span><span class="clo">))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">pub struct Machine {
+    registers: Vec&lt;Value&gt;,
+    register_map: HashMap&lt;String, usize&gt;,
+    // ... other fields
+}
+
+impl Machine {
+    pub fn get_register(&amp;self, name: &amp;str) -&gt; Value {
+        let idx = self.register_map.get(name).expect(&quot;Unknown register&quot;);
+        self.registers[*idx].clone()
+    }
+
+    pub fn set_register(&amp;mut self, name: &amp;str, value: Value) {
+        let idx = self.register_map.get(name).expect(&quot;Unknown register&quot;);
+        self.registers[*idx] = value;
+    }
+}
+</pre></div>
 
 <p>The following procedures are used to access registers:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">get-contents register</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">register </span><span class="lit">'get</span><span class="clo">))</span><span class="pln">
+<div class="example">
+<pre class="example-preformatted">// In Rust, we access registers directly via the Machine methods defined above.
+</pre></div>
 
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">set-contents! register value</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">((</span><span class="pln">register </span><span class="lit">'set</span><span class="clo">)</span><span class="pln"> value</span><span class="clo">))</span></pre></div>
-
-<a id="The-stack"></a>
-<h5 class="subsubheading">The stack</h5>
+<h4 class="subsubheading" id="The-stack"><span>The stack<a class="copiable-link" href="#The-stack"> &#182;</a></span></h4>
 
 <p>We can also represent a stack as a procedure with local state.  The procedure
-<code>make-stack</code> creates a stack whose local state consists of a list of the
-items on the stack.  A stack accepts requests to <code>push</code> an item onto the
-stack, to <code>pop</code> the top item off the stack and return it, and to
-<code>initialize</code> the stack to empty.
+<code class="code">make_stack</code> creates a stack whose local state consists of a list of the
+items on the stack.  A stack accepts requests to <code class="code">push</code> an item onto the
+stack, to <code class="code">pop</code> the top item off the stack and return it, and to
+<code class="code">initialize</code> the stack to empty.
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-stack</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">s </span><span class="lit">'</span><span class="opn">(</span><span class="clo">)))</span><span class="pln">
-    </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">push x</span><span class="clo">)</span><span class="pln">
-      </span><span class="opn">(</span><span class="kwd">set</span><span class="pun">!</span><span class="pln"> s </span><span class="opn">(</span><span class="kwd">cons</span><span class="pln"> x s</span><span class="clo">)))</span><span class="pln">
-    </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">pop</span><span class="clo">)</span><span class="pln">
-      </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pln">null? s</span><span class="clo">)</span><span class="pln">
-          </span><span class="opn">(</span><span class="err">error</span><span class="pln"> </span><span class="str">"Empty stack: POP"</span><span class="clo">)</span><span class="pln">
-          </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">top </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> s</span><span class="clo">)))</span><span class="pln">
-            </span><span class="opn">(</span><span class="kwd">set</span><span class="pun">!</span><span class="pln"> s </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> s</span><span class="clo">))</span><span class="pln">
-            top</span><span class="clo">)))</span><span class="pln">
-    </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">initialize</span><span class="clo">)</span><span class="pln">
-      </span><span class="opn">(</span><span class="kwd">set</span><span class="pun">!</span><span class="pln"> s </span><span class="lit">'</span><span class="opn">(</span><span class="clo">))</span><span class="pln">
-      </span><span class="lit">'done</span><span class="clo">)</span><span class="pln">
-    </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">dispatch message</span><span class="clo">)</span><span class="pln">
-      </span><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">((</span><span class="kwd">eq</span><span class="pun">?</span><span class="pln"> message </span><span class="lit">'push</span><span class="clo">)</span><span class="pln"> push</span><span class="clo">)</span><span class="pln">
-            </span><span class="opn">((</span><span class="kwd">eq</span><span class="pun">?</span><span class="pln"> message </span><span class="lit">'pop</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">pop</span><span class="clo">))</span><span class="pln">
-            </span><span class="opn">((</span><span class="kwd">eq</span><span class="pun">?</span><span class="pln"> message </span><span class="lit">'initialize</span><span class="clo">)</span><span class="pln"> 
-             </span><span class="opn">(</span><span class="pln">initialize</span><span class="clo">))</span><span class="pln">
-            </span><span class="opn">(</span><span class="kwd">else</span><span class="pln"> 
-             </span><span class="opn">(</span><span class="err">error</span><span class="pln"> </span><span class="str">"Unknown request: STACK"</span><span class="pln">
-                    message</span><span class="clo">))))</span><span class="pln">
-    dispatch</span><span class="clo">))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">pub struct Stack {
+    data: Vec&lt;Value&gt;,
+    pushes: usize,
+    max_depth: usize,
+}
+
+impl Stack {
+    pub fn new() -&gt; Self {
+        Stack { data: Vec::new(), pushes: 0, max_depth: 0 }
+    }
+
+    pub fn push(&amp;mut self, value: Value) {
+        self.data.push(value);
+        self.pushes += 1;
+        if self.data.len() &gt; self.max_depth {
+            self.max_depth = self.data.len();
+        }
+    }
+
+    pub fn pop(&amp;mut self) -&gt; Value {
+        self.data.pop().expect(&quot;Empty stack: POP&quot;)
+    }
+
+    pub fn initialize(&amp;mut self) {
+        self.data.clear();
+        self.pushes = 0;
+        self.max_depth = 0;
+    }
+}
+</pre></div>
 
 <p>The following procedures are used to access stacks:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">pop stack</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">stack </span><span class="lit">'pop</span><span class="clo">))</span><span class="pln">
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">push stack value</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">((</span><span class="pln">stack </span><span class="lit">'push</span><span class="clo">)</span><span class="pln"> value</span><span class="clo">))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">// In Rust, we use the MachineBuilder to construct the machine.
+// See the implementation in rust-examples/chapter5/src/section_5_2.rs
+</pre></div>
 
-<a id="The-basic-machine"></a>
-<h5 class="subsubheading">The basic machine</h5>
+<h4 class="subsubheading" id="The-basic-machine"><span>The basic machine<a class="copiable-link" href="#The-basic-machine"> &#182;</a></span></h4>
 
-<p>The <code>make-new-machine</code> procedure, shown in <a href="#Figure-5_002e13">Figure 5.13<!-- /@w --></a>, 
-constructs
+<p>The <code class="code">make_new_machine</code> procedure constructs
 an object whose local state consists of a stack, an initially empty instruction
 sequence, a list of operations that initially contains an operation to
-initialize the stack, and a <a id="index-register-table"></a>
-<em>register table</em> that initially contains
-two registers, named <code>flag</code> and <code>pc</code> (for “program counter”).  The
-internal procedure <code>allocate-register</code> adds new entries to the register
-table, and the internal procedure <code>lookup-register</code> looks up registers in
+initialize the stack, and a <a class="index-entry-id" id="index-register-table"></a>
+<em class="dfn">register table</em> that initially contains
+two registers, named <code class="code">flag</code> and <code class="code">pc</code> (for &#8220;program counter&#8221;).  The
+internal procedure <code class="code">allocate_register</code> adds new entries to the register
+table, and the internal procedure <code class="code">lookup_register</code> looks up registers in
 the table.
 </p>
-<p><strong><a id="Figure-5_002e13"></a>Figure 5.13:</strong> <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <mo stretchy="false">↓<!-- ↓ --></mo>
-</math> The <code>make-new-machine</code>
+<p><strong class="strong"><a class="anchor" id="Figure-5_002e13"></a>Figure 5.13:</strong> <em class="math">↓</em> The <code class="code">make_new_machine</code>
 procedure, which implements the basic machine model.
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-new-machine</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">pc </span><span class="opn">(</span><span class="pln">make-register </span><span class="lit">'pc</span><span class="clo">))</span><span class="pln">
-        </span><span class="opn">(</span><span class="pln">flag </span><span class="opn">(</span><span class="pln">make-register </span><span class="lit">'flag</span><span class="clo">))</span><span class="pln">
-        </span><span class="opn">(</span><span class="pln">stack </span><span class="opn">(</span><span class="pln">make-stack</span><span class="clo">))</span><span class="pln">
-        </span><span class="opn">(</span><span class="pln">the-instruction-sequence </span><span class="lit">'</span><span class="opn">(</span><span class="clo">)))</span><span class="pln">
-    </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">the-ops
-           </span><span class="opn">(</span><span class="pln">list 
-            </span><span class="opn">(</span><span class="pln">list </span><span class="lit">'initialize-stack</span><span class="pln">
-                  </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="clo">)</span><span class="pln"> 
-                    </span><span class="opn">(</span><span class="pln">stack </span><span class="lit">'initialize</span><span class="clo">)))))</span><span class="pln">
-          </span><span class="opn">(</span><span class="pln">register-table
-           </span><span class="opn">(</span><span class="pln">list </span><span class="opn">(</span><span class="pln">list </span><span class="lit">'pc</span><span class="pln"> pc</span><span class="clo">)</span><span class="pln"> 
-                 </span><span class="opn">(</span><span class="pln">list </span><span class="lit">'flag</span><span class="pln"> flag</span><span class="clo">))))</span><span class="pln">
-      </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">allocate-register name</span><span class="clo">)</span><span class="pln">
-        </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pln">assoc name register-table</span><span class="clo">)</span><span class="pln">
-            </span><span class="opn">(</span><span class="err">error</span><span class="pln"> 
-             </span><span class="str">"Multiply defined register: "</span><span class="pln"> 
-             name</span><span class="clo">)</span><span class="pln">
-            </span><span class="opn">(</span><span class="kwd">set</span><span class="pun">!</span><span class="pln"> register-table
-                  </span><span class="opn">(</span><span class="kwd">cons</span><span class="pln"> 
-                   </span><span class="opn">(</span><span class="pln">list name 
-                         </span><span class="opn">(</span><span class="pln">make-register name</span><span class="clo">))</span><span class="pln">
-                   register-table</span><span class="clo">)))</span><span class="pln">
-        </span><span class="lit">'register-allocated</span><span class="clo">)</span><span class="pln">
-      </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">lookup-register name</span><span class="clo">)</span><span class="pln">
-        </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">val 
-               </span><span class="opn">(</span><span class="pln">assoc name register-table</span><span class="clo">)))</span><span class="pln">
-          </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> val
-              </span><span class="opn">(</span><span class="kwd">cadr</span><span class="pln"> val</span><span class="clo">)</span><span class="pln">
-              </span><span class="opn">(</span><span class="err">error</span><span class="pln"> </span><span class="str">"Unknown register:"</span><span class="pln"> 
-                     name</span><span class="clo">))))</span><span class="pln">
-      </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">execute</span><span class="clo">)</span><span class="pln">
-        </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">insts </span><span class="opn">(</span><span class="pln">get-contents pc</span><span class="clo">)))</span><span class="pln">
-          </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pln">null? insts</span><span class="clo">)</span><span class="pln">
-              </span><span class="lit">'done</span><span class="pln">
-              </span><span class="opn">(</span><span class="kwd">begin</span><span class="pln">
-                </span><span class="opn">((</span><span class="pln">instruction-execution-proc 
-                  </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> insts</span><span class="clo">)))</span><span class="pln">
-                </span><span class="opn">(</span><span class="pln">execute</span><span class="clo">)))))</span><span class="pln">
-      </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">dispatch message</span><span class="clo">)</span><span class="pln">
-        </span><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">((</span><span class="kwd">eq</span><span class="pun">?</span><span class="pln"> message </span><span class="lit">'start</span><span class="clo">)</span><span class="pln">
-               </span><span class="opn">(</span><span class="pln">set-contents! 
-                pc
-                the-instruction-sequence</span><span class="clo">)</span><span class="pln">
-               </span><span class="opn">(</span><span class="pln">execute</span><span class="clo">))</span><span class="pln">
-              </span><span class="opn">((</span><span class="kwd">eq</span><span class="pun">?</span><span class="pln"> 
-                message 
-                </span><span class="lit">'install-instruction-sequence</span><span class="clo">)</span><span class="pln">
-               </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">seq</span><span class="clo">)</span><span class="pln"> 
-                 </span><span class="opn">(</span><span class="kwd">set</span><span class="pun">!</span><span class="pln"> 
-                  the-instruction-sequence 
-                  seq</span><span class="clo">)))</span><span class="pln">
-              </span><span class="opn">((</span><span class="kwd">eq</span><span class="pun">?</span><span class="pln"> message 
-                    </span><span class="lit">'allocate-register</span><span class="clo">)</span><span class="pln"> 
-               allocate-register</span><span class="clo">)</span><span class="pln">
-              </span><span class="opn">((</span><span class="kwd">eq</span><span class="pun">?</span><span class="pln"> message </span><span class="lit">'get-register</span><span class="clo">)</span><span class="pln"> 
-               lookup-register</span><span class="clo">)</span><span class="pln">
-              </span><span class="opn">((</span><span class="kwd">eq</span><span class="pun">?</span><span class="pln"> message 
-                    </span><span class="lit">'install-operations</span><span class="clo">)</span><span class="pln">
-               </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">ops</span><span class="clo">)</span><span class="pln"> 
-                 </span><span class="opn">(</span><span class="kwd">set</span><span class="pun">!</span><span class="pln"> the-ops 
-                       </span><span class="opn">(</span><span class="pln">append the-ops ops</span><span class="clo">))))</span><span class="pln">
-              </span><span class="opn">((</span><span class="kwd">eq</span><span class="pun">?</span><span class="pln"> message </span><span class="lit">'stack</span><span class="clo">)</span><span class="pln"> stack</span><span class="clo">)</span><span class="pln">
-              </span><span class="opn">((</span><span class="kwd">eq</span><span class="pun">?</span><span class="pln"> message </span><span class="lit">'operations</span><span class="clo">)</span><span class="pln"> 
-               the-ops</span><span class="clo">)</span><span class="pln">
-              </span><span class="opn">(</span><span class="kwd">else</span><span class="pln"> </span><span class="opn">(</span><span class="err">error</span><span class="pln"> </span><span class="str">"Unknown request: 
-                            MACHINE"</span><span class="pln">
-                           message</span><span class="clo">))))</span><span class="pln">
-      dispatch</span><span class="clo">)))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">impl Machine {
+    pub fn new() -&gt; Self {
+        Machine {
+            registers: Vec::new(),
+            register_map: HashMap::new(),
+            stack: Stack::new(),
+            pc: 0,
+            flag: false,
+            instructions: Vec::new(),
+            operations: HashMap::new(),
+            instruction_count: 0,
+        }
+    }
 
-<p>The <code>flag</code> register is used to control branching in the simulated machine.
-<code>Test</code> instructions set the contents of <code>flag</code> to the result of the
-test (true or false).  <code>Branch</code> instructions decide whether or not to
-branch by examining the contents of <code>flag</code>.
+    pub fn start(&amp;mut self) {
+        self.pc = 0;
+        self.execute();
+    }
+
+    fn execute(&amp;mut self) {
+        while self.pc &lt; self.instructions.len() {
+            let inst = self.instructions[self.pc].clone();
+            self.execute_instruction(inst);
+        }
+    }
+}
+</pre></div>
+
+<p>The <code class="code">flag</code> register is used to control branching in the simulated machine.
+<code class="code">Test</code> instructions set the contents of <code class="code">flag</code> to the result of the
+test (true or false).  <code class="code">Branch</code> instructions decide whether or not to
+branch by examining the contents of <code class="code">flag</code>.
 </p>
-<p>The <code>pc</code> register determines the sequencing of instructions as the machine
-runs.  This sequencing is implemented by the internal procedure <code>execute</code>.
+<p>The <code class="code">pc</code> register determines the sequencing of instructions as the machine
+runs.  This sequencing is implemented by the internal procedure <code class="code">execute</code>.
 In the simulation model, each machine instruction is a data structure that
-includes a procedure of no arguments, called the <a id="index-instruction-execution-procedure"></a>
-<em>instruction execution procedure</em>, 
+includes a procedure of no arguments, called the <a class="index-entry-id" id="index-instruction-execution-procedure"></a>
+<em class="dfn">instruction execution procedure</em>,
 such that calling this procedure simulates executing the
-instruction.  As the simulation runs, <code>pc</code> points to the place in the
+instruction.  As the simulation runs, <code class="code">pc</code> points to the place in the
 instruction sequence beginning with the next instruction to be executed.
-<code>Execute</code> gets that instruction, executes it by calling the instruction
+<code class="code">Execute</code> gets that instruction, executes it by calling the instruction
 execution procedure, and repeats this cycle until there are no more
-instructions to execute (i.e., until <code>pc</code> points to the end of the
+instructions to execute (i.e., until <code class="code">pc</code> points to the end of the
 instruction sequence).
 </p>
 <p>As part of its operation, each instruction execution procedure modifies
-<code>pc</code> to indicate the next instruction to be executed.  <code>Branch</code> and
-<code>goto</code> instructions change <code>pc</code> to point to the new destination.  All
-other instructions simply advance <code>pc</code>, making it point to the next
-instruction in the sequence.  Observe that each call to <code>execute</code> calls
-<code>execute</code> again, but this does not produce an infinite loop because
-running the instruction execution procedure changes the contents of <code>pc</code>.
+<code class="code">pc</code> to indicate the next instruction to be executed.  <code class="code">Branch</code> and
+<code class="code">goto</code> instructions change <code class="code">pc</code> to point to the new destination.  All
+other instructions simply advance <code class="code">pc</code>, making it point to the next
+instruction in the sequence.  Observe that each call to <code class="code">execute</code> calls
+<code class="code">execute</code> again, but this does not produce an infinite loop because
+running the instruction execution procedure changes the contents of <code class="code">pc</code>.
 </p>
-<p><code>Make-new-machine</code> returns a <code>dispatch</code> procedure that implements
+<p><code class="code">Make_new_machine</code> returns a <code class="code">dispatch</code> procedure that implements
 message-passing access to the internal state.  Notice that starting the machine
-is accomplished by setting <code>pc</code> to the beginning of the instruction
-sequence and calling <code>execute</code>.
+is accomplished by setting <code class="code">pc</code> to the beginning of the instruction
+sequence and calling <code class="code">execute</code>.
 </p>
-<p>For convenience, we provide an alternate procedural interface to a machine’s
-<code>start</code> operation, as well as procedures to set and examine register
-contents, as specified at the beginning of <a href="#g_t5_002e2">5.2</a>:
+<p>For convenience, we provide an alternate procedural interface to a machine&#8217;s
+<code class="code">start</code> operation, as well as procedures to set and examine register
+contents, as specified at the beginning of <a class="ref" href="#g_t5_002e2">A Register-Machine Simulator</a>:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">start machine</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">machine </span><span class="lit">'start</span><span class="clo">))</span><span class="pln">
+<div class="example lisp">
+<pre class="lisp-preformatted">// In Rust, these operations are available as methods on the Machine struct:
+// machine.start()
+// machine.get_register(name)
+// machine.set_register(name, value)
+</pre></div>
 
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">get-register-contents 
-         machine register-name</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">get-contents 
-   </span><span class="opn">(</span><span class="pln">get-register machine register-name</span><span class="clo">)))</span><span class="pln">
-
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">set-register-contents! 
-         machine register-name value</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">set-contents! 
-   </span><span class="opn">(</span><span class="pln">get-register machine register-name</span><span class="clo">)</span><span class="pln"> 
-   value</span><span class="clo">)</span><span class="pln">
-  </span><span class="lit">'done</span><span class="clo">)</span></pre></div>
-
-<p>These procedures (and many procedures in <a href="#g_t5_002e2_002e2">5.2.2</a> and <a href="#g_t5_002e2_002e3">5.2.3</a>)
+<p>These procedures (and many procedures in <a class="ref" href="#g_t5_002e2_002e2">The Assembler</a> and <a class="ref" href="#g_t5_002e2_002e3">Generating Execution Procedures for Instructions</a>)
 use the following to look up the register with a given name in a given machine:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">get-register machine reg-name</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">((</span><span class="pln">machine </span><span class="lit">'get-register</span><span class="clo">)</span><span class="pln"> reg-name</span><span class="clo">))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">// Register lookup is handled by the Machine struct's get_register method.
+</pre></div>
 
-<a id="g_t5_002e2_002e2"></a>
-<a id="The-Assembler"></a>
-<h4 class="subsection"><span class="secnum">5.2.2</span><span class="sectitle">The Assembler</span></h4>
+<hr />
+</div>
+<div class="subsection-level-extent" id="g_t5_002e2_002e2">
+<h4 class="subsection" id="The-Assembler"><span>5.2.2 The Assembler<a class="copiable-link" href="#The-Assembler"> &#182;</a></span></h4>
 
 <p>The assembler transforms the sequence of controller expressions for a machine
 into a corresponding list of machine instructions, each with its execution
 procedure.  Overall, the assembler is much like the evaluators we studied in
-<a href="Chapter-4.xhtml#Chapter-4">Chapter 4</a>—there is an input language (in this case, the
+<a class="ref" href="Chapter-4.xhtml">Metalinguistic Abstraction</a>&#8212;there is an input language (in this case, the
 register-machine language) and we must perform an appropriate action for each
 type of expression in the language.
 </p>
 <p>The technique of producing an execution procedure for each instruction is just
-what we used in <a href="4_002e1.xhtml#g_t4_002e1_002e7">4.1.7</a> to speed up the evaluator by separating
-analysis from runtime execution.  As we saw in <a href="Chapter-4.xhtml#Chapter-4">Chapter 4</a>, much useful
+what we used in <a class="ref" href="4_002e1.xhtml#g_t4_002e1_002e7">Separating Syntactic Analysis from Execution</a> to speed up the evaluator by separating
+analysis from runtime execution.  As we saw in <a class="ref" href="Chapter-4.xhtml">Metalinguistic Abstraction</a>, much useful
 analysis of Scheme expressions could be performed without knowing the actual
 values of variables.  Here, analogously, much useful analysis of
 register-machine-language expressions can be performed without knowing the
@@ -411,710 +413,487 @@ constructs both a list of instructions and a table that associates each label
 with a pointer into that list.  Then the assembler augments the instruction
 list by inserting the execution procedure for each instruction.
 </p>
-<p>The <code>assemble</code> procedure is the main entry to the assembler.  It takes the
+<p>The <code class="code">assemble</code> procedure is the main entry to the assembler.  It takes the
 controller text and the machine model as arguments and returns the instruction
-sequence to be stored in the model.  <code>Assemble</code> calls
-<code>extract-labels</code> to build the initial instruction list and label table
+sequence to be stored in the model.  <code class="code">Assemble</code> calls
+<code class="code">extract_labels</code> to build the initial instruction list and label table
 from the supplied controller text.  The second argument to
-<code>extract-labels</code> is a procedure to be called to process these results:
-This procedure uses <code>update-insts!</code> to generate the instruction execution
+<code class="code">extract_labels</code> is a procedure to be called to process these results:
+This procedure uses <code class="code">update_insts</code> to generate the instruction execution
 procedures and insert them into the instruction list, and returns the modified
 list.
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">assemble controller-text machine</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">extract-labels controller-text
-    </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">insts labels</span><span class="clo">)</span><span class="pln">
-      </span><span class="opn">(</span><span class="pln">update-insts! insts labels machine</span><span class="clo">)</span><span class="pln">
-      insts</span><span class="clo">)))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">fn assemble(
+    controller: Vec&lt;Inst&gt;,
+    register_map: &amp;HashMap&lt;String, usize&gt;,
+    operations: &amp;HashMap&lt;String, OpFn&gt;,
+) -&gt; Vec&lt;ResolvedInst&gt; {
+    let (insts, labels) = extract_labels(controller);
+    update_insts(insts, &amp;labels, register_map, operations)
+}
+</pre></div>
 
-<p><code>Extract-labels</code> takes as arguments a list <code>text</code> (the sequence of
-controller instruction expressions) and a <code>receive</code> procedure.
-<code>Receive</code> will be called with two values: (1) a list <code>insts</code> of
-instruction data structures, each containing an instruction from <code>text</code>;
-and (2) a table called <code>labels</code>, which associates each label from
-<code>text</code> with the position in the list <code>insts</code> that the label
+<p><code class="code">Extract_labels</code> takes as arguments a list <code class="code">text</code> (the sequence of
+controller instruction expressions) and a <code class="code">receive</code> procedure.
+<code class="code">Receive</code> will be called with two values: (1) a list <code class="code">insts</code> of
+instruction data structures, each containing an instruction from <code class="code">text</code>;
+and (2) a table called <code class="code">labels</code>, which associates each label from
+<code class="code">text</code> with the position in the list <code class="code">insts</code> that the label
 designates.
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">extract-labels text receive</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pln">null? text</span><span class="clo">)</span><span class="pln">
-      </span><span class="opn">(</span><span class="pln">receive </span><span class="lit">'</span><span class="opn">(</span><span class="clo">)</span><span class="pln"> </span><span class="lit">'</span><span class="opn">(</span><span class="clo">))</span><span class="pln">
-      </span><span class="opn">(</span><span class="pln">extract-labels 
-       </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> text</span><span class="clo">)</span><span class="pln">
-       </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">insts labels</span><span class="clo">)</span><span class="pln">
-         </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">next-inst </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> text</span><span class="clo">)))</span><span class="pln">
-           </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pln">symbol? next-inst</span><span class="clo">)</span><span class="pln">
-               </span><span class="opn">(</span><span class="pln">receive 
-                   insts
-                   </span><span class="opn">(</span><span class="kwd">cons</span><span class="pln"> 
-                    </span><span class="opn">(</span><span class="pln">make-label-entry 
-                     next-inst
-                     insts</span><span class="clo">)</span><span class="pln">
-                    labels</span><span class="clo">))</span><span class="pln">
-               </span><span class="opn">(</span><span class="pln">receive 
-                   </span><span class="opn">(</span><span class="kwd">cons</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-instruction 
-                          next-inst</span><span class="clo">)</span><span class="pln">
-                         insts</span><span class="clo">)</span><span class="pln">
-                   labels</span><span class="clo">)))))))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">fn extract_labels(text: Vec&lt;Inst&gt;) -&gt; (Vec&lt;Inst&gt;, HashMap&lt;String, usize&gt;) {
+    let mut instructions = Vec::new();
+    let mut labels = HashMap::new();
 
-<p><code>Extract-labels</code> works by sequentially scanning the elements of the
-<code>text</code> and accumulating the <code>insts</code> and the <code>labels</code>.  If an
-element is a symbol (and thus a label) an appropriate entry is added to the
-<code>labels</code> table.  Otherwise the element is accumulated onto the
-<code>insts</code> list.<a class="footnote_link" id="DOCF289" href="#FOOT289"><sup>289</sup></a>
+    for inst in text {
+        match inst {
+            Inst::Label(name) =&gt; {
+                if labels.contains_key(&amp;name) {
+                    panic!(&quot;Multiply defined label: {}&quot;, name);
+                }
+                labels.insert(name, instructions.len());
+            }
+            _ =&gt; {
+                instructions.push(inst);
+            }
+        }
+    }
+
+    (instructions, labels)
+}
+</pre></div>
+
+<p><code class="code">extract_labels</code> works by sequentially scanning the elements of the
+<code class="code">text</code> and accumulating the <code class="code">instructions</code> and the <code class="code">labels</code>.  If an
+element is a label, an appropriate entry is added to the
+<code class="code">labels</code> table.  Otherwise the element is accumulated onto the
+<code class="code">instructions</code> list.
 </p>
-<p><code>Update-insts!</code> modifies the instruction list, which initially contains
-only the text of the instructions, to include the corresponding execution
-procedures:
+<p>The assembler performs two passes over the controller text.  In the first pass,
+it extracts the labels and records their positions in a table.  In the second
+pass, it resolves all references to labels and registers, converting the
+symbolic instructions into a more efficient internal representation that uses
+numeric indices.
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">update-insts! insts labels machine</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">pc </span><span class="opn">(</span><span class="pln">get-register machine </span><span class="lit">'pc</span><span class="clo">))</span><span class="pln">
-        </span><span class="opn">(</span><span class="pln">flag </span><span class="opn">(</span><span class="pln">get-register machine </span><span class="lit">'flag</span><span class="clo">))</span><span class="pln">
-        </span><span class="opn">(</span><span class="pln">stack </span><span class="opn">(</span><span class="pln">machine </span><span class="lit">'stack</span><span class="clo">))</span><span class="pln">
-        </span><span class="opn">(</span><span class="pln">ops </span><span class="opn">(</span><span class="pln">machine </span><span class="lit">'operations</span><span class="clo">)))</span><span class="pln">
-    </span><span class="opn">(</span><span class="pln">for-each
-     </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">inst</span><span class="clo">)</span><span class="pln">
-       </span><span class="opn">(</span><span class="pln">set-instruction-execution-proc!
-        inst
-        </span><span class="opn">(</span><span class="pln">make-execution-procedure
-         </span><span class="opn">(</span><span class="pln">instruction-text inst</span><span class="clo">)</span><span class="pln"> 
-         labels
-         machine
-         pc
-         flag
-         stack
-         ops</span><span class="clo">)))</span><span class="pln">
-     insts</span><span class="clo">)))</span></pre></div>
+<p><code class="code">Update_insts</code> modifies the instruction list to include the resolved
+references:
+</p>
+<div class="example">
+<pre class="example-preformatted">fn update_insts(
+    insts: Vec&lt;Inst&gt;,
+    labels: &amp;HashMap&lt;String, usize&gt;,
+    register_map: &amp;HashMap&lt;String, usize&gt;,
+    operations: &amp;HashMap&lt;String, OpFn&gt;,
+) -&gt; Vec&lt;ResolvedInst&gt; {
+    insts
+        .into_iter()
+        .map(|inst| resolve_instruction(inst, labels, register_map))
+        .collect()
+}
+</pre></div>
 
 <p>The machine instruction data structure simply pairs the instruction text with
 the corresponding execution procedure.  The execution procedure is not yet
-available when <code>extract-labels</code> constructs the instruction, and is
-inserted later by <code>update-insts!</code>.
+available when <code class="code">extract_labels</code> constructs the instruction, and is
+inserted later by <code class="code">update_insts</code>.
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-instruction text</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">cons</span><span class="pln"> text </span><span class="lit">'</span><span class="opn">(</span><span class="clo">)))</span><span class="pln">
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">instruction-text inst</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> inst</span><span class="clo">))</span><span class="pln">
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">instruction-execution-proc inst</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> inst</span><span class="clo">))</span><span class="pln">
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">set-instruction-execution-proc!
-         inst
-         proc</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">set-cdr! inst proc</span><span class="clo">))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">// In Rust, we use the Inst and ResolvedInst enums to represent instructions.
+// See the definitions in section 5.2 source code.
+</pre></div>
 
 <p>The instruction text is not used by our simulator, but it is handy to keep
-around for debugging (see <a href="#Exercise-5_002e16">Exercise 5.16</a>).
+around for debugging (see <a class="ref" href="#Exercise-5_002e16">Exercise 5.16</a>).
 </p>
-<p>Elements of the label table are pairs:
+<p>Elements of the label table are entries in a <code class="code">HashMap</code>:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-label-entry label-name insts</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">cons</span><span class="pln"> label-name insts</span><span class="clo">))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">// In Rust, we use a HashMap to store labels:
+let mut labels: HashMap&lt;String, usize&gt; = HashMap::new();
+labels.insert(label_name, position);
+</pre></div>
 
 <p>Entries will be looked up in the table with
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">lookup-label labels label-name</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">val </span><span class="opn">(</span><span class="pln">assoc label-name labels</span><span class="clo">)))</span><span class="pln">
-    </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> val
-        </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> val</span><span class="clo">)</span><span class="pln">
-        </span><span class="opn">(</span><span class="err">error</span><span class="pln"> </span><span class="str">"Undefined label: ASSEMBLE"</span><span class="pln"> 
-               label-name</span><span class="clo">))))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">fn lookup_label(
+    labels: &amp;HashMap&lt;String, usize&gt;,
+    label_name: &amp;str
+) -&gt; Result&lt;usize, String&gt; {
+    labels.get(label_name)
+        .cloned()
+        .ok_or_else(|| format!(&quot;Undefined label: {}&quot;, label_name))
+}
+</pre></div>
 
-<blockquote>
-<p><strong><a id="Exercise-5_002e8"></a>Exercise 5.8:</strong> The following register-machine code
-is ambiguous, because the label <code>here</code> is defined more than once:
+<blockquote class="quotation">
+<p><strong class="strong"><a class="anchor" id="Exercise-5_002e8"></a>Exercise 5.8:</strong> The following register-machine code
+is ambiguous, because the label <code class="code">here</code> is defined more than once:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="pln">start
-  </span><span class="opn">(</span><span class="pln">goto </span><span class="opn">(</span><span class="pln">label here</span><span class="clo">))</span><span class="pln">
-here
-  </span><span class="opn">(</span><span class="pln">assign a </span><span class="opn">(</span><span class="pln">const </span><span class="lit">3</span><span class="clo">))</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">goto </span><span class="opn">(</span><span class="pln">label there</span><span class="clo">))</span><span class="pln">
-here
-  </span><span class="opn">(</span><span class="pln">assign a </span><span class="opn">(</span><span class="pln">const </span><span class="lit">4</span><span class="clo">))</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">goto </span><span class="opn">(</span><span class="pln">label there</span><span class="clo">))</span><span class="pln">
-there</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">vec![
+    Label(&quot;start&quot;.into()),
+    Goto(Label(&quot;here&quot;.into())),
+    Label(&quot;here&quot;.into()),
+    Assign(&quot;a&quot;.into(), Const(3)),
+    Goto(Label(&quot;there&quot;.into())),
+    Label(&quot;here&quot;.into()),
+    Assign(&quot;a&quot;.into(), Const(4)),
+    Goto(Label(&quot;there&quot;.into())),
+    Label(&quot;there&quot;.into()),
+]
+</pre></div>
 
-<p>With the simulator as written, what will the contents of register <code>a</code> be
-when control reaches <code>there</code>?  Modify the <code>extract-labels</code> procedure
+<p>With the simulator as written, what will the contents of register <code class="code">a</code> be
+when control reaches <code class="code">there</code>?  Modify the <code class="code">extract_labels</code> procedure
 so that the assembler will signal an error if the same label name is used to
 indicate two different locations.
 </p></blockquote>
 
-<a id="g_t5_002e2_002e3"></a>
-<a id="Generating-Execution-Procedures-for-Instructions"></a>
-<h4 class="subsection"><span class="secnum">5.2.3</span><span class="sectitle">Generating Execution Procedures for Instructions</span></h4>
+<hr />
+</div>
+<div class="subsection-level-extent" id="g_t5_002e2_002e3">
+<h4 class="subsection" id="Generating-Execution-Procedures-for-Instructions"><span>5.2.3 Generating Execution Procedures for Instructions<a class="copiable-link" href="#Generating-Execution-Procedures-for-Instructions"> &#182;</a></span></h4>
 
-<p>The assembler calls <code>make-execution-procedure</code> to generate the execution
-procedure for an instruction.  Like the <code>analyze</code> procedure in the
-evaluator of <a href="4_002e1.xhtml#g_t4_002e1_002e7">4.1.7</a>, this dispatches on the type of instruction to
+<p>The assembler calls <code class="code">resolve_instruction</code> to generate the execution
+procedure for an instruction.  Like the <code class="code">analyze</code> procedure in the
+evaluator of <a class="ref" href="4_002e1.xhtml#g_t4_002e1_002e7">Separating Syntactic Analysis from Execution</a>, this dispatches on the type of instruction to
 generate the appropriate execution procedure.
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-execution-procedure 
-         inst labels machine pc flag stack ops</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">((</span><span class="kwd">eq</span><span class="pun">?</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> inst</span><span class="clo">)</span><span class="pln"> </span><span class="lit">'assign</span><span class="clo">)</span><span class="pln">
-         </span><span class="opn">(</span><span class="pln">make-assign 
-          inst machine labels ops pc</span><span class="clo">))</span><span class="pln">
-        </span><span class="opn">((</span><span class="kwd">eq</span><span class="pun">?</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> inst</span><span class="clo">)</span><span class="pln"> </span><span class="lit">'test</span><span class="clo">)</span><span class="pln">
-         </span><span class="opn">(</span><span class="pln">make-test 
-          inst machine labels ops flag pc</span><span class="clo">))</span><span class="pln">
-        </span><span class="opn">((</span><span class="kwd">eq</span><span class="pun">?</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> inst</span><span class="clo">)</span><span class="pln"> </span><span class="lit">'branch</span><span class="clo">)</span><span class="pln">
-         </span><span class="opn">(</span><span class="pln">make-branch 
-          inst machine labels flag pc</span><span class="clo">))</span><span class="pln">
-        </span><span class="opn">((</span><span class="kwd">eq</span><span class="pun">?</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> inst</span><span class="clo">)</span><span class="pln"> </span><span class="lit">'goto</span><span class="clo">)</span><span class="pln">
-         </span><span class="opn">(</span><span class="pln">make-goto inst machine labels pc</span><span class="clo">))</span><span class="pln">
-        </span><span class="opn">((</span><span class="kwd">eq</span><span class="pun">?</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> inst</span><span class="clo">)</span><span class="pln"> </span><span class="lit">'save</span><span class="clo">)</span><span class="pln">
-         </span><span class="opn">(</span><span class="pln">make-save inst machine stack pc</span><span class="clo">))</span><span class="pln">
-        </span><span class="opn">((</span><span class="kwd">eq</span><span class="pun">?</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> inst</span><span class="clo">)</span><span class="pln"> </span><span class="lit">'restore</span><span class="clo">)</span><span class="pln">
-         </span><span class="opn">(</span><span class="pln">make-restore inst machine stack pc</span><span class="clo">))</span><span class="pln">
-        </span><span class="opn">((</span><span class="kwd">eq</span><span class="pun">?</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> inst</span><span class="clo">)</span><span class="pln"> </span><span class="lit">'perform</span><span class="clo">)</span><span class="pln">
-         </span><span class="opn">(</span><span class="pln">make-perform
-          inst machine labels ops pc</span><span class="clo">))</span><span class="pln">
-        </span><span class="opn">(</span><span class="kwd">else</span><span class="pln"> </span><span class="opn">(</span><span class="err">error</span><span class="pln"> </span><span class="str">"Unknown instruction 
-                      type: ASSEMBLE"</span><span class="pln">
-                     inst</span><span class="clo">))))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">fn resolve_instruction(
+    inst: Inst,
+    labels: &amp;HashMap&lt;String, usize&gt;,
+    register_map: &amp;HashMap&lt;String, usize&gt;,
+) -&gt; ResolvedInst {
+    match inst {
+        Inst::Assign(reg_name, value_exp) =&gt; {
+            let target_reg = *register_map.get(&amp;reg_name).expect(&quot;Unknown register&quot;);
+            let value = resolve_value_exp(value_exp, labels, register_map);
+            ResolvedInst::Assign { target_reg, value }
+        }
+        Inst::Test(op_exp) =&gt; {
+            let condition = resolve_op_exp(op_exp, labels, register_map);
+            ResolvedInst::Test { condition }
+        }
+        Inst::Branch(label_name) =&gt; {
+            let destination = *labels.get(&amp;label_name).expect(&quot;Undefined label&quot;);
+            ResolvedInst::Branch { destination }
+        }
+        Inst::Goto(dest) =&gt; {
+            // ... (goto resolution logic)
+            resolve_goto(dest, labels, register_map)
+        }
+        Inst::Save(reg_name) =&gt; {
+            let reg = *register_map.get(&amp;reg_name).expect(&quot;Unknown register&quot;);
+            ResolvedInst::Save { reg }
+        }
+        Inst::Restore(reg_name) =&gt; {
+            let reg = *register_map.get(&amp;reg_name).expect(&quot;Unknown register&quot;);
+            ResolvedInst::Restore { reg }
+        }
+        Inst::Perform(op_exp) =&gt; {
+            let action = resolve_op_exp(op_exp, labels, register_map);
+            ResolvedInst::Perform { action }
+        }
+        Inst::Label(_) =&gt; panic!(&quot;Labels should have been filtered out&quot;),
+    }
+}
+</pre></div>
 
 <p>For each type of instruction in the register-machine language, there is a
 generator that builds an appropriate execution procedure.  The details of these
 procedures determine both the syntax and meaning of the individual instructions
 in the register-machine language.  We use data abstraction to isolate the
 detailed syntax of register-machine expressions from the general execution
-mechanism, as we did for evaluators in <a href="4_002e1.xhtml#g_t4_002e1_002e2">4.1.2</a>, by using syntax
+mechanism, as we did for evaluators in <a class="ref" href="4_002e1.xhtml#g_t4_002e1_002e2">Representing Expressions</a>, by using syntax
 procedures to extract and classify the parts of an instruction.
 </p>
-<a id="Assign-instructions"></a>
-<h5 class="subsubheading"><code>Assign</code> instructions</h5>
+<h4 class="subsubheading" id="Assign-instructions"><span><code class="code">Assign</code> instructions<a class="copiable-link" href="#Assign-instructions"> &#182;</a></span></h4>
 
-<p>The <code>make-assign</code> procedure handles <code>assign</code> instructions:
+<p>The <code class="code">make_assign</code> procedure handles <code class="code">assign</code> instructions:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-assign 
-         inst machine labels operations pc</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">target 
-         </span><span class="opn">(</span><span class="pln">get-register 
-          machine 
-          </span><span class="opn">(</span><span class="pln">assign-reg-name inst</span><span class="clo">)))</span><span class="pln">
-        </span><span class="opn">(</span><span class="pln">value-exp </span><span class="opn">(</span><span class="pln">assign-value-exp inst</span><span class="clo">)))</span><span class="pln">
-    </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">value-proc
-           </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pln">operation-exp? value-exp</span><span class="clo">)</span><span class="pln">
-               </span><span class="opn">(</span><span class="pln">make-operation-exp
-                value-exp 
-                machine
-                labels
-                operations</span><span class="clo">)</span><span class="pln">
-               </span><span class="opn">(</span><span class="pln">make-primitive-exp
-                </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> value-exp</span><span class="clo">)</span><span class="pln">
-                machine
-                labels</span><span class="clo">))))</span><span class="pln">
-      </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="clo">)</span><span class="pln">   </span><span class="roman"><span class="com">; execution procedure</span></span><span class="pln">
-                   </span><span class="roman"><span class="com">; for </span><code><span class="com">assign</span></code></span><span class="pln">
-        </span><span class="opn">(</span><span class="pln">set-contents! target </span><span class="opn">(</span><span class="pln">value-proc</span><span class="clo">))</span><span class="pln">
-        </span><span class="opn">(</span><span class="pln">advance-pc pc</span><span class="clo">)))))</span></pre></div>
+</div>
+<div class="subsection-level-extent" id="Executing-Instructions">
+<h4 class="subsection"><span>5.2.4 Executing Instructions<a class="copiable-link" href="#Executing-Instructions"> &#182;</a></span></h4>
 
-<p><code>Make-assign</code> extracts the target register name (the second element of the
-instruction) and the value expression (the rest of the list that forms the
-instruction) from the <code>assign</code> instruction using the selectors
+<p>The &#8216;execute&#8216; method of the machine runs the instruction sequence by calling &#8216;execute_instruction&#8216; on each instruction. This method dispatches on the type of instruction and performs the appropriate action.
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">assign-reg-name assign-instruction</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">cadr</span><span class="pln"> assign-instruction</span><span class="clo">))</span><span class="pln">
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">assign-value-exp assign-instruction</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">cddr</span><span class="pln"> assign-instruction</span><span class="clo">))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">fn execute_instruction(&amp;mut self, inst: ResolvedInst) {
+    match inst {
+        ResolvedInst::Assign { target_reg, value } =&gt; {
+            let val = self.eval_value_exp(&amp;value);
+            self.registers[target_reg] = val;
+            self.pc += 1;
+        }
+        ResolvedInst::Test { condition } =&gt; {
+            let result = self.eval_value_exp(&amp;condition);
+            self.flag = result.as_bool();
+            self.pc += 1;
+        }
+        ResolvedInst::Branch { destination } =&gt; {
+            if self.flag {
+                self.pc = destination;
+            } else {
+                self.pc += 1;
+            }
+        }
+        ResolvedInst::Goto { destination } =&gt; match destination {
+            GotoDestResolved::Label(dest) =&gt; {
+                self.pc = dest;
+            }
+            GotoDestResolved::Reg(reg) =&gt; {
+                if let Value::InstructionPointer(ip) = self.registers[reg] {
+                    self.pc = ip;
+                } else {
+                    panic!(&quot;Goto register must contain instruction pointer&quot;);
+                }
+            }
+        },
+        ResolvedInst::Save { reg } =&gt; {
+            let value = self.registers[reg].clone();
+            self.stack.push(value);
+            self.pc += 1;
+        }
+        ResolvedInst::Restore { reg } =&gt; {
+            let value = self.stack.pop();
+            self.registers[reg] = value;
+            self.pc += 1;
+        }
+        ResolvedInst::Perform { action } =&gt; {
+            self.eval_value_exp(&amp;action);
+            self.pc += 1;
+        }
+    }
+}
+</pre></div>
 
-<p>The register name is looked up with <code>get-register</code> to produce the target
-register object.  The value expression is passed to <code>make-operation-exp</code>
-if the value is the result of an operation, and to <code>make-primitive-exp</code>
-otherwise.  These procedures (shown below) parse the value expression and
-produce an execution procedure for the value.  This is a procedure of no
-arguments, called <code>value-proc</code>, which will be evaluated during the
-simulation to produce the actual value to be assigned to the register.  Notice
-that the work of looking up the register name and parsing the value expression
-is performed just once, at assembly time, not every time the instruction is
-simulated.  This saving of work is the reason we use execution procedures, and
-corresponds directly to the saving in work we obtained by separating program
-analysis from execution in the evaluator of <a href="4_002e1.xhtml#g_t4_002e1_002e7">4.1.7</a>.
+<h4 class="subsubheading" id="Evaluating-value-expressions"><span>Evaluating value expressions<a class="copiable-link" href="#Evaluating-value-expressions"> &#182;</a></span></h4>
+
+<p>The &#8216;eval_value_exp&#8216; method computes the value of a source expression.
 </p>
-<p>The result returned by <code>make-assign</code> is the execution procedure for the
-<code>assign</code> instruction.  When this procedure is called (by the machine
-model’s <code>execute</code> procedure), it sets the contents of the target register
-to the result obtained by executing <code>value-proc</code>.  Then it advances the
-<code>pc</code> to the next instruction by running the procedure
-</p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">advance-pc pc</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">set-contents! pc </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> </span><span class="opn">(</span><span class="pln">get-contents pc</span><span class="clo">))))</span></pre></div>
-
-<p><code>Advance-pc</code> is the normal termination for all instructions except
-<code>branch</code> and <code>goto</code>.
-</p>
-<a id="Test_002c-branch_002c-and-goto-instructions"></a>
-<h5 class="subsubheading"><code>Test</code>, <code>branch</code>, and <code>goto</code> instructions</h5>
-
-<p><code>Make-test</code> handles <code>test</code> instructions in a similar way.  It
-extracts the expression that specifies the condition to be tested and generates
-an execution procedure for it.  At simulation time, the procedure for the
-condition is called, the result is assigned to the <code>flag</code> register, and
-the <code>pc</code> is advanced:
-</p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> 
-  </span><span class="opn">(</span><span class="pln">make-test 
-   inst machine labels operations flag pc</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">condition </span><span class="opn">(</span><span class="pln">test-condition inst</span><span class="clo">)))</span><span class="pln">
-    </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pln">operation-exp? condition</span><span class="clo">)</span><span class="pln">
-        </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">condition-proc
-               </span><span class="opn">(</span><span class="pln">make-operation-exp
-                condition 
-                machine
-                labels
-                operations</span><span class="clo">)))</span><span class="pln">
-          </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="clo">)</span><span class="pln"> 
-            </span><span class="opn">(</span><span class="pln">set-contents! 
-             flag </span><span class="opn">(</span><span class="pln">condition-proc</span><span class="clo">))</span><span class="pln">
-            </span><span class="opn">(</span><span class="pln">advance-pc pc</span><span class="clo">)))</span><span class="pln">
-        </span><span class="opn">(</span><span class="err">error</span><span class="pln"> </span><span class="str">"Bad TEST instruction: 
-                ASSEMBLE"</span><span class="pln"> inst</span><span class="clo">))))</span><span class="pln">
-
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">test-condition test-instruction</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> test-instruction</span><span class="clo">))</span></pre></div>
-
-<p>The execution procedure for a <code>branch</code> instruction checks the contents of
-the <code>flag</code> register and either sets the contents of the <code>pc</code> to the
-branch destination (if the branch is taken) or else just advances the <code>pc</code>
-(if the branch is not taken).  Notice that the indicated destination in a
-<code>branch</code> instruction must be a label, and the <code>make-branch</code> procedure
-enforces this.  Notice also that the label is looked up at assembly time, not
-each time the <code>branch</code> instruction is simulated.
-</p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> 
-  </span><span class="opn">(</span><span class="pln">make-branch 
-   inst machine labels flag pc</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">dest </span><span class="opn">(</span><span class="pln">branch-dest inst</span><span class="clo">)))</span><span class="pln">
-    </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pln">label-exp? dest</span><span class="clo">)</span><span class="pln">
-        </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">insts
-               </span><span class="opn">(</span><span class="pln">lookup-label 
-                labels 
-                </span><span class="opn">(</span><span class="pln">label-exp-label dest</span><span class="clo">))))</span><span class="pln">
-          </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="clo">)</span><span class="pln">
-            </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pln">get-contents flag</span><span class="clo">)</span><span class="pln">
-                </span><span class="opn">(</span><span class="pln">set-contents! pc insts</span><span class="clo">)</span><span class="pln">
-                </span><span class="opn">(</span><span class="pln">advance-pc pc</span><span class="clo">))))</span><span class="pln">
-        </span><span class="opn">(</span><span class="err">error</span><span class="pln"> </span><span class="str">"Bad BRANCH instruction: 
-                ASSEMBLE"</span><span class="pln">
-               inst</span><span class="clo">))))</span><span class="pln">
-
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">branch-dest branch-instruction</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">cadr</span><span class="pln"> branch-instruction</span><span class="clo">))</span></pre></div>
-
-<p>A <code>goto</code> instruction is similar to a branch, except that the destination
-may be specified either as a label or as a register, and there is no condition
-to check—the <code>pc</code> is always set to the new destination.
-</p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-goto inst machine labels pc</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">dest </span><span class="opn">(</span><span class="pln">goto-dest inst</span><span class="clo">)))</span><span class="pln">
-    </span><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">((</span><span class="pln">label-exp? dest</span><span class="clo">)</span><span class="pln">
-           </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">insts
-                  </span><span class="opn">(</span><span class="pln">lookup-label 
-                   labels
-                   </span><span class="opn">(</span><span class="pln">label-exp-label dest</span><span class="clo">))))</span><span class="pln">
-             </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="clo">)</span><span class="pln"> 
-               </span><span class="opn">(</span><span class="pln">set-contents! pc insts</span><span class="clo">))))</span><span class="pln">
-          </span><span class="opn">((</span><span class="pln">register-exp? dest</span><span class="clo">)</span><span class="pln">
-           </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">reg
-                  </span><span class="opn">(</span><span class="pln">get-register 
-                   machine
-                   </span><span class="opn">(</span><span class="pln">register-exp-reg dest</span><span class="clo">))))</span><span class="pln">
-             </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="clo">)</span><span class="pln">
-               </span><span class="opn">(</span><span class="pln">set-contents! 
-                pc
-                </span><span class="opn">(</span><span class="pln">get-contents reg</span><span class="clo">)))))</span><span class="pln">
-          </span><span class="opn">(</span><span class="kwd">else</span><span class="pln"> </span><span class="opn">(</span><span class="err">error</span><span class="pln"> </span><span class="str">"Bad GOTO instruction: 
-                        ASSEMBLE"</span><span class="pln">
-                       inst</span><span class="clo">)))))</span><span class="pln">
-
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">goto-dest goto-instruction</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">cadr</span><span class="pln"> goto-instruction</span><span class="clo">))</span></pre></div>
-
-<a id="Other-instructions"></a>
-<h5 class="subsubheading">Other instructions</h5>
-
-<p>The stack instructions <code>save</code> and <code>restore</code> simply use the stack with
-the designated register and advance the <code>pc</code>:
-</p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-save inst machine stack pc</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">reg </span><span class="opn">(</span><span class="pln">get-register 
-              machine
-              </span><span class="opn">(</span><span class="pln">stack-inst-reg-name inst</span><span class="clo">))))</span><span class="pln">
-    </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="clo">)</span><span class="pln">
-      </span><span class="opn">(</span><span class="pln">push stack </span><span class="opn">(</span><span class="pln">get-contents reg</span><span class="clo">))</span><span class="pln">
-      </span><span class="opn">(</span><span class="pln">advance-pc pc</span><span class="clo">))))</span><span class="pln">
-
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-restore inst machine stack pc</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">reg </span><span class="opn">(</span><span class="pln">get-register
-              machine
-              </span><span class="opn">(</span><span class="pln">stack-inst-reg-name inst</span><span class="clo">))))</span><span class="pln">
-    </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="clo">)</span><span class="pln">
-      </span><span class="opn">(</span><span class="pln">set-contents! reg </span><span class="opn">(</span><span class="pln">pop stack</span><span class="clo">))</span><span class="pln">
-      </span><span class="opn">(</span><span class="pln">advance-pc pc</span><span class="clo">))))</span><span class="pln">
-
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">stack-inst-reg-name 
-         stack-instruction</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">cadr</span><span class="pln"> stack-instruction</span><span class="clo">))</span></pre></div>
-
-<p>The final instruction type, handled by <code>make-perform</code>, generates an
-execution procedure for the action to be performed.  At simulation time, the
-action procedure is executed and the <code>pc</code> advanced.
-</p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-perform 
-         inst machine labels operations pc</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">action </span><span class="opn">(</span><span class="pln">perform-action inst</span><span class="clo">)))</span><span class="pln">
-    </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pln">operation-exp? action</span><span class="clo">)</span><span class="pln">
-        </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">action-proc
-               </span><span class="opn">(</span><span class="pln">make-operation-exp
-                action
-                machine
-                labels
-                operations</span><span class="clo">)))</span><span class="pln">
-          </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="clo">)</span><span class="pln">
-            </span><span class="opn">(</span><span class="pln">action-proc</span><span class="clo">)</span><span class="pln">
-            </span><span class="opn">(</span><span class="pln">advance-pc pc</span><span class="clo">)))</span><span class="pln">
-        </span><span class="opn">(</span><span class="err">error</span><span class="pln"> </span><span class="str">"Bad PERFORM instruction: 
-                ASSEMBLE"</span><span class="pln">
-               inst</span><span class="clo">))))</span><span class="pln">
-
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">perform-action inst</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> inst</span><span class="clo">))</span></pre></div>
-
-<a id="Execution-procedures-for-subexpressions"></a>
-<h5 class="subsubheading">Execution procedures for subexpressions</h5>
-
-<p>The value of a <code>reg</code>, <code>label</code>, or <code>const</code> expression may be
-needed for assignment to a register (<code>make-assign</code>) or for input to an
-operation (<code>make-operation-exp</code>, below).  The following procedure
-generates execution procedures to produce values for these expressions during
-the simulation:
-</p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-primitive-exp exp machine labels</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">((</span><span class="pln">constant-exp? exp</span><span class="clo">)</span><span class="pln">
-         </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">c </span><span class="opn">(</span><span class="pln">constant-exp-value exp</span><span class="clo">)))</span><span class="pln">
-           </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="clo">)</span><span class="pln"> c</span><span class="clo">)))</span><span class="pln">
-        </span><span class="opn">((</span><span class="pln">label-exp? exp</span><span class="clo">)</span><span class="pln">
-         </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">insts
-                </span><span class="opn">(</span><span class="pln">lookup-label 
-                 labels
-                 </span><span class="opn">(</span><span class="pln">label-exp-label exp</span><span class="clo">))))</span><span class="pln">
-           </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="clo">)</span><span class="pln"> insts</span><span class="clo">)))</span><span class="pln">
-        </span><span class="opn">((</span><span class="pln">register-exp? exp</span><span class="clo">)</span><span class="pln">
-         </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">r </span><span class="opn">(</span><span class="pln">get-register
-                   machine
-                   </span><span class="opn">(</span><span class="pln">register-exp-reg exp</span><span class="clo">))))</span><span class="pln">
-           </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">get-contents r</span><span class="clo">))))</span><span class="pln">
-        </span><span class="opn">(</span><span class="kwd">else</span><span class="pln"> </span><span class="opn">(</span><span class="err">error</span><span class="pln"> </span><span class="str">"Unknown expression type: 
-                      ASSEMBLE"</span><span class="pln">
-                     exp</span><span class="clo">))))</span></pre></div>
-
-<p>The syntax of <code>reg</code>, <code>label</code>, and <code>const</code> expressions is
-determined by
-</p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">register-exp? exp</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">tagged-list? exp </span><span class="lit">'reg</span><span class="clo">))</span><span class="pln">
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">register-exp-reg exp</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">cadr</span><span class="pln"> exp</span><span class="clo">))</span><span class="pln">
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">constant-exp? exp</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">tagged-list? exp </span><span class="lit">'const</span><span class="clo">))</span><span class="pln">
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">constant-exp-value exp</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">cadr</span><span class="pln"> exp</span><span class="clo">))</span><span class="pln">
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">label-exp? exp</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="pln">tagged-list? exp </span><span class="lit">'label</span><span class="clo">))</span><span class="pln">
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">label-exp-label exp</span><span class="clo">)</span><span class="pln"> 
-  </span><span class="opn">(</span><span class="kwd">cadr</span><span class="pln"> exp</span><span class="clo">))</span></pre></div>
-
-<p><code>Assign</code>, <code>perform</code>, and <code>test</code> instructions may include the
-application of a machine operation (specified by an <code>op</code> expression) to
-some operands (specified by <code>reg</code> and <code>const</code> expressions).  The
-following procedure produces an execution procedure for an “operation
-expression”—a list containing the operation and operand expressions from the
-instruction:
-</p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-operation-exp
-         exp machine labels operations</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">op </span><span class="opn">(</span><span class="pln">lookup-prim 
-             </span><span class="opn">(</span><span class="pln">operation-exp-op exp</span><span class="clo">)</span><span class="pln">
-             operations</span><span class="clo">))</span><span class="pln">
-        </span><span class="opn">(</span><span class="pln">aprocs
-         </span><span class="opn">(</span><span class="pln">map </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">e</span><span class="clo">)</span><span class="pln">
-                </span><span class="opn">(</span><span class="pln">make-primitive-exp 
-                 e machine labels</span><span class="clo">))</span><span class="pln">
-              </span><span class="opn">(</span><span class="pln">operation-exp-operands exp</span><span class="clo">))))</span><span class="pln">
-    </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">apply op </span><span class="opn">(</span><span class="pln">map </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="pln">p</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">p</span><span class="clo">))</span><span class="pln">
-                              aprocs</span><span class="clo">)))))</span></pre></div>
-
-<p>The syntax of operation expressions is determined by
-</p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">operation-exp? exp</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">and</span><span class="pln"> </span><span class="opn">(</span><span class="pln">pair? exp</span><span class="clo">)</span><span class="pln">
-       </span><span class="opn">(</span><span class="pln">tagged-list? </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> exp</span><span class="clo">)</span><span class="pln"> </span><span class="lit">'op</span><span class="clo">)))</span><span class="pln">
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">operation-exp-op operation-exp</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">cadr</span><span class="pln"> </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> operation-exp</span><span class="clo">)))</span><span class="pln">
-</span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">operation-exp-operands operation-exp</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> operation-exp</span><span class="clo">))</span></pre></div>
-
-<p>Observe that the treatment of operation expressions is very much like the
-treatment of procedure applications by the <code>analyze-application</code> procedure
-in the evaluator of <a href="4_002e1.xhtml#g_t4_002e1_002e7">4.1.7</a> in that we generate an execution
-procedure for each operand.  At simulation time, we call the operand procedures
-and apply the Scheme procedure that simulates the operation to the resulting
-values.  The simulation procedure is found by looking up the operation name in
-the operation table for the machine:
-</p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">lookup-prim symbol operations</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">val </span><span class="opn">(</span><span class="pln">assoc symbol operations</span><span class="clo">)))</span><span class="pln">
-    </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> val
-        </span><span class="opn">(</span><span class="kwd">cadr</span><span class="pln"> val</span><span class="clo">)</span><span class="pln">
-        </span><span class="opn">(</span><span class="err">error</span><span class="pln"> </span><span class="str">"Unknown operation: ASSEMBLE"</span><span class="pln">
-               symbol</span><span class="clo">))))</span></pre></div>
-
-<blockquote>
-<p><strong><a id="Exercise-5_002e9"></a>Exercise 5.9:</strong> The treatment of machine operations
+<div class="example">
+<pre class="example-preformatted">fn eval_value_exp(&amp;self, exp: &amp;ResolvedVExp) -&gt; Value {
+    match exp {
+        ResolvedVExp::Const(v) =&gt; v.clone(),
+        ResolvedVExp::Reg(idx) =&gt; self.registers[*idx].clone(),
+        ResolvedVExp::Label(ip) =&gt; Value::InstructionPointer(*ip),
+        ResolvedVExp::Op(op_name, operands) =&gt; {
+            let args: Vec&lt;Value&gt; = operands.iter().map(|e| self.eval_value_exp(e)).collect();
+            let op = self.operations.get(op_name).expect(&quot;Unknown operation&quot;);
+            op(&amp;args)
+        }
+    }
+}
+</pre></div>
+<blockquote class="quotation">
+<p><strong class="strong"><a class="anchor" id="Exercise-5_002e9"></a>Exercise 5.9:</strong> The treatment of machine operations
 above permits them to operate on labels as well as on constants and the
 contents of registers.  Modify the expression-processing procedures to enforce
 the condition that operations can be used only with registers and constants.
 </p></blockquote>
 
-<blockquote>
-<p><strong><a id="Exercise-5_002e10"></a>Exercise 5.10:</strong> Design a new syntax for
+<blockquote class="quotation">
+<p><strong class="strong"><a class="anchor" id="Exercise-5_002e10"></a>Exercise 5.10:</strong> Design a new syntax for
 register-machine instructions and modify the simulator to use your new syntax.
 Can you implement your new syntax without changing any part of the simulator
 except the syntax procedures in this section?
 </p></blockquote>
 
-<blockquote>
-<p><strong><a id="Exercise-5_002e11"></a>Exercise 5.11:</strong> When we introduced <code>save</code>
-and <code>restore</code> in <a href="5_002e1.xhtml#g_t5_002e1_002e4">5.1.4</a>, we didn’t specify what would happen
+<blockquote class="quotation">
+<p><strong class="strong"><a class="anchor" id="Exercise-5_002e11"></a>Exercise 5.11:</strong> When we introduced <code class="code">save</code>
+and <code class="code">restore</code> in <a class="ref" href="5_002e1.xhtml#g_t5_002e1_002e4">Using a Stack to Implement Recursion</a>, we didn&#8217;t specify what would happen
 if you tried to restore a register that was not the last one saved, as in the
 sequence
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">save y</span><span class="clo">)</span><span class="pln">
-</span><span class="opn">(</span><span class="pln">save x</span><span class="clo">)</span><span class="pln">
-</span><span class="opn">(</span><span class="pln">restore y</span><span class="clo">)</span></pre></div>
+<div class="example lisp">
+<pre class="lisp-preformatted">(save y)
+(save x)
+(restore y)
+</pre></div>
 
-<p>There are several reasonable possibilities for the meaning of <code>restore</code>:
+<p>There are several reasonable possibilities for the meaning of <code class="code">restore</code>:
 </p>
-<ol>
-<li> <code>(restore y)</code> puts into <code>y</code> the last value saved on the stack,
+<ol class="enumerate" type="a" start="1">
+<li> <code class="code">(restore y)</code> puts into <code class="code">y</code> the last value saved on the stack,
 regardless of what register that value came from.  This is the way our
 simulator behaves.  Show how to take advantage of this behavior to eliminate
-one instruction from the Fibonacci machine of <a href="5_002e1.xhtml#g_t5_002e1_002e4">5.1.4</a> (<a href="5_002e1.xhtml#Figure-5_002e12">Figure 5.12</a>).
+one instruction from the Fibonacci machine of <a class="ref" href="5_002e1.xhtml#g_t5_002e1_002e4">Using a Stack to Implement Recursion</a> (<a class="ref" href="5_002e1.xhtml#Figure-5_002e12">Figure 5.12</a>).
 
-</li><li> <code>(restore y)</code> puts into <code>y</code> the last value saved on the stack, but
-only if that value was saved from <code>y</code>; otherwise, it signals an error.
-Modify the simulator to behave this way.  You will have to change <code>save</code>
+</li><li> <code class="code">(restore y)</code> puts into <code class="code">y</code> the last value saved on the stack, but
+only if that value was saved from <code class="code">y</code>; otherwise, it signals an error.
+Modify the simulator to behave this way.  You will have to change <code class="code">save</code>
 to put the register name on the stack along with the value.
 
-</li><li> <code>(restore y)</code> puts into <code>y</code> the last value saved from <code>y</code>
-regardless of what other registers were saved after <code>y</code> and not restored.
+</li><li> <code class="code">(restore y)</code> puts into <code class="code">y</code> the last value saved from <code class="code">y</code>
+regardless of what other registers were saved after <code class="code">y</code> and not restored.
 Modify the simulator to behave this way.  You will have to associate a separate
-stack with each register.  You should make the <code>initialize-stack</code>
+stack with each register.  You should make the <code class="code">initialize_stack</code>
 operation initialize all the register stacks.
 
 </li></ol>
 </blockquote>
 
-<blockquote>
-<p><strong><a id="Exercise-5_002e12"></a>Exercise 5.12:</strong> The simulator can be used to help
+<blockquote class="quotation">
+<p><strong class="strong"><a class="anchor" id="Exercise-5_002e12"></a>Exercise 5.12:</strong> The simulator can be used to help
 determine the data paths required for implementing a machine with a given
 controller.  Extend the assembler to store the following information in the
 machine model:
 </p>
-<ul>
-<li> a list of all instructions, with duplicates removed, sorted by instruction type
-(<code>assign</code>, <code>goto</code>, and so on);
+<ul class="itemize mark-bullet">
+<li>a list of all instructions, with duplicates removed, sorted by instruction type
+(<code class="code">assign</code>, <code class="code">goto</code>, and so on);
 
-</li><li> a list (without duplicates) of the registers used to hold entry points (these
-are the registers referenced by <code>goto</code> instructions);
+</li><li>a list (without duplicates) of the registers used to hold entry points (these
+are the registers referenced by <code class="code">goto</code> instructions);
 
-</li><li> a list (without duplicates) of the registers that are <code>save</code>d
-or <code>restore</code>d;
+</li><li>a list (without duplicates) of the registers that are <code class="code">save</code>d
+or <code class="code">restore</code>d;
 
-</li><li> for each register, a list (without duplicates) of the sources from which it is
-assigned (for example, the sources for register <code>val</code> in the factorial
-machine of <a href="5_002e1.xhtml#Figure-5_002e11">Figure 5.11</a> are <code>(const 1)</code> and <code>((op *) (reg n)
-(reg val))</code>).
+</li><li>for each register, a list (without duplicates) of the sources from which it is
+assigned (for example, the sources for register <code class="code">val</code> in the factorial
+machine of <a class="ref" href="5_002e1.xhtml#Figure-5_002e11">Figure 5.11</a> are <code class="code">VExp::Const(1)</code> and <code class="code">VExp::Op(OpExp { op: &quot;*&quot;, ... })</code>).
 
 </li></ul>
 
 <p>Extend the message-passing interface to the machine to provide access to this
 new information.  To test your analyzer, define the Fibonacci machine from
-<a href="5_002e1.xhtml#Figure-5_002e12">Figure 5.12</a> and examine the lists you constructed.
+<a class="ref" href="5_002e1.xhtml#Figure-5_002e12">Figure 5.12</a> and examine the lists you constructed.
 </p></blockquote>
 
-<blockquote>
-<p><strong><a id="Exercise-5_002e13"></a>Exercise 5.13:</strong> Modify the simulator so that it
+<blockquote class="quotation">
+<p><strong class="strong"><a class="anchor" id="Exercise-5_002e13"></a>Exercise 5.13:</strong> Modify the simulator so that it
 uses the controller sequence to determine what registers the machine has rather
-than requiring a list of registers as an argument to <code>make-machine</code>.
-Instead of pre-allocating the registers in <code>make-machine</code>, you can
+than requiring a list of registers as an argument to <code class="code">make_machine</code>.
+Instead of pre-allocating the registers in <code class="code">make_machine</code>, you can
 allocate them one at a time when they are first seen during assembly of the
 instructions.
 </p></blockquote>
 
-<a id="g_t5_002e2_002e4"></a>
-<a id="Monitoring-Machine-Performance"></a>
-<h4 class="subsection"><span class="secnum">5.2.4</span><span class="sectitle">Monitoring Machine Performance</span></h4>
+<hr />
+</div>
+<div class="subsection-level-extent" id="g_t5_002e2_002e4">
+<h4 class="subsection" id="Monitoring-Machine-Performance"><span>5.2.5 Monitoring Machine Performance<a class="copiable-link" href="#Monitoring-Machine-Performance"> &#182;</a></span></h4>
 
 <p>Simulation is useful not only for verifying the correctness of a proposed
-machine design but also for measuring the machine’s performance.  For example,
-we can install in our simulation program a “meter” that measures the number
+machine design but also for measuring the machine&#8217;s performance.  For example,
+we can install in our simulation program a &#8220;meter&#8221; that measures the number
 of stack operations used in a computation.  To do this, we modify our simulated
 stack to keep track of the number of times registers are saved on the stack and
-the maximum depth reached by the stack, and add a message to the stack’s
+the maximum depth reached by the stack, and add a message to the stack&#8217;s
 interface that prints the statistics, as shown below.  We also add an operation
 to the basic machine model to print the stack statistics, by initializing
-<code>the-ops</code> in <code>make-new-machine</code> to
+<code class="code">the-ops</code> in <code class="code">make_new_machine</code> to
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">list </span><span class="opn">(</span><span class="pln">list </span><span class="lit">'initialize-stack</span><span class="pln">
-            </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="clo">)</span><span class="pln"> 
-              </span><span class="opn">(</span><span class="pln">stack </span><span class="lit">'initialize</span><span class="clo">)))</span><span class="pln">
-      </span><span class="opn">(</span><span class="pln">list </span><span class="lit">'print-stack-statistics</span><span class="pln">
-            </span><span class="opn">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="opn">(</span><span class="clo">)</span><span class="pln"> 
-              </span><span class="opn">(</span><span class="pln">stack </span><span class="lit">'print-statistics</span><span class="clo">))))</span></pre></div>
+<div class="example">
+<pre class="example-preformatted">machine.operation(&quot;initialize_stack&quot;, |args| {
+    stack.initialize();
+    Value::Ok
+});
+machine.operation(&quot;print_stack_statistics&quot;, |args| {
+    stack.print_statistics();
+    Value::Ok
+});
+</pre></div>
 
-<p>Here is the new version of <code>make-stack</code>:
+<p>Here is the new version of <code class="code">make_stack</code>:
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">make-stack</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">s </span><span class="lit">'</span><span class="opn">(</span><span class="clo">))</span><span class="pln">
-        </span><span class="opn">(</span><span class="pln">number-pushes </span><span class="lit">0</span><span class="clo">)</span><span class="pln">
-        </span><span class="opn">(</span><span class="pln">max-depth </span><span class="lit">0</span><span class="clo">)</span><span class="pln">
-        </span><span class="opn">(</span><span class="pln">current-depth </span><span class="lit">0</span><span class="clo">))</span><span class="pln">
-    </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">push x</span><span class="clo">)</span><span class="pln">
-      </span><span class="opn">(</span><span class="kwd">set</span><span class="pun">!</span><span class="pln"> s </span><span class="opn">(</span><span class="kwd">cons</span><span class="pln"> x s</span><span class="clo">))</span><span class="pln">
-      </span><span class="opn">(</span><span class="kwd">set</span><span class="pun">!</span><span class="pln"> number-pushes </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="lit">1</span><span class="pln"> number-pushes</span><span class="clo">))</span><span class="pln">
-      </span><span class="opn">(</span><span class="kwd">set</span><span class="pun">!</span><span class="pln"> current-depth </span><span class="opn">(</span><span class="pun">+</span><span class="pln"> </span><span class="lit">1</span><span class="pln"> current-depth</span><span class="clo">))</span><span class="pln">
-      </span><span class="opn">(</span><span class="kwd">set</span><span class="pun">!</span><span class="pln"> max-depth 
-            </span><span class="opn">(</span><span class="pln">max current-depth max-depth</span><span class="clo">)))</span><span class="pln">
-    </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">pop</span><span class="clo">)</span><span class="pln">
-      </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pln">null? s</span><span class="clo">)</span><span class="pln">
-          </span><span class="opn">(</span><span class="err">error</span><span class="pln"> </span><span class="str">"Empty stack: POP"</span><span class="clo">)</span><span class="pln">
-          </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">top </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> s</span><span class="clo">)))</span><span class="pln">
-            </span><span class="opn">(</span><span class="kwd">set</span><span class="pun">!</span><span class="pln"> s </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> s</span><span class="clo">))</span><span class="pln">
-            </span><span class="opn">(</span><span class="kwd">set</span><span class="pun">!</span><span class="pln"> current-depth
-                  </span><span class="opn">(</span><span class="pun">-</span><span class="pln"> current-depth </span><span class="lit">1</span><span class="clo">))</span><span class="pln">
-            top</span><span class="clo">)))</span><span class="pln">
-    </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">initialize</span><span class="clo">)</span><span class="pln">
-      </span><span class="opn">(</span><span class="kwd">set</span><span class="pun">!</span><span class="pln"> s </span><span class="lit">'</span><span class="opn">(</span><span class="clo">))</span><span class="pln">
-      </span><span class="opn">(</span><span class="kwd">set</span><span class="pun">!</span><span class="pln"> number-pushes </span><span class="lit">0</span><span class="clo">)</span><span class="pln">
-      </span><span class="opn">(</span><span class="kwd">set</span><span class="pun">!</span><span class="pln"> max-depth </span><span class="lit">0</span><span class="clo">)</span><span class="pln">
-      </span><span class="opn">(</span><span class="kwd">set</span><span class="pun">!</span><span class="pln"> current-depth </span><span class="lit">0</span><span class="clo">)</span><span class="pln">
-      </span><span class="lit">'done</span><span class="clo">)</span><span class="pln">
+<div class="example lisp">
+<div class="example lisp">
+<pre class="lisp-preformatted">pub struct Stack {
+    data: Vec&lt;Value&gt;,
+    pushes: usize,
+    max_depth: usize,
+}
 
-    </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">print-statistics</span><span class="clo">)</span><span class="pln">
-      </span><span class="opn">(</span><span class="pln">newline</span><span class="clo">)</span><span class="pln">
-      </span><span class="opn">(</span><span class="pln">display </span><span class="opn">(</span><span class="pln">list </span><span class="lit">'total-pushes</span><span class="pln"> 
-                     </span><span class="lit">'</span><span class="pun">=</span><span class="pln"> 
-                     number-pushes
-                     </span><span class="lit">'maximum-depth</span><span class="pln">
-                     </span><span class="lit">'</span><span class="pun">=</span><span class="pln">
-                     max-depth</span><span class="clo">)))</span><span class="pln">
-    </span><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">dispatch message</span><span class="clo">)</span><span class="pln">
-      </span><span class="opn">(</span><span class="kwd">cond</span><span class="pln"> </span><span class="opn">((</span><span class="kwd">eq</span><span class="pun">?</span><span class="pln"> message </span><span class="lit">'push</span><span class="clo">)</span><span class="pln"> push</span><span class="clo">)</span><span class="pln">
-            </span><span class="opn">((</span><span class="kwd">eq</span><span class="pun">?</span><span class="pln"> message </span><span class="lit">'pop</span><span class="clo">)</span><span class="pln"> </span><span class="opn">(</span><span class="pln">pop</span><span class="clo">))</span><span class="pln">
-            </span><span class="opn">((</span><span class="kwd">eq</span><span class="pun">?</span><span class="pln"> message </span><span class="lit">'initialize</span><span class="clo">)</span><span class="pln">
-             </span><span class="opn">(</span><span class="pln">initialize</span><span class="clo">))</span><span class="pln">
-            </span><span class="opn">((</span><span class="kwd">eq</span><span class="pun">?</span><span class="pln"> message </span><span class="lit">'print-statistics</span><span class="clo">)</span><span class="pln">
-             </span><span class="opn">(</span><span class="pln">print-statistics</span><span class="clo">))</span><span class="pln">
-            </span><span class="opn">(</span><span class="kwd">else</span><span class="pln">
-             </span><span class="opn">(</span><span class="err">error</span><span class="pln"> </span><span class="str">"Unknown request: STACK"</span><span class="pln">
-                    message</span><span class="clo">))))</span><span class="pln">
-    dispatch</span><span class="clo">))</span></pre></div>
+impl Stack {
+    pub fn new() -&gt; Self {
+        Stack {
+            data: Vec::new(),
+            pushes: 0,
+            max_depth: 0,
+        }
+    }
 
-<p><a href="#Exercise-5_002e15">Exercise 5.15</a> through <a href="#Exercise-5_002e19">Exercise 5.19</a> describe other useful
+    pub fn push(&amp;mut self, value: Value) {
+        self.data.push(value);
+        self.pushes += 1;
+        if self.data.len() &gt; self.max_depth {
+            self.max_depth = self.data.len();
+        }
+    }
+
+    pub fn pop(&amp;mut self) -&gt; Value {
+        self.data.pop().expect(&quot;Empty stack: POP&quot;)
+    }
+
+    pub fn initialize(&amp;mut self) {
+        self.data.clear();
+        self.pushes = 0;
+        self.max_depth = 0;
+    }
+
+    pub fn print_statistics(&amp;self) {
+        println!(&quot;(total-pushes = {} maximum-depth = {})&quot;,
+                 self.pushes, self.max_depth);
+    }
+}
+</pre></div>
+</div>
+
+<p><a class="ref" href="#Exercise-5_002e15">Exercise 5.15</a> through <a class="ref" href="#Exercise-5_002e19">Exercise 5.19</a> describe other useful
 monitoring and debugging features that can be added to the register-machine
 simulator.
 </p>
-<blockquote>
-<p><strong><a id="Exercise-5_002e14"></a>Exercise 5.14:</strong> Measure the number of pushes and
-the maximum stack depth required to compute <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <mrow class="MJX-TeXAtom-ORD">
-    <mi>n</mi>
-    <mo>!</mo>
-  </mrow>
-</math> for various small values of
-<math xmlns="http://www.w3.org/1998/Math/MathML">
-  <mi>n</mi>
-</math> using the factorial machine shown in <a href="5_002e1.xhtml#Figure-5_002e11">Figure 5.11</a>.  From your data
-determine formulas in terms of <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <mi>n</mi>
-</math> for the total number of push operations
-and the maximum stack depth used in computing <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <mrow class="MJX-TeXAtom-ORD">
-    <mi>n</mi>
-    <mo>!</mo>
-  </mrow>
-</math> for any <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <mrow class="MJX-TeXAtom-ORD">
-    <mi>n</mi>
-    <mo>&gt;</mo>
-    <mn>1</mn>
-  </mrow>
-</math>. Note
-that each of these is a linear function of <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <mi>n</mi>
-</math> and is thus determined by two
+<blockquote class="quotation">
+<p><strong class="strong"><a class="anchor" id="Exercise-5_002e14"></a>Exercise 5.14:</strong> Measure the number of pushes and
+the maximum stack depth required to compute <em class="math">{n!}</em> for various small values of
+<em class="math">n</em> using the factorial machine shown in <a class="ref" href="5_002e1.xhtml#Figure-5_002e11">Figure 5.11</a>.  From your data
+determine formulas in terms of <em class="math">n</em> for the total number of push operations
+and the maximum stack depth used in computing <em class="math">{n!}</em> for any <em class="math">{n &gt; 1}</em>. Note
+that each of these is a linear function of <em class="math">n</em> and is thus determined by two
 constants.  In order to get the statistics printed, you will have to augment
 the factorial machine with instructions to initialize the stack and print the
 statistics.  You may want to also modify the machine so that it repeatedly
-reads a value for <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <mi>n</mi>
-</math>, computes the factorial, and prints the result (as we
-did for the <abbr>GCD</abbr> machine in <a href="5_002e1.xhtml#Figure-5_002e4">Figure 5.4</a>), so that you will not
-have to repeatedly invoke <code>get-register-contents</code>,
-<code>set-register-contents!</code>, and <code>start</code>.
+reads a value for <em class="math">n</em>, computes the factorial, and prints the result (as we
+did for the <abbr class="abbr">GCD</abbr> machine in <a class="ref" href="5_002e1.xhtml#Figure-5_002e4">Figure 5.4</a>), so that you will not
+have to repeatedly invoke <code class="code">get_register_contents</code>,
+<code class="code">set_register_contents</code>, and <code class="code">start</code>.
 </p></blockquote>
 
-<blockquote>
-<p><strong><a id="Exercise-5_002e15"></a>Exercise 5.15:</strong> Add <a id="index-instruction-counting"></a>
-<em>instruction counting</em> 
+<blockquote class="quotation">
+<p><strong class="strong"><a class="anchor" id="Exercise-5_002e15"></a>Exercise 5.15:</strong> Add <a class="index-entry-id" id="index-instruction-counting"></a>
+<em class="dfn">instruction counting</em>
 to the register machine simulation.  That is, have the machine model
-keep track of the number of instructions executed.  Extend the machine model’s
+keep track of the number of instructions executed.  Extend the machine model&#8217;s
 interface to accept a new message that prints the value of the instruction
 count and resets the count to zero.
 </p></blockquote>
 
-<blockquote>
-<p><strong><a id="Exercise-5_002e16"></a>Exercise 5.16:</strong> Augment the simulator to provide
-for <a id="index-instruction-tracing"></a>
-<em>instruction tracing</em>.  That is, before each instruction is
+<blockquote class="quotation">
+<p><strong class="strong"><a class="anchor" id="Exercise-5_002e16"></a>Exercise 5.16:</strong> Augment the simulator to provide
+for <a class="index-entry-id" id="index-instruction-tracing"></a>
+<em class="dfn">instruction tracing</em>.  That is, before each instruction is
 executed, the simulator should print the text of the instruction.  Make the
-machine model accept <code>trace-on</code> and <code>trace-off</code> messages to turn
+machine model accept <code class="code">trace-on</code> and <code class="code">trace-off</code> messages to turn
 tracing on and off.
 </p></blockquote>
 
-<blockquote>
-<p><strong><a id="Exercise-5_002e17"></a>Exercise 5.17:</strong> Extend the instruction tracing of
-<a href="#Exercise-5_002e16">Exercise 5.16</a> so that before printing an instruction, the simulator
+<blockquote class="quotation">
+<p><strong class="strong"><a class="anchor" id="Exercise-5_002e17"></a>Exercise 5.17:</strong> Extend the instruction tracing of
+<a class="ref" href="#Exercise-5_002e16">Exercise 5.16</a> so that before printing an instruction, the simulator
 prints any labels that immediately precede that instruction in the controller
 sequence.  Be careful to do this in a way that does not interfere with
-instruction counting (<a href="#Exercise-5_002e15">Exercise 5.15</a>).  You will have to make the
+instruction counting (<a class="ref" href="#Exercise-5_002e15">Exercise 5.15</a>).  You will have to make the
 simulator retain the necessary label information.
 </p></blockquote>
 
-<blockquote>
-<p><strong><a id="Exercise-5_002e18"></a>Exercise 5.18:</strong> Modify the <code>make-register</code>
-procedure of <a href="#g_t5_002e2_002e1">5.2.1</a> so that registers can be traced.  Registers
+<blockquote class="quotation">
+<p><strong class="strong"><a class="anchor" id="Exercise-5_002e18"></a>Exercise 5.18:</strong> Modify the <code class="code">make_register</code>
+procedure of <a class="ref" href="#g_t5_002e2_002e1">The Machine Model</a> so that registers can be traced.  Registers
 should accept messages that turn tracing on and off.  When a register is
 traced, assigning a value to the register should print the name of the
 register, the old contents of the register, and the new contents being
@@ -1122,109 +901,425 @@ assigned.  Extend the interface to the machine model to permit you to turn
 tracing on and off for designated machine registers.
 </p></blockquote>
 
-<blockquote>
-<p><strong><a id="Exercise-5_002e19"></a>Exercise 5.19:</strong> Alyssa P. Hacker wants a
-<a id="index-breakpoint"></a>
-<em>breakpoint</em> feature in the simulator to help her debug her machine
+<blockquote class="quotation">
+<p><strong class="strong"><a class="anchor" id="Exercise-5_002e19"></a>Exercise 5.19:</strong> Alyssa P. Hacker wants a
+<a class="index-entry-id" id="index-breakpoint"></a>
+<em class="dfn">breakpoint</em> feature in the simulator to help her debug her machine
 designs.  You have been hired to install this feature for her.  She wants to be
 able to specify a place in the controller sequence where the simulator will
 stop and allow her to examine the state of the machine.  You are to implement a
 procedure
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">set-breakpoint ⟨</span><var><span class="pln">machine</span></var><span class="pln">⟩ ⟨</span><var><span class="pln">label</span></var><span class="pln">⟩ ⟨</span><var><span class="pln">n</span></var><span class="pln">⟩</span><span class="clo">)</span></pre></div>
+<div class="example lisp">
+<pre class="lisp-preformatted">(set-breakpoint ⟨<var class="var">machine</var>⟩ ⟨<var class="var">label</var>⟩ ⟨<var class="var">n</var>⟩)
+</pre></div>
 
-<p>that sets a breakpoint just before the <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <msup>
-    <mi>n</mi>
-    <mrow class="MJX-TeXAtom-ORD">
-      <mtext>th</mtext>
-    </mrow>
-  </msup>
-</math> instruction after the given
+<p>that sets a breakpoint just before the <em class="math">n^{th}</em> instruction after the given
 label.  For example,
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">set-breakpoint gcd-machine </span><span class="lit">'test-b</span><span class="pln"> </span><span class="lit">4</span><span class="clo">)</span></pre></div>
+<div class="example lisp">
+<pre class="lisp-preformatted">(set-breakpoint gcd-machine 'test-b 4)
+</pre></div>
 
-<p>installs a breakpoint in <code>gcd-machine</code> just before the assignment to
-register <code>a</code>.  When the simulator reaches the breakpoint it should print
+<p>installs a breakpoint in <code class="code">gcd-machine</code> just before the assignment to
+register <code class="code">a</code>.  When the simulator reaches the breakpoint it should print
 the label and the offset of the breakpoint and stop executing instructions.
-Alyssa can then use <code>get-register-contents</code> and
-<code>set-register-contents!</code> to manipulate the state of the simulated machine.
+Alyssa can then use <code class="code">get_register_contents</code> and
+<code class="code">set_register_contents</code> to manipulate the state of the simulated machine.
 She should then be able to continue execution by saying
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">proceed-machine ⟨</span><var><span class="pln">machine</span></var><span class="pln">⟩</span><span class="clo">)</span></pre></div>
+<div class="example lisp">
+<pre class="lisp-preformatted">(proceed-machine ⟨<var class="var">machine</var>⟩)
+</pre></div>
 
 <p>She should also be able to remove a specific breakpoint by means of
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">cancel-breakpoint ⟨</span><var><span class="pln">machine</span></var><span class="pln">⟩ ⟨</span><var><span class="pln">label</span></var><span class="pln">⟩ ⟨</span><var><span class="pln">n</span></var><span class="pln">⟩</span><span class="clo">)</span></pre></div>
+<div class="example lisp">
+<pre class="lisp-preformatted">(cancel-breakpoint ⟨<var class="var">machine</var>⟩ ⟨<var class="var">label</var>⟩ ⟨<var class="var">n</var>⟩)
+</pre></div>
 
 <p>or to remove all breakpoints by means of
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="pln">cancel-all-breakpoints ⟨</span><var><span class="pln">machine</span></var><span class="pln">⟩</span><span class="clo">)</span></pre></div>
+<div class="example lisp">
+<pre class="lisp-preformatted">(cancel-all-breakpoints ⟨<var class="var">machine</var>⟩)
+</pre></div>
 </blockquote>
+<hr />
+</div>
+<div class="subsection-level-extent" id="g_t5_002e2_002e5">
+<h4 class="subsection" id="WebAssembly-Backend"><span>5.2.6 WebAssembly Backend<a class="copiable-link" href="#WebAssembly-Backend"> &#182;</a></span></h4>
 
-<div class="footnote">
-<h4 class="footnotes-heading">Footnotes</h4>
+<a class="index-entry-id" id="index-WebAssembly"></a>
+<a class="index-entry-id" id="index-WASM"></a>
+<a class="index-entry-id" id="index-portable-binary-format"></a>
+<a class="index-entry-id" id="index-wasm32_002dunknown_002dunknown"></a>
 
-<div id="FOOT289"><p><a class="footnote_backlink" href="#DOCF289"><sup>289</sup></a>
-Using the <code>receive</code> procedure here is a way to
-get <code>extract-labels</code> to effectively return two values—<code>labels</code> and
-<code>insts</code>—without explicitly making a compound data structure to hold
-them.  An alternative implementation, which returns an explicit pair of values,
-is
+<p>In our exploration of register machines, we have seen how abstract computational
+processes can be embodied in concrete machine implementations. WebAssembly
+(<abbr class="abbr">WASM</abbr>) represents a fascinating bridge between the world of high-level
+programming languages like Rust and the low-level execution environments of
+diverse platforms—from web browsers to embedded systems and serverless
+environments.
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">extract-labels text</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pln">null? text</span><span class="clo">)</span><span class="pln">
-      </span><span class="opn">(</span><span class="kwd">cons</span><span class="pln"> </span><span class="lit">'</span><span class="opn">(</span><span class="clo">)</span><span class="pln"> </span><span class="lit">'</span><span class="opn">(</span><span class="clo">))</span><span class="pln">
-      </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">result 
-             </span><span class="opn">(</span><span class="pln">extract-labels </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> text</span><span class="clo">))))</span><span class="pln">
-        </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">insts </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> result</span><span class="clo">))</span><span class="pln">
-              </span><span class="opn">(</span><span class="pln">labels </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> result</span><span class="clo">)))</span><span class="pln">
-          </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">next-inst </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> text</span><span class="clo">)))</span><span class="pln">
-            </span><span class="opn">(</span><span class="kwd">if</span><span class="pln"> </span><span class="opn">(</span><span class="pln">symbol? next-inst</span><span class="clo">)</span><span class="pln">
-                </span><span class="opn">(</span><span class="kwd">cons</span><span class="pln"> 
-                 insts
-                 </span><span class="opn">(</span><span class="kwd">cons</span><span class="pln"> 
-                  </span><span class="opn">(</span><span class="pln">make-label-entry 
-                   next-inst insts</span><span class="clo">)</span><span class="pln"> 
-                  labels</span><span class="clo">))</span><span class="pln">
-                </span><span class="opn">(</span><span class="kwd">cons</span><span class="pln"> 
-                 </span><span class="opn">(</span><span class="kwd">cons</span><span class="pln"> 
-                  </span><span class="opn">(</span><span class="pln">make-instruction next-inst</span><span class="clo">)</span><span class="pln"> 
-                  insts</span><span class="clo">)</span><span class="pln">
-                 labels</span><span class="clo">)))))))</span></pre></div>
-
-<p>which would be called by <code>assemble</code> as follows:
+<a class="index-entry-id" id="index-stack-machine"></a>
+<p>WebAssembly is a <a class="index-entry-id" id="index-portable-binary-instruction-format"></a>
+<em class="dfn">portable binary instruction format</em> designed as a
+compilation target for high-level languages. Unlike the register machines we&#8217;ve
+been studying, WebAssembly is fundamentally a <a class="index-entry-id" id="index-stack-machine-1"></a>
+<em class="dfn">stack machine</em>: its
+instructions operate on an implicit operand stack rather than named registers.
+This design choice simplifies instruction encoding and verification while still
+enabling efficient execution through modern just-in-time (<abbr class="abbr">JIT</abbr>)
+compilation techniques.
 </p>
-<div class="lisp">
-<pre class="lisp prettyprinted" style=""><span class="opn">(</span><span class="kwd">define</span><span class="pln"> </span><span class="opn">(</span><span class="pln">assemble controller-text machine</span><span class="clo">)</span><span class="pln">
-  </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">result 
-         </span><span class="opn">(</span><span class="pln">extract-labels controller-text</span><span class="clo">)))</span><span class="pln">
-    </span><span class="opn">(</span><span class="kwd">let</span><span class="pln"> </span><span class="opn">((</span><span class="pln">insts </span><span class="opn">(</span><span class="kwd">car</span><span class="pln"> result</span><span class="clo">))</span><span class="pln">
-          </span><span class="opn">(</span><span class="pln">labels </span><span class="opn">(</span><span class="kwd">cdr</span><span class="pln"> result</span><span class="clo">)))</span><span class="pln">
-      </span><span class="opn">(</span><span class="pln">update-insts! insts labels machine</span><span class="clo">)</span><span class="pln">
-      insts</span><span class="clo">)))</span></pre></div>
+<p>The relationship between our register machine concepts and WebAssembly&#8217;s stack
+machine model illuminates fundamental principles of computer architecture. Where
+a register machine instruction might say &#8220;add the contents of registers
+<code class="code">r1</code> and <code class="code">r2</code>, storing the result in <code class="code">r3</code>&#8221;, the equivalent
+WebAssembly instruction sequence would push two values onto the operand stack
+and then execute an <code class="code">add</code> instruction that pops both operands and pushes
+the result.
+</p>
+<h4 class="subsubheading" id="Compiling-Rust-to-WebAssembly"><span>Compiling Rust to WebAssembly<a class="copiable-link" href="#Compiling-Rust-to-WebAssembly"> &#182;</a></span></h4>
 
-<p>You can consider our use of <code>receive</code> as demonstrating an elegant way to
-return multiple values, or simply an excuse to show off a programming trick.
-An argument like <code>receive</code> that is the next procedure to be invoked is
-called a “continuation.”  Recall that we also used continuations to implement
-the backtracking control structure in the <code>amb</code> evaluator in 
-<a href="4_002e3.xhtml#g_t4_002e3_002e3">4.3.3</a>.</p>
+<a class="index-entry-id" id="index-wasm32_002dunknown_002dunknown-target"></a>
+<p>Rust&#8217;s support for WebAssembly as a compilation target exemplifies the language&#8217;s
+commitment to zero-cost abstractions and platform independence. The
+<code class="code">wasm32-unknown-unknown</code> target produces <abbr class="abbr">WASM</abbr> binaries that can run
+in any environment with a WebAssembly runtime, without assuming any specific
+operating system or runtime environment.
+</p>
+<p>To compile a Rust program to WebAssembly, we first add the compilation target:
+</p>
+<div class="example">
+<pre class="example-preformatted">$ rustup target add wasm32-unknown-unknown
+</pre></div>
+
+<p>Then we can compile with:
+</p>
+<div class="example">
+<pre class="example-preformatted">$ cargo build --target wasm32-unknown-unknown --release
+</pre></div>
+
+<p>This produces a <samp class="file">.wasm</samp> file in the <samp class="file">target/wasm32-unknown-unknown/release/</samp>
+directory. Consider this simple Rust function that computes factorials:
+</p>
+<div class="example">
+<pre class="example-preformatted">#[no_mangle]
+pub extern &quot;C&quot; fn factorial(n: u32) -&gt; u32 {
+    match n {
+        0 | 1 =&gt; 1,
+        n =&gt; n * factorial(n - 1),
+    }
+}
+</pre></div>
+
+<p>The <code class="code">#[no_mangle]</code> attribute prevents Rust&#8217;s name mangling, ensuring the
+function can be called from JavaScript or other WebAssembly hosts. The
+<code class="code">extern &quot;C&quot;</code> specifies the calling convention, making the function
+compatible with the WebAssembly foreign function interface.
+</p>
+<h4 class="subsubheading" id="JavaScript-Interoperability-with-wasm_002dbindgen"><span>JavaScript Interoperability with wasm-bindgen<a class="copiable-link" href="#JavaScript-Interoperability-with-wasm_002dbindgen"> &#182;</a></span></h4>
+
+<a class="index-entry-id" id="index-wasm_002dbindgen"></a>
+<a class="index-entry-id" id="index-JavaScript-interop"></a>
+<p>While raw WebAssembly can only work with numeric types (<code class="code">i32</code>, <code class="code">i64</code>,
+<code class="code">f32</code>, <code class="code">f64</code>), real applications need richer data interchange.
+<code class="code">wasm-bindgen</code> bridges this gap by automatically generating the necessary
+JavaScript and Rust glue code to work with complex types.
+</p>
+<p>First, add the dependency to <samp class="file">Cargo.toml</samp>:
+</p>
+<div class="example">
+<pre class="example-preformatted">[dependencies]
+wasm-bindgen = &quot;0.2&quot;
+
+[lib]
+crate-type = [&quot;cdylib&quot;]
+</pre></div>
+
+<p>Now we can write more sophisticated functions:
+</p>
+<div class="example">
+<pre class="example-preformatted">use wasm_bindgen::prelude::*;
+
+#[wasm_bindgen]
+pub fn greet(name: &amp;str) -&gt; String {
+    format!(&quot;Hello, {}!&quot;, name)
+}
+
+#[wasm_bindgen]
+pub struct Calculator {
+    accumulator: f64,
+}
+
+#[wasm_bindgen]
+impl Calculator {
+    #[wasm_bindgen(constructor)]
+    pub fn new() -&gt; Calculator {
+        Calculator { accumulator: 0.0 }
+    }
+
+    pub fn add(&amp;mut self, value: f64) -&gt; f64 {
+        self.accumulator += value;
+        self.accumulator
+    }
+
+    pub fn get_value(&amp;self) -&gt; f64 {
+        self.accumulator
+    }
+}
+</pre></div>
+
+<p>The <code class="code">wasm_bindgen</code> macro automatically generates JavaScript bindings,
+allowing these functions and types to be used naturally from JavaScript:
+</p>
+<div class="example">
+<div class="group"><pre class="example-preformatted">import init, { greet, Calculator } from './my_wasm_module.js';
+
+await init();
+
+console.log(greet(&quot;WebAssembly&quot;));  // &quot;Hello, WebAssembly!&quot;
+
+const calc = new Calculator();
+calc.add(10);
+calc.add(32);
+console.log(calc.get_value());  // 42
+</pre></div></div>
+
+<h4 class="subsubheading" id="The-wasm_002dpack-Development-Workflow"><span>The wasm-pack Development Workflow<a class="copiable-link" href="#The-wasm_002dpack-Development-Workflow"> &#182;</a></span></h4>
+
+<a class="index-entry-id" id="index-wasm_002dpack"></a>
+<p><code class="code">wasm-pack</code> provides a comprehensive build tool that handles the entire
+workflow of creating, building, and packaging Rust-generated WebAssembly:
+</p>
+<div class="example">
+<pre class="example-preformatted">$ cargo install wasm-pack
+$ wasm-pack build --target web
+</pre></div>
+
+<p>This command:
+</p>
+<ol class="enumerate">
+<li> Compiles your Rust code to WebAssembly
+</li><li> Generates TypeScript type definitions
+</li><li> Creates a JavaScript wrapper module
+</li><li> Optimizes the <samp class="file">.wasm</samp> binary
+</li><li> Produces an npm-compatible package
+</li></ol>
+
+<p>The <code class="code">--target</code> flag supports several output formats:
+</p>
+<ul class="itemize mark-bullet">
+<li><code class="code">web</code> — ES modules for direct browser use
+</li><li><code class="code">bundler</code> — for webpack, Rollup, or Parcel
+</li><li><code class="code">nodejs</code> — for Node.js environments
+</li><li><code class="code">no-modules</code> — traditional script tags
+</li></ul>
+
+<h4 class="subsubheading" id="WebAssembly-System-Interface-_0028WASI_0029"><span>WebAssembly System Interface (WASI)<a class="copiable-link" href="#WebAssembly-System-Interface-_0028WASI_0029"> &#182;</a></span></h4>
+
+<a class="index-entry-id" id="index-WASI"></a>
+<a class="index-entry-id" id="index-WebAssembly-System-Interface"></a>
+<p>While WebAssembly in browsers is sandboxed and security-focused, server-side and
+embedded applications need access to system resources: files, network sockets,
+environment variables, and random number generation. The <a class="index-entry-id" id="index-WebAssembly-1"></a>
+System Interface
+<em class="dfn">WebAssembly
+System Interface</em> (<abbr class="abbr">WASI</abbr>) provides a standardized, capability-based
+approach to system access.
+</p>
+<a class="index-entry-id" id="index-wasm32_002dwasi-target"></a>
+<p>Using the <code class="code">wasm32-wasi</code> target, we can compile Rust programs that interact
+with the operating system:
+</p>
+<div class="example">
+<pre class="example-preformatted">$ rustup target add wasm32-wasi
+$ cargo build --target wasm32-wasi
+</pre></div>
+
+<p>Consider a program that reads from standard input and writes to standard output:
+</p>
+<div class="example">
+<pre class="example-preformatted">use std::io::{self, BufRead, Write};
+
+fn main() -&gt; io::Result&lt;()&gt; {
+    let stdin = io::stdin();
+    let mut stdout = io::stdout();
+
+    for line in stdin.lock().lines() {
+        let line = line?;
+        writeln!(stdout, &quot;Echo: {}&quot;, line)?;
+    }
+
+    Ok(())
+}
+</pre></div>
+
+<p>This program compiles to <abbr class="abbr">WASI</abbr> WebAssembly and can be executed with
+runtimes like Wasmtime or Wasmer:
+</p>
+<div class="example">
+<pre class="example-preformatted">$ wasmtime target/wasm32-wasi/release/echo.wasm
+</pre></div>
+
+<p>The program has full access to <abbr class="abbr">I/O</abbr> within the security constraints defined
+by the runtime&#8217;s capability model.
+</p>
+<h4 class="subsubheading" id="WebAssembly-Memory-Model"><span>WebAssembly Memory Model<a class="copiable-link" href="#WebAssembly-Memory-Model"> &#182;</a></span></h4>
+
+<a class="index-entry-id" id="index-linear-memory"></a>
+<a class="index-entry-id" id="index-memory-model"></a>
+<p>Understanding WebAssembly&#8217;s memory model illuminates the connection to our
+earlier discussions of memory management in register machines (<a class="ref" href="5_002e3.xhtml#g_t5_002e3">Storage Allocation and Garbage Collection</a>).
+WebAssembly provides a <a class="index-entry-id" id="index-linear-memory-1"></a>
+<em class="dfn">linear memory</em>—a contiguous, byte-addressable
+array that can grow dynamically but never shrink within a single instance.
+</p>
+<p>Unlike garbage-collected environments, WebAssembly has no built-in memory
+management. Memory allocation and deallocation must be handled explicitly by the
+compiled code. When Rust compiles to WebAssembly, it includes its own allocator
+implementation (typically <code class="code">wee_alloc</code> or <code class="code">dlmalloc</code>), providing the
+memory management substrate for Rust&#8217;s ownership system.
+</p>
+<p>The linear memory is exposed to JavaScript, enabling efficient data sharing:
+</p>
+<div class="example">
+<pre class="example-preformatted">#[wasm_bindgen]
+pub fn sum_array(data: &amp;[f64]) -&gt; f64 {
+    data.iter().sum()
+}
+</pre></div>
+
+<p>When called from JavaScript with a typed array, <code class="code">wasm-bindgen</code> copies the
+data into WebAssembly&#8217;s linear memory, processes it, and returns the result—all
+with minimal overhead.
+</p>
+<h4 class="subsubheading" id="Size-Optimization"><span>Size Optimization<a class="copiable-link" href="#Size-Optimization"> &#182;</a></span></h4>
+
+<a class="index-entry-id" id="index-code-size-optimization"></a>
+<a class="index-entry-id" id="index-wasm_002dopt"></a>
+<p>One of WebAssembly&#8217;s challenges, particularly for web deployment, is code size.
+Every byte matters when downloading code over the network. Rust provides several
+mechanisms for reducing WebAssembly binary size:
+</p>
+<p><strong class="strong">Cargo profile optimization:</strong>
+</p>
+<div class="example">
+<pre class="example-preformatted">[profile.release]
+opt-level = &quot;z&quot;      # Optimize for size
+lto = true           # Enable link-time optimization
+codegen-units = 1    # Reduce parallelism for better optimization
+strip = true         # Remove debug symbols
+</pre></div>
+
+<p><strong class="strong">Using <code class="code">wasm-opt</code>:</strong>
+</p>
+<p>The Binaryen toolkit&#8217;s <code class="code">wasm-opt</code> tool performs WebAssembly-specific
+optimizations:
+</p>
+<div class="example">
+<pre class="example-preformatted">$ wasm-opt -Oz -o optimized.wasm original.wasm
+</pre></div>
+
+<p>The <code class="code">-Oz</code> flag aggressively optimizes for size, often reducing binary size
+by 20-30% beyond what the compiler alone achieves.
+</p>
+<p><strong class="strong">Removing panic infrastructure:</strong>
+</p>
+<div class="example">
+<pre class="example-preformatted">#[cfg(target_arch = &quot;wasm32&quot;)]
+#[panic_handler]
+fn panic(_info: &amp;core::panic::PanicInfo) -&gt; ! {
+    core::arch::wasm32::unreachable()
+}
+</pre></div>
+
+<p>For applications where panics should never occur in production, this removes
+the panic formatting and unwinding machinery, saving significant space.
+</p>
+<h4 class="subsubheading" id="Performance-Characteristics-1"><span>Performance Characteristics<a class="copiable-link" href="#Performance-Characteristics-1"> &#182;</a></span></h4>
+
+<a class="index-entry-id" id="index-WASM-performance"></a>
+<p>WebAssembly&#8217;s performance characteristics reflect its design as a compilation
+target for ahead-of-time and just-in-time compilation:
+</p>
+<ul class="itemize mark-bullet">
+<li><strong class="strong">Near-native speed:</strong> Modern <abbr class="abbr">JIT</abbr> compilers achieve 80-95% of native
+performance for compute-intensive workloads
+</li><li><strong class="strong">Predictable performance:</strong> Unlike JavaScript, <abbr class="abbr">WASM</abbr> code doesn&#8217;t
+suffer from deoptimization or type instability
+</li><li><strong class="strong">Fast instantiation:</strong> Streaming compilation enables code execution before
+the entire module is downloaded
+</li><li><strong class="strong">Efficient memory access:</strong> Bounds-checked but optimizable to eliminate
+redundant checks
+</li></ul>
+
+<p>The stack machine architecture, while seemingly less efficient than register
+machines, compiles to efficient native code through standard compiler
+optimization techniques. The abstraction of a stack machine simplifies
+verification and provides implementation flexibility while maintaining
+performance.
+</p>
+<h4 class="subsubheading" id="WebAssembly-and-Register-Machines"><span>WebAssembly and Register Machines<a class="copiable-link" href="#WebAssembly-and-Register-Machines"> &#182;</a></span></h4>
+
+<p>The contrast between WebAssembly&#8217;s stack machine and our register machines
+exemplifies different points in the design space of abstract machines. Stack
+machines offer:
+</p>
+<ul class="itemize mark-bullet">
+<li><strong class="strong">Compact encoding:</strong> No need to specify register operands
+</li><li><strong class="strong">Simple verification:</strong> Stack depth can be statically determined
+</li><li><strong class="strong">Implementation flexibility:</strong> <abbr class="abbr">JIT</abbr> compilers can map to registers
+freely
+</li></ul>
+
+<p>Register machines provide:
+</p>
+<ul class="itemize mark-bullet">
+<li><strong class="strong">Direct hardware mapping:</strong> Closer to physical processor architecture
+</li><li><strong class="strong">Explicit data flow:</strong> Register names make dependencies clear
+</li><li><strong class="strong">Optimization opportunities:</strong> Register allocation as an explicit phase
+</li></ul>
+
+<p>Modern WebAssembly implementations compile stack operations to register-based
+native code, demonstrating that the choice of abstract machine doesn&#8217;t constrain
+the implementation strategy. The stack machine serves as an intermediate
+representation that&#8217;s both human-readable (in its text format) and
+machine-efficient (in its binary form).
+</p>
+<blockquote class="quotation">
+<p><strong class="strong"><a class="anchor" id="Exercise-5_002e20a"></a>Exercise 5.20a:</strong> Write a Rust function that computes
+the <em class="math">n^{th}</em> Fibonacci number and compile it to WebAssembly. Create an
+<abbr class="abbr">HTML</abbr> page that calls this function from JavaScript and displays the
+result. Measure and compare the execution time of your Rust/WebAssembly
+implementation with a pure JavaScript implementation for computing
+<code class="code">fibonacci(40)</code>. What accounts for any performance difference you observe?
+</p></blockquote>
+
+<blockquote class="quotation">
+<p><strong class="strong"><a class="anchor" id="Exercise-5_002e21a"></a>Exercise 5.21a:</strong> Implement a simple stack machine
+simulator in Rust that can execute a subset of WebAssembly instructions
+(<code class="code">i32.const</code>, <code class="code">i32.add</code>, <code class="code">i32.mul</code>, <code class="code">local.get</code>,
+<code class="code">local.set</code>). Compile your simulator to WebAssembly, creating a
+&#8220;WebAssembly interpreter written in Rust, compiled to WebAssembly.&#8221; Use
+<code class="code">wasm-bindgen</code> to expose your simulator&#8217;s <code class="code">execute</code> function to
+JavaScript, allowing you to feed it WebAssembly instruction sequences and
+observe the results. What does this exercise reveal about the nature of
+abstraction and the relationship between interpreters and the languages they
+interpret?
+</p></blockquote>
+
+
 </div>
 </div>
-<nav class="header">
+<hr />
+<div class="nav-panel">
 <p>
-Next: <a href="5_002e3.xhtml#g_t5_002e3" accesskey="n" rel="next">5.3</a>, Prev: <a href="5_002e1.xhtml#g_t5_002e1" accesskey="p" rel="prev">5.1</a>, Up: <a href="#g_t5_002e2" accesskey="u" rel="prev">5.2</a>   [<a href="index.xhtml#SEC_Contents" title="Table of contents" accesskey="c" rel="contents">Contents</a>]</p>
-</nav>
+Next: <a href="5_002e3.xhtml#g_t5_002e3" accesskey="n" rel="next">Storage Allocation and Garbage Collection</a>, Previous: <a href="5_002e1.xhtml#g_t5_002e1" accesskey="p" rel="prev">Designing Register Machines</a>, Up: <a href="Chapter-5.xhtml" accesskey="u" rel="up">Computing with Register Machines</a> &#160; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
+</div>
 
 
-</section><span class="bottom jump" title="Jump to bottom"><a href="#pagebottom" accesskey="b">⇣</a></span><a id="pagebottom"></a>
+
 </body>
 </html>
