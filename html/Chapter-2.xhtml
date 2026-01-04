@@ -1,23 +1,24 @@
-<!DOCTYPE html>
-<html>
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Chapter 2 (Structure and Interpretation of Computer Programs, 2e)</title>
 
-<meta name="description" content="Chapter 2 (Structure and Interpretation of Computer Programs, 2e)">
-<meta name="keywords" content="Chapter 2 (Structure and Interpretation of Computer Programs, 2e)">
-<meta name="resource-type" content="document">
-<meta name="distribution" content="global">
-<meta name="Generator" content="texi2any">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Chapter 2 (Structure and Interpretation of Computer Programs, 2e)" />
+<meta name="keywords" content="Chapter 2 (Structure and Interpretation of Computer Programs, 2e)" />
+<meta name="resource-type" content="document" />
+<meta name="distribution" content="global" />
+<meta name="Generator" content="texi2any" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 
-<link href="index.xhtml" rel="start" title="Top">
-<link href="Term-Index.xhtml" rel="index" title="Term Index">
-<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="index.xhtml" rel="up" title="Top">
-<link href="2_002e1.xhtml#g_t2_002e1" rel="next" title="2.1">
-<link href="1_002e3.xhtml#g_t1_002e3_002e5" rel="prev" title="1.3.5">
+<link href="index.xhtml" rel="start" title="Top" />
+<link href="Term-Index.xhtml" rel="index" title="Term Index" />
+<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents" />
+<link href="index.xhtml" rel="up" title="Top" />
+<link href="2_002e1.xhtml#g_t2_002e1" rel="next" title="2.1" />
+<link href="1_002e3.xhtml#g_t1_002e3_002e5" rel="prev" title="1.3.5" />
 <style type="text/css">
 <!--
 a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
@@ -35,17 +36,17 @@ span:hover a.copiable-link {visibility: visible}
 <div class="chapter-level-extent" id="Chapter-2">
 <div class="nav-panel">
 <p>
-Next: <a href="2_002e1.xhtml#g_t2_002e1" accesskey="n" rel="next">Introduction to Data Abstraction</a>, Previous: <a href="1_002e3.xhtml#g_t1_002e3_002e5" accesskey="p" rel="prev">Iterator Combinators</a>, Up: <a href="index.xhtml" accesskey="u" rel="up">Top</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
+Next: <a href="2_002e1.xhtml#g_t2_002e1" accesskey="n" rel="next">Introduction to Data Abstraction</a>, Previous: <a href="1_002e3.xhtml#g_t1_002e3_002e5" accesskey="p" rel="prev">Iterator Combinators</a>, Up: <a href="index.xhtml" accesskey="u" rel="up">Top</a> &#160; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
 </div>
-<h2 class="chapter" id="Building-Abstractions-with-Data"><span>2 Building Abstractions with Data<a class="copiable-link" href="#Building-Abstractions-with-Data"> &para;</a></span></h2>
+<h2 class="chapter" id="Building-Abstractions-with-Data"><span>2 Building Abstractions with Data<a class="copiable-link" href="#Building-Abstractions-with-Data"> &#182;</a></span></h2>
 
 <blockquote class="quotation">
 <p>We now come to the decisive step of mathematical abstraction: we forget about
-what the symbols stand for. &hellip; [The mathematician] need not be idle; there
+what the symbols stand for. &#8230; [The mathematician] need not be idle; there
 are many operations which he may carry out with these symbols, without ever
 having to look at the things they stand for.
 </p>
-<p>&mdash;Hermann Weyl, <cite class="cite">The Mathematical Way of Thinking</cite>
+<p>&#8212;Hermann Weyl, <cite class="cite">The Mathematical Way of Thinking</cite>
 </p></blockquote>
 
 
@@ -94,9 +95,9 @@ need to explicitly keep track of which numerators corresponded to which
 denominators.  In a system intended to perform many operations on many rational
 numbers, such bookkeeping details would clutter the programs substantially, to
 say nothing of what they would do to our minds.  It would be much better if we
-could &ldquo;glue together&rdquo; a numerator and denominator to form a pair&mdash;a
+could &#8220;glue together&#8221; a numerator and denominator to form a pair&#8212;a
 <a class="index-entry-id" id="index-compound-data-object"></a>
-<em class="dfn">compound data object</em>&mdash;that our programs could manipulate in a way
+<em class="dfn">compound data object</em>&#8212;that our programs could manipulate in a way
 that would be consistent with regarding a rational number as a single
 conceptual unit.
 </p>
@@ -113,7 +114,7 @@ abstraction makes programs much easier to design, maintain, and modify.
 </p>
 <p>The use of compound data leads to a real increase in the expressive
 power of our programming language.  Consider the idea of forming a
-&ldquo;linear combination&rdquo; <em class="math">{ax + by}</em>.  We might like to write
+&#8220;linear combination&#8221; <em class="math">{ax + by}</em>.  We might like to write
 a procedure that would accept <em class="math">a</em>, <em class="math">b</em>, <em class="math">x</em>, and <em class="math">y</em> as
 arguments and return the value of <em class="math">{ax + by}</em>.  This
 presents no difficulty if the arguments are to be numbers, because we
@@ -127,7 +128,7 @@ can readily define the function
 
 <p>But suppose we are not concerned only with numbers.  Suppose we would like to
 express, in procedural terms, the idea that one can form linear combinations
-whenever addition and multiplication are defined&mdash;for rational numbers,
+whenever addition and multiplication are defined&#8212;for rational numbers,
 complex numbers, polynomials, or whatever.  We could express this as a
 function using trait bounds:
 </p>
@@ -145,7 +146,7 @@ where
 <p>Here, the trait bounds <code class="code">Add&lt;Output = T&gt; + Mul&lt;Output = T&gt;</code> specify that
 <code class="code">T</code> must support addition and multiplication operations. The key point is
 that <code class="code">linear_combination</code> only needs to know that <code class="code">T</code> implements
-these traits&mdash;the function works for any type that does, whether integers,
+these traits&#8212;the function works for any type that does, whether integers,
 floating-point numbers, rational numbers, complex numbers, or polynomials.
 From the perspective of the function, it is irrelevant what <code class="code">a</code>, <code class="code">b</code>,
 <code class="code">x</code>, and <code class="code">y</code> are and even more irrelevant how they might happen to be
@@ -163,15 +164,15 @@ we will see how data abstraction enables us to erect suitable
 <em class="dfn">abstraction barriers</em> between different parts of a program.
 </p>
 <p>We will see that the key to forming compound data is that a programming
-language should provide some kind of &ldquo;glue&rdquo; so that data objects can be
+language should provide some kind of &#8220;glue&#8221; so that data objects can be
 combined to form more complex data objects.  There are many possible kinds of
 glue.  Indeed, we will discover how to form compound data using no special
-&ldquo;data&rdquo; operations at all, only procedures.  This will further blur the
-distinction between &ldquo;procedure&rdquo; and &ldquo;data,&rdquo; which was already becoming
+&#8220;data&#8221; operations at all, only procedures.  This will further blur the
+distinction between &#8220;procedure&#8221; and &#8220;data,&#8221; which was already becoming
 tenuous toward the end of chapter 1.  We will also explore some
 conventional techniques for representing sequences and trees.  One key idea in
 dealing with compound data is the notion of <a class="index-entry-id" id="index-closure-1"></a>
-<em class="dfn">closure</em>&mdash;that the glue
+<em class="dfn">closure</em>&#8212;that the glue
 we use for combining data objects should allow us to combine not only primitive
 data objects, but compound data objects as well.  Another key idea is that
 compound data objects can serve as <a class="index-entry-id" id="index-conventional-interfaces"></a>
@@ -181,7 +182,7 @@ ideas by presenting a simple graphics language that exploits closure.
 </p>
 <p>We will then augment the representational power of our language by introducing
 <a class="index-entry-id" id="index-symbolic-expressions"></a>
-<em class="dfn">symbolic expressions</em>&mdash;data whose elementary parts can be arbitrary
+<em class="dfn">symbolic expressions</em>&#8212;data whose elementary parts can be arbitrary
 symbols rather than only numbers.  We explore various alternatives for
 representing sets of objects.  We will find that, just as a given numerical
 function can be computed by many different computational processes, there are
@@ -211,7 +212,7 @@ numbers, and even other polynomials.
 
 </div>
 <div class="footnotes-segment">
-<hr>
+<hr />
 <h4 class="footnotes-heading">Footnotes</h4>
 
 <h5 class="footnote-body-heading"><a id="FOOT62" href="#DOCF62">(62)</a></h5>
@@ -223,16 +224,16 @@ expressive power of a programming language.  For example, in
 over some specified interval.  In order to define <code class="code">sum</code>, it is crucial
 that we be able to speak of a procedure such as <code class="code">term</code> as an entity in its
 own right, without regard for how <code class="code">term</code> might be expressed with more
-primitive operations.  Indeed, if we did not have the notion of &ldquo;a
-procedure,&rdquo; it is doubtful that we would ever even think of the possibility of
+primitive operations.  Indeed, if we did not have the notion of &#8220;a
+procedure,&#8221; it is doubtful that we would ever even think of the possibility of
 defining an operation such as <code class="code">sum</code>.  Moreover, insofar as performing the
 summation is concerned, the details of how <code class="code">term</code> may be constructed from
 more primitive operations are irrelevant.</p>
 </div>
-<hr>
+<hr />
 <div class="nav-panel">
 <p>
-Next: <a href="2_002e1.xhtml#g_t2_002e1" accesskey="n" rel="next">Introduction to Data Abstraction</a>, Previous: <a href="1_002e3.xhtml#g_t1_002e3_002e5" accesskey="p" rel="prev">Iterator Combinators</a>, Up: <a href="index.xhtml" accesskey="u" rel="up">Top</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
+Next: <a href="2_002e1.xhtml#g_t2_002e1" accesskey="n" rel="next">Introduction to Data Abstraction</a>, Previous: <a href="1_002e3.xhtml#g_t1_002e3_002e5" accesskey="p" rel="prev">Iterator Combinators</a>, Up: <a href="index.xhtml" accesskey="u" rel="up">Top</a> &#160; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

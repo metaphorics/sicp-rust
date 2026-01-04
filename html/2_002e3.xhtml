@@ -1,23 +1,24 @@
-<!DOCTYPE html>
-<html>
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>2.3 (Structure and Interpretation of Computer Programs, 2e)</title>
 
-<meta name="description" content="2.3 (Structure and Interpretation of Computer Programs, 2e)">
-<meta name="keywords" content="2.3 (Structure and Interpretation of Computer Programs, 2e)">
-<meta name="resource-type" content="document">
-<meta name="distribution" content="global">
-<meta name="Generator" content="texi2any">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="2.3 (Structure and Interpretation of Computer Programs, 2e)" />
+<meta name="keywords" content="2.3 (Structure and Interpretation of Computer Programs, 2e)" />
+<meta name="resource-type" content="document" />
+<meta name="distribution" content="global" />
+<meta name="Generator" content="texi2any" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 
-<link href="index.xhtml" rel="start" title="Top">
-<link href="Term-Index.xhtml" rel="index" title="Term Index">
-<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="Chapter-2.xhtml" rel="up" title="Chapter 2">
-<link href="2_002e4.xhtml#g_t2_002e4" rel="next" title="2.4">
-<link href="2_002e2.xhtml#g_t2_002e2_002e5" rel="prev" title="2.2.5">
+<link href="index.xhtml" rel="start" title="Top" />
+<link href="Term-Index.xhtml" rel="index" title="Term Index" />
+<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents" />
+<link href="Chapter-2.xhtml" rel="up" title="Chapter 2" />
+<link href="2_002e4.xhtml#g_t2_002e4" rel="next" title="2.4" />
+<link href="2_002e2.xhtml#g_t2_002e2_002e5" rel="prev" title="2.2.5" />
 <style type="text/css">
 <!--
 a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
@@ -37,18 +38,18 @@ ul.mark-bullet {list-style-type: disc}
 <div class="section-level-extent" id="g_t2_002e3">
 <div class="nav-panel">
 <p>
-Next: <a href="2_002e4.xhtml#g_t2_002e4" accesskey="n" rel="next">Multiple Representations for Abstract Data</a>, Previous: <a href="2_002e2.xhtml#g_t2_002e2_002e5" accesskey="p" rel="prev">Algebraic Data Types</a>, Up: <a href="Chapter-2.xhtml" accesskey="u" rel="up">Building Abstractions with Data</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
+Next: <a href="2_002e4.xhtml#g_t2_002e4" accesskey="n" rel="next">Multiple Representations for Abstract Data</a>, Previous: <a href="2_002e2.xhtml#g_t2_002e2_002e5" accesskey="p" rel="prev">Algebraic Data Types</a>, Up: <a href="Chapter-2.xhtml" accesskey="u" rel="up">Building Abstractions with Data</a> &#160; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
 </div>
-<h3 class="section" id="Symbolic-Data"><span>2.3 Symbolic Data<a class="copiable-link" href="#Symbolic-Data"> &para;</a></span></h3>
+<h3 class="section" id="Symbolic-Data"><span>2.3 Symbolic Data<a class="copiable-link" href="#Symbolic-Data"> &#182;</a></span></h3>
 
 <p>All the compound data objects we have used so far were constructed ultimately
 from numbers.  In this section we extend the representational capability of our
 language by introducing the ability to work with arbitrary symbols as data.
 </p>
 
-<hr>
+<hr />
 <div class="subsection-level-extent" id="g_t2_002e3_002e1">
-<h4 class="subsection" id="Quotation"><span>2.3.1 Quotation<a class="copiable-link" href="#Quotation"> &para;</a></span></h4>
+<h4 class="subsection" id="Quotation"><span>2.3.1 Quotation<a class="copiable-link" href="#Quotation"> &#182;</a></span></h4>
 
 <p>If we can form compound data using symbols, we can have lists such as
 </p>
@@ -73,7 +74,7 @@ fn fact(n: u64) -&gt; u64 {
 <p>In order to manipulate symbols we need a new element in our language: the
 ability to <a class="index-entry-id" id="index-quote"></a>
 <em class="dfn">quote</em> a data object.  Suppose we want to construct the
-list <code class="code">(a b)</code>.  We can&rsquo;t accomplish this with <code class="code">(list a b)</code>, because
+list <code class="code">(a b)</code>.  We can&#8217;t accomplish this with <code class="code">(list a b)</code>, because
 this expression constructs a list of the <a class="index-entry-id" id="index-values"></a>
 <em class="dfn">values</em> of <code class="code">a</code> and
 <code class="code">b</code> rather than the symbols themselves.  This issue is well known in the
@@ -81,16 +82,16 @@ context of natural languages, where words and sentences may be regarded either
 as semantic entities or as character strings (syntactic entities).  The common
 practice in natural languages is to use quotation marks to indicate that a word
 or a sentence is to be treated literally as a string of characters.  For
-instance, the first letter of &ldquo;John&rdquo; is clearly &ldquo;J.&rdquo;  If we tell somebody
-&ldquo;say your name aloud,&rdquo; we expect to hear that person&rsquo;s name.  However, if we
-tell somebody &ldquo;say &lsquo;your name&rsquo; aloud,&rdquo; we expect to hear the words &ldquo;your
-name.&rdquo;  Note that we are forced to nest quotation marks to describe what
+instance, the first letter of &#8220;John&#8221; is clearly &#8220;J.&#8221;  If we tell somebody
+&#8220;say your name aloud,&#8221; we expect to hear that person&#8217;s name.  However, if we
+tell somebody &#8220;say &#8216;your name&#8217; aloud,&#8221; we expect to hear the words &#8220;your
+name.&#8221;  Note that we are forced to nest quotation marks to describe what
 somebody else might say.<a class="footnote" id="DOCF91" href="#FOOT91"><sup>91</sup></a>
 </p>
 <p>We can follow this same practice to identify lists and symbols that are to be
 treated as data objects rather than as expressions to be evaluated.  However,
 our format for quoting differs from that of natural languages in that we place
-a quotation mark (traditionally, the single quote symbol&nbsp;<code class="code">'</code>)<!-- /@w --> only at the
+a quotation mark (traditionally, the single quote symbol&#160;<code class="code">'</code>)<!-- /@w --> only at the
 beginning of the object to be quoted.  We can get away with this in Scheme
 syntax because we rely on blanks and parentheses to delimit objects.  Thus, the
 meaning of the single quote character is to quote the next object.<a class="footnote" id="DOCF92" href="#FOOT92"><sup>92</sup></a>
@@ -141,8 +142,8 @@ the first occurrence of the symbol:
 <pre class="example-preformatted">fn memq&lt;'a, T: PartialEq&gt;(item: &amp;T, x: &amp;'a [T]) -&gt; Option&lt;&amp;'a [T]&gt; {
     match x {
         [] =&gt; None,
-        [first, rest &nbsp;..] if first == item =&gt; Some(x),
-        [_, rest &nbsp;..] =&gt; memq(item, rest),
+        [first, rest &#160;..] if first == item =&gt; Some(x),
+        [_, rest &#160;..] =&gt; memq(item, rest),
     }
 }
 </pre></div>
@@ -219,10 +220,10 @@ interpreter the expression
 <p>To her surprise, the interpreter prints back <code class="code">quote</code>.  Explain.
 </p></blockquote>
 
-<hr>
+<hr />
 </div>
 <div class="subsection-level-extent" id="g_t2_002e3_002e2">
-<h4 class="subsection" id="Example_003a-Symbolic-Differentiation"><span>2.3.2 Example: Symbolic Differentiation<a class="copiable-link" href="#Example_003a-Symbolic-Differentiation"> &para;</a></span></h4>
+<h4 class="subsection" id="Example_003a-Symbolic-Differentiation"><span>2.3.2 Example: Symbolic Differentiation<a class="copiable-link" href="#Example_003a-Symbolic-Differentiation"> &#182;</a></span></h4>
 
 <p>As an illustration of symbol manipulation and a further illustration of data
 abstraction, consider the design of a procedure that performs symbolic
@@ -241,11 +242,11 @@ physicists.
 <p>In developing the symbolic-differentiation program, we will follow the same
 strategy of data abstraction that we followed in developing the rational-number
 system of <a class="ref" href="2_002e1.xhtml#g_t2_002e1_002e1">Example: Arithmetic Operations for Rational Numbers</a>.  That is, we will first define a differentiation
-algorithm that operates on abstract objects such as &ldquo;sums,&rdquo; &ldquo;products,&rdquo; and
-&ldquo;variables&rdquo; without worrying about how these are to be represented.  Only
+algorithm that operates on abstract objects such as &#8220;sums,&#8221; &#8220;products,&#8221; and
+&#8220;variables&#8221; without worrying about how these are to be represented.  Only
 afterward will we address the representation problem.
 </p>
-<h4 class="subsubheading" id="The-differentiation-program-with-abstract-data"><span>The differentiation program with abstract data<a class="copiable-link" href="#The-differentiation-program-with-abstract-data"> &para;</a></span></h4>
+<h4 class="subsubheading" id="The-differentiation-program-with-abstract-data"><span>The differentiation program with abstract data<a class="copiable-link" href="#The-differentiation-program-with-abstract-data"> &#182;</a></span></h4>
 
 <p>In order to keep things simple, we will consider a very simple
 symbolic-differentiation program that handles expressions that are built up
@@ -334,7 +335,7 @@ matter how we choose to represent algebraic expressions, as long as we design a
 proper set of selectors and constructors.  This is the issue we must address
 next.
 </p>
-<h4 class="subsubheading" id="Representing-algebraic-expressions"><span>Representing algebraic expressions<a class="copiable-link" href="#Representing-algebraic-expressions"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Representing-algebraic-expressions"><span>Representing algebraic expressions<a class="copiable-link" href="#Representing-algebraic-expressions"> &#182;</a></span></h4>
 
 <p>We can imagine many ways to use list structure to represent algebraic
 expressions.  For example, we could use lists of symbols that mirror the usual
@@ -426,10 +427,10 @@ simply <code class="code">y</code>.  As the third example shows, this becomes a 
 the expressions are complex.
 </p>
 <p>Our difficulty is much like the one we encountered with the rational-number
-implementation: we haven&rsquo;t reduced answers to simplest form.  To accomplish the
+implementation: we haven&#8217;t reduced answers to simplest form.  To accomplish the
 rational-number reduction, we needed to change only the constructors and the
 selectors of the implementation.  We can adopt a similar strategy here.  We
-won&rsquo;t change <code class="code">deriv</code> at all.  Instead, we will change <code class="code">make-sum</code> so
+won&#8217;t change <code class="code">deriv</code> at all.  Instead, we will change <code class="code">make-sum</code> so
 that if both summands are numbers, <code class="code">make-sum</code> will add them and return
 their sum.  Also, if one of the summands is 0, then <code class="code">make-sum</code> will return
 the other summand:
@@ -483,7 +484,7 @@ deriv(&amp;make_product(
 
 <p>Although this is quite an improvement, the third example shows that there is
 still a long way to go before we get a program that puts expressions into a
-form that we might agree is &ldquo;simplest.&rdquo;  The problem of algebraic
+form that we might agree is &#8220;simplest.&#8221;  The problem of algebraic
 simplification is complex because, among other reasons, a form that may be
 simplest for one purpose may not be for another.
 </p>
@@ -540,10 +541,10 @@ such that our derivative program still works?
 </li></ol>
 </blockquote>
 
-<hr>
+<hr />
 </div>
 <div class="subsection-level-extent" id="g_t2_002e3_002e3">
-<h4 class="subsection" id="Example_003a-Representing-Sets"><span>2.3.3 Example: Representing Sets<a class="copiable-link" href="#Example_003a-Representing-Sets"> &para;</a></span></h4>
+<h4 class="subsection" id="Example_003a-Representing-Sets"><span>2.3.3 Example: Representing Sets<a class="copiable-link" href="#Example_003a-Representing-Sets"> &#182;</a></span></h4>
 
 <p>In the previous examples we built representations for two kinds of compound
 data objects: rational numbers and algebraic expressions.  In one of these
@@ -556,7 +557,7 @@ differ significantly from one another in several ways.
 </p>
 <p>Informally, a set is simply a collection of distinct objects.  To give a more
 precise definition we can employ the method of data abstraction.  That is, we
-define &ldquo;set&rdquo; by specifying the operations that are to be used on sets.  These
+define &#8220;set&#8221; by specifying the operations that are to be used on sets.  These
 are <code class="code">union_set</code>, <code class="code">intersection_set</code>, <code class="code">element_of_set</code>, and
 <code class="code">adjoin_set</code>.  <code class="code">Element-of-set?</code> is a predicate that determines
 whether a given element is a member of a set.  <code class="code">Adjoin-set</code> takes an
@@ -569,7 +570,7 @@ From the viewpoint of data abstraction, we are free to design any
 representation that implements these operations in a way consistent with the
 interpretations given above.<a class="footnote" id="DOCF96" href="#FOOT96"><sup>96</sup></a>
 </p>
-<h4 class="subsubheading" id="Sets-as-unordered-lists"><span>Sets as unordered lists<a class="copiable-link" href="#Sets-as-unordered-lists"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Sets-as-unordered-lists"><span>Sets as unordered lists<a class="copiable-link" href="#Sets-as-unordered-lists"> &#182;</a></span></h4>
 
 <p>One way to represent a set is as a list of its elements in which no element
 appears more than once.  The empty set is represented by the empty list.  In
@@ -645,7 +646,7 @@ procedure for the non-duplicate representation?  Are there applications for
 which you would use this representation in preference to the non-duplicate one?
 </p></blockquote>
 
-<h4 class="subsubheading" id="Sets-as-ordered-lists"><span>Sets as ordered lists<a class="copiable-link" href="#Sets-as-ordered-lists"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Sets-as-ordered-lists"><span>Sets as ordered lists<a class="copiable-link" href="#Sets-as-ordered-lists"> &#182;</a></span></h4>
 
 <p>One way to speed up our set operations is to change the representation so that
 the set elements are listed in increasing order.  To do this, we need some way
@@ -726,11 +727,11 @@ procedure:
 
 <p>To estimate the number of steps required by this process, observe that at each
 step we reduce the intersection problem to computing intersections of smaller
-sets&mdash;removing the first element from <code class="code">set1</code> or <code class="code">set2</code> or both.
+sets&#8212;removing the first element from <code class="code">set1</code> or <code class="code">set2</code> or both.
 Thus, the number of steps required is at most the sum of the sizes of
 <code class="code">set1</code> and <code class="code">set2</code>, rather than the product of the sizes as with the
 unordered representation.  This is <em class="math">{\Theta(n)}</em> growth rather than
-<em class="math">{\Theta(n^2)}</em>&mdash;a considerable speedup, even for sets of moderate size.
+<em class="math">{\Theta(n^2)}</em>&#8212;a considerable speedup, even for sets of moderate size.
 </p>
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-2_002e61"></a>Exercise 2.61:</strong> Give an implementation of
@@ -745,13 +746,13 @@ unordered representation.
 implementation of <code class="code">union_set</code> for sets represented as ordered lists.
 </p></blockquote>
 
-<h4 class="subsubheading" id="Sets-as-binary-trees"><span>Sets as binary trees<a class="copiable-link" href="#Sets-as-binary-trees"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Sets-as-binary-trees"><span>Sets as binary trees<a class="copiable-link" href="#Sets-as-binary-trees"> &#182;</a></span></h4>
 
 <p>We can do better than the ordered-list representation by arranging the set
 elements in the form of a tree.  Each node of the tree holds one element of the
-set, called the &ldquo;entry&rdquo; at that node, and a link to each of two other
-(possibly empty) nodes.  The &ldquo;left&rdquo; link points to elements smaller than the
-one at the node, and the &ldquo;right&rdquo; link to elements greater than the one at the
+set, called the &#8220;entry&#8221; at that node, and a link to each of two other
+(possibly empty) nodes.  The &#8220;left&#8221; link points to elements smaller than the
+one at the node, and the &#8220;right&#8221; link to elements greater than the one at the
 node.  <a class="ref" href="#Figure-2_002e16">Figure 2.16</a> shows some trees that represent the set
 <em class="math">{\{1, 3, 5, 7, 9, 11\}}</em>.  The same set may be represented by a tree in a number of
 different ways.  The only thing we require for a valid representation is that
@@ -759,13 +760,13 @@ all elements in the left subtree be smaller than the node entry and that all
 elements in the right subtree be larger.
 </p>
 <div class="float">
-<a class="anchor" id="Figure-2_002e16"></a><img class="image" src="fig/chap2/Fig2.16c.std.svg" alt="fig/chap2/Fig2.16c">
+<a class="anchor" id="Figure-2_002e16"></a><img class="image" src="fig/chap2/Fig2.16c.std.svg" alt="fig/chap2/Fig2.16c" />
 <div class="caption"><p><strong class="strong">Figure 2.16:</strong> Various binary trees that represent the set <em class="math">{\{1, 3, 5, 7, 9, 11\}}</em>.</p></div></div>
 <p>The advantage of the tree representation is this: Suppose we want to check
 whether a number <em class="math">x</em> is contained in a set.  We begin by comparing <em class="math">x</em> with
 the entry in the top node.  If <em class="math">x</em> is less than this, we know that we need
 only search the left subtree; if <em class="math">x</em> is greater, we need only search the
-right subtree.  Now, if the tree is &ldquo;balanced,&rdquo; each of these subtrees will
+right subtree.  Now, if the tree is &#8220;balanced,&#8221; each of these subtrees will
 be about half the size of the original.  Thus, in one step we have reduced the
 problem of searching a tree of size <em class="math">n</em> to searching a tree of size <em class="math">{n / 2}</em>.
 Since the size of the tree is halved at each step, we should expect that the
@@ -847,14 +848,14 @@ branches.  Here is the procedure:
 </pre></div>
 
 <p>The above claim that searching the tree can be performed in a logarithmic
-number of steps rests on the assumption that the tree is &ldquo;balanced,&rdquo; i.e.,
+number of steps rests on the assumption that the tree is &#8220;balanced,&#8221; i.e.,
 that the left and the right subtree of every tree have approximately the same
 number of elements, so that each subtree contains about half the elements of
 its parent.  But how can we be certain that the trees we construct will be
 balanced?  Even if we start with a balanced tree, adding elements with
 <code class="code">adjoin_set</code> may produce an unbalanced result.  Since the position of a
 newly adjoined element depends on how the element compares with the items
-already in the set, we can expect that if we add elements &ldquo;randomly&rdquo; the tree
+already in the set, we can expect that if we add elements &#8220;randomly&#8221; the tree
 will tend to be balanced on the average.  But this is not a guarantee.  For
 example, if we start with an empty set and adjoin the numbers 1 through 7 in
 sequence we end up with the highly unbalanced tree shown in <a class="ref" href="#Figure-2_002e17">Figure 2.17</a>.
@@ -868,7 +869,7 @@ searching and insertion both can be done in <em class="math">{\Theta(\log n)}</e
 steps.<a class="footnote" id="DOCF99" href="#FOOT99"><sup>99</sup></a>
 </p>
 <div class="float">
-<a class="anchor" id="Figure-2_002e17"></a><img class="image" src="fig/chap2/Fig2.17a.std.svg" alt="fig/chap2/Fig2.17a">
+<a class="anchor" id="Figure-2_002e17"></a><img class="image" src="fig/chap2/Fig2.17a.std.svg" alt="fig/chap2/Fig2.17a" />
 <div class="caption"><p><strong class="strong">Figure 2.17:</strong> Unbalanced tree produced by adjoining 1 through 7 in sequence.</p></div></div>
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-2_002e63"></a>Exercise 2.63:</strong> Each of the following two
@@ -961,7 +962,7 @@ and <a class="ref" href="#Exercise-2_002e64">Exercise 2.64</a> to give <em class
 binary trees.<a class="footnote" id="DOCF100" href="#FOOT100"><sup>100</sup></a>
 </p></blockquote>
 
-<h4 class="subsubheading" id="Sets-and-information-retrieval"><span>Sets and information retrieval<a class="copiable-link" href="#Sets-and-information-retrieval"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Sets-and-information-retrieval"><span>Sets and information retrieval<a class="copiable-link" href="#Sets-and-information-retrieval"> &#182;</a></span></h4>
 
 <p>We have examined options for using lists to represent sets and have seen how
 the choice of representation for a data object can have a large impact on the
@@ -976,7 +977,7 @@ modifying the data in the records and therefore requires an efficient method
 for accessing records.  This is done by identifying a part of each record to
 serve as an identifying <a class="index-entry-id" id="index-key"></a>
 <em class="dfn">key</em>.  A key can be anything that uniquely
-identifies the record.  For a personnel file, it might be an employee&rsquo;s ID
+identifies the record.  For a personnel file, it might be an employee&#8217;s ID
 number.  For an accounting system, it might be a transaction number.  Whatever
 the key is, when we define the record as a data structure we should include a
 <code class="code">key</code> selector procedure that retrieves the key associated with a given
@@ -1004,13 +1005,13 @@ trait HasKey&lt;K&gt; {
 </pre></div>
 
 <p>Of course, there are better ways to represent large sets than as unordered
-lists.  Information-retrieval systems in which records have to be &ldquo;randomly
-accessed&rdquo; are typically implemented by a tree-based method, such as the
+lists.  Information-retrieval systems in which records have to be &#8220;randomly
+accessed&#8221; are typically implemented by a tree-based method, such as the
 binary-tree representation discussed previously.  In designing such a system
 the methodology of data abstraction can be a great help.  The designer can
 create an initial implementation using a simple, straightforward representation
 such as unordered lists.  This will be unsuitable for the eventual system, but
-it can be useful in providing a &ldquo;quick and dirty&rdquo; data base with which to
+it can be useful in providing a &#8220;quick and dirty&#8221; data base with which to
 test the rest of the system.  Later on, the data representation can be modified
 to be more sophisticated.  If the data base is accessed in terms of abstract
 selectors and constructors, this change in representation will not require any
@@ -1022,10 +1023,10 @@ procedure for the case where the set of records is structured as a binary tree,
 ordered by the numerical values of the keys.
 </p></blockquote>
 
-<hr>
+<hr />
 </div>
 <div class="subsection-level-extent" id="g_t2_002e3_002e4">
-<h4 class="subsection" id="Example_003a-Huffman-Encoding-Trees"><span>2.3.4 Example: Huffman Encoding Trees<a class="copiable-link" href="#Example_003a-Huffman-Encoding-Trees"> &para;</a></span></h4>
+<h4 class="subsection" id="Example_003a-Huffman-Encoding-Trees"><span>2.3.4 Example: Huffman Encoding Trees<a class="copiable-link" href="#Example_003a-Huffman-Encoding-Trees"> &#182;</a></span></h4>
 
 <p>This section provides practice in the use of list structure and data
 abstraction to manipulate sets and trees.  The application is to methods for
@@ -1115,7 +1116,7 @@ which A appears with relative frequency 8, B with relative frequency 3, and the
 other letters each with relative frequency 1.
 </p>
 <div class="float">
-<a class="anchor" id="Figure-2_002e18"></a><img class="image" src="fig/chap2/Fig2.18a.std.svg" alt="fig/chap2/Fig2.18a">
+<a class="anchor" id="Figure-2_002e18"></a><img class="image" src="fig/chap2/Fig2.18a.std.svg" alt="fig/chap2/Fig2.18a" />
 <div class="caption"><p><strong class="strong">Figure 2.18:</strong> A Huffman encoding tree.</p></div></div>
 <p>Given a Huffman tree, we can find the encoding of any symbol by starting at the
 root and moving down until we reach the leaf that holds the symbol.  Each time
@@ -1141,10 +1142,10 @@ the next bit in the string is 0.  This brings us to the leaf for A.  Then we
 start again at the root with the rest of the string 1010, so we move right,
 left, right, left and reach C.  Thus, the entire message is BAC.
 </p>
-<h4 class="subsubheading" id="Generating-Huffman-trees"><span>Generating Huffman trees<a class="copiable-link" href="#Generating-Huffman-trees"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Generating-Huffman-trees"><span>Generating Huffman trees<a class="copiable-link" href="#Generating-Huffman-trees"> &#182;</a></span></h4>
 
-<p>Given an &ldquo;alphabet&rdquo; of symbols and their relative frequencies, how do we
-construct the &ldquo;best&rdquo; code?  (In other words, which tree will encode messages
+<p>Given an &#8220;alphabet&#8221; of symbols and their relative frequencies, how do we
+construct the &#8220;best&#8221; code?  (In other words, which tree will encode messages
 with the fewest bits?)  Huffman gave an algorithm for doing this and showed
 that the resulting code is indeed the best variable-length code for messages
 where the relative frequency of the symbols matches the frequencies with which
@@ -1195,7 +1196,7 @@ unique smallest-weight nodes at each step.  Also, the choice of the order in
 which the two nodes are merged (i.e., which will be the right branch and which
 will be the left branch) is arbitrary.
 </p>
-<h4 class="subsubheading" id="Representing-Huffman-trees"><span>Representing Huffman trees<a class="copiable-link" href="#Representing-Huffman-trees"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Representing-Huffman-trees"><span>Representing Huffman trees<a class="copiable-link" href="#Representing-Huffman-trees"> &#182;</a></span></h4>
 
 <p>In the exercises below we will work with a system that uses Huffman trees to
 encode and decode messages and generates Huffman trees according to the
@@ -1269,7 +1270,7 @@ These are simple examples of <a class="index-entry-id" id="index-generic-procedu
 handle more than one kind of data), which we will have much more to say about
 in <a class="ref" href="2_002e4.xhtml#g_t2_002e4">Multiple Representations for Abstract Data</a> and <a class="ref" href="2_002e5.xhtml#g_t2_002e5">Systems with Generic Operations</a>.
 </p>
-<h4 class="subsubheading" id="The-decoding-procedure"><span>The decoding procedure<a class="copiable-link" href="#The-decoding-procedure"> &para;</a></span></h4>
+<h4 class="subsubheading" id="The-decoding-procedure"><span>The decoding procedure<a class="copiable-link" href="#The-decoding-procedure"> &#182;</a></span></h4>
 
 <p>The following procedure implements the decoding algorithm.  It takes as
 arguments a list of zeros and ones, together with a Huffman tree.
@@ -1301,7 +1302,7 @@ fn choose_branch(bit: u8, branch: &amp;HuffmanTree) -&gt; &amp;HuffmanTree {
 </pre></div>
 
 <p>The procedure <code class="code">decode-1</code> takes two arguments: the list of remaining bits
-and the current position in the tree.  It keeps moving &ldquo;down&rdquo; the tree,
+and the current position in the tree.  It keeps moving &#8220;down&#8221; the tree,
 choosing a left or a right branch according to whether the next bit in the list
 is a zero or a one.  (This is done with the procedure <code class="code">choose-branch</code>.)
 When it reaches a leaf, it returns the symbol at that leaf as the next symbol
@@ -1310,7 +1311,7 @@ message, starting at the root of the tree.  Note the error check in the final
 clause of <code class="code">choose-branch</code>, which complains if the procedure finds
 something other than a zero or a one in the input data.
 </p>
-<h4 class="subsubheading" id="Sets-of-weighted-elements"><span>Sets of weighted elements<a class="copiable-link" href="#Sets-of-weighted-elements"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Sets-of-weighted-elements"><span>Sets of weighted elements<a class="copiable-link" href="#Sets-of-weighted-elements"> &#182;</a></span></h4>
 
 <p>In our representation of trees, each non-leaf node contains a set of symbols,
 which we have represented as a simple list.  However, the tree-generating
@@ -1419,8 +1420,8 @@ advantage of the fact that we are using an ordered set representation.)
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-2_002e70"></a>Exercise 2.70:</strong> The following eight-symbol
 alphabet with associated relative frequencies was designed to efficiently
-encode the lyrics of 1950s rock songs.  (Note that the &ldquo;symbols&rdquo; of an
-&ldquo;alphabet&rdquo; need not be individual letters.)
+encode the lyrics of 1950s rock songs.  (Note that the &#8220;symbols&#8221; of an
+&#8220;alphabet&#8221; need not be individual letters.)
 </p>
 <div class="example">
 <pre class="example-preformatted">
@@ -1472,10 +1473,10 @@ steps needed to encode the most frequent and least frequent symbols in the
 alphabet.
 </p></blockquote>
 
-<hr>
+<hr />
 </div>
 <div class="subsection-level-extent" id="g_t2_002e3_002e4a">
-<h4 class="subsection" id="The-Newtype-Pattern_003a-Zero_002dCost-Type-Safety"><span>2.3.5 The Newtype Pattern: Zero-Cost Type Safety<a class="copiable-link" href="#The-Newtype-Pattern_003a-Zero_002dCost-Type-Safety"> &para;</a></span></h4>
+<h4 class="subsection" id="The-Newtype-Pattern_003a-Zero_002dCost-Type-Safety"><span>2.3.5 The Newtype Pattern: Zero-Cost Type Safety<a class="copiable-link" href="#The-Newtype-Pattern_003a-Zero_002dCost-Type-Safety"> &#182;</a></span></h4>
 <a class="index-entry-id" id="index-newtype-pattern"></a>
 <a class="index-entry-id" id="index-type-safety"></a>
 <a class="index-entry-id" id="index-wrapper-types"></a>
@@ -1492,10 +1493,10 @@ the same performance as using the underlying type directly.
 prevent mixing up values that have the same representation but different
 semantic meanings? Consider a system that works with both meters and feet. Both
 are represented as <code class="code">f64</code> values, but mixing them up leads to catastrophic
-errors&mdash;as NASA discovered when the Mars Climate Orbiter crashed due to a
+errors&#8212;as NASA discovered when the Mars Climate Orbiter crashed due to a
 unit conversion mistake.
 </p>
-<h4 class="subsubheading" id="Creating-Type_002dSafe-Wrappers"><span>Creating Type-Safe Wrappers<a class="copiable-link" href="#Creating-Type_002dSafe-Wrappers"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Creating-Type_002dSafe-Wrappers"><span>Creating Type-Safe Wrappers<a class="copiable-link" href="#Creating-Type_002dSafe-Wrappers"> &#182;</a></span></h4>
 
 <p>A <a class="index-entry-id" id="index-newtype"></a>
 <em class="dfn">newtype</em> is a tuple struct with a single field, creating a new type
@@ -1555,7 +1556,7 @@ let product_id: ProductId = 100;
 get_user(product_id);  // Compiles but semantically wrong
 </pre></div>
 
-<h4 class="subsubheading" id="Transparent-Representation-and-FFI"><span>Transparent Representation and FFI<a class="copiable-link" href="#Transparent-Representation-and-FFI"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Transparent-Representation-and-FFI"><span>Transparent Representation and FFI<a class="copiable-link" href="#Transparent-Representation-and-FFI"> &#182;</a></span></h4>
 
 <p>For newtypes that need to interact with foreign functions or have guaranteed
 memory layout, Rust provides the <code class="code">#[repr(transparent)]</code> attribute:
@@ -1576,10 +1577,10 @@ same memory layout, size, and alignment as its inner type. This is essential
 for interfacing with C code, as the newtype can be safely passed to and from
 foreign functions while maintaining type safety on the Rust side.
 </p>
-<h4 class="subsubheading" id="Implementing-Traits-on-Newtypes"><span>Implementing Traits on Newtypes<a class="copiable-link" href="#Implementing-Traits-on-Newtypes"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Implementing-Traits-on-Newtypes"><span>Implementing Traits on Newtypes<a class="copiable-link" href="#Implementing-Traits-on-Newtypes"> &#182;</a></span></h4>
 
-<p>Newtypes allow us to implement traits on types we don&rsquo;t own&mdash;a key workaround
-for Rust&rsquo;s <a class="index-entry-id" id="index-orphan-rule"></a>
+<p>Newtypes allow us to implement traits on types we don&#8217;t own&#8212;a key workaround
+for Rust&#8217;s <a class="index-entry-id" id="index-orphan-rule"></a>
 <em class="dfn">orphan rule</em>, which states that we can only implement a
 trait if either the trait or the type is defined in our crate.
 </p>
@@ -1613,7 +1614,7 @@ println!(&quot;Distance: {}&quot;, distance);  // &quot;Distance: 100 m&quot;
 
 <p>This pattern is particularly powerful when we want to add behavior to external
 types. For example, we cannot implement <code class="code">Display</code> directly on <code class="code">Vec&lt;T&gt;</code>
-because we don&rsquo;t own either <code class="code">Display</code> or <code class="code">Vec</code>. But we can create a
+because we don&#8217;t own either <code class="code">Display</code> or <code class="code">Vec</code>. But we can create a
 newtype:
 </p>
 <div class="example">
@@ -1634,7 +1635,7 @@ let numbers = PrettyVec(vec![1, 2, 3, 4, 5]);
 println!(&quot;{}&quot;, numbers);  // &quot;[1, 2, 3, 4, 5]&quot;
 </pre></div>
 
-<h4 class="subsubheading" id="Ergonomic-Access-with-Deref"><span>Ergonomic Access with Deref<a class="copiable-link" href="#Ergonomic-Access-with-Deref"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Ergonomic-Access-with-Deref"><span>Ergonomic Access with Deref<a class="copiable-link" href="#Ergonomic-Access-with-Deref"> &#182;</a></span></h4>
 
 <p>To make newtypes more ergonomic, we can implement the <code class="code">Deref</code> trait,
 allowing the newtype to automatically coerce to its inner type in certain
@@ -1676,7 +1677,7 @@ lead to confusing APIs. Consider providing explicit methods instead:
 }
 </pre></div>
 
-<h4 class="subsubheading" id="Type-Conversions-with-From-and-Into"><span>Type Conversions with From and Into<a class="copiable-link" href="#Type-Conversions-with-From-and-Into"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Type-Conversions-with-From-and-Into"><span>Type Conversions with From and Into<a class="copiable-link" href="#Type-Conversions-with-From-and-Into"> &#182;</a></span></h4>
 
 <p>The <code class="code">From</code> and <code class="code">Into</code> traits enable explicit conversions between
 types, making newtypes more ergonomic while maintaining type safety:
@@ -1707,7 +1708,7 @@ we implement <code class="code">From</code>, so we only need to implement one di
 convention, implement <code class="code">From</code> unless the conversion can fail, in which
 case implement <code class="code">TryFrom</code>.
 </p>
-<h4 class="subsubheading" id="Zero-Runtime-Cost"><span>Zero Runtime Cost<a class="copiable-link" href="#Zero-Runtime-Cost"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Zero-Runtime-Cost"><span>Zero Runtime Cost<a class="copiable-link" href="#Zero-Runtime-Cost"> &#182;</a></span></h4>
 
 <p>The newtype pattern is a <a class="index-entry-id" id="index-zero_002dcost-abstraction-2"></a>
 <em class="dfn">zero-cost abstraction</em>. The compiler
@@ -1730,17 +1731,17 @@ fn raw_distance_squared(d: f64) -&gt; f64 {
 // ret
 </pre></div>
 
-<p>We can verify this with cargo&rsquo;s assembly output:
+<p>We can verify this with cargo&#8217;s assembly output:
 </p>
 <div class="example">
 <pre class="example-preformatted">cargo rustc --release -- --emit asm
 </pre></div>
 
-<p>This is the essence of Rust&rsquo;s philosophy: abstractions that provide safety and
+<p>This is the essence of Rust&#8217;s philosophy: abstractions that provide safety and
 clarity without sacrificing performance. The type checking happens entirely at
 compile time; at runtime, a <code class="code">Meters</code> is exactly an <code class="code">f64</code>.
 </p>
-<h4 class="subsubheading" id="Newtypes-in-Practice_003a-Validated-Values"><span>Newtypes in Practice: Validated Values<a class="copiable-link" href="#Newtypes-in-Practice_003a-Validated-Values"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Newtypes-in-Practice_003a-Validated-Values"><span>Newtypes in Practice: Validated Values<a class="copiable-link" href="#Newtypes-in-Practice_003a-Validated-Values"> &#182;</a></span></h4>
 
 <p>A powerful application of newtypes is enforcing invariants through construction:
 </p>
@@ -1770,7 +1771,7 @@ fn process_name(name: NonEmptyString) {
 </pre></div>
 
 <p>This pattern, often called <a class="index-entry-id" id="index-parse_002c-don_0027t-validate"></a>
-<em class="dfn">parse, don&rsquo;t validate</em>, pushes validation
+<em class="dfn">parse, don&#8217;t validate</em>, pushes validation
 to the boundaries of the system. Once a value is wrapped in a validated
 newtype, all subsequent code can trust its invariants without redundant checks.
 </p>
@@ -1846,32 +1847,32 @@ attempt to call <code class="code">send_data</code> on an unauthenticated connec
 fail to compile).
 </p></blockquote>
 
-<p>The newtype pattern exemplifies Rust&rsquo;s approach to safety: by encoding
+<p>The newtype pattern exemplifies Rust&#8217;s approach to safety: by encoding
 invariants in the type system, we move error detection from runtime to compile
 time. This gives us the confidence to write complex systems knowing that entire
-classes of bugs&mdash;unit confusion, identifier mix-ups, invalid state
-transitions&mdash;are impossible by construction.
+classes of bugs&#8212;unit confusion, identifier mix-ups, invalid state
+transitions&#8212;are impossible by construction.
 </p>
 </div>
 </div>
 <div class="footnotes-segment">
-<hr>
+<hr />
 <h4 class="footnotes-heading">Footnotes</h4>
 
 <h5 class="footnote-body-heading"><a id="FOOT91" href="#DOCF91">(91)</a></h5>
 <p>Allowing quotation in a language wreaks havoc
 with the ability to reason about the language in simple terms, because it
 destroys the notion that equals can be substituted for equals.  For example,
-three is one plus two, but the word &ldquo;three&rdquo; is not the phrase &ldquo;one plus
-two.&rdquo;  Quotation is powerful because it gives us a way to build expressions
+three is one plus two, but the word &#8220;three&#8221; is not the phrase &#8220;one plus
+two.&#8221;  Quotation is powerful because it gives us a way to build expressions
 that manipulate other expressions (as we will see when we write an interpreter
 in <a class="ref" href="Chapter-4.xhtml">Metalinguistic Abstraction</a>). But allowing statements in a language that talk about
 other statements in that language makes it very difficult to maintain any
-coherent principle of what &ldquo;equals can be substituted for equals&rdquo; should
+coherent principle of what &#8220;equals can be substituted for equals&#8221; should
 mean.  For example, if we know that the evening star is the morning star, then
-from the statement &ldquo;the evening star is Venus&rdquo; we can deduce &ldquo;the morning
-star is Venus.&rdquo;  However, given that &ldquo;John knows that the evening star is
-Venus&rdquo; we cannot infer that &ldquo;John knows that the morning star is Venus.&rdquo;</p>
+from the statement &#8220;the evening star is Venus&#8221; we can deduce &#8220;the morning
+star is Venus.&#8221;  However, given that &#8220;John knows that the evening star is
+Venus&#8221; we cannot infer that &#8220;John knows that the morning star is Venus.&#8221;</p>
 <h5 class="footnote-body-heading"><a id="FOOT92" href="#DOCF92">(92)</a></h5>
 <p>The
 single quote is different from the double quote we have been using to enclose
@@ -1894,9 +1895,9 @@ construct the expression <code class="code">(car '(a b c))</code>, which is the 
 (quote (a b c)))</code>, by evaluating <code class="code">(list 'car (list 'quote '(a b c)))</code>.</p>
 <h5 class="footnote-body-heading"><a id="FOOT94" href="#DOCF94">(94)</a></h5>
 <p>We
-can consider two symbols to be &ldquo;the same&rdquo; if they consist of the same
+can consider two symbols to be &#8220;the same&#8221; if they consist of the same
 characters in the same order.  Such a definition skirts a deep issue that we
-are not yet ready to address: the meaning of &ldquo;sameness&rdquo; in a programming
+are not yet ready to address: the meaning of &#8220;sameness&#8221; in a programming
 language.  We will return to this in <a class="ref" href="Chapter-3.xhtml">Modularity, Objects, and State</a> (<a class="ref" href="3_002e1.xhtml#g_t3_002e1_002e3">The Costs of Introducing Assignment</a>).</p>
 <h5 class="footnote-body-heading"><a id="FOOT95" href="#DOCF95">(95)</a></h5>
 <p>In practice,
@@ -1909,25 +1910,25 @@ the one that comes as a primitive in Scheme) would also stipulate that if
 <code class="code">equal?</code> if they are numerically equal.</p>
 <h5 class="footnote-body-heading"><a id="FOOT96" href="#DOCF96">(96)</a></h5>
 <p>If we want to be more formal, we can
-specify &ldquo;consistent with the interpretations given above&rdquo; to mean that the
+specify &#8220;consistent with the interpretations given above&#8221; to mean that the
 operations satisfy a collection of rules such as these:
 </p>
 <ul class="itemize mark-bullet">
 <li>For any set <code class="code">S</code> and any object <code class="code">x</code>,
 <code class="code">(element-of-set? x (adjoin-set x S))</code>
-is true (informally: &ldquo;Adjoining an object to a
-set produces a set that contains the object&rdquo;).
+is true (informally: &#8220;Adjoining an object to a
+set produces a set that contains the object&#8221;).
 
 </li><li>For any sets <code class="code">S</code> and <code class="code">T</code> and any object <code class="code">x</code>,
 <code class="code">(element-of-set? x (union-set S T))</code>
 is equal to
 <code class="code">(or (element-of-set? x S) (element-of-set? x T))</code>
-(informally: &ldquo;The elements of <code class="code">(union S T)</code> are the elements that
-are in <code class="code">S</code> or in <code class="code">T</code>&rdquo;).
+(informally: &#8220;The elements of <code class="code">(union S T)</code> are the elements that
+are in <code class="code">S</code> or in <code class="code">T</code>&#8221;).
 
 </li><li>For any object <code class="code">x</code>,
 <code class="code">(element-of-set? x '())</code>
-is false (informally: &ldquo;No object is an element of the empty set&rdquo;).
+is false (informally: &#8220;No object is an element of the empty set&#8221;).
 
 </li></ul>
 <h5 class="footnote-body-heading"><a id="FOOT97" href="#DOCF97">(97)</a></h5>
@@ -1937,10 +1938,10 @@ the fast-exponentiation algorithm of <a class="ref" href="1_002e2.xhtml#g_t1_002
 search method of <a class="ref" href="1_002e3.xhtml#g_t1_002e3_002e3">Procedures as General Methods</a>.</p>
 <h5 class="footnote-body-heading"><a id="FOOT98" href="#DOCF98">(98)</a></h5>
 <p>We are representing sets in terms of trees, and trees in
-terms of lists&mdash;in effect, a data abstraction built upon a data abstraction.
+terms of lists&#8212;in effect, a data abstraction built upon a data abstraction.
 We can regard the procedures <code class="code">entry</code>, <code class="code">left-branch</code>,
 <code class="code">right-branch</code>, and <code class="code">make-tree</code> as a way of isolating the abstraction
-of a &ldquo;binary tree&rdquo; from the particular way we might wish to represent such a
+of a &#8220;binary tree&#8221; from the particular way we might wish to represent such a
 tree in terms of list structure.</p>
 <h5 class="footnote-body-heading"><a id="FOOT99" href="#DOCF99">(99)</a></h5>
 <p>Examples of such structures include <a class="index-entry-id" id="index-B_002dtrees"></a>
@@ -1955,10 +1956,10 @@ to Paul Hilfinger.</p>
 <p>See <a class="ref" href="References.xhtml#Hamming-1980">Hamming 1980</a> 
 for a discussion of the mathematical properties of Huffman codes.</p>
 </div>
-<hr>
+<hr />
 <div class="nav-panel">
 <p>
-Next: <a href="2_002e4.xhtml#g_t2_002e4" accesskey="n" rel="next">Multiple Representations for Abstract Data</a>, Previous: <a href="2_002e2.xhtml#g_t2_002e2_002e5" accesskey="p" rel="prev">Algebraic Data Types</a>, Up: <a href="Chapter-2.xhtml" accesskey="u" rel="up">Building Abstractions with Data</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
+Next: <a href="2_002e4.xhtml#g_t2_002e4" accesskey="n" rel="next">Multiple Representations for Abstract Data</a>, Previous: <a href="2_002e2.xhtml#g_t2_002e2_002e5" accesskey="p" rel="prev">Algebraic Data Types</a>, Up: <a href="Chapter-2.xhtml" accesskey="u" rel="up">Building Abstractions with Data</a> &#160; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

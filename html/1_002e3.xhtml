@@ -1,23 +1,24 @@
-<!DOCTYPE html>
-<html>
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>1.3 (Structure and Interpretation of Computer Programs, 2e)</title>
 
-<meta name="description" content="1.3 (Structure and Interpretation of Computer Programs, 2e)">
-<meta name="keywords" content="1.3 (Structure and Interpretation of Computer Programs, 2e)">
-<meta name="resource-type" content="document">
-<meta name="distribution" content="global">
-<meta name="Generator" content="texi2any">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="1.3 (Structure and Interpretation of Computer Programs, 2e)" />
+<meta name="keywords" content="1.3 (Structure and Interpretation of Computer Programs, 2e)" />
+<meta name="resource-type" content="document" />
+<meta name="distribution" content="global" />
+<meta name="Generator" content="texi2any" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 
-<link href="index.xhtml" rel="start" title="Top">
-<link href="Term-Index.xhtml" rel="index" title="Term Index">
-<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="Chapter-1.xhtml" rel="up" title="Chapter 1">
-<link href="Chapter-2.xhtml" rel="next" title="Chapter 2">
-<link href="1_002e2.xhtml#g_t1_002e2" rel="prev" title="1.2">
+<link href="index.xhtml" rel="start" title="Top" />
+<link href="Term-Index.xhtml" rel="index" title="Term Index" />
+<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents" />
+<link href="Chapter-1.xhtml" rel="up" title="Chapter 1" />
+<link href="Chapter-2.xhtml" rel="next" title="Chapter 2" />
+<link href="1_002e2.xhtml#g_t1_002e2" rel="prev" title="1.2" />
 <style type="text/css">
 <!--
 a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
@@ -37,9 +38,9 @@ ul.mark-bullet {list-style-type: disc}
 <div class="section-level-extent" id="g_t1_002e3">
 <div class="nav-panel">
 <p>
-Next: <a href="Chapter-2.xhtml" accesskey="n" rel="next">Building Abstractions with Data</a>, Previous: <a href="1_002e2.xhtml#g_t1_002e2" accesskey="p" rel="prev">Procedures and the Processes They Generate</a>, Up: <a href="Chapter-1.xhtml" accesskey="u" rel="up">Building Abstractions with Procedures</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Chapter-2.xhtml" accesskey="n" rel="next">Building Abstractions with Data</a>, Previous: <a href="1_002e2.xhtml#g_t1_002e2" accesskey="p" rel="prev">Procedures and the Processes They Generate</a>, Up: <a href="Chapter-1.xhtml" accesskey="u" rel="up">Building Abstractions with Procedures</a> &#160; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
 </div>
-<h3 class="section" id="Formulating-Abstractions-with-Higher_002dOrder-Procedures"><span>1.3 Formulating Abstractions with Higher-Order Procedures<a class="copiable-link" href="#Formulating-Abstractions-with-Higher_002dOrder-Procedures"> &para;</a></span></h3>
+<h3 class="section" id="Formulating-Abstractions-with-Higher_002dOrder-Procedures"><span>1.3 Formulating Abstractions with Higher-Order Procedures<a class="copiable-link" href="#Formulating-Abstractions-with-Higher_002dOrder-Procedures"> &#182;</a></span></h3>
 
 <p>We have seen that procedures are, in effect, abstractions that describe
 compound operations on numbers independent of the particular numbers.  For
@@ -84,9 +85,9 @@ procedures can serve as powerful abstraction mechanisms, vastly increasing the
 expressive power of our language.
 </p>
 
-<hr>
+<hr />
 <div class="subsection-level-extent" id="g_t1_002e3_002e1">
-<h4 class="subsection" id="Procedures-as-Arguments"><span>1.3.1 Procedures as Arguments<a class="copiable-link" href="#Procedures-as-Arguments"> &para;</a></span></h4>
+<h4 class="subsection" id="Procedures-as-Arguments"><span>1.3.1 Procedures as Arguments<a class="copiable-link" href="#Procedures-as-Arguments"> &#182;</a></span></h4>
 
 <p>Consider the following three procedures.  The first computes the sum of the
 integers from <code class="code">a</code> through <code class="code">b</code>:
@@ -152,7 +153,7 @@ procedures by filling in slots in the same template:
 abstraction waiting to be brought to the surface.  Indeed, mathematicians long
 ago identified the abstraction of <a class="index-entry-id" id="index-summation-of-a-series"></a>
 <em class="dfn">summation of a series</em> and invented
-&ldquo;sigma notation,&rdquo; for example
+&#8220;sigma notation,&#8221; for example
 
 \[ % :18:
  
@@ -161,14 +162,14 @@ ago identified the abstraction of <a class="index-entry-id" id="index-summation-
 
 to express this concept.  The power of sigma notation is that it allows
 mathematicians to deal with the concept of summation itself rather than only
-with particular sums&mdash;for example, to formulate general results about sums
+with particular sums&#8212;for example, to formulate general results about sums
 that are independent of the particular series being summed.
 </p>
 <p>Similarly, as program designers, we would like our language to be powerful
 enough so that we can write a procedure that expresses the concept of summation
 itself rather than only procedures that compute particular sums.  We can do so
 readily in our procedural language by taking the common template shown above
-and transforming the &ldquo;slots&rdquo; into formal parameters:
+and transforming the &#8220;slots&#8221; into formal parameters:
 </p>
 <div class="example">
 <pre class="example-preformatted">fn sum&lt;F, N&gt;(term: F, a: i64, next: N, b: i64) -&gt; i64
@@ -298,7 +299,7 @@ integral(|x| x * x * x, 0.0, 1.0, 0.001)
 
 <p>(The exact value of the integral of <code class="code">cube</code> between 0 and 1 is 1/4.)
 </p>
-<p>Note that in the <code class="code">integral</code> function, we use Rust&rsquo;s closure syntax to define
+<p>Note that in the <code class="code">integral</code> function, we use Rust&#8217;s closure syntax to define
 <code class="code">add_dx</code>: the expression <code class="code">|x| x + dx</code> creates a closure that captures
 the <code class="code">dx</code> variable from the enclosing scope. The vertical bars <code class="code">|...|</code>
 enclose the parameter list, and the expression after them is the closure body.
@@ -307,9 +308,9 @@ We also pass a closure <code class="code">|x| x * x * x</code> directly as an ar
 naming them.
 </p>
 <blockquote class="quotation">
-<p><strong class="strong"><a class="anchor" id="Exercise-1_002e29"></a>Exercise 1.29:</strong> Simpson&rsquo;s Rule is a more accurate
+<p><strong class="strong"><a class="anchor" id="Exercise-1_002e29"></a>Exercise 1.29:</strong> Simpson&#8217;s Rule is a more accurate
 method of numerical integration than the method illustrated above.  Using
-Simpson&rsquo;s Rule, the integral of a function <em class="math">f</em> between <em class="math">a</em> and <em class="math">b</em> is
+Simpson&#8217;s Rule, the integral of a function <em class="math">f</em> between <em class="math">a</em> and <em class="math">b</em> is
 approximated as
 
 \[ % :20:
@@ -321,7 +322,7 @@ where <em class="math">{h = (b - a)/n}</em>, for some even integer <em class="ma
 <em class="math">y_k = {f(a + kh)}</em>.  (Increasing <em class="math">n</em> increases the
 accuracy of the approximation.)  Define a procedure that takes as arguments
 <em class="math">f</em>, <em class="math">a</em>, <em class="math">b</em>, and <em class="math">n</em> and returns the value of the integral, computed
-using Simpson&rsquo;s Rule.  Use your procedure to integrate <code class="code">cube</code> between 0
+using Simpson&#8217;s Rule.  Use your procedure to integrate <code class="code">cube</code> between 0
 and 1 (with <em class="math">{n = 100}</em> and <em class="math">{n = 1000}</em>), and compare the results to those of
 the <code class="code">integral</code> procedure shown above.
 </p></blockquote>
@@ -427,18 +428,18 @@ prime to <em class="math">n</em> (i.e., all positive integers <em class="math">{
 </li></ol>
 </blockquote>
 
-<hr>
+<hr />
 </div>
 <div class="subsection-level-extent" id="g_t1_002e3_002e2">
-<h4 class="subsection" id="Constructing-Procedures-Using-Closures"><span>1.3.2 Constructing Procedures Using Closures<a class="copiable-link" href="#Constructing-Procedures-Using-Closures"> &para;</a></span></h4>
+<h4 class="subsection" id="Constructing-Procedures-Using-Closures"><span>1.3.2 Constructing Procedures Using Closures<a class="copiable-link" href="#Constructing-Procedures-Using-Closures"> &#182;</a></span></h4>
 
 <p>In using <code class="code">sum</code> as in <a class="ref" href="#g_t1_002e3_002e1">Procedures as Arguments</a>, it seems terribly awkward to
 have to define trivial procedures such as <code class="code">pi_term</code> and <code class="code">pi_next</code>
 just so we can use them as arguments to our higher-order procedure.  Rather
 than define <code class="code">pi_next</code> and <code class="code">pi_term</code>, it would be more convenient to
-have a way to directly specify &ldquo;the procedure that returns its input
-incremented by 4&rdquo; and &ldquo;the procedure that returns the reciprocal of its input
-times its input plus 2.&rdquo;  We can do this by using Rust\&rsquo;s <a class="index-entry-id" id="index-closure"></a>
+have a way to directly specify &#8220;the procedure that returns its input
+incremented by 4&#8221; and &#8220;the procedure that returns the reciprocal of its input
+times its input plus 2.&#8221;  We can do this by using Rust\&#8217;s <a class="index-entry-id" id="index-closure"></a>
 <em class="dfn">closure</em>
 syntax, which creates anonymous functions.  Using closures we can describe
 what we want as
@@ -517,7 +518,7 @@ expression can be used immediately such as
 <p>or, more generally, in any context where we would normally use a function
 name.<a class="footnote" id="DOCF48" href="#FOOT48"><sup>48</sup></a>
 </p>
-<h4 class="subsubheading" id="Using-let-to-create-local-variables"><span>Using <code class="code">let</code> to create local variables<a class="copiable-link" href="#Using-let-to-create-local-variables"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Using-let-to-create-local-variables"><span>Using <code class="code">let</code> to create local variables<a class="copiable-link" href="#Using-let-to-create-local-variables"> &#182;</a></span></h4>
 
 <p>In Rust, the <code class="code">let</code> keyword is used to create local variables.  We often need
 local variables in our procedures other than those that have been bound as
@@ -605,7 +606,7 @@ This is similar to using immediately-invoked closures:
 <pre class="example-preformatted">(|⟨<var class="var">var₁</var>⟩, <span class="r">…</span>, ⟨<var class="var">varₙ</var>⟩| ⟨<var class="var">body</var>⟩)(⟨<var class="var">exp₁</var>⟩, <span class="r">…</span>, ⟨<var class="var">expₙ</var>⟩)
 </pre></div>
 
-<p>While Rust\&rsquo;s <code class="code">let</code> is a fundamental language construct rather than
+<p>While Rust\&#8217;s <code class="code">let</code> is a fundamental language construct rather than
 syntactic sugar, the conceptual relationship to closures helps understand
 how local variables create scoped bindings.
 </p>
@@ -646,7 +647,7 @@ example, if the value of <code class="code">x</code> is 2, the expression
 
 <p>will have the value 15 because <code class="code">y</code> uses the new value of <code class="code">x</code> (which is 3),
 so <code class="code">y</code> will be 5, and <code class="code">x</code> * <code class="code">y</code> = 15.  This is different from
-Scheme\&rsquo;s <code class="code">let</code>, where all bindings are evaluated before any are bound.
+Scheme\&#8217;s <code class="code">let</code>, where all bindings are evaluated before any are bound.
 </p>
 </li></ul>
 
@@ -690,10 +691,10 @@ f(|z| z * (z + 1))
 <code class="code">f(f)</code>?  Explain.
 </p></blockquote>
 
-<hr>
+<hr />
 </div>
 <div class="subsection-level-extent" id="g_t1_002e3_002e3">
-<h4 class="subsection" id="Procedures-as-General-Methods"><span>1.3.3 Procedures as General Methods<a class="copiable-link" href="#Procedures-as-General-Methods"> &para;</a></span></h4>
+<h4 class="subsection" id="Procedures-as-General-Methods"><span>1.3.3 Procedures as General Methods<a class="copiable-link" href="#Procedures-as-General-Methods"> &#182;</a></span></h4>
 
 <p>We introduced compound procedures in <a class="ref" href="1_002e1.xhtml#g_t1_002e1_002e4">Compound Procedures</a> as a mechanism for
 abstracting patterns of numerical operations so as to make them independent of
@@ -701,11 +702,11 @@ the particular numbers involved.  With higher-order procedures, such as the
 <code class="code">integral</code> procedure of <a class="ref" href="#g_t1_002e3_002e1">Procedures as Arguments</a>, we began to see a more
 powerful kind of abstraction: procedures used to express general methods of
 computation, independent of the particular functions involved.  In this section
-we discuss two more elaborate examples&mdash;general methods for finding zeros and
-fixed points of functions&mdash;and show how these methods can be expressed
+we discuss two more elaborate examples&#8212;general methods for finding zeros and
+fixed points of functions&#8212;and show how these methods can be expressed
 directly as procedures.
 </p>
-<h4 class="subsubheading" id="Finding-roots-of-equations-by-the-half_002dinterval-method"><span>Finding roots of equations by the half-interval method<a class="copiable-link" href="#Finding-roots-of-equations-by-the-half_002dinterval-method"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Finding-roots-of-equations-by-the-half_002dinterval-method"><span>Finding roots of equations by the half-interval method<a class="copiable-link" href="#Finding-roots-of-equations-by-the-half_002dinterval-method"> &#182;</a></span></h4>
 
 <p>The <a class="index-entry-id" id="index-half_002dinterval-method"></a>
 <em class="dfn">half-interval method</em> is a simple but powerful technique for
@@ -721,7 +722,7 @@ the interval is small enough, the process stops.  Since the interval of
 uncertainty is reduced by half at each step of the process, the number of steps
 required grows as <em class="math">{\Theta(\log(L\, /\, T))}</em>, where <em class="math">L</em> is the
 length of the original interval and <em class="math">T</em> is the error tolerance (that is, the
-size of the interval we will consider &ldquo;small enough&rdquo;).  Here is a procedure
+size of the interval we will consider &#8220;small enough&#8221;).  Here is a procedure
 that implements this strategy:
 </p>
 <div class="example">
@@ -756,8 +757,8 @@ continue with the interval from the midpoint to the positive point.  Finally,
 there is the possibility that the test value is 0, in which case the midpoint
 is itself the root we are searching for.
 </p>
-<p>To test whether the endpoints are &ldquo;close enough&rdquo; we can use a procedure
-similar to the one used in <a class="ref" href="1_002e1.xhtml#g_t1_002e1_002e7">Example: Square Roots by Newton&rsquo;s Method</a> for computing square
+<p>To test whether the endpoints are &#8220;close enough&#8221; we can use a procedure
+similar to the one used in <a class="ref" href="1_002e1.xhtml#g_t1_002e1_002e7">Example: Square Roots by Newton&#8217;s Method</a> for computing square
 roots:<a class="footnote" id="DOCF50" href="#FOOT50"><sup>50</sup></a>
 </p>
 <div class="example">
@@ -767,7 +768,7 @@ roots:<a class="footnote" id="DOCF50" href="#FOOT50"><sup>50</sup></a>
 </pre></div>
 
 <p><code class="code">Search</code> is awkward to use directly, because we can accidentally give it
-points at which <em class="math">f</em>&rsquo;s values do not have the required sign, in which case we
+points at which <em class="math">f</em>&#8217;s values do not have the required sign, in which case we
 get a wrong answer.  Instead we will use <code class="code">search</code> via the following
 procedure, which checks to see which of the endpoints has a negative function
 value and which has a positive value, and calls the <code class="code">search</code> procedure
@@ -812,7 +813,7 @@ the equation <em class="math">{x^3 - 2x - 3 = 0}</em> between 1 and 2:
 // =&gt; 1.89306640625
 </pre></div>
 
-<h4 class="subsubheading" id="Finding-fixed-points-of-functions"><span>Finding fixed points of functions<a class="copiable-link" href="#Finding-fixed-points-of-functions"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Finding-fixed-points-of-functions"><span>Finding fixed points of functions<a class="copiable-link" href="#Finding-fixed-points-of-functions"> &#182;</a></span></h4>
 
 <p>A number <em class="math">x</em> is called a <a class="index-entry-id" id="index-fixed-point"></a>
 <em class="dfn">fixed point</em> of a function <em class="math">f</em> if <em class="math">x</em>
@@ -873,7 +874,7 @@ cosine function, starting with 1 as an initial approximation:<a class="footnote"
 </pre></div>
 
 <p>The fixed-point process is reminiscent of the process we used for finding
-square roots in <a class="ref" href="1_002e1.xhtml#g_t1_002e1_002e7">Example: Square Roots by Newton&rsquo;s Method</a>.  Both are based on the idea of repeatedly
+square roots in <a class="ref" href="1_002e1.xhtml#g_t1_002e1_002e7">Example: Square Roots by Newton&#8217;s Method</a>.  Both are based on the idea of repeatedly
 improving a guess until the result satisfies some criterion.  In fact, we can
 readily formulate the square-root computation as a fixed-point search.
 Computing the square root of some number <em class="math">x</em> requires finding a <em class="math">y</em> such
@@ -916,7 +917,7 @@ equation and divide by 2.)
 <p>With this modification, the square-root procedure works.  In fact, if we
 unravel the definitions, we can see that the sequence of approximations to the
 square root generated here is precisely the same as the one generated by our
-original square-root procedure of <a class="ref" href="1_002e1.xhtml#g_t1_002e1_002e7">Example: Square Roots by Newton&rsquo;s Method</a>.  This approach of
+original square-root procedure of <a class="ref" href="1_002e1.xhtml#g_t1_002e1_002e7">Example: Square Roots by Newton&#8217;s Method</a>.  This approach of
 averaging successive approximations to a solution, a technique that we call
 <a class="index-entry-id" id="index-average-damping"></a>
 <em class="dfn">average damping</em>, often aids the convergence of fixed-point searches.
@@ -933,7 +934,7 @@ of the <code class="code">fixed_point</code> procedure.
 it prints the sequence of approximations it generates, using the <code class="code">newline</code>
 and <code class="code">display</code> primitives shown in <a class="ref" href="1_002e2.xhtml#Exercise-1_002e22">Exercise 1.22</a>.  Then find a
 solution to <em class="math">{x^x = 1000}</em> by finding a fixed point of <em class="math">x \mapsto
-{\log(1000) / \log(x)}</em>.  (Use Scheme&rsquo;s primitive <code class="code">log</code>
+{\log(1000) / \log(x)}</em>.  (Use Scheme&#8217;s primitive <code class="code">log</code>
 procedure, which computes natural logarithms.)  Compare the number of steps
 this takes with and without average damping.  (Note that you cannot start
 <code class="code">fixed_point</code> with a guess of 1, as this would cause division by
@@ -956,10 +957,10 @@ As an example, one can show that the infinite continued fraction expansion with
 the <em class="math">N_i</em> and the <em class="math">D_i</em> all equal to 1 produces <em class="math">{1 / \varphi}</em>, where
 <em class="math">\varphi</em> is the golden ratio (described in <a class="ref" href="1_002e2.xhtml#g_t1_002e2_002e2">Tree Recursion</a>).  One way to
 approximate an infinite continued fraction is to truncate the expansion after a
-given number of terms.  Such a truncation&mdash;a so-called <a class="index-entry-id" id="index-k_002dterm"></a>
+given number of terms.  Such a truncation&#8212;a so-called <a class="index-entry-id" id="index-k_002dterm"></a>
 finite continued fraction
 <em class="dfn"><i class="i">k</i>-term
-finite continued fraction</em>&mdash;has the form
+finite continued fraction</em>&#8212;has the form
 
 \[ % :26:
   
@@ -991,9 +992,9 @@ write one that generates a recursive process.
 Leonhard Euler published a memoir <cite class="cite">De Fractionibus Continuis</cite>, which
 included a continued fraction expansion for <em class="math">{e - 2}</em>, where <em class="math">e</em> is the base
 of the natural logarithms.  In this fraction, the <em class="math">N_i</em> are all 1, and
-the <em class="math">D_i</em> are successively 1, 2, 1, 1, 4, 1, 1, 6, 1, 1, 8, &hellip;.
+the <em class="math">D_i</em> are successively 1, 2, 1, 1, 4, 1, 1, 6, 1, 1, 8, &#8230;.
 Write a program that uses your <code class="code">cont_frac</code> procedure from <a class="ref" href="#Exercise-1_002e37">Exercise 1.37</a> 
-to approximate <em class="math">e</em>, based on Euler&rsquo;s expansion.
+to approximate <em class="math">e</em>, based on Euler&#8217;s expansion.
 </p></blockquote>
 
 <blockquote class="quotation">
@@ -1007,14 +1008,14 @@ mathematician J.H. Lambert:
 \]
 
 where <em class="math">x</em> is in radians.  Define a procedure <code class="code">(tan_cf x k)</code> that
-computes an approximation to the tangent function based on Lambert&rsquo;s formula.
+computes an approximation to the tangent function based on Lambert&#8217;s formula.
 <code class="code">k</code> specifies the number of terms to compute, as in <a class="ref" href="#Exercise-1_002e37">Exercise 1.37</a>.
 </p></blockquote>
 
-<hr>
+<hr />
 </div>
 <div class="subsection-level-extent" id="g_t1_002e3_002e4">
-<h4 class="subsection" id="Procedures-as-Returned-Values"><span>1.3.4 Procedures as Returned Values<a class="copiable-link" href="#Procedures-as-Returned-Values"> &para;</a></span></h4>
+<h4 class="subsection" id="Procedures-as-Returned-Values"><span>1.3.4 Procedures as Returned Values<a class="copiable-link" href="#Procedures-as-Returned-Values"> &#182;</a></span></h4>
 
 <p>The above examples demonstrate how the ability to pass procedures as arguments
 significantly enhances the expressive power of our programming language.  We
@@ -1044,7 +1045,7 @@ where
 <p>In Rust, returning a closure requires using <code class="code">impl Fn</code> as the return type.
 The <code class="code">move</code> keyword captures <code class="code">f</code> by value, transferring ownership into
 the returned closure. This is necessary because the closure outlives the function
-scope. The <code class="code">'static</code> lifetime bound ensures <code class="code">f</code> doesn&rsquo;t contain references
+scope. The <code class="code">'static</code> lifetime bound ensures <code class="code">f</code> doesn&#8217;t contain references
 with limited lifetimes.
 </p>
 <p><code class="code">Average-damp</code> is a procedure that takes as its argument a procedure
@@ -1075,7 +1076,7 @@ follows:
 <p>Notice how this formulation makes explicit the three ideas in the method:
 fixed-point search, average damping, and the function <em class="math">{y \mapsto x / y}</em>.
 It is instructive to compare this formulation of the square-root method with
-the original version given in <a class="ref" href="1_002e1.xhtml#g_t1_002e1_002e7">Example: Square Roots by Newton&rsquo;s Method</a>.  Bear in mind that these
+the original version given in <a class="ref" href="1_002e1.xhtml#g_t1_002e1_002e7">Example: Square Roots by Newton&#8217;s Method</a>.  Bear in mind that these
 procedures express the same process, and notice how much clearer the idea
 becomes when we express the process in terms of these abstractions.  In
 general, there are many ways to formulate a process as a procedure.
@@ -1095,11 +1096,11 @@ square-root procedure to one that extracts cube roots:<a class="footnote" id="DO
 }
 </pre></div>
 
-<h4 class="subsubheading" id="Newton_0027s-method"><span>Newton&rsquo;s method<a class="copiable-link" href="#Newton_0027s-method"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Newton_0027s-method"><span>Newton&#8217;s method<a class="copiable-link" href="#Newton_0027s-method"> &#182;</a></span></h4>
 
-<p>When we first introduced the square-root procedure, in <a class="ref" href="1_002e1.xhtml#g_t1_002e1_002e7">Example: Square Roots by Newton&rsquo;s Method</a>, we
+<p>When we first introduced the square-root procedure, in <a class="ref" href="1_002e1.xhtml#g_t1_002e1_002e7">Example: Square Roots by Newton&#8217;s Method</a>, we
 mentioned that this was a special case of <a class="index-entry-id" id="index-Newton_0027s-method"></a>
-<em class="dfn">Newton&rsquo;s method</em>.  
+<em class="dfn">Newton&#8217;s method</em>.  
 If <em class="math">{x \mapsto g(x)}</em> is a differentiable function, then a solution of the equation
 <em class="math">{g(x) = 0}</em> is a fixed point of the function <em class="math">{x \mapsto f(x)}</em> where
 
@@ -1108,16 +1109,16 @@ If <em class="math">{x \mapsto g(x)}</em> is a differentiable function, then a s
 {f(x)} \,=\, x - \frac{g(x)}{D g(x)}
 \]
 
-and <em class="math">{Dg(x)}</em> is the derivative of <em class="math">g</em> evaluated at <em class="math">x</em>.  Newton&rsquo;s
+and <em class="math">{Dg(x)}</em> is the derivative of <em class="math">g</em> evaluated at <em class="math">x</em>.  Newton&#8217;s
 method is the use of the fixed-point method we saw above to approximate a
 solution of the equation by finding a fixed point of the function
 <em class="math">{f}</em>.<a class="footnote" id="DOCF56" href="#FOOT56"><sup>56</sup></a>
 </p>
 <p>For many functions <em class="math">g</em> and for sufficiently good initial guesses for <em class="math">x</em>,
-Newton&rsquo;s method converges very rapidly to a solution of <em class="math">{g(x) = 0}</em>.<a class="footnote" id="DOCF57" href="#FOOT57"><sup>57</sup></a>
+Newton&#8217;s method converges very rapidly to a solution of <em class="math">{g(x) = 0}</em>.<a class="footnote" id="DOCF57" href="#FOOT57"><sup>57</sup></a>
 </p>
-<p>In order to implement Newton&rsquo;s method as a procedure, we must first express the
-idea of derivative.  Note that &ldquo;derivative,&rdquo; like average damping, is
+<p>In order to implement Newton&#8217;s method as a procedure, we must first express the
+idea of derivative.  Note that &#8220;derivative,&#8221; like average damping, is
 something that transforms a function into another function.  For instance, the
 derivative of the function <em class="math">{x \mapsto x^3}</em> is the function <em class="math">{x \mapsto 3x^2}</em>.
 In general, if <em class="math">g</em> is a function and <em class="math">{dx}</em> is a small number,
@@ -1156,7 +1157,7 @@ deriv(cube)(5.0)
 // =&gt; 75.00014999664018
 </pre></div>
 
-<p>With the aid of <code class="code">deriv</code>, we can express Newton&rsquo;s method as a fixed-point
+<p>With the aid of <code class="code">deriv</code>, we can express Newton&#8217;s method as a fixed-point
 process:
 </p>
 <div class="example">
@@ -1178,13 +1179,13 @@ where
 
 <p>Here, <code class="code">newton_transform</code> requires <code class="code">G: Clone</code> because we need to use
 <code class="code">g</code> both directly and pass it to <code class="code">deriv</code>. We clone <code class="code">g</code> to satisfy
-Rust&rsquo;s ownership rules.
+Rust&#8217;s ownership rules.
 </p>
 <p>The <code class="code">newton_transform</code> procedure expresses the formula at the beginning of
 this section, and <code class="code">newtons_method</code> is readily defined in terms of this.
 It takes as arguments a procedure that computes the function for which we want
 to find a zero, together with an initial guess.  For instance, to find the
-square root of <em class="math">x</em>, we can use Newton&rsquo;s method to find a zero of the function
+square root of <em class="math">x</em>, we can use Newton&#8217;s method to find a zero of the function
 <em class="math">{y \mapsto y^2 - x}</em> starting with an initial guess of 1.<a class="footnote" id="DOCF58" href="#FOOT58"><sup>58</sup></a>
 </p>
 <p>This provides yet another form of the square-root procedure:
@@ -1195,11 +1196,11 @@ square root of <em class="math">x</em>, we can use Newton&rsquo;s method to find
 }
 </pre></div>
 
-<h4 class="subsubheading" id="Abstractions-and-first_002dclass-procedures"><span>Abstractions and first-class procedures<a class="copiable-link" href="#Abstractions-and-first_002dclass-procedures"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Abstractions-and-first_002dclass-procedures"><span>Abstractions and first-class procedures<a class="copiable-link" href="#Abstractions-and-first_002dclass-procedures"> &#182;</a></span></h4>
 
-<p>We&rsquo;ve seen two ways to express the square-root computation as an instance of a
-more general method, once as a fixed-point search and once using Newton&rsquo;s
-method.  Since Newton&rsquo;s method was itself expressed as a fixed-point process,
+<p>We&#8217;ve seen two ways to express the square-root computation as an instance of a
+more general method, once as a fixed-point search and once using Newton&#8217;s
+method.  Since Newton&#8217;s method was itself expressed as a fixed-point process,
 we actually saw two ways to compute square roots as fixed points.  Each method
 begins with a function and finds a fixed point of some transformation of the
 function.  We can express this general idea itself as a procedure:
@@ -1235,7 +1236,7 @@ this section (where we look for a fixed point of the average-damped version of
 </pre></div>
 
 <p>Similarly, we can express the second square-root computation from this section
-(an instance of Newton&rsquo;s method that finds a fixed point of the Newton
+(an instance of Newton&#8217;s method that finds a fixed point of the Newton
 transform of <em class="math">{y \mapsto y^2 - x}</em>) as
 </p>
 <div class="example">
@@ -1247,7 +1248,7 @@ transform of <em class="math">{y \mapsto y^2 - x}</em>) as
 <p>We began section <a class="ref" href="#g_t1_002e3">Formulating Abstractions with Higher-Order Procedures</a> with the observation that compound procedures are a
 crucial abstraction mechanism, because they permit us to express general
 methods of computing as explicit elements in our programming language.  Now
-we&rsquo;ve seen how higher-order procedures permit us to manipulate these general
+we&#8217;ve seen how higher-order procedures permit us to manipulate these general
 methods to create further abstractions.
 </p>
 <p>As programmers, we should be alert to opportunities to identify the underlying
@@ -1265,7 +1266,7 @@ other computational elements.
 computational elements can be manipulated.  Elements with the fewest
 restrictions are said to have <a class="index-entry-id" id="index-first_002dclass"></a>
 <em class="dfn">first-class</em> status.  Some of the
-&ldquo;rights and privileges&rdquo; of first-class elements are:<a class="footnote" id="DOCF59" href="#FOOT59"><sup>59</sup></a>
+&#8220;rights and privileges&#8221; of first-class elements are:<a class="footnote" id="DOCF59" href="#FOOT59"><sup>59</sup></a>
 </p>
 <ul class="itemize mark-bullet">
 <li>They may be named by variables.
@@ -1418,7 +1419,7 @@ that attempting to compute square roots by naively finding a fixed point of
 <em class="math">{y \mapsto x / y}</em> does not converge, and that this can be fixed by average
 damping.  The same method works for finding cube roots as fixed points of the
 average-damped <em class="math">{y \mapsto x / y^2}</em>.  Unfortunately, the process does not
-work for fourth roots&mdash;a single average damp is not enough to make a
+work for fourth roots&#8212;a single average damp is not enough to make a
 fixed-point search for <em class="math">{y \mapsto x / y^3}</em> converge.  On the other hand, if
 we average damp twice (i.e., use the average damp of the average damp of 
 <em class="math">{y \mapsto x / y^3}</em>) the fixed-point search does converge.  Do some experiments
@@ -1442,26 +1443,26 @@ process using the improved guess as the new guess.  Write a procedure
 telling whether a guess is good enough and a method for improving a guess.
 <code class="code">Iterative-improve</code> should return as its value a procedure that takes a
 guess as argument and keeps improving the guess until it is good enough.
-Rewrite the <code class="code">sqrt</code> procedure of <a class="ref" href="1_002e1.xhtml#g_t1_002e1_002e7">Example: Square Roots by Newton&rsquo;s Method</a> and the
+Rewrite the <code class="code">sqrt</code> procedure of <a class="ref" href="1_002e1.xhtml#g_t1_002e1_002e7">Example: Square Roots by Newton&#8217;s Method</a> and the
 <code class="code">fixed_point</code> procedure of <a class="ref" href="#g_t1_002e3_002e3">Procedures as General Methods</a> in terms of
 <code class="code">iterative_improve</code>.
 </p></blockquote>
 
-<hr>
+<hr />
 </div>
 <div class="subsection-level-extent" id="g_t1_002e3_002e5">
-<h4 class="subsection" id="Iterator-Combinators"><span>1.3.5 Iterator Combinators<a class="copiable-link" href="#Iterator-Combinators"> &para;</a></span></h4>
+<h4 class="subsection" id="Iterator-Combinators"><span>1.3.5 Iterator Combinators<a class="copiable-link" href="#Iterator-Combinators"> &#182;</a></span></h4>
 
-<p>Throughout this chapter, we&rsquo;ve explored procedures that operate on other
-procedures&mdash;higher-order procedures that abstract common patterns of
-computation.  We&rsquo;ve seen <code class="code">sum</code>, <code class="code">product</code>, and <code class="code">accumulate</code> as
+<p>Throughout this chapter, we&#8217;ve explored procedures that operate on other
+procedures&#8212;higher-order procedures that abstract common patterns of
+computation.  We&#8217;ve seen <code class="code">sum</code>, <code class="code">product</code>, and <code class="code">accumulate</code> as
 ways to capture the essence of iterative combination.  Rust takes this idea
 further with <a class="index-entry-id" id="index-iterators"></a>
-<em class="dfn">iterators</em>&mdash;a zero-cost abstraction for sequential data
+<em class="dfn">iterators</em>&#8212;a zero-cost abstraction for sequential data
 processing that combines the elegance of higher-order functions with the
 performance of hand-written loops.
 </p>
-<h4 class="subheading" id="The-Iterator-Trait"><span>The Iterator Trait<a class="copiable-link" href="#The-Iterator-Trait"> &para;</a></span></h4>
+<h4 class="subheading" id="The-Iterator-Trait"><span>The Iterator Trait<a class="copiable-link" href="#The-Iterator-Trait"> &#182;</a></span></h4>
 
 <p>An iterator is any type that implements the <code class="code">Iterator</code> trait, which
 requires a single method:
@@ -1497,7 +1498,7 @@ types implement to convert themselves into iterators.  Collections like
 arrays, vectors, and ranges all implement <code class="code">IntoIterator</code>, allowing them
 to be used in <code class="code">for</code> loops and with iterator methods.
 </p>
-<h4 class="subheading" id="Map_002c-Filter_002c-and-Higher_002dOrder-Operations"><span>Map, Filter, and Higher-Order Operations<a class="copiable-link" href="#Map_002c-Filter_002c-and-Higher_002dOrder-Operations"> &para;</a></span></h4>
+<h4 class="subheading" id="Map_002c-Filter_002c-and-Higher_002dOrder-Operations"><span>Map, Filter, and Higher-Order Operations<a class="copiable-link" href="#Map_002c-Filter_002c-and-Higher_002dOrder-Operations"> &#182;</a></span></h4>
 
 <p>Recall the <code class="code">sum</code> procedure from <a class="ref" href="#g_t1_002e3_002e1">Procedures as Arguments</a>, which abstracted the pattern
 of accumulating values across a range.  With iterators, we can separate the
@@ -1514,11 +1515,11 @@ assert_eq!(sum_of_squares, 385);
 </pre></div>
 
 <p>Here, <code class="code">map</code> is an <a class="index-entry-id" id="index-iterator-combinator"></a>
-<em class="dfn">iterator combinator</em>&mdash;a method that
+<em class="dfn">iterator combinator</em>&#8212;a method that
 transforms one iterator into another.  It takes a closure and produces a new
 iterator that applies the closure to each element.  The <code class="code">sum</code> method is a
 <a class="index-entry-id" id="index-consumer"></a>
-<em class="dfn">consumer</em>&mdash;it consumes the iterator and produces a final value.
+<em class="dfn">consumer</em>&#8212;it consumes the iterator and produces a final value.
 </p>
 <p>Compare this to our earlier <code class="code">sum_integers</code> from <a class="ref" href="#g_t1_002e3_002e1">Procedures as Arguments</a>:
 </p>
@@ -1570,10 +1571,10 @@ assert_eq!(sum, 165);  // 1 + 9 + 25 + 49 + 81
 which the predicate returns <code class="code">true</code>.  We can chain multiple transformations,
 building complex pipelines from simple operations.
 </p>
-<h4 class="subheading" id="Lazy-Evaluation-and-Zero_002dCost-Abstraction"><span>Lazy Evaluation and Zero-Cost Abstraction<a class="copiable-link" href="#Lazy-Evaluation-and-Zero_002dCost-Abstraction"> &para;</a></span></h4>
+<h4 class="subheading" id="Lazy-Evaluation-and-Zero_002dCost-Abstraction"><span>Lazy Evaluation and Zero-Cost Abstraction<a class="copiable-link" href="#Lazy-Evaluation-and-Zero_002dCost-Abstraction"> &#182;</a></span></h4>
 
 <p>A crucial property of iterator combinators is <a class="index-entry-id" id="index-lazy-evaluation"></a>
-<em class="dfn">lazy evaluation</em>&mdash;no
+<em class="dfn">lazy evaluation</em>&#8212;no
 computation happens until a consumer demands values.  When we write:
 </p>
 <div class="example">
@@ -1595,7 +1596,7 @@ values themselves.
 
 <p>The <code class="code">take</code> combinator creates an iterator that yields at most 5 elements,
 and <code class="code">collect</code> consumes the iterator, producing a vector.  Only then are
-values computed&mdash;and only the values actually needed.  We compute 5 squares
+values computed&#8212;and only the values actually needed.  We compute 5 squares
 and perform 5 modulo operations, not a million.
 </p>
 <p>This laziness enables efficient chaining.  Consider:
@@ -1629,7 +1630,7 @@ for x in 1..=1000 {
 efficient machine code as the manual loop, but expresses the computation more
 declaratively.
 </p>
-<h4 class="subheading" id="The-Fold-Combinator"><span>The Fold Combinator<a class="copiable-link" href="#The-Fold-Combinator"> &para;</a></span></h4>
+<h4 class="subheading" id="The-Fold-Combinator"><span>The Fold Combinator<a class="copiable-link" href="#The-Fold-Combinator"> &#182;</a></span></h4>
 
 <p>The <code class="code">sum</code> and <code class="code">product</code> methods are special cases of a more general
 pattern: folding.  The <code class="code">fold</code> combinator corresponds directly to our
@@ -1678,13 +1679,13 @@ factorial can be expressed as:
 }
 </pre></div>
 
-<p>This is an iterative process in the sense of <a class="ref" href="1_002e2.xhtml#g_t1_002e2_002e1">Linear Recursion and Iteration</a>&mdash;the accumulator
+<p>This is an iterative process in the sense of <a class="ref" href="1_002e2.xhtml#g_t1_002e2_002e1">Linear Recursion and Iteration</a>&#8212;the accumulator
 holds the complete state, and the computation proceeds linearly through the
 range.
 </p>
-<h4 class="subheading" id="Rich-Combinator-Library"><span>Rich Combinator Library<a class="copiable-link" href="#Rich-Combinator-Library"> &para;</a></span></h4>
+<h4 class="subheading" id="Rich-Combinator-Library"><span>Rich Combinator Library<a class="copiable-link" href="#Rich-Combinator-Library"> &#182;</a></span></h4>
 
-<p>Rust&rsquo;s standard library provides dozens of iterator combinators, each
+<p>Rust&#8217;s standard library provides dozens of iterator combinators, each
 capturing a common pattern.  Here are some essential ones:
 </p>
 <dl class="table">
@@ -1774,10 +1775,10 @@ for even values, takes the first 5, squares each, and sums the results.  All
 without allocating intermediate collections, all compiled to efficient machine
 code.
 </p>
-<h4 class="subheading" id="Collect-and-Type-Inference"><span>Collect and Type Inference<a class="copiable-link" href="#Collect-and-Type-Inference"> &para;</a></span></h4>
+<h4 class="subheading" id="Collect-and-Type-Inference"><span>Collect and Type Inference<a class="copiable-link" href="#Collect-and-Type-Inference"> &#182;</a></span></h4>
 
 <p>The <code class="code">collect</code> method deserves special attention.  It consumes an iterator
-and builds a collection&mdash;but which collection?  The target type is determined
+and builds a collection&#8212;but which collection?  The target type is determined
 by type inference:
 </p>
 <div class="example">
@@ -1785,7 +1786,7 @@ by type inference:
 let a: [i32; 5] = (1..=5).collect();  // Array (size must match!)
 </pre></div>
 
-<p>When inference is ambiguous, we use the &ldquo;turbofish&rdquo; syntax <code class="code">::&lt;T&gt;</code>:
+<p>When inference is ambiguous, we use the &#8220;turbofish&#8221; syntax <code class="code">::&lt;T&gt;</code>:
 </p>
 <div class="example">
 <pre class="example-preformatted">let v = (1..=5).collect::&lt;Vec&lt;i32&gt;&gt;();
@@ -1796,9 +1797,9 @@ let a: [i32; 5] = (1..=5).collect();  // Array (size must match!)
 iterator, enabling <code class="code">collect</code> to work with vectors, arrays, sets, maps,
 and custom collections.
 </p>
-<h4 class="subheading" id="Comparison-with-Recursive-Approaches"><span>Comparison with Recursive Approaches<a class="copiable-link" href="#Comparison-with-Recursive-Approaches"> &para;</a></span></h4>
+<h4 class="subheading" id="Comparison-with-Recursive-Approaches"><span>Comparison with Recursive Approaches<a class="copiable-link" href="#Comparison-with-Recursive-Approaches"> &#182;</a></span></h4>
 
-<p>Throughout Chapter 1, we&rsquo;ve emphasized recursive procedures and the processes
+<p>Throughout Chapter 1, we&#8217;ve emphasized recursive procedures and the processes
 they generate.  Iterators offer a complementary perspective: computation as
 data transformation pipelines.  Consider the <code class="code">sum_of_squares</code> procedure
 from earlier sections:
@@ -1837,13 +1838,13 @@ among them is stylistic and depends on the problem structure.
 </p>
 <p>Recursion shines when the problem has natural recursive structure (tree
 traversal, divide-and-conquer algorithms).  Iteration shines for sequential
-processing where the transformation pipeline is clear.  Rust&rsquo;s iterators give
+processing where the transformation pipeline is clear.  Rust&#8217;s iterators give
 us the declarative elegance of higher-order functions with the performance of
 low-level loops.
 </p>
-<h4 class="subheading" id="Infinite-Iterators"><span>Infinite Iterators<a class="copiable-link" href="#Infinite-Iterators"> &para;</a></span></h4>
+<h4 class="subheading" id="Infinite-Iterators"><span>Infinite Iterators<a class="copiable-link" href="#Infinite-Iterators"> &#182;</a></span></h4>
 
-<p>Like the infinite streams we&rsquo;ll explore in <a class="ref" href="3_002e5.xhtml#g_t3_002e5_002e2">Infinite Streams</a>, iterators can
+<p>Like the infinite streams we&#8217;ll explore in <a class="ref" href="3_002e5.xhtml#g_t3_002e5_002e2">Infinite Streams</a>, iterators can
 represent unbounded sequences.  The range <code class="code">1..</code> generates all positive
 integers (until overflow).  We can create infinite iterators that generate
 values lazily:
@@ -1869,8 +1870,8 @@ finite subsequences:
 <pre class="example-preformatted">let first_10_fibs: Vec&lt;u64&gt; = fibs.take(10).collect();
 </pre></div>
 
-<p>This pattern&mdash;infinite data structures made practical by lazy
-evaluation&mdash;anticipates the stream processing we&rsquo;ll study in Chapter 3.
+<p>This pattern&#8212;infinite data structures made practical by lazy
+evaluation&#8212;anticipates the stream processing we&#8217;ll study in Chapter 3.
 </p>
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-1_002e42a"></a>Exercise 1.42a:</strong> The <code class="code">sum_of_squares_of_odd</code>
@@ -1880,7 +1881,7 @@ compute the sum of the squares of all odd integers in the range <em class="math"
 </p>
 <p>Then modify your solution to sum only the squares of odd <em class="emph">prime</em> numbers
 in the range, using the <code class="code">is_prime</code> predicate from <a class="ref" href="1_002e2.xhtml#g_t1_002e2_002e6">Example: Testing for Primality</a>.  Compare
-the iterator version to a recursive implementation&mdash;which is clearer?
+the iterator version to a recursive implementation&#8212;which is clearer?
 </p></blockquote>
 
 <blockquote class="quotation">
@@ -1902,10 +1903,10 @@ from <a class="ref" href="#Exercise-1_002e32">Exercise 1.32</a> takes a <code cl
 and a <code class="code">term</code> function.  Implement the following using <code class="code">fold</code>:
 </p>
 <ol class="enumerate" type="a" start="1">
-<li> <code class="code">sum_of_nth_powers(a: i32, b: i32, n: u32) -&gt; i32</code>&mdash;sum of <em class="math">i^n</em>
+<li> <code class="code">sum_of_nth_powers(a: i32, b: i32, n: u32) -&gt; i32</code>&#8212;sum of <em class="math">i^n</em>
 for <em class="math">i</em> in <em class="math">[a, b]</em>.
 
-</li><li> <code class="code">factorial(n: u64) -&gt; u64</code>&mdash;product of integers from 1 to <em class="math">n</em>.
+</li><li> <code class="code">factorial(n: u64) -&gt; u64</code>&#8212;product of integers from 1 to <em class="math">n</em>.
 
 </li><li> The continued fraction from <a class="ref" href="#Exercise-1_002e37">Exercise 1.37</a>, computing <em class="math">1/\varphi</em>
 where <em class="math">\varphi</em> is the golden ratio.  Use <code class="code">fold</code> to compute the
@@ -1913,22 +1914,22 @@ continued fraction from the bottom up.  (Hint: fold over an iterator of
 <code class="code">N</code> and <code class="code">D</code> values.)
 </li></ol>
 
-<p>For part (c), you&rsquo;ll need to think about folding from right to left versus
+<p>For part (c), you&#8217;ll need to think about folding from right to left versus
 left to right.  Research the <code class="code">rfold</code> method (fold-right) and explain when
-it&rsquo;s needed versus <code class="code">fold</code>.
+it&#8217;s needed versus <code class="code">fold</code>.
 </p></blockquote>
 
 </div>
 </div>
 <div class="footnotes-segment">
-<hr>
+<hr />
 <h4 class="footnotes-heading">Footnotes</h4>
 
 <h5 class="footnote-body-heading"><a id="FOOT44" href="#DOCF44">(44)</a></h5>
 <p>This series, usually
 written in the equivalent form 
 <em class="math">{\pi\over4} = {1 - {1\over3} + {1\over5}} - {{1\over7} + \dots}</em>, 
-is due to Leibniz.  We&rsquo;ll see how to use this as the basis for some
+is due to Leibniz.  We&#8217;ll see how to use this as the basis for some
 fancy numerical tricks in <a class="ref" href="3_002e5.xhtml#g_t3_002e5_002e3">Exploiting the Stream Paradigm</a>.</p>
 <h5 class="footnote-body-heading"><a id="FOOT45" href="#DOCF45">(45)</a></h5>
 <p>Notice that we have
@@ -1954,7 +1955,7 @@ as a powerful and elegant approach to designing programs.</p>
 <p>This formula was discovered by the
 seventeenth-century English mathematician John Wallis.</p>
 <h5 class="footnote-body-heading"><a id="FOOT48" href="#DOCF48">(48)</a></h5>
-<p>Rust\&rsquo;s closure syntax is inspired by languages like Ruby and
+<p>Rust\&#8217;s closure syntax is inspired by languages like Ruby and
 Smalltalk, and ultimately traces back to the λ-calculus, a mathematical
 formalism introduced by the mathematical logician Alonzo <a class="ref" href="References.xhtml#Church-_00281941_0029">Church (1941)</a>.
 Church developed the λ-calculus to provide a rigorous foundation for
@@ -1965,12 +1966,12 @@ can <a class="index-entry-id" id="index-capture"></a>
 <em class="dfn">capture</em> variables from their enclosing environment, creating
 a closure over those variables.</p>
 <h5 class="footnote-body-heading"><a id="FOOT49" href="#DOCF49">(49)</a></h5>
-<p>Rust\&rsquo;s
+<p>Rust\&#8217;s
 <code class="code">let</code> bindings are evaluated sequentially in the order they appear, which
 makes the evaluation model straightforward.  Each binding is evaluated using
 the environment that includes all previous bindings in the same scope.</p>
 <h5 class="footnote-body-heading"><a id="FOOT50" href="#DOCF50">(50)</a></h5>
-<p>We have used 0.001 as a representative &ldquo;small&rdquo; number to
+<p>We have used 0.001 as a representative &#8220;small&#8221; number to
 indicate a tolerance for the acceptable error in a calculation.  The
 appropriate tolerance for a real calculation depends upon the problem to be
 solved and the limitations of the computer and the algorithm.  This is often a
@@ -1984,52 +1985,52 @@ arguments a number of items that are printed as error messages.</p>
 during a boring lecture: Set your calculator to radians mode and then
 repeatedly press the <code class="code">cos</code> button until you obtain the fixed point.</p>
 <h5 class="footnote-body-heading"><a id="FOOT53" href="#DOCF53">(53)</a></h5>
-<p><em class="math">\mapsto</em> (pronounced &ldquo;maps to&rdquo;) is the mathematician&rsquo;s way of
+<p><em class="math">\mapsto</em> (pronounced &#8220;maps to&#8221;) is the mathematician&#8217;s way of
 writing functions.  <em class="math">{y \mapsto x / y}</em> means <code class="code">|y| x / y</code>,
 that is, the function whose value at <em class="math">y</em> is <em class="math">{x / y}</em>.</p>
 <h5 class="footnote-body-heading"><a id="FOOT54" href="#DOCF54">(54)</a></h5>
 <p>Observe that this is a combination whose
 operator is itself a combination.  <a class="ref" href="1_002e1.xhtml#Exercise-1_002e4">Exercise 1.4</a> already demonstrated the
 ability to form such combinations, but that was only a toy example.  Here we
-begin to see the real need for such combinations&mdash;when applying a procedure
+begin to see the real need for such combinations&#8212;when applying a procedure
 that is obtained as the value returned by a higher-order procedure.</p>
 <h5 class="footnote-body-heading"><a id="FOOT55" href="#DOCF55">(55)</a></h5>
 <p>See
 <a class="ref" href="#Exercise-1_002e45">Exercise 1.45</a> for a further generalization.</p>
 <h5 class="footnote-body-heading"><a id="FOOT56" href="#DOCF56">(56)</a></h5>
-<p>Elementary calculus books usually describe Newton&rsquo;s method in
+<p>Elementary calculus books usually describe Newton&#8217;s method in
 terms of the sequence of approximations <em class="math">x_{n+1} = x_n - {g(x_n)\,/ Dg(x_n)}</em>. 
 Having language for talking about processes and using the idea of fixed points 
 simplifies the description of the method.</p>
 <h5 class="footnote-body-heading"><a id="FOOT57" href="#DOCF57">(57)</a></h5>
-<p>Newton&rsquo;s
+<p>Newton&#8217;s
 method does not always converge to an answer, but it can
 be shown that in favorable cases each iteration doubles the number-of-digits
-accuracy of the approximation to the solution.  In such cases, Newton&rsquo;s method
+accuracy of the approximation to the solution.  In such cases, Newton&#8217;s method
 will converge much more rapidly than the half-interval method.</p>
 <h5 class="footnote-body-heading"><a id="FOOT58" href="#DOCF58">(58)</a></h5>
 <p>For
-finding square roots, Newton&rsquo;s method converges rapidly to the correct solution
+finding square roots, Newton&#8217;s method converges rapidly to the correct solution
 from any starting point.</p>
 <h5 class="footnote-body-heading"><a id="FOOT59" href="#DOCF59">(59)</a></h5>
 <p>The notion of
 first-class status of programming-language elements is due to the British
 computer scientist Christopher Strachey (1916-1975).</p>
 <h5 class="footnote-body-heading"><a id="FOOT60" href="#DOCF60">(60)</a></h5>
-<p>We&rsquo;ll see examples of this
-after we introduce data structures in <a class="ref" href="Chapter-2.xhtml">Chapter&nbsp;2<!-- /@w --></a>.</p>
+<p>We&#8217;ll see examples of this
+after we introduce data structures in <a class="ref" href="Chapter-2.xhtml">Chapter&#160;2<!-- /@w --></a>.</p>
 <h5 class="footnote-body-heading"><a id="FOOT61" href="#DOCF61">(61)</a></h5>
 <p>The major
 implementation cost of first-class procedures is that allowing procedures to be
-returned as values requires reserving storage for a procedure&rsquo;s free variables
+returned as values requires reserving storage for a procedure&#8217;s free variables
 even while the procedure is not executing.  In the Scheme implementation we
-will study in <a class="ref" href="4_002e1.xhtml#g_t4_002e1">The Metacircular Evaluator</a>, these variables are stored in the procedure&rsquo;s
+will study in <a class="ref" href="4_002e1.xhtml#g_t4_002e1">The Metacircular Evaluator</a>, these variables are stored in the procedure&#8217;s
 environment.</p>
 </div>
-<hr>
+<hr />
 <div class="nav-panel">
 <p>
-Next: <a href="Chapter-2.xhtml" accesskey="n" rel="next">Building Abstractions with Data</a>, Previous: <a href="1_002e2.xhtml#g_t1_002e2" accesskey="p" rel="prev">Procedures and the Processes They Generate</a>, Up: <a href="Chapter-1.xhtml" accesskey="u" rel="up">Building Abstractions with Procedures</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Chapter-2.xhtml" accesskey="n" rel="next">Building Abstractions with Data</a>, Previous: <a href="1_002e2.xhtml#g_t1_002e2" accesskey="p" rel="prev">Procedures and the Processes They Generate</a>, Up: <a href="Chapter-1.xhtml" accesskey="u" rel="up">Building Abstractions with Procedures</a> &#160; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

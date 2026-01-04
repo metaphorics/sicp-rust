@@ -1,23 +1,24 @@
-<!DOCTYPE html>
-<html>
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>1.1 (Structure and Interpretation of Computer Programs, 2e)</title>
 
-<meta name="description" content="1.1 (Structure and Interpretation of Computer Programs, 2e)">
-<meta name="keywords" content="1.1 (Structure and Interpretation of Computer Programs, 2e)">
-<meta name="resource-type" content="document">
-<meta name="distribution" content="global">
-<meta name="Generator" content="texi2any">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="1.1 (Structure and Interpretation of Computer Programs, 2e)" />
+<meta name="keywords" content="1.1 (Structure and Interpretation of Computer Programs, 2e)" />
+<meta name="resource-type" content="document" />
+<meta name="distribution" content="global" />
+<meta name="Generator" content="texi2any" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 
-<link href="index.xhtml" rel="start" title="Top">
-<link href="Term-Index.xhtml" rel="index" title="Term Index">
-<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="Chapter-1.xhtml" rel="up" title="Chapter 1">
-<link href="1_002e2.xhtml#g_t1_002e2" rel="next" title="1.2">
-<link href="Chapter-1.xhtml" rel="prev" title="Chapter 1">
+<link href="index.xhtml" rel="start" title="Top" />
+<link href="Term-Index.xhtml" rel="index" title="Term Index" />
+<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents" />
+<link href="Chapter-1.xhtml" rel="up" title="Chapter 1" />
+<link href="1_002e2.xhtml#g_t1_002e2" rel="next" title="1.2" />
+<link href="Chapter-1.xhtml" rel="prev" title="Chapter 1" />
 <style type="text/css">
 <!--
 a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
@@ -37,9 +38,9 @@ ul.mark-bullet {list-style-type: disc}
 <div class="section-level-extent" id="g_t1_002e1">
 <div class="nav-panel">
 <p>
-Next: <a href="1_002e2.xhtml#g_t1_002e2" accesskey="n" rel="next">Procedures and the Processes They Generate</a>, Previous: <a href="Chapter-1.xhtml" accesskey="p" rel="prev">Building Abstractions with Procedures</a>, Up: <a href="Chapter-1.xhtml" accesskey="u" rel="up">Building Abstractions with Procedures</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
+Next: <a href="1_002e2.xhtml#g_t1_002e2" accesskey="n" rel="next">Procedures and the Processes They Generate</a>, Previous: <a href="Chapter-1.xhtml" accesskey="p" rel="prev">Building Abstractions with Procedures</a>, Up: <a href="Chapter-1.xhtml" accesskey="u" rel="up">Building Abstractions with Procedures</a> &#160; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
 </div>
-<h3 class="section" id="The-Elements-of-Programming"><span>1.1 The Elements of Programming<a class="copiable-link" href="#The-Elements-of-Programming"> &para;</a></span></h3>
+<h3 class="section" id="The-Elements-of-Programming"><span>1.1 The Elements of Programming<a class="copiable-link" href="#The-Elements-of-Programming"> &#182;</a></span></h3>
 
 <p>A powerful programming language is more than just a means for instructing a
 computer to perform tasks.  The language also serves as a framework within
@@ -62,7 +63,7 @@ by which compound elements can be named and manipulated as units.
 
 <p>In programming, we deal with two kinds of elements: procedures and data. (Later
 we will discover that they are really not so distinct.)  Informally, data is
-&ldquo;stuff&rdquo; that we want to manipulate, and procedures are descriptions of the
+&#8220;stuff&#8221; that we want to manipulate, and procedures are descriptions of the
 rules for manipulating the data.  Thus, any powerful programming language
 should be able to describe primitive data and primitive procedures and should
 have methods for combining and abstracting procedures and data.
@@ -72,9 +73,9 @@ focus on the rules for building procedures.<a class="footnote" id="DOCF1" href="
 same rules allow us to build procedures to manipulate compound data as well.
 </p>
 
-<hr>
+<hr />
 <div class="subsection-level-extent" id="g_t1_002e1_002e1">
-<h4 class="subsection" id="Expressions"><span>1.1.1 Expressions<a class="copiable-link" href="#Expressions"> &para;</a></span></h4>
+<h4 class="subsection" id="Expressions"><span>1.1.1 Expressions<a class="copiable-link" href="#Expressions"> &#182;</a></span></h4>
 
 <p>One easy way to get started at programming is to examine some typical
 interactions with the Rust REPL (Read-Eval-Print Loop).  Imagine that
@@ -187,10 +188,10 @@ by saying that the interpreter runs in a <a class="index-entry-id" id="index-rea
 Observe in particular that it is not necessary to explicitly instruct the
 interpreter to print the value of the expression.<a class="footnote" id="DOCF4" href="#FOOT4"><sup>4</sup></a>
 </p>
-<hr>
+<hr />
 </div>
 <div class="subsection-level-extent" id="g_t1_002e1_002e2">
-<h4 class="subsection" id="Naming-and-the-Environment"><span>1.1.2 Naming and the Environment<a class="copiable-link" href="#Naming-and-the-Environment"> &para;</a></span></h4>
+<h4 class="subsection" id="Naming-and-the-Environment"><span>1.1.2 Naming and the Environment<a class="copiable-link" href="#Naming-and-the-Environment"> &#182;</a></span></h4>
 
 <p>A critical aspect of a programming language is the means it provides for using
 names to refer to computational objects.  We say that the name identifies a
@@ -232,7 +233,7 @@ circumference
 // =&gt; 62.8318
 </pre></div>
 
-<p><code class="code">let</code> bindings are our language&rsquo;s simplest means of abstraction, for they allow us
+<p><code class="code">let</code> bindings are our language&#8217;s simplest means of abstraction, for they allow us
 to use simple names to refer to the results of compound operations, such as the
 <code class="code">circumference</code> computed above.  In general, computational objects may
 have very complex structures, and it would be extremely inconvenient to have to
@@ -254,10 +255,10 @@ memory that keeps track of the name-object pairs.  This memory is called the
 we will see later that a computation may involve a number of different
 environments).<a class="footnote" id="DOCF6" href="#FOOT6"><sup>6</sup></a>
 </p>
-<hr>
+<hr />
 </div>
 <div class="subsection-level-extent" id="g_t1_002e1_002e3">
-<h4 class="subsection" id="Evaluating-Combinations"><span>1.1.3 Evaluating Combinations<a class="copiable-link" href="#Evaluating-Combinations"> &para;</a></span></h4>
+<h4 class="subsection" id="Evaluating-Combinations"><span>1.1.3 Evaluating Combinations<a class="copiable-link" href="#Evaluating-Combinations"> &#182;</a></span></h4>
 
 <p>One of our goals in this chapter is to isolate issues about thinking
 procedurally.  As a case in point, let us consider that, in evaluating
@@ -301,12 +302,12 @@ evaluation in terms of the tree, we can imagine that the values of the operands
 percolate upward, starting from the terminal nodes and then combining at higher
 and higher levels.  In general, we shall see that recursion is a very powerful
 technique for dealing with hierarchical, treelike objects.  In fact, the
-&ldquo;percolate values upward&rdquo; form of the evaluation rule is an example of a
+&#8220;percolate values upward&#8221; form of the evaluation rule is an example of a
 general kind of process known as <a class="index-entry-id" id="index-tree-accumulation"></a>
 <em class="dfn">tree accumulation</em>.
 </p>
 <div class="float">
-<a class="anchor" id="Figure-1_002e1"></a><img class="image" src="fig/chap1/Fig1.1g.std.svg" alt="fig/chap1/Fig1.1g">
+<a class="anchor" id="Figure-1_002e1"></a><img class="image" src="fig/chap1/Fig1.1g.std.svg" alt="fig/chap1/Fig1.1g" />
 <div class="caption"><p><strong class="strong">Figure 1.1:</strong> Tree representation, showing the value of each subcombination.</p></div></div>
 <p>Next, observe that the repeated application of the first step brings us to the
 point where we need to evaluate, not combinations, but primitive expressions
@@ -327,7 +328,7 @@ environment.
 <p>We may regard the second rule as a special case of the third one by stipulating
 that symbols such as <code class="code">+</code> and <code class="code">*</code> are also included in the global
 environment, and are associated with the sequences of machine instructions that
-are their &ldquo;values.&rdquo;  The key point to notice is the role of the environment
+are their &#8220;values.&#8221;  The key point to notice is the role of the environment
 in determining the meaning of the symbols in expressions.  In an interactive
 language such as Lisp, it is meaningless to speak of the value of an expression
 such as <code class="code">(+ x 1)</code> without specifying any information about the environment
@@ -349,18 +350,18 @@ do not return a value (or return the unit type <code class="code">()</code>). <c
 statements. This distinction is important because only expressions can be used
 where a value is expected (like inside a math operation).
 </p>
-<p>This structure differs from Lisp&rsquo;s concept of <a class="index-entry-id" id="index-special-forms"></a>
+<p>This structure differs from Lisp&#8217;s concept of <a class="index-entry-id" id="index-special-forms"></a>
 <em class="dfn">special forms</em>, where
 everything is a list but some lists have special evaluation rules. Rust has a
 richer syntax with keywords and specific structures for control flow and definitions.
 The various kinds of expressions and statements constitute the syntax of the
-programming language.  Rust&rsquo;s syntax is more complex than Lisp&rsquo;s but provides
+programming language.  Rust&#8217;s syntax is more complex than Lisp&#8217;s but provides
 clear visual cues for different constructs.<a class="footnote" id="DOCF8" href="#FOOT8"><sup>8</sup></a>
 </p>
-<hr>
+<hr />
 </div>
 <div class="subsection-level-extent" id="g_t1_002e1_002e4">
-<h4 class="subsection" id="Compound-Procedures"><span>1.1.4 Compound Procedures<a class="copiable-link" href="#Compound-Procedures"> &para;</a></span></h4>
+<h4 class="subsection" id="Compound-Procedures"><span>1.1.4 Compound Procedures<a class="copiable-link" href="#Compound-Procedures"> &#182;</a></span></h4>
 
 <p>We have identified in Rust some of the elements that must appear in any
 powerful programming language:
@@ -380,8 +381,8 @@ abstraction.
 abstraction technique by which a compound operation can be given a name and
 then referred to as a unit.
 </p>
-<p>We begin by examining how to express the idea of &ldquo;squaring.&rdquo;  We might say,
-&ldquo;To square something, multiply it by itself.&rdquo;  This is expressed in our
+<p>We begin by examining how to express the idea of &#8220;squaring.&#8221;  We might say,
+&#8220;To square something, multiply it by itself.&#8221;  This is expressed in our
 language as
 </p>
 <div class="example">
@@ -475,10 +476,10 @@ Indeed, one could not tell by looking at the definition of
 <code class="code">sum_of_squares</code> given above whether <code class="code">square</code> was built into the
 language, like <code class="code">+</code> and <code class="code">*</code>, or defined as a compound procedure.
 </p>
-<hr>
+<hr />
 </div>
 <div class="subsection-level-extent" id="g_t1_002e1_002e5">
-<h4 class="subsection" id="The-Substitution-Model-for-Procedure-Application"><span>1.1.5 The Substitution Model for Procedure Application<a class="copiable-link" href="#The-Substitution-Model-for-Procedure-Application"> &para;</a></span></h4>
+<h4 class="subsection" id="The-Substitution-Model-for-Procedure-Application"><span>1.1.5 The Substitution Model for Procedure Application<a class="copiable-link" href="#The-Substitution-Model-for-Procedure-Application"> &#182;</a></span></h4>
 
 <p>To evaluate a combination whose operator names a compound procedure, the
 interpreter follows much the same process as for combinations whose operators
@@ -496,7 +497,7 @@ process is as follows:
 with each formal parameter bound to the corresponding argument.
 </p></blockquote>
 
-<p>To illustrate this process, let&rsquo;s evaluate the combination
+<p>To illustrate this process, let&#8217;s evaluate the combination
 </p>
 <div class="example">
 <pre class="example-preformatted">f(5)
@@ -549,7 +550,7 @@ the formal parameters <code class="code">x</code> and <code class="code">y</code
 <p>The process we have just described is called the <a class="index-entry-id" id="index-substitution-model"></a>
 <em class="dfn">substitution model</em>
 for procedure application.  It can be taken as a model that determines the
-&ldquo;meaning&rdquo; of procedure application, insofar as the procedures in this chapter
+&#8220;meaning&#8221; of procedure application, insofar as the procedures in this chapter
 are concerned.  However, there are two points that should be stressed:
 </p>
 <ul class="itemize mark-bullet">
@@ -557,26 +558,26 @@ are concerned.  However, there are two points that should be stressed:
 application, not to provide a description of how the interpreter really works.
 Typical interpreters do not evaluate procedure applications by manipulating the
 text of a procedure to substitute values for the formal parameters.  In
-practice, the &ldquo;substitution&rdquo; is accomplished by using a local environment for
+practice, the &#8220;substitution&#8221; is accomplished by using a local environment for
 the formal parameters.  We will discuss this more fully in <a class="ref" href="Chapter-3.xhtml">Modularity, Objects, and State</a> and
 <a class="ref" href="Chapter-4.xhtml">Metalinguistic Abstraction</a> when we examine the implementation of an interpreter in detail.
 
 </li><li>Over the course of this book, we will present a sequence of increasingly
 elaborate models of how interpreters work, culminating with a complete
 implementation of an interpreter and compiler in <a class="ref" href="Chapter-5.xhtml">Computing with Register Machines</a>.  The
-substitution model is only the first of these models&mdash;a way to get started
+substitution model is only the first of these models&#8212;a way to get started
 thinking formally about the evaluation process.  In general, when modeling
 phenomena in science and engineering, we begin with simplified, incomplete
 models.  As we examine things in greater detail, these simple models become
 inadequate and must be replaced by more refined models.  The substitution model
 is no exception.  In particular, when we address in <a class="ref" href="Chapter-3.xhtml">Modularity, Objects, and State</a> the use of
-procedures with &ldquo;mutable data,&rdquo; we will see that the substitution model
+procedures with &#8220;mutable data,&#8221; we will see that the substitution model
 breaks down and must be replaced by a more complicated model of procedure
 application.
 
 </li></ul>
 
-<h4 class="subsubheading" id="Applicative-order-versus-normal-order"><span>Applicative order versus normal order<a class="copiable-link" href="#Applicative-order-versus-normal-order"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Applicative-order-versus-normal-order"><span>Applicative order versus normal order<a class="copiable-link" href="#Applicative-order-versus-normal-order"> &#182;</a></span></h4>
 
 <p>According to the description of evaluation given in <a class="ref" href="#g_t1_002e1_002e3">Evaluating Combinations</a>, the
 interpreter first evaluates the operator and operands and then applies the
@@ -612,16 +613,16 @@ are each performed twice here, corresponding to the reduction of the expression
 <code class="code">x * x</code> with <code class="code">x</code> replaced respectively by <code class="code">5 + 1</code> and
 <code class="code">5 * 2</code>.
 </p>
-<p>This alternative &ldquo;fully expand and then reduce&rdquo; evaluation method is known as
+<p>This alternative &#8220;fully expand and then reduce&#8221; evaluation method is known as
 <a class="index-entry-id" id="index-normal_002dorder-evaluation"></a>
-<em class="dfn">normal-order evaluation</em>, in contrast to the &ldquo;evaluate the arguments
-and then apply&rdquo; method that the interpreter actually uses, which is called
+<em class="dfn">normal-order evaluation</em>, in contrast to the &#8220;evaluate the arguments
+and then apply&#8221; method that the interpreter actually uses, which is called
 <a class="index-entry-id" id="index-applicative_002dorder-evaluation"></a>
 <em class="dfn">applicative-order evaluation</em>.  It can be shown that, for procedure
 applications that can be modeled using substitution (including all the
 procedures in the first two chapters of this book) and that yield legitimate
 values, normal-order and applicative-order evaluation produce the same value.
-(See <a class="ref" href="#Exercise-1_002e5">Exercise 1.5</a> for an instance of an &ldquo;illegitimate&rdquo; value where
+(See <a class="ref" href="#Exercise-1_002e5">Exercise 1.5</a> for an instance of an &#8220;illegitimate&#8221; value where
 normal-order and applicative-order evaluation do not give the same result.)
 </p>
 <p>Rust uses applicative-order evaluation, partly because of the additional
@@ -632,10 +633,10 @@ deal with when we leave the realm of procedures that can be modeled by
 substitution.  On the other hand, normal-order evaluation can be an extremely
 valuable tool, and we will investigate some of its implications in <a class="ref" href="Chapter-3.xhtml">Modularity, Objects, and State</a> and <a class="ref" href="Chapter-4.xhtml">Metalinguistic Abstraction</a>.
 </p>
-<hr>
+<hr />
 </div>
 <div class="subsection-level-extent" id="g_t1_002e1_002e6">
-<h4 class="subsection" id="Conditional-Expressions-and-Predicates"><span>1.1.6 Conditional Expressions and Predicates<a class="copiable-link" href="#Conditional-Expressions-and-Predicates"> &para;</a></span></h4>
+<h4 class="subsection" id="Conditional-Expressions-and-Predicates"><span>1.1.6 Conditional Expressions and Predicates<a class="copiable-link" href="#Conditional-Expressions-and-Predicates"> &#182;</a></span></h4>
 
 <p>The expressive power of the class of procedures that we can define at this
 point is very limited, because we have no way to make tests and to perform
@@ -691,18 +692,18 @@ else {
 optionally followed by <code class="code">else if</code> branches and a final <code class="code">else</code> branch.
 Each conditional expression is a
 <a class="index-entry-id" id="index-predicate"></a>
-<em class="dfn">predicate</em>&mdash;that is, an expression whose value is interpreted as
+<em class="dfn">predicate</em>&#8212;that is, an expression whose value is interpreted as
 either true or false.<a class="footnote" id="DOCF12" href="#FOOT12"><sup>12</sup></a>
 </p>
 <p>Conditional expressions are evaluated as follows.  The predicate <em class="math">{⟨p_1⟩}</em> is
 evaluated first.  If its value is false, then <em class="math">{⟨p_2⟩}</em> is evaluated.  If
-<em class="math">{⟨p_2⟩}</em>&rsquo;s value is also false, then <em class="math">{⟨p_3⟩}</em> is evaluated.  This process
+<em class="math">{⟨p_2⟩}</em>&#8217;s value is also false, then <em class="math">{⟨p_3⟩}</em> is evaluated.  This process
 continues until a predicate is found whose value is true, in which case the
 interpreter returns the value of the corresponding <a class="index-entry-id" id="index-consequent-expression"></a>
 <em class="dfn">consequent expression</em>
 <em class="math">{⟨e⟩}</em> as the value of the conditional expression.
-If none of the <em class="math">{⟨p⟩}</em>&rsquo;s is found to be true and there is a final <code class="code">else</code>
-branch, that branch&rsquo;s value is returned.
+If none of the <em class="math">{⟨p⟩}</em>&#8217;s is found to be true and there is a final <code class="code">else</code>
+branch, that branch&#8217;s value is returned.
 </p>
 <p>The word <a class="index-entry-id" id="index-predicate-1"></a>
 <em class="dfn">predicate</em> is used for functions that return true or false,
@@ -724,8 +725,8 @@ number, returning true or false accordingly.
 }
 </pre></div>
 
-<p>which could be expressed in English as &ldquo;If <em class="math">x</em> is less than zero return
-<em class="math">{-x}</em>; otherwise return <em class="math">x</em>.&rdquo;  <code class="code">else</code> is a keyword in Rust that
+<p>which could be expressed in English as &#8220;If <em class="math">x</em> is less than zero return
+<em class="math">{-x}</em>; otherwise return <em class="math">x</em>.&#8221;  <code class="code">else</code> is a keyword in Rust that
 provides the default branch of a conditional.  This
 causes the conditional to return as its value the value of the
 <code class="code">else</code> block whenever all previous conditions have been false.
@@ -761,8 +762,8 @@ predicates.  The three most frequently used are these:
 
 <p>The interpreter evaluates the expressions <code class="code">⟨</code><var class="var">e</var><code class="code">⟩</code> one at a time, in
 left-to-right order.  If any <code class="code">⟨</code><var class="var">e</var><code class="code">⟩</code> evaluates to false, the value of the
-<code class="code">&amp;&amp;</code> expression is false, and the rest of the <code class="code">⟨</code><var class="var">e</var><code class="code">⟩</code>&rsquo;s are not
-evaluated.  If all <code class="code">⟨</code><var class="var">e</var><code class="code">⟩</code>&rsquo;s evaluate to true values, the value of the
+<code class="code">&amp;&amp;</code> expression is false, and the rest of the <code class="code">⟨</code><var class="var">e</var><code class="code">⟩</code>&#8217;s are not
+evaluated.  If all <code class="code">⟨</code><var class="var">e</var><code class="code">⟩</code>&#8217;s evaluate to true values, the value of the
 <code class="code">&amp;&amp;</code> expression is true.
 </p>
 </li><li><code class="code">⟨<var class="var">e₁</var>⟩ || <span class="r">…</span> || ⟨<var class="var">eₙ</var>⟩</code>
@@ -770,7 +771,7 @@ evaluated.  If all <code class="code">⟨</code><var class="var">e</var><code cl
 <p>The interpreter evaluates the expressions <code class="code">⟨</code><var class="var">e</var><code class="code">⟩</code> one at a time, in
 left-to-right order.  If any <code class="code">⟨</code><var class="var">e</var><code class="code">⟩</code> evaluates to a true value, true is
 returned as the value of the <code class="code">||</code> expression, and the rest of the
-<code class="code">⟨</code><var class="var">e</var><code class="code">⟩</code>&rsquo;s are not evaluated.  If all <code class="code">⟨</code><var class="var">e</var><code class="code">⟩</code>&rsquo;s evaluate to false, the value
+<code class="code">⟨</code><var class="var">e</var><code class="code">⟩</code>&#8217;s are not evaluated.  If all <code class="code">⟨</code><var class="var">e</var><code class="code">⟩</code>&#8217;s evaluate to false, the value
 of the <code class="code">||</code> expression is false.
 </p>
 </li><li><code class="code">!⟨<var class="var">e</var>⟩</code>
@@ -915,10 +916,10 @@ and the result determines whether to evaluate the consequent or the alternative
 expression.)
 </p></blockquote>
 
-<a class="anchor" id="Sec_002e1_002e1_002e7"></a><hr>
+<a class="anchor" id="Sec_002e1_002e1_002e7"></a><hr />
 </div>
 <div class="subsection-level-extent" id="g_t1_002e1_002e7">
-<h4 class="subsection" id="Example_003a-Square-Roots-by-Newton_0027s-Method"><span>1.1.7 Example: Square Roots by Newton&rsquo;s Method<a class="copiable-link" href="#Example_003a-Square-Roots-by-Newton_0027s-Method"> &para;</a></span></h4>
+<h4 class="subsection" id="Example_003a-Square-Roots-by-Newton_0027s-Method"><span>1.1.7 Example: Square Roots by Newton&#8217;s Method<a class="copiable-link" href="#Example_003a-Square-Roots-by-Newton_0027s-Method"> &#182;</a></span></h4>
 
 <p>Procedures, as introduced above, are much like ordinary mathematical functions.
 They specify a value that is determined by one or more parameters.  But there
@@ -957,7 +958,7 @@ knowledge and imperative knowledge.  In mathematics we are usually concerned
 with declarative (what is) descriptions, whereas in computer science we are
 usually concerned with imperative (how to) descriptions.<a class="footnote" id="DOCF15" href="#FOOT15"><sup>15</sup></a>
 </p>
-<p>How does one compute square roots?  The most common way is to use Newton&rsquo;s
+<p>How does one compute square roots?  The most common way is to use Newton&#8217;s
 method of successive approximations, which says that whenever we have a guess
 <em class="math">y</em> for the value of the square root of a number <em class="math">x</em>, we can perform a
 simple manipulation to get a better guess (one closer to the actual square
@@ -982,7 +983,7 @@ Suppose our initial guess is 1:
 <p>Continuing this process, we obtain better and better approximations to the
 square root.
 </p>
-<p>Now let&rsquo;s formalize the process in terms of procedures.  We start with a value
+<p>Now let&#8217;s formalize the process in terms of procedures.  We start with a value
 for the radicand (the number whose square root we are trying to compute) and a
 value for the guess.  If the guess is good enough for our purposes, we are
 done; if not, we must repeat the process with an improved guess.  We write this
@@ -1015,7 +1016,7 @@ old guess:
 }
 </pre></div>
 
-<p>We also have to say what we mean by &ldquo;good enough.&rdquo;  The following will do for
+<p>We also have to say what we mean by &#8220;good enough.&#8221;  The following will do for
 illustration, but it is not really a very good test.  (See <a class="ref" href="#Exercise-1_002e7">Exercise 1.7</a>.)  
 The idea is to improve the answer until it is close
 enough so that its square differs from the radicand by less than a
@@ -1062,9 +1063,9 @@ the other hand, demonstrates how iteration can be accomplished using no special
 construct other than the ordinary ability to call a procedure.<a class="footnote" id="DOCF19" href="#FOOT19"><sup>19</sup></a>
 </p>
 <blockquote class="quotation">
-<p><strong class="strong"><a class="anchor" id="Exercise-1_002e6"></a>Exercise 1.6:</strong> Alyssa P. Hacker doesn&rsquo;t see why
-<code class="code">if</code> needs to be provided as a special form.  &ldquo;Why can&rsquo;t I just define it
-as an ordinary procedure in terms of <code class="code">cond</code>?&rdquo; she asks.  Alyssa&rsquo;s friend
+<p><strong class="strong"><a class="anchor" id="Exercise-1_002e6"></a>Exercise 1.6:</strong> Alyssa P. Hacker doesn&#8217;t see why
+<code class="code">if</code> needs to be provided as a special form.  &#8220;Why can&#8217;t I just define it
+as an ordinary procedure in terms of <code class="code">cond</code>?&#8221; she asks.  Alyssa&#8217;s friend
 Eva Lu Ator claims this can indeed be done, and she defines a new version of
 <code class="code">if</code>:
 </p>
@@ -1116,7 +1117,7 @@ kind of end test.  Does this work better for small and large numbers?
 </p></blockquote>
 
 <blockquote class="quotation">
-<p><strong class="strong"><a class="anchor" id="Exercise-1_002e8"></a>Exercise 1.8:</strong> Newton&rsquo;s method for cube roots is
+<p><strong class="strong"><a class="anchor" id="Exercise-1_002e8"></a>Exercise 1.8:</strong> Newton&#8217;s method for cube roots is
 based on the fact that if <em class="math">y</em> is an approximation to the cube root of <em class="math">x</em>,
 then a better approximation is given by the value
 
@@ -1127,23 +1128,23 @@ then a better approximation is given by the value
 
 Use this formula to implement a cube-root procedure analogous to the
 square-root procedure.  (In <a class="ref" href="1_002e3.xhtml#g_t1_002e3_002e4">Procedures as Returned Values</a> we will see how to implement
-Newton&rsquo;s method in general as an abstraction of these square-root and cube-root
+Newton&#8217;s method in general as an abstraction of these square-root and cube-root
 procedures.)
 </p></blockquote>
 
-<hr>
+<hr />
 </div>
 <div class="subsection-level-extent" id="g_t1_002e1_002e8">
-<h4 class="subsection" id="Procedures-as-Black_002dBox-Abstractions"><span>1.1.8 Procedures as Black-Box Abstractions<a class="copiable-link" href="#Procedures-as-Black_002dBox-Abstractions"> &para;</a></span></h4>
+<h4 class="subsection" id="Procedures-as-Black_002dBox-Abstractions"><span>1.1.8 Procedures as Black-Box Abstractions<a class="copiable-link" href="#Procedures-as-Black_002dBox-Abstractions"> &#182;</a></span></h4>
 
 <p><code class="code">Sqrt</code> is our first example of a process defined by a set of mutually
 defined procedures.  Notice that the definition of <code class="code">sqrt_iter</code> is
 <a class="index-entry-id" id="index-recursive-1"></a>
 <em class="dfn">recursive</em>; that is, the procedure is defined in terms of itself.  The
 idea of being able to define a procedure in terms of itself may be disturbing;
-it may seem unclear how such a &ldquo;circular&rdquo; definition could make sense at all,
+it may seem unclear how such a &#8220;circular&#8221; definition could make sense at all,
 much less specify a well-defined process to be carried out by a computer.  This
-will be addressed more carefully in <a class="ref" href="1_002e2.xhtml#g_t1_002e2">Procedures and the Processes They Generate</a>.  But first let&rsquo;s
+will be addressed more carefully in <a class="ref" href="1_002e2.xhtml#g_t1_002e2">Procedures and the Processes They Generate</a>.  But first let&#8217;s
 consider some other important points illustrated by the <code class="code">sqrt</code> example.
 </p>
 <p>Observe that the problem of computing square roots breaks up naturally into a
@@ -1154,16 +1155,16 @@ procedures (shown in <a class="ref" href="#Figure-1_002e2">Figure 1.2</a>) that 
 problem into subproblems.
 </p>
 <div class="float">
-<a class="anchor" id="Figure-1_002e2"></a><img class="image" src="fig/chap1/Fig1.2.std.svg" alt="fig/chap1/Fig1.2">
+<a class="anchor" id="Figure-1_002e2"></a><img class="image" src="fig/chap1/Fig1.2.std.svg" alt="fig/chap1/Fig1.2" />
 <div class="caption"><p><strong class="strong">Figure 1.2:</strong> Procedural decomposition of the <code class="code">sqrt</code> program.</p></div></div>
 <p>The importance of this decomposition strategy is not simply that one is
 dividing the program into parts.  After all, we could take any large program
-and divide it into parts&mdash;the first ten lines, the next ten lines, the next
+and divide it into parts&#8212;the first ten lines, the next ten lines, the next
 ten lines, and so on.  Rather, it is crucial that each procedure accomplishes
 an identifiable task that can be used as a module in defining other procedures.
 For example, when we define the <code class="code">good_enough</code> procedure in terms of
-<code class="code">square</code>, we are able to regard the <code class="code">square</code> procedure as a &ldquo;black
-box.&rdquo;  We are not at that moment concerned with <em class="emph">how</em> the procedure
+<code class="code">square</code>, we are able to regard the <code class="code">square</code> procedure as a &#8220;black
+box.&#8221;  We are not at that moment concerned with <em class="emph">how</em> the procedure
 computes its result, only with the fact that it computes the square.  The
 details of how the square is computed can be suppressed, to be considered at a
 later time.  Indeed, as far as the <code class="code">good_enough</code> procedure is concerned,
@@ -1191,10 +1192,10 @@ procedure may not have written the procedure themselves, but may have obtained
 it from another programmer as a black box.  A user should not need to know how
 the procedure is implemented in order to use it.
 </p>
-<h4 class="subsubheading" id="Local-names"><span>Local names<a class="copiable-link" href="#Local-names"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Local-names"><span>Local names<a class="copiable-link" href="#Local-names"> &#182;</a></span></h4>
 
-<p>One detail of a procedure&rsquo;s implementation that should not matter to the user
-of the procedure is the implementer&rsquo;s choice of names for the procedure&rsquo;s
+<p>One detail of a procedure&#8217;s implementation that should not matter to the user
+of the procedure is the implementer&#8217;s choice of names for the procedure&#8217;s
 formal parameters.  Thus, the following procedures should not be
 distinguishable:
 </p>
@@ -1208,8 +1209,8 @@ fn square(y: i64) -&gt; i64 {
 }
 </pre></div>
 
-<p>This principle&mdash;that the meaning of a procedure should be independent of the
-parameter names used by its author&mdash;seems on the surface to be self-evident,
+<p>This principle&#8212;that the meaning of a procedure should be independent of the
+parameter names used by its author&#8212;seems on the surface to be self-evident,
 but its consequences are profound.  The simplest consequence is that the
 parameter names of a procedure must be local to the body of the procedure.  For
 example, we used <code class="code">square</code> in the definition of <code class="code">good_enough</code> in our
@@ -1240,7 +1241,7 @@ parameter <code class="code">x</code> in <code class="code">good_enough</code>, 
 Thus, <code class="code">square</code> would not be the black box we desired.
 </p>
 <p>A formal parameter of a procedure has a very special role in the procedure
-definition, in that it doesn&rsquo;t matter what name the formal parameter has.  Such
+definition, in that it doesn&#8217;t matter what name the formal parameter has.  Such
 a name is called a <a class="index-entry-id" id="index-bound-variable"></a>
 <em class="dfn">bound variable</em>, and we say that the procedure
 definition <a class="index-entry-id" id="index-binds"></a>
@@ -1268,7 +1269,7 @@ the symbol <code class="code">abs</code> names a procedure for computing the abs
 number.  <code class="code">Good-enough?</code> will compute a different function if we substitute
 <code class="code">cos</code> for <code class="code">abs</code> in its definition.
 </p>
-<h4 class="subsubheading" id="Internal-definitions-and-block-structure"><span>Internal definitions and block structure<a class="copiable-link" href="#Internal-definitions-and-block-structure"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Internal-definitions-and-block-structure"><span>Internal definitions and block structure<a class="copiable-link" href="#Internal-definitions-and-block-structure"> &#182;</a></span></h4>
 
 <p>We have one kind of name isolation available to us so far: The formal
 parameters of a procedure are local to the body of the procedure.  The
@@ -1372,12 +1373,12 @@ programs.
 </div>
 </div>
 <div class="footnotes-segment">
-<hr>
+<hr />
 <h4 class="footnotes-heading">Footnotes</h4>
 
 <h5 class="footnote-body-heading"><a id="FOOT1" href="#DOCF1">(1)</a></h5>
 <p>The characterization of
-numbers as &ldquo;simple data&rdquo; is a barefaced bluff.  In fact, the treatment of
+numbers as &#8220;simple data&#8221; is a barefaced bluff.  In fact, the treatment of
 numbers is one of the trickiest and most confusing aspects of any programming
 language.  Some typical issues involved are these: Some computer systems
 distinguish <a class="index-entry-id" id="index-integers"></a>
@@ -1389,7 +1390,7 @@ real numbers?  Does 6 divided by 2 produce 3, or 3.0?  How large a number can
 we represent?  How many decimal places of accuracy can we represent?  Is the
 range of integers the same as the range of real numbers?  Above and beyond
 these questions, of course, lies a collection of issues concerning roundoff and
-truncation errors&mdash;the entire science of numerical analysis.  Since our focus
+truncation errors&#8212;the entire science of numerical analysis.  Since our focus
 in this book is on large-scale program design rather than on numerical
 techniques, we are going to ignore these problems.  The numerical examples in
 this chapter will exhibit the usual roundoff behavior that one observes when
@@ -1408,10 +1409,10 @@ parse complex nested expressions with matching parentheses.</p>
 <h5 class="footnote-body-heading"><a id="FOOT4" href="#DOCF4">(4)</a></h5>
 <p>Rust obeys the
 convention that every expression has a value. This is a fundamental principle
-in Rust&rsquo;s design, where nearly everything is an expression that evaluates to
+in Rust&#8217;s design, where nearly everything is an expression that evaluates to
 a value, including blocks, <code class="code">if</code> statements, and <code class="code">match</code> expressions.</p>
 <h5 class="footnote-body-heading"><a id="FOOT5" href="#DOCF5">(5)</a></h5>
-<p>In this book, we do not show the interpreter&rsquo;s response
+<p>In this book, we do not show the interpreter&#8217;s response
 to evaluating definitions, since this is highly implementation-dependent.</p>
 <h5 class="footnote-body-heading"><a id="FOOT6" href="#DOCF6">(6)</a></h5>
 <p><a class="ref" href="Chapter-3.xhtml">Modularity, Objects, and State</a> will show that this notion of
@@ -1436,13 +1437,13 @@ and read, such as the <code class="code">for</code> loop, which is sugar for an 
 <p>Observe that there are two different operations being
 combined here: we are creating the procedure, and we are giving it the name
 <code class="code">square</code>.  It is possible, indeed important, to be able to separate these
-two notions&mdash;to create procedures without naming them, and to give names to
+two notions&#8212;to create procedures without naming them, and to give names to
 procedures that have already been created.  We will see how to do this in
 <a class="ref" href="1_002e3.xhtml#g_t1_002e3_002e2">Constructing Procedures Using Closures</a>.</p>
 <h5 class="footnote-body-heading"><a id="FOOT10" href="#DOCF10">(10)</a></h5>
 <p>Throughout this book, we will describe the general
 syntax of expressions by using italic symbols delimited by angle
-brackets&mdash;e.g., <code class="code">⟨</code><var class="var">name</var><code class="code">⟩</code>&mdash;to denote the &ldquo;slots&rdquo; in the expression to be
+brackets&#8212;e.g., <code class="code">⟨</code><var class="var">name</var><code class="code">⟩</code>&#8212;to denote the &#8220;slots&#8221; in the expression to be
 filled in when such an expression is actually used.</p>
 <h5 class="footnote-body-heading"><a id="FOOT11" href="#DOCF11">(11)</a></h5>
 <p>More generally, the body of the procedure can be a
@@ -1450,14 +1451,14 @@ sequence of expressions.  In this case, the compiler evaluates each
 expression in the sequence in turn and returns the value of the final
 expression as the value of the procedure application.</p>
 <h5 class="footnote-body-heading"><a id="FOOT12" href="#DOCF12">(12)</a></h5>
-<p>&ldquo;Interpreted as either true or false&rdquo; means
+<p>&#8220;Interpreted as either true or false&#8221; means
 this: In Rust, there are two distinguished values of type <code class="code">bool</code> denoted by the
-constants <code class="code">true</code> and <code class="code">false</code>.  When the compiler checks a predicate&rsquo;s
+constants <code class="code">true</code> and <code class="code">false</code>.  When the compiler checks a predicate&#8217;s
 value, it interprets <code class="code">false</code> as false and <code class="code">true</code> as true. Unlike Scheme,
 Rust requires predicates to be explicitly of type <code class="code">bool</code> and does not
 implicitly convert other values to boolean.</p>
 <h5 class="footnote-body-heading"><a id="FOOT13" href="#DOCF13">(13)</a></h5>
-<p><code class="code">Abs</code> also uses the &ldquo;minus&rdquo; operator <code class="code">-</code>,
+<p><code class="code">Abs</code> also uses the &#8220;minus&#8221; operator <code class="code">-</code>,
 which, when used as a unary prefix operator, as in <code class="code">-x</code>, indicates
 negation.</p>
 <h5 class="footnote-body-heading"><a id="FOOT14" href="#DOCF14">(14)</a></h5>
@@ -1470,7 +1471,7 @@ returned as the value of the block.</p>
 <p>Declarative
 and imperative descriptions are intimately related, as indeed are mathematics
 and computer science.  For instance, to say that the answer produced by a
-program is &ldquo;correct&rdquo; is to make a declarative statement about the program.
+program is &#8220;correct&#8221; is to make a declarative statement about the program.
 There is a large amount of research aimed at establishing techniques for
 proving that programs are correct, and much of the technical difficulty of this
 subject has to do with negotiating the transition between imperative statements
@@ -1478,17 +1479,17 @@ subject has to do with negotiating the transition between imperative statements
 used to deduce things).  In a related vein, an important current area in
 programming-language design is the exploration of so-called very high-level
 languages, in which one actually programs in terms of declarative statements.
-The idea is to make interpreters sophisticated enough so that, given &ldquo;what
-is&rdquo; knowledge specified by the programmer, they can generate &ldquo;how to&rdquo;
+The idea is to make interpreters sophisticated enough so that, given &#8220;what
+is&#8221; knowledge specified by the programmer, they can generate &#8220;how to&#8221;
 knowledge automatically.  This cannot be done in general, but there are
 important areas where progress has been made.  We shall revisit this idea in
 <a class="ref" href="Chapter-4.xhtml">Metalinguistic Abstraction</a>.</p>
 <h5 class="footnote-body-heading"><a id="FOOT16" href="#DOCF16">(16)</a></h5>
 <p>This square-root algorithm
-is actually a special case of Newton&rsquo;s method, which is a general technique for
+is actually a special case of Newton&#8217;s method, which is a general technique for
 finding roots of equations.  The square-root algorithm itself was developed by
 Heron of Alexandria in the first century <abbr class="abbr">A.D.</abbr>  We will see how to
-express the general Newton&rsquo;s method as a Rust procedure in <a class="ref" href="1_002e3.xhtml#g_t1_002e3_002e4">Procedures as Returned Values</a>.</p>
+express the general Newton&#8217;s method as a Rust procedure in <a class="ref" href="1_002e3.xhtml#g_t1_002e3_002e4">Procedures as Returned Values</a>.</p>
 <h5 class="footnote-body-heading"><a id="FOOT17" href="#DOCF17">(17)</a></h5>
 <p>In Lisp, it is common to give
 predicates names ending with question marks (e.g., <code class="code">good_enough</code>).
@@ -1506,13 +1507,13 @@ arithmetic versus inexact decimal arithmetic.</p>
 <h5 class="footnote-body-heading"><a id="FOOT19" href="#DOCF19">(19)</a></h5>
 <p>Readers
 who are worried about the efficiency issues involved in using procedure calls
-to implement iteration should note the remarks on &ldquo;tail recursion&rdquo; in 
+to implement iteration should note the remarks on &#8220;tail recursion&#8221; in 
 <a class="ref" href="1_002e2.xhtml#g_t1_002e2_002e1">Linear Recursion and Iteration</a>.</p>
 <h5 class="footnote-body-heading"><a id="FOOT20" href="#DOCF20">(20)</a></h5>
 <p>It is not even
 clear which of these procedures is a more efficient implementation.  This
 depends upon the hardware available.  There are machines for which the
-&ldquo;obvious&rdquo; implementation is the less efficient one.  Consider a machine that
+&#8220;obvious&#8221; implementation is the less efficient one.  Consider a machine that
 has extensive tables of logarithms and antilogarithms stored in a very
 efficient manner.</p>
 <h5 class="footnote-body-heading"><a id="FOOT21" href="#DOCF21">(21)</a></h5>
@@ -1530,10 +1531,10 @@ environments and the detailed behavior of the interpreter.<a class="anchor" id="
 first in a procedure body. The management is not responsible for the
 consequences of running programs that intertwine definition and use.</p>
 </div>
-<hr>
+<hr />
 <div class="nav-panel">
 <p>
-Next: <a href="1_002e2.xhtml#g_t1_002e2" accesskey="n" rel="next">Procedures and the Processes They Generate</a>, Previous: <a href="Chapter-1.xhtml" accesskey="p" rel="prev">Building Abstractions with Procedures</a>, Up: <a href="Chapter-1.xhtml" accesskey="u" rel="up">Building Abstractions with Procedures</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
+Next: <a href="1_002e2.xhtml#g_t1_002e2" accesskey="n" rel="next">Procedures and the Processes They Generate</a>, Previous: <a href="Chapter-1.xhtml" accesskey="p" rel="prev">Building Abstractions with Procedures</a>, Up: <a href="Chapter-1.xhtml" accesskey="u" rel="up">Building Abstractions with Procedures</a> &#160; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

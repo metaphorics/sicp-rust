@@ -1,23 +1,24 @@
-<!DOCTYPE html>
-<html>
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>3.5 (Structure and Interpretation of Computer Programs, 2e)</title>
 
-<meta name="description" content="3.5 (Structure and Interpretation of Computer Programs, 2e)">
-<meta name="keywords" content="3.5 (Structure and Interpretation of Computer Programs, 2e)">
-<meta name="resource-type" content="document">
-<meta name="distribution" content="global">
-<meta name="Generator" content="texi2any">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="3.5 (Structure and Interpretation of Computer Programs, 2e)" />
+<meta name="keywords" content="3.5 (Structure and Interpretation of Computer Programs, 2e)" />
+<meta name="resource-type" content="document" />
+<meta name="distribution" content="global" />
+<meta name="Generator" content="texi2any" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 
-<link href="index.xhtml" rel="start" title="Top">
-<link href="Term-Index.xhtml" rel="index" title="Term Index">
-<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="Chapter-3.xhtml" rel="up" title="Chapter 3">
-<link href="Chapter-4.xhtml" rel="next" title="Chapter 4">
-<link href="3_002e4.xhtml#g_t3_002e4_002e5" rel="prev" title="3.4.5">
+<link href="index.xhtml" rel="start" title="Top" />
+<link href="Term-Index.xhtml" rel="index" title="Term Index" />
+<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents" />
+<link href="Chapter-3.xhtml" rel="up" title="Chapter 3" />
+<link href="Chapter-4.xhtml" rel="next" title="Chapter 4" />
+<link href="3_002e4.xhtml#g_t3_002e4_002e5" rel="prev" title="3.4.5" />
 <style type="text/css">
 <!--
 a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
@@ -37,11 +38,11 @@ ul.mark-bullet {list-style-type: disc}
 <div class="section-level-extent" id="g_t3_002e5">
 <div class="nav-panel">
 <p>
-Next: <a href="Chapter-4.xhtml" accesskey="n" rel="next">Metalinguistic Abstraction</a>, Previous: <a href="3_002e4.xhtml#g_t3_002e4_002e5" accesskey="p" rel="prev">Async/Await: Cooperative Concurrency</a>, Up: <a href="Chapter-3.xhtml" accesskey="u" rel="up">Modularity, Objects, and State</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Chapter-4.xhtml" accesskey="n" rel="next">Metalinguistic Abstraction</a>, Previous: <a href="3_002e4.xhtml#g_t3_002e4_002e5" accesskey="p" rel="prev">Async/Await: Cooperative Concurrency</a>, Up: <a href="Chapter-3.xhtml" accesskey="u" rel="up">Modularity, Objects, and State</a> &#160; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
 </div>
-<h3 class="section" id="Streams"><span>3.5 Streams<a class="copiable-link" href="#Streams"> &para;</a></span></h3>
+<h3 class="section" id="Streams"><span>3.5 Streams<a class="copiable-link" href="#Streams"> &#182;</a></span></h3>
 
-<p>We&rsquo;ve gained a good understanding of assignment as a tool in modeling, as well
+<p>We&#8217;ve gained a good understanding of assignment as a tool in modeling, as well
 as an appreciation of the complex problems that assignment raises. It is time
 to ask whether we could have gone about things in a different way, so as to
 avoid some of these problems.  In this section, we explore an alternative
@@ -49,7 +50,7 @@ approach to modeling state, based on data structures called <a class="index-entr
 <em class="dfn">streams</em>.
 As we shall see, streams can mitigate some of the complexity of modeling state.
 </p>
-<p>Let&rsquo;s step back and review where this complexity comes from.  In an attempt to
+<p>Let&#8217;s step back and review where this complexity comes from.  In an attempt to
 model real-world phenomena, we made some apparently reasonable decisions: We
 modeled real-world objects with local state by computational objects with local
 variables.  We identified time variation in the real world with time variation
@@ -64,7 +65,7 @@ mathematical functions.  We can describe the time-varying behavior of a
 quantity <em class="math">x</em> as a function of time <em class="math">{x(t)}</em>.  If we concentrate on <em class="math">x</em>
 instant by instant, we think of it as a changing quantity.  Yet if we
 concentrate on the entire time history of values, we do not emphasize
-change&mdash;the function itself does not change.<a class="footnote" id="DOCF171" href="#FOOT171"><sup>171</sup></a>
+change&#8212;the function itself does not change.<a class="footnote" id="DOCF171" href="#FOOT171"><sup>171</sup></a>
 </p>
 <p>If time is measured in discrete steps, then we can model a time function as a
 (possibly infinite) sequence.  In this section, we will see how to model change
@@ -73,7 +74,7 @@ modeled.  To accomplish this, we introduce new data structures called
 <a class="index-entry-id" id="index-streams-3"></a>
 <em class="dfn">streams</em>.  From an abstract point of view, a stream is simply a
 sequence.  However, we will find that the straightforward implementation of
-streams as lists (as in <a class="ref" href="2_002e2.xhtml#g_t2_002e2_002e1">Representing Sequences</a>) doesn&rsquo;t fully reveal the power of
+streams as lists (as in <a class="ref" href="2_002e2.xhtml#g_t2_002e2_002e1">Representing Sequences</a>) doesn&#8217;t fully reveal the power of
 stream processing.  As an alternative, we introduce the technique of
 <a class="index-entry-id" id="index-delayed-evaluation-1"></a>
 <em class="dfn">delayed evaluation</em>, which enables us to represent very large (even
@@ -87,9 +88,9 @@ difficulties of its own, and the question of which modeling technique leads to
 more modular and more easily maintained systems remains open.
 </p>
 
-<hr>
+<hr />
 <div class="subsection-level-extent" id="g_t3_002e5_002e1">
-<h4 class="subsection" id="Streams-Are-Delayed-Lists"><span>3.5.1 Streams Are Delayed Lists<a class="copiable-link" href="#Streams-Are-Delayed-Lists"> &para;</a></span></h4>
+<h4 class="subsection" id="Streams-Are-Delayed-Lists"><span>3.5.1 Streams Are Delayed Lists<a class="copiable-link" href="#Streams-Are-Delayed-Lists"> &#182;</a></span></h4>
 
 <p>As we saw in <a class="ref" href="2_002e2.xhtml#g_t2_002e2_002e3">Sequences as Conventional Interfaces</a>, sequences can serve as standard interfaces
 for combining program modules.  We formulated powerful abstractions for
@@ -252,11 +253,11 @@ time.
 <code class="code">delay</code>.  Evaluating <code class="code">(delay ⟨<var class="var">exp</var>⟩)</code> does not evaluate the
 expression <code class="code">⟨</code><var class="var">exp</var><code class="code">⟩</code>, but rather returns a so-called 
 <a class="index-entry-id" id="index-delayed-object"></a>
-<em class="dfn">delayed object</em>, which we can think of as a &ldquo;promise&rdquo; to evaluate 
+<em class="dfn">delayed object</em>, which we can think of as a &#8220;promise&#8221; to evaluate 
 <code class="code">⟨</code><var class="var">exp</var><code class="code">⟩</code> at some
 future time.  As a companion to <code class="code">delay</code>, there is a procedure called
 <code class="code">force</code> that takes a delayed object as argument and performs the
-evaluation&mdash;in effect, forcing the <code class="code">delay</code> to fulfill its promise.  We
+evaluation&#8212;in effect, forcing the <code class="code">delay</code> to fulfill its promise.  We
 will see below how <code class="code">delay</code> and <code class="code">force</code> can be implemented, but first
 let us use these to construct streams.
 </p>
@@ -292,9 +293,9 @@ let second = stream.next();  // stream-cdr then car =&gt; Some(4)
 the <code class="code">cdr</code> of the pair and evaluates the delayed expression found there to
 obtain the rest of the stream.<a class="footnote" id="DOCF175" href="#FOOT175"><sup>175</sup></a>
 </p>
-<h4 class="subsubheading" id="The-stream-implementation-in-action"><span>The stream implementation in action<a class="copiable-link" href="#The-stream-implementation-in-action"> &para;</a></span></h4>
+<h4 class="subsubheading" id="The-stream-implementation-in-action"><span>The stream implementation in action<a class="copiable-link" href="#The-stream-implementation-in-action"> &#182;</a></span></h4>
 
-<p>To see how this implementation behaves, let us analyze the &ldquo;outrageous&rdquo; prime
+<p>To see how this implementation behaves, let us analyze the &#8220;outrageous&#8221; prime
 computation we saw above, reformulated in terms of streams:
 </p>
 <div class="example">
@@ -394,15 +395,15 @@ many integers were tested for primality as were necessary to find the second
 prime, and the interval was enumerated only as far as was necessary to feed the
 prime filter.
 </p>
-<p>In general, we can think of delayed evaluation as &ldquo;demand-driven&rdquo;
+<p>In general, we can think of delayed evaluation as &#8220;demand-driven&#8221;
 programming, whereby each stage in the stream process is activated only enough
 to satisfy the next stage.  What we have done is to decouple the actual order
 of events in the computation from the apparent structure of our procedures.  We
-write procedures as if the streams existed &ldquo;all at once&rdquo; when, in reality,
+write procedures as if the streams existed &#8220;all at once&#8221; when, in reality,
 the computation is performed incrementally, as in traditional programming
 styles.
 </p>
-<h4 class="subsubheading" id="Implementing-delay-and-force"><span>Implementing <code class="code">delay</code> and <code class="code">force</code><a class="copiable-link" href="#Implementing-delay-and-force"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Implementing-delay-and-force"><span>Implementing <code class="code">delay</code> and <code class="code">force</code><a class="copiable-link" href="#Implementing-delay-and-force"> &#182;</a></span></h4>
 
 <p>Although <code class="code">delay</code> and <code class="code">force</code> may seem like mysterious operations,
 their implementation is really quite straightforward.  <code class="code">Delay</code> must
@@ -563,10 +564,10 @@ implemented <code class="code">delay(⟨<var class="var">exp</var>⟩)</code> si
 without using the optimization provided by <code class="code">memo_proc</code>?  Explain.
 </p></blockquote>
 
-<hr>
+<hr />
 </div>
 <div class="subsection-level-extent" id="g_t3_002e5_002e2">
-<h4 class="subsection" id="Infinite-Streams"><span>3.5.2 Infinite Streams<a class="copiable-link" href="#Infinite-Streams"> &para;</a></span></h4>
+<h4 class="subsection" id="Infinite-Streams"><span>3.5.2 Infinite Streams<a class="copiable-link" href="#Infinite-Streams"> &#182;</a></span></h4>
 
 <p>We have seen how to support the illusion of manipulating streams as complete
 entities even though, in actuality, we compute only as much of the stream as we
@@ -702,9 +703,9 @@ let primes = sieve(2..);
 </pre></div>
 
 <p>It is interesting to contemplate the signal-processing system set up by
-<code class="code">sieve</code>, shown in the &ldquo;Henderson diagram&rdquo; in 
+<code class="code">sieve</code>, shown in the &#8220;Henderson diagram&#8221; in 
 <a class="ref" href="#Figure-3_002e31">Figure 3.31</a>.<a class="footnote" id="DOCF180" href="#FOOT180"><sup>180</sup></a>  The input stream
-feeds into an &ldquo;un<code class="code">cons</code>er&rdquo; that separates the first element of the
+feeds into an &#8220;un<code class="code">cons</code>er&#8221; that separates the first element of the
 stream from the rest of the stream.  The first element is used to construct a
 divisibility filter, through which the rest is passed, and the output of the
 filter is fed to another sieve box.  Then the original first element is
@@ -713,12 +714,12 @@ Thus, not only is the stream infinite, but the signal processor is also
 infinite, because the sieve contains a sieve within it.
 </p>
 <div class="float">
-<a class="anchor" id="Figure-3_002e31"></a><img class="image" src="fig/chap3/Fig3.31a.std.svg" alt="fig/chap3/Fig3.31a">
+<a class="anchor" id="Figure-3_002e31"></a><img class="image" src="fig/chap3/Fig3.31a.std.svg" alt="fig/chap3/Fig3.31a" />
 <div class="caption"><p><strong class="strong">Figure 3.31:</strong> The prime sieve viewed as a signal-processing system.</p></div></div>
-<h4 class="subsubheading" id="Defining-streams-implicitly"><span>Defining streams implicitly<a class="copiable-link" href="#Defining-streams-implicitly"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Defining-streams-implicitly"><span>Defining streams implicitly<a class="copiable-link" href="#Defining-streams-implicitly"> &#182;</a></span></h4>
 
 <p>The <code class="code">integers</code> and <code class="code">fibs</code> streams above were defined by specifying
-&ldquo;generating&rdquo; procedures that explicitly compute the stream elements one by
+&#8220;generating&#8221; procedures that explicitly compute the stream elements one by
 one. An alternative way to specify streams is to take advantage of delayed
 evaluation to define streams implicitly.  For example, the following expression
 defines the stream <code class="code">ones</code> to be an infinite stream of ones:
@@ -816,7 +817,7 @@ let powers_of_2 = std::iter::successors(
 );
 </pre></div>
 
-<p>produces the stream of powers of 2: 1, 2, 4, 8, 16, 32, &hellip;.
+<p>produces the stream of powers of 2: 1, 2, 4, 8, 16, 32, &#8230;.
 </p>
 <p>An alternate definition of the stream of primes can be given by starting with
 the integers and filtering them by testing for primality.  We will need the
@@ -856,8 +857,8 @@ reason this procedure works is that, at any point, enough of the <code class="co
 stream has been generated to test the primality of the numbers we need to check
 next.  That is, for every <em class="math">n</em> we test for primality, either <em class="math">n</em> is not
 prime (in which case there is a prime already generated that divides it) or
-<em class="math">n</em> is prime (in which case there is a prime already generated&mdash;i.e., a
-prime less than <em class="math">n</em>&mdash;that is greater than
+<em class="math">n</em> is prime (in which case there is a prime already generated&#8212;i.e., a
+prime less than <em class="math">n</em>&#8212;that is greater than
 <em class="math">\sqrt{n}</em>).<a class="footnote" id="DOCF182" href="#FOOT182"><sup>182</sup></a>
 </p>
 <blockquote class="quotation">
@@ -896,7 +897,7 @@ fn factorials() -&gt; impl Iterator&lt;Item = u64&gt; {
 <code class="code">partial_sums</code> that takes as argument a stream <em class="math">S</em> and returns the
 stream whose elements are <em class="math">S_0</em>, <em class="math">{S_0 + S_1}</em>, <em class="math">{S_0 + S_1} + {S_2, \dots}</em>.  
 For example, <code class="code">(partial-sums integers)</code> should be the
-stream 1, 3, 6, 10, 15, &hellip;.
+stream 1, 3, 6, 10, 15, &#8230;.
 </p></blockquote>
 
 <blockquote class="quotation">
@@ -1008,17 +1009,17 @@ of terms.  In a similar way, we can work with <a class="index-entry-id" id="inde
 \]
 represented as infinite streams.  We will represent the series <em class="math">{a_0 +
 a_1 x} + {a_2 x^2} + {a_3 x^3 + \dots}</em> as the stream whose
-elements are the coefficients <em class="math">a_0</em>, <em class="math">a_1</em>, <em class="math">a_2</em>, <em class="math">a_3</em>, &hellip;.
+elements are the coefficients <em class="math">a_0</em>, <em class="math">a_1</em>, <em class="math">a_2</em>, <em class="math">a_3</em>, &#8230;.
 </p>
 <ol class="enumerate" type="a" start="1">
 <li> The integral of the series <em class="math">{a_0 + a_1 x} + {a_2 x^2} + {a_3 x^3 + \dots}</em> is the series
 \[ % :64:
   c + {a_0 x} + {\frac{1}{2} a_1 x^2} + {\frac{1}{3} a_2 x^3} + {\frac{1}{4} a_3 x^4 + \dots,}  \]
 where <em class="math">c</em> is any constant.  Define a procedure <code class="code">integrate_series</code> that
-takes as input a stream <em class="math">a_0</em>, <em class="math">a_1</em>, <em class="math">a_2</em>, &hellip; representing a power
-series and returns the stream <em class="math">a_0</em>, <em class="math">{{1\over2}a_1}</em>, <em class="math">{{1\over3}a_2}</em>, &hellip; of
+takes as input a stream <em class="math">a_0</em>, <em class="math">a_1</em>, <em class="math">a_2</em>, &#8230; representing a power
+series and returns the stream <em class="math">a_0</em>, <em class="math">{{1\over2}a_1}</em>, <em class="math">{{1\over3}a_2}</em>, &#8230; of
 coefficients of the non-constant terms of the integral of the series.  (Since
-the result has no constant term, it doesn&rsquo;t represent a power series; when we
+the result has no constant term, it doesn&#8217;t represent a power series; when we
 use <code class="code">integrate_series</code>, we will <code class="code">cons</code> on the appropriate constant.)
 
 </li><li> The function <em class="math">{x \mapsto e^x}</em> is its own derivative.  This implies that
@@ -1128,10 +1129,10 @@ an error.)  Show how to use <code class="code">div_series</code> together with t
 <a class="ref" href="#Exercise-3_002e59">Exercise 3.59</a> to generate the power series for tangent.
 </p></blockquote>
 
-<hr>
+<hr />
 </div>
 <div class="subsection-level-extent" id="g_t3_002e5_002e3">
-<h4 class="subsection" id="Exploiting-the-Stream-Paradigm"><span>3.5.3 Exploiting the Stream Paradigm<a class="copiable-link" href="#Exploiting-the-Stream-Paradigm"> &para;</a></span></h4>
+<h4 class="subsection" id="Exploiting-the-Stream-Paradigm"><span>3.5.3 Exploiting the Stream Paradigm<a class="copiable-link" href="#Exploiting-the-Stream-Paradigm"> &#182;</a></span></h4>
 
 <p>Streams with delayed evaluation can be a powerful modeling tool, providing many
 of the benefits of local state and assignment.  Moreover, they avoid some of
@@ -1145,13 +1146,13 @@ signal) as a focus of interest, rather than the values of the state variables
 at individual moments.  This makes it convenient to combine and compare
 components of state from different moments.
 </p>
-<h4 class="subsubheading" id="Formulating-iterations-as-stream-processes"><span>Formulating iterations as stream processes<a class="copiable-link" href="#Formulating-iterations-as-stream-processes"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Formulating-iterations-as-stream-processes"><span>Formulating iterations as stream processes<a class="copiable-link" href="#Formulating-iterations-as-stream-processes"> &#182;</a></span></h4>
 
 <p>In section <a class="ref" href="1_002e2.xhtml#g_t1_002e2_002e1">Linear Recursion and Iteration</a>, we introduced iterative processes, which proceed by
 updating state variables.  We know now that we can represent state as a
-&ldquo;timeless&rdquo; stream of values rather than as a set of variables to be updated.
-Let&rsquo;s adopt this perspective in revisiting the square-root procedure from
-<a class="ref" href="1_002e1.xhtml#g_t1_002e1_002e7">Example: Square Roots by Newton&rsquo;s Method</a>.  Recall that the idea is to generate a sequence of better
+&#8220;timeless&#8221; stream of values rather than as a set of variables to be updated.
+Let&#8217;s adopt this perspective in revisiting the square-root procedure from
+<a class="ref" href="1_002e1.xhtml#g_t1_002e1_002e7">Example: Square Roots by Newton&#8217;s Method</a>.  Recall that the idea is to generate a sequence of better
 and better guesses for the square root of <em class="math">x</em> by applying over and over again
 the procedure that improves guesses:
 </p>
@@ -1225,7 +1226,7 @@ new sequence that converges to the same value as the original, only faster.
 </p>
 <p>One such accelerator, due to the eighteenth-century Swiss mathematician
 Leonhard Euler, works well with sequences that are partial sums of alternating
-series (series of terms with alternating signs).  In Euler&rsquo;s technique, if
+series (series of terms with alternating signs).  In Euler&#8217;s technique, if
 <em class="math">S_n</em> is the <em class="math">n^{\text{th}}</em> term of the original sum sequence, then the
 accelerated sequence has terms
 \[ % :67:
@@ -1263,7 +1264,7 @@ fn euler_transform&lt;I: Iterator&lt;Item = f64&gt;&gt;(s: I) -&gt; impl Iterato
 
 <p>Even better, we can accelerate the accelerated sequence, and recursively
 accelerate that, and so on.  Namely, we create a stream of streams (a structure
-we&rsquo;ll call a <a class="index-entry-id" id="index-tableau"></a>
+we&#8217;ll call a <a class="index-entry-id" id="index-tableau"></a>
 <em class="dfn">tableau</em>) in which each stream is the transform of the
 preceding one:
 </p>
@@ -1307,7 +1308,7 @@ where
 }
 </pre></div>
 
-<p>We can demonstrate this kind of &ldquo;super-acceleration&rdquo; of the <em class="math">\pi</em>
+<p>We can demonstrate this kind of &#8220;super-acceleration&#8221; of the <em class="math">\pi</em>
 sequence:
 </p>
 <div class="example">
@@ -1345,7 +1346,7 @@ fn sqrt_stream_inefficient(x: f64) -&gt; Box&lt;dyn Iterator&lt;Item = f64&gt;&g
 </pre></div>
 
 <p>Alyssa P. Hacker replies that this version of the procedure is considerably
-less efficient because it performs redundant computation.  Explain Alyssa&rsquo;s
+less efficient because it performs redundant computation.  Explain Alyssa&#8217;s
 answer.  Would the two versions still differ in efficiency if our
 implementation of <code class="code">delay</code> used only <code class="code">|| ⟨<var class="var">exp</var>⟩</code> without
 using the optimization provided by <code class="code">memo_proc</code> (<a class="ref" href="#g_t3_002e5_002e1">Streams Are Delayed Lists</a>)?
@@ -1392,12 +1393,12 @@ the same way we did above for <em class="math">\pi</em>.  How rapidly do these s
 converge?
 </p></blockquote>
 
-<h4 class="subsubheading" id="Infinite-streams-of-pairs"><span>Infinite streams of pairs<a class="copiable-link" href="#Infinite-streams-of-pairs"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Infinite-streams-of-pairs"><span>Infinite streams of pairs<a class="copiable-link" href="#Infinite-streams-of-pairs"> &#182;</a></span></h4>
 
 <p>In <a class="ref" href="2_002e2.xhtml#g_t2_002e2_002e3">Sequences as Conventional Interfaces</a>, we saw how the sequence paradigm handles traditional
 nested loops as processes defined on sequences of pairs.  If we generalize this
 technique to infinite streams, then we can write programs that are not easily
-represented as loops, because the &ldquo;looping&rdquo; must range over an infinite set.
+represented as loops, because the &#8220;looping&#8221; must range over an infinite set.
 </p>
 <p>For example, suppose we want to generalize the <code class="code">prime-sum-pairs</code> procedure
 of <a class="ref" href="2_002e2.xhtml#g_t2_002e2_002e3">Sequences as Conventional Interfaces</a> to produce the stream of pairs of <em class="emph">all</em> integers
@@ -1598,7 +1599,7 @@ where
 </pre></div>
 
 <p>Does this work?  Consider what happens if we evaluate <code class="code">(pairs integers
-integers)</code> using Louis&rsquo;s definition of <code class="code">pairs</code>.
+integers)</code> using Louis&#8217;s definition of <code class="code">pairs</code>.
 </p></blockquote>
 
 <blockquote class="quotation">
@@ -1615,8 +1616,8 @@ triples of positive integers, i.e., the triples <em class="math">{(i, j, k)}</em
 generate streams in which the pairs appear in some useful order, rather than in
 the order that results from an <em class="emph">ad hoc</em> interleaving process.  We can use
 a technique similar to the <code class="code">merge</code> procedure of <a class="ref" href="#Exercise-3_002e56">Exercise 3.56</a>, if we
-define a way to say that one pair of integers is &ldquo;less than&rdquo; another.  One
-way to do this is to define a &ldquo;weighting function&rdquo; <em class="math">{W(i, j)}</em> and
+define a way to say that one pair of integers is &#8220;less than&#8221; another.  One
+way to do this is to define a &#8220;weighting function&#8221; <em class="math">{W(i, j)}</em> and
 stipulate that <em class="math">{(i_1, j_1)}</em> is less than <em class="math">{(i_2, j_2)}</em> if
 <em class="math">{W(i_1, j_1) &lt;} {W(i_2, j_2)}</em>.  Write a procedure
 <code class="code">merge_weighted</code> that is like <code class="code">merge</code>, except that
@@ -1659,10 +1660,10 @@ generate a stream of all numbers that can be written as the sum of two
 squares in three different ways (showing how they can be so written).
 </p></blockquote>
 
-<h4 class="subsubheading" id="Streams-as-signals"><span>Streams as signals<a class="copiable-link" href="#Streams-as-signals"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Streams-as-signals"><span>Streams as signals<a class="copiable-link" href="#Streams-as-signals"> &#182;</a></span></h4>
 
 <p>We began our discussion of streams by describing them as computational analogs
-of the &ldquo;signals&rdquo; in signal-processing systems.  In fact, we can use streams
+of the &#8220;signals&#8221; in signal-processing systems.  In fact, we can use streams
 to model signal-processing systems in a very direct way, representing the
 values of a signal at successive time intervals as consecutive elements of a
 stream.  For instance, we can implement an <a class="index-entry-id" id="index-integrator"></a>
@@ -1673,7 +1674,7 @@ value <em class="math">C</em>, and a small increment <em class="math">{dt}</em>,
 \[ % :73:
   S_i \,=\, C + {\sum_{j=1}^i x_j \, dt}  \]
 and returns the stream of values <em class="math">{S = (S_i)}</em>.  The following
-<code class="code">integral</code> procedure is reminiscent of the &ldquo;implicit style&rdquo; definition
+<code class="code">integral</code> procedure is reminiscent of the &#8220;implicit style&#8221; definition
 of the stream of integers (<a class="ref" href="#g_t3_002e5_002e2">Infinite Streams</a>):
 </p>
 <div class="example">
@@ -1700,7 +1701,7 @@ by the feedback loop that connects the output of the adder to one of the
 inputs.
 </p>
 <div class="float">
-<a class="anchor" id="Figure-3_002e32"></a><img class="image" src="fig/chap3/Fig3.32a.std.svg" alt="fig/chap3/Fig3.32a">
+<a class="anchor" id="Figure-3_002e32"></a><img class="image" src="fig/chap3/Fig3.32a.std.svg" alt="fig/chap3/Fig3.32a" />
 <div class="caption"><p><strong class="strong">Figure 3.32:</strong> The <code class="code">integral</code> procedure viewed as a signal-processing system.</p></div></div>
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-3_002e73"></a>Exercise 3.73:</strong> We can model electrical circuits
@@ -1713,7 +1714,7 @@ determined by the formula in <a class="ref" href="#Figure-3_002e33">Figure 3.33<
 accompanying signal-flow diagram.
 </p>
 <div class="float">
-<a class="anchor" id="Figure-3_002e33"></a><img class="image" src="fig/chap3/Fig3.33a.std.svg" alt="fig/chap3/Fig3.33a">
+<a class="anchor" id="Figure-3_002e33"></a><img class="image" src="fig/chap3/Fig3.33a.std.svg" alt="fig/chap3/Fig3.33a" />
 <div class="caption"><p><strong class="strong">Figure 3.33:</strong> An RC circuit and the associated signal-flow diagram.</p></div></div>
 <p>Write a procedure <code class="code">RC</code> that models this circuit.  <code class="code">RC</code> should take as
 inputs the values of <em class="math">R</em>, <em class="math">C</em>, and <em class="math">{dt}</em> and should return a procedure
@@ -1743,7 +1744,7 @@ zero-crossing signal would be
 // ...   0    0    0    0    0   -1    0    0    0    0    1    0    0 ...
 </pre></div>
 
-<p>In Alyssa&rsquo;s system, the signal from the sensor is represented as a stream
+<p>In Alyssa&#8217;s system, the signal from the sensor is represented as a stream
 <code class="code">sense-data</code> and the stream <code class="code">zero-crossings</code> is the corresponding
 stream of zero crossings.  Alyssa first writes a procedure
 <code class="code">sign_change_detector</code> that takes two values as arguments and compares the
@@ -1772,7 +1773,7 @@ fn make_zero_crossings(
 let zero_crossings = make_zero_crossings(sense_data);
 </pre></div>
 
-<p>Alyssa&rsquo;s boss, Eva Lu Ator, walks by and suggests that this program is
+<p>Alyssa&#8217;s boss, Eva Lu Ator, walks by and suggests that this program is
 approximately equivalent to the following one, which uses the generalized
 version of <code class="code">stream-map</code> from <a class="ref" href="#Exercise-3_002e50">Exercise 3.50</a>:
 </p>
@@ -1788,7 +1789,7 @@ let zero_crossings = sense_data.clone()
 </p></blockquote>
 
 <blockquote class="quotation">
-<p><strong class="strong"><a class="anchor" id="Exercise-3_002e75"></a>Exercise 3.75:</strong> Unfortunately, Alyssa&rsquo;s
+<p><strong class="strong"><a class="anchor" id="Exercise-3_002e75"></a>Exercise 3.75:</strong> Unfortunately, Alyssa&#8217;s
 zero-crossing detector in <a class="ref" href="#Exercise-3_002e74">Exercise 3.74</a> proves to be insufficient,
 because the noisy signal from the sensor leads to spurious zero crossings.  Lem
 E.  Tweakit, a hardware specialist, suggests that Alyssa smooth the signal to
@@ -1796,7 +1797,7 @@ filter out the noise before extracting the zero crossings.  Alyssa takes his
 advice and decides to extract the zero crossings from the signal constructed by
 averaging each value of the sense data with the previous value.  She explains
 the problem to her assistant, Louis Reasoner, who attempts to implement the
-idea, altering Alyssa&rsquo;s program as follows:
+idea, altering Alyssa&#8217;s program as follows:
 </p>
 <div class="example">
 <pre class="example-preformatted">// Louis's buggy version - compares smoothed to previous raw value
@@ -1814,14 +1815,14 @@ fn make_zero_crossings_buggy(
 // Fix: track both last_value AND last_avpt separately
 </pre></div>
 
-<p>This does not correctly implement Alyssa&rsquo;s plan.  Find the bug that Louis has
+<p>This does not correctly implement Alyssa&#8217;s plan.  Find the bug that Louis has
 installed and fix it without changing the structure of the program.  (Hint: You
 will need to increase the number of arguments to <code class="code">make_zero_crossings</code>.)
 </p></blockquote>
 
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-3_002e76"></a>Exercise 3.76:</strong> Eva Lu Ator has a criticism of
-Louis&rsquo;s approach in <a class="ref" href="#Exercise-3_002e75">Exercise 3.75</a>.  The program he wrote is not modular,
+Louis&#8217;s approach in <a class="ref" href="#Exercise-3_002e75">Exercise 3.75</a>.  The program he wrote is not modular,
 because it intermixes the operation of smoothing with the zero-crossing
 extraction.  For example, the extractor should not have to be changed if Alyssa
 finds a better way to condition her input signal.  Help Louis by writing a
@@ -1831,15 +1832,15 @@ Then use <code class="code">smooth</code> as a component to implement the zero-c
 in a more modular style.
 </p></blockquote>
 
-<hr>
+<hr />
 </div>
 <div class="subsection-level-extent" id="g_t3_002e5_002e4">
-<h4 class="subsection" id="Streams-and-Delayed-Evaluation"><span>3.5.4 Streams and Delayed Evaluation<a class="copiable-link" href="#Streams-and-Delayed-Evaluation"> &para;</a></span></h4>
+<h4 class="subsection" id="Streams-and-Delayed-Evaluation"><span>3.5.4 Streams and Delayed Evaluation<a class="copiable-link" href="#Streams-and-Delayed-Evaluation"> &#182;</a></span></h4>
 
 <p>The <code class="code">integral</code> procedure at the end of the preceding section shows how we
 can use streams to model signal-processing systems that contain feedback loops.
 The feedback loop for the adder shown in <a class="ref" href="#Figure-3_002e32">Figure 3.32</a> is modeled by the
-fact that <code class="code">integral</code>&rsquo;s internal stream <code class="code">int</code> is defined in terms of
+fact that <code class="code">integral</code>&#8217;s internal stream <code class="code">int</code> is defined in terms of
 itself:
 </p>
 <div class="example">
@@ -1853,7 +1854,7 @@ let int = std::iter::once(initial_value).chain(
 );
 </pre></div>
 
-<p>The interpreter&rsquo;s ability to deal with such an implicit definition depends on
+<p>The interpreter&#8217;s ability to deal with such an implicit definition depends on
 the <code class="code">delay</code> that is incorporated into <code class="code">cons-stream</code>.  Without this
 <code class="code">delay</code>, the interpreter could not construct <code class="code">int</code> before evaluating
 both arguments to <code class="code">cons-stream</code>, which would require that <code class="code">int</code>
@@ -1864,7 +1865,7 @@ component would be fully evaluated before the output could be produced.  This
 would outlaw loops.
 </p>
 <p>Unfortunately, stream models of systems with loops may require uses of
-<code class="code">delay</code> beyond the &ldquo;hidden&rdquo; <code class="code">delay</code> supplied by <code class="code">cons-stream</code>.
+<code class="code">delay</code> beyond the &#8220;hidden&#8221; <code class="code">delay</code> supplied by <code class="code">cons-stream</code>.
 For instance, <a class="ref" href="#Figure-3_002e34">Figure 3.34</a> shows a signal-processing system for solving
 the differential equation <em class="math">{dy / dt = f(y)}</em> where <em class="math">f</em> is a given
 function.  The figure shows a mapping component, which applies <em class="math">f</em> to its
@@ -1873,8 +1874,8 @@ similar to that of the analog computer circuits that are actually used to solve
 such equations.
 </p>
 <div class="float">
-<a class="anchor" id="Figure-3_002e34"></a><img class="image" src="fig/chap3/Fig3.34.std.svg" alt="fig/chap3/Fig3.34">
-<div class="caption"><p><strong class="strong">Figure 3.34:</strong> An &ldquo;analog computer circuit&rdquo; that solves the equation <em class="math">{dy / dt = f(y)}</em>.</p></div></div>
+<a class="anchor" id="Figure-3_002e34"></a><img class="image" src="fig/chap3/Fig3.34.std.svg" alt="fig/chap3/Fig3.34" />
+<div class="caption"><p><strong class="strong">Figure 3.34:</strong> An &#8220;analog computer circuit&#8221; that solves the equation <em class="math">{dy / dt = f(y)}</em>.</p></div></div>
 <p>Assuming we are given an initial value <em class="math">y_0</em> for <em class="math">y</em>, we could try to model
 this system using the procedure
 </p>
@@ -1963,7 +1964,7 @@ let result = solve(|y| y, 1.0, 0.001).nth(1000).unwrap();
 
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-3_002e77"></a>Exercise 3.77:</strong> The <code class="code">integral</code> procedure
-used above was analogous to the &ldquo;implicit&rdquo; definition of the infinite stream
+used above was analogous to the &#8220;implicit&#8221; definition of the infinite stream
 of integers in <a class="ref" href="#g_t3_002e5_002e2">Infinite Streams</a>.  Alternatively, we can give a definition of
 <code class="code">integral</code> that is more like <code class="code">integers-starting-from</code> (also in
 <a class="ref" href="#g_t3_002e5_002e2">Infinite Streams</a>):
@@ -2007,7 +2008,7 @@ stream of successive values of <em class="math">y</em>.
 </p></blockquote>
 
 <div class="float">
-<a class="anchor" id="Figure-3_002e35"></a><img class="image" src="fig/chap3/Fig3.35b.std.svg" alt="fig/chap3/Fig3.35b">
+<a class="anchor" id="Figure-3_002e35"></a><img class="image" src="fig/chap3/Fig3.35b.std.svg" alt="fig/chap3/Fig3.35b" />
 <div class="caption"><p><strong class="strong">Figure 3.35:</strong> Signal-flow diagram for the solution to a second-order linear differential equation.</p></div></div>
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-3_002e79"></a>Exercise 3.79:</strong> Generalize the <code class="code">solve-2nd</code>
@@ -2017,7 +2018,7 @@ second-order differential equations <em class="math">{d^2 y / dt^2} =
 </p></blockquote>
 
 <div class="float">
-<a class="anchor" id="Figure-3_002e36"></a><img class="image" src="fig/chap3/Fig3.36.std.svg" alt="fig/chap3/Fig3.36">
+<a class="anchor" id="Figure-3_002e36"></a><img class="image" src="fig/chap3/Fig3.36.std.svg" alt="fig/chap3/Fig3.36" />
 <div class="caption"><p><strong class="strong">Figure 3.36:</strong> A series RLC circuit.</p></div></div>
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-3_002e80"></a>Exercise 3.80:</strong> A <a class="index-entry-id" id="index-series-RLC-circuit"></a>
@@ -2054,7 +2055,7 @@ shown in <a class="ref" href="#Figure-3_002e37">Figure 3.37</a>.
 </p></blockquote>
 
 <div class="float">
-<a class="anchor" id="Figure-3_002e37"></a><img class="image" src="fig/chap3/Fig3.37.std.svg" alt="fig/chap3/Fig3.37">
+<a class="anchor" id="Figure-3_002e37"></a><img class="image" src="fig/chap3/Fig3.37.std.svg" alt="fig/chap3/Fig3.37" />
 <div class="caption"><p><strong class="strong">Figure 3.37:</strong> A signal-flow diagram for the solution to a series RLC circuit.</p></div></div>
 <blockquote class="quotation">
 <p>Write a procedure <code class="code">RLC</code> that takes as arguments the parameters <em class="math">R</em>,
@@ -2069,7 +2070,7 @@ RLC circuit with <em class="math">R</em> = 1 ohm, <em class="math">C</em> = 0.2 
 10 volts.
 </p></blockquote>
 
-<h4 class="subsubheading" id="Normal_002dorder-evaluation"><span>Normal-order evaluation<a class="copiable-link" href="#Normal_002dorder-evaluation"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Normal_002dorder-evaluation"><span>Normal-order evaluation<a class="copiable-link" href="#Normal_002dorder-evaluation"> &#182;</a></span></h4>
 
 <p>The examples in this section illustrate how the explicit use of <code class="code">delay</code>
 and <code class="code">force</code> provides great programming flexibility, but the same examples
@@ -2091,7 +2092,7 @@ normal-order evaluation, which we first described when we introduced the
 substitution model for evaluation in <a class="ref" href="1_002e1.xhtml#g_t1_002e1_002e5">The Substitution Model for Procedure Application</a>.  Converting to
 normal-order evaluation provides a uniform and elegant way to simplify the use
 of delayed evaluation, and this would be a natural strategy to adopt if we were
-concerned only with stream processing.  In <a class="ref" href="4_002e2.xhtml#g_t4_002e2">Variations on a Scheme &mdash; Lazy Evaluation</a>, after we have
+concerned only with stream processing.  In <a class="ref" href="4_002e2.xhtml#g_t4_002e2">Variations on a Scheme &#8212; Lazy Evaluation</a>, after we have
 studied the evaluator, we will see how to transform our language in just this
 way.  Unfortunately, including delays in procedure calls wreaks havoc with our
 ability to design programs that depend on the order of events, such as programs
@@ -2101,10 +2102,10 @@ that use assignment, mutate data, or perform input or output.  Even the single
 mutability and delayed evaluation do not mix well in programming languages, and
 devising ways to deal with both of these at once is an active area of research.
 </p>
-<hr>
+<hr />
 </div>
 <div class="subsection-level-extent" id="g_t3_002e5_002e4a">
-<h4 class="subsection" id="Lock_002dFree-Data-Structures"><span>3.5.5 Lock-Free Data Structures<a class="copiable-link" href="#Lock_002dFree-Data-Structures"> &para;</a></span></h4>
+<h4 class="subsection" id="Lock_002dFree-Data-Structures"><span>3.5.5 Lock-Free Data Structures<a class="copiable-link" href="#Lock_002dFree-Data-Structures"> &#182;</a></span></h4>
 <a class="index-entry-id" id="index-lock_002dfree-data-structures"></a>
 <a class="index-entry-id" id="index-atomics"></a>
 <a class="index-entry-id" id="index-compare_002dand_002dswap"></a>
@@ -2123,7 +2124,7 @@ operations and <em class="dfn">compare-and-swap</em> primitives to coordinate co
 access without ever blocking a thread. This section explores the foundations
 of lock-free programming in Rust, revealing both its power and its subtlety.
 </p>
-<h4 class="subsubheading" id="The-Cost-of-Locks"><span>The Cost of Locks<a class="copiable-link" href="#The-Cost-of-Locks"> &para;</a></span></h4>
+<h4 class="subsubheading" id="The-Cost-of-Locks"><span>The Cost of Locks<a class="copiable-link" href="#The-Cost-of-Locks"> &#182;</a></span></h4>
 
 <p>Consider a simple counter shared between threads. With locks, the
 implementation is straightforward:
@@ -2153,10 +2154,10 @@ assert_eq!(*counter.lock().unwrap(), 8_000_000);
 </pre></div>
 
 <p>This works correctly, but each increment requires acquiring and releasing the
-lock&mdash;a heavyweight operation involving system calls and cache coherence
+lock&#8212;a heavyweight operation involving system calls and cache coherence
 protocols. Under contention, threads spend more time waiting than computing.
 </p>
-<h4 class="subsubheading" id="Atomic-Types_003a-The-Foundation"><span>Atomic Types: The Foundation<a class="copiable-link" href="#Atomic-Types_003a-The-Foundation"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Atomic-Types_003a-The-Foundation"><span>Atomic Types: The Foundation<a class="copiable-link" href="#Atomic-Types_003a-The-Foundation"> &#182;</a></span></h4>
 
 <p>Rust provides <em class="dfn">atomic types</em> that support operations guaranteed to execute
 without interruption. These types live in <code class="code">std::sync::atomic</code> and include
@@ -2194,11 +2195,11 @@ assert_eq!(counter.load(Ordering::Relaxed), 8_000_000);
 </pre></div>
 
 <p>The <code class="code">fetch_add</code> method atomically reads the current value, adds 1, and
-stores the result&mdash;all as a single, indivisible operation. No locks, no
+stores the result&#8212;all as a single, indivisible operation. No locks, no
 blocking, no context switches. On modern hardware, this compiles to a single
 <code class="code">LOCK ADD</code> instruction on x86 or <code class="code">LDADD</code> on ARM.
 </p>
-<h4 class="subsubheading" id="Memory-Ordering_003a-The-Subtlety"><span>Memory Ordering: The Subtlety<a class="copiable-link" href="#Memory-Ordering_003a-The-Subtlety"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Memory-Ordering_003a-The-Subtlety"><span>Memory Ordering: The Subtlety<a class="copiable-link" href="#Memory-Ordering_003a-The-Subtlety"> &#182;</a></span></h4>
 
 <a class="index-entry-id" id="index-memory-ordering-1"></a>
 <a class="index-entry-id" id="index-Ordering_003a_003aRelaxed"></a>
@@ -2216,7 +2217,7 @@ constraints. Rust provides four ordering guarantees:
 </p>
 <ul class="itemize mark-bullet">
 <li><code class="code">Relaxed</code>: No ordering constraints. Only the atomicity of the
-operation itself is guaranteed. Use for counters where order doesn&rsquo;t matter.
+operation itself is guaranteed. Use for counters where order doesn&#8217;t matter.
 
 </li><li><code class="code">Acquire</code>: When loading, all subsequent memory operations cannot be
 reordered before this load. Used when acquiring a lock or reading a flag that
@@ -2225,7 +2226,7 @@ guards other data.
 </li><li><code class="code">Release</code>: When storing, all previous memory operations cannot be
 reordered after this store. Used when releasing a lock or publishing data.
 
-</li><li><code class="code">SeqCst</code> (Sequentially Consistent): The strongest guarantee&mdash;all threads
+</li><li><code class="code">SeqCst</code> (Sequentially Consistent): The strongest guarantee&#8212;all threads
 observe all operations in the same order. Easiest to reason about but most
 expensive.
 </li></ul>
@@ -2274,7 +2275,7 @@ reader.join().unwrap();
 create a <em class="dfn">synchronizes-with</em> relationship, ensuring the reader sees the
 data written before the flag was set.
 </p>
-<h4 class="subsubheading" id="Compare_002dand_002dSwap_003a-The-Fundamental-Primitive"><span>Compare-and-Swap: The Fundamental Primitive<a class="copiable-link" href="#Compare_002dand_002dSwap_003a-The-Fundamental-Primitive"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Compare_002dand_002dSwap_003a-The-Fundamental-Primitive"><span>Compare-and-Swap: The Fundamental Primitive<a class="copiable-link" href="#Compare_002dand_002dSwap_003a-The-Fundamental-Primitive"> &#182;</a></span></h4>
 
 <a class="index-entry-id" id="index-compare_005fexchange"></a>
 <a class="index-entry-id" id="index-CAS-operation"></a>
@@ -2305,7 +2306,7 @@ in Rust as <code class="code">compare_exchange</code>. This operation atomically
 it to <code class="code">new</code>. Otherwise, it returns the actual value. Crucially, both the
 read and conditional write happen atomically.
 </p>
-<p>Let&rsquo;s implement a simple spinlock using CAS:
+<p>Let&#8217;s implement a simple spinlock using CAS:
 </p>
 <div class="example">
 <pre class="example-preformatted">use std::sync::atomic::{AtomicBool, Ordering};
@@ -2363,12 +2364,12 @@ impl&lt;'a, T&gt; Drop for SpinLockGuard&lt;'a, T&gt; {
 <code class="code">false</code> to <code class="code">true</code>. The <code class="code">Acquire</code> ordering ensures that any
 subsequent access to <code class="code">data</code> happens after the lock is acquired.
 </p>
-<h4 class="subsubheading" id="A-Lock_002dFree-Stack"><span>A Lock-Free Stack<a class="copiable-link" href="#A-Lock_002dFree-Stack"> &para;</a></span></h4>
+<h4 class="subsubheading" id="A-Lock_002dFree-Stack"><span>A Lock-Free Stack<a class="copiable-link" href="#A-Lock_002dFree-Stack"> &#182;</a></span></h4>
 
 <a class="index-entry-id" id="index-lock_002dfree-stack"></a>
 <a class="index-entry-id" id="index-Treiber-stack"></a>
 
-<p>Now let&rsquo;s build a more sophisticated structure: a lock-free stack (also called
+<p>Now let&#8217;s build a more sophisticated structure: a lock-free stack (also called
 a <em class="dfn">Treiber stack</em>). The core idea is to represent the stack as a linked
 list with an atomic pointer to the head node.
 </p>
@@ -2464,7 +2465,7 @@ retry with the new value.
 <p>This is <em class="dfn">optimistic concurrency</em>: we assume success and retry on conflict,
 rather than pessimistically blocking with locks.
 </p>
-<h4 class="subsubheading" id="The-ABA-Problem"><span>The ABA Problem<a class="copiable-link" href="#The-ABA-Problem"> &para;</a></span></h4>
+<h4 class="subsubheading" id="The-ABA-Problem"><span>The ABA Problem<a class="copiable-link" href="#The-ABA-Problem"> &#182;</a></span></h4>
 
 <a class="index-entry-id" id="index-ABA-problem"></a>
 <a class="index-entry-id" id="index-tagged-pointers"></a>
@@ -2474,8 +2475,8 @@ rather than pessimistically blocking with locks.
 <ol class="enumerate">
 <li> Thread 1 reads head pointer (pointing to node A)
 </li><li> Thread 2 pops A, then pops B, then pushes A back
-</li><li> Thread 1&rsquo;s CAS succeeds because head points to A again
-</li><li> But A&rsquo;s <code class="code">next</code> pointer might now be corrupted!
+</li><li> Thread 1&#8217;s CAS succeeds because head points to A again
+</li><li> But A&#8217;s <code class="code">next</code> pointer might now be corrupted!
 </li></ol>
 
 <p>This is the infamous <em class="dfn">ABA problem</em>: the value went from A to B and back to
@@ -2506,7 +2507,7 @@ the pointer itself (pointers are typically aligned, leaving low bits unused).
 structures</strong>. The subtleties are profound, and bugs can be nearly impossible to
 reproduce or debug. Instead, use battle-tested libraries like <code class="code">crossbeam</code>.
 </p>
-<h4 class="subsubheading" id="Production-Lock_002dFree_003a-The-Crossbeam-Crate"><span>Production Lock-Free: The Crossbeam Crate<a class="copiable-link" href="#Production-Lock_002dFree_003a-The-Crossbeam-Crate"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Production-Lock_002dFree_003a-The-Crossbeam-Crate"><span>Production Lock-Free: The Crossbeam Crate<a class="copiable-link" href="#Production-Lock_002dFree_003a-The-Crossbeam-Crate"> &#182;</a></span></h4>
 
 <a class="index-entry-id" id="index-crossbeam"></a>
 <a class="index-entry-id" id="index-epoch_002dbased-reclamation"></a>
@@ -2572,7 +2573,7 @@ the guard. Crossbeam tracks epochs globally, deferring deallocation until all
 guards from that epoch are dropped. This is analogous to read-copy-update (RCU)
 in the Linux kernel.
 </p>
-<h4 class="subsubheading" id="When-to-Use-Lock_002dFree"><span>When to Use Lock-Free<a class="copiable-link" href="#When-to-Use-Lock_002dFree"> &para;</a></span></h4>
+<h4 class="subsubheading" id="When-to-Use-Lock_002dFree"><span>When to Use Lock-Free<a class="copiable-link" href="#When-to-Use-Lock_002dFree"> &#182;</a></span></h4>
 
 <a class="index-entry-id" id="index-when-to-use-lock_002dfree"></a>
 
@@ -2598,7 +2599,7 @@ in the Linux kernel.
 contention is a bottleneck, and use existing libraries rather than rolling
 your own.
 </p>
-<h4 class="subsubheading" id="Progress-Guarantees"><span>Progress Guarantees<a class="copiable-link" href="#Progress-Guarantees"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Progress-Guarantees"><span>Progress Guarantees<a class="copiable-link" href="#Progress-Guarantees"> &#182;</a></span></h4>
 
 <a class="index-entry-id" id="index-wait_002dfree"></a>
 <a class="index-entry-id" id="index-lock_002dfree"></a>
@@ -2608,7 +2609,7 @@ your own.
 </p>
 <ul class="itemize mark-bullet">
 <li><strong class="strong">Wait-free</strong>: Every thread completes its operation in a bounded number
-of steps, regardless of other threads&rsquo; behavior. Strongest guarantee but
+of steps, regardless of other threads&#8217; behavior. Strongest guarantee but
 hardest to achieve.
 
 </li><li><strong class="strong">Lock-free</strong>: At least one thread makes progress in a bounded number of
@@ -2622,7 +2623,7 @@ Weakest guarantee: progress stalls only under contention.
 <p>Most practical lock-free structures are lock-free but not wait-free. Wait-free
 algorithms typically require per-thread helping mechanisms, adding complexity.
 </p>
-<h4 class="subsubheading" id="Connection-to-Streams"><span>Connection to Streams<a class="copiable-link" href="#Connection-to-Streams"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Connection-to-Streams"><span>Connection to Streams<a class="copiable-link" href="#Connection-to-Streams"> &#182;</a></span></h4>
 
 <p>Recall the stream-based concurrent systems from <a class="ref" href="#g_t3_002e5_002e3">Exploiting the Stream Paradigm</a>. Lock-free
 structures shine in producer-consumer scenarios:
@@ -2657,11 +2658,11 @@ assert_eq!(consumer.join().unwrap(), 4000);
 </pre></div>
 
 <p>The <code class="code">crossbeam::channel</code> uses lock-free algorithms internally, providing
-high throughput under contention. This pattern&mdash;streams of data flowing
-through lock-free queues&mdash;is the foundation of modern concurrent systems like
-Tokio&rsquo;s task scheduler and Rayon&rsquo;s work-stealing.
+high throughput under contention. This pattern&#8212;streams of data flowing
+through lock-free queues&#8212;is the foundation of modern concurrent systems like
+Tokio&#8217;s task scheduler and Rayon&#8217;s work-stealing.
 </p>
-<p>Lock-free programming embodies SICP&rsquo;s theme of <em class="dfn">managing state through
+<p>Lock-free programming embodies SICP&#8217;s theme of <em class="dfn">managing state through
 time</em>. Instead of freezing time with locks, we embrace concurrent modification
 and use atomic operations to mediate conflicts. The result is systems that
 scale gracefully to many cores, sacrificing simplicity for performance when
@@ -2716,14 +2717,14 @@ interfering?
 pseudocode explaining how you handle edge cases and ensure correctness.
 </p></blockquote>
 
-<hr>
+<hr />
 </div>
 <div class="subsection-level-extent" id="g_t3_002e5_002e5">
-<h4 class="subsection" id="Modularity-of-Functional-Programs-and-Modularity-of-Objects"><span>3.5.6 Modularity of Functional Programs and Modularity of Objects<a class="copiable-link" href="#Modularity-of-Functional-Programs-and-Modularity-of-Objects"> &para;</a></span></h4>
+<h4 class="subsection" id="Modularity-of-Functional-Programs-and-Modularity-of-Objects"><span>3.5.6 Modularity of Functional Programs and Modularity of Objects<a class="copiable-link" href="#Modularity-of-Functional-Programs-and-Modularity-of-Objects"> &#182;</a></span></h4>
 
 <p>As we saw in <a class="ref" href="3_002e1.xhtml#g_t3_002e1_002e2">The Benefits of Introducing Assignment</a>, one of the major benefits of introducing
 assignment is that we can increase the modularity of our systems by
-encapsulating, or &ldquo;hiding,&rdquo; parts of the state of a large system within local
+encapsulating, or &#8220;hiding,&#8221; parts of the state of a large system within local
 variables.  Stream models can provide an equivalent modularity without the use
 of assignment.  As an illustration, we can reimplement the Monte Carlo
 estimation of <em class="math">\pi</em>, which we examined in <a class="ref" href="3_002e1.xhtml#g_t3_002e1_002e2">The Benefits of Introducing Assignment</a>, from a
@@ -2757,7 +2758,7 @@ fn random_numbers(random_init: u64) -&gt; impl Iterator&lt;Item = u64&gt; {
 }
 </pre></div>
 
-<p>We use this to construct the stream of outcomes of the Ces&agrave;ro experiment
+<p>We use this to construct the stream of outcomes of the Ces&#224;ro experiment
 performed on consecutive pairs in the <code class="code">random-numbers</code> stream:
 </p>
 <div class="example">
@@ -2787,7 +2788,7 @@ let cesaro_stream = map_successive_pairs(
 <p>The <code class="code">cesaro-stream</code> is now fed to a <code class="code">monte-carlo</code> procedure, which
 produces a stream of estimates of probabilities.  The results are then
 converted into a stream of estimates of <em class="math">\pi</em>.  This version of the program
-doesn&rsquo;t need a parameter telling how many trials to perform.  Better estimates
+doesn&#8217;t need a parameter telling how many trials to perform.  Better estimates
 of <em class="math">\pi</em> (from performing more experiments) are obtained by looking farther
 into the <code class="code">pi</code> stream:
 </p>
@@ -2818,11 +2819,11 @@ experiments.  Yet there is no assignment or local state.
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-3_002e81"></a>Exercise 3.81:</strong> <a class="ref" href="3_002e1.xhtml#Exercise-3_002e6">Exercise 3.6</a> discussed
 generalizing the random-number generator to allow one to reset the
-random-number sequence so as to produce repeatable sequences of &ldquo;random&rdquo;
+random-number sequence so as to produce repeatable sequences of &#8220;random&#8221;
 numbers.  Produce a stream formulation of this same generator that operates on
 an input stream of requests to <code class="code">generate</code> a new random number or to
 <code class="code">reset</code> the sequence to a specified value and that produces the desired
-stream of random numbers.  Don&rsquo;t use assignment in your solution.
+stream of random numbers.  Don&#8217;t use assignment in your solution.
 </p></blockquote>
 
 <blockquote class="quotation">
@@ -2833,7 +2834,7 @@ perform.  Instead, it will produce a stream of estimates based on successively
 more trials.
 </p></blockquote>
 
-<h4 class="subsubheading" id="A-functional_002dprogramming-view-of-time"><span>A functional-programming view of time<a class="copiable-link" href="#A-functional_002dprogramming-view-of-time"> &para;</a></span></h4>
+<h4 class="subsubheading" id="A-functional_002dprogramming-view-of-time"><span>A functional-programming view of time<a class="copiable-link" href="#A-functional_002dprogramming-view-of-time"> &#182;</a></span></h4>
 
 <p>Let us now return to the issues of objects and state that were raised at the
 beginning of this chapter and examine them in a new light.  We introduced
@@ -2853,7 +2854,7 @@ little relation between simulated time in the model and the order of events
 during the evaluation.
 </p>
 <p>In order to contrast these two approaches to modeling, let us reconsider the
-implementation of a &ldquo;withdrawal processor&rdquo; that monitors the balance in a
+implementation of a &#8220;withdrawal processor&#8221; that monitors the balance in a
 bank account.  In <a class="ref" href="3_002e1.xhtml#g_t3_002e1_002e3">The Costs of Introducing Assignment</a> we implemented a simplified version of
 such a processor:
 </p>
@@ -2906,9 +2907,9 @@ variable, and consequently none of the theoretical difficulties that we
 encountered in <a class="ref" href="3_002e1.xhtml#g_t3_002e1_002e3">The Costs of Introducing Assignment</a>.  Yet the system has state!
 </p>
 <p>This is really remarkable.  Even though <code class="code">stream-withdraw</code> implements a
-well-defined mathematical function whose behavior does not change, the user&rsquo;s
+well-defined mathematical function whose behavior does not change, the user&#8217;s
 perception here is one of interacting with a system that has a changing state.
-One way to resolve this paradox is to realize that it is the user&rsquo;s temporal
+One way to resolve this paradox is to realize that it is the user&#8217;s temporal
 existence that imposes state on the system.  If the user could step back from
 the interaction and think in terms of streams of balances rather than
 individual transactions, the system would appear stateless.<a class="footnote" id="DOCF192" href="#FOOT192"><sup>192</sup></a>
@@ -2917,15 +2918,15 @@ individual transactions, the system would appear stateless.<a class="footnote" i
 to change with time.  They have hidden time-varying local state.  If we wish to
 write programs that model this kind of natural decomposition in our world (as
 we see it from our viewpoint as a part of that world) with structures in our
-computer, we make computational objects that are not functional&mdash;they must
+computer, we make computational objects that are not functional&#8212;they must
 change with time.  We model state with local state variables, and we model the
 changes of state with assignments to those variables.  By doing this we make
 the time of execution of a computation model time in the world that we are part
-of, and thus we get &ldquo;objects&rdquo; in our computer.
+of, and thus we get &#8220;objects&#8221; in our computer.
 </p>
 <p>Modeling with objects is powerful and intuitive, largely because this matches
 the perception of interacting with a world of which we are part.  However, as
-we&rsquo;ve seen repeatedly throughout this chapter, these models raise thorny
+we&#8217;ve seen repeatedly throughout this chapter, these models raise thorny
 problems of constraining the order of events and of synchronizing multiple
 processes.  The possibility of avoiding these problems has stimulated the
 development of <a class="index-entry-id" id="index-functional-programming-languages"></a>
@@ -2943,16 +2944,16 @@ the implementation of a banking system that permits joint bank accounts.  In a
 conventional system using assignment and objects, we would model the fact that
 Peter and Paul share an account by having both Peter and Paul send their
 transaction requests to the same bank-account object, as we saw in 
-<a class="ref" href="3_002e1.xhtml#g_t3_002e1_002e3">The Costs of Introducing Assignment</a>.  From the stream point of view, where there are no &ldquo;objects&rdquo;
+<a class="ref" href="3_002e1.xhtml#g_t3_002e1_002e3">The Costs of Introducing Assignment</a>.  From the stream point of view, where there are no &#8220;objects&#8221;
 <em class="emph">per se</em>, we have already indicated that a bank account can be modeled as
 a process that operates on a stream of transaction requests to produce a stream
 of responses.  Accordingly, we could model the fact that Peter and Paul have a
-joint bank account by merging Peter&rsquo;s stream of transaction requests with
-Paul&rsquo;s stream of requests and feeding the result to the bank-account stream
+joint bank account by merging Peter&#8217;s stream of transaction requests with
+Paul&#8217;s stream of requests and feeding the result to the bank-account stream
 process, as shown in <a class="ref" href="#Figure-3_002e38">Figure 3.38</a>.
 </p>
 <div class="float">
-<a class="anchor" id="Figure-3_002e38"></a><img class="image" src="fig/chap3/Fig3.38a.std.svg" alt="fig/chap3/Fig3.38a">
+<a class="anchor" id="Figure-3_002e38"></a><img class="image" src="fig/chap3/Fig3.38a.std.svg" alt="fig/chap3/Fig3.38a" />
 <div class="caption"><p><strong class="strong">Figure 3.38:</strong> A joint bank account, modeled by merging two streams of transaction requests.</p></div></div>
 <p>The trouble with this formulation is in the notion of <a class="index-entry-id" id="index-merge"></a>
 <em class="dfn">merge</em>.  It will
@@ -2961,13 +2962,13 @@ Peter and one request from Paul. Suppose Paul accesses the account only very
 rarely.  We could hardly force Peter to wait for Paul to access the account
 before he could issue a second transaction.  However such a merge is
 implemented, it must interleave the two transaction streams in some way that is
-constrained by &ldquo;real time&rdquo; as perceived by Peter and Paul, in the sense that,
+constrained by &#8220;real time&#8221; as perceived by Peter and Paul, in the sense that,
 if Peter and Paul meet, they can agree that certain transactions were processed
 before the meeting, and other transactions were processed after the
 meeting.<a class="footnote" id="DOCF194" href="#FOOT194"><sup>194</sup></a> This
 is precisely the same constraint that we had to deal with in 
 <a class="ref" href="3_002e4.xhtml#g_t3_002e4_002e1">The Nature of Time in Concurrent Systems</a>, where we found the need to introduce explicit synchronization to
-ensure a &ldquo;correct&rdquo; order of events in concurrent processing of objects with
+ensure a &#8220;correct&#8221; order of events in concurrent processing of objects with
 state.  Thus, in an attempt to support the functional style, the need to merge
 inputs from different agents reintroduces the same problems that the functional
 style was meant to eliminate.
@@ -2982,13 +2983,13 @@ satisfactory.  A grand unification has yet to emerge.<a class="footnote" id="DOC
 </div>
 </div>
 <div class="footnotes-segment">
-<hr>
+<hr />
 <h4 class="footnotes-heading">Footnotes</h4>
 
 <h5 class="footnote-body-heading"><a id="FOOT171" href="#DOCF171">(171)</a></h5>
 <p>Physicists sometimes
-adopt this view by introducing the &ldquo;world lines&rdquo; of particles as a device for
-reasoning about motion.  We&rsquo;ve also already mentioned (<a class="ref" href="2_002e2.xhtml#g_t2_002e2_002e3">Sequences as Conventional Interfaces</a>)
+adopt this view by introducing the &#8220;world lines&#8221; of particles as a device for
+reasoning about motion.  We&#8217;ve also already mentioned (<a class="ref" href="2_002e2.xhtml#g_t2_002e2_002e3">Sequences as Conventional Interfaces</a>)
 that this is the natural way to think about signal-processing systems.  We will
 explore applications of streams to signal processing in <a class="ref" href="#g_t3_002e5_002e3">Exploiting the Stream Paradigm</a>.</p>
 <h5 class="footnote-body-heading"><a id="FOOT172" href="#DOCF172">(172)</a></h5>
@@ -3005,7 +3006,7 @@ lists indicates that we are missing some underlying abstraction.
 Unfortunately, in order to exploit this abstraction, we will need to exert
 finer control over the process of evaluation than we can at present.  We will
 discuss this point further at the end of <a class="ref" href="#g_t3_002e5_002e4">Streams and Delayed Evaluation</a>.  In 
-<a class="ref" href="4_002e2.xhtml#g_t4_002e2">Variations on a Scheme &mdash; Lazy Evaluation</a>, we&rsquo;ll develop a framework that unifies lists and streams.</p>
+<a class="ref" href="4_002e2.xhtml#g_t4_002e2">Variations on a Scheme &#8212; Lazy Evaluation</a>, we&#8217;ll develop a framework that unifies lists and streams.</p>
 <h5 class="footnote-body-heading"><a id="FOOT175" href="#DOCF175">(175)</a></h5>
 <p>Although <code class="code">head</code> and
 <code class="code">tail</code> can be defined as procedures, <code class="code">cons-stream</code> must be a
@@ -3024,7 +3025,7 @@ where <code class="code">10001</code> is shown.</p>
 <p>There are many possible
 implementations of streams other than the one described in this section.
 Delayed evaluation, which is the key to making streams practical, was inherent
-in Algol 60&rsquo;s <a class="index-entry-id" id="index-call_002dby_002dname"></a>
+in Algol 60&#8217;s <a class="index-entry-id" id="index-call_002dby_002dname"></a>
 <em class="dfn">call-by-name</em> parameter-passing method.  The use of this
 mechanism to implement streams was first described by <a class="ref" href="References.xhtml#Landin-_00281965_0029">Landin (1965)</a>.  Delayed
 evaluation for streams was introduced into Lisp by <a class="ref" href="References.xhtml#Friedman-and-Wise-_00281976_0029">Friedman and Wise (1976)</a>. In
@@ -3040,7 +3041,7 @@ versions as <a class="index-entry-id" id="index-call_002dby_002dneed-thunks"></a
 <p>Exercises such as <a class="ref" href="#Exercise-3_002e51">Exercise 3.51</a> and
 <a class="ref" href="#Exercise-3_002e52">Exercise 3.52</a> are valuable for testing our understanding of how
 <code class="code">delay</code> works.  On the other hand, intermixing delayed evaluation with
-printing&mdash;and, even worse, with assignment&mdash;is extremely confusing, and
+printing&#8212;and, even worse, with assignment&#8212;is extremely confusing, and
 instructors of courses on computer languages have traditionally tormented their
 students with examination questions such as the ones in this section.  Needless
 to say, writing programs that depend on such subtleties is odious programming
@@ -3052,8 +3053,8 @@ forces us to be concerned with time and change.</p>
 <p>Eratosthenes, a third-century <abbr class="abbr">B.C.</abbr>
 Alexandrian Greek philosopher, is famous for giving the first accurate estimate
 of the circumference of the Earth, which he computed by observing shadows cast
-at noon on the day of the summer solstice.  Eratosthenes&rsquo;s sieve method,
-although ancient, has formed the basis for special-purpose hardware &ldquo;sieves&rdquo;
+at noon on the day of the summer solstice.  Eratosthenes&#8217;s sieve method,
+although ancient, has formed the basis for special-purpose hardware &#8220;sieves&#8221;
 that, until recently, were the most powerful tools in existence for locating
 large primes.  Since the 70s, however, these methods have been superseded by
 outgrowths of the probabilistic techniques discussed in <a class="ref" href="1_002e2.xhtml#g_t1_002e2_002e6">Example: Testing for Primality</a>.</p>
@@ -3075,7 +3076,7 @@ ancient proof by Euclid that there are an infinite number of primes shows that
 better result was proved until 1851, when the Russian mathematician
 P. L. Chebyshev established that <em class="math">p_{n+1} \le 2p_n</em> for all <em class="math">n</em>.
 This result, originally conjectured in 1845, is known as <a class="index-entry-id" id="index-Bertrand_0027s-hypothesis"></a>
-<em class="dfn">Bertrand&rsquo;s hypothesis</em>.  
+<em class="dfn">Bertrand&#8217;s hypothesis</em>.  
 A proof can be found in section 22.3 of <a class="ref" href="References.xhtml#Hardy-and-Wright-1960">Hardy and Wright 1960</a>.</p>
 <h5 class="footnote-body-heading"><a id="FOOT183" href="#DOCF183">(183)</a></h5>
 <p>This exercise shows how call-by-need is closely related
@@ -3084,7 +3085,7 @@ we used assignment to explicitly construct a local table.  Our call-by-need
 stream optimization effectively constructs such a table automatically, storing
 values in the previously forced parts of the stream.</p>
 <h5 class="footnote-body-heading"><a id="FOOT184" href="#DOCF184">(184)</a></h5>
-<p>We can&rsquo;t use <code class="code">let</code>
+<p>We can&#8217;t use <code class="code">let</code>
 to bind the local variable <code class="code">guesses</code>, because the value of <code class="code">guesses</code>
 depends on <code class="code">guesses</code> itself.  <a class="ref" href="#Exercise-3_002e63">Exercise 3.63</a> addresses why we want a
 local variable here.</p>
@@ -3108,14 +3109,14 @@ employed it in the language KRC (<a class="ref" href="References.xhtml#Turner-19
 weight of a pair increases as we move out along a row or down along a column of
 the array of pairs.</p>
 <h5 class="footnote-body-heading"><a id="FOOT189" href="#DOCF189">(189)</a></h5>
-<p>To quote from G. H. Hardy&rsquo;s obituary of Ramanujan (<a class="ref" href="References.xhtml#Hardy-1921">Hardy 1921</a>): 
-&ldquo;It was Mr. Littlewood (I believe) who remarked that &lsquo;every positive
-integer was one of his friends.&rsquo;  I remember once going to see him when he was
+<p>To quote from G. H. Hardy&#8217;s obituary of Ramanujan (<a class="ref" href="References.xhtml#Hardy-1921">Hardy 1921</a>): 
+&#8220;It was Mr. Littlewood (I believe) who remarked that &#8216;every positive
+integer was one of his friends.&#8217;  I remember once going to see him when he was
 lying ill at Putney.  I had ridden in taxi-cab No. 1729, and remarked that the
 number seemed to me a rather dull one, and that I hoped it was not an
-unfavorable omen.  &lsquo;No,&rsquo; he replied, &lsquo;it is a very interesting number; it is
-the smallest number expressible as the sum of two cubes in two different ways.&rsquo;
-&rdquo; The trick of using weighted pairs to generate the Ramanujan numbers was
+unfavorable omen.  &#8216;No,&#8217; he replied, &#8216;it is a very interesting number; it is
+the smallest number expressible as the sum of two cubes in two different ways.&#8217;
+&#8221; The trick of using weighted pairs to generate the Ramanujan numbers was
 shown to us by Charles Leiserson.</p>
 <h5 class="footnote-body-heading"><a id="FOOT190" href="#DOCF190">(190)</a></h5>
 <p>This procedure is not
@@ -3129,14 +3130,14 @@ conventional strongly typed languages such as Pascal have in coping with
 higher-order procedures.  In such languages, the programmer must specify the
 data types of the arguments and the result of each procedure: number, logical
 value, sequence, and so on.  Consequently, we could not express an abstraction
-such as &ldquo;map a given procedure <code class="code">proc</code> over all the elements in a
-sequence&rdquo; by a single higher-order procedure such as <code class="code">stream-map</code>.
+such as &#8220;map a given procedure <code class="code">proc</code> over all the elements in a
+sequence&#8221; by a single higher-order procedure such as <code class="code">stream-map</code>.
 Rather, we would need a different mapping procedure for each different
 combination of argument and result data types that might be specified for a
-<code class="code">proc</code>.  Maintaining a practical notion of &ldquo;data type&rdquo; in the presence
+<code class="code">proc</code>.  Maintaining a practical notion of &#8220;data type&#8221; in the presence
 of higher-order procedures raises many difficult issues.  One way of dealing
 with this problem is illustrated by the language ML (<a class="ref" href="References.xhtml#Gordon-et-al_002e-1979">Gordon et al. 1979</a>), 
-whose &ldquo;polymorphic data types&rdquo; include templates for
+whose &#8220;polymorphic data types&#8221; include templates for
 higher-order transformations between data types.  Moreover, data types for most
 procedures in ML are never explicitly declared by the programmer.  Instead, ML
 includes a <a class="index-entry-id" id="index-type_002dinferencing"></a>
@@ -3145,7 +3146,7 @@ environment to deduce the data types for newly defined procedures.</p>
 <h5 class="footnote-body-heading"><a id="FOOT192" href="#DOCF192">(192)</a></h5>
 <p>Similarly
 in physics, when we observe a moving particle, we say that the position (state)
-of the particle is changing.  However, from the perspective of the particle&rsquo;s
+of the particle is changing.  However, from the perspective of the particle&#8217;s
 world line in space-time there is no change involved.</p>
 <h5 class="footnote-body-heading"><a id="FOOT193" href="#DOCF193">(193)</a></h5>
 <p>John Backus, the
@@ -3156,27 +3157,27 @@ functional programming is given in <a class="ref" href="References.xhtml#Henders
 <a class="ref" href="References.xhtml#Darlington-et-al_002e-1982">Darlington et al. 1982</a>.</p>
 <h5 class="footnote-body-heading"><a id="FOOT194" href="#DOCF194">(194)</a></h5>
 <p>Observe that, for any two streams, there is in general more
-than one acceptable order of interleaving.  Thus, technically, &ldquo;merge&rdquo; is a
-relation rather than a function&mdash;the answer is not a deterministic function of
+than one acceptable order of interleaving.  Thus, technically, &#8220;merge&#8221; is a
+relation rather than a function&#8212;the answer is not a deterministic function of
 the inputs.  We already mentioned (<a class="ref" href="3_002e4.xhtml#Footnote-167">Footnote 167</a>) that nondeterminism is
 essential when dealing with concurrency.  The merge relation illustrates the
 same essential nondeterminism, from the functional perspective.  In 
-<a class="ref" href="4_002e3.xhtml#g_t4_002e3">Variations on a Scheme &mdash; Nondeterministic Computing</a>, we will look at nondeterminism from yet another point of view.</p>
+<a class="ref" href="4_002e3.xhtml#g_t4_002e3">Variations on a Scheme &#8212; Nondeterministic Computing</a>, we will look at nondeterminism from yet another point of view.</p>
 <h5 class="footnote-body-heading"><a id="FOOT195" href="#DOCF195">(195)</a></h5>
 <p>The object model
 approximates the world by dividing it into separate pieces.  The functional
 model does not modularize along object boundaries.  The object model is useful
-when the unshared state of the &ldquo;objects&rdquo; is much larger than the state that
+when the unshared state of the &#8220;objects&#8221; is much larger than the state that
 they share.  An example of a place where the object viewpoint fails is quantum
 mechanics, where thinking of things as individual particles leads to paradoxes
 and confusions.  Unifying the object view with the functional view may have
 little to do with programming, but rather with fundamental epistemological
 issues.</p>
 </div>
-<hr>
+<hr />
 <div class="nav-panel">
 <p>
-Next: <a href="Chapter-4.xhtml" accesskey="n" rel="next">Metalinguistic Abstraction</a>, Previous: <a href="3_002e4.xhtml#g_t3_002e4_002e5" accesskey="p" rel="prev">Async/Await: Cooperative Concurrency</a>, Up: <a href="Chapter-3.xhtml" accesskey="u" rel="up">Modularity, Objects, and State</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Chapter-4.xhtml" accesskey="n" rel="next">Metalinguistic Abstraction</a>, Previous: <a href="3_002e4.xhtml#g_t3_002e4_002e5" accesskey="p" rel="prev">Async/Await: Cooperative Concurrency</a>, Up: <a href="Chapter-3.xhtml" accesskey="u" rel="up">Modularity, Objects, and State</a> &#160; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

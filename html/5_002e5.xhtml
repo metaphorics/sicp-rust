@@ -1,23 +1,24 @@
-<!DOCTYPE html>
-<html>
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>5.5 (Structure and Interpretation of Computer Programs, 2e)</title>
 
-<meta name="description" content="5.5 (Structure and Interpretation of Computer Programs, 2e)">
-<meta name="keywords" content="5.5 (Structure and Interpretation of Computer Programs, 2e)">
-<meta name="resource-type" content="document">
-<meta name="distribution" content="global">
-<meta name="Generator" content="texi2any">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="5.5 (Structure and Interpretation of Computer Programs, 2e)" />
+<meta name="keywords" content="5.5 (Structure and Interpretation of Computer Programs, 2e)" />
+<meta name="resource-type" content="document" />
+<meta name="distribution" content="global" />
+<meta name="Generator" content="texi2any" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 
-<link href="index.xhtml" rel="start" title="Top">
-<link href="Term-Index.xhtml" rel="index" title="Term Index">
-<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="Chapter-5.xhtml" rel="up" title="Chapter 5">
-<link href="References.xhtml" rel="next" title="References">
-<link href="5_002e4.xhtml#g_t5_002e4" rel="prev" title="5.4">
+<link href="index.xhtml" rel="start" title="Top" />
+<link href="Term-Index.xhtml" rel="index" title="Term Index" />
+<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents" />
+<link href="Chapter-5.xhtml" rel="up" title="Chapter 5" />
+<link href="References.xhtml" rel="next" title="References" />
+<link href="5_002e4.xhtml#g_t5_002e4" rel="prev" title="5.4" />
 <style type="text/css">
 <!--
 a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
@@ -37,19 +38,19 @@ ul.mark-bullet {list-style-type: disc}
 <div class="section-level-extent" id="g_t5_002e5">
 <div class="nav-panel">
 <p>
-Next: <a href="References.xhtml" accesskey="n" rel="next">References</a>, Previous: <a href="5_002e4.xhtml#g_t5_002e4" accesskey="p" rel="prev">The Explicit-Control Evaluator</a>, Up: <a href="Chapter-5.xhtml" accesskey="u" rel="up">Computing with Register Machines</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
+Next: <a href="References.xhtml" accesskey="n" rel="next">References</a>, Previous: <a href="5_002e4.xhtml#g_t5_002e4" accesskey="p" rel="prev">The Explicit-Control Evaluator</a>, Up: <a href="Chapter-5.xhtml" accesskey="u" rel="up">Computing with Register Machines</a> &#160; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
 </div>
-<h3 class="section" id="Compilation"><span>5.5 Compilation<a class="copiable-link" href="#Compilation"> &para;</a></span></h3>
+<h3 class="section" id="Compilation"><span>5.5 Compilation<a class="copiable-link" href="#Compilation"> &#182;</a></span></h3>
 
 <p>The explicit-control evaluator of <a class="ref" href="5_002e4.xhtml#g_t5_002e4">The Explicit-Control Evaluator</a> is a register machine whose
 controller interprets Scheme programs.  In this section we will see how to run
 Scheme programs on a register machine whose controller is not a Scheme
 interpreter.
 </p>
-<p>The explicit-control evaluator machine is universal&mdash;it can carry out any
-computational process that can be described in Scheme.  The evaluator&rsquo;s
+<p>The explicit-control evaluator machine is universal&#8212;it can carry out any
+computational process that can be described in Scheme.  The evaluator&#8217;s
 controller orchestrates the use of its data paths to perform the desired
-computation.  Thus, the evaluator&rsquo;s data paths are universal: They are
+computation.  Thus, the evaluator&#8217;s data paths are universal: They are
 sufficient to perform any computation we desire, given an appropriate
 controller.<a class="footnote" id="DOCF293" href="#FOOT293"><sup>293</sup></a>
 </p>
@@ -61,8 +62,8 @@ been using.  This language is called the <a class="index-entry-id" id="index-nat
 <em class="dfn">native language</em> of the
 machine, or simply <a class="index-entry-id" id="index-machine-language"></a>
 <em class="dfn">machine language</em>.  Programs written in machine
-language are sequences of instructions that use the machine&rsquo;s data paths.  For
-example, the explicit-control evaluator&rsquo;s instruction sequence can be thought
+language are sequences of instructions that use the machine&#8217;s data paths.  For
+example, the explicit-control evaluator&#8217;s instruction sequence can be thought
 of as a machine-language program for a general-purpose computer rather than as
 the controller for a specialized interpreter machine.
 </p>
@@ -86,9 +87,9 @@ program by calling appropriate primitive subroutines from the library.
 A compiler for a given source language and machine translates a source program
 into an equivalent program (called the <a class="index-entry-id" id="index-object-program"></a>
 <em class="dfn">object program</em>) written in the
-machine&rsquo;s native language.  The compiler that we implement in this section
+machine&#8217;s native language.  The compiler that we implement in this section
 translates programs written in Scheme into sequences of instructions to be
-executed using the explicit-control evaluator machine&rsquo;s data
+executed using the explicit-control evaluator machine&#8217;s data
 paths.<a class="footnote" id="DOCF294" href="#FOOT294"><sup>294</sup></a>
 </p>
 <p>Compared with interpretation, compilation can provide a great increase in the
@@ -110,7 +111,7 @@ development and debugging.  In <a class="ref" href="#g_t5_002e5_002e7">Interfaci
 the compiler, we will show how to interface it with our interpreter to produce
 an integrated interpreter-compiler development system.
 </p>
-<h4 class="subsubheading" id="An-overview-of-the-compiler"><span>An overview of the compiler<a class="copiable-link" href="#An-overview-of-the-compiler"> &para;</a></span></h4>
+<h4 class="subsubheading" id="An-overview-of-the-compiler"><span>An overview of the compiler<a class="copiable-link" href="#An-overview-of-the-compiler"> &#182;</a></span></h4>
 
 <p>Our compiler is much like our interpreter, both in its structure and in the
 function it performs.  Accordingly, the mechanisms used by the compiler for
@@ -147,8 +148,8 @@ encounter a register instruction that the interpreter would perform in
 evaluating the expression, we do not execute the instruction but instead
 accumulate it into a sequence.  The resulting sequence of instructions will be
 the object code.  Observe the efficiency advantage of compilation over
-interpretation.  Each time the interpreter evaluates an expression&mdash;for
-example, <code class="code">(f 84 96)</code>&mdash;it performs the work of classifying the expression
+interpretation.  Each time the interpreter evaluates an expression&#8212;for
+example, <code class="code">(f 84 96)</code>&#8212;it performs the work of classifying the expression
 (discovering that this is a procedure application) and testing for the end of
 the operand list (discovering that there are two operands).  With a compiler,
 the expression is analyzed only once, when the instruction sequence is
@@ -200,15 +201,15 @@ will be located and access that frame directly, rather than performing the
 variable access in <a class="ref" href="#g_t5_002e5_002e6">Lexical Addressing</a>.  Until then, however, we will focus on
 the kind of register and stack optimizations described above.  There are many
 other optimizations that can be performed by a compiler, such as coding
-primitive operations &ldquo;in line&rdquo; instead of using a general <code class="code">apply</code>
+primitive operations &#8220;in line&#8221; instead of using a general <code class="code">apply</code>
 mechanism (see <a class="ref" href="#Exercise-5_002e38">Exercise 5.38</a>); but we will not emphasize these here.  Our
 main goal in this section is to illustrate the compilation process in a
 simplified (but still interesting) context.
 </p>
 
-<hr>
+<hr />
 <div class="subsection-level-extent" id="g_t5_002e5_002e1">
-<h4 class="subsection" id="Structure-of-the-Compiler"><span>5.5.1 Structure of the Compiler<a class="copiable-link" href="#Structure-of-the-Compiler"> &para;</a></span></h4>
+<h4 class="subsection" id="Structure-of-the-Compiler"><span>5.5.1 Structure of the Compiler<a class="copiable-link" href="#Structure-of-the-Compiler"> &#182;</a></span></h4>
 
 <p>In <a class="ref" href="4_002e1.xhtml#g_t4_002e1_002e7">Separating Syntactic Analysis from Execution</a> we modified our original metacircular interpreter to
 separate analysis from execution.  We analyzed each expression to produce an
@@ -248,7 +249,7 @@ type of expression, it dispatches to a specialized <a class="index-entry-id" id=
 }
 </pre></div>
 
-<h4 class="subsubheading" id="Targets-and-linkages"><span>Targets and linkages<a class="copiable-link" href="#Targets-and-linkages"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Targets-and-linkages"><span>Targets and linkages<a class="copiable-link" href="#Targets-and-linkages"> &#182;</a></span></h4>
 
 <p><code class="code">Compile</code> and the code generators that it calls take two arguments in
 addition to the expression to compile.  There is a <a class="index-entry-id" id="index-target"></a>
@@ -293,7 +294,7 @@ sequence. In the second case, we will return from a procedure call.  In both
 cases, the value of the expression will be placed into the target <code class="code">val</code>
 register.
 </p>
-<h4 class="subsubheading" id="Instruction-sequences-and-stack-usage"><span>Instruction sequences and stack usage<a class="copiable-link" href="#Instruction-sequences-and-stack-usage"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Instruction-sequences-and-stack-usage"><span>Instruction sequences and stack usage<a class="copiable-link" href="#Instruction-sequences-and-stack-usage"> &#182;</a></span></h4>
 
 <p>Each code generator returns an <a class="index-entry-id" id="index-instruction-sequence"></a>
 <em class="dfn">instruction sequence</em> containing the
@@ -341,14 +342,14 @@ evaluating
 ⟨<var class="var">seq₂</var>⟩
 </pre></div>
 
-<p>Whenever registers might need to be saved, the compiler&rsquo;s code generators use
+<p>Whenever registers might need to be saved, the compiler&#8217;s code generators use
 <code class="code">preserving</code>, which is a more subtle method for combining instruction
 sequences.  <code class="code">Preserving</code> takes three arguments: a set of registers and two
 instruction sequences that are to be executed sequentially.  It appends the
 sequences in such a way that the contents of each register in the set is
 preserved over the execution of the first sequence, if this is needed for the
 execution of the second sequence.  That is, if the first sequence modifies the
-register and the second sequence actually needs the register&rsquo;s original
+register and the second sequence actually needs the register&#8217;s original
 contents, then <code class="code">preserving</code> wraps a <code class="code">save</code> and a <code class="code">restore</code> of
 the register around the first sequence before appending the sequences.
 Otherwise, <code class="code">preserving</code> simply returns the appended instruction sequences.
@@ -491,7 +492,7 @@ and restores <code class="code">argl</code> around the evaluation of each operan
 restores <code class="code">proc</code> around the evaluation of the operand sequence.  For each
 of the following combinations, say which of these <code class="code">save</code> and
 <code class="code">restore</code> operations are superfluous and thus could be eliminated by the
-compiler&rsquo;s <code class="code">preserving</code> mechanism:
+compiler&#8217;s <code class="code">preserving</code> mechanism:
 </p>
 <div class="example lisp">
 <pre class="lisp-preformatted">(f 'x 'y)
@@ -515,29 +516,29 @@ expressions combinations whose operator is a symbol, and to take advantage of
 this fact in evaluating such expressions.
 
 </li><li> Alyssa P. Hacker suggests that by extending the evaluator to recognize more and
-more special cases we could incorporate all the compiler&rsquo;s optimizations, and
+more special cases we could incorporate all the compiler&#8217;s optimizations, and
 that this would eliminate the advantage of compilation altogether.  What do you
 think of this idea?
 
 </li></ol>
 </blockquote>
 
-<hr>
+<hr />
 </div>
 <div class="subsection-level-extent" id="g_t5_002e5_002e2">
-<h4 class="subsection" id="Compiling-Expressions"><span>5.5.2 Compiling Expressions<a class="copiable-link" href="#Compiling-Expressions"> &para;</a></span></h4>
+<h4 class="subsection" id="Compiling-Expressions"><span>5.5.2 Compiling Expressions<a class="copiable-link" href="#Compiling-Expressions"> &#182;</a></span></h4>
 
 <p>In this section and the next we implement the code generators to which the
 <code class="code">compile</code> procedure dispatches.
 </p>
-<h4 class="subsubheading" id="Compiling-linkage-code"><span>Compiling linkage code<a class="copiable-link" href="#Compiling-linkage-code"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Compiling-linkage-code"><span>Compiling linkage code<a class="copiable-link" href="#Compiling-linkage-code"> &#182;</a></span></h4>
 
 <p>In general, the output of each code generator will end with
-instructions&mdash;generated by the procedure <code class="code">compile_linkage</code>&mdash;that
+instructions&#8212;generated by the procedure <code class="code">compile_linkage</code>&#8212;that
 implement the required linkage.  If the linkage is <code class="code">return</code> then we must
 generate the instruction <code class="code">(goto (reg continue))</code>.  This needs the
 <code class="code">continue</code> register and does not modify any registers.  If the linkage is
-<code class="code">next</code>, then we needn&rsquo;t include any additional instructions.  Otherwise,
+<code class="code">next</code>, then we needn&#8217;t include any additional instructions.  Otherwise,
 the linkage is a label, and we generate a <code class="code">goto</code> to that label, an
 instruction that does not need or modify any registers.<a class="footnote" id="DOCF296" href="#FOOT296"><sup>296</sup></a>
 </p>
@@ -576,7 +577,7 @@ and restored.
    (compile_linkage linkage)))
 </pre></div>
 
-<h4 class="subsubheading" id="Compiling-simple-expressions"><span>Compiling simple expressions<a class="copiable-link" href="#Compiling-simple-expressions"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Compiling-simple-expressions"><span>Compiling simple expressions<a class="copiable-link" href="#Compiling-simple-expressions"> &#182;</a></span></h4>
 
 <p>The code generators for self-evaluating expressions, quotations, and variables
 construct instruction sequences that assign the required value to the target
@@ -740,7 +741,7 @@ designed to explicitly place its result in <code class="code">val</code> for use
 would cause the previous contents of <code class="code">val</code> to be restored right after the
 <code class="code">get-value-code</code> is run.)
 </p>
-<h4 class="subsubheading" id="Compiling-conditional-expressions"><span>Compiling conditional expressions<a class="copiable-link" href="#Compiling-conditional-expressions"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Compiling-conditional-expressions"><span>Compiling conditional expressions<a class="copiable-link" href="#Compiling-conditional-expressions"> &#182;</a></span></h4>
 
 <p>The code for an <code class="code">if</code> expression compiled with a given target and linkage
 has the form
@@ -862,11 +863,11 @@ special combiner <code class="code">parallel_instruction_sequences</code> descri
 to do handle it is to apply the <code class="code">cond_to_if</code> transformer (from 
 <a class="ref" href="4_002e1.xhtml#g_t4_002e1_002e2">Representing Expressions</a>) and compile the resulting <code class="code">if</code> expression.
 </p>
-<h4 class="subsubheading" id="Compiling-sequences"><span>Compiling sequences<a class="copiable-link" href="#Compiling-sequences"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Compiling-sequences"><span>Compiling sequences<a class="copiable-link" href="#Compiling-sequences"> &#182;</a></span></h4>
 
 <p>The compilation of sequences (from procedure bodies or explicit <code class="code">begin</code>
 expressions) parallels their evaluation.  Each expression of the sequence is
-compiled&mdash;the last expression with the linkage specified for the sequence, and
+compiled&#8212;the last expression with the linkage specified for the sequence, and
 the other expressions with linkage <code class="code">next</code> (to execute the rest of the
 sequence).  The instruction sequences for the individual expressions are
 appended to form a single instruction sequence, such that <code class="code">env</code> (needed
@@ -889,7 +890,7 @@ linkage at the end of the sequence) are preserved.
 }
 </pre></div>
 
-<h4 class="subsubheading" id="Compiling-lambda-expressions"><span>Compiling <code class="code">lambda</code> expressions<a class="copiable-link" href="#Compiling-lambda-expressions"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Compiling-lambda-expressions"><span>Compiling <code class="code">lambda</code> expressions<a class="copiable-link" href="#Compiling-lambda-expressions"> &#182;</a></span></h4>
 
 <p><code class="code">Lambda</code> expressions construct procedures.  The object code for a
 <code class="code">lambda</code> expression must have the form
@@ -901,7 +902,7 @@ linkage at the end of the sequence) are preserved.
 </pre></div>
 
 <p>When we compile the <code class="code">lambda</code> expression, we also generate the code for the
-procedure body.  Although the body won&rsquo;t be executed at the time of procedure
+procedure body.  Although the body won&#8217;t be executed at the time of procedure
 construction, it is convenient to insert it into the object code right after
 the code for the <code class="code">lambda</code>.  If the linkage for the <code class="code">lambda</code>
 expression is a label or <code class="code">return</code>, this is fine.  But if the linkage is
@@ -981,7 +982,7 @@ it.
 <p><code class="code">Compile_lambda_body</code> constructs the code for the body of the procedure.
 This code begins with a label for the entry point.  Next come instructions that
 will cause the run-time evaluation environment to switch to the correct
-environment for evaluating the procedure body&mdash;namely, the definition
+environment for evaluating the procedure body&#8212;namely, the definition
 environment of the procedure, extended to include the bindings of the formal
 parameters to the arguments with which the procedure is called.  After this
 comes the code for the sequence of expressions that makes up the procedure
@@ -1031,10 +1032,10 @@ procedure result in <code class="code">val</code>.
 }
 </pre></div>
 
-<hr>
+<hr />
 </div>
 <div class="subsection-level-extent" id="g_t5_002e5_002e3">
-<h4 class="subsection" id="Compiling-Combinations"><span>5.5.3 Compiling Combinations<a class="copiable-link" href="#Compiling-Combinations"> &para;</a></span></h4>
+<h4 class="subsection" id="Compiling-Combinations"><span>5.5.3 Compiling Combinations<a class="copiable-link" href="#Compiling-Combinations"> &#182;</a></span></h4>
 
 <p>The essence of the compilation process is the compilation of procedure
 applications.  The code for a combination compiled with a given target and
@@ -1115,7 +1116,7 @@ argument-list construction is thus as follows:
 </pre></div>
 
 <p><code class="code">Argl</code> must be preserved around each operand evaluation except the first
-(so that arguments accumulated so far won&rsquo;t be lost), and <code class="code">env</code> must be
+(so that arguments accumulated so far won&#8217;t be lost), and <code class="code">env</code> must be
 preserved around each operand evaluation except the last (for use by subsequent
 operand evaluations).
 </p>
@@ -1209,7 +1210,7 @@ fn code_to_get_rest_args(operand_codes: &amp;[InstructionSeq]) -&gt; Instruction
 }
 </pre></div>
 
-<h4 class="subsubheading" id="Applying-procedures"><span>Applying procedures<a class="copiable-link" href="#Applying-procedures"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Applying-procedures"><span>Applying procedures<a class="copiable-link" href="#Applying-procedures"> &#182;</a></span></h4>
 
 <p>After evaluating the elements of a combination, the compiled code must apply
 the procedure in <code class="code">proc</code> to the arguments in <code class="code">argl</code>.  The code
@@ -1326,7 +1327,7 @@ in <code class="code">compile_if</code>.)
 rather than the ordinary <code class="code">append_instruction_sequences</code>, because they will
 not be executed sequentially.
 </p>
-<h4 class="subsubheading" id="Applying-compiled-procedures"><span>Applying compiled procedures<a class="copiable-link" href="#Applying-compiled-procedures"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Applying-compiled-procedures"><span>Applying compiled procedures<a class="copiable-link" href="#Applying-compiled-procedures"> &#182;</a></span></h4>
 
 <p>The code that handles procedure application is the most subtle part of the
 compiler, even though the instruction sequences it generates are very short.  A
@@ -1369,8 +1370,8 @@ proc_return
 </pre></div>
 
 <p>This code sets up <code class="code">continue</code> so that the procedure will return to a label
-<code class="code">proc_return</code> and jumps to the procedure&rsquo;s entry point.  The code at
-<code class="code">proc_return</code> transfers the procedure&rsquo;s result from <code class="code">val</code> to the
+<code class="code">proc_return</code> and jumps to the procedure&#8217;s entry point.  The code at
+<code class="code">proc_return</code> transfers the procedure&#8217;s result from <code class="code">val</code> to the
 target register (if necessary) and then jumps to the location specified by the
 linkage.  (The linkage is always <code class="code">return</code> or a label, because
 <code class="code">compile_procedure_call</code> replaces a <code class="code">next</code> linkage for the
@@ -1382,8 +1383,8 @@ will generate.<a class="footnote" id="DOCF299" href="#FOOT299"><sup>299</sup></a
 targeting the evaluation of an operator to <code class="code">proc</code>), so the procedure
 result is put directly into the target register and there is no need to return
 to a special location that copies it.  Instead, we simplify the code by setting
-up <code class="code">continue</code> so that the procedure will &ldquo;return&rdquo; directly to the place
-specified by the caller&rsquo;s linkage:
+up <code class="code">continue</code> so that the procedure will &#8220;return&#8221; directly to the place
+specified by the caller&#8217;s linkage:
 </p>
 <div class="example lisp">
 <pre class="lisp-preformatted">⟨<em class="emph">set up <code class="code">continue</code> for linkage</em>⟩
@@ -1407,7 +1408,7 @@ ends with becomes equivalent to the <code class="code">(goto (label ⟨<var clas
 (goto (reg val))
 </pre></div>
 
-<p>If the linkage is <code class="code">return</code>, we don&rsquo;t need to set up <code class="code">continue</code> at
+<p>If the linkage is <code class="code">return</code>, we don&#8217;t need to set up <code class="code">continue</code> at
 all: It already holds the desired location.  (That is, the <code class="code">(goto (reg
 continue))</code> the procedure ends with goes directly to the place where the
 <code class="code">(goto (reg continue))</code> at <code class="code">proc_return</code> would have gone.)
@@ -1551,16 +1552,16 @@ compiled procedure.
 }
 </pre></div>
 
-<hr>
+<hr />
 </div>
 <div class="subsection-level-extent" id="g_t5_002e5_002e4">
-<h4 class="subsection" id="Combining-Instruction-Sequences"><span>5.5.4 Combining Instruction Sequences<a class="copiable-link" href="#Combining-Instruction-Sequences"> &para;</a></span></h4>
+<h4 class="subsection" id="Combining-Instruction-Sequences"><span>5.5.4 Combining Instruction Sequences<a class="copiable-link" href="#Combining-Instruction-Sequences"> &#182;</a></span></h4>
 
 <p>This section describes the details on how instruction sequences are represented
 and combined.  Recall from <a class="ref" href="#g_t5_002e5_002e1">Structure of the Compiler</a> that an instruction sequence is
 represented as a list of the registers needed, the registers modified, and the
 actual instructions.  We will also consider a label (symbol) to be a degenerate
-case of an instruction sequence, which doesn&rsquo;t need or modify any registers.
+case of an instruction sequence, which doesn&#8217;t need or modify any registers.
 So to determine the registers needed and modified by instruction sequences we
 use the selectors
 </p>
@@ -1678,9 +1679,9 @@ of registers to be preserved:<a class="footnote" id="DOCF302" href="#FOOT302"><s
 
 <p>Another sequence combiner, <code class="code">tack_on_instruction_sequence</code>, is used by
 <code class="code">compile_lambda</code> to append a procedure body to another sequence.  Because
-the procedure body is not &ldquo;in line&rdquo; to be executed as part of the combined
+the procedure body is not &#8220;in line&#8221; to be executed as part of the combined
 sequence, its register use has no impact on the register use of the sequence in
-which it is embedded.  We thus ignore the procedure body&rsquo;s sets of needed and
+which it is embedded.  We thus ignore the procedure body&#8217;s sets of needed and
 modified registers when we tack it onto the other sequence.
 </p>
 <div class="example lisp">
@@ -1712,10 +1713,10 @@ the first branch.
 }
 </pre></div>
 
-<hr>
+<hr />
 </div>
 <div class="subsection-level-extent" id="g_t5_002e5_002e5">
-<h4 class="subsection" id="An-Example-of-Compiled-Code"><span>5.5.5 An Example of Compiled Code<a class="copiable-link" href="#An-Example-of-Compiled-Code"> &para;</a></span></h4>
+<h4 class="subsection" id="An-Example-of-Compiled-Code"><span>5.5.5 An Example of Compiled Code<a class="copiable-link" href="#An-Example-of-Compiled-Code"> &#182;</a></span></h4>
 
 <p>Now that we have seen all the elements of the compiler, let us examine an
 example of compiled code to see how things fit together.  We will compile the
@@ -1754,7 +1755,7 @@ let seq = compile(&amp;factorial_def, Register::Val, &amp;Linkage::Next);
 </pre></div>
 
 <p>We have specified that the value of the definition expression should be
-placed in the <code class="code">val</code> register.  We don&rsquo;t care what the compiled code does
+placed in the <code class="code">val</code> register.  We don&#8217;t care what the compiled code does
 after executing the definition, so our choice of <code class="code">next</code> as the linkage
 descriptor is arbitrary.
 </p>
@@ -1787,11 +1788,11 @@ entry point, and generates the instruction that will combine the procedure body
 at the new entry point with the run-time environment and assign the result to
 <code class="code">val</code>.  The sequence then skips around the compiled procedure code, which
 is inserted at this point.  The procedure code itself begins by extending the
-procedure&rsquo;s definition environment by a frame that binds the formal parameter
+procedure&#8217;s definition environment by a frame that binds the formal parameter
 <code class="code">n</code> to the procedure argument.  Then comes the actual procedure body.
-Since this code for the value of the variable doesn&rsquo;t modify the <code class="code">env</code>
-register, the optional <code class="code">save</code> and <code class="code">restore</code> shown above aren&rsquo;t
-generated.  (The procedure code at <code class="code">entry2</code> isn&rsquo;t executed at this point,
+Since this code for the value of the variable doesn&#8217;t modify the <code class="code">env</code>
+register, the optional <code class="code">save</code> and <code class="code">restore</code> shown above aren&#8217;t
+generated.  (The procedure code at <code class="code">entry2</code> isn&#8217;t executed at this point,
 so its use of <code class="code">env</code> is irrelevant.)  Therefore, the skeleton for the
 compiled code becomes
 </p>
@@ -1885,8 +1886,8 @@ the arguments <code class="code">1</code> and the value of <code class="code">n<
 <p>tests whether <code class="code">proc</code> contains a primitive or a compound procedure, and
 dispatches to a primitive branch or a compound branch accordingly.  Both
 branches resume at the <code class="code">after_call</code> label.  The requirements to preserve
-registers around the evaluation of the operator and operands don&rsquo;t result in
-any saving of registers, because in this case those evaluations don&rsquo;t modify
+registers around the evaluation of the operator and operands don&#8217;t result in
+any saving of registers, because in this case those evaluations don&#8217;t modify
 the registers in question.
 </p>
 <div class="example">
@@ -2194,7 +2195,7 @@ the argument list?
 
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-5_002e37"></a>Exercise 5.37:</strong> One way to understand the
-compiler&rsquo;s <code class="code">preserving</code> mechanism for optimizing stack usage is to see
+compiler&#8217;s <code class="code">preserving</code> mechanism for optimizing stack usage is to see
 what extra operations would be generated if we did not use this idea.  Modify
 <code class="code">preserving</code> so that it always generates the <code class="code">save</code> and
 <code class="code">restore</code> operations.  Compile some simple expressions and identify the
@@ -2214,10 +2215,10 @@ whether the procedure is primitive or compound.  The compiler always generates
 code to perform the test, as well as code for primitive and compound branches
 (only one of which will be executed).  We have not shown the part of the
 controller that implements primitives, but we presume that these instructions
-make use of primitive arithmetic operations in the machine&rsquo;s data paths.
+make use of primitive arithmetic operations in the machine&#8217;s data paths.
 Consider how much less code would be generated if the compiler could
 <a class="index-entry-id" id="index-open_002dcode"></a>
-<em class="dfn">open-code</em> primitives&mdash;that is, if it could generate code to directly
+<em class="dfn">open-code</em> primitives&#8212;that is, if it could generate code to directly
 use these primitive machine operations.  The expression <code class="code">(+ a 1)</code> might be
 compiled into something as simple as<a class="footnote" id="DOCF303" href="#FOOT303"><sup>303</sup></a>
 </p>
@@ -2272,10 +2273,10 @@ only two inputs.
 </li></ol>
 </blockquote>
 
-<hr>
+<hr />
 </div>
 <div class="subsection-level-extent" id="g_t5_002e5_002e6">
-<h4 class="subsection" id="Lexical-Addressing"><span>5.5.6 Lexical Addressing<a class="copiable-link" href="#Lexical-Addressing"> &para;</a></span></h4>
+<h4 class="subsection" id="Lexical-Addressing"><span>5.5.6 Lexical Addressing<a class="copiable-link" href="#Lexical-Addressing"> &#182;</a></span></h4>
 
 <p>One of the most common optimizations performed by compilers is the optimization
 of variable lookup.  Our compiler, as we have implemented it so far, generates
@@ -2321,7 +2322,7 @@ immediately-invoked closure, this expression is equivalent to:
 that the symbol <code class="code">x</code> is not <code class="code">eq?</code> to <code class="code">y</code> or <code class="code">z</code> (in the
 first frame), nor to <code class="code">a</code>, <code class="code">b</code>, <code class="code">c</code>, <code class="code">d</code>, or <code class="code">e</code> (in
 the second frame).  We will assume, for the moment, that our programs do not
-use definition&mdash;that variables are bound only with <code class="code">lambda</code>.  Because
+use definition&#8212;that variables are bound only with <code class="code">lambda</code>.  Because
 our language is lexically scoped, the run-time environment for any expression
 will have a structure that parallels the lexical structure of the program in
 which the expression appears.<a class="footnote" id="DOCF305" href="#FOOT305"><sup>305</sup></a> Thus, the
@@ -2350,7 +2351,7 @@ a new <code class="code">lexical_address_set</code>  operation instead of
 lexical address of a variable it is about to compile a reference to.  The
 lexical address of a variable in a program depends on where one is in the code.
 For example, in the following program, the address of <code class="code">x</code> in expression
-<code class="code">⟨</code><var class="var">e1</var><code class="code">⟩</code> is (2, 0)&mdash;two frames back and the first variable in the frame.  At
+<code class="code">⟨</code><var class="var">e1</var><code class="code">⟩</code> is (2, 0)&#8212;two frames back and the first variable in the frame.  At
 that point <code class="code">y</code> is at address (0, 0) and <code class="code">c</code> is at address (1, 2).  In
 expression <code class="code">⟨</code><var class="var">e2</var><code class="code">⟩</code>, <code class="code">x</code> is at (1, 0), <code class="code">y</code> is at (1, 1), and <code class="code">c</code>
 is at (0, 2).
@@ -2377,7 +2378,7 @@ becomes an additional argument to <code class="code">compile</code> and is passe
 code generator.  The top-level call to <code class="code">compile</code> uses an empty
 compile-time environment.  When a <code class="code">lambda</code> body is compiled,
 <code class="code">compile_lambda_body</code> extends the compile-time environment by a frame
-containing the procedure&rsquo;s parameters, so that the sequence making up the body
+containing the procedure&#8217;s parameters, so that the sequence making up the body
 is compiled with that extended environment.  At each point in the compilation,
 <code class="code">compile_variable</code> and <code class="code">compile_assignment</code> use the compile-time
 environment in order to generate the appropriate lexical addresses.
@@ -2390,7 +2391,7 @@ compile-time environment.
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-5_002e39"></a>Exercise 5.39:</strong> Write a procedure
 <code class="code">lexical_address_lookup</code> that implements the new lookup operation.  It
-should take two arguments&mdash;a lexical address and a run-time environment&mdash;and
+should take two arguments&#8212;a lexical address and a run-time environment&#8212;and
 return the value of the variable stored at the specified lexical address.
 <code class="code">Lexical-address-lookup</code> should signal an error if the value of the
 variable is the symbol <code class="code">*unassigned*</code>.<a class="footnote" id="DOCF306" href="#FOOT306"><sup>306</sup></a> Also write a procedure
@@ -2444,7 +2445,7 @@ this section.
 
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-5_002e43"></a>Exercise 5.43:</strong> We argued in <a class="ref" href="4_002e1.xhtml#g_t4_002e1_002e6">Internal Definitions</a>
-that internal definitions for block structure should not be considered &ldquo;real&rdquo;
+that internal definitions for block structure should not be considered &#8220;real&#8221;
 definitions.  Rather, a procedure body should be interpreted as if the
 internal variables being defined were installed as ordinary <code class="code">lambda</code>
 variables initialized to their correct values using <code class="code">set!</code>.  
@@ -2480,10 +2481,10 @@ procedures.  (The code will work correctly as long as the program does not
 definition or <code class="code">set!</code> these names.)
 </p></blockquote>
 
-<hr>
+<hr />
 </div>
 <div class="subsection-level-extent" id="g_t5_002e5_002e7">
-<h4 class="subsection" id="Interfacing-Compiled-Code-to-the-Evaluator"><span>5.5.7 Interfacing Compiled Code to the Evaluator<a class="copiable-link" href="#Interfacing-Compiled-Code-to-the-Evaluator"> &para;</a></span></h4>
+<h4 class="subsection" id="Interfacing-Compiled-Code-to-the-Evaluator"><span>5.5.7 Interfacing Compiled Code to the Evaluator<a class="copiable-link" href="#Interfacing-Compiled-Code-to-the-Evaluator"> &#182;</a></span></h4>
 
 <p>We have not yet explained how to load compiled code into the evaluator machine
 or how to run it.  We will assume that the explicit-control-evaluator machine
@@ -2492,7 +2493,7 @@ specified in <a class="ref" href="#Footnote-323">Footnote 323</a>.  We will impl
 <code class="code">compile_and_go</code> that compiles a Scheme expression, loads the resulting
 object code into the evaluator machine, and causes the machine to run the code
 in the evaluator global environment, print the result, and enter the
-evaluator&rsquo;s driver loop.  We will also modify the evaluator so that interpreted
+evaluator&#8217;s driver loop.  We will also modify the evaluator so that interpreted
 expressions can call compiled procedures as well as interpreted ones.  We can
 then put a compiled procedure into the machine and use the evaluator to call
 it:
@@ -2569,7 +2570,7 @@ containing the location of an instruction sequence that puts a result into
 point jumps to the location designated by <code class="code">val</code>, but first assigns
 <code class="code">continue</code> so that execution will return to <code class="code">print_result</code>, which
 prints the value in <code class="code">val</code> and then goes to the beginning of the
-evaluator&rsquo;s read-eval-print loop.
+evaluator&#8217;s read-eval-print loop.
 </p>
 <div class="example">
 <pre class="example-preformatted">// external-entry
@@ -2626,7 +2627,7 @@ interpreted version of the same procedure, shown at the end of
 depth of 28.  This illustrates the optimization that results from our
 compilation strategy.
 </p>
-<h4 class="subsubheading" id="Interpretation-and-compilation"><span>Interpretation and compilation<a class="copiable-link" href="#Interpretation-and-compilation"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Interpretation-and-compilation"><span>Interpretation and compilation<a class="copiable-link" href="#Interpretation-and-compilation"> &#182;</a></span></h4>
 
 <p>With the programs in this section, we can now experiment with the alternative
 execution strategies of interpretation and compilation.<a class="footnote" id="DOCF309" href="#FOOT309"><sup>309</sup></a>  An interpreter raises the machine to
@@ -2717,7 +2718,7 @@ interpreted procedures as well.  This requires modifying
 <code class="code">compile_procedure_call</code> to handle the case of compound (interpreted)
 procedures.  Be sure to handle all the same <code class="code">target</code> and <code class="code">linkage</code>
 combinations as in <code class="code">compile_proc_appl</code>.  To do the actual procedure
-application, the code needs to jump to the evaluator&rsquo;s <code class="code">compound_apply</code>
+application, the code needs to jump to the evaluator&#8217;s <code class="code">compound_apply</code>
 entry point.  This label cannot be directly referenced in object code (since
 the assembler requires that all labels referenced by the code it is assembling
 be defined there), so we will add a register called <code class="code">compapp</code> to the
@@ -2766,12 +2767,12 @@ factorial(5)
 
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-5_002e49"></a>Exercise 5.49:</strong> As an alternative to using the
-explicit-control evaluator&rsquo;s read-eval-print loop, design a register machine
+explicit-control evaluator&#8217;s read-eval-print loop, design a register machine
 that performs a read-compile-execute-print loop.  That is, the machine should
 run a loop that reads an expression, compiles it, assembles and executes the
 resulting code, and prints the result.  This is easy to run in our simulated
 setup, since we can arrange to call the procedures <code class="code">compile</code> and
-<code class="code">assemble</code> as &ldquo;register-machine operations.&rdquo;
+<code class="code">assemble</code> as &#8220;register-machine operations.&#8221;
 </p></blockquote>
 
 <blockquote class="quotation">
@@ -2801,24 +2802,24 @@ into sequences of C instructions.  Compile the metacircular evaluator of
 </div>
 </div>
 <div class="footnotes-segment">
-<hr>
+<hr />
 <h4 class="footnotes-heading">Footnotes</h4>
 
 <h5 class="footnote-body-heading"><a id="FOOT293" href="#DOCF293">(293)</a></h5>
 <p>This is a theoretical statement.  We are not claiming that
-the evaluator&rsquo;s data paths are a particularly convenient or efficient set of
+the evaluator&#8217;s data paths are a particularly convenient or efficient set of
 data paths for a general-purpose computer.  For example, they are not very good
 for implementing high-performance floating-point calculations or calculations
 that intensively manipulate bit vectors.</p>
 <h5 class="footnote-body-heading"><a id="FOOT294" href="#DOCF294">(294)</a></h5>
 <p>Actually, the machine that runs compiled code can be simpler
-than the interpreter machine, because we won&rsquo;t use the <code class="code">exp</code> and
+than the interpreter machine, because we won&#8217;t use the <code class="code">exp</code> and
 <code class="code">unev</code> registers.  The interpreter used these to hold pieces of
 unevaluated expressions.  With the compiler, however, these expressions get
 built into the compiled code that the register machine will run.  For the same
-reason, we don&rsquo;t need the machine operations that deal with expression syntax.
+reason, we don&#8217;t need the machine operations that deal with expression syntax.
 But compiled code will use a few additional machine operations (to represent
-compiled procedure objects) that didn&rsquo;t appear in the explicit-control
+compiled procedure objects) that didn&#8217;t appear in the explicit-control
 evaluator machine.</p>
 <h5 class="footnote-body-heading"><a id="FOOT295" href="#DOCF295">(295)</a></h5>
 <p>Notice, however, that our compiler is a Scheme
@@ -2862,7 +2863,7 @@ then the expression
 <pre class="lisp-preformatted">(1 2 a)
 </pre></div>
 <h5 class="footnote-body-heading"><a id="FOOT297" href="#DOCF297">(297)</a></h5>
-<p>We can&rsquo;t just use the labels <code class="code">true_branch</code>,
+<p>We can&#8217;t just use the labels <code class="code">true_branch</code>,
 <code class="code">false_branch</code>, and <code class="code">after_if</code> as shown above, because there might be
 more than one <code class="code">if</code> in the program.  The compiler uses the procedure
 <code class="code">make_label</code> to generate labels.  <code class="code">Make-label</code> takes a symbol as
@@ -2966,7 +2967,7 @@ environment.</p>
 <p>Of course,
 compiled procedures as well as interpreted procedures are compound
 (nonprimitive).  For compatibility with the terminology used in the
-explicit-control evaluator, in this section we will use &ldquo;compound&rdquo; to mean
+explicit-control evaluator, in this section we will use &#8220;compound&#8221; to mean
 interpreted (as opposed to compiled).</p>
 <h5 class="footnote-body-heading"><a id="FOOT309" href="#DOCF309">(309)</a></h5>
 <p>We can do even
@@ -2990,14 +2991,14 @@ error-checking operations into running code, so as to make things run as fast
 as possible.  As a result, it falls to programmers to explicitly provide error
 checking.  Unfortunately, people often neglect to do this, even in critical
 applications where speed is not a constraint.  Their programs lead fast and
-dangerous lives.  For example, the notorious &ldquo;Worm&rdquo; that paralyzed the
-Internet in 1988 exploited the <abbr class="abbr">UNIX</abbr>(tm) operating system&rsquo;s failure to
+dangerous lives.  For example, the notorious &#8220;Worm&#8221; that paralyzed the
+Internet in 1988 exploited the <abbr class="abbr">UNIX</abbr>(tm) operating system&#8217;s failure to
 check whether the input buffer has overflowed in the finger daemon. (See
 <a class="ref" href="References.xhtml#Spafford-1989">Spafford 1989</a>.)</p>
 <h5 class="footnote-body-heading"><a id="FOOT311" href="#DOCF311">(311)</a></h5>
 <p>Of course, with either the interpretation or the compilation
 strategy we must also implement for the new machine storage allocation, input
-and output, and all the various operations that we took as &ldquo;primitive&rdquo; in our
+and output, and all the various operations that we took as &#8220;primitive&#8221; in our
 discussion of the evaluator and compiler.  One strategy for minimizing work
 here is to write as many of these operations as possible in Lisp and then
 compile them for the new machine.  Ultimately, everything reduces to a small
@@ -3011,10 +3012,10 @@ program on the original Lisp system.  Tracking down the source of differences
 is fun but often frustrating, because the results are extremely sensitive to
 minuscule details.</p>
 </div>
-<hr>
+<hr />
 <div class="nav-panel">
 <p>
-Next: <a href="References.xhtml" accesskey="n" rel="next">References</a>, Previous: <a href="5_002e4.xhtml#g_t5_002e4" accesskey="p" rel="prev">The Explicit-Control Evaluator</a>, Up: <a href="Chapter-5.xhtml" accesskey="u" rel="up">Computing with Register Machines</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
+Next: <a href="References.xhtml" accesskey="n" rel="next">References</a>, Previous: <a href="5_002e4.xhtml#g_t5_002e4" accesskey="p" rel="prev">The Explicit-Control Evaluator</a>, Up: <a href="Chapter-5.xhtml" accesskey="u" rel="up">Computing with Register Machines</a> &#160; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

@@ -1,23 +1,24 @@
-<!DOCTYPE html>
-<html>
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Chapter 4 (Structure and Interpretation of Computer Programs, 2e)</title>
 
-<meta name="description" content="Chapter 4 (Structure and Interpretation of Computer Programs, 2e)">
-<meta name="keywords" content="Chapter 4 (Structure and Interpretation of Computer Programs, 2e)">
-<meta name="resource-type" content="document">
-<meta name="distribution" content="global">
-<meta name="Generator" content="texi2any">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Chapter 4 (Structure and Interpretation of Computer Programs, 2e)" />
+<meta name="keywords" content="Chapter 4 (Structure and Interpretation of Computer Programs, 2e)" />
+<meta name="resource-type" content="document" />
+<meta name="distribution" content="global" />
+<meta name="Generator" content="texi2any" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 
-<link href="index.xhtml" rel="start" title="Top">
-<link href="Term-Index.xhtml" rel="index" title="Term Index">
-<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="index.xhtml" rel="up" title="Top">
-<link href="4_002e1.xhtml#g_t4_002e1" rel="next" title="4.1">
-<link href="3_002e5.xhtml#g_t3_002e5" rel="prev" title="3.5">
+<link href="index.xhtml" rel="start" title="Top" />
+<link href="Term-Index.xhtml" rel="index" title="Term Index" />
+<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents" />
+<link href="index.xhtml" rel="up" title="Top" />
+<link href="4_002e1.xhtml#g_t4_002e1" rel="next" title="4.1" />
+<link href="3_002e5.xhtml#g_t3_002e5" rel="prev" title="3.5" />
 <style type="text/css">
 <!--
 a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
@@ -34,22 +35,22 @@ span:hover a.copiable-link {visibility: visible}
 <div class="chapter-level-extent" id="Chapter-4">
 <div class="nav-panel">
 <p>
-Next: <a href="4_002e1.xhtml#g_t4_002e1" accesskey="n" rel="next">The Metacircular Evaluator</a>, Previous: <a href="3_002e5.xhtml#g_t3_002e5" accesskey="p" rel="prev">Streams</a>, Up: <a href="index.xhtml" accesskey="u" rel="up">Top</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
+Next: <a href="4_002e1.xhtml#g_t4_002e1" accesskey="n" rel="next">The Metacircular Evaluator</a>, Previous: <a href="3_002e5.xhtml#g_t3_002e5" accesskey="p" rel="prev">Streams</a>, Up: <a href="index.xhtml" accesskey="u" rel="up">Top</a> &#160; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
 </div>
-<h2 class="chapter" id="Metalinguistic-Abstraction"><span>4 Metalinguistic Abstraction<a class="copiable-link" href="#Metalinguistic-Abstraction"> &para;</a></span></h2>
+<h2 class="chapter" id="Metalinguistic-Abstraction"><span>4 Metalinguistic Abstraction<a class="copiable-link" href="#Metalinguistic-Abstraction"> &#182;</a></span></h2>
 
 <blockquote class="quotation">
-<p>&hellip; It&rsquo;s in words that the magic is&mdash;Abracadabra, Open Sesame, and the
-rest&mdash;but the magic words in one story aren&rsquo;t magical in the next.  The real
+<p>&#8230; It&#8217;s in words that the magic is&#8212;Abracadabra, Open Sesame, and the
+rest&#8212;but the magic words in one story aren&#8217;t magical in the next.  The real
 magic is to understand which words work, and when, and for what; the trick is
 to learn the trick.
 </p>
-<p>&hellip; And those words are made from the letters of our alphabet: a
+<p>&#8230; And those words are made from the letters of our alphabet: a
 couple-dozen squiggles we can draw with the pen.  This is the key!  And the
-treasure, too, if we can only get our hands on it!  It&rsquo;s as if&mdash;as if the key
+treasure, too, if we can only get our hands on it!  It&#8217;s as if&#8212;as if the key
 to the treasure <em class="emph">is</em> the treasure!
 </p>
-<p>&mdash;John Barth, <cite class="cite">Chimera</cite>
+<p>&#8212;John Barth, <cite class="cite">Chimera</cite>
 </p></blockquote>
 
 
@@ -84,7 +85,7 @@ languages have means of combination and abstraction, such as procedure
 definition, that are appropriate to the larger-scale organization of systems.
 </p>
 <a class="index-entry-id" id="index-Metalinguistic-abstraction"></a>
-<p><em class="dfn">Metalinguistic abstraction</em>&mdash;establishing new languages&mdash;plays an
+<p><em class="dfn">Metalinguistic abstraction</em>&#8212;establishing new languages&#8212;plays an
 important role in all branches of engineering design.  It is particularly
 important to computer programming, because in programming not only can we
 formulate new languages but we can also implement these languages by
@@ -131,7 +132,7 @@ this book.  Although the evaluator described in this chapter is written for a
 particular dialect of Lisp, it contains the essential structure of an evaluator
 for any expression-oriented language designed for writing programs for a
 sequential machine.  (In fact, most language processors contain, deep within
-them, a little &ldquo;Lisp&rdquo; evaluator.)  The evaluator has been simplified for the
+them, a little &#8220;Lisp&#8221; evaluator.)  The evaluator has been simplified for the
 purposes of illustration and discussion, and some features have been left out
 that would be important to include in a production-quality Lisp system.
 Nevertheless, this simple evaluator is adequate to execute most of the programs
@@ -146,19 +147,19 @@ models embody the notion of time, which was so central to the discussion in
 assignment by using streams to decouple the representation of time in the world
 from time in the computer.  Our stream programs, however, were sometimes
 cumbersome, because they were constrained by the applicative-order evaluation
-of Scheme.  In <a class="ref" href="4_002e2.xhtml#g_t4_002e2">Variations on a Scheme &mdash; Lazy Evaluation</a>, we&rsquo;ll change the underlying language to
+of Scheme.  In <a class="ref" href="4_002e2.xhtml#g_t4_002e2">Variations on a Scheme &#8212; Lazy Evaluation</a>, we&#8217;ll change the underlying language to
 provide for a more elegant approach, by modifying the evaluator to provide for
 <a class="index-entry-id" id="index-normal_002dorder-evaluation-1"></a>
 <em class="dfn">normal-order evaluation</em>.
 </p>
-<p>Section <a class="ref" href="4_002e3.xhtml#g_t4_002e3">Variations on a Scheme &mdash; Nondeterministic Computing</a> implements a more ambitious linguistic change, whereby
+<p>Section <a class="ref" href="4_002e3.xhtml#g_t4_002e3">Variations on a Scheme &#8212; Nondeterministic Computing</a> implements a more ambitious linguistic change, whereby
 expressions have many values, rather than just a single value.  In this
 language of <a class="index-entry-id" id="index-nondeterministic-computing"></a>
 <em class="dfn">nondeterministic computing</em>, it is natural to express
 processes that generate all possible values for expressions and then search for
 those values that satisfy certain constraints.  In terms of models of
-computation and time, this is like having time branch into a set of &ldquo;possible
-futures&rdquo; and then searching for appropriate time lines.  With our
+computation and time, this is like having time branch into a set of &#8220;possible
+futures&#8221; and then searching for appropriate time lines.  With our
 nondeterministic evaluator, keeping track of multiple values and performing
 searches are handled automatically by the underlying mechanism of the language.
 </p>
@@ -173,7 +174,7 @@ the Lisp evaluator.
 
 </div>
 <div class="footnotes-segment">
-<hr>
+<hr />
 <h4 class="footnotes-heading">Footnotes</h4>
 
 <h5 class="footnote-body-heading"><a id="FOOT196" href="#DOCF196">(196)</a></h5>
@@ -206,10 +207,10 @@ extensive discussion of evaluators, see <a class="ref" href="References.xhtml#Fr
 gives an exposition of programming languages that proceeds via a sequence of
 evaluators written in Scheme.</p>
 </div>
-<hr>
+<hr />
 <div class="nav-panel">
 <p>
-Next: <a href="4_002e1.xhtml#g_t4_002e1" accesskey="n" rel="next">The Metacircular Evaluator</a>, Previous: <a href="3_002e5.xhtml#g_t3_002e5" accesskey="p" rel="prev">Streams</a>, Up: <a href="index.xhtml" accesskey="u" rel="up">Top</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
+Next: <a href="4_002e1.xhtml#g_t4_002e1" accesskey="n" rel="next">The Metacircular Evaluator</a>, Previous: <a href="3_002e5.xhtml#g_t3_002e5" accesskey="p" rel="prev">Streams</a>, Up: <a href="index.xhtml" accesskey="u" rel="up">Top</a> &#160; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

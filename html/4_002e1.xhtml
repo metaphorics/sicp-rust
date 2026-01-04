@@ -1,23 +1,24 @@
-<!DOCTYPE html>
-<html>
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>4.1 (Structure and Interpretation of Computer Programs, 2e)</title>
 
-<meta name="description" content="4.1 (Structure and Interpretation of Computer Programs, 2e)">
-<meta name="keywords" content="4.1 (Structure and Interpretation of Computer Programs, 2e)">
-<meta name="resource-type" content="document">
-<meta name="distribution" content="global">
-<meta name="Generator" content="texi2any">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="4.1 (Structure and Interpretation of Computer Programs, 2e)" />
+<meta name="keywords" content="4.1 (Structure and Interpretation of Computer Programs, 2e)" />
+<meta name="resource-type" content="document" />
+<meta name="distribution" content="global" />
+<meta name="Generator" content="texi2any" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 
-<link href="index.xhtml" rel="start" title="Top">
-<link href="Term-Index.xhtml" rel="index" title="Term Index">
-<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="Chapter-4.xhtml" rel="up" title="Chapter 4">
-<link href="4_002e2.xhtml#g_t4_002e2" rel="next" title="4.2">
-<link href="Chapter-4.xhtml" rel="prev" title="Chapter 4">
+<link href="index.xhtml" rel="start" title="Top" />
+<link href="Term-Index.xhtml" rel="index" title="Term Index" />
+<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents" />
+<link href="Chapter-4.xhtml" rel="up" title="Chapter 4" />
+<link href="4_002e2.xhtml#g_t4_002e2" rel="next" title="4.2" />
+<link href="Chapter-4.xhtml" rel="prev" title="Chapter 4" />
 <style type="text/css">
 <!--
 a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
@@ -37,9 +38,9 @@ ul.mark-bullet {list-style-type: disc}
 <div class="section-level-extent" id="g_t4_002e1">
 <div class="nav-panel">
 <p>
-Next: <a href="4_002e2.xhtml#g_t4_002e2" accesskey="n" rel="next">Variations on a Scheme &mdash; Lazy Evaluation</a>, Previous: <a href="Chapter-4.xhtml" accesskey="p" rel="prev">Metalinguistic Abstraction</a>, Up: <a href="Chapter-4.xhtml" accesskey="u" rel="up">Metalinguistic Abstraction</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
+Next: <a href="4_002e2.xhtml#g_t4_002e2" accesskey="n" rel="next">Variations on a Scheme &#8212; Lazy Evaluation</a>, Previous: <a href="Chapter-4.xhtml" accesskey="p" rel="prev">Metalinguistic Abstraction</a>, Up: <a href="Chapter-4.xhtml" accesskey="u" rel="up">Metalinguistic Abstraction</a> &#160; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
 </div>
-<h3 class="section" id="The-Metacircular-Evaluator"><span>4.1 The Metacircular Evaluator<a class="copiable-link" href="#The-Metacircular-Evaluator"> &para;</a></span></h3>
+<h3 class="section" id="The-Metacircular-Evaluator"><span>4.1 The Metacircular Evaluator<a class="copiable-link" href="#The-Metacircular-Evaluator"> &#182;</a></span></h3>
 
 <p>Our evaluator for Lisp will be implemented as a Lisp program.  It may seem
 circular to think about evaluating Lisp programs using an evaluator that is
@@ -78,7 +79,7 @@ critical procedures in the evaluator, <code class="code">eval</code> and <code c
 described in <a class="ref" href="#g_t4_002e1_002e1">The Core of the Evaluator</a> (see <a class="ref" href="#Figure-4_002e1">Figure 4.1</a>).
 </p>
 <div class="float">
-<a class="anchor" id="Figure-4_002e1"></a><img class="image" src="fig/chap4/Fig4.1a.std.svg" alt="fig/chap4/Fig4.1a">
+<a class="anchor" id="Figure-4_002e1"></a><img class="image" src="fig/chap4/Fig4.1a.std.svg" alt="fig/chap4/Fig4.1a" />
 <div class="caption"><p><strong class="strong">Figure 4.1:</strong> The <code class="code">eval</code>-<code class="code">apply</code> cycle exposes the essence of a computer language.</p></div></div>
 <p>The implementation of the evaluator will depend upon procedures that define the
 <a class="index-entry-id" id="index-syntax"></a>
@@ -97,14 +98,14 @@ procedures, <code class="code">lookup_variable_value</code> accesses the values 
 of arguments.
 </p>
 
-<hr>
+<hr />
 <div class="subsection-level-extent" id="g_t4_002e1_002e1">
-<h4 class="subsection" id="The-Core-of-the-Evaluator"><span>4.1.1 The Core of the Evaluator<a class="copiable-link" href="#The-Core-of-the-Evaluator"> &para;</a></span></h4>
+<h4 class="subsection" id="The-Core-of-the-Evaluator"><span>4.1.1 The Core of the Evaluator<a class="copiable-link" href="#The-Core-of-the-Evaluator"> &#182;</a></span></h4>
 
 <p>The evaluation process can be described as the interplay between two
 procedures: <code class="code">eval</code> and <code class="code">apply</code>.
 </p>
-<h4 class="subsubheading" id="Eval"><span>Eval<a class="copiable-link" href="#Eval"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Eval"><span>Eval<a class="copiable-link" href="#Eval"> &#182;</a></span></h4>
 
 <p><code class="code">Eval</code> takes as arguments an expression and an environment.  It classifies
 the expression and directs its evaluation.  <code class="code">Eval</code> is structured as a case
@@ -242,7 +243,7 @@ This allows a user to add new types of expressions that <code class="code">eval<
 distinguish, without modifying the definition of <code class="code">eval</code> itself.  (See
 <a class="ref" href="#Exercise-4_002e3">Exercise 4.3</a>.)
 </p>
-<h4 class="subsubheading" id="Apply"><span>Apply<a class="copiable-link" href="#Apply"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Apply"><span>Apply<a class="copiable-link" href="#Apply"> &#182;</a></span></h4>
 
 <p><code class="code">Apply</code> takes two arguments, a procedure and a list of arguments to which
 the procedure should be applied.  <code class="code">Apply</code> classifies procedures into two
@@ -274,7 +275,7 @@ the definition of <code class="code">apply</code>:
 }
 </pre></div>
 
-<h4 class="subsubheading" id="Procedure-arguments"><span>Procedure arguments<a class="copiable-link" href="#Procedure-arguments"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Procedure-arguments"><span>Procedure arguments<a class="copiable-link" href="#Procedure-arguments"> &#182;</a></span></h4>
 
 <p>When <code class="code">eval</code> processes a procedure application, it uses
 <code class="code">eval_list</code> to produce the list of arguments to which the procedure
@@ -298,7 +299,7 @@ corresponding values:
 }
 </pre></div>
 
-<h4 class="subsubheading" id="Conditionals"><span>Conditionals<a class="copiable-link" href="#Conditionals"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Conditionals"><span>Conditionals<a class="copiable-link" href="#Conditionals"> &#182;</a></span></h4>
 
 <p><code class="code">Eval_if</code> evaluates the predicate part of an <code class="code">if</code> expression in the
 given environment.  If the result is true, <code class="code">eval_if</code> evaluates the
@@ -329,7 +330,7 @@ translates that value into a value that can be tested by the <code class="code">
 implementation language: The metacircular representation of truth might not be
 the same as that of the underlying Rust.<a class="footnote" id="DOCF200" href="#FOOT200"><sup>200</sup></a>
 </p>
-<h4 class="subsubheading" id="Sequences"><span>Sequences<a class="copiable-link" href="#Sequences"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Sequences"><span>Sequences<a class="copiable-link" href="#Sequences"> &#182;</a></span></h4>
 
 <p><code class="code">Eval_sequence</code> is used by <code class="code">apply</code> to evaluate the sequence of
 expressions in a procedure body and by <code class="code">eval</code> to evaluate the sequence of
@@ -357,7 +358,7 @@ passed to the next step:
 }
 </pre></div>
 
-<h4 class="subsubheading" id="Assignments-and-definitions"><span>Assignments and definitions<a class="copiable-link" href="#Assignments-and-definitions"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Assignments-and-definitions"><span>Assignments and definitions<a class="copiable-link" href="#Assignments-and-definitions"> &#182;</a></span></h4>
 
 <p>The following procedure handles definitions of variables.  It calls <code class="code">eval</code>
 to find the value to be assigned and returns a new environment with the
@@ -391,15 +392,15 @@ operands.
 <p>If we were using an environment model with mutation (and thus not threading the
 environment), we might have written <code class="code">eval_list</code> using <code class="code">map</code> or a
 similar construct.  Write a version of <code class="code">eval_list</code> that evaluates operands
-from left to right regardless of the underlying language&rsquo;s evaluation order for
+from left to right regardless of the underlying language&#8217;s evaluation order for
 arguments.  Also write a version of <code class="code">eval_list</code> that evaluates operands
 from right to left.
 </p></blockquote>
 
-<hr>
+<hr />
 </div>
 <div class="subsection-level-extent" id="g_t4_002e1_002e2">
-<h4 class="subsection" id="Representing-Expressions"><span>4.1.2 Representing Expressions<a class="copiable-link" href="#Representing-Expressions"> &para;</a></span></h4>
+<h4 class="subsection" id="Representing-Expressions"><span>4.1.2 Representing Expressions<a class="copiable-link" href="#Representing-Expressions"> &#182;</a></span></h4>
 
 <p>The evaluator is reminiscent of the symbolic differentiation program discussed
 in <a class="ref" href="2_002e3.xhtml#g_t2_002e3_002e2">Example: Symbolic Differentiation</a>.  Both programs operate on symbolic expressions.  In
@@ -500,7 +501,7 @@ alternative:
 
 </li></ul>
 
-<h4 class="subsubheading" id="Derived-expressions"><span>Derived expressions<a class="copiable-link" href="#Derived-expressions"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Derived-expressions"><span>Derived expressions<a class="copiable-link" href="#Derived-expressions"> &#182;</a></span></h4>
 
 <p>Some special forms in our language can be defined in terms of expressions
 involving other special forms, rather than being implemented directly.  One
@@ -583,10 +584,10 @@ will usually check fewer clauses than the original <code class="code">eval</code
 identifying the type of an expression.
 </p>
 <ol class="enumerate" type="a" start="1">
-<li> What is wrong with Louis&rsquo;s plan?  (Hint: What will Louis&rsquo;s evaluator do with
+<li> What is wrong with Louis&#8217;s plan?  (Hint: What will Louis&#8217;s evaluator do with
 the expression <code class="code">let x = 3;</code>?)
 
-</li><li> Louis is upset that his plan didn&rsquo;t work.  He is willing to go to any lengths
+</li><li> Louis is upset that his plan didn&#8217;t work.  He is willing to go to any lengths
 to make his evaluator recognize procedure applications before it checks for
 most other kinds of expressions.  Help him by changing the syntax of the
 evaluated language so that procedure applications start with <code class="code">call</code>.  For
@@ -706,7 +707,7 @@ is it sufficient to add a clause to <code class="code">eval</code> whose action 
 </p></blockquote>
 
 <blockquote class="quotation">
-<p><strong class="strong"><a class="anchor" id="Exercise-4_002e8"></a>Exercise 4.8:</strong> &ldquo;Named <code class="code">let</code>&rdquo; is a variant
+<p><strong class="strong"><a class="anchor" id="Exercise-4_002e8"></a>Exercise 4.8:</strong> &#8220;Named <code class="code">let</code>&#8221; is a variant
 of <code class="code">let</code> that has the form 
 </p>
 <div class="example">
@@ -758,17 +759,17 @@ and implement a new syntax for Scheme by modifying the procedures in this
 section, without changing <code class="code">eval</code> or <code class="code">apply</code>.
 </p></blockquote>
 
-<hr>
+<hr />
 </div>
 <div class="subsection-level-extent" id="g_t4_002e1_002e3">
-<h4 class="subsection" id="Evaluator-Data-Structures"><span>4.1.3 Evaluator Data Structures<a class="copiable-link" href="#Evaluator-Data-Structures"> &para;</a></span></h4>
+<h4 class="subsection" id="Evaluator-Data-Structures"><span>4.1.3 Evaluator Data Structures<a class="copiable-link" href="#Evaluator-Data-Structures"> &#182;</a></span></h4>
 
 <p>In addition to defining the external syntax of the language, the evaluator
 implementation must also define the data structures that the evaluator
 manipulates internally, such as the representation of procedures and
 environments, as well as the representation of true and false.
 </p>
-<h4 class="subsubheading" id="Testing-of-predicates"><span>Testing of predicates<a class="copiable-link" href="#Testing-of-predicates"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Testing-of-predicates"><span>Testing of predicates<a class="copiable-link" href="#Testing-of-predicates"> &#182;</a></span></h4>
 
 <p>For conditionals, we accept any value to be true except the boolean constant
 <code class="code">false</code>.
@@ -779,7 +780,7 @@ environments, as well as the representation of true and false.
 }
 </pre></div>
 
-<h4 class="subsubheading" id="Representing-procedures"><span>Representing procedures<a class="copiable-link" href="#Representing-procedures"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Representing-procedures"><span>Representing procedures<a class="copiable-link" href="#Representing-procedures"> &#182;</a></span></h4>
 
 <p>To handle primitives, we assume that we have available the following
 procedures:
@@ -822,7 +823,7 @@ pub enum Value {
 }
 </pre></div>
 
-<h4 class="subsubheading" id="Operations-on-Environments"><span>Operations on Environments<a class="copiable-link" href="#Operations-on-Environments"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Operations-on-Environments"><span>Operations on Environments<a class="copiable-link" href="#Operations-on-Environments"> &#182;</a></span></h4>
 
 <p>The evaluator needs operations for manipulating environments.  As explained in
 <a class="ref" href="3_002e2.xhtml#g_t3_002e2">The Environment Model of Evaluation</a>, an environment is a sequence of frames, where each frame is
@@ -872,7 +873,7 @@ linear-time lookups. In Rust, this functional approach allows closures to own
 a snapshot of their environment without the need for reference counting or
 interior mutability.
 </p>
-<p>The use of <code class="code">im::HashMap</code> ensures that when we &ldquo;define&rdquo; or &ldquo;extend&rdquo; an
+<p>The use of <code class="code">im::HashMap</code> ensures that when we &#8220;define&#8221; or &#8220;extend&#8221; an
 environment, we are not mutating existing data but creating a new version that
 shares most of its structure with the previous one. This is crucial for
 implementing the environment model correctly in a language with strict
@@ -902,11 +903,11 @@ rid of bindings.  Implement for the evaluator a special form
 symbol removed from the current frame.  (Hint: Use <code class="code">HashMap::without</code>).
 </p></blockquote>
 
-<hr>
+<hr />
 </div>
 <div class="subsection-level-extent" id="g_t4_002e1_002e4">
 
-<h4 class="subsection" id="Running-the-Evaluator-as-a-Program"><span>4.1.4 Running the Evaluator as a Program<a class="copiable-link" href="#Running-the-Evaluator-as-a-Program"> &para;</a></span></h4>
+<h4 class="subsection" id="Running-the-Evaluator-as-a-Program"><span>4.1.4 Running the Evaluator as a Program<a class="copiable-link" href="#Running-the-Evaluator-as-a-Program"> &#182;</a></span></h4>
 
 
 
@@ -1077,13 +1078,13 @@ are each experimenting with the metacircular evaluator.  Eva types in the
 definition of <code class="code">map</code>, and runs some test programs that use it.  They work
 fine.  Louis, in contrast, has installed the system version of <code class="code">map</code> as a
 primitive for the metacircular evaluator.  When he tries it, things go terribly
-wrong.  Explain why Louis&rsquo;s <code class="code">map</code> fails even though Eva&rsquo;s works.
+wrong.  Explain why Louis&#8217;s <code class="code">map</code> fails even though Eva&#8217;s works.
 </p></blockquote>
 
-<hr>
+<hr />
 </div>
 <div class="subsection-level-extent" id="g_t4_002e1_002e5">
-<h4 class="subsection" id="Data-as-Programs"><span>4.1.5 Data as Programs<a class="copiable-link" href="#Data-as-Programs"> &para;</a></span></h4>
+<h4 class="subsection" id="Data-as-Programs"><span>4.1.5 Data as Programs<a class="copiable-link" href="#Data-as-Programs"> &#182;</a></span></h4>
 
 <p>In thinking about a Lisp program that evaluates Lisp expressions, an analogy
 might be helpful.  One operational view of the meaning of a program is that a
@@ -1108,7 +1109,7 @@ a flow diagram for the factorial machine, showing how the parts are wired
 together.
 </p>
 <div class="float">
-<a class="anchor" id="Figure-4_002e2"></a><img class="image" src="fig/chap4/Fig4.2a.std.svg" alt="fig/chap4/Fig4.2a">
+<a class="anchor" id="Figure-4_002e2"></a><img class="image" src="fig/chap4/Fig4.2a.std.svg" alt="fig/chap4/Fig4.2a" />
 <div class="caption"><p><strong class="strong">Figure 4.2:</strong> The factorial program, viewed as an abstract machine.</p></div></div>
 <p>In a similar way, we can regard the evaluator as a very special machine that
 takes as input a description of a machine.  Given this input, the evaluator
@@ -1117,7 +1118,7 @@ our evaluator the definition of <code class="code">factorial</code>, as shown in
 the evaluator will be able to compute factorials.
 </p>
 <div class="float">
-<a class="anchor" id="Figure-4_002e3"></a><img class="image" src="fig/chap4/Fig4.3.std.svg" alt="fig/chap4/Fig4.3">
+<a class="anchor" id="Figure-4_002e3"></a><img class="image" src="fig/chap4/Fig4.3.std.svg" alt="fig/chap4/Fig4.3" />
 <div class="caption"><p><strong class="strong">Figure 4.3:</strong> The evaluator emulating a factorial machine.</p></div></div>
 <p>From this perspective, our evaluator is seen to be a <a class="index-entry-id" id="index-universal-machine"></a>
 <em class="dfn">universal machine</em>.  
@@ -1141,7 +1142,7 @@ expression is simply a data structure (in our case, an <code class="code">Applic
 variant of the <code class="code">Expr</code> enum) that is to be manipulated according to a
 well-defined set of rules.
 </p>
-<p>That the user&rsquo;s programs are the evaluator&rsquo;s data need not be a source of
+<p>That the user&#8217;s programs are the evaluator&#8217;s data need not be a source of
 confusion.  In fact, it is sometimes convenient to ignore this distinction, and
 to give the user the ability to explicitly evaluate a data object as an
 expression, by making <code class="code">eval</code> available for use in programs.  Many
@@ -1177,7 +1178,7 @@ eval(&amp;expr, &amp;global_env)?
 </p>
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-4_002e15"></a>Exercise 4.15:</strong> Given a one-argument procedure
-<code class="code">p</code> and an object <code class="code">a</code>, <code class="code">p</code> is said to &ldquo;halt&rdquo; on <code class="code">a</code> if
+<code class="code">p</code> and an object <code class="code">a</code>, <code class="code">p</code> is said to &#8220;halt&#8221; on <code class="code">a</code> if
 evaluating the expression <code class="code">(p a)</code> returns a value (as opposed to
 terminating with an error message or running forever).  Show that it is
 impossible to write a procedure <code class="code">halts?</code> that correctly determines whether
@@ -1207,10 +1208,10 @@ possible outcome (either halting or running forever) violates the intended
 behavior of <code class="code">halts?</code>.<a class="footnote" id="DOCF208" href="#FOOT208"><sup>208</sup></a>
 </p></blockquote>
 
-<hr>
+<hr />
 </div>
 <div class="subsection-level-extent" id="g_t4_002e1_002e6">
-<h4 class="subsection" id="Internal-Definitions-1"><span>4.1.6 Internal Definitions<a class="copiable-link" href="#Internal-Definitions-1"> &para;</a></span></h4>
+<h4 class="subsection" id="Internal-Definitions-1"><span>4.1.6 Internal Definitions<a class="copiable-link" href="#Internal-Definitions-1"> &#182;</a></span></h4>
 
 <p>Our environment model of evaluation and our metacircular evaluator execute
 definitions in sequence, extending the environment frame one definition at a
@@ -1249,30 +1250,30 @@ not be the best way to define local variables.
 <code class="code">is_even</code>.  The scope of the name <code class="code">is_odd</code> is the entire body of
 <code class="code">f</code>, not just the portion of the body of <code class="code">f</code> starting at the point
 where the definition for <code class="code">is_odd</code> occurs.  Indeed, when we consider that
-<code class="code">is_odd</code> is itself defined in terms of <code class="code">is_even</code>&mdash;so that <code class="code">is_even</code>
-and <code class="code">is_odd</code> are mutually recursive procedures&mdash;we see that the only
+<code class="code">is_odd</code> is itself defined in terms of <code class="code">is_even</code>&#8212;so that <code class="code">is_even</code>
+and <code class="code">is_odd</code> are mutually recursive procedures&#8212;we see that the only
 satisfactory interpretation of the two definitions is to regard them as if
 the names <code class="code">is_even</code> and <code class="code">is_odd</code> were being added to the environment
 simultaneously.  More generally, in block structure, the scope of a local name
 is the entire procedure body in which the definition is evaluated.
 </p>
 <p>As it happens, our interpreter will evaluate calls to <code class="code">f</code> correctly, but
-for an &ldquo;accidental&rdquo; reason: Since the definitions of the internal procedures
+for an &#8220;accidental&#8221; reason: Since the definitions of the internal procedures
 come first, no calls to these procedures will be evaluated until all of them
 have been defined.  Hence, <code class="code">is_odd</code>  will have been defined by the time
 <code class="code">is_even</code> is executed.  In fact, our sequential evaluation mechanism will
 give the same result as a mechanism that directly implements simultaneous
 definition for any procedure in which the internal definitions come first in a
-body and evaluation of the value expressions for the defined variables doesn&rsquo;t
+body and evaluation of the value expressions for the defined variables doesn&#8217;t
 actually use any of the defined variables.  (For an example of a procedure that
-doesn&rsquo;t obey these restrictions, so that sequential definition isn&rsquo;t equivalent
+doesn&#8217;t obey these restrictions, so that sequential definition isn&#8217;t equivalent
 to simultaneous definition, see <a class="ref" href="#Exercise-4_002e19">Exercise 4.19</a>.)<a class="footnote" id="DOCF209" href="#FOOT209"><sup>209</sup></a>
 </p>
 <p>There is, however, a simple way to treat definitions so that internally defined
-names have truly simultaneous scope&mdash;just create all local variables that will
+names have truly simultaneous scope&#8212;just create all local variables that will
 be in the current environment before evaluating any of the value expressions.
 One way to do this is by a syntax transformation on <code class="code">lambda</code> expressions.
-Before evaluating the body of a <code class="code">lambda</code> expression, we &ldquo;scan out&rdquo; and
+Before evaluating the body of a <code class="code">lambda</code> expression, we &#8220;scan out&#8221; and
 eliminate all the internal definitions in the body.  The internally defined
 variables will be created with a <code class="code">let</code> and then set to their values by
 assignment.  For example, the procedure
@@ -1306,8 +1307,8 @@ of the body.
 </p>
 <p>An alternative strategy for scanning out internal definitions is shown in
 <a class="ref" href="#Exercise-4_002e18">Exercise 4.18</a>.  Unlike the transformation shown above, this enforces the
-restriction that the defined variables&rsquo; values can be evaluated without using
-any of the variables&rsquo; values.<a class="footnote" id="DOCF210" href="#FOOT210"><sup>210</sup></a>
+restriction that the defined variables&#8217; values can be evaluated without using
+any of the variables&#8217; values.<a class="footnote" id="DOCF210" href="#FOOT210"><sup>210</sup></a>
 </p>
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-4_002e16"></a>Exercise 4.16:</strong> In this exercise we implement the
@@ -1337,7 +1338,7 @@ sequentially with how it will be structured if definitions are scanned out as
 described.  Why is there an extra frame in the transformed program?  Explain
 why this difference in environment structure can never make a difference in the
 behavior of a correct program.  Design a way to make the interpreter implement
-the &ldquo;simultaneous&rdquo; scope rule for internal definitions without constructing
+the &#8220;simultaneous&#8221; scope rule for internal definitions without constructing
 the extra frame.
 </p></blockquote>
 
@@ -1362,7 +1363,7 @@ for scanning out definitions that translates the example in the text to
 </pre></div>
 
 <p>Here <code class="code">a</code> and <code class="code">b</code> are meant to represent new variable names, created
-by the interpreter, that do not appear in the user&rsquo;s program.  Consider the
+by the interpreter, that do not appear in the user&#8217;s program.  Consider the
 <code class="code">solve</code> procedure from <a class="ref" href="3_002e5.xhtml#g_t3_002e5_002e4">Streams and Delayed Evaluation</a>:
 </p>
 <div class="example">
@@ -1408,10 +1409,10 @@ simultaneous scope rule for internal procedure definitions, and that it is
 unreasonable to treat procedure names differently from other names.  Thus, she
 argues for the mechanism implemented in <a class="ref" href="#Exercise-4_002e16">Exercise 4.16</a>.  This would lead
 to <code class="code">a</code> being unassigned at the time that the value for <code class="code">b</code> is to be
-computed.  Hence, in Alyssa&rsquo;s view the procedure should produce an error.  Eva
+computed.  Hence, in Alyssa&#8217;s view the procedure should produce an error.  Eva
 has a third opinion.  She says that if the definitions of <code class="code">a</code> and <code class="code">b</code>
 are truly meant to be simultaneous, then the value 5 for <code class="code">a</code> should be
-used in evaluating <code class="code">b</code>.  Hence, in Eva&rsquo;s view <code class="code">a</code> should be 5,
+used in evaluating <code class="code">b</code>.  Hence, in Eva&#8217;s view <code class="code">a</code> should be 5,
 <code class="code">b</code> should be 15, and the result should be 20.  Which (if any) of these
 viewpoints do you support?  Can you devise a way to implement internal
 definitions so that they behave as Eva prefers?<a class="footnote" id="DOCF211" href="#FOOT211"><sup>211</sup></a>
@@ -1487,7 +1488,7 @@ be created with a <code class="code">let</code> and then be assigned their value
 <code class="code">set!</code>.
 
 </li><li> Louis Reasoner is confused by all this fuss about internal definitions.  The
-way he sees it, if you don&rsquo;t like to use definition inside a procedure, you
+way he sees it, if you don&#8217;t like to use definition inside a procedure, you
 can just use <code class="code">let</code>.  Illustrate what is loose about his reasoning by
 drawing an environment diagram that shows the environment in which the
 <code class="code">⟨</code><var class="var">rest of body of <code class="code">f</code></var><code class="code">⟩</code> is evaluated during evaluation of the
@@ -1499,7 +1500,7 @@ environment diagram for the same evaluation, but with <code class="code">let</co
 </blockquote>
 
 <blockquote class="quotation">
-<p><strong class="strong"><a class="anchor" id="Exercise-4_002e21"></a>Exercise 4.21:</strong> Amazingly, Louis&rsquo;s intuition in
+<p><strong class="strong"><a class="anchor" id="Exercise-4_002e21"></a>Exercise 4.21:</strong> Amazingly, Louis&#8217;s intuition in
 <a class="ref" href="#Exercise-4_002e20">Exercise 4.20</a> is correct.  It is indeed possible to specify recursive
 procedures without using <code class="code">letrec</code> (or even definition), although the
 method for accomplishing this is much more subtle than Louis imagined.  The
@@ -1575,10 +1576,10 @@ definitions:
 </li></ol>
 </blockquote>
 
-<hr>
+<hr />
 </div>
 <div class="subsection-level-extent" id="g_t4_002e1_002e7">
-<h4 class="subsection" id="Separating-Syntactic-Analysis-from-Execution"><span>4.1.7 Separating Syntactic Analysis from Execution<a class="copiable-link" href="#Separating-Syntactic-Analysis-from-Execution"> &para;</a></span></h4>
+<h4 class="subsection" id="Separating-Syntactic-Analysis-from-Execution"><span>4.1.7 Separating Syntactic Analysis from Execution<a class="copiable-link" href="#Separating-Syntactic-Analysis-from-Execution"> &#182;</a></span></h4>
 
 <p>The evaluator implemented above is simple, but it is very inefficient, because
 the syntactic analysis of expressions is interleaved with their execution.
@@ -1812,7 +1813,7 @@ section to support the special form <code class="code">let</code>.  (See <a clas
 </p></blockquote>
 
 <blockquote class="quotation">
-<p><strong class="strong"><a class="anchor" id="Exercise-4_002e23"></a>Exercise 4.23:</strong> Alyssa P. Hacker doesn&rsquo;t
+<p><strong class="strong"><a class="anchor" id="Exercise-4_002e23"></a>Exercise 4.23:</strong> Alyssa P. Hacker doesn&#8217;t
 understand why <code class="code">analyze_sequence</code> needs to be so complicated.  All the
 other analysis procedures are straightforward transformations of the
 corresponding evaluation procedures (or <code class="code">eval</code> clauses) in 
@@ -1847,7 +1848,7 @@ fn analyze_sequence(exps: &amp;[Expr]) -&gt; Result&lt;Executor, EvalError&gt; {
 </pre></div>
 
 <p>Eva Lu Ator explains to Alyssa that the version in the text does more of the
-work of evaluating a sequence at analysis time.  Alyssa&rsquo;s sequence-execution
+work of evaluating a sequence at analysis time.  Alyssa&#8217;s sequence-execution
 procedure, rather than having the calls to the individual execution procedures
 built in, loops through the procedures in order to call them: In effect,
 although the individual expressions in the sequence have been analyzed, the
@@ -1855,7 +1856,7 @@ sequence itself has not been.
 </p>
 <p>Compare the two versions of <code class="code">analyze_sequence</code>.  For example, consider the
 common case (typical of procedure bodies) where the sequence has just one
-expression.  What work will the execution procedure produced by Alyssa&rsquo;s
+expression.  What work will the execution procedure produced by Alyssa&#8217;s
 program do?  What about the execution procedure produced by the program in the
 text above?  How do the two versions compare for a sequence with two
 expressions?
@@ -1867,10 +1868,10 @@ experiments to compare the speed of the original metacircular evaluator with
 the version in this section.  Use your results to estimate the fraction of time
 that is spent in analysis versus execution for various procedures.
 </p></blockquote>
-<hr>
+<hr />
 </div>
 <div class="subsection-level-extent" id="g_t4_002e1_002e8">
-<h4 class="subsection" id="Declarative-Macros_003a-Code-that-Generates-Code"><span>4.1.8 Declarative Macros: Code that Generates Code<a class="copiable-link" href="#Declarative-Macros_003a-Code-that-Generates-Code"> &para;</a></span></h4>
+<h4 class="subsection" id="Declarative-Macros_003a-Code-that-Generates-Code"><span>4.1.8 Declarative Macros: Code that Generates Code<a class="copiable-link" href="#Declarative-Macros_003a-Code-that-Generates-Code"> &#182;</a></span></h4>
 
 <a class="index-entry-id" id="index-declarative-macros"></a>
 <a class="index-entry-id" id="index-macro_005frules_0021"></a>
@@ -1888,9 +1889,9 @@ powerful mechanism for this: <a class="index-entry-id" id="index-declarative-mac
 <em class="emph">values</em> at runtime, macros operate on <em class="emph">syntax</em> at compile time.
 A macro takes code as input and produces new code as output, which is then
 compiled as if you had written it by hand. This makes macros a true form of
-metalinguistic abstraction&mdash;they allow you to extend the language itself.
+metalinguistic abstraction&#8212;they allow you to extend the language itself.
 </p>
-<h4 class="subsubheading" id="What-Are-Macros_003f"><span>What Are Macros?<a class="copiable-link" href="#What-Are-Macros_003f"> &para;</a></span></h4>
+<h4 class="subsubheading" id="What-Are-Macros_003f"><span>What Are Macros?<a class="copiable-link" href="#What-Are-Macros_003f"> &#182;</a></span></h4>
 
 <a class="index-entry-id" id="index-hygiene-_0028macro_0029"></a>
 <a class="index-entry-id" id="index-compile_002dtime-expansion"></a>
@@ -1898,7 +1899,7 @@ metalinguistic abstraction&mdash;they allow you to extend the language itself.
 <p>A macro is a pattern-matching and code-generation facility. When the Rust
 compiler encounters a macro invocation (recognized by the trailing <code class="code">!</code>),
 it <a class="index-entry-id" id="index-expands"></a>
-<em class="dfn">expands</em> the macro by matching the input against the macro&rsquo;s
+<em class="dfn">expands</em> the macro by matching the input against the macro&#8217;s
 patterns and generating new code according to the corresponding template.
 </p>
 <p>Consider the built-in <code class="code">vec!</code> macro:
@@ -1925,7 +1926,7 @@ patterns and generating new code according to the corresponding template.
 More importantly, this expansion happens at <em class="emph">compile time</em>, so there is
 no runtime cost.
 </p>
-<h4 class="subsubheading" id="Basic-Macro-Syntax"><span>Basic Macro Syntax<a class="copiable-link" href="#Basic-Macro-Syntax"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Basic-Macro-Syntax"><span>Basic Macro Syntax<a class="copiable-link" href="#Basic-Macro-Syntax"> &#182;</a></span></h4>
 
 <a class="index-entry-id" id="index-pattern-matching-_0028macros_0029"></a>
 <a class="index-entry-id" id="index-transcription-_0028macros_0029"></a>
@@ -1975,7 +1976,7 @@ identifier. The <code class="code">:ident</code> part is a <a class="index-entry
 <em class="dfn">fragment specifier</em> that tells
 the macro what kind of syntax to expect.
 </p>
-<h4 class="subsubheading" id="Fragment-Specifiers"><span>Fragment Specifiers<a class="copiable-link" href="#Fragment-Specifiers"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Fragment-Specifiers"><span>Fragment Specifiers<a class="copiable-link" href="#Fragment-Specifiers"> &#182;</a></span></h4>
 
 <a class="index-entry-id" id="index-fragment-specifiers"></a>
 <a class="index-entry-id" id="index-metavariables"></a>
@@ -1983,27 +1984,27 @@ the macro what kind of syntax to expect.
 <p>Rust macros can capture different kinds of syntax elements:
 </p>
 <ul class="itemize mark-bullet">
-<li><code class="code">ident</code> &mdash; An identifier (variable name, function name, etc.)
+<li><code class="code">ident</code> &#8212; An identifier (variable name, function name, etc.)
 
-</li><li><code class="code">expr</code> &mdash; An expression (<code class="code">1 + 2</code>, <code class="code">foo()</code>, etc.)
+</li><li><code class="code">expr</code> &#8212; An expression (<code class="code">1 + 2</code>, <code class="code">foo()</code>, etc.)
 
-</li><li><code class="code">stmt</code> &mdash; A statement (<code class="code">let x = 5;</code>, etc.)
+</li><li><code class="code">stmt</code> &#8212; A statement (<code class="code">let x = 5;</code>, etc.)
 
-</li><li><code class="code">ty</code> &mdash; A type (<code class="code">i32</code>, <code class="code">Vec&lt;String&gt;</code>, etc.)
+</li><li><code class="code">ty</code> &#8212; A type (<code class="code">i32</code>, <code class="code">Vec&lt;String&gt;</code>, etc.)
 
-</li><li><code class="code">pat</code> &mdash; A pattern (match arm pattern)
+</li><li><code class="code">pat</code> &#8212; A pattern (match arm pattern)
 
-</li><li><code class="code">path</code> &mdash; A path (<code class="code">std::collections::HashMap</code>)
+</li><li><code class="code">path</code> &#8212; A path (<code class="code">std::collections::HashMap</code>)
 
-</li><li><code class="code">tt</code> &mdash; A single token tree (any single balanced token)
+</li><li><code class="code">tt</code> &#8212; A single token tree (any single balanced token)
 
-</li><li><code class="code">block</code> &mdash; A block of code (<code class="code">{ ... }</code>)
+</li><li><code class="code">block</code> &#8212; A block of code (<code class="code">{ ... }</code>)
 
-</li><li><code class="code">item</code> &mdash; An item (function, struct, etc.)
+</li><li><code class="code">item</code> &#8212; An item (function, struct, etc.)
 
-</li><li><code class="code">meta</code> &mdash; Attribute contents
+</li><li><code class="code">meta</code> &#8212; Attribute contents
 
-</li><li><code class="code">literal</code> &mdash; A literal expression (<code class="code">42</code>, <code class="code">&quot;hello&quot;</code>, etc.)
+</li><li><code class="code">literal</code> &#8212; A literal expression (<code class="code">42</code>, <code class="code">&quot;hello&quot;</code>, etc.)
 
 </li></ul>
 
@@ -2021,7 +2022,7 @@ create_variable!(x = 42);
 create_variable!(message = &quot;Hello&quot;.to_string());
 </pre></div>
 
-<h4 class="subsubheading" id="Repetition-Patterns"><span>Repetition Patterns<a class="copiable-link" href="#Repetition-Patterns"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Repetition-Patterns"><span>Repetition Patterns<a class="copiable-link" href="#Repetition-Patterns"> &#182;</a></span></h4>
 
 <a class="index-entry-id" id="index-repetition-_0028macros_0029"></a>
 <a class="index-entry-id" id="index-variadic-macros"></a>
@@ -2032,16 +2033,16 @@ handle variable numbers of arguments through <a class="index-entry-id" id="index
 These are specified using <code class="code">$(...)</code>, followed by a repetition operator:
 </p>
 <ul class="itemize mark-bullet">
-<li><code class="code">$(...)*</code> &mdash; Zero or more repetitions
+<li><code class="code">$(...)*</code> &#8212; Zero or more repetitions
 
-</li><li><code class="code">$(...)+</code> &mdash; One or more repetitions
+</li><li><code class="code">$(...)+</code> &#8212; One or more repetitions
 
-</li><li><code class="code">$(...){,}</code> &mdash; Zero or more repetitions separated by a specific token
+</li><li><code class="code">$(...){,}</code> &#8212; Zero or more repetitions separated by a specific token
 (here, a comma)
 
 </li></ul>
 
-<p>Here&rsquo;s how we might implement our own simplified <code class="code">vec!</code> macro:
+<p>Here&#8217;s how we might implement our own simplified <code class="code">vec!</code> macro:
 </p>
 <p><b class="b">Rust:</b>
 </p><div class="example">
@@ -2067,7 +2068,7 @@ let empty: Vec&lt;i32&gt; = my_vec![];
 expressions. The template <code class="code">$( temp_vec.push($element); )*</code> repeats the
 push statement once for each captured element.
 </p>
-<h4 class="subsubheading" id="Macro-Hygiene"><span>Macro Hygiene<a class="copiable-link" href="#Macro-Hygiene"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Macro-Hygiene"><span>Macro Hygiene<a class="copiable-link" href="#Macro-Hygiene"> &#182;</a></span></h4>
 
 <a class="index-entry-id" id="index-hygiene-_0028macro_0029-1"></a>
 <a class="index-entry-id" id="index-name-collision-_0028macros_0029"></a>
@@ -2103,7 +2104,7 @@ SWAP(temp, x);  // BUG! The macro's temp shadows our variable
 }
 </pre></div>
 
-<p>However, there&rsquo;s a subtlety here: the <code class="code">$a</code> and <code class="code">$b</code> in the template
+<p>However, there&#8217;s a subtlety here: the <code class="code">$a</code> and <code class="code">$b</code> in the template
 refer to the <em class="emph">expressions</em> passed in, which must be assignable (lvalues).
 A better implementation would use <code class="code">std::mem::swap</code> or require mutable
 references:
@@ -2116,18 +2117,18 @@ references:
 }
 </pre></div>
 
-<p>Hygiene means that variables introduced inside a macro won&rsquo;t interfere with
+<p>Hygiene means that variables introduced inside a macro won&#8217;t interfere with
 variables in the calling context, and vice versa. This is a significant
 improvement over C-style text substitution.
 </p>
-<h4 class="subsubheading" id="Building-a-Domain_002dSpecific-Language"><span>Building a Domain-Specific Language<a class="copiable-link" href="#Building-a-Domain_002dSpecific-Language"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Building-a-Domain_002dSpecific-Language"><span>Building a Domain-Specific Language<a class="copiable-link" href="#Building-a-Domain_002dSpecific-Language"> &#182;</a></span></h4>
 
 <a class="index-entry-id" id="index-domain_002dspecific-language"></a>
 <a class="index-entry-id" id="index-DSL"></a>
 <a class="index-entry-id" id="index-embedded-DSL"></a>
 
 <p>Macros excel at creating domain-specific languages (<abbr class="abbr">DSL</abbr>s) embedded
-within Rust. Let&rsquo;s build a simple <abbr class="abbr">DSL</abbr> for defining hash maps with
+within Rust. Let&#8217;s build a simple <abbr class="abbr">DSL</abbr> for defining hash maps with
 a clean syntax:
 </p>
 <p><b class="b">Rust:</b>
@@ -2162,10 +2163,10 @@ let capitals = hashmap! {
 let empty: HashMap&lt;&amp;str, i32&gt; = hashmap!();
 </pre></div>
 
-<p>Notice the <code class="code">$(,)?</code> at the end of the pattern&mdash;this matches an optional
+<p>Notice the <code class="code">$(,)?</code> at the end of the pattern&#8212;this matches an optional
 trailing comma, which is idiomatic in Rust.
 </p>
-<p>Here&rsquo;s a more sophisticated example that creates a mini-DSL for assertion
+<p>Here&#8217;s a more sophisticated example that creates a mini-DSL for assertion
 messages:
 </p>
 <p><b class="b">Rust:</b>
@@ -2192,7 +2193,7 @@ assert_bounds!(x, 0, 100);
 <p>The <code class="code">stringify!</code> macro (built into Rust) converts a syntax tree fragment
 to a string literal, allowing us to show the variable name in error messages.
 </p>
-<h4 class="subsubheading" id="Multiple-Macro-Rules"><span>Multiple Macro Rules<a class="copiable-link" href="#Multiple-Macro-Rules"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Multiple-Macro-Rules"><span>Multiple Macro Rules<a class="copiable-link" href="#Multiple-Macro-Rules"> &#182;</a></span></h4>
 
 <a class="index-entry-id" id="index-pattern-matching-_0028macros_0029-1"></a>
 <a class="index-entry-id" id="index-rule-priority-_0028macros_0029"></a>
@@ -2236,7 +2237,7 @@ let z = calculate!(mul 2, 10);      // =&gt; 20
 <code class="code">$($t:tt)*</code> captures all tokens. This is useful for recursive macros or
 when you want to pass through arbitrary syntax.
 </p>
-<h4 class="subsubheading" id="Debugging-Macros"><span>Debugging Macros<a class="copiable-link" href="#Debugging-Macros"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Debugging-Macros"><span>Debugging Macros<a class="copiable-link" href="#Debugging-Macros"> &#182;</a></span></h4>
 
 <a class="index-entry-id" id="index-cargo-expand"></a>
 <a class="index-entry-id" id="index-macro-debugging"></a>
@@ -2246,7 +2247,7 @@ when you want to pass through arbitrary syntax.
 challenging. Rust provides tools to help:
 </p>
 <ol class="enumerate">
-<li> <b class="b">cargo expand</b> &mdash; A cargo subcommand that shows the expanded version of
+<li> <b class="b">cargo expand</b> &#8212; A cargo subcommand that shows the expanded version of
 your code. Install it with <code class="code">cargo install cargo-expand</code>, then run:
 
 <div class="example">
@@ -2256,13 +2257,13 @@ your code. Install it with <code class="code">cargo install cargo-expand</code>,
 <p>This shows your source code with all macros expanded, making it clear what
 code is actually being generated.
 </p>
-</li><li> <b class="b">rustc &ndash;pretty=expanded</b> &mdash; The compiler can also show expanded code:
+</li><li> <b class="b">rustc &#8211;pretty=expanded</b> &#8212; The compiler can also show expanded code:
 
 <div class="example">
 <pre class="example-preformatted">rustc src/main.rs -Z unpretty=expanded
 </pre></div>
 
-</li><li> <b class="b">Compiler error messages</b> &mdash; The Rust compiler will show you where a macro
+</li><li> <b class="b">Compiler error messages</b> &#8212; The Rust compiler will show you where a macro
 expansion failed and often indicates which rule it was trying to match.
 
 </li></ol>
@@ -2283,23 +2284,23 @@ let v = {
 };
 </pre></div>
 
-<h4 class="subsubheading" id="When-to-Use-Macros-vs-Functions-vs-Generics"><span>When to Use Macros vs Functions vs Generics<a class="copiable-link" href="#When-to-Use-Macros-vs-Functions-vs-Generics"> &para;</a></span></h4>
+<h4 class="subsubheading" id="When-to-Use-Macros-vs-Functions-vs-Generics"><span>When to Use Macros vs Functions vs Generics<a class="copiable-link" href="#When-to-Use-Macros-vs-Functions-vs-Generics"> &#182;</a></span></h4>
 
 <a class="index-entry-id" id="index-when-to-use-macros"></a>
 <a class="index-entry-id" id="index-macros-vs-functions"></a>
 <a class="index-entry-id" id="index-design-decisions"></a>
 
 <p>Rust offers multiple abstraction mechanisms: functions, generics, trait objects,
-and macros. Here&rsquo;s when to use each:
+and macros. Here&#8217;s when to use each:
 </p>
 <p><b class="b">Use functions when:</b>
 </p>
 <ul class="itemize mark-bullet">
-<li>You&rsquo;re operating on <em class="emph">values</em>, not syntax
+<li>You&#8217;re operating on <em class="emph">values</em>, not syntax
 
 </li><li>The operation is well-defined and type-checkable
 
-</li><li>You don&rsquo;t need to generate boilerplate code
+</li><li>You don&#8217;t need to generate boilerplate code
 
 </li></ul>
 
@@ -2321,7 +2322,7 @@ and macros. Here&rsquo;s when to use each:
 
 </li><li>You want to create custom syntax or a <abbr class="abbr">DSL</abbr>
 
-</li><li>You need compile-time computation that generics can&rsquo;t express
+</li><li>You need compile-time computation that generics can&#8217;t express
 
 </li><li>You want to avoid runtime overhead completely
 
@@ -2332,8 +2333,8 @@ and macros. Here&rsquo;s when to use each:
 </li></ul>
 
 <p><b class="b">Example:</b> Consider implementing a function that takes a variable number of
-arguments. In most languages, you&rsquo;d use variadic functions. In Rust (without
-macros), you&rsquo;d need to pass a slice:
+arguments. In most languages, you&#8217;d use variadic functions. In Rust (without
+macros), you&#8217;d need to pass a slice:
 </p>
 <div class="example">
 <pre class="example-preformatted">// Without macros:
@@ -2360,7 +2361,7 @@ print_all(&amp;[&quot;hello&quot;, &quot;world&quot;]);  // Need to create a sli
 print_all!(&quot;hello&quot;, &quot;world&quot;, &quot;!&quot;);  // No slice needed
 </pre></div>
 
-<h4 class="subsubheading" id="Connection-to-Metalinguistic-Abstraction"><span>Connection to Metalinguistic Abstraction<a class="copiable-link" href="#Connection-to-Metalinguistic-Abstraction"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Connection-to-Metalinguistic-Abstraction"><span>Connection to Metalinguistic Abstraction<a class="copiable-link" href="#Connection-to-Metalinguistic-Abstraction"> &#182;</a></span></h4>
 
 <a class="index-entry-id" id="index-metalinguistic-abstraction"></a>
 <a class="index-entry-id" id="index-meta_002dcircular-evaluator"></a>
@@ -2394,12 +2395,12 @@ programming language theory.
 provide <em class="emph">procedural abstraction</em>. Both are essential tools for managing
 complexity in large systems.
 </p>
-<h4 class="subsubheading" id="A-Complete-Example_003a-Testing-DSL"><span>A Complete Example: Testing DSL<a class="copiable-link" href="#A-Complete-Example_003a-Testing-DSL"> &para;</a></span></h4>
+<h4 class="subsubheading" id="A-Complete-Example_003a-Testing-DSL"><span>A Complete Example: Testing DSL<a class="copiable-link" href="#A-Complete-Example_003a-Testing-DSL"> &#182;</a></span></h4>
 
 <a class="index-entry-id" id="index-test-macro"></a>
 <a class="index-entry-id" id="index-DSL-example"></a>
 
-<p>Let&rsquo;s build a practical macro that creates a mini-DSL for property-based
+<p>Let&#8217;s build a practical macro that creates a mini-DSL for property-based
 testing, similar to what the <code class="code">proptest</code> crate provides:
 </p>
 <p><b class="b">Rust:</b>
@@ -2441,7 +2442,7 @@ property_test! {
 <p>This macro generates complete test functions with clear failure messages,
 demonstrating how macros can reduce boilerplate while maintaining expressiveness.
 </p>
-<h4 class="subsubheading" id="Limitations-and-Caveats"><span>Limitations and Caveats<a class="copiable-link" href="#Limitations-and-Caveats"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Limitations-and-Caveats"><span>Limitations and Caveats<a class="copiable-link" href="#Limitations-and-Caveats"> &#182;</a></span></h4>
 
 <a class="index-entry-id" id="index-macro-limitations"></a>
 <a class="index-entry-id" id="index-procedural-macros"></a>
@@ -2473,7 +2474,7 @@ macros. Declarative macros are simpler and sufficient for most use cases.
 </p>
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-4_002e16a"></a>Exercise 4.16a:</strong> Define a macro <code class="code">unless!</code>
-that works like an inverted <code class="code">if</code> statement&mdash;it executes a block of code
+that works like an inverted <code class="code">if</code> statement&#8212;it executes a block of code
 only when a condition is <em class="emph">false</em>:
 </p>
 <div class="example">
@@ -2527,13 +2528,13 @@ before addition).
 <p><strong class="strong"><a class="anchor" id="Exercise-4_002e18a"></a>Exercise 4.18a:</strong> The <code class="code">hashmap!</code> macro we
 defined earlier creates a new <code class="code">HashMap</code> and inserts elements one by one.
 However, if we know the number of elements at compile time, we can pre-allocate
-the hash map&rsquo;s capacity for better performance.
+the hash map&#8217;s capacity for better performance.
 </p>
 <ol class="enumerate" type="a" start="1">
 <li> Modify the <code class="code">hashmap!</code> macro to count the number of key-value pairs and
 use <code class="code">HashMap::with_capacity</code> instead of <code class="code">HashMap::new</code>.
 
-</li><li> The standard library&rsquo;s <code class="code">vec!</code> macro supports both <code class="code">vec![1, 2, 3]</code>
+</li><li> The standard library&#8217;s <code class="code">vec!</code> macro supports both <code class="code">vec![1, 2, 3]</code>
 and <code class="code">vec![0; 100]</code> (create a vector with 100 zeros). Extend your
 <code class="code">hashmap!</code> macro to support a similar syntax for creating maps with
 repeated values:
@@ -2553,7 +2554,7 @@ is particularly well-suited to macros rather than functions.
 </div>
 </div>
 <div class="footnotes-segment">
-<hr>
+<hr />
 <h4 class="footnotes-heading">Footnotes</h4>
 
 <h5 class="footnote-body-heading"><a id="FOOT198" href="#DOCF198">(198)</a></h5>
@@ -2567,8 +2568,8 @@ evaluation process by implementing the evaluator as a simple register machine.</
 <p>If we grant ourselves the
 ability to apply primitives, then what remains for us to implement in the
 evaluator?  The job of the evaluator is not to specify the primitives of the
-language, but rather to provide the connective tissue&mdash;the means of
-combination and the means of abstraction&mdash;that binds a collection of
+language, but rather to provide the connective tissue&#8212;the means of
+combination and the means of abstraction&#8212;that binds a collection of
 primitives to form a language. Specifically:
 </p>
 <ul class="itemize mark-bullet">
@@ -2603,7 +2604,7 @@ the abuse of substance.</p>
 <h5 class="footnote-body-heading"><a id="FOOT201" href="#DOCF201">(201)</a></h5>
 <p>As we said when we introduced
 definition and <code class="code">set!</code>, these values are implementation-dependent in
-Scheme&mdash;that is, the implementor can choose what value to return.</p>
+Scheme&#8212;that is, the implementor can choose what value to return.</p>
 <h5 class="footnote-body-heading"><a id="FOOT202" href="#DOCF202">(202)</a></h5>
 <p>The
 value of a <code class="code">cond</code> expression when all the predicates are false and there
@@ -2626,23 +2627,23 @@ evaluator for some other language, say C, the Rust evaluator will emulate the C
 evaluator, which in turn can emulate any machine described as a C program.
 Similarly, writing a Rust evaluator in C produces a C program that can execute
 any Rust program.  The deep idea here is that any evaluator can emulate any
-other.  Thus, the notion of &ldquo;what can in principle be computed&rdquo; (ignoring
+other.  Thus, the notion of &#8220;what can in principle be computed&#8221; (ignoring
 practicalities of time and memory required) is independent of the language or
 the computer, and instead reflects an underlying notion of
 <a class="index-entry-id" id="index-computability"></a>
 <em class="dfn">computability</em>.  This was first demonstrated in a clear way by Alan
 M. Turing (1912-1954), whose 1936 paper laid the foundations for theoretical
 computer science.  In the paper, Turing presented a simple computational
-model&mdash;now known as a <a class="index-entry-id" id="index-Turing-machine"></a>
-<em class="dfn">Turing machine</em>&mdash;and argued that any
-&ldquo;effective process&rdquo; can be formulated as a program for such a machine.  (This
+model&#8212;now known as a <a class="index-entry-id" id="index-Turing-machine"></a>
+<em class="dfn">Turing machine</em>&#8212;and argued that any
+&#8220;effective process&#8221; can be formulated as a program for such a machine.  (This
 argument is known as the <a class="index-entry-id" id="index-Church_002dTuring-thesis"></a>
 <em class="dfn">Church-Turing thesis</em>.)  Turing then
 implemented a universal machine, i.e., a Turing machine that behaves as an
 evaluator for Turing-machine programs.  He used this framework to demonstrate
 that there are well-posed problems that cannot be computed by Turing machines
 (see <a class="ref" href="#Exercise-4_002e15">Exercise 4.15</a>), and so by implication cannot be formulated as
-&ldquo;effective processes.&rdquo;  Turing went on to make fundamental contributions to
+&#8220;effective processes.&#8221;  Turing went on to make fundamental contributions to
 practical computer science as well.  For example, he invented the idea of
 structuring programs using general-purpose subroutines.  See <a class="ref" href="References.xhtml#Hodges-1983">Hodges 1983</a> for a
 biography of Turing.</p>
@@ -2653,7 +2654,7 @@ more complex than the evaluator itself.  The existence of a universal evaluator
 machine is a deep and wonderful property of computation.  <a class="index-entry-id" id="index-Recursion-theory"></a>
 <em class="dfn">Recursion theory</em>, 
 a branch of mathematical logic, is concerned with logical limits of
-computation.  Douglas Hofstadter&rsquo;s beautiful book <cite class="cite">G&ouml;del, Escher, Bach</cite>
+computation.  Douglas Hofstadter&#8217;s beautiful book <cite class="cite">G&#246;del, Escher, Bach</cite>
 explores some of these ideas (<a class="ref" href="References.xhtml#Hofstadter-1979">Hofstadter 1979</a>).</p>
 <h5 class="footnote-body-heading"><a id="FOOT206" href="#DOCF206">(206)</a></h5>
 <p>Warning: This <code class="code">eval</code> primitive is not identical to
@@ -2666,26 +2667,26 @@ in <a class="ref" href="#g_t4_002e1_002e3">Evaluator Data Structures</a> and <a 
 <h5 class="footnote-body-heading"><a id="FOOT207" href="#DOCF207">(207)</a></h5>
 <p>The <abbr class="abbr">MIT</abbr> implementation of Scheme
 includes <code class="code">eval</code>, as well as a symbol <code class="code">user_initial_environment</code> that
-is bound to the initial environment in which the user&rsquo;s input expressions are
+is bound to the initial environment in which the user&#8217;s input expressions are
 evaluated.</p>
 <h5 class="footnote-body-heading"><a id="FOOT208" href="#DOCF208">(208)</a></h5>
 <p>Although we stipulated that <code class="code">halts?</code>
 is given a procedure object, notice that this reasoning still applies even if
-<code class="code">halts?</code> can gain access to the procedure&rsquo;s text and its environment.
-This is Turing&rsquo;s celebrated <a class="index-entry-id" id="index-Halting-Theorem"></a>
+<code class="code">halts?</code> can gain access to the procedure&#8217;s text and its environment.
+This is Turing&#8217;s celebrated <a class="index-entry-id" id="index-Halting-Theorem"></a>
 <em class="dfn">Halting Theorem</em>, which gave the first
 clear example of a <a class="index-entry-id" id="index-non_002dcomputable"></a>
 <em class="dfn">non-computable</em> problem, i.e., a well-posed task
 that cannot be carried out as a computational procedure.</p>
 <h5 class="footnote-body-heading"><a id="FOOT209" href="#DOCF209">(209)</a></h5>
 <p>Wanting programs
-to not depend on this evaluation mechanism is the reason for the &ldquo;management
-is not responsible&rdquo; remark in <a class="ref" href="1_002e1.xhtml#Footnote-28">Footnote 28</a> of <a class="ref" href="Chapter-1.xhtml">Building Abstractions with Procedures</a>.  By
+to not depend on this evaluation mechanism is the reason for the &#8220;management
+is not responsible&#8221; remark in <a class="ref" href="1_002e1.xhtml#Footnote-28">Footnote 28</a> of <a class="ref" href="Chapter-1.xhtml">Building Abstractions with Procedures</a>.  By
 insisting that internal definitions come first and do not use each other while
 the definitions are being evaluated, the <abbr class="abbr">IEEE</abbr> standard for Scheme
 leaves implementors some choice in the mechanism used to evaluate these
 definitions.  The choice of one evaluation rule rather than another here may
-seem like a small issue, affecting only the interpretation of &ldquo;badly formed&rdquo;
+seem like a small issue, affecting only the interpretation of &#8220;badly formed&#8221;
 programs.  However, we will see in <a class="ref" href="5_002e5.xhtml#g_t5_002e5_002e6">Lexical Addressing</a> that moving to a model
 of simultaneous scoping for internal definitions avoids some nasty difficulties
 that would otherwise arise in implementing a compiler.</p>
@@ -2697,17 +2698,17 @@ enforce it.</p>
 <h5 class="footnote-body-heading"><a id="FOOT211" href="#DOCF211">(211)</a></h5>
 <p>The <abbr class="abbr">MIT</abbr>
 implementors of Scheme support Alyssa on the following grounds: Eva is in
-principle correct&mdash;the definitions should be regarded as simultaneous.  But
+principle correct&#8212;the definitions should be regarded as simultaneous.  But
 it seems difficult to implement a general, efficient mechanism that does what
 Eva requires.  In the absence of such a mechanism, it is better to generate an
-error in the difficult cases of simultaneous definitions (Alyssa&rsquo;s notion) than
+error in the difficult cases of simultaneous definitions (Alyssa&#8217;s notion) than
 to produce an incorrect answer (as Ben would have it).</p>
 <h5 class="footnote-body-heading"><a id="FOOT212" href="#DOCF212">(212)</a></h5>
 <p>This example illustrates a programming trick for
 formulating recursive procedures without using definition.  The most general
 trick of this sort is the <em class="math">Y</em> <a class="index-entry-id" id="index-operator"></a>
 <em class="dfn">operator</em>, which can be used to give a
-&ldquo;pure λ-calculus&rdquo; implementation of recursion.  (See <a class="ref" href="References.xhtml#Stoy-1977">Stoy 1977</a> for
+&#8220;pure λ-calculus&#8221; implementation of recursion.  (See <a class="ref" href="References.xhtml#Stoy-1977">Stoy 1977</a> for
 details on the λ-calculus, and <a class="ref" href="References.xhtml#Gabriel-1988">Gabriel 1988</a> for an exposition of the
 <em class="math">Y</em> operator in Scheme.)</p>
 <h5 class="footnote-body-heading"><a id="FOOT213" href="#DOCF213">(213)</a></h5>
@@ -2716,7 +2717,7 @@ technique is an integral part of the compilation process, which we shall
 discuss in <a class="ref" href="Chapter-5.xhtml">Computing with Register Machines</a>.  Jonathan Rees wrote a Scheme interpreter like this
 in about 1982 for the T project (<a class="ref" href="References.xhtml#Rees-and-Adams-1982">Rees and Adams 1982</a>).  Marc <a class="ref" href="References.xhtml#Feeley-_00281986_0029">Feeley (1986)</a> (see
 also <a class="ref" href="References.xhtml#Feeley-and-Lapalme-1987">Feeley and Lapalme 1987</a>) independently invented this technique in his
-master&rsquo;s thesis.</p>
+master&#8217;s thesis.</p>
 <h5 class="footnote-body-heading"><a id="FOOT214" href="#DOCF214">(214)</a></h5>
 <p>There is, however, an
 important part of the variable search that <em class="emph">can</em> be done as part of the
@@ -2728,10 +2729,10 @@ matches the variable.</p>
 <p>See <a class="ref" href="#Exercise-4_002e23">Exercise 4.23</a>
 for some insight into the processing of sequences.</p>
 </div>
-<hr>
+<hr />
 <div class="nav-panel">
 <p>
-Next: <a href="4_002e2.xhtml#g_t4_002e2" accesskey="n" rel="next">Variations on a Scheme &mdash; Lazy Evaluation</a>, Previous: <a href="Chapter-4.xhtml" accesskey="p" rel="prev">Metalinguistic Abstraction</a>, Up: <a href="Chapter-4.xhtml" accesskey="u" rel="up">Metalinguistic Abstraction</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
+Next: <a href="4_002e2.xhtml#g_t4_002e2" accesskey="n" rel="next">Variations on a Scheme &#8212; Lazy Evaluation</a>, Previous: <a href="Chapter-4.xhtml" accesskey="p" rel="prev">Metalinguistic Abstraction</a>, Up: <a href="Chapter-4.xhtml" accesskey="u" rel="up">Metalinguistic Abstraction</a> &#160; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

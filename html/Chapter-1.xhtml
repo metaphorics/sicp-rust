@@ -1,23 +1,24 @@
-<!DOCTYPE html>
-<html>
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Chapter 1 (Structure and Interpretation of Computer Programs, 2e)</title>
 
-<meta name="description" content="Chapter 1 (Structure and Interpretation of Computer Programs, 2e)">
-<meta name="keywords" content="Chapter 1 (Structure and Interpretation of Computer Programs, 2e)">
-<meta name="resource-type" content="document">
-<meta name="distribution" content="global">
-<meta name="Generator" content="texi2any">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Chapter 1 (Structure and Interpretation of Computer Programs, 2e)" />
+<meta name="keywords" content="Chapter 1 (Structure and Interpretation of Computer Programs, 2e)" />
+<meta name="resource-type" content="document" />
+<meta name="distribution" content="global" />
+<meta name="Generator" content="texi2any" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 
-<link href="index.xhtml" rel="start" title="Top">
-<link href="Term-Index.xhtml" rel="index" title="Term Index">
-<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="index.xhtml" rel="up" title="Top">
-<link href="1_002e1.xhtml#g_t1_002e1" rel="next" title="1.1">
-<link href="Acknowledgments.xhtml" rel="prev" title="Acknowledgments">
+<link href="index.xhtml" rel="start" title="Top" />
+<link href="Term-Index.xhtml" rel="index" title="Term Index" />
+<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents" />
+<link href="index.xhtml" rel="up" title="Top" />
+<link href="1_002e1.xhtml#g_t1_002e1" rel="next" title="1.1" />
+<link href="Acknowledgments.xhtml" rel="prev" title="Acknowledgments" />
 <style type="text/css">
 <!--
 a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
@@ -34,21 +35,21 @@ span:hover a.copiable-link {visibility: visible}
 <div class="chapter-level-extent" id="Chapter-1">
 <div class="nav-panel">
 <p>
-Next: <a href="1_002e1.xhtml#g_t1_002e1" accesskey="n" rel="next">The Elements of Programming</a>, Previous: <a href="Acknowledgments.xhtml" accesskey="p" rel="prev">Acknowledgments</a>, Up: <a href="index.xhtml" accesskey="u" rel="up">Top</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
+Next: <a href="1_002e1.xhtml#g_t1_002e1" accesskey="n" rel="next">The Elements of Programming</a>, Previous: <a href="Acknowledgments.xhtml" accesskey="p" rel="prev">Acknowledgments</a>, Up: <a href="index.xhtml" accesskey="u" rel="up">Top</a> &#160; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
 </div>
-<h2 class="chapter" id="Building-Abstractions-with-Procedures"><span>1 Building Abstractions with Procedures<a class="copiable-link" href="#Building-Abstractions-with-Procedures"> &para;</a></span></h2>
+<h2 class="chapter" id="Building-Abstractions-with-Procedures"><span>1 Building Abstractions with Procedures<a class="copiable-link" href="#Building-Abstractions-with-Procedures"> &#182;</a></span></h2>
 
 <blockquote class="quotation">
 <p>The acts of the mind, wherein it exerts its power over simple ideas, are
-chiefly these three: 1.&nbsp;Combining<!-- /@w --> several simple ideas into one compound one,
-and thus all complex ideas are made.  2.&nbsp;The&nbsp;second<!-- /@w --> is bringing two ideas,
+chiefly these three: 1.&#160;Combining<!-- /@w --> several simple ideas into one compound one,
+and thus all complex ideas are made.  2.&#160;The&#160;second<!-- /@w --> is bringing two ideas,
 whether simple or complex, together, and setting them by one another so as to
 take a view of them at once, without uniting them into one, by which it gets
-all its ideas of relations.  3.&nbsp;The&nbsp;third<!-- /@w --> is separating them from all other
+all its ideas of relations.  3.&#160;The&#160;third<!-- /@w --> is separating them from all other
 ideas that accompany them in their real existence: this is called abstraction,
 and thus all its general ideas are made.
 </p>
-<p>&mdash;John Locke, <cite class="cite">An Essay Concerning Human Understanding</cite> (1690)
+<p>&#8212;John Locke, <cite class="cite">An Essay Concerning Human Understanding</cite> (1690)
 </p></blockquote>
 
 
@@ -62,18 +63,18 @@ evolution of a process is directed by a pattern of rules called a
 <em class="dfn">program</em>.  People create programs to direct processes.  In effect, we
 conjure the spirits of the computer with our spells.
 </p>
-<p>A computational process is indeed much like a sorcerer&rsquo;s idea of a spirit.  It
+<p>A computational process is indeed much like a sorcerer&#8217;s idea of a spirit.  It
 cannot be seen or touched.  It is not composed of matter at all.  However, it
 is very real.  It can perform intellectual work.  It can answer questions.  It
 can affect the world by disbursing money at a bank or by controlling a robot
 arm in a factory.  The programs we use to conjure processes are like a
-sorcerer&rsquo;s spells.  They are carefully composed from symbolic expressions in
+sorcerer&#8217;s spells.  They are carefully composed from symbolic expressions in
 arcane and esoteric <a class="index-entry-id" id="index-programming-languages"></a>
 <em class="dfn">programming languages</em> that prescribe the tasks we
 want our processes to perform.
 </p>
 <p>A computational process, in a correctly working computer, executes programs
-precisely and accurately.  Thus, like the sorcerer&rsquo;s apprentice, novice
+precisely and accurately.  Thus, like the sorcerer&#8217;s apprentice, novice
 programmers must learn to understand and to anticipate the consequences of
 their conjuring.  Even small errors (usually called <a class="index-entry-id" id="index-bugs"></a>
 <em class="dfn">bugs</em> or
@@ -98,7 +99,7 @@ their programs.  Well-designed computational systems, like well-designed
 automobiles or nuclear reactors, are designed in a modular manner, so that the
 parts can be constructed, replaced, and debugged separately.
 </p>
-<h4 class="subsubheading" id="Programming-in-Rust"><span>Programming in Rust<a class="copiable-link" href="#Programming-in-Rust"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Programming-in-Rust"><span>Programming in Rust<a class="copiable-link" href="#Programming-in-Rust"> &#182;</a></span></h4>
 
 <p>We need an appropriate language for describing processes, and we will use for
 this purpose the programming language Rust.  Just as our everyday thoughts are
@@ -134,10 +135,10 @@ for understanding how computer systems actually work.
 </p>
 
 </div>
-<hr>
+<hr />
 <div class="nav-panel">
 <p>
-Next: <a href="1_002e1.xhtml#g_t1_002e1" accesskey="n" rel="next">The Elements of Programming</a>, Previous: <a href="Acknowledgments.xhtml" accesskey="p" rel="prev">Acknowledgments</a>, Up: <a href="index.xhtml" accesskey="u" rel="up">Top</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
+Next: <a href="1_002e1.xhtml#g_t1_002e1" accesskey="n" rel="next">The Elements of Programming</a>, Previous: <a href="Acknowledgments.xhtml" accesskey="p" rel="prev">Acknowledgments</a>, Up: <a href="index.xhtml" accesskey="u" rel="up">Top</a> &#160; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

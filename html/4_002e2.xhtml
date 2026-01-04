@@ -1,23 +1,24 @@
-<!DOCTYPE html>
-<html>
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>4.2 (Structure and Interpretation of Computer Programs, 2e)</title>
 
-<meta name="description" content="4.2 (Structure and Interpretation of Computer Programs, 2e)">
-<meta name="keywords" content="4.2 (Structure and Interpretation of Computer Programs, 2e)">
-<meta name="resource-type" content="document">
-<meta name="distribution" content="global">
-<meta name="Generator" content="texi2any">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="4.2 (Structure and Interpretation of Computer Programs, 2e)" />
+<meta name="keywords" content="4.2 (Structure and Interpretation of Computer Programs, 2e)" />
+<meta name="resource-type" content="document" />
+<meta name="distribution" content="global" />
+<meta name="Generator" content="texi2any" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 
-<link href="index.xhtml" rel="start" title="Top">
-<link href="Term-Index.xhtml" rel="index" title="Term Index">
-<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="Chapter-4.xhtml" rel="up" title="Chapter 4">
-<link href="4_002e3.xhtml#g_t4_002e3" rel="next" title="4.3">
-<link href="4_002e1.xhtml#g_t4_002e1_002e8" rel="prev" title="4.1.8">
+<link href="index.xhtml" rel="start" title="Top" />
+<link href="Term-Index.xhtml" rel="index" title="Term Index" />
+<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents" />
+<link href="Chapter-4.xhtml" rel="up" title="Chapter 4" />
+<link href="4_002e3.xhtml#g_t4_002e3" rel="next" title="4.3" />
+<link href="4_002e1.xhtml#g_t4_002e1_002e8" rel="prev" title="4.1.8" />
 <style type="text/css">
 <!--
 a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
@@ -36,9 +37,9 @@ ul.mark-bullet {list-style-type: disc}
 <div class="section-level-extent" id="g_t4_002e2">
 <div class="nav-panel">
 <p>
-Next: <a href="4_002e3.xhtml#g_t4_002e3" accesskey="n" rel="next">Variations on a Scheme &mdash; Nondeterministic Computing</a>, Previous: <a href="4_002e1.xhtml#g_t4_002e1_002e8" accesskey="p" rel="prev">Declarative Macros: Code that Generates Code</a>, Up: <a href="Chapter-4.xhtml" accesskey="u" rel="up">Metalinguistic Abstraction</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
+Next: <a href="4_002e3.xhtml#g_t4_002e3" accesskey="n" rel="next">Variations on a Scheme &#8212; Nondeterministic Computing</a>, Previous: <a href="4_002e1.xhtml#g_t4_002e1_002e8" accesskey="p" rel="prev">Declarative Macros: Code that Generates Code</a>, Up: <a href="Chapter-4.xhtml" accesskey="u" rel="up">Metalinguistic Abstraction</a> &#160; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
 </div>
-<h3 class="section" id="Variations-on-a-Scheme-_002d_002d_002d-Lazy-Evaluation"><span>4.2 Variations on a Scheme &mdash; Lazy Evaluation<a class="copiable-link" href="#Variations-on-a-Scheme-_002d_002d_002d-Lazy-Evaluation"> &para;</a></span></h3>
+<h3 class="section" id="Variations-on-a-Scheme-_002d_002d_002d-Lazy-Evaluation"><span>4.2 Variations on a Scheme &#8212; Lazy Evaluation<a class="copiable-link" href="#Variations-on-a-Scheme-_002d_002d_002d-Lazy-Evaluation"> &#182;</a></span></h3>
 
 <p>Now that we have an evaluator expressed as a Lisp program, we can experiment
 with alternative choices in language design simply by modifying the evaluator.
@@ -58,9 +59,9 @@ explore some variations on Scheme that provide significant additional
 expressive power.
 </p>
 
-<hr>
+<hr />
 <div class="subsection-level-extent" id="g_t4_002e2_002e1">
-<h4 class="subsection" id="Normal-Order-and-Applicative-Order"><span>4.2.1 Normal Order and Applicative Order<a class="copiable-link" href="#Normal-Order-and-Applicative-Order"> &para;</a></span></h4>
+<h4 class="subsection" id="Normal-Order-and-Applicative-Order"><span>4.2.1 Normal Order and Applicative Order<a class="copiable-link" href="#Normal-Order-and-Applicative-Order"> &#182;</a></span></h4>
 
 <p>In <a class="ref" href="1_002e1.xhtml#g_t1_002e1">The Elements of Programming</a>, where we began our discussion of models of evaluation, we
 noted that Scheme is an <a class="index-entry-id" id="index-applicative_002dorder"></a>
@@ -123,7 +124,7 @@ unless_lazy(
 )
 </pre></div>
 
-<p>This won&rsquo;t work in an applicative-order language because both the usual value
+<p>This won&#8217;t work in an applicative-order language because both the usual value
 and the exceptional value will be evaluated before <code class="code">unless</code> is called
 (compare <a class="ref" href="1_002e1.xhtml#Exercise-1_002e6">Exercise 1.6</a>).  An advantage of lazy evaluation is that some
 procedures, such as <code class="code">unless</code>, can do useful computation even if evaluation
@@ -174,7 +175,7 @@ definitions work in a normal-order language?
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-4_002e26"></a>Exercise 4.26:</strong> Ben Bitdiddle and Alyssa
 P. Hacker disagree over the importance of lazy evaluation for implementing
-things such as <code class="code">unless</code>.  Ben points out that it&rsquo;s possible to implement
+things such as <code class="code">unless</code>.  Ben points out that it&#8217;s possible to implement
 <code class="code">unless</code> in applicative order as a special form.  Alyssa counters that, if
 one did that, <code class="code">unless</code> would be merely syntax, not a procedure that could
 be used in conjunction with higher-order procedures.  Fill in the details on
@@ -184,10 +185,10 @@ where it might be useful to have <code class="code">unless</code> available as a
 than as a special form.
 </p></blockquote>
 
-<hr>
+<hr />
 </div>
 <div class="subsection-level-extent" id="g_t4_002e2_002e2">
-<h4 class="subsection" id="An-Interpreter-with-Lazy-Evaluation"><span>4.2.2 An Interpreter with Lazy Evaluation<a class="copiable-link" href="#An-Interpreter-with-Lazy-Evaluation"> &para;</a></span></h4>
+<h4 class="subsection" id="An-Interpreter-with-Lazy-Evaluation"><span>4.2.2 An Interpreter with Lazy Evaluation<a class="copiable-link" href="#An-Interpreter-with-Lazy-Evaluation"> &#182;</a></span></h4>
 
 <p>In this section we will implement a normal-order language that is the same as
 Scheme except that compound procedures are non-strict in each argument.
@@ -216,11 +217,11 @@ available is whether or not to <a class="index-entry-id" id="index-memoize"></a>
 <em class="dfn">memoize</em> thunks, as we did with delayed
 objects in <a class="ref" href="3_002e5.xhtml#g_t3_002e5_002e1">Streams Are Delayed Lists</a>.  With memoization, the first time a thunk is
 forced, it stores the value that is computed.  Subsequent forcings simply
-return the stored value without repeating the computation.  We&rsquo;ll make our
+return the stored value without repeating the computation.  We&#8217;ll make our
 interpreter memoize, because this is more efficient for many applications.
 There are tricky considerations here, however.<a class="footnote" id="DOCF221" href="#FOOT221"><sup>221</sup></a>
 </p>
-<h4 class="subsubheading" id="Modifying-the-evaluator"><span>Modifying the evaluator<a class="copiable-link" href="#Modifying-the-evaluator"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Modifying-the-evaluator"><span>Modifying the evaluator<a class="copiable-link" href="#Modifying-the-evaluator"> &#182;</a></span></h4>
 
 <p>The main difference between the lazy evaluator and the one in <a class="ref" href="4_002e1.xhtml#g_t4_002e1">The Metacircular Evaluator</a>
 is in the handling of procedure applications in <code class="code">eval</code> and <code class="code">apply</code>.
@@ -252,7 +253,7 @@ its type (primitive versus compound) and apply it.
 }
 </pre></div>
 
-<p>instead of just <code class="code">eval</code>, so that if the expression&rsquo;s value is a thunk, it
+<p>instead of just <code class="code">eval</code>, so that if the expression&#8217;s value is a thunk, it
 will be forced.
 </p>
 <p>Our new version of <code class="code">apply</code> is also almost the same as the version in
@@ -381,7 +382,7 @@ driver_loop_lazy(&amp;mut global_env);
 // 1
 </pre></div>
 
-<h4 class="subsubheading" id="Representing-thunks"><span>Representing thunks<a class="copiable-link" href="#Representing-thunks"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Representing-thunks"><span>Representing thunks<a class="copiable-link" href="#Representing-thunks"> &#182;</a></span></h4>
 
 <p>Our evaluator must arrange to create thunks when procedures are applied to
 arguments and to force these thunks later.  A thunk must package an expression
@@ -531,7 +532,7 @@ count.get()
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-4_002e30"></a>Exercise 4.30:</strong> Cy D. Fect, a reformed C
 programmer, is worried that some side effects may never take place, because the
-lazy evaluator doesn&rsquo;t force the expressions in a sequence.  Since the value of
+lazy evaluator doesn&#8217;t force the expressions in a sequence.  Since the value of
 an expression in a sequence other than the last one is not used (the expression
 is there only for its effect, such as assigning to a variable or printing),
 there can be no subsequent use of this value (e.g., as an argument to a
@@ -588,7 +589,7 @@ for_each(
 <p>Explain why Ben is right about the behavior of <code class="code">for-each</code>.
 </p>
 </li><li> Cy agrees that Ben is right about the <code class="code">for-each</code> example, but says that
-that&rsquo;s not the kind of program he was thinking about when he proposed his
+that&#8217;s not the kind of program he was thinking about when he proposed his
 change to <code class="code">eval_sequence</code>.  He defines the following two procedures in the
 lazy evaluator:
 
@@ -607,14 +608,14 @@ fn p2(mut x: Vec&lt;i64&gt;) -&gt; Vec&lt;i64&gt; {
 </pre></div>
 
 <p>What are the values of <code class="code">(p1 1)</code> and <code class="code">(p2 1)</code> with the original
-<code class="code">eval_sequence</code>?  What would the values be with Cy&rsquo;s proposed change to
+<code class="code">eval_sequence</code>?  What would the values be with Cy&#8217;s proposed change to
 <code class="code">eval_sequence</code>?
 </p>
 </li><li> Cy also points out that changing <code class="code">eval_sequence</code> as he proposes does not
 affect the behavior of the example in part a.  Explain why this is true.
 
 </li><li> How do you think sequences ought to be treated in the lazy evaluator?  Do you
-like Cy&rsquo;s approach, the approach in the text, or some other approach?
+like Cy&#8217;s approach, the approach in the text, or some other approach?
 
 </li></ol>
 </blockquote>
@@ -627,7 +628,7 @@ Scheme.  It might be nicer to implement lazy evaluation as an
 <em class="dfn">upward-compatible extension</em>, that is, so that ordinary Scheme
 programs will work as before.  We can do this by extending the syntax of
 procedure declarations to let the user control whether or not arguments are to
-be delayed.  While we&rsquo;re at it, we may as well also give the user the choice
+be delayed.  While we&#8217;re at it, we may as well also give the user the choice
 between delaying with and without memoization.  For example, the definition
 </p>
 <div class="example">
@@ -656,14 +657,14 @@ to force or delay arguments accordingly, and you must arrange for forcing to
 memoize or not, as appropriate.
 </p></blockquote>
 
-<hr>
+<hr />
 </div>
 <div class="subsection-level-extent" id="g_t4_002e2_002e3">
-<h4 class="subsection" id="Streams-as-Lazy-Lists"><span>4.2.3 Streams as Lazy Lists<a class="copiable-link" href="#Streams-as-Lazy-Lists"> &para;</a></span></h4>
+<h4 class="subsection" id="Streams-as-Lazy-Lists"><span>4.2.3 Streams as Lazy Lists<a class="copiable-link" href="#Streams-as-Lazy-Lists"> &#182;</a></span></h4>
 
 <p>In <a class="ref" href="3_002e5.xhtml#g_t3_002e5_002e1">Streams Are Delayed Lists</a>, we showed how to implement streams as delayed lists.
 We introduced special forms <code class="code">delay</code> and <code class="code">cons-stream</code>, which allowed
-us to construct a &ldquo;promise&rdquo; to compute the <code class="code">cdr</code> of a stream, without
+us to construct a &#8220;promise&#8221; to compute the <code class="code">cdr</code> of a stream, without
 actually fulfilling that promise until later.  We could use this general
 technique of introducing special forms whenever we need more control over the
 evaluation process, but this is awkward.  For one thing, a special form is not
@@ -737,7 +738,7 @@ integers.clone().nth(17)
 The <code class="code">car</code> of the list, as well as the <code class="code">cdr</code>, is
 delayed.<a class="footnote" id="DOCF226" href="#FOOT226"><sup>226</sup></a>  In fact, even accessing the <code class="code">car</code> or
 <code class="code">cdr</code> of a lazy pair need not force the value of a list element.  The
-value will be forced only when it is really needed&mdash;e.g., for use as the
+value will be forced only when it is really needed&#8212;e.g., for use as the
 argument of a primitive, or to be printed as an answer.
 </p>
 <p>Lazy pairs also help with the problem that arose with streams in 
@@ -771,7 +772,7 @@ solve(|x| x, 1.0, 0.001).nth(1000)
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-4_002e32"></a>Exercise 4.32:</strong> Give some examples that
 illustrate the difference between the streams of <a class="ref" href="Chapter-3.xhtml">Modularity, Objects, and State</a> and the
-&ldquo;lazier&rdquo; lazy lists described in this section.  How can you take advantage of
+&#8220;lazier&#8221; lazy lists described in this section.  How can you take advantage of
 this extra laziness?
 </p></blockquote>
 
@@ -785,9 +786,9 @@ car(quote!(a b c))  // Error: quoted list is not a closure!
 </pre></div>
 
 <p>To his surprise, this produces an error.  After some thought, he realizes that
-the &ldquo;lists&rdquo; obtained by reading in quoted expressions are different from the
+the &#8220;lists&#8221; obtained by reading in quoted expressions are different from the
 lists manipulated by the new definitions of <code class="code">cons</code>, <code class="code">car</code>, and
-<code class="code">cdr</code>.  Modify the evaluator&rsquo;s treatment of quoted expressions so that
+<code class="code">cdr</code>.  Modify the evaluator&#8217;s treatment of quoted expressions so that
 quoted lists typed at the driver loop will produce true lazy lists.
 </p></blockquote>
 
@@ -798,10 +799,10 @@ evaluator so that lazy pairs and lists will print in some reasonable way.
 the representation of lazy pairs so that the evaluator can identify them in
 order to print them.
 </p></blockquote>
-<hr>
+<hr />
 </div>
 <div class="subsection-level-extent" id="g_t4_002e2_002e5a">
-<h4 class="subsection" id="Persistent-Data-Structures-and-Structural-Sharing"><span>4.2.4 Persistent Data Structures and Structural Sharing<a class="copiable-link" href="#Persistent-Data-Structures-and-Structural-Sharing"> &para;</a></span></h4>
+<h4 class="subsection" id="Persistent-Data-Structures-and-Structural-Sharing"><span>4.2.4 Persistent Data Structures and Structural Sharing<a class="copiable-link" href="#Persistent-Data-Structures-and-Structural-Sharing"> &#182;</a></span></h4>
 
 <a class="index-entry-id" id="index-persistent-data-structures"></a>
 <a class="index-entry-id" id="index-structural-sharing"></a>
@@ -809,7 +810,7 @@ order to print them.
 <a class="index-entry-id" id="index-functional-programming-1"></a>
 
 <p>Throughout this chapter, we have emphasized the power of functional programming
-and immutability. Our lazy lists (streams) never modify existing data&mdash;they
+and immutability. Our lazy lists (streams) never modify existing data&#8212;they
 create new structures that share parts of old ones. But what about more complex
 data structures like hash maps, sets, and vectors? Creating complete copies on
 every update would be prohibitively expensive.
@@ -821,7 +822,7 @@ avoid unnecessary copying. This gives us the benefits of immutability
 (<em class="emph">all</em> past versions remain accessible) with performance approaching
 mutable structures.
 </p>
-<h4 class="subsubheading" id="What-Does-_0060_0060Persistent_0027_0027-Mean_003f"><span>What Does &ldquo;Persistent&rdquo; Mean?<a class="copiable-link" href="#What-Does-_0060_0060Persistent_0027_0027-Mean_003f"> &para;</a></span></h4>
+<h4 class="subsubheading" id="What-Does-_0060_0060Persistent_0027_0027-Mean_003f"><span>What Does &#8220;Persistent&#8221; Mean?<a class="copiable-link" href="#What-Does-_0060_0060Persistent_0027_0027-Mean_003f"> &#182;</a></span></h4>
 
 <a class="index-entry-id" id="index-persistence-_0028data-structures_0029"></a>
 <a class="index-entry-id" id="index-ephemeral-structures"></a>
@@ -830,7 +831,7 @@ mutable structures.
 <p>In the context of data structures, <a class="index-entry-id" id="index-persistence"></a>
 <em class="dfn">persistence</em> has nothing to do with
 saving data to disk. Instead, it means that all versions of a data structure
-remain available after modifications. When you &ldquo;update&rdquo; a persistent
+remain available after modifications. When you &#8220;update&#8221; a persistent
 structure, you get a <em class="emph">new</em> version, but the old version is still intact
 and usable.
 </p>
@@ -863,11 +864,11 @@ assert_eq!(map3.len(), 3);  // New version exists
 </pre></div>
 
 <p>The key insight is that <code class="code">map1</code>, <code class="code">map2</code>, and <code class="code">map3</code> <em class="emph">share</em>
-most of their internal structure. Creating <code class="code">map2</code> from <code class="code">map1</code> doesn&rsquo;t
-copy the entire map&mdash;it creates only the small amount of new structure needed
-to represent the change, while reusing most of <code class="code">map1</code>&rsquo;s data.
+most of their internal structure. Creating <code class="code">map2</code> from <code class="code">map1</code> doesn&#8217;t
+copy the entire map&#8212;it creates only the small amount of new structure needed
+to represent the change, while reusing most of <code class="code">map1</code>&#8217;s data.
 </p>
-<h4 class="subsubheading" id="Structural-Sharing"><span>Structural Sharing<a class="copiable-link" href="#Structural-Sharing"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Structural-Sharing"><span>Structural Sharing<a class="copiable-link" href="#Structural-Sharing"> &#182;</a></span></h4>
 
 <a class="index-entry-id" id="index-structural-sharing-1"></a>
 <a class="index-entry-id" id="index-memory-efficiency"></a>
@@ -953,7 +954,7 @@ impl&lt;T: Ord + Clone&gt; TreeNode&lt;T&gt; {
 <code class="code">self.left.clone()</code> and <code class="code">self.right.clone()</code> are O(1) operations
 that share the existing subtrees.
 </p>
-<h4 class="subsubheading" id="The-im-Crate"><span>The <code class="code">im</code> Crate<a class="copiable-link" href="#The-im-Crate"> &para;</a></span></h4>
+<h4 class="subsubheading" id="The-im-Crate"><span>The <code class="code">im</code> Crate<a class="copiable-link" href="#The-im-Crate"> &#182;</a></span></h4>
 
 <a class="index-entry-id" id="index-im-crate"></a>
 <a class="index-entry-id" id="index-persistent-collections"></a>
@@ -964,19 +965,19 @@ The <code class="code">im</code> crate (<a class="url" href="https://docs.rs/im/
 implementations of common persistent collections:
 </p>
 <ul class="itemize mark-bullet">
-<li><code class="code">im::Vector&lt;T&gt;</code> &mdash; Persistent vector (similar to <code class="code">Vec&lt;T&gt;</code>)
+<li><code class="code">im::Vector&lt;T&gt;</code> &#8212; Persistent vector (similar to <code class="code">Vec&lt;T&gt;</code>)
 
-</li><li><code class="code">im::HashMap&lt;K, V&gt;</code> &mdash; Persistent hash map
+</li><li><code class="code">im::HashMap&lt;K, V&gt;</code> &#8212; Persistent hash map
 
-</li><li><code class="code">im::HashSet&lt;T&gt;</code> &mdash; Persistent hash set
+</li><li><code class="code">im::HashSet&lt;T&gt;</code> &#8212; Persistent hash set
 
-</li><li><code class="code">im::OrdMap&lt;K, V&gt;</code> &mdash; Persistent ordered map (like <code class="code">BTreeMap</code>)
+</li><li><code class="code">im::OrdMap&lt;K, V&gt;</code> &#8212; Persistent ordered map (like <code class="code">BTreeMap</code>)
 
-</li><li><code class="code">im::OrdSet&lt;T&gt;</code> &mdash; Persistent ordered set
+</li><li><code class="code">im::OrdSet&lt;T&gt;</code> &#8212; Persistent ordered set
 
 </li></ul>
 
-<p>Let&rsquo;s explore these with examples:
+<p>Let&#8217;s explore these with examples:
 </p>
 <p><b class="b">Rust:</b>
 </p><div class="example">
@@ -1010,11 +1011,11 @@ assert_eq!(m2.get(&quot;age&quot;), Some(&amp;30));
 assert_eq!(m3.get(&quot;age&quot;), None);  // Branched before age was added
 </pre></div>
 
-<p>Notice how <code class="code">m2</code> and <code class="code">m3</code> branch from <code class="code">m1</code>&mdash;they share the
+<p>Notice how <code class="code">m2</code> and <code class="code">m3</code> branch from <code class="code">m1</code>&#8212;they share the
 structure from <code class="code">m0</code> and <code class="code">m1</code>, but diverge afterward. This is the
 essence of persistence.
 </p>
-<h4 class="subsubheading" id="Copy_002don_002dWrite-Semantics"><span>Copy-on-Write Semantics<a class="copiable-link" href="#Copy_002don_002dWrite-Semantics"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Copy_002don_002dWrite-Semantics"><span>Copy-on-Write Semantics<a class="copiable-link" href="#Copy_002don_002dWrite-Semantics"> &#182;</a></span></h4>
 
 <a class="index-entry-id" id="index-copy_002don_002dwrite"></a>
 <a class="index-entry-id" id="index-COW"></a>
@@ -1025,7 +1026,7 @@ essence of persistence.
 semantics. When you modify a structure, only the parts that actually change
 are copied; everything else is shared via references.
 </p>
-<p>This is particularly powerful when combined with Rust&rsquo;s ownership system.
+<p>This is particularly powerful when combined with Rust&#8217;s ownership system.
 Consider this pattern:
 </p>
 <p><b class="b">Rust:</b>
@@ -1047,11 +1048,11 @@ let v5 = process(v3);  // v3 moved, but v4 still shares, so copy occurs
 </pre></div>
 
 <p>The <code class="code">im</code> crate uses reference counting to detect when a structure is
-uniquely owned. If you&rsquo;re the only owner, it can safely mutate in place
+uniquely owned. If you&#8217;re the only owner, it can safely mutate in place
 (O(1) for many operations). If the structure is shared, it makes a copy
 of only the necessary parts.
 </p>
-<h4 class="subsubheading" id="Performance-Characteristics"><span>Performance Characteristics<a class="copiable-link" href="#Performance-Characteristics"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Performance-Characteristics"><span>Performance Characteristics<a class="copiable-link" href="#Performance-Characteristics"> &#182;</a></span></h4>
 
 <a class="index-entry-id" id="index-performance-_0028persistent-structures_0029"></a>
 <a class="index-entry-id" id="index-time-complexity"></a>
@@ -1074,7 +1075,7 @@ to their mutable counterparts:
 </p>
 <ul class="itemize mark-bullet">
 <li><b class="b">Mutable structures:</b> Fast updates (O(1)), but cloning is expensive (O(n))
-and all versions can&rsquo;t coexist
+and all versions can&#8217;t coexist
 
 </li><li><b class="b">Persistent structures:</b> Slower updates (O(log n)), but cloning is cheap
 (O(1)) and all versions remain available
@@ -1093,7 +1094,7 @@ Trie
 Trie</em> (<abbr class="abbr">HAMT</abbr>), which provides O(log n) operations with excellent cache
 locality and low constant factors.
 </p>
-<h4 class="subsubheading" id="When-to-Use-Persistent-vs-Mutable-Structures"><span>When to Use Persistent vs Mutable Structures<a class="copiable-link" href="#When-to-Use-Persistent-vs-Mutable-Structures"> &para;</a></span></h4>
+<h4 class="subsubheading" id="When-to-Use-Persistent-vs-Mutable-Structures"><span>When to Use Persistent vs Mutable Structures<a class="copiable-link" href="#When-to-Use-Persistent-vs-Mutable-Structures"> &#182;</a></span></h4>
 
 <a class="index-entry-id" id="index-design-decisions-1"></a>
 <a class="index-entry-id" id="index-trade_002doffs"></a>
@@ -1103,38 +1104,38 @@ locality and low constant factors.
 <ul class="itemize mark-bullet">
 <li>You need to maintain <em class="emph">version history</em> (undo/redo, time-travel debugging)
 
-</li><li>You&rsquo;re implementing <em class="emph">functional algorithms</em> (recursive tree traversal,
+</li><li>You&#8217;re implementing <em class="emph">functional algorithms</em> (recursive tree traversal,
 backtracking)
 
 </li><li>You need <em class="emph">cheap snapshots</em> (checkpointing, forking state)
 
-</li><li>You&rsquo;re building an <em class="emph">evaluator</em> or <em class="emph">interpreter</em> (environment frames
+</li><li>You&#8217;re building an <em class="emph">evaluator</em> or <em class="emph">interpreter</em> (environment frames
 that need to be extended without mutation)
 
-</li><li>You&rsquo;re working with <em class="emph">concurrent</em> or <em class="emph">parallel</em> code where sharing
+</li><li>You&#8217;re working with <em class="emph">concurrent</em> or <em class="emph">parallel</em> code where sharing
 immutable data is easier than locking mutable data
 
 </li><li>The structure is <em class="emph">small to medium</em> sized (&lt; 10,000 elements) where
-O(log n) vs O(1) doesn&rsquo;t dominate
+O(log n) vs O(1) doesn&#8217;t dominate
 
 </li></ul>
 
 <p>Choose mutable structures when:
 </p>
 <ul class="itemize mark-bullet">
-<li>You&rsquo;re doing <em class="emph">hot-path</em> operations where O(1) vs O(log n) matters
+<li>You&#8217;re doing <em class="emph">hot-path</em> operations where O(1) vs O(log n) matters
 
-</li><li>You&rsquo;re working with <em class="emph">large structures</em> (millions of elements)
+</li><li>You&#8217;re working with <em class="emph">large structures</em> (millions of elements)
 
 </li><li>You only need the <em class="emph">current version</em> (no history needed)
 
-</li><li>You&rsquo;re doing many <em class="emph">sequential updates</em> to the same structure
+</li><li>You&#8217;re doing many <em class="emph">sequential updates</em> to the same structure
 
 </li><li><em class="emph">Memory</em> is constrained (mutable structures have lower overhead)
 
 </li></ul>
 
-<h4 class="subsubheading" id="Connection-to-the-Metacircular-Evaluator"><span>Connection to the Metacircular Evaluator<a class="copiable-link" href="#Connection-to-the-Metacircular-Evaluator"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Connection-to-the-Metacircular-Evaluator"><span>Connection to the Metacircular Evaluator<a class="copiable-link" href="#Connection-to-the-Metacircular-Evaluator"> &#182;</a></span></h4>
 
 <a class="index-entry-id" id="index-metacircular-evaluator"></a>
 <a class="index-entry-id" id="index-environment-frames"></a>
@@ -1195,13 +1196,13 @@ impl Environment {
 shares all the old frames with the parent environment. This is exactly the
 kind of structural sharing we want for functional programming.
 </p>
-<h4 class="subsubheading" id="Immutability-and-Concurrency"><span>Immutability and Concurrency<a class="copiable-link" href="#Immutability-and-Concurrency"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Immutability-and-Concurrency"><span>Immutability and Concurrency<a class="copiable-link" href="#Immutability-and-Concurrency"> &#182;</a></span></h4>
 
 <a class="index-entry-id" id="index-concurrency"></a>
 <a class="index-entry-id" id="index-thread-safety-1"></a>
 <a class="index-entry-id" id="index-parallelism"></a>
 
-<p>Persistent data structures shine in concurrent contexts. Because they&rsquo;re
+<p>Persistent data structures shine in concurrent contexts. Because they&#8217;re
 immutable, they can be safely shared between threads without locks:
 </p>
 <p><b class="b">Rust:</b>
@@ -1237,12 +1238,12 @@ for handle in handles {
 its own modified version without affecting others. No locks, no data races,
 no coordination needed.
 </p>
-<h4 class="subsubheading" id="Advanced_003a-Implementing-a-Simple-Persistent-List"><span>Advanced: Implementing a Simple Persistent List<a class="copiable-link" href="#Advanced_003a-Implementing-a-Simple-Persistent-List"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Advanced_003a-Implementing-a-Simple-Persistent-List"><span>Advanced: Implementing a Simple Persistent List<a class="copiable-link" href="#Advanced_003a-Implementing-a-Simple-Persistent-List"> &#182;</a></span></h4>
 
 <a class="index-entry-id" id="index-persistent-list"></a>
 <a class="index-entry-id" id="index-structural-sharing-_0028example_0029"></a>
 
-<p>To understand how persistence works internally, let&rsquo;s implement a simple
+<p>To understand how persistence works internally, let&#8217;s implement a simple
 persistent singly-linked list using <code class="code">Arc</code>:
 </p>
 <p><b class="b">Rust:</b>
@@ -1299,7 +1300,7 @@ assert_eq!(list4.tail().head(), Some(&amp;1));  // Shared tail
 <p><code class="code">list3</code> and <code class="code">list4</code> share the node containing 1 (and everything
 after it). Only their first nodes differ. This is structural sharing in action.
 </p>
-<h4 class="subsubheading" id="Persistent-Vectors_003a-A-Deeper-Look"><span>Persistent Vectors: A Deeper Look<a class="copiable-link" href="#Persistent-Vectors_003a-A-Deeper-Look"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Persistent-Vectors_003a-A-Deeper-Look"><span>Persistent Vectors: A Deeper Look<a class="copiable-link" href="#Persistent-Vectors_003a-A-Deeper-Look"> &#182;</a></span></h4>
 
 <a class="index-entry-id" id="index-RRB_002dtrees-1"></a>
 <a class="index-entry-id" id="index-persistent-vectors"></a>
@@ -1330,15 +1331,15 @@ children. To access element 100:
 </li></ol>
 
 <p>When you update an element, only the nodes along the path from root to that
-element need to be copied&mdash;all other nodes are shared. For a million-element
+element need to be copied&#8212;all other nodes are shared. For a million-element
 vector, only about 4 nodes (one per level) are copied per update.
 </p>
-<h4 class="subsubheading" id="Comparison-with-Standard-Library"><span>Comparison with Standard Library<a class="copiable-link" href="#Comparison-with-Standard-Library"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Comparison-with-Standard-Library"><span>Comparison with Standard Library<a class="copiable-link" href="#Comparison-with-Standard-Library"> &#182;</a></span></h4>
 
 <a class="index-entry-id" id="index-std_003a_003acollections"></a>
 <a class="index-entry-id" id="index-performance-comparison"></a>
 
-<p>Here&rsquo;s a practical comparison of <code class="code">Vec</code> vs <code class="code">im::Vector</code>:
+<p>Here&#8217;s a practical comparison of <code class="code">Vec</code> vs <code class="code">im::Vector</code>:
 </p>
 <p><b class="b">Rust:</b>
 </p><div class="example">
@@ -1401,14 +1402,14 @@ How can you minimize the amount of new structure created?
 
 </li><li> Add a method <code class="code">size(&amp;self) -&gt; usize</code> that returns the number of elements.
 This should run in O(1) time, which means you need to store the size in each
-node. Explain why this doesn&rsquo;t violate structural sharing.
+node. Explain why this doesn&#8217;t violate structural sharing.
 
 </li></ol>
 </blockquote>
 
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-4_002e29a"></a>Exercise 4.29a:</strong> Compare persistent and mutable
-structures for implementing the metacircular evaluator&rsquo;s environment.
+structures for implementing the metacircular evaluator&#8217;s environment.
 </p>
 <ol class="enumerate" type="a" start="1">
 <li> Implement two versions of the environment: one using <code class="code">Vec&lt;HashMap&gt;</code>
@@ -1421,7 +1422,7 @@ total time and memory usage for both implementations.
 </li><li> Explain your results. In which scenarios would the persistent version be
 faster? In which scenarios would the mutable version be faster?
 
-</li><li> Modify the evaluator to support &ldquo;time travel&rdquo;&mdash;the ability to revert the
+</li><li> Modify the evaluator to support &#8220;time travel&#8221;&#8212;the ability to revert the
 environment to any previous state. This is trivial with persistent structures
 but requires significant work with mutable structures. Implement both and
 compare the complexity.
@@ -1433,38 +1434,38 @@ compare the complexity.
 </div>
 </div>
 <div class="footnotes-segment">
-<hr>
+<hr />
 <h4 class="footnotes-heading">Footnotes</h4>
 
 <h5 class="footnote-body-heading"><a id="FOOT216" href="#DOCF216">(216)</a></h5>
-<p>Snarf: &ldquo;To
+<p>Snarf: &#8220;To
 grab, especially a large document or file for the purpose of using it either
-with or without the owner&rsquo;s permission.&rdquo;  Snarf down: &ldquo;To snarf, sometimes
-with the connotation of absorbing, processing, or understanding.&rdquo;  (These
+with or without the owner&#8217;s permission.&#8221;  Snarf down: &#8220;To snarf, sometimes
+with the connotation of absorbing, processing, or understanding.&#8221;  (These
 definitions were snarfed from <a class="ref" href="References.xhtml#Steele-et-al_002e-1983">Steele et al. 1983</a>.  See also <a class="ref" href="References.xhtml#Raymond-1993">Raymond 1993</a>.)</p>
 <h5 class="footnote-body-heading"><a id="FOOT217" href="#DOCF217">(217)</a></h5>
 <p>The difference 
-between the &ldquo;lazy&rdquo; terminology and the
-&ldquo;normal-order&rdquo; terminology is somewhat fuzzy.  Generally, &ldquo;lazy&rdquo; refers to
-the mechanisms of particular evaluators, while &ldquo;normal-order&rdquo; refers to the
+between the &#8220;lazy&#8221; terminology and the
+&#8220;normal-order&#8221; terminology is somewhat fuzzy.  Generally, &#8220;lazy&#8221; refers to
+the mechanisms of particular evaluators, while &#8220;normal-order&#8221; refers to the
 semantics of languages, independent of any particular evaluation strategy.  But
 this is not a hard-and-fast distinction, and the two terminologies are often
 used interchangeably.</p>
 <h5 class="footnote-body-heading"><a id="FOOT218" href="#DOCF218">(218)</a></h5>
-<p>The &ldquo;strict&rdquo;
-versus &ldquo;non-strict&rdquo; terminology means essentially the same thing as
-&ldquo;applicative-order&rdquo; versus &ldquo;normal-order,&rdquo; except that it refers to
+<p>The &#8220;strict&#8221;
+versus &#8220;non-strict&#8221; terminology means essentially the same thing as
+&#8220;applicative-order&#8221; versus &#8220;normal-order,&#8221; except that it refers to
 individual procedures and arguments rather than to the language as a whole.  At
-a conference on programming languages you might hear someone say, &ldquo;The
+a conference on programming languages you might hear someone say, &#8220;The
 normal-order language Hassle has certain strict primitives.  Other procedures
-take their arguments by lazy evaluation.&rdquo;</p>
+take their arguments by lazy evaluation.&#8221;</p>
 <h5 class="footnote-body-heading"><a id="FOOT219" href="#DOCF219">(219)</a></h5>
 <p>The word <a class="index-entry-id" id="index-thunk"></a>
 <em class="dfn">thunk</em> was invented by an
 informal working group that was discussing the implementation of call-by-name
-in Algol 60.  They observed that most of the analysis of (&ldquo;thinking about&rdquo;)
+in Algol 60.  They observed that most of the analysis of (&#8220;thinking about&#8221;)
 the expression could be done at compile time; thus, at run time, the expression
-would already have been &ldquo;thunk&rdquo; about (<a class="ref" href="References.xhtml#Ingerman-et-al_002e-1960">Ingerman et al. 1960</a>).</p>
+would already have been &#8220;thunk&#8221; about (<a class="ref" href="References.xhtml#Ingerman-et-al_002e-1960">Ingerman et al. 1960</a>).</p>
 <h5 class="footnote-body-heading"><a id="FOOT220" href="#DOCF220">(220)</a></h5>
 <p>This is analogous to the use of <code class="code">force</code> on the
 delayed objects that were introduced in <a class="ref" href="Chapter-3.xhtml">Modularity, Objects, and State</a> to represent streams.
@@ -1486,7 +1487,7 @@ and <a class="ref" href="#Exercise-4_002e29">Exercise 4.29</a>.)  An excellent a
 attempts to clarify the multiple dimensions of confusion that arise here.</p>
 <h5 class="footnote-body-heading"><a id="FOOT222" href="#DOCF222">(222)</a></h5>
 <p>Notice that we also erase the <code class="code">env</code> from the thunk
-once the expression&rsquo;s value has been computed.  This makes no difference in the
+once the expression&#8217;s value has been computed.  This makes no difference in the
 values returned by the interpreter.  It does help save space, however, because
 removing the reference from the thunk to the <code class="code">env</code> once it is no longer
 needed allows this structure to be <a class="index-entry-id" id="index-garbage_002dcollected"></a>
@@ -1516,12 +1517,12 @@ primitives in the global environment, they will be redefined.  (Also see
 <h5 class="footnote-body-heading"><a id="FOOT226" href="#DOCF226">(226)</a></h5>
 <p>This permits us to create delayed versions of more general
 kinds of list structures, not just sequences.  <a class="ref" href="References.xhtml#Hughes-1990">Hughes 1990</a> discusses some
-applications of &ldquo;lazy trees.&rdquo;</p>
+applications of &#8220;lazy trees.&#8221;</p>
 </div>
-<hr>
+<hr />
 <div class="nav-panel">
 <p>
-Next: <a href="4_002e3.xhtml#g_t4_002e3" accesskey="n" rel="next">Variations on a Scheme &mdash; Nondeterministic Computing</a>, Previous: <a href="4_002e1.xhtml#g_t4_002e1_002e8" accesskey="p" rel="prev">Declarative Macros: Code that Generates Code</a>, Up: <a href="Chapter-4.xhtml" accesskey="u" rel="up">Metalinguistic Abstraction</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
+Next: <a href="4_002e3.xhtml#g_t4_002e3" accesskey="n" rel="next">Variations on a Scheme &#8212; Nondeterministic Computing</a>, Previous: <a href="4_002e1.xhtml#g_t4_002e1_002e8" accesskey="p" rel="prev">Declarative Macros: Code that Generates Code</a>, Up: <a href="Chapter-4.xhtml" accesskey="u" rel="up">Metalinguistic Abstraction</a> &#160; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

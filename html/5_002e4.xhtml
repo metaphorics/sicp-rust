@@ -1,23 +1,24 @@
-<!DOCTYPE html>
-<html>
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>5.4 (Structure and Interpretation of Computer Programs, 2e)</title>
 
-<meta name="description" content="5.4 (Structure and Interpretation of Computer Programs, 2e)">
-<meta name="keywords" content="5.4 (Structure and Interpretation of Computer Programs, 2e)">
-<meta name="resource-type" content="document">
-<meta name="distribution" content="global">
-<meta name="Generator" content="texi2any">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="5.4 (Structure and Interpretation of Computer Programs, 2e)" />
+<meta name="keywords" content="5.4 (Structure and Interpretation of Computer Programs, 2e)" />
+<meta name="resource-type" content="document" />
+<meta name="distribution" content="global" />
+<meta name="Generator" content="texi2any" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 
-<link href="index.xhtml" rel="start" title="Top">
-<link href="Term-Index.xhtml" rel="index" title="Term Index">
-<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="Chapter-5.xhtml" rel="up" title="Chapter 5">
-<link href="5_002e5.xhtml#g_t5_002e5" rel="next" title="5.5">
-<link href="5_002e3.xhtml#g_t5_002e3_002e3" rel="prev" title="5.3.3">
+<link href="index.xhtml" rel="start" title="Top" />
+<link href="Term-Index.xhtml" rel="index" title="Term Index" />
+<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents" />
+<link href="Chapter-5.xhtml" rel="up" title="Chapter 5" />
+<link href="5_002e5.xhtml#g_t5_002e5" rel="next" title="5.5" />
+<link href="5_002e3.xhtml#g_t5_002e3_002e3" rel="prev" title="5.3.3" />
 <style type="text/css">
 <!--
 a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
@@ -37,14 +38,14 @@ ul.mark-bullet {list-style-type: disc}
 <div class="section-level-extent" id="g_t5_002e4">
 <div class="nav-panel">
 <p>
-Next: <a href="5_002e5.xhtml#g_t5_002e5" accesskey="n" rel="next">Compilation</a>, Previous: <a href="5_002e3.xhtml#g_t5_002e3_002e3" accesskey="p" rel="prev">Ownership as Compile-Time Garbage Collection</a>, Up: <a href="Chapter-5.xhtml" accesskey="u" rel="up">Computing with Register Machines</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
+Next: <a href="5_002e5.xhtml#g_t5_002e5" accesskey="n" rel="next">Compilation</a>, Previous: <a href="5_002e3.xhtml#g_t5_002e3_002e3" accesskey="p" rel="prev">Ownership as Compile-Time Garbage Collection</a>, Up: <a href="Chapter-5.xhtml" accesskey="u" rel="up">Computing with Register Machines</a> &#160; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
 </div>
-<h3 class="section" id="The-Explicit_002dControl-Evaluator"><span>5.4 The Explicit-Control Evaluator<a class="copiable-link" href="#The-Explicit_002dControl-Evaluator"> &para;</a></span></h3>
+<h3 class="section" id="The-Explicit_002dControl-Evaluator"><span>5.4 The Explicit-Control Evaluator<a class="copiable-link" href="#The-Explicit_002dControl-Evaluator"> &#182;</a></span></h3>
 
 <p>In <a class="ref" href="5_002e1.xhtml#g_t5_002e1">Designing Register Machines</a> we saw how to transform simple Scheme programs into
 descriptions of register machines.  We will now perform this transformation on
 a more complex program, the metacircular evaluator of 
-<a class="ref" href="4_002e1.xhtml#g_t4_002e1_002e1">The Core of the Evaluator</a>&ndash;<a class="ref" href="4_002e1.xhtml#g_t4_002e1_002e4">Running the Evaluator as a Program</a>, which shows how the behavior of a Scheme interpreter
+<a class="ref" href="4_002e1.xhtml#g_t4_002e1_002e1">The Core of the Evaluator</a>&#8211;<a class="ref" href="4_002e1.xhtml#g_t4_002e1_002e4">Running the Evaluator as a Program</a>, which shows how the behavior of a Scheme interpreter
 can be described in terms of the procedures <code class="code">eval</code> and <code class="code">apply</code>. The
 <a class="index-entry-id" id="index-explicit_002dcontrol-evaluator"></a>
 <em class="dfn">explicit-control evaluator</em> that we develop in this section shows how
@@ -56,7 +57,7 @@ very similar to the native machine language of conventional computers.  The
 evaluator can be executed by the register-machine simulator of 
 <a class="ref" href="5_002e2.xhtml#g_t5_002e2">A Register-Machine Simulator</a>.
 </p>
-<h4 class="subsubheading" id="Registers-and-operations"><span>Registers and operations<a class="copiable-link" href="#Registers-and-operations"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Registers-and-operations"><span>Registers and operations<a class="copiable-link" href="#Registers-and-operations"> &#182;</a></span></h4>
 
 <p>In designing the explicit-control evaluator, we must specify the operations to
 be used in our register machine.  We described the metacircular evaluator in
@@ -86,9 +87,9 @@ on a <code class="code">current_label</code> enum variant. Each instruction or s
 instructions is implemented as a method on the <code class="code">EvaluatorMachine</code> struct.
 </p>
 
-<hr>
+<hr />
 <div class="subsection-level-extent" id="g_t5_002e4_002e1">
-<h4 class="subsection" id="The-Core-of-the-Explicit_002dControl-Evaluator"><span>5.4.1 The Core of the Explicit-Control Evaluator<a class="copiable-link" href="#The-Core-of-the-Explicit_002dControl-Evaluator"> &para;</a></span></h4>
+<h4 class="subsection" id="The-Core-of-the-Explicit_002dControl-Evaluator"><span>5.4.1 The Core of the Explicit-Control Evaluator<a class="copiable-link" href="#The-Core-of-the-Explicit_002dControl-Evaluator"> &#182;</a></span></h4>
 
 <p>The central element in the evaluator is the sequence of instructions beginning
 at <code class="code">eval_dispatch</code>.  This corresponds to the <code class="code">eval</code> procedure of the
@@ -137,7 +138,7 @@ implement this dispatch using a <code class="code">match</code> on a <code class
 }
 </pre></div>
 
-<h4 class="subsubheading" id="Evaluating-simple-expressions"><span>Evaluating simple expressions<a class="copiable-link" href="#Evaluating-simple-expressions"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Evaluating-simple-expressions"><span>Evaluating simple expressions<a class="copiable-link" href="#Evaluating-simple-expressions"> &#182;</a></span></h4>
 
 <p>Numbers and strings (which are self-evaluating), variables, quotations, and
 <code class="code">lambda</code> expressions have no subexpressions to be evaluated.  For these,
@@ -196,7 +197,7 @@ fn ev_lambda(&amp;mut self) -&gt; Result&lt;(), String&gt; {
 <p>Observe how <code class="code">ev_lambda</code> uses the <code class="code">params</code> and <code class="code">body</code> from the
 expression to construct a procedure object, capturing the current environment.
 </p>
-<h4 class="subsubheading" id="Evaluating-procedure-applications"><span>Evaluating procedure applications<a class="copiable-link" href="#Evaluating-procedure-applications"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Evaluating-procedure-applications"><span>Evaluating procedure applications<a class="copiable-link" href="#Evaluating-procedure-applications"> &#182;</a></span></h4>
 
 <p>A procedure application is specified by a combination containing an operator
 and operands.  The operator is a subexpression whose value is a procedure, and
@@ -330,7 +331,7 @@ ev_appl_accum_last_arg
 
 <p>The details of the argument-evaluation loop determine the order in which the
 interpreter evaluates the operands of a combination (e.g., left to right or
-right to left&mdash;see <a class="ref" href="3_002e1.xhtml#Exercise-3_002e8">Exercise 3.8</a>).  This order is not determined by the
+right to left&#8212;see <a class="ref" href="3_002e1.xhtml#Exercise-3_002e8">Exercise 3.8</a>).  This order is not determined by the
 metacircular evaluator, which inherits its control structure from the
 underlying Scheme in which it is implemented.<a class="footnote" id="DOCF284" href="#FOOT284"><sup>284</sup></a> Because
 the <code class="code">first-operand</code> selector (used in <code class="code">ev_appl_operand_loop</code> to
@@ -339,7 +340,7 @@ the <code class="code">rest-operands</code> selector is implemented as <code cla
 explicit-control evaluator will evaluate the operands of a combination in
 left-to-right order.
 </p>
-<h4 class="subsubheading" id="Procedure-application"><span>Procedure application<a class="copiable-link" href="#Procedure-application"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Procedure-application"><span>Procedure application<a class="copiable-link" href="#Procedure-application"> &#182;</a></span></h4>
 
 <p>The entry point <code class="code">apply_dispatch</code> corresponds to the <code class="code">apply</code> procedure
 of the metacircular evaluator.  By the time we get to <code class="code">apply_dispatch</code>,
@@ -388,7 +389,7 @@ we restore <code class="code">continue</code> and go to the designated entry poi
 </pre></div>
 
 <p>To apply a compound procedure, we proceed just as with the metacircular
-evaluator.  We construct a frame that binds the procedure&rsquo;s parameters to the
+evaluator.  We construct a frame that binds the procedure&#8217;s parameters to the
 arguments, use this frame to extend the environment carried by the procedure,
 and evaluate in this extended environment the sequence of expressions that
 forms the body of the procedure.  <code class="code">Ev-sequence</code>, described below in
@@ -419,13 +420,13 @@ the new environment is constructed from the environment carried by the
 procedure, together with the argument list and the corresponding list of
 variables to be bound.
 </p>
-<hr>
+<hr />
 </div>
 <div class="subsection-level-extent" id="g_t5_002e4_002e2">
-<h4 class="subsection" id="Sequence-Evaluation-and-Tail-Recursion"><span>5.4.2 Sequence Evaluation and Tail Recursion<a class="copiable-link" href="#Sequence-Evaluation-and-Tail-Recursion"> &para;</a></span></h4>
+<h4 class="subsection" id="Sequence-Evaluation-and-Tail-Recursion"><span>5.4.2 Sequence Evaluation and Tail Recursion<a class="copiable-link" href="#Sequence-Evaluation-and-Tail-Recursion"> &#182;</a></span></h4>
 
 <p>The portion of the explicit-control evaluator at <code class="code">ev_sequence</code> is
-analogous to the metacircular evaluator&rsquo;s <code class="code">eval_sequence</code> procedure.  It
+analogous to the metacircular evaluator&#8217;s <code class="code">eval_sequence</code> procedure.  It
 handles sequences of expressions in procedure bodies or in explicit
 <code class="code">begin</code> expressions.
 </p>
@@ -489,7 +490,7 @@ Restore(&quot;continue&quot;.into()),
 Goto(Label(&quot;eval-dispatch&quot;.into())),
 </pre></div>
 
-<h4 class="subsubheading" id="Tail-recursion"><span>Tail recursion<a class="copiable-link" href="#Tail-recursion"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Tail-recursion"><span>Tail recursion<a class="copiable-link" href="#Tail-recursion"> &#182;</a></span></h4>
 
 <p>In <a class="ref" href="Chapter-1.xhtml">Building Abstractions with Procedures</a> we said that the process described by a procedure such as
 </p>
@@ -520,14 +521,14 @@ the stack.
 <p>Our evaluator is tail-recursive, because in order to evaluate the final
 expression of a sequence we transfer directly to <code class="code">eval_dispatch</code> without
 saving any information on the stack.  Hence, evaluating the final expression in
-a sequence&mdash;even if it is a procedure call (as in <code class="code">sqrt-iter</code>, where the
+a sequence&#8212;even if it is a procedure call (as in <code class="code">sqrt-iter</code>, where the
 <code class="code">if</code> expression, which is the last expression in the procedure body,
-reduces to a call to <code class="code">sqrt-iter</code>)&mdash;will not cause any information to be
+reduces to a call to <code class="code">sqrt-iter</code>)&#8212;will not cause any information to be
 accumulated on the stack.<a class="footnote" id="DOCF286" href="#FOOT286"><sup>286</sup></a>
 </p>
 <p>If we did not think to take advantage of the fact that it was unnecessary to
 save information in this case, we might have implemented <code class="code">eval_sequence</code>
-by treating all the expressions in a sequence in the same way&mdash;saving the
+by treating all the expressions in a sequence in the same way&#8212;saving the
 registers, evaluating the expression, returning to restore the registers, and
 repeating this until all the expressions have been evaluated:<a class="footnote" id="DOCF287" href="#FOOT287"><sup>287</sup></a>
 </p>
@@ -574,10 +575,10 @@ infinite loop can be expressed using only the procedure-call mechanism:
 space, and expressing a true iteration would require some control mechanism
 other than procedure call.
 </p>
-<hr>
+<hr />
 </div>
 <div class="subsection-level-extent" id="g_t5_002e4_002e2a">
-<h4 class="subsection" id="SIMD-and-Auto_002dVectorization"><span>5.4.3 SIMD and Auto-Vectorization<a class="copiable-link" href="#SIMD-and-Auto_002dVectorization"> &para;</a></span></h4>
+<h4 class="subsection" id="SIMD-and-Auto_002dVectorization"><span>5.4.3 SIMD and Auto-Vectorization<a class="copiable-link" href="#SIMD-and-Auto_002dVectorization"> &#182;</a></span></h4>
 
 <a class="index-entry-id" id="index-SIMD"></a>
 <a class="index-entry-id" id="index-vectorization"></a>
@@ -595,13 +596,13 @@ loops, <abbr class="abbr">SIMD</abbr> transforms scalar loops into parallel oper
 multiple data elements simultaneously.
 </p>
 <p><abbr class="abbr">SIMD</abbr> represents a fundamental architectural feature of contemporary
-processors, from x86&rsquo;s <abbr class="abbr">AVX-512</abbr> to ARM&rsquo;s <abbr class="abbr">NEON</abbr> and RISC-V&rsquo;s vector
+processors, from x86&#8217;s <abbr class="abbr">AVX-512</abbr> to ARM&#8217;s <abbr class="abbr">NEON</abbr> and RISC-V&#8217;s vector
 extensions. Understanding <abbr class="abbr">SIMD</abbr> illuminates the gap between our abstract
 model of sequential computation and the reality of modern hardware, where
 parallelism exists at every level—from instruction-level to core-level
 parallelism.
 </p>
-<h4 class="subsubheading" id="What-Is-SIMD_003f"><span>What Is SIMD?<a class="copiable-link" href="#What-Is-SIMD_003f"> &para;</a></span></h4>
+<h4 class="subsubheading" id="What-Is-SIMD_003f"><span>What Is SIMD?<a class="copiable-link" href="#What-Is-SIMD_003f"> &#182;</a></span></h4>
 
 <a class="index-entry-id" id="index-vector-operations"></a>
 <a class="index-entry-id" id="index-parallel-arithmetic"></a>
@@ -632,12 +633,12 @@ fn add_scalar(a: &amp;[f32], b: &amp;[f32], result: &amp;mut [f32]) {
 vectors, 8× with 256-bit <abbr class="abbr">AVX2</abbr>, or 16× with 512-bit <abbr class="abbr">AVX-512</abbr>. This
 parallelism is <em class="emph">free</em>—a single instruction does the work of many.
 </p>
-<h4 class="subsubheading" id="Rust_0027s-portable_005fsimd"><span>Rust&rsquo;s portable_simd<a class="copiable-link" href="#Rust_0027s-portable_005fsimd"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Rust_0027s-portable_005fsimd"><span>Rust&#8217;s portable_simd<a class="copiable-link" href="#Rust_0027s-portable_005fsimd"> &#182;</a></span></h4>
 
 <a class="index-entry-id" id="index-portable_005fsimd"></a>
 <a class="index-entry-id" id="index-std_003a_003asimd"></a>
 <a class="index-entry-id" id="index-platform-independence"></a>
-<p>Rust&rsquo;s <code class="code">std::simd</code> module (formerly <code class="code">portable_simd</code>, stabilized in
+<p>Rust&#8217;s <code class="code">std::simd</code> module (formerly <code class="code">portable_simd</code>, stabilized in
 Edition 2024) provides platform-independent <abbr class="abbr">SIMD</abbr> programming. The
 compiler maps generic <abbr class="abbr">SIMD</abbr> operations to the best available instruction
 set on each target architecture.
@@ -689,7 +690,7 @@ this type compile to parallel <abbr class="abbr">SIMD</abbr> instructions. On x8
 <code class="code">va + vb</code> becomes a single <code class="code">vaddps</code> instruction operating on eight
 floats simultaneously.
 </p>
-<h4 class="subsubheading" id="SIMD-Types-and-Operations"><span>SIMD Types and Operations<a class="copiable-link" href="#SIMD-Types-and-Operations"> &para;</a></span></h4>
+<h4 class="subsubheading" id="SIMD-Types-and-Operations"><span>SIMD Types and Operations<a class="copiable-link" href="#SIMD-Types-and-Operations"> &#182;</a></span></h4>
 
 <a class="index-entry-id" id="index-SIMD-types"></a>
 <a class="index-entry-id" id="index-vector-width"></a>
@@ -732,13 +733,13 @@ let max: f32 = a.reduce_max();
 let all_positive = a.simd_gt(Simd::splat(0.0)).all();
 </pre></div>
 
-<h4 class="subsubheading" id="Auto_002dVectorization_003a-When-the-Compiler-Does-It-for-You"><span>Auto-Vectorization: When the Compiler Does It for You<a class="copiable-link" href="#Auto_002dVectorization_003a-When-the-Compiler-Does-It-for-You"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Auto_002dVectorization_003a-When-the-Compiler-Does-It-for-You"><span>Auto-Vectorization: When the Compiler Does It for You<a class="copiable-link" href="#Auto_002dVectorization_003a-When-the-Compiler-Does-It-for-You"> &#182;</a></span></h4>
 
 <a class="index-entry-id" id="index-auto_002dvectorization"></a>
 <a class="index-entry-id" id="index-compiler-optimization"></a>
 <a class="index-entry-id" id="index-LLVM"></a>
 <p>Explicit <abbr class="abbr">SIMD</abbr> provides full control, but modern compilers can often
-vectorize scalar code automatically. Rust&rsquo;s <abbr class="abbr">LLVM</abbr> backend includes
+vectorize scalar code automatically. Rust&#8217;s <abbr class="abbr">LLVM</abbr> backend includes
 sophisticated auto-vectorization passes that recognize vectorizable patterns.
 </p>
 <p>Consider this simple scalar code:
@@ -778,7 +779,7 @@ processes eight floats per iteration using <abbr class="abbr">AVX</abbr> instruc
 </li><li>Operations are <abbr class="abbr">SIMD</abbr>-friendly (arithmetic, logical, min/max)
 </li></ul>
 
-<h4 class="subsubheading" id="Writing-Vectorization_002dFriendly-Code"><span>Writing Vectorization-Friendly Code<a class="copiable-link" href="#Writing-Vectorization_002dFriendly-Code"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Writing-Vectorization_002dFriendly-Code"><span>Writing Vectorization-Friendly Code<a class="copiable-link" href="#Writing-Vectorization_002dFriendly-Code"> &#182;</a></span></h4>
 
 <a class="index-entry-id" id="index-vectorization-patterns"></a>
 <a class="index-entry-id" id="index-performance-optimization"></a>
@@ -848,7 +849,7 @@ pub fn apply(data: &amp;mut [f32]) {
 }
 </pre></div>
 
-<h4 class="subsubheading" id="Benchmarking-SIMD-Improvements"><span>Benchmarking SIMD Improvements<a class="copiable-link" href="#Benchmarking-SIMD-Improvements"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Benchmarking-SIMD-Improvements"><span>Benchmarking SIMD Improvements<a class="copiable-link" href="#Benchmarking-SIMD-Improvements"> &#182;</a></span></h4>
 
 <a class="index-entry-id" id="index-benchmarking-1"></a>
 <a class="index-entry-id" id="index-performance-measurement"></a>
@@ -912,12 +913,12 @@ dot_simd      time:   [1.045 µs 1.052 µs 1.061 µs]
                       ↑ 7.8× faster
 </pre></div>
 
-<h4 class="subsubheading" id="Connection-to-Sequence-Operations"><span>Connection to Sequence Operations<a class="copiable-link" href="#Connection-to-Sequence-Operations"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Connection-to-Sequence-Operations"><span>Connection to Sequence Operations<a class="copiable-link" href="#Connection-to-Sequence-Operations"> &#182;</a></span></h4>
 
 <a class="index-entry-id" id="index-sequence-processing"></a>
 <a class="index-entry-id" id="index-functional-programming-2"></a>
 <a class="index-entry-id" id="index-iterator-combinators"></a>
-<p>The iterator combinators we&rsquo;ve used throughout this book (<code class="code">map</code>,
+<p>The iterator combinators we&#8217;ve used throughout this book (<code class="code">map</code>,
 <code class="code">filter</code>, <code class="code">fold</code>) compose beautifully with <abbr class="abbr">SIMD</abbr>. The key
 insight is that <abbr class="abbr">SIMD</abbr> is itself a form of sequence processing—operating
 on sequences of data in parallel.
@@ -958,9 +959,9 @@ simd_vec.reduce_sum()
 <p>The correspondence between sequential iterator operations and parallel
 <abbr class="abbr">SIMD</abbr> operations reveals a fundamental unity: both are ways of expressing
 bulk operations on sequences. <abbr class="abbr">SIMD</abbr> is the hardware embodiment of
-&ldquo;apply this operation to all elements&rdquo;—the essence of <code class="code">map</code>.
+&#8220;apply this operation to all elements&#8221;—the essence of <code class="code">map</code>.
 </p>
-<h4 class="subsubheading" id="SIMD-in-the-Real-World"><span>SIMD in the Real World<a class="copiable-link" href="#SIMD-in-the-Real-World"> &para;</a></span></h4>
+<h4 class="subsubheading" id="SIMD-in-the-Real-World"><span>SIMD in the Real World<a class="copiable-link" href="#SIMD-in-the-Real-World"> &#182;</a></span></h4>
 
 <a class="index-entry-id" id="index-applications"></a>
 <a class="index-entry-id" id="index-use-cases"></a>
@@ -980,7 +981,7 @@ data-parallel computation:
 processing) use <abbr class="abbr">SIMD</abbr> extensively under the hood, providing high-level
 abstractions backed by low-level optimization.
 </p>
-<h4 class="subsubheading" id="Limitations-and-Caveats-1"><span>Limitations and Caveats<a class="copiable-link" href="#Limitations-and-Caveats-1"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Limitations-and-Caveats-1"><span>Limitations and Caveats<a class="copiable-link" href="#Limitations-and-Caveats-1"> &#182;</a></span></h4>
 
 <a class="index-entry-id" id="index-SIMD-limitations"></a>
 <a class="index-entry-id" id="index-portability"></a>
@@ -1031,7 +1032,7 @@ scalar version using iterators, (2) an explicitly vectorized version using
 <code class="code">std::simd</code>, and (3) a version designed to trigger auto-vectorization.
 Benchmark all three with <code class="code">criterion</code> for vectors of length 1,000, 10,000,
 and 100,000. Use <code class="code">cargo asm</code> or <code class="code">cargo llvm-ir</code> to inspect the
-generated assembly. How does the compiler&rsquo;s auto-vectorized code compare to your
+generated assembly. How does the compiler&#8217;s auto-vectorized code compare to your
 explicit <abbr class="abbr">SIMD</abbr> implementation? What patterns in your code helped or
 hindered auto-vectorization?
 </p></blockquote>
@@ -1043,17 +1044,17 @@ complex iteration with early exit conditions. Implement a Mandelbrot set
 renderer using <abbr class="abbr">SIMD</abbr> to compute multiple pixels simultaneously. The
 challenge is handling the variable iteration count—different points escape at
 different times. Experiment with two strategies: (1) using <abbr class="abbr">SIMD</abbr> masks to
-&ldquo;turn off&rdquo; lanes that have escaped, continuing until all lanes finish, and (2)
+&#8220;turn off&#8221; lanes that have escaped, continuing until all lanes finish, and (2)
 processing points in batches sorted by their expected iteration count. Which
 approach is faster? How does the performance compare to a scalar implementation?
 What does this teach you about the interaction between control flow and data
 parallelism?
 </p></blockquote>
 
-<hr>
+<hr />
 </div>
 <div class="subsection-level-extent" id="g_t5_002e4_002e3">
-<h4 class="subsection" id="Conditionals_002c-Assignments_002c-and-Definitions"><span>5.4.4 Conditionals, Assignments, and Definitions<a class="copiable-link" href="#Conditionals_002c-Assignments_002c-and-Definitions"> &para;</a></span></h4>
+<h4 class="subsection" id="Conditionals_002c-Assignments_002c-and-Definitions"><span>5.4.4 Conditionals, Assignments, and Definitions<a class="copiable-link" href="#Conditionals_002c-Assignments_002c-and-Definitions"> &#182;</a></span></h4>
 
 <p>As with the metacircular evaluator, special forms are handled by selectively
 evaluating fragments of the expression.  For an <code class="code">if</code> expression, we must
@@ -1101,7 +1102,7 @@ Assign(&quot;exp&quot;.into(), Op(&quot;if-consequent&quot;.into(), vec![Reg(&qu
 Goto(Label(&quot;eval-dispatch&quot;.into())),
 </pre></div>
 
-<h4 class="subsubheading" id="Assignments-and-definitions-1"><span>Assignments and definitions<a class="copiable-link" href="#Assignments-and-definitions-1"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Assignments-and-definitions-1"><span>Assignments and definitions<a class="copiable-link" href="#Assignments-and-definitions-1"> &#182;</a></span></h4>
 
 <p>Assignments are handled by <code class="code">ev_assignment</code>, which is reached from
 <code class="code">eval_dispatch</code> with the assignment expression in <code class="code">exp</code>.  The code at
@@ -1168,7 +1169,7 @@ ev_definition_1
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-5_002e23"></a>Exercise 5.23:</strong> Extend the evaluator to handle
 derived expressions such as <code class="code">cond</code>, <code class="code">let</code>, and so on 
-(<a class="ref" href="4_002e1.xhtml#g_t4_002e1_002e2">Representing Expressions</a>).  You may &ldquo;cheat&rdquo; and assume that the syntax transformers such
+(<a class="ref" href="4_002e1.xhtml#g_t4_002e1_002e2">Representing Expressions</a>).  You may &#8220;cheat&#8221; and assume that the syntax transformers such
 as <code class="code">cond_to_if</code> are available as machine operations.<a class="footnote" id="DOCF288" href="#FOOT288"><sup>288</sup></a>
 </p></blockquote>
 
@@ -1182,13 +1183,13 @@ the actions of the clause.
 
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-5_002e25"></a>Exercise 5.25:</strong> Modify the evaluator so that it
-uses normal-order evaluation, based on the lazy evaluator of <a class="ref" href="4_002e2.xhtml#g_t4_002e2">Variations on a Scheme &mdash; Lazy Evaluation</a>.
+uses normal-order evaluation, based on the lazy evaluator of <a class="ref" href="4_002e2.xhtml#g_t4_002e2">Variations on a Scheme &#8212; Lazy Evaluation</a>.
 </p></blockquote>
 
-<hr>
+<hr />
 </div>
 <div class="subsection-level-extent" id="g_t5_002e4_002e4">
-<h4 class="subsection" id="Running-the-Evaluator"><span>5.4.5 Running the Evaluator<a class="copiable-link" href="#Running-the-Evaluator"> &para;</a></span></h4>
+<h4 class="subsection" id="Running-the-Evaluator"><span>5.4.5 Running the Evaluator<a class="copiable-link" href="#Running-the-Evaluator"> &#182;</a></span></h4>
 
 <p>With the implementation of the explicit-control evaluator we come to the end of
 a development, begun in <a class="ref" href="Chapter-1.xhtml">Building Abstractions with Procedures</a>, in which we have explored successively
@@ -1198,7 +1199,7 @@ environment model, which enabled us to deal with state and change.  In the
 metacircular evaluator of <a class="ref" href="Chapter-4.xhtml">Metalinguistic Abstraction</a>, we used Scheme itself as a language
 for making more explicit the environment structure constructed during
 evaluation of an expression.  Now, with register machines, we have taken a
-close look at the evaluator&rsquo;s mechanisms for storage management, argument
+close look at the evaluator&#8217;s mechanisms for storage management, argument
 passing, and control.  At each new level of description, we have had to raise
 issues and resolve ambiguities that were not apparent at the previous, less
 precise treatment of evaluation.  To understand the behavior of the
@@ -1208,7 +1209,7 @@ explicit-control evaluator, we can simulate it and monitor its performance.
 the <code class="code">driver_loop</code> procedure of <a class="ref" href="4_002e1.xhtml#g_t4_002e1_002e4">Running the Evaluator as a Program</a>.  The evaluator will
 repeatedly print a prompt, read an expression, evaluate the expression by going
 to <code class="code">eval_dispatch</code>, and print the result.  The following instructions form
-the beginning of the explicit-control evaluator&rsquo;s controller
+the beginning of the explicit-control evaluator&#8217;s controller
 sequence:<a class="footnote" id="DOCF289" href="#FOOT289"><sup>289</sup></a>
 </p>
 <div class="example lisp">
@@ -1227,8 +1228,8 @@ print_result
   (goto (label read_eval_print_loop))
 </pre></div>
 
-<p>When we encounter an error in a procedure (such as the &ldquo;unknown procedure type
-error&rdquo; indicated at <code class="code">apply_dispatch</code>), we print an error message and
+<p>When we encounter an error in a procedure (such as the &#8220;unknown procedure type
+error&#8221; indicated at <code class="code">apply_dispatch</code>), we print an error message and
 return to the driver loop.<a class="footnote" id="DOCF290" href="#FOOT290"><sup>290</sup></a>
 </p>
 <div class="example lisp">
@@ -1254,7 +1255,7 @@ the driver loop, since it might not be empty after an error (such as an
 undefined variable) interrupts an evaluation.<a class="footnote" id="DOCF291" href="#FOOT291"><sup>291</sup></a>
 </p>
 <p>If we combine all the code fragments presented in 
-<a class="ref" href="#g_t5_002e4_002e1">The Core of the Explicit-Control Evaluator</a>&ndash;<a class="ref" href="#g_t5_002e4_002e4">Running the Evaluator</a>, we can create an evaluator machine model that we can
+<a class="ref" href="#g_t5_002e4_002e1">The Core of the Explicit-Control Evaluator</a>&#8211;<a class="ref" href="#g_t5_002e4_002e4">Running the Evaluator</a>, we can create an evaluator machine model that we can
 run using the register-machine simulator of <a class="ref" href="5_002e2.xhtml#g_t5_002e2">A Register-Machine Simulator</a>.
 </p>
 <div class="example lisp">
@@ -1308,7 +1309,7 @@ simulation involved.  Our expressions are evaluated by the
 explicit-control-evaluator machine, which is being simulated by a Scheme
 program, which is itself being evaluated by the Scheme interpreter.
 </p>
-<h4 class="subsubheading" id="Monitoring-the-performance-of-the-evaluator"><span>Monitoring the performance of the evaluator<a class="copiable-link" href="#Monitoring-the-performance-of-the-evaluator"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Monitoring-the-performance-of-the-evaluator"><span>Monitoring the performance of the evaluator<a class="copiable-link" href="#Monitoring-the-performance-of-the-evaluator"> &#182;</a></span></h4>
 
 <p>Simulation can be a powerful tool to guide the implementation of evaluators.
 Simulations make it easy not only to explore variations of the register-machine
@@ -1317,7 +1318,7 @@ example, one important factor in performance is how efficiently the evaluator
 uses the stack.  We can observe the number of stack operations required to
 evaluate various expressions by defining the evaluator register machine with
 the version of the simulator that collects statistics on stack use 
-(<a class="ref" href="5_002e2.xhtml#g_t5_002e2_002e4">Monitoring Machine Performance</a>), and adding an instruction at the evaluator&rsquo;s <code class="code">print_result</code>
+(<a class="ref" href="5_002e2.xhtml#g_t5_002e2_002e4">Monitoring Machine Performance</a>), and adding an instruction at the evaluator&#8217;s <code class="code">print_result</code>
 entry point to print the statistics:
 </p>
 <div class="example lisp">
@@ -1451,7 +1452,7 @@ for <em class="math">{n \ge 2}</em>.  You should find that the number of pushes 
 well with the time used) grows exponentially with <em class="math">n</em>.  Hint: Let
 <em class="math">{S(n)}</em> be the number of pushes used in computing <em class="math">{\text{Fib}(n)}</em>.  You
 should be able to argue that there is a formula that expresses <em class="math">{S(n)}</em> in
-terms of <em class="math">{S(n - 1)}</em>, <em class="math">{S(n - 2)}</em>, and some fixed &ldquo;overhead&rdquo;
+terms of <em class="math">{S(n - 1)}</em>, <em class="math">{S(n - 2)}</em>, and some fixed &#8220;overhead&#8221;
 constant <em class="math">k</em> that is independent of <em class="math">n</em>.  Give the formula, and say what
 <em class="math">k</em> is.  Then show that <em class="math">{S(n)}</em> can be expressed as 
 <em class="math">{a\cdot\text{Fib}(n + 1) + b}</em> and give the values of <em class="math">a</em> and <em class="math">b</em>.
@@ -1461,7 +1462,7 @@ constant <em class="math">k</em> that is independent of <em class="math">n</em>.
 
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-5_002e30"></a>Exercise 5.30:</strong> Our evaluator currently catches
-and signals only two kinds of errors&mdash;unknown expression types and unknown
+and signals only two kinds of errors&#8212;unknown expression types and unknown
 procedure types.  Other errors will take us out of the evaluator
 read-eval-print loop.  When we run the evaluator using the register-machine
 simulator, these errors are caught by the underlying Scheme system.  This is
@@ -1498,7 +1499,7 @@ work.  This is a major project.
 </div>
 </div>
 <div class="footnotes-segment">
-<hr>
+<hr />
 <h4 class="footnotes-heading">Footnotes</h4>
 
 <h5 class="footnote-body-heading"><a id="FOOT283" href="#DOCF283">(283)</a></h5>
@@ -1524,7 +1525,7 @@ fixed set of registers.</p>
 <p>This implementation of tail recursion in
 <code class="code">ev_sequence</code> is one variety of a well-known optimization technique used
 by many compilers.  In compiling a procedure that ends with a procedure call,
-one can replace the call by a jump to the called procedure&rsquo;s entry point.
+one can replace the call by a jump to the called procedure&#8217;s entry point.
 Building this strategy into the interpreter, as we have done in this section,
 provides the optimization uniformly throughout the language.</p>
 <h5 class="footnote-body-heading"><a id="FOOT287" href="#DOCF287">(287)</a></h5>
@@ -1537,7 +1538,7 @@ define <code class="code">no-more-exps?</code> as follows:
 }
 </pre></div>
 <h5 class="footnote-body-heading"><a id="FOOT288" href="#DOCF288">(288)</a></h5>
-<p>This isn&rsquo;t
+<p>This isn&#8217;t
 really cheating.  In an actual implementation built from scratch, we would use
 our explicit-control evaluator to interpret a Scheme program that performs
 source-level transformations like <code class="code">cond_to_if</code> in a syntax phase that runs
@@ -1565,18 +1566,18 @@ the interpreter to handle, but these are not so simple.  See <a class="ref" href
 <h5 class="footnote-body-heading"><a id="FOOT291" href="#DOCF291">(291)</a></h5>
 <p>We could perform the
 stack initialization only after errors, but doing it in the driver loop will be
-convenient for monitoring the evaluator&rsquo;s performance, as described below.</p>
+convenient for monitoring the evaluator&#8217;s performance, as described below.</p>
 <h5 class="footnote-body-heading"><a id="FOOT292" href="#DOCF292">(292)</a></h5>
 <p>Regrettably, this is the normal state of affairs in
 conventional compiler-based language systems such as C.  In <abbr class="abbr">UNIX</abbr>(tm)
-the system &ldquo;dumps core,&rdquo; and in <abbr class="abbr">DOS</abbr>/Windows(tm) it becomes
+the system &#8220;dumps core,&#8221; and in <abbr class="abbr">DOS</abbr>/Windows(tm) it becomes
 catatonic.  The Macintosh(tm) displays a picture of an exploding bomb and
-offers you the opportunity to reboot the computer&mdash;if you&rsquo;re lucky.</p>
+offers you the opportunity to reboot the computer&#8212;if you&#8217;re lucky.</p>
 </div>
-<hr>
+<hr />
 <div class="nav-panel">
 <p>
-Next: <a href="5_002e5.xhtml#g_t5_002e5" accesskey="n" rel="next">Compilation</a>, Previous: <a href="5_002e3.xhtml#g_t5_002e3_002e3" accesskey="p" rel="prev">Ownership as Compile-Time Garbage Collection</a>, Up: <a href="Chapter-5.xhtml" accesskey="u" rel="up">Computing with Register Machines</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
+Next: <a href="5_002e5.xhtml#g_t5_002e5" accesskey="n" rel="next">Compilation</a>, Previous: <a href="5_002e3.xhtml#g_t5_002e3_002e3" accesskey="p" rel="prev">Ownership as Compile-Time Garbage Collection</a>, Up: <a href="Chapter-5.xhtml" accesskey="u" rel="up">Computing with Register Machines</a> &#160; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

@@ -1,23 +1,24 @@
-<!DOCTYPE html>
-<html>
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>3.3 (Structure and Interpretation of Computer Programs, 2e)</title>
 
-<meta name="description" content="3.3 (Structure and Interpretation of Computer Programs, 2e)">
-<meta name="keywords" content="3.3 (Structure and Interpretation of Computer Programs, 2e)">
-<meta name="resource-type" content="document">
-<meta name="distribution" content="global">
-<meta name="Generator" content="texi2any">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="3.3 (Structure and Interpretation of Computer Programs, 2e)" />
+<meta name="keywords" content="3.3 (Structure and Interpretation of Computer Programs, 2e)" />
+<meta name="resource-type" content="document" />
+<meta name="distribution" content="global" />
+<meta name="Generator" content="texi2any" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 
-<link href="index.xhtml" rel="start" title="Top">
-<link href="Term-Index.xhtml" rel="index" title="Term Index">
-<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="Chapter-3.xhtml" rel="up" title="Chapter 3">
-<link href="3_002e4.xhtml#g_t3_002e4" rel="next" title="3.4">
-<link href="3_002e2.xhtml#g_t3_002e2" rel="prev" title="3.2">
+<link href="index.xhtml" rel="start" title="Top" />
+<link href="Term-Index.xhtml" rel="index" title="Term Index" />
+<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents" />
+<link href="Chapter-3.xhtml" rel="up" title="Chapter 3" />
+<link href="3_002e4.xhtml#g_t3_002e4" rel="next" title="3.4" />
+<link href="3_002e2.xhtml#g_t3_002e2" rel="prev" title="3.2" />
 <style type="text/css">
 <!--
 a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
@@ -37,9 +38,9 @@ ul.mark-bullet {list-style-type: disc}
 <div class="section-level-extent" id="g_t3_002e3">
 <div class="nav-panel">
 <p>
-Next: <a href="3_002e4.xhtml#g_t3_002e4" accesskey="n" rel="next">Concurrency: Time Is of the Essence</a>, Previous: <a href="3_002e2.xhtml#g_t3_002e2" accesskey="p" rel="prev">The Environment Model of Evaluation</a>, Up: <a href="Chapter-3.xhtml" accesskey="u" rel="up">Modularity, Objects, and State</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
+Next: <a href="3_002e4.xhtml#g_t3_002e4" accesskey="n" rel="next">Concurrency: Time Is of the Essence</a>, Previous: <a href="3_002e2.xhtml#g_t3_002e2" accesskey="p" rel="prev">The Environment Model of Evaluation</a>, Up: <a href="Chapter-3.xhtml" accesskey="u" rel="up">Modularity, Objects, and State</a> &#160; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
 </div>
-<h3 class="section" id="Modeling-with-Mutable-Data"><span>3.3 Modeling with Mutable Data<a class="copiable-link" href="#Modeling-with-Mutable-Data"> &para;</a></span></h3>
+<h3 class="section" id="Modeling-with-Mutable-Data"><span>3.3 Modeling with Mutable Data<a class="copiable-link" href="#Modeling-with-Mutable-Data"> &#182;</a></span></h3>
 
 <p><a class="ref" href="Chapter-2.xhtml">Building Abstractions with Data</a> dealt with compound data as a means for constructing computational
 objects that have several parts, in order to model real-world objects that have
@@ -65,7 +66,7 @@ for representing bank accounts might admit an operation
 Data objects for which mutators are defined are known as <a class="index-entry-id" id="index-mutable-data-objects"></a>
 <em class="dfn">mutable data objects</em>.
 </p>
-<p>Chapter 2 introduced pairs as a general-purpose &ldquo;glue&rdquo; for synthesizing
+<p>Chapter 2 introduced pairs as a general-purpose &#8220;glue&#8221; for synthesizing
 compound data.  We begin this section by defining basic mutators for pairs, so
 that pairs can serve as building blocks for constructing mutable data objects.
 These mutators greatly enhance the representational power of pairs, enabling us
@@ -74,11 +75,11 @@ in <a class="ref" href="2_002e2.xhtml#g_t2_002e2">Hierarchical Data and the Clos
 complex systems are modeled as collections of objects with local state.
 </p>
 
-<hr>
+<hr />
 <div class="subsection-level-extent" id="g_t3_002e3_002e1">
-<h4 class="subsection" id="Mutable-List-Structure"><span>3.3.1 Mutable List Structure<a class="copiable-link" href="#Mutable-List-Structure"> &para;</a></span></h4>
+<h4 class="subsection" id="Mutable-List-Structure"><span>3.3.1 Mutable List Structure<a class="copiable-link" href="#Mutable-List-Structure"> &#182;</a></span></h4>
 
-<p>The basic operations on pairs&mdash;<code class="code">cons</code>, <code class="code">car</code>, and <code class="code">cdr</code>&mdash;can
+<p>The basic operations on pairs&#8212;<code class="code">cons</code>, <code class="code">car</code>, and <code class="code">cdr</code>&#8212;can
 be used to construct list structure and to select parts from list structure,
 but they are incapable of modifying list structure.  The same is true of the
 list operations we have used so far, such as <code class="code">append</code> and <code class="code">list</code>,
@@ -100,10 +101,10 @@ representing the list <code class="code">(a b)</code>, identified by the pointer
 replaced, are now detached from the original structure.<a class="footnote" id="DOCF138" href="#FOOT138"><sup>138</sup></a>
 </p>
 <div class="float">
-<a class="anchor" id="Figure-3_002e12"></a><img class="image" src="fig/chap3/Fig3.12b.std.svg" alt="fig/chap3/Fig3.12b">
+<a class="anchor" id="Figure-3_002e12"></a><img class="image" src="fig/chap3/Fig3.12b.std.svg" alt="fig/chap3/Fig3.12b" />
 <div class="caption"><p><strong class="strong">Figure 3.12:</strong> Lists <code class="code">x</code>: <code class="code">((a b) c d)</code> and <code class="code">y</code>: <code class="code">(e f)</code>.</p></div></div>
 <div class="float">
-<a class="anchor" id="Figure-3_002e13"></a><img class="image" src="fig/chap3/Fig3.13b.std.svg" alt="fig/chap3/Fig3.13b">
+<a class="anchor" id="Figure-3_002e13"></a><img class="image" src="fig/chap3/Fig3.13b.std.svg" alt="fig/chap3/Fig3.13b" />
 <div class="caption"><p><strong class="strong">Figure 3.13:</strong> Effect of <code class="code">x.set_car(y)</code> on the lists in <a class="ref" href="#Figure-3_002e12">Figure 3.12</a>.</p></div></div>
 <p>Compare <a class="ref" href="#Figure-3_002e13">Figure 3.13</a> with <a class="ref" href="#Figure-3_002e14">Figure 3.14</a>, which illustrates the result
 of executing <code class="code">let z = cons(y, x.cdr())</code> with <code class="code">x</code> and <code class="code">y</code>
@@ -112,7 +113,7 @@ bound to a new pair created by the <code class="code">cons</code> operation; the
 <code class="code">x</code> is bound is unchanged.
 </p>
 <div class="float">
-<a class="anchor" id="Figure-3_002e14"></a><img class="image" src="fig/chap3/Fig3.14b.std.svg" alt="fig/chap3/Fig3.14b">
+<a class="anchor" id="Figure-3_002e14"></a><img class="image" src="fig/chap3/Fig3.14b.std.svg" alt="fig/chap3/Fig3.14b" />
 <div class="caption"><p><strong class="strong">Figure 3.14:</strong> Effect of <code class="code">let z = cons(y, x.cdr())</code> on the lists in <a class="ref" href="#Figure-3_002e12">Figure 3.12</a>.</p></div></div>
 <p>The <code class="code">set_cdr</code> (or similar mutator) operation is similar to <code class="code">set_car</code> (or similar mutator).  The only
 difference is that the <code class="code">cdr</code> pointer of the pair, rather than the
@@ -123,7 +124,7 @@ f)</code>.  Also, the list <code class="code">(c d)</code>, which used to be the
 is now detached from the structure.
 </p>
 <div class="float">
-<a class="anchor" id="Figure-3_002e15"></a><img class="image" src="fig/chap3/Fig3.15b.std.svg" alt="fig/chap3/Fig3.15b">
+<a class="anchor" id="Figure-3_002e15"></a><img class="image" src="fig/chap3/Fig3.15b.std.svg" alt="fig/chap3/Fig3.15b" />
 <div class="caption"><p><strong class="strong">Figure 3.15:</strong> Effect of <code class="code">(set-cdr! x y)</code> on the lists in <a class="ref" href="#Figure-3_002e12">Figure 3.12</a>.</p></div></div>
 <p><code class="code">Cons</code> builds new list structure by creating new pairs, while
 <code class="code">set_car</code> (or similar mutator) and <code class="code">set_cdr</code> (or similar mutator) modify existing pairs.  Indeed, we could
@@ -270,7 +271,7 @@ fn reverse_in_place&lt;T&gt;(mut x: Option&lt;Box&lt;Node&lt;T&gt;&gt;&gt;) -&gt
 }
 </pre></div>
 
-<p><code class="code">Loop</code> uses the &ldquo;temporary&rdquo; variable <code class="code">temp</code> to hold the old value
+<p><code class="code">Loop</code> uses the &#8220;temporary&#8221; variable <code class="code">temp</code> to hold the old value
 of the <code class="code">cdr</code> of <code class="code">x</code>, since the <code class="code">set_cdr</code> (or similar mutator)  on the next line
 destroys the <code class="code">cdr</code>.  Explain what <code class="code">mystery</code> does in general.  Suppose
 <code class="code">v</code> is defined by <code class="code">let v = list(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;);</code>. Draw the
@@ -281,10 +282,10 @@ evaluating this expression.  What would be printed as the values of <code class=
 and <code class="code">w</code>?
 </p></blockquote>
 
-<h4 class="subsubheading" id="Sharing-and-identity"><span>Sharing and identity<a class="copiable-link" href="#Sharing-and-identity"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Sharing-and-identity"><span>Sharing and identity<a class="copiable-link" href="#Sharing-and-identity"> &#182;</a></span></h4>
 
-<p>We mentioned in <a class="ref" href="3_002e1.xhtml#g_t3_002e1_002e3">The Costs of Introducing Assignment</a> the theoretical issues of &ldquo;sameness&rdquo; and
-&ldquo;change&rdquo; raised by the introduction of assignment.  These issues arise in
+<p>We mentioned in <a class="ref" href="3_002e1.xhtml#g_t3_002e1_002e3">The Costs of Introducing Assignment</a> the theoretical issues of &#8220;sameness&#8221; and
+&#8220;change&#8221; raised by the introduction of assignment.  These issues arise in
 practice when individual pairs are <a class="index-entry-id" id="index-shared"></a>
 <em class="dfn">shared</em> among different data
 objects.  For example, consider the structure formed by
@@ -306,7 +307,7 @@ straightforward way in which <code class="code">cons</code> is implemented.  In 
 in which many individual pairs are shared by many different structures.
 </p>
 <div class="float">
-<a class="anchor" id="Figure-3_002e16"></a><img class="image" src="fig/chap3/Fig3.16b.std.svg" alt="fig/chap3/Fig3.16b">
+<a class="anchor" id="Figure-3_002e16"></a><img class="image" src="fig/chap3/Fig3.16b.std.svg" alt="fig/chap3/Fig3.16b" />
 <div class="caption"><p><strong class="strong">Figure 3.16:</strong> The list <code class="code">z1</code> formed by <code class="code">(cons x x)</code>.</p></div></div>
 <p>In contrast to <a class="ref" href="#Figure-3_002e16">Figure 3.16</a>, <a class="ref" href="#Figure-3_002e17">Figure 3.17</a> shows the structure created
 by
@@ -316,12 +317,12 @@ by
 </pre></div>
 
 <div class="float">
-<a class="anchor" id="Figure-3_002e17"></a><img class="image" src="fig/chap3/Fig3.17b.std.svg" alt="fig/chap3/Fig3.17b">
+<a class="anchor" id="Figure-3_002e17"></a><img class="image" src="fig/chap3/Fig3.17b.std.svg" alt="fig/chap3/Fig3.17b" />
 <div class="caption"><p><strong class="strong">Figure 3.17:</strong> The list <code class="code">z2</code> formed by <code class="code">(cons (list 'a 'b) (list 'a 'b))</code>.</p></div></div>
 <p>In this structure, the pairs in the two <code class="code">(a b)</code> lists are distinct,
 although the actual symbols are shared.<a class="footnote" id="DOCF140" href="#FOOT140"><sup>140</sup></a>
 </p>
-<p>When thought of as a list, <code class="code">z1</code> and <code class="code">z2</code> both represent &ldquo;the same&rdquo;
+<p>When thought of as a list, <code class="code">z1</code> and <code class="code">z2</code> both represent &#8220;the same&#8221;
 list, <code class="code">((a b) a b)</code>.  In general, sharing is completely undetectable if we
 operate on lists using only <code class="code">cons</code>, <code class="code">car</code>, and <code class="code">cdr</code>.  However,
 if we allow mutators on list structure, sharing becomes significant.  As an
@@ -336,7 +337,7 @@ fn set_to_wow(x: &amp;(Rc&lt;RefCell&lt;Vec&lt;&amp;str&gt;&gt;&gt;, Rc&lt;RefCe
 }
 </pre></div>
 
-<p>Even though <code class="code">z1</code> and <code class="code">z2</code> are &ldquo;the same&rdquo; structure, applying
+<p>Even though <code class="code">z1</code> and <code class="code">z2</code> are &#8220;the same&#8221; structure, applying
 <code class="code">set-to-wow!</code> to them yields different results.  With <code class="code">z1</code>, altering
 the <code class="code">car</code> also changes the <code class="code">cdr</code>, because in <code class="code">z1</code> the <code class="code">car</code>
 and the <code class="code">cdr</code> are the same pair.  With <code class="code">z2</code>, the <code class="code">car</code> and
@@ -380,10 +381,10 @@ explain the effect of <code class="code">set-to-wow!</code> on the structures <c
 
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-3_002e16"></a>Exercise 3.16:</strong> Ben Bitdiddle decides to write a
-procedure to count the number of pairs in any list structure.  &ldquo;It&rsquo;s easy,&rdquo;
-he reasons.  &ldquo;The number of pairs in any structure is the number in the
+procedure to count the number of pairs in any list structure.  &#8220;It&#8217;s easy,&#8221;
+he reasons.  &#8220;The number of pairs in any structure is the number in the
 <code class="code">car</code> plus the number in the <code class="code">cdr</code> plus one more to count the current
-pair.&rdquo;  So Ben writes the following procedure:
+pair.&#8221;  So Ben writes the following procedure:
 </p>
 <div class="example">
 <pre class="example-preformatted">// Naive count - doesn't handle sharing correctly
@@ -402,7 +403,7 @@ fn count_pairs&lt;T&gt;(x: &amp;Node&lt;T&gt;) -&gt; usize {
 
 <p>Show that this procedure is not correct.  In particular, draw box-and-pointer
 diagrams representing list structures made up of exactly three pairs for which
-Ben&rsquo;s procedure would return 3; return 4; return 7; never return at all.
+Ben&#8217;s procedure would return 3; return 4; return 7; never return at all.
 </p></blockquote>
 
 <blockquote class="quotation">
@@ -426,7 +427,7 @@ algorithm that takes only a constant amount of space.  (This requires a very
 clever idea.)
 </p></blockquote>
 
-<h4 class="subsubheading" id="Mutation-is-just-assignment"><span>Mutation is just assignment<a class="copiable-link" href="#Mutation-is-just-assignment"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Mutation-is-just-assignment"><span>Mutation is just assignment<a class="copiable-link" href="#Mutation-is-just-assignment"> &#182;</a></span></h4>
 
 <p>When we introduced compound data, we observed in <a class="ref" href="2_002e1.xhtml#g_t2_002e1_002e3">What Is Meant by Data?</a> that pairs
 can be represented purely in terms of procedures:
@@ -501,10 +502,10 @@ x.car()
 <a class="ref" href="3_002e2.xhtml#Exercise-3_002e11">Exercise 3.11</a>.)
 </p></blockquote>
 
-<hr>
+<hr />
 </div>
 <div class="subsection-level-extent" id="g_t3_002e3_002e2">
-<h4 class="subsection" id="Representing-Queues"><span>3.3.2 Representing Queues<a class="copiable-link" href="#Representing-Queues"> &para;</a></span></h4>
+<h4 class="subsection" id="Representing-Queues"><span>3.3.2 Representing Queues<a class="copiable-link" href="#Representing-Queues"> &#182;</a></span></h4>
 
 <p>The mutators <code class="code">set_car</code> (or similar mutator) and <code class="code">set_cdr</code> (or similar mutator) enable us to use pairs to
 construct data structures that cannot be built with <code class="code">cons</code>, <code class="code">car</code>,
@@ -525,7 +526,7 @@ called a <a class="index-entry-id" id="index-FIFO"></a>
 <em class="dfn">FIFO</em> (first in, first out) buffer.
 </p>
 <div class="float">
-<a class="anchor" id="Figure-3_002e18"></a><img class="image" src="fig/chap3/Fig3.18.std.svg" alt="fig/chap3/Fig3.18">
+<a class="anchor" id="Figure-3_002e18"></a><img class="image" src="fig/chap3/Fig3.18.std.svg" alt="fig/chap3/Fig3.18" />
 <div class="caption"><p><strong class="strong">Figure 3.18:</strong> Queue operations.</p></div></div>
 <p>In terms of data abstraction, we can regard a queue as defined by the following
 set of operations:
@@ -598,7 +599,7 @@ ordinary list. Since we would like the queue to be an identifiable object, we
 can wrap these in a struct. <a class="ref" href="#Figure-3_002e19">Figure 3.19</a> illustrates this representation.
 </p>
 <div class="float">
-<a class="anchor" id="Figure-3_002e19"></a><img class="image" src="fig/chap3/Fig3.19b.std.svg" alt="fig/chap3/Fig3.19b">
+<a class="anchor" id="Figure-3_002e19"></a><img class="image" src="fig/chap3/Fig3.19b.std.svg" alt="fig/chap3/Fig3.19b" />
 <div class="caption"><p><strong class="strong">Figure 3.19:</strong> Implementation of a queue as a list with front and rear pointers.</p></div></div>
 <p>To define the queue operations we use the following procedures, which enable us
 to select and to modify the front and rear pointers of a queue:
@@ -647,7 +648,7 @@ Otherwise, we modify the final pair in the queue to point to the new pair, and
 also set the rear pointer to the new pair.
 </p>
 <div class="float">
-<a class="anchor" id="Figure-3_002e20"></a><img class="image" src="fig/chap3/Fig3.20c.std.svg" alt="fig/chap3/Fig3.20c">
+<a class="anchor" id="Figure-3_002e20"></a><img class="image" src="fig/chap3/Fig3.20c.std.svg" alt="fig/chap3/Fig3.20c" />
 <div class="caption"><p><strong class="strong">Figure 3.20:</strong> Result of using <code class="code">q.push_back(&quot;d&quot;)</code> on the queue of <a class="ref" href="#Figure-3_002e19">Figure 3.19</a>.</p></div></div>
 <div class="example">
 <pre class="example-preformatted">fn push_back(&amp;mut self, item: T) {
@@ -667,7 +668,7 @@ found by following the <code class="code">cdr</code> pointer of the first item (
 </pre></div>
 
 <div class="float">
-<a class="anchor" id="Figure-3_002e21"></a><img class="image" src="fig/chap3/Fig3.21c.std.svg" alt="fig/chap3/Fig3.21c">
+<a class="anchor" id="Figure-3_002e21"></a><img class="image" src="fig/chap3/Fig3.21c.std.svg" alt="fig/chap3/Fig3.21c" />
 <div class="caption"><p><strong class="strong">Figure 3.21:</strong> Result of using <code class="code">q.pop_front()</code> on the queue of <a class="ref" href="#Figure-3_002e20">Figure 3.20</a>.</p></div></div>
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-3_002e21"></a>Exercise 3.21:</strong> Ben Bitdiddle decides to test the
@@ -690,15 +691,15 @@ q1.pop_front();
 // =&gt; Some(&quot;b&quot;), q1 = []
 </pre></div>
 
-<p>&ldquo;It&rsquo;s all wrong!&rdquo; he complains.  &ldquo;The interpreter&rsquo;s response shows that the
+<p>&#8220;It&#8217;s all wrong!&#8221; he complains.  &#8220;The interpreter&#8217;s response shows that the
 last item is inserted into the queue twice.  And when I delete both items, the
-second <code class="code">b</code> is still there, so the queue isn&rsquo;t empty, even though it&rsquo;s
-supposed to be.&rdquo;  Eva Lu Ator suggests that Ben has misunderstood what is
-happening.  &ldquo;It&rsquo;s not that the items are going into the queue twice,&rdquo; she
-explains.  &ldquo;It&rsquo;s just that the standard Lisp printer doesn&rsquo;t know how to make
+second <code class="code">b</code> is still there, so the queue isn&#8217;t empty, even though it&#8217;s
+supposed to be.&#8221;  Eva Lu Ator suggests that Ben has misunderstood what is
+happening.  &#8220;It&#8217;s not that the items are going into the queue twice,&#8221; she
+explains.  &#8220;It&#8217;s just that the standard Lisp printer doesn&#8217;t know how to make
 sense of the queue representation.  If you want to see the queue printed
-correctly, you&rsquo;ll have to define your own print procedure for queues.&rdquo; Explain
-what Eva Lu is talking about.  In particular, show why Ben&rsquo;s examples produce
+correctly, you&#8217;ll have to define your own print procedure for queues.&#8221; Explain
+what Eva Lu is talking about.  In particular, show why Ben&#8217;s examples produce
 the printed results that they do.  Define a procedure <code class="code">print-queue</code> that
 takes a queue as input and prints the sequence of items in the queue.
 </p></blockquote>
@@ -729,8 +730,8 @@ queue operations using this representation.
 
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-3_002e23"></a>Exercise 3.23:</strong> A <a class="index-entry-id" id="index-deque"></a>
-<em class="dfn">deque</em> (&ldquo;double-ended
-                                                                 queue&rdquo;) is a sequence in which items can be inserted and deleted at either the
+<em class="dfn">deque</em> (&#8220;double-ended
+                                                                 queue&#8221;) is a sequence in which items can be inserted and deleted at either the
 front or the rear.  Operations on deques are the constructor <code class="code">make-deque</code>,
 the predicate <code class="code">empty-deque?</code>, selectors <code class="code">front-deque</code> and
 <code class="code">rear-deque</code>, and mutators <code class="code">front-insert-deque!</code>,
@@ -740,10 +741,10 @@ implementations of the operations.<a class="footnote" id="DOCF144" href="#FOOT14
 All operations should be accomplished in <em class="math">{\Theta(1)}</em> steps.
 </p></blockquote>
 
-<hr>
+<hr />
 </div>
 <div class="subsection-level-extent" id="g_t3_002e3_002e3">
-<h4 class="subsection" id="Representing-Tables"><span>3.3.3 Representing Tables<a class="copiable-link" href="#Representing-Tables"> &para;</a></span></h4>
+<h4 class="subsection" id="Representing-Tables"><span>3.3.3 Representing Tables<a class="copiable-link" href="#Representing-Tables"> &#182;</a></span></h4>
 
 <p>When we studied various ways of representing sets in <a class="ref" href="Chapter-2.xhtml">Building Abstractions with Data</a>, we
 mentioned in <a class="ref" href="2_002e3.xhtml#g_t2_002e3_002e3">Example: Representing Sets</a> the task of maintaining a table of records
@@ -760,7 +761,7 @@ table using a hash table. However, to understand the structure of a table,
 we can also represent it as a list of records, where each record is
 a pair consisting of a key and the associated value.
 </p>
-<h4 class="subsubheading" id="One_002ddimensional-tables"><span>One-dimensional tables<a class="copiable-link" href="#One_002ddimensional-tables"> &para;</a></span></h4>
+<h4 class="subsubheading" id="One_002ddimensional-tables"><span>One-dimensional tables<a class="copiable-link" href="#One_002ddimensional-tables"> &#182;</a></span></h4>
 
 <p>In a one-dimensional table, each value is stored under a single key. In Rust,
 we can easily perform lookups and insertions using the <code class="code">HashMap</code>:
@@ -801,7 +802,7 @@ in <a class="ref" href="#Figure-3_002e22">Figure 3.22</a>.
 }
 </pre></div>
 
-<h4 class="subsubheading" id="Two_002ddimensional-tables"><span>Two-dimensional tables<a class="copiable-link" href="#Two_002ddimensional-tables"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Two_002ddimensional-tables"><span>Two-dimensional tables<a class="copiable-link" href="#Two_002ddimensional-tables"> &#182;</a></span></h4>
 
 <p>In a two-dimensional table, each value is indexed by two keys.  We can
 construct such a table as a one-dimensional table in which each key identifies
@@ -813,11 +814,11 @@ a subtable.  <a class="ref" href="#Figure-3_002e23">Figure 3.23</a> shows the bo
        *: 42
 </pre></div>
 
-<p>which has two subtables.  (The subtables don&rsquo;t need a special header symbol,
+<p>which has two subtables.  (The subtables don&#8217;t need a special header symbol,
 since the key that identifies the subtable serves this purpose.)
 </p>
 <div class="float">
-<a class="anchor" id="Figure-3_002e23"></a><img class="image" src="fig/chap3/Fig3.23b.std.svg" alt="fig/chap3/Fig3.23b">
+<a class="anchor" id="Figure-3_002e23"></a><img class="image" src="fig/chap3/Fig3.23b.std.svg" alt="fig/chap3/Fig3.23b" />
 <div class="caption"><p><strong class="strong">Figure 3.23:</strong> A two-dimensional table.</p></div></div>
 <p>When we look up an item, we use the first key to identify the correct subtable.
 Then we use the second key to identify the record within the subtable.
@@ -856,14 +857,14 @@ where
 }
 </pre></div>
 
-<h4 class="subsubheading" id="Creating-local-tables"><span>Creating local tables<a class="copiable-link" href="#Creating-local-tables"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Creating-local-tables"><span>Creating local tables<a class="copiable-link" href="#Creating-local-tables"> &#182;</a></span></h4>
 
 <p>The <code class="code">lookup</code> and <code class="code">insert</code> operations defined above take the table as
 an argument.  This enables us to use programs that access more than one table.
 Another way to deal with multiple tables is to have separate <code class="code">lookup</code> and
 <code class="code">insert</code> procedures for each table.  We can do this by representing a
 table procedurally, as an object that maintains an internal table as part of
-its local state.  When sent an appropriate message, this &ldquo;table object&rdquo;
+its local state.  When sent an appropriate message, this &#8220;table object&#8221;
 supplies the procedure with which to operate on the internal table.  Here is a
 generator for two-dimensional tables represented in this fashion:
 </p>
@@ -916,10 +917,10 @@ encapsulated within the object created by the call to <code class="code">Table::
 <p><strong class="strong"><a class="anchor" id="Exercise-3_002e24"></a>Exercise 3.24:</strong> In the table implementations
 above, the keys are tested for equality using <code class="code">equal?</code> (called by
 <code class="code">assoc</code>).  This is not always the appropriate test.  For instance, we
-might have a table with numeric keys in which we don&rsquo;t need an exact match to
-the number we&rsquo;re looking up, but only a number within some tolerance of it.
+might have a table with numeric keys in which we don&#8217;t need an exact match to
+the number we&#8217;re looking up, but only a number within some tolerance of it.
 Design a table constructor <code class="code">Table::new</code> that takes as an argument a
-<code class="code">same-key?</code> procedure that will be used to test &ldquo;equality&rdquo; of keys.
+<code class="code">same-key?</code> procedure that will be used to test &#8220;equality&#8221; of keys.
 <code class="code">Make-table</code> should return a <code class="code">dispatch</code> procedure that can be used to
 access appropriate <code class="code">lookup</code> and <code class="code">insert</code> procedures for a local
 table.
@@ -1039,10 +1040,10 @@ of steps proportional to <em class="math">n</em>.  Would the scheme still work i
 defined <code class="code">memo-fib</code> to be <code class="code">(memoize fib)</code>?
 </p></blockquote>
 
-<hr>
+<hr />
 </div>
 <div class="subsection-level-extent" id="g_t3_002e3_002e4">
-<h4 class="subsection" id="A-Simulator-for-Digital-Circuits"><span>3.3.4 A Simulator for Digital Circuits<a class="copiable-link" href="#A-Simulator-for-Digital-Circuits"> &para;</a></span></h4>
+<h4 class="subsection" id="A-Simulator-for-Digital-Circuits"><span>3.3.4 A Simulator for Digital Circuits<a class="copiable-link" href="#A-Simulator-for-Digital-Circuits"> &#182;</a></span></h4>
 
 <p>Designing complex digital systems, such as computers, is an important
 engineering activity.  Digital systems are constructed by interconnecting
@@ -1052,7 +1053,7 @@ proposed circuit designs is an important tool used by digital systems
 engineers.  In this section we design a system for performing digital logic
 simulations.  This system typifies a kind of program called an
 <a class="index-entry-id" id="index-event_002ddriven-simulation"></a>
-<em class="dfn">event-driven simulation</em>, in which actions (&ldquo;events&rdquo;) trigger
+<em class="dfn">event-driven simulation</em>, in which actions (&#8220;events&#8221;) trigger
 further events that happen at a later time, which in turn trigger more events,
 and so on.
 </p>
@@ -1088,7 +1089,7 @@ is, the output will become 1 if at least one of the input signals is 1;
 otherwise the output will become 0.
 </p>
 <div class="float">
-<a class="anchor" id="Figure-3_002e24"></a><img class="image" src="fig/chap3/Fig3.24a.std.svg" alt="fig/chap3/Fig3.24a">
+<a class="anchor" id="Figure-3_002e24"></a><img class="image" src="fig/chap3/Fig3.24a.std.svg" alt="fig/chap3/Fig3.24a" />
 <div class="caption"><p><strong class="strong">Figure 3.24:</strong> Primitive functions in the digital logic simulator.</p></div></div>
 <p>We can connect primitive functions together to construct more complex
 functions.  To accomplish this we wire the outputs of some function boxes to
@@ -1102,11 +1103,11 @@ of the delays involved, the outputs may be generated at different times.  Many
 of the difficulties in the design of digital circuits arise from this fact.
 </p>
 <div class="float">
-<a class="anchor" id="Figure-3_002e25"></a><img class="image" src="fig/chap3/Fig3.25c.std.svg" alt="fig/chap3/Fig3.25c">
+<a class="anchor" id="Figure-3_002e25"></a><img class="image" src="fig/chap3/Fig3.25c.std.svg" alt="fig/chap3/Fig3.25c" />
 <div class="caption"><p><strong class="strong">Figure 3.25:</strong> A half-adder circuit.</p></div></div>
 <p>We will now build a program for modeling the digital logic circuits we wish to
 study.  The program will construct computational objects modeling the wires,
-which will &ldquo;hold&rdquo; the signals.  Function boxes will be modeled by procedures
+which will &#8220;hold&#8221; the signals.  Function boxes will be modeled by procedures
 that enforce the correct relationships among the signals.
 </p>
 <p>One basic element of our simulation will be a procedure <code class="code">Wire::new</code>, which
@@ -1180,7 +1181,7 @@ and an or-gate.<a class="footnote" id="DOCF145" href="#FOOT145"><sup>145</sup></
 </pre></div>
 
 <div class="float">
-<a class="anchor" id="Figure-3_002e26"></a><img class="image" src="fig/chap3/Fig3.26.std.svg" alt="fig/chap3/Fig3.26">
+<a class="anchor" id="Figure-3_002e26"></a><img class="image" src="fig/chap3/Fig3.26.std.svg" alt="fig/chap3/Fig3.26" />
 <div class="caption"><p><strong class="strong">Figure 3.26:</strong> A full-adder circuit.</p></div></div>
 <p>Having defined <code class="code">full_adder</code> as a procedure, we can now use it as a
 building block for creating still more complex circuits.  (For example, see
@@ -1193,9 +1194,9 @@ primitive function boxes form the primitive elements of the language, that
 wiring boxes together provides a means of combination, and that specifying
 wiring patterns as procedures serves as a means of abstraction.
 </p>
-<h4 class="subsubheading" id="Primitive-function-boxes"><span>Primitive function boxes<a class="copiable-link" href="#Primitive-function-boxes"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Primitive-function-boxes"><span>Primitive function boxes<a class="copiable-link" href="#Primitive-function-boxes"> &#182;</a></span></h4>
 
-<p>The primitive function boxes implement the &ldquo;forces&rdquo; by which a change in the
+<p>The primitive function boxes implement the &#8220;forces&#8221; by which a change in the
 signal on one wire influences the signals on other wires.  To build function
 boxes, we use the following operations on wires:
 </p>
@@ -1291,15 +1292,15 @@ the delay time of the or-gate in terms of <code class="code">and-gate-delay</cod
 <a class="index-entry-id" id="index-ripple_002dcarry-adder"></a>
 <em class="dfn">ripple-carry adder</em> formed by stringing together <em class="math">n</em> full-adders.
 This is the simplest form of parallel adder for adding two <em class="math">n</em>-bit binary
-numbers.  The inputs <em class="math">A_1</em>, <em class="math">A_2</em>, <em class="math">A_3</em>, &hellip;, <em class="math">A_n</em> and 
+numbers.  The inputs <em class="math">A_1</em>, <em class="math">A_2</em>, <em class="math">A_3</em>, &#8230;, <em class="math">A_n</em> and 
 <em class="math">B_1</em>, <em class="math">B_2</em>, <em class="math">B_3</em>,
-&hellip;, <em class="math">B_n</em> are the two binary numbers to be added (each <em class="math">A_k</em> and
+&#8230;, <em class="math">B_n</em> are the two binary numbers to be added (each <em class="math">A_k</em> and
 <em class="math">B_k</em> is a 0 or a 1).  The circuit generates <em class="math">S_1</em>, <em class="math">S_2</em>, 
-<em class="math">S_3</em>, &hellip;, <em class="math">S_n</em>,
+<em class="math">S_3</em>, &#8230;, <em class="math">S_n</em>,
 the <em class="math">n</em> bits of the sum, and <em class="math">C</em>, the carry from the addition.  Write a
 procedure <code class="code">ripple-carry-adder</code> that generates this circuit.  The procedure
-should take as arguments three lists of <em class="math">n</em> wires each&mdash;the <em class="math">A_k</em>, the
-<em class="math">B_k</em>, and the <em class="math">S_k</em>&mdash;and also another wire <em class="math">C</em>.  The major drawback of the
+should take as arguments three lists of <em class="math">n</em> wires each&#8212;the <em class="math">A_k</em>, the
+<em class="math">B_k</em>, and the <em class="math">S_k</em>&#8212;and also another wire <em class="math">C</em>.  The major drawback of the
 ripple-carry adder is the need to wait for the carry signals to propagate.
 What is the delay needed to obtain the complete output from an <em class="math">n</em>-bit
 ripple-carry adder, expressed in terms of the delays for and-gates, or-gates,
@@ -1307,9 +1308,9 @@ and inverters?
 </p></blockquote>
 
 <div class="float">
-<a class="anchor" id="Figure-3_002e27"></a><img class="image" src="fig/chap3/Fig3.27b.std.svg" alt="fig/chap3/Fig3.27b">
+<a class="anchor" id="Figure-3_002e27"></a><img class="image" src="fig/chap3/Fig3.27b.std.svg" alt="fig/chap3/Fig3.27b" />
 <div class="caption"><p><strong class="strong">Figure 3.27:</strong> A ripple-carry adder for <em class="math">n</em>-bit numbers.</p></div></div>
-<h4 class="subsubheading" id="Representing-wires"><span>Representing wires<a class="copiable-link" href="#Representing-wires"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Representing-wires"><span>Representing wires<a class="copiable-link" href="#Representing-wires"> &#182;</a></span></h4>
 
 <p>A wire in our simulation will be a computational object with two local state
 variables: a <code class="code">signal-value</code> (initially taken to be 0) and a collection of
@@ -1405,7 +1406,7 @@ the other devices attached to the wire.  The wire communicates the change to
 its neighbors by calling the action procedures provided to it when the
 connections were established.
 </p>
-<h4 class="subsubheading" id="The-agenda"><span>The agenda<a class="copiable-link" href="#The-agenda"> &para;</a></span></h4>
+<h4 class="subsubheading" id="The-agenda"><span>The agenda<a class="copiable-link" href="#The-agenda"> &#182;</a></span></h4>
 
 <p>The only thing needed to complete the simulator is <code class="code">after-delay</code>.  The
 idea here is that we maintain a data structure, called an <a class="index-entry-id" id="index-agenda"></a>
@@ -1465,9 +1466,9 @@ agenda:
 }
 </pre></div>
 
-<h4 class="subsubheading" id="A-sample-simulation"><span>A sample simulation<a class="copiable-link" href="#A-sample-simulation"> &para;</a></span></h4>
+<h4 class="subsubheading" id="A-sample-simulation"><span>A sample simulation<a class="copiable-link" href="#A-sample-simulation"> &#182;</a></span></h4>
 
-<p>The following procedure, which places a &ldquo;probe&rdquo; on a wire, shows the
+<p>The following procedure, which places a &#8220;probe&#8221; on a wire, shows the
 simulator in action.  The probe tells the wire that, whenever its signal
 changes value, it should print the new signal value, together with the current
 time and a name that identifies the wire:
@@ -1542,7 +1543,7 @@ time 16.
 <code class="code">accept-action-procedure!</code> defined in <code class="code">Wire::new</code> specifies that when
 a new action procedure is added to a wire, the procedure is immediately run.
 Explain why this initialization is necessary.  In particular, trace through the
-half-adder example in the paragraphs above and say how the system&rsquo;s response
+half-adder example in the paragraphs above and say how the system&#8217;s response
 would differ if we had defined <code class="code">accept-action-procedure!</code> as
 </p>
 <div class="example">
@@ -1553,7 +1554,7 @@ would differ if we had defined <code class="code">accept-action-procedure!</code
 </pre></div>
 </blockquote>
 
-<h4 class="subsubheading" id="Implementing-the-agenda"><span>Implementing the agenda<a class="copiable-link" href="#Implementing-the-agenda"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Implementing-the-agenda"><span>Implementing the agenda<a class="copiable-link" href="#Implementing-the-agenda"> &#182;</a></span></h4>
 
 <p>Finally, we give details of the agenda data structure, which holds the
 procedures that are scheduled for future execution.
@@ -1688,16 +1689,16 @@ each time segment of the agenda are kept in a queue.  Thus, the procedures for
 each segment are called in the order in which they were added to the agenda
 (first in, first out).  Explain why this order must be used.  In particular,
 trace the behavior of an and-gate whose inputs change from 0, 1 to 1, 0 in the
-same segment and say how the behavior would differ if we stored a segment&rsquo;s
+same segment and say how the behavior would differ if we stored a segment&#8217;s
 procedures in an ordinary list, adding and removing procedures only at the
 front (last in, first out).
 </p></blockquote>
 
 
-<hr>
+<hr />
 </div>
 <div class="subsection-level-extent" id="g_t3_002e3_002e4a">
-<h4 class="subsection" id="Arena-Allocation-for-Graphs"><span>3.3.5 Arena Allocation for Graphs<a class="copiable-link" href="#Arena-Allocation-for-Graphs"> &para;</a></span></h4>
+<h4 class="subsection" id="Arena-Allocation-for-Graphs"><span>3.3.5 Arena Allocation for Graphs<a class="copiable-link" href="#Arena-Allocation-for-Graphs"> &#182;</a></span></h4>
 <a class="index-entry-id" id="index-arena-allocation"></a>
 <a class="index-entry-id" id="index-graph-structures"></a>
 <a class="index-entry-id" id="index-cyclic-references"></a>
@@ -1710,18 +1711,18 @@ cyclic references. A circuit naturally forms a graph where wires connect to
 multiple gates, and gates connect to multiple wires. In languages with garbage
 collection, we might use shared references freely. But in Rust, the borrow
 checker enforces that we cannot have multiple mutable references to the same
-data&mdash;precisely what a cyclic graph seems to require.
+data&#8212;precisely what a cyclic graph seems to require.
 </p>
 <p>The <a class="index-entry-id" id="index-arena-pattern"></a>
 <em class="dfn">arena pattern</em> provides an elegant solution: instead of using
 references, we store all nodes in a contiguous <code class="code">Vec</code> and refer to them by
-index. This trades Rust&rsquo;s compile-time safety guarantees for runtime index
+index. This trades Rust&#8217;s compile-time safety guarantees for runtime index
 bounds checking, but in return we get graph structures that are straightforward
 to build, efficient to traverse, and trivially thread-safe.
 </p>
-<h4 class="subsubheading" id="The-Problem_003a-Cycles-and-the-Borrow-Checker"><span>The Problem: Cycles and the Borrow Checker<a class="copiable-link" href="#The-Problem_003a-Cycles-and-the-Borrow-Checker"> &para;</a></span></h4>
+<h4 class="subsubheading" id="The-Problem_003a-Cycles-and-the-Borrow-Checker"><span>The Problem: Cycles and the Borrow Checker<a class="copiable-link" href="#The-Problem_003a-Cycles-and-the-Borrow-Checker"> &#182;</a></span></h4>
 
-<p>Let&rsquo;s consider a simple graph structure&mdash;a doubly-linked list where each node
+<p>Let&#8217;s consider a simple graph structure&#8212;a doubly-linked list where each node
 points to both its predecessor and successor:
 </p>
 <div class="example">
@@ -1734,7 +1735,7 @@ struct Node {
 </pre></div>
 
 <p>We immediately encounter problems. References need lifetime parameters, but what
-lifetime do we use? The nodes reference each other cyclically, so there&rsquo;s no
+lifetime do we use? The nodes reference each other cyclically, so there&#8217;s no
 clear ownership hierarchy.
 </p>
 <p>We might try using <code class="code">Rc&lt;RefCell&lt;Node&gt;&gt;</code> to get shared ownership with
@@ -1783,17 +1784,17 @@ variant).
 <code class="code">Rc</code> handles, the reference count never reaches zero. The memory leaks
 unless we manually break the cycle.
 
-</li><li> <strong class="strong">Not thread-safe:</strong> <code class="code">Rc</code> is not <code class="code">Send</code>, so this pattern doesn&rsquo;t
-work in concurrent code. Even <code class="code">Arc&lt;RefCell&lt;T&gt;&gt;</code> isn&rsquo;t safe because
-<code class="code">RefCell</code> isn&rsquo;t <code class="code">Sync</code>.
+</li><li> <strong class="strong">Not thread-safe:</strong> <code class="code">Rc</code> is not <code class="code">Send</code>, so this pattern doesn&#8217;t
+work in concurrent code. Even <code class="code">Arc&lt;RefCell&lt;T&gt;&gt;</code> isn&#8217;t safe because
+<code class="code">RefCell</code> isn&#8217;t <code class="code">Sync</code>.
 
 </li><li> <strong class="strong">Poor cache locality:</strong> Each node is separately allocated on the heap,
 scattering them across memory and destroying cache performance.
 </li></ol>
 
-<p>For the circuit simulator&mdash;and for graphs in general&mdash;we need a better approach.
+<p>For the circuit simulator&#8212;and for graphs in general&#8212;we need a better approach.
 </p>
-<h4 class="subsubheading" id="The-Arena-Pattern_003a-Contiguous-Storage-with-Index-References"><span>The Arena Pattern: Contiguous Storage with Index References<a class="copiable-link" href="#The-Arena-Pattern_003a-Contiguous-Storage-with-Index-References"> &para;</a></span></h4>
+<h4 class="subsubheading" id="The-Arena-Pattern_003a-Contiguous-Storage-with-Index-References"><span>The Arena Pattern: Contiguous Storage with Index References<a class="copiable-link" href="#The-Arena-Pattern_003a-Contiguous-Storage-with-Index-References"> &#182;</a></span></h4>
 
 <p>The arena pattern solves these problems with a simple insight: instead of using
 pointers or reference-counted handles, store all nodes in a <code class="code">Vec</code> and refer
@@ -1860,7 +1861,7 @@ locality dramatically. Traversing the graph means following indices into the
 same contiguous array.
 
 </li><li> <strong class="strong">No reference counting:</strong> Indices are just integers. Copying them is
-free, and there&rsquo;s no overhead tracking references.
+free, and there&#8217;s no overhead tracking references.
 
 </li><li> <strong class="strong">Trivially thread-safe:</strong> Indices are <code class="code">Copy</code>, <code class="code">Send</code>, and
 <code class="code">Sync</code>. The arena can be shared across threads with standard synchronization.
@@ -1872,13 +1873,13 @@ together, regardless of cycles.
 exactly when the arena is freed.
 </li></ol>
 
-<h4 class="subsubheading" id="Type_002dSafe-Indices-with-ArenaId_003cT_003e"><span>Type-Safe Indices with <code class="code">ArenaId&lt;T&gt;</code><a class="copiable-link" href="#Type_002dSafe-Indices-with-ArenaId_003cT_003e"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Type_002dSafe-Indices-with-ArenaId_003cT_003e"><span>Type-Safe Indices with <code class="code">ArenaId&lt;T&gt;</code><a class="copiable-link" href="#Type_002dSafe-Indices-with-ArenaId_003cT_003e"> &#182;</a></span></h4>
 
 <p>The basic arena pattern has one weakness: indices are just <code class="code">usize</code>, so we
 can accidentally use an index from the wrong arena or mix up indices for
 different node types. We can solve this with a <a class="index-entry-id" id="index-type_002dsafe-index"></a>
 <em class="dfn">type-safe index</em> using
-Rust&rsquo;s type system:
+Rust&#8217;s type system:
 </p>
 <div class="example">
 <pre class="example-preformatted"><a class="index-entry-id" id="index-type_002dsafe-indices"></a><a class="index-entry-id" id="index-PhantomData"></a>use std::marker::PhantomData;
@@ -1957,9 +1958,9 @@ impl&lt;T&gt; Arena&lt;T&gt; {
 }
 </pre></div>
 
-<h4 class="subsubheading" id="Implementing-the-Circuit-Simulator-with-Arenas"><span>Implementing the Circuit Simulator with Arenas<a class="copiable-link" href="#Implementing-the-Circuit-Simulator-with-Arenas"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Implementing-the-Circuit-Simulator-with-Arenas"><span>Implementing the Circuit Simulator with Arenas<a class="copiable-link" href="#Implementing-the-Circuit-Simulator-with-Arenas"> &#182;</a></span></h4>
 
-<p>Let&rsquo;s apply the arena pattern to our circuit simulator. Each wire and gate lives
+<p>Let&#8217;s apply the arena pattern to our circuit simulator. Each wire and gate lives
 in an arena, referenced by typed indices:
 </p>
 <div class="example">
@@ -2104,7 +2105,7 @@ struct Event {
 fighting the borrow checker. We can look up wires and gates by ID, modify them,
 and build complex interconnected structures without lifetime annotations.
 </p>
-<h4 class="subsubheading" id="When-Not-to-Use-Arenas"><span>When Not to Use Arenas<a class="copiable-link" href="#When-Not-to-Use-Arenas"> &para;</a></span></h4>
+<h4 class="subsubheading" id="When-Not-to-Use-Arenas"><span>When Not to Use Arenas<a class="copiable-link" href="#When-Not-to-Use-Arenas"> &#182;</a></span></h4>
 
 <p>The arena pattern is not a universal solution. It trades compile-time safety for
 runtime flexibility, which is appropriate in some contexts but not others:
@@ -2119,7 +2120,7 @@ runtime flexibility, which is appropriate in some contexts but not others:
 
 <p><strong class="strong">Avoid arenas when:</strong>
 </p><ul class="itemize mark-bullet">
-<li>The borrow checker&rsquo;s solution is straightforward (use references)
+<li>The borrow checker&#8217;s solution is straightforward (use references)
 </li><li>Nodes need individual lifetimes (use <code class="code">Box</code> or <code class="code">Rc</code>)
 </li><li>Type safety is critical and indices feel too loose
 </li><li>The overhead of <code class="code">Rc&lt;RefCell&lt;T&gt;&gt;</code> is acceptable
@@ -2129,7 +2130,7 @@ runtime flexibility, which is appropriate in some contexts but not others:
 checker, not a replacement for it. Use the borrow checker when possible; use
 arenas when the alternative would be fighting the borrow checker for hours.
 </p>
-<h4 class="subsubheading" id="The-sicp_002dcommon_003a_003aarena-Module"><span>The <code class="code">sicp-common::arena</code> Module<a class="copiable-link" href="#The-sicp_002dcommon_003a_003aarena-Module"> &para;</a></span></h4>
+<h4 class="subsubheading" id="The-sicp_002dcommon_003a_003aarena-Module"><span>The <code class="code">sicp-common::arena</code> Module<a class="copiable-link" href="#The-sicp_002dcommon_003a_003aarena-Module"> &#182;</a></span></h4>
 
 <p>The SICP Rust repository provides a production-ready arena implementation in the
 <code class="code">sicp-common</code> crate. The full implementation includes additional features:
@@ -2207,7 +2208,7 @@ false.
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-3_002e28b"></a>Exercise 3.28b:</strong> The circuit simulator uses
 <code class="code">Vec&lt;GateId&gt;</code> in the <code class="code">Wire</code> structure to track which gates need
-notification when a wire&rsquo;s signal changes. This requires cloning the vector
+notification when a wire&#8217;s signal changes. This requires cloning the vector
 before iterating (to avoid borrowing issues). Propose and implement an
 alternative design that avoids this allocation.
 </p>
@@ -2230,21 +2231,21 @@ for a production circuit simulator?
 
 <p>The arena pattern demonstrates a fundamental principle in systems programming:
 sometimes the right abstraction requires trading one kind of safety for another.
-The borrow checker&rsquo;s safety is unparalleled for tree-like structures with clear
+The borrow checker&#8217;s safety is unparalleled for tree-like structures with clear
 ownership hierarchies. But for graphs, where ownership is inherently shared and
 cyclic, indices into an arena provide a different kind of safety: bounds-checked
 array access, deterministic deallocation, and freedom from the lifetime puzzles
 that plague graph structures in Rust.
 </p>
-<p>By understanding both approaches&mdash;and knowing when to use each&mdash;we gain the
+<p>By understanding both approaches&#8212;and knowing when to use each&#8212;we gain the
 flexibility to build complex systems that are both safe and efficient, letting
 the type system help us where it can and stepping outside it judiciously when
 necessary.
 </p>
-<hr>
+<hr />
 </div>
 <div class="subsection-level-extent" id="g_t3_002e3_002e5">
-<h4 class="subsection" id="Propagation-of-Constraints"><span>3.3.6 Propagation of Constraints<a class="copiable-link" href="#Propagation-of-Constraints"> &para;</a></span></h4>
+<h4 class="subsection" id="Propagation-of-Constraints"><span>3.3.6 Propagation of Constraints<a class="copiable-link" href="#Propagation-of-Constraints"> &#182;</a></span></h4>
 
 <p>Computer programs are traditionally organized as one-directional computations,
 which perform operations on prespecified arguments to produce desired outputs.
@@ -2277,7 +2278,7 @@ express more complex relations.  We combine constraints by constructing
 <a class="index-entry-id" id="index-constraint-networks"></a>
 <em class="dfn">constraint networks</em>, in which constraints are joined by
 <a class="index-entry-id" id="index-connectors"></a>
-<em class="dfn">connectors</em>.  A connector is an object that &ldquo;holds&rdquo; a value that may
+<em class="dfn">connectors</em>.  A connector is an object that &#8220;holds&#8221; a value that may
 participate in one or more constraints.  For example, we know that the
 relationship between Fahrenheit and Celsius temperatures is
 \[ % :62:
@@ -2294,7 +2295,7 @@ the <em class="math">p</em> terminal of another multiplier box, whose <em class=
 constant 5 and whose <em class="math">{m1}</em> is connected to one of the terms in a sum.
 </p>
 <div class="float">
-<a class="anchor" id="Figure-3_002e28"></a><img class="image" src="fig/chap3/Fig3.28.std.svg" alt="fig/chap3/Fig3.28">
+<a class="anchor" id="Figure-3_002e28"></a><img class="image" src="fig/chap3/Fig3.28.std.svg" alt="fig/chap3/Fig3.28" />
 <div class="caption"><p><strong class="strong">Figure 3.28:</strong> The relation <em class="math">{9C = 5(F - 32)}</em> expressed as a constraint network.</p></div></div>
 <p>Computation by such a network proceeds as follows: When a connector is given a
 value (by the user or by a constraint box to which it is linked), it awakens
@@ -2311,7 +2312,7 @@ value (say 25), the leftmost multiplier will be awakened, and it will set <em cl
 to <em class="math">{25 \cdot 9 = 225}</em>.  Then <em class="math">u</em> awakens the second multiplier, which sets <em class="math">v</em> to
 45, and <em class="math">v</em> awakens the adder, which sets <em class="math">f</em> to 77.
 </p>
-<h4 class="subsubheading" id="Using-the-constraint-system"><span>Using the constraint system<a class="copiable-link" href="#Using-the-constraint-system"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Using-the-constraint-system"><span>Using the constraint system<a class="copiable-link" href="#Using-the-constraint-system"> &#182;</a></span></h4>
 
 <p>To use the constraint system to carry out the temperature computation outlined
 above, we first create two connectors, <code class="code">C</code> and <code class="code">F</code>, by calling the
@@ -2418,7 +2419,7 @@ very same network is being used to compute <code class="code">C</code> given <co
 compute <code class="code">F</code> given <code class="code">C</code>.  This nondirectionality of computation is the
 distinguishing feature of constraint-based systems.
 </p>
-<h4 class="subsubheading" id="Implementing-the-constraint-system"><span>Implementing the constraint system<a class="copiable-link" href="#Implementing-the-constraint-system"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Implementing-the-constraint-system"><span>Implementing the constraint system<a class="copiable-link" href="#Implementing-the-constraint-system"> &#182;</a></span></h4>
 
 <p>The constraint system is implemented via procedural objects with local state,
 in a manner very similar to the digital-circuit simulator of 
@@ -2431,7 +2432,7 @@ about agendas and logic delays.
 <ul class="itemize mark-bullet">
 <li><code class="code">(has-value? ⟨<var class="var">connector</var>⟩)</code> tells whether the connector has a value.
 
-</li><li><code class="code">(get-value ⟨<var class="var">connector</var>⟩)</code> returns the connector&rsquo;s current value.
+</li><li><code class="code">(get-value ⟨<var class="var">connector</var>⟩)</code> returns the connector&#8217;s current value.
 
 </li><li><code class="code">(set-value! ⟨<var class="var">connector</var>⟩ ⟨<var class="var">new-value</var>⟩ ⟨<var class="var">informant</var>⟩)</code>
 indicates that the informant is requesting the connector to set its value to
@@ -2492,7 +2493,7 @@ impl Constraint for Adder {
 
 <p><code class="code">Adder</code> connects the new adder to the designated connectors and returns it
 as its value.  The procedure <code class="code">me</code>, which represents the adder, acts as a
-dispatch to the local procedures.  The following &ldquo;syntax interfaces&rdquo; (see
+dispatch to the local procedures.  The following &#8220;syntax interfaces&#8221; (see
 <a class="ref" href="#Footnote-155">Footnote 155</a> in <a class="ref" href="#g_t3_002e3_002e4">A Simulator for Digital Circuits</a>) are used in conjunction with
 the dispatch:
 </p>
@@ -2506,7 +2507,7 @@ trait Constraint {
 // constraint.process_forget_value() directly.
 </pre></div>
 
-<p>The adder&rsquo;s local procedure <code class="code">process-new-value</code> is called when the adder
+<p>The adder&#8217;s local procedure <code class="code">process-new-value</code> is called when the adder
 is informed that one of its connectors has a value. The adder first checks to
 see if both <code class="code">a1</code> and <code class="code">a2</code> have values. If so, it tells <code class="code">sum</code> to
 set its value to the sum of the two addends.  The <code class="code">informant</code> argument to
@@ -2603,11 +2604,11 @@ impl Constraint for Probe {
 }
 </pre></div>
 
-<h4 class="subsubheading" id="Representing-connectors"><span>Representing connectors<a class="copiable-link" href="#Representing-connectors"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Representing-connectors"><span>Representing connectors<a class="copiable-link" href="#Representing-connectors"> &#182;</a></span></h4>
 
 <p>A connector is represented as a procedural object with local state variables
 <code class="code">value</code>, the current value of the connector; <code class="code">informant</code>, the object
-that set the connector&rsquo;s value; and <code class="code">constraints</code>, a list of the
+that set the connector&#8217;s value; and <code class="code">constraints</code>, a list of the
 constraints in which the connector participates.
 </p>
 <div class="example">
@@ -2663,8 +2664,8 @@ impl Connector {
 }
 </pre></div>
 
-<p>The connector&rsquo;s local procedure <code class="code">set-my-value</code> is called when there is a
-request to set the connector&rsquo;s value.  If the connector does not currently have
+<p>The connector&#8217;s local procedure <code class="code">set-my-value</code> is called when there is a
+request to set the connector&#8217;s value.  If the connector does not currently have
 a value, it will set its value and remember as <code class="code">informant</code> the constraint
 that requested the value to be set.<a class="footnote" id="DOCF151" href="#FOOT151"><sup>151</sup></a>  Then the connector will notify all of its participating
 constraints except the constraint that requested the value to be set.  This is
@@ -2694,7 +2695,7 @@ connector informs its associated constraints about the loss of the value.
 list of constraints if it is not already in that list.  Then, if the connector
 has a value, it informs the new constraint of this fact.
 </p>
-<p>The connector&rsquo;s procedure <code class="code">me</code> serves as a dispatch to the other internal
+<p>The connector&#8217;s procedure <code class="code">me</code> serves as a dispatch to the other internal
 procedures and also represents the connector as an object.  The following
 procedures provide a syntax interface for the dispatch:
 </p>
@@ -2748,7 +2749,7 @@ made from a multiplier:
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-3_002e35"></a>Exercise 3.35:</strong> Ben Bitdiddle tells Louis that
 one way to avoid the trouble in <a class="ref" href="#Exercise-3_002e34">Exercise 3.34</a> is to define a squarer as a
-new primitive constraint.  Fill in the missing portions in Ben&rsquo;s outline for a
+new primitive constraint.  Fill in the missing portions in Ben&#8217;s outline for a
 procedure to implement such a constraint:
 </p>
 <div class="example">
@@ -2789,7 +2790,7 @@ network.set_value(a, 10.0, Informant::User)?;
 </pre></div>
 
 <p>At some time during evaluation of the <code class="code">set-value!</code>, the following
-expression from the connector&rsquo;s local procedure is evaluated:
+expression from the connector&#8217;s local procedure is evaluated:
 </p>
 <div class="example">
 <pre class="example-preformatted">for_each_except(setter, inform_about_value, &amp;constraints);
@@ -2821,7 +2822,7 @@ let c = network.make_connector();
 let f = celsius_fahrenheit_converter(&amp;mut network, c);
 </pre></div>
 
-<p>Here <code class="code">c+</code>, <code class="code">c*</code>, etc. are the &ldquo;constraint&rdquo; versions of the
+<p>Here <code class="code">c+</code>, <code class="code">c*</code>, etc. are the &#8220;constraint&#8221; versions of the
 arithmetic operations.  For example, <code class="code">c+</code> takes two connectors as
 arguments and returns a connector that is related to these by an adder
 constraint:
@@ -2846,7 +2847,7 @@ converter example above.<a class="footnote" id="DOCF152" href="#FOOT152"><sup>15
 </div>
 </div>
 <div class="footnotes-segment">
-<hr>
+<hr />
 <h4 class="footnotes-heading">Footnotes</h4>
 
 <h5 class="footnote-body-heading"><a id="FOOT137" href="#DOCF137">(137)</a></h5>
@@ -2855,7 +2856,7 @@ converter example above.<a class="footnote" id="DOCF152" href="#FOOT152"><sup>15
 should be used only for their effect.</p>
 <h5 class="footnote-body-heading"><a id="FOOT138" href="#DOCF138">(138)</a></h5>
 <p>We see from
-this that mutation operations on lists can create &ldquo;garbage&rdquo; that is not part
+this that mutation operations on lists can create &#8220;garbage&#8221; that is not part
 of any accessible structure.  We will see in <a class="ref" href="5_002e3.xhtml#g_t5_002e3_002e2">Maintaining the Illusion of Infinite Memory</a> that dynamic
 memory-management systems include a <a class="index-entry-id" id="index-garbage-collector"></a>
 <em class="dfn">garbage collector</em>, which
@@ -2874,16 +2875,16 @@ checks equality of pointers.</p>
 <h5 class="footnote-body-heading"><a id="FOOT141" href="#DOCF141">(141)</a></h5>
 <p>The subtleties of
 dealing with sharing of mutable data objects reflect the underlying issues of
-&ldquo;sameness&rdquo; and &ldquo;change&rdquo; that were raised in <a class="ref" href="3_002e1.xhtml#g_t3_002e1_002e3">The Costs of Introducing Assignment</a>.  We
+&#8220;sameness&#8221; and &#8220;change&#8221; that were raised in <a class="ref" href="3_002e1.xhtml#g_t3_002e1_002e3">The Costs of Introducing Assignment</a>.  We
 mentioned there that admitting change to our language requires that a compound
-object must have an &ldquo;identity&rdquo; that is something different from the pieces
-from which it is composed.  In Lisp, we consider this &ldquo;identity&rdquo; to be the
+object must have an &#8220;identity&#8221; that is something different from the pieces
+from which it is composed.  In Lisp, we consider this &#8220;identity&#8221; to be the
 quality that is tested by <code class="code">eq?</code>, i.e., by equality of pointers.  Since in
 most Lisp implementations a pointer is essentially a memory address, we are
-&ldquo;solving the problem&rdquo; of defining the identity of objects by stipulating that
-a data object &ldquo;itself&rdquo; is the information stored in some particular set of
+&#8220;solving the problem&#8221; of defining the identity of objects by stipulating that
+a data object &#8220;itself&#8221; is the information stored in some particular set of
 memory locations in the computer.  This suffices for simple Lisp programs, but
-is hardly a general way to resolve the issue of &ldquo;sameness&rdquo; in computational
+is hardly a general way to resolve the issue of &#8220;sameness&#8221; in computational
 models.</p>
 <h5 class="footnote-body-heading"><a id="FOOT142" href="#DOCF142">(142)</a></h5>
 <p>On
@@ -2894,7 +2895,7 @@ other.</p>
 <h5 class="footnote-body-heading"><a id="FOOT143" href="#DOCF143">(143)</a></h5>
 <p>If the first item is the final item in the queue, the front
 pointer will be the empty list after the deletion, which will mark the queue as
-empty; we needn&rsquo;t worry about updating the rear pointer, which will still point
+empty; we needn&#8217;t worry about updating the rear pointer, which will still point
 to the deleted item, because <code class="code">empty-queue?</code> looks only at the front
 pointer.</p>
 <h5 class="footnote-body-heading"><a id="FOOT144" href="#DOCF144">(144)</a></h5>
@@ -2911,13 +2912,13 @@ bit to be propagated to the left.</p>
 <a class="anchor" id="Footnote-155"></a><p>These procedures are simply
 syntactic sugar that allow us to use ordinary procedural syntax to access the
 local procedures of objects.  It is striking that we can interchange the role
-of &ldquo;procedures&rdquo; and &ldquo;data&rdquo; in such a simple way.  For example, if we write
+of &#8220;procedures&#8221; and &#8220;data&#8221; in such a simple way.  For example, if we write
 <code class="code">(wire 'get-signal)</code> we think of <code class="code">wire</code> as a procedure that is called
 with the message <code class="code">get_signal</code> as input.  Alternatively, writing
 <code class="code">(get-signal wire)</code> encourages us to think of <code class="code">wire</code> as a data object
 that is the input to a procedure <code class="code">get_signal</code>.  The truth of the matter is
 that, in a language in which we can deal with procedures as objects, there is
-no fundamental difference between &ldquo;procedures&rdquo; and &ldquo;data,&rdquo; and we can
+no fundamental difference between &#8220;procedures&#8221; and &#8220;data,&#8221; and we can
 choose our syntactic sugar to allow us to program in whatever style we choose.</p>
 <h5 class="footnote-body-heading"><a id="FOOT147" href="#DOCF147">(147)</a></h5>
 <p>The agenda is a headed list, like the tables in 
@@ -2926,7 +2927,7 @@ additional dummy header (such as the <code class="code">*table*</code> symbol us
 <h5 class="footnote-body-heading"><a id="FOOT148" href="#DOCF148">(148)</a></h5>
 <p>Observe
 that the <code class="code">if</code> expression in this procedure has no <code class="code">⟨</code><var class="var">alternative</var><code class="code">⟩</code>
-expression.  Such a &ldquo;one-armed <code class="code">if</code> statement&rdquo; is used to decide whether
+expression.  Such a &#8220;one-armed <code class="code">if</code> statement&#8221; is used to decide whether
 to do something, rather than to select between two expressions.  An <code class="code">if</code>
 expression returns an unspecified value if the predicate is false and there is
 no <code class="code">⟨</code><var class="var">alternative</var><code class="code">⟩</code>.</p>
@@ -2955,7 +2956,7 @@ computation.  Our original formulation of the constraint language is cumbersome
 in the same way that many languages are cumbersome when dealing with operations
 on compound data.  For example, if we wanted to compute the product 
 <em class="math">{(a + b) \cdot (c + d)}</em>, where the variables represent vectors, we could work
-in &ldquo;imperative style,&rdquo; using procedures that set the values of designated
+in &#8220;imperative style,&#8221; using procedures that set the values of designated
 vector arguments but do not themselves return vectors as values:
 </p>
 <div class="example">
@@ -2988,10 +2989,10 @@ indirectly via operations on connectors.  Although it is easy to implement the
 expression-oriented style in terms of the imperative implementation, it is very
 difficult to do the converse.</p>
 </div>
-<hr>
+<hr />
 <div class="nav-panel">
 <p>
-Next: <a href="3_002e4.xhtml#g_t3_002e4" accesskey="n" rel="next">Concurrency: Time Is of the Essence</a>, Previous: <a href="3_002e2.xhtml#g_t3_002e2" accesskey="p" rel="prev">The Environment Model of Evaluation</a>, Up: <a href="Chapter-3.xhtml" accesskey="u" rel="up">Modularity, Objects, and State</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
+Next: <a href="3_002e4.xhtml#g_t3_002e4" accesskey="n" rel="next">Concurrency: Time Is of the Essence</a>, Previous: <a href="3_002e2.xhtml#g_t3_002e2" accesskey="p" rel="prev">The Environment Model of Evaluation</a>, Up: <a href="Chapter-3.xhtml" accesskey="u" rel="up">Modularity, Objects, and State</a> &#160; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

@@ -1,23 +1,24 @@
-<!DOCTYPE html>
-<html>
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>5.3 (Structure and Interpretation of Computer Programs, 2e)</title>
 
-<meta name="description" content="5.3 (Structure and Interpretation of Computer Programs, 2e)">
-<meta name="keywords" content="5.3 (Structure and Interpretation of Computer Programs, 2e)">
-<meta name="resource-type" content="document">
-<meta name="distribution" content="global">
-<meta name="Generator" content="texi2any">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="5.3 (Structure and Interpretation of Computer Programs, 2e)" />
+<meta name="keywords" content="5.3 (Structure and Interpretation of Computer Programs, 2e)" />
+<meta name="resource-type" content="document" />
+<meta name="distribution" content="global" />
+<meta name="Generator" content="texi2any" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 
-<link href="index.xhtml" rel="start" title="Top">
-<link href="Term-Index.xhtml" rel="index" title="Term Index">
-<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="Chapter-5.xhtml" rel="up" title="Chapter 5">
-<link href="5_002e4.xhtml#g_t5_002e4" rel="next" title="5.4">
-<link href="5_002e2.xhtml#g_t5_002e2_002e5" rel="prev" title="5.2.5">
+<link href="index.xhtml" rel="start" title="Top" />
+<link href="Term-Index.xhtml" rel="index" title="Term Index" />
+<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents" />
+<link href="Chapter-5.xhtml" rel="up" title="Chapter 5" />
+<link href="5_002e4.xhtml#g_t5_002e4" rel="next" title="5.4" />
+<link href="5_002e2.xhtml#g_t5_002e2_002e5" rel="prev" title="5.2.5" />
 <style type="text/css">
 <!--
 a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
@@ -37,9 +38,9 @@ ul.mark-bullet {list-style-type: disc}
 <div class="section-level-extent" id="g_t5_002e3">
 <div class="nav-panel">
 <p>
-Next: <a href="5_002e4.xhtml#g_t5_002e4" accesskey="n" rel="next">The Explicit-Control Evaluator</a>, Previous: <a href="5_002e2.xhtml#g_t5_002e2_002e5" accesskey="p" rel="prev">WebAssembly Backend</a>, Up: <a href="Chapter-5.xhtml" accesskey="u" rel="up">Computing with Register Machines</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
+Next: <a href="5_002e4.xhtml#g_t5_002e4" accesskey="n" rel="next">The Explicit-Control Evaluator</a>, Previous: <a href="5_002e2.xhtml#g_t5_002e2_002e5" accesskey="p" rel="prev">WebAssembly Backend</a>, Up: <a href="Chapter-5.xhtml" accesskey="u" rel="up">Computing with Register Machines</a> &#160; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
 </div>
-<h3 class="section" id="Storage-Allocation-and-Garbage-Collection"><span>5.3 Storage Allocation and Garbage Collection<a class="copiable-link" href="#Storage-Allocation-and-Garbage-Collection"> &para;</a></span></h3>
+<h3 class="section" id="Storage-Allocation-and-Garbage-Collection"><span>5.3 Storage Allocation and Garbage Collection<a class="copiable-link" href="#Storage-Allocation-and-Garbage-Collection"> &#182;</a></span></h3>
 
 <p>In section <a class="ref" href="5_002e4.xhtml#g_t5_002e4">The Explicit-Control Evaluator</a>, we will show how to implement a Scheme evaluator as a
 register machine.  In order to simplify the discussion, we will assume that our
@@ -55,7 +56,7 @@ operates, we must investigate how list structure can be represented in a way
 that is compatible with conventional computer memories.
 </p>
 <p>There are two considerations in implementing list structure.  The first is
-purely an issue of representation: how to represent the &ldquo;box-and-pointer&rdquo;
+purely an issue of representation: how to represent the &#8220;box-and-pointer&#8221;
 structure of pairs, using only the storage and addressing capabilities of
 typical computer memories.  The second issue concerns the management of memory
 as a computation proceeds.  The operation of a dynamic language depends 
@@ -64,7 +65,7 @@ objects that are explicitly created by the procedures being interpreted as well
 as structures created by the interpreter itself, such as environments and 
 argument lists.  Although the constant creation of new data objects would pose 
 no problem on a computer with an infinite amount of rapidly addressable memory,
-computer memories are available only in finite sizes (more&rsquo;s the pity).  
+computer memories are available only in finite sizes (more&#8217;s the pity).  
 Dynamic systems thus provide an <a class="index-entry-id" id="index-automatic-storage-allocation"></a>
 <em class="dfn">automatic storage allocation</em> facility 
 to support the illusion of an infinite memory.  When a data object is no longer
@@ -74,9 +75,9 @@ automatic storage allocation.  The method we shall discuss in this section is
 called <a class="index-entry-id" id="index-garbage-collection"></a>
 <em class="dfn">garbage collection</em>.
 </p>
-<hr>
+<hr />
 <div class="subsection-level-extent" id="g_t5_002e3_002e1">
-<h4 class="subsection" id="Memory-as-Vectors"><span>5.3.1 Memory as Vectors<a class="copiable-link" href="#Memory-as-Vectors"> &para;</a></span></h4>
+<h4 class="subsection" id="Memory-as-Vectors"><span>5.3.1 Memory as Vectors<a class="copiable-link" href="#Memory-as-Vectors"> &#182;</a></span></h4>
 
 <p>A conventional computer memory can be thought of as an array of cubbyholes,
 each of which can contain a piece of information.  Each cubbyhole has a unique
@@ -116,7 +117,7 @@ that specifies the beginning location of a vector in memory with an
 <em class="dfn">index</em> that specifies the offset of a particular element of the
 vector.
 </p>
-<h4 class="subsubheading" id="Representing-Lisp-data"><span>Representing Lisp data<a class="copiable-link" href="#Representing-Lisp-data"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Representing-Lisp-data"><span>Representing Lisp data<a class="copiable-link" href="#Representing-Lisp-data"> &#182;</a></span></h4>
 
 <p>We can use vectors to implement the basic pair structures required for a
 list-structured memory.  Let us imagine that computer memory is divided into
@@ -128,10 +129,10 @@ designated index.  We also need a representation for objects other than pairs
 (such as numbers and symbols) and a way to distinguish one kind of data from
 another.  There are many methods of accomplishing this, but they all reduce to
 using <a class="index-entry-id" id="index-typed-pointers"></a>
-<em class="dfn">typed pointers</em>, that is, to extending the notion of &ldquo;pointer&rdquo;
+<em class="dfn">typed pointers</em>, that is, to extending the notion of &#8220;pointer&#8221;
 to include information on data type.<a class="footnote" id="DOCF271" href="#FOOT271"><sup>271</sup></a> The data type
 enables the system to distinguish a pointer to a pair (which consists of the
-&ldquo;pair&rdquo; data type and an index into the memory vectors) from pointers to other
+&#8220;pair&#8221; data type and an index into the memory vectors) from pointers to other
 kinds of data (which consist of some other data type and whatever is being used
 to represent data of that type).  Two data objects are considered to be the
 same (<code class="code">eq?</code>) if their pointers are identical.<a class="footnote" id="DOCF272" href="#FOOT272"><sup>272</sup></a> 
@@ -147,7 +148,7 @@ of each pair the vector index that specifies where the <code class="code">car</c
 here).
 </p>
 <div class="float">
-<a class="anchor" id="Figure-5_002e14"></a><img class="image" src="fig/chap5/Fig5.14b.std.svg" alt="fig/chap5/Fig5.14b">
+<a class="anchor" id="Figure-5_002e14"></a><img class="image" src="fig/chap5/Fig5.14b.std.svg" alt="fig/chap5/Fig5.14b" />
 <div class="caption"><p><strong class="strong">Figure 5.14:</strong> Box-and-pointer and memory-vector representations of the list <code class="code">((1 2) 3 4)</code>.</p></div></div>
 <p>A pointer to a number, such as <code class="code">n4</code>, might consist of a type indicating
 numeric data together with the actual representation of the number
@@ -180,10 +181,10 @@ impl Memory {
 <p>the parts of the number are stored.<a class="footnote" id="DOCF274" href="#FOOT274"><sup>274</sup></a>
 </p>
 <p>A symbol might be represented as a typed pointer that designates a sequence of
-the characters that form the symbol&rsquo;s printed representation.  This sequence is
+the characters that form the symbol&#8217;s printed representation.  This sequence is
 constructed by the Lisp reader when the character string is initially
 encountered in input.  Since we want two instances of a symbol to be recognized
-as the &ldquo;same&rdquo; symbol by <code class="code">eq?</code> and we want <code class="code">eq?</code> to be a simple test
+as the &#8220;same&#8221; symbol by <code class="code">eq?</code> and we want <code class="code">eq?</code> to be a simple test
 for equality of pointers, we must ensure that if the reader sees the same
 character string twice, it will use the same pointer (to the same sequence of
 characters) to represent both occurrences.  To accomplish this, the reader
@@ -198,9 +199,9 @@ it returns the symbol pointer stored in the obarray.  This process of replacing
 character strings by unique pointers is called <a class="index-entry-id" id="index-interning"></a>
 <em class="dfn">interning</em> symbols.
 </p>
-<h4 class="subsubheading" id="Implementing-the-primitive-list-operations"><span>Implementing the primitive list operations<a class="copiable-link" href="#Implementing-the-primitive-list-operations"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Implementing-the-primitive-list-operations"><span>Implementing the primitive list operations<a class="copiable-link" href="#Implementing-the-primitive-list-operations"> &#182;</a></span></h4>
 
-<p>Given the above representation scheme, we can replace each &ldquo;primitive&rdquo; list
+<p>Given the above representation scheme, we can replace each &#8220;primitive&#8221; list
 operation of a register machine with one or more primitive vector operations.
 We will use two registers, <code class="code">the-cars</code> and <code class="code">the-cdrs</code>, to identify the
 memory vectors, and will assume that <code class="code">vector-ref</code> and <code class="code">vector-set!</code>
@@ -287,7 +288,7 @@ location.<a class="footnote" id="DOCF275" href="#FOOT275"><sup>275</sup></a>  Fo
 as <code class="code">pair?</code>, <code class="code">null?</code>, <code class="code">symbol?</code>, and <code class="code">number?</code> need only
 check the type field.
 </p>
-<h4 class="subsubheading" id="Implementing-stacks"><span>Implementing stacks<a class="copiable-link" href="#Implementing-stacks"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Implementing-stacks"><span>Implementing stacks<a class="copiable-link" href="#Implementing-stacks"> &#182;</a></span></h4>
 
 <p>Although our register machines use stacks, we need do nothing special here,
 since stacks can be modeled in terms of lists.  The stack can be a list of the
@@ -399,10 +400,10 @@ Design a register machine to implement each of these procedures.  Assume that
 the list-structure memory operations are available as primitive operations.
 </p></blockquote>
 
-<hr>
+<hr />
 </div>
 <div class="subsection-level-extent" id="g_t5_002e3_002e2">
-<h4 class="subsection" id="Maintaining-the-Illusion-of-Infinite-Memory"><span>5.3.2 Maintaining the Illusion of Infinite Memory<a class="copiable-link" href="#Maintaining-the-Illusion-of-Infinite-Memory"> &para;</a></span></h4>
+<h4 class="subsection" id="Maintaining-the-Illusion-of-Infinite-Memory"><span>5.3.2 Maintaining the Illusion of Infinite Memory<a class="copiable-link" href="#Maintaining-the-Illusion-of-Infinite-Memory"> &#182;</a></span></h4>
 
 <p>The representation method outlined in <a class="ref" href="#g_t5_002e3_002e1">Memory as Vectors</a> solves the problem of
 implementing list structure, provided that we have an infinite amount of
@@ -410,7 +411,7 @@ memory.  With a real computer we will eventually run out of free space in which
 to construct new pairs.<a class="footnote" id="DOCF277" href="#FOOT277"><sup>277</sup></a>  However,
 most of the pairs generated in a typical computation are used only to hold
 intermediate results.  After these results are accessed, the pairs are no
-longer needed&mdash;they are <a class="index-entry-id" id="index-garbage"></a>
+longer needed&#8212;they are <a class="index-entry-id" id="index-garbage"></a>
 <em class="dfn">garbage</em>.  For instance, the computation
 </p>
 <div class="example">
@@ -440,7 +441,7 @@ Any memory cell that is not so accessible may be recycled.
 <p>There are many ways to perform garbage collection.  The method we shall examine
 here is called <a class="index-entry-id" id="index-stop_002dand_002dcopy"></a>
 <em class="dfn">stop-and-copy</em>.  The basic idea is to divide memory
-into two halves: &ldquo;working memory&rdquo; and &ldquo;free memory.&rdquo;  When <code class="code">cons</code>
+into two halves: &#8220;working memory&#8221; and &#8220;free memory.&#8221;  When <code class="code">cons</code>
 constructs pairs, it allocates these in working memory.  When working memory is
 full, we perform garbage collection by locating all the useful pairs in working
 memory and copying these into consecutive locations in free memory.  (The
@@ -454,7 +455,7 @@ allocated in the new working memory (which was the old free memory).  When this
 is full, we can copy the useful pairs into the new free memory (which was the
 old working memory).<a class="footnote" id="DOCF279" href="#FOOT279"><sup>279</sup></a>
 </p>
-<h4 class="subsubheading" id="Implementation-of-a-stop_002dand_002dcopy-garbage-collector"><span>Implementation of a stop-and-copy garbage collector<a class="copiable-link" href="#Implementation-of-a-stop_002dand_002dcopy-garbage-collector"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Implementation-of-a-stop_002dand_002dcopy-garbage-collector"><span>Implementation of a stop-and-copy garbage collector<a class="copiable-link" href="#Implementation-of-a-stop_002dand_002dcopy-garbage-collector"> &#182;</a></span></h4>
 
 <p>We now use our register-machine language to describe the stop-and-copy
 algorithm in more detail.  We will assume that there is a register called
@@ -474,14 +475,14 @@ garbage-collection process is complete, the <code class="code">root</code> point
 the new memory, all objects accessible from the <code class="code">root</code> will have been
 moved to the new memory, and the <code class="code">free</code> pointer will indicate the next
 place in the new memory where a new pair can be allocated.  In addition, the
-roles of working memory and new memory will have been interchanged&mdash;new pairs
+roles of working memory and new memory will have been interchanged&#8212;new pairs
 will be constructed in the new memory, beginning at the place indicated by
 <code class="code">free</code>, and the (previous) working memory will be available as the new
 memory for the next garbage collection.  <a class="ref" href="#Figure-5_002e15">Figure 5.15</a> shows the
 arrangement of memory just before and just after garbage collection.
 </p>
 <div class="float">
-<a class="anchor" id="Figure-5_002e15"></a><img class="image" src="fig/chap5/Fig5.15c.std.svg" alt="fig/chap5/Fig5.15c">
+<a class="anchor" id="Figure-5_002e15"></a><img class="image" src="fig/chap5/Fig5.15c.std.svg" alt="fig/chap5/Fig5.15c" />
 <div class="caption"><p><strong class="strong">Figure 5.15:</strong> Reconfiguration of memory by the garbage-collection process.</p></div></div>
 <p>The state of the garbage-collection process is controlled by maintaining two
 pointers: <code class="code">free</code> and <code class="code">scan</code>.  These are initialized to point to the
@@ -508,7 +509,7 @@ incremented.  To relocate an object (for example, the object indicated by the
 has already been moved (as indicated by the presence of a broken-heart tag in
 the <code class="code">car</code> position of the object).  If the object has not already been
 moved, we copy it to the place indicated by <code class="code">free</code>, update <code class="code">free</code>,
-set up a broken heart at the object&rsquo;s old location, and update the pointer to
+set up a broken heart at the object&#8217;s old location, and update the pointer to
 the object (in this example, the <code class="code">car</code> pointer of the pair we are
 scanning) to point to the new location.  If the object has already been moved,
 its forwarding address (found in the <code class="code">cdr</code> position of the broken heart)
@@ -661,7 +662,7 @@ If the object to be relocated (pointed at by <code class="code">old</code>) is n
 return the same pointer to the object unchanged (in <code class="code">new</code>).  (For example,
 we may be scanning a pair whose <code class="code">car</code> is the number 4.  If we represent
 the <code class="code">car</code> by <code class="code">n4</code>, as described in <a class="ref" href="#g_t5_002e3_002e1">Memory as Vectors</a>, then we want
-the &ldquo;relocated&rdquo; <code class="code">car</code> pointer to still be <code class="code">n4</code>.)  Otherwise, we
+the &#8220;relocated&#8221; <code class="code">car</code> pointer to still be <code class="code">n4</code>.)  Otherwise, we
 must perform the relocation.  If the <code class="code">car</code> position of the pair to be
 relocated contains a broken-heart tag, then the pair has in fact already been
 moved, so we retrieve the forwarding address (from the <code class="code">cdr</code> position of
@@ -735,10 +736,10 @@ be ready to perform another garbage collection the next time memory runs out.
   (assign new-cars (reg temp))
 </pre></div>
 
-<hr>
+<hr />
 </div>
 <div class="subsection-level-extent" id="g_t5_002e3_002e3">
-<h4 class="subsection" id="Ownership-as-Compile_002dTime-Garbage-Collection"><span>5.3.3 Ownership as Compile-Time Garbage Collection<a class="copiable-link" href="#Ownership-as-Compile_002dTime-Garbage-Collection"> &para;</a></span></h4>
+<h4 class="subsection" id="Ownership-as-Compile_002dTime-Garbage-Collection"><span>5.3.3 Ownership as Compile-Time Garbage Collection<a class="copiable-link" href="#Ownership-as-Compile_002dTime-Garbage-Collection"> &#182;</a></span></h4>
 
 <a class="index-entry-id" id="index-ownership-system"></a>
 <a class="index-entry-id" id="index-compile_002dtime-memory-management"></a>
@@ -761,12 +762,12 @@ deterministically when that owner goes out of scope. This section explores how
 ownership achieves the safety guarantees of garbage collection without its
 runtime costs.
 </p>
-<h4 class="subsubheading" id="Resource-Acquisition-Is-Initialization-_0028RAII_0029"><span>Resource Acquisition Is Initialization (RAII)<a class="copiable-link" href="#Resource-Acquisition-Is-Initialization-_0028RAII_0029"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Resource-Acquisition-Is-Initialization-_0028RAII_0029"><span>Resource Acquisition Is Initialization (RAII)<a class="copiable-link" href="#Resource-Acquisition-Is-Initialization-_0028RAII_0029"> &#182;</a></span></h4>
 
 <a class="index-entry-id" id="index-RAII-2"></a>
 <a class="index-entry-id" id="index-resource-management"></a>
 <a class="index-entry-id" id="index-scope_002dbased-cleanup"></a>
-<p>The foundation of Rust&rsquo;s memory management is <a class="index-entry-id" id="index-Resource-Acquisition-Is"></a>
+<p>The foundation of Rust&#8217;s memory management is <a class="index-entry-id" id="index-Resource-Acquisition-Is"></a>
 Initialization
 <em class="dfn">Resource Acquisition Is
 Initialization</em> (<abbr class="abbr">RAII</abbr>), a principle borrowed from C++ but enforced with
@@ -803,12 +804,12 @@ For <code class="code">File</code>, this method closes the file handle. For <cod
 deallocates the heap buffer. For more complex types, <code class="code">drop</code> recursively
 cleans up all owned resources.
 </p>
-<h4 class="subsubheading" id="The-Drop-Trait-and-Deterministic-Cleanup"><span>The Drop Trait and Deterministic Cleanup<a class="copiable-link" href="#The-Drop-Trait-and-Deterministic-Cleanup"> &para;</a></span></h4>
+<h4 class="subsubheading" id="The-Drop-Trait-and-Deterministic-Cleanup"><span>The Drop Trait and Deterministic Cleanup<a class="copiable-link" href="#The-Drop-Trait-and-Deterministic-Cleanup"> &#182;</a></span></h4>
 
 <a class="index-entry-id" id="index-Drop-trait"></a>
 <a class="index-entry-id" id="index-destructor"></a>
 <a class="index-entry-id" id="index-cleanup-semantics"></a>
-<p>Let&rsquo;s implement a simple type to understand <code class="code">Drop</code> semantics:
+<p>Let&#8217;s implement a simple type to understand <code class="code">Drop</code> semantics:
 </p>
 <div class="example">
 <pre class="example-preformatted">struct Transaction {
@@ -864,7 +865,7 @@ garbage collector, no finalizers that might never run. This predictability
 makes <abbr class="abbr">RAII</abbr> suitable for managing critical resources with strict lifetime
 requirements.
 </p>
-<h4 class="subsubheading" id="Zero-Runtime-Overhead"><span>Zero Runtime Overhead<a class="copiable-link" href="#Zero-Runtime-Overhead"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Zero-Runtime-Overhead"><span>Zero Runtime Overhead<a class="copiable-link" href="#Zero-Runtime-Overhead"> &#182;</a></span></h4>
 
 <a class="index-entry-id" id="index-zero_002dcost-abstraction-4"></a>
 <a class="index-entry-id" id="index-runtime-overhead"></a>
@@ -880,7 +881,7 @@ must:
 </li></ol>
 
 <p>These operations impose runtime costs that scale with heap size and object count.
-In contrast, Rust&rsquo;s ownership system operates entirely at compile time. The
+In contrast, Rust&#8217;s ownership system operates entirely at compile time. The
 generated machine code contains simple deallocation instructions at scope exits:
 </p>
 <div class="example">
@@ -918,7 +919,7 @@ drop each field in declaration order. No runtime traversal is needed—the
 structure of cleanup mirrors the structure of the type, determined entirely at
 compile time.
 </p>
-<h4 class="subsubheading" id="When-Runtime-Management-Is-Still-Needed"><span>When Runtime Management Is Still Needed<a class="copiable-link" href="#When-Runtime-Management-Is-Still-Needed"> &para;</a></span></h4>
+<h4 class="subsubheading" id="When-Runtime-Management-Is-Still-Needed"><span>When Runtime Management Is Still Needed<a class="copiable-link" href="#When-Runtime-Management-Is-Still-Needed"> &#182;</a></span></h4>
 
 <a class="index-entry-id" id="index-reference-counting-1"></a>
 <a class="index-entry-id" id="index-Rc"></a>
@@ -972,7 +973,7 @@ with static ownership. Only when you explicitly use <code class="code">Rc</code>
 you incur the overhead of reference counting. This contrasts with garbage
 collected languages where all objects carry the overhead of runtime tracking.
 </p>
-<h4 class="subsubheading" id="Comparison_003a-Garbage-Collection-vs_002e-Ownership"><span>Comparison: Garbage Collection vs. Ownership<a class="copiable-link" href="#Comparison_003a-Garbage-Collection-vs_002e-Ownership"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Comparison_003a-Garbage-Collection-vs_002e-Ownership"><span>Comparison: Garbage Collection vs. Ownership<a class="copiable-link" href="#Comparison_003a-Garbage-Collection-vs_002e-Ownership"> &#182;</a></span></h4>
 
 <a class="index-entry-id" id="index-GC-vs-ownership"></a>
 <a class="index-entry-id" id="index-memory-management-tradeoffs"></a>
@@ -1010,13 +1011,13 @@ in the design space:
 </li><li>Maximum performance is required
 </li></ul>
 
-<h4 class="subsubheading" id="The-Zero_002dCost-Abstraction-Philosophy"><span>The Zero-Cost Abstraction Philosophy<a class="copiable-link" href="#The-Zero_002dCost-Abstraction-Philosophy"> &para;</a></span></h4>
+<h4 class="subsubheading" id="The-Zero_002dCost-Abstraction-Philosophy"><span>The Zero-Cost Abstraction Philosophy<a class="copiable-link" href="#The-Zero_002dCost-Abstraction-Philosophy"> &#182;</a></span></h4>
 
 <a class="index-entry-id" id="index-zero_002dcost-abstraction-5"></a>
 <a class="index-entry-id" id="index-abstraction-without-overhead"></a>
-<p>Rust&rsquo;s ownership system embodies the <a class="index-entry-id" id="index-zero_002dcost-abstraction-6"></a>
+<p>Rust&#8217;s ownership system embodies the <a class="index-entry-id" id="index-zero_002dcost-abstraction-6"></a>
 <em class="dfn">zero-cost abstraction</em> principle:
-what you don&rsquo;t use, you don&rsquo;t pay for; what you do use, you couldn&rsquo;t hand-code
+what you don&#8217;t use, you don&#8217;t pay for; what you do use, you couldn&#8217;t hand-code
 any better.
 </p>
 <p>Consider this high-level code using iterators:
@@ -1059,7 +1060,7 @@ sum_of_squares:
 <p>These guarantees, proven at compile time, allow aggressive optimization without
 sacrificing safety.
 </p>
-<h4 class="subsubheading" id="Ownership-as-a-Type-System-for-Aliasing"><span>Ownership as a Type System for Aliasing<a class="copiable-link" href="#Ownership-as-a-Type-System-for-Aliasing"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Ownership-as-a-Type-System-for-Aliasing"><span>Ownership as a Type System for Aliasing<a class="copiable-link" href="#Ownership-as-a-Type-System-for-Aliasing"> &#182;</a></span></h4>
 
 <a class="index-entry-id" id="index-aliasing-1"></a>
 <a class="index-entry-id" id="index-borrowing-2"></a>
@@ -1070,7 +1071,7 @@ The fundamental insight is that most bugs involving memory arise from
 unsynchronized mutable aliasing—multiple references to the same data where at
 least one can mutate it.
 </p>
-<p>Rust&rsquo;s borrowing rules eliminate this:
+<p>Rust&#8217;s borrowing rules eliminate this:
 </p>
 <div class="example">
 <pre class="example-preformatted">// Either ONE mutable reference...
@@ -1111,8 +1112,8 @@ large buffer and provide a <code class="code">alloc</code> method that hands out
 slices of that buffer. When the <code class="code">Arena</code> is dropped, all allocated memory
 should be reclaimed at once. Compare the performance of your arena allocator to
 individual <code class="code">Box</code> allocations for creating 10,000 small objects. What are
-the safety trade-offs of arena allocation, and how does Rust&rsquo;s lifetime system
-ensure that references into the arena don&rsquo;t outlive the arena itself?
+the safety trade-offs of arena allocation, and how does Rust&#8217;s lifetime system
+ensure that references into the arena don&#8217;t outlive the arena itself?
 </p></blockquote>
 
 <blockquote class="quotation">
@@ -1123,14 +1124,14 @@ you drop the initial references. Then modify your implementation to use
 <code class="code">Rc&lt;T&gt;</code> with <code class="code">Weak&lt;T&gt;</code> references to break cycles, ensuring proper
 cleanup. Instrument your <code class="code">Drop</code> implementations to verify when cleanup
 occurs. What does this reveal about the relationship between ownership, reference
-counting, and garbage collection? When would you prefer Rust&rsquo;s manual cycle
-management over a garbage collector&rsquo;s automatic cycle detection?
+counting, and garbage collection? When would you prefer Rust&#8217;s manual cycle
+management over a garbage collector&#8217;s automatic cycle detection?
 </p></blockquote>
 
 </div>
 </div>
 <div class="footnotes-segment">
-<hr>
+<hr />
 <h4 class="footnotes-heading">Footnotes</h4>
 
 <h5 class="footnote-body-heading"><a id="FOOT269" href="#DOCF269">(269)</a></h5>
@@ -1145,7 +1146,7 @@ vectors.  However, in the present application we will use vectors only to model
 fixed divisions of the computer memory.</p>
 <h5 class="footnote-body-heading"><a id="FOOT271" href="#DOCF271">(271)</a></h5>
 <p>This is precisely the same
-&ldquo;tagged data&rdquo; idea we introduced in <a class="ref" href="Chapter-2.xhtml">Building Abstractions with Data</a> for dealing with generic
+&#8220;tagged data&#8221; idea we introduced in <a class="ref" href="Chapter-2.xhtml">Building Abstractions with Data</a> for dealing with generic
 operations.  Here, however, the data types are included at the primitive
 machine level rather than constructed through the use of lists.</p>
 <h5 class="footnote-body-heading"><a id="FOOT272" href="#DOCF272">(272)</a></h5>
@@ -1173,7 +1174,7 @@ pointers only if we are careful never to store the same number in more than one
 location.</p>
 <h5 class="footnote-body-heading"><a id="FOOT274" href="#DOCF274">(274)</a></h5>
 <p>This is just like writing a number
-as a sequence of digits, except that each &ldquo;digit&rdquo; is a number between 0 and
+as a sequence of digits, except that each &#8220;digit&#8221; is a number between 0 and
 the largest number that can be stored in a single pointer.</p>
 <h5 class="footnote-body-heading"><a id="FOOT275" href="#DOCF275">(275)</a></h5>
 <p>There are other ways of finding free storage.  For example,
@@ -1195,7 +1196,7 @@ memory in the lifetime of the computer.  For example, there are about
 <em class="math">{3\cdot10^{13}}</em> microseconds in a year, so if we were to <code class="code">cons</code> once per
 microsecond we would need about <em class="math">10^{15}</em> cells of memory to build a machine that
 could operate for 30 years without running out of memory.  That much memory
-seems absurdly large by today&rsquo;s standards, but it is not physically impossible.
+seems absurdly large by today&#8217;s standards, but it is not physically impossible.
 On the other hand, processors are getting faster and a future computer may have
 large numbers of processors operating in parallel on a single memory, so it may
 be possible to use up memory much faster than we have postulated.</p>
@@ -1208,9 +1209,9 @@ that items on the stack are accessible via the pointer in the stack register.</p
 Minsky, as part of the implementation of Lisp for the PDP-1 at the
 <abbr class="abbr">MIT</abbr> Research Laboratory of Electronics.  It was further developed by
 <a class="ref" href="References.xhtml#Fenichel-and-Yochelson-_00281969_0029">Fenichel and Yochelson (1969)</a> for use in the Lisp implementation for the
-Multics time-sharing system.  Later, <a class="ref" href="References.xhtml#Baker-_00281978_0029">Baker (1978)</a> developed a &ldquo;real-time&rdquo;
+Multics time-sharing system.  Later, <a class="ref" href="References.xhtml#Baker-_00281978_0029">Baker (1978)</a> developed a &#8220;real-time&#8221;
 version of the method, which does not require the computation to stop during
-garbage collection.  Baker&rsquo;s idea was extended by Hewitt, Lieberman, and Moon
+garbage collection.  Baker&#8217;s idea was extended by Hewitt, Lieberman, and Moon
 (see <a class="ref" href="References.xhtml#Lieberman-and-Hewitt-1983">Lieberman and Hewitt 1983</a>) to take advantage of the fact that some
 structure is more volatile and other structure is more permanent.
 </p>
@@ -1218,7 +1219,7 @@ structure is more volatile and other structure is more permanent.
 <a class="index-entry-id" id="index-mark_002dsweep"></a>
 <em class="dfn">mark-sweep</em> method.  This consists of tracing all the structure
 accessible from the machine registers and marking each pair we reach.  We then
-scan all of memory, and any location that is unmarked is &ldquo;swept up&rdquo; as
+scan all of memory, and any location that is unmarked is &#8220;swept up&#8221; as
 garbage and made available for reuse.  A full discussion of the mark-sweep
 method can be found in <a class="ref" href="References.xhtml#Allen-1978">Allen 1978</a>.
 </p>
@@ -1235,7 +1236,7 @@ in which accesses to widely separated memory addresses may require extra paging
 operations.</p>
 <h5 class="footnote-body-heading"><a id="FOOT280" href="#DOCF280">(280)</a></h5>
 <p>This list of registers does not include
-the registers used by the storage-allocation system&mdash;<code class="code">root</code>,
+the registers used by the storage-allocation system&#8212;<code class="code">root</code>,
 <code class="code">the-cars</code>, <code class="code">the-cdrs</code>, and the other registers that will be
 introduced in this section.</p>
 <h5 class="footnote-body-heading"><a id="FOOT281" href="#DOCF281">(281)</a></h5>
@@ -1248,14 +1249,14 @@ developed at <abbr class="abbr">MIT</abbr> during the early 1970s.</p>
 because in a real system there might be various things that are treated as
 pairs for garbage-collection purposes.  For example, in a Scheme system that
 conforms to the <abbr class="abbr">IEEE</abbr> standard a procedure object may be implemented
-as a special kind of &ldquo;pair&rdquo; that doesn&rsquo;t satisfy the <code class="code">pair?</code> predicate.
+as a special kind of &#8220;pair&#8221; that doesn&#8217;t satisfy the <code class="code">pair?</code> predicate.
 For simulation purposes, <code class="code">pointer-to-pair?</code> can be implemented as
 <code class="code">pair?</code>.</p>
 </div>
-<hr>
+<hr />
 <div class="nav-panel">
 <p>
-Next: <a href="5_002e4.xhtml#g_t5_002e4" accesskey="n" rel="next">The Explicit-Control Evaluator</a>, Previous: <a href="5_002e2.xhtml#g_t5_002e2_002e5" accesskey="p" rel="prev">WebAssembly Backend</a>, Up: <a href="Chapter-5.xhtml" accesskey="u" rel="up">Computing with Register Machines</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
+Next: <a href="5_002e4.xhtml#g_t5_002e4" accesskey="n" rel="next">The Explicit-Control Evaluator</a>, Previous: <a href="5_002e2.xhtml#g_t5_002e2_002e5" accesskey="p" rel="prev">WebAssembly Backend</a>, Up: <a href="Chapter-5.xhtml" accesskey="u" rel="up">Computing with Register Machines</a> &#160; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

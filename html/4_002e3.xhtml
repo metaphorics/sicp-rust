@@ -1,23 +1,24 @@
-<!DOCTYPE html>
-<html>
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>4.3 (Structure and Interpretation of Computer Programs, 2e)</title>
 
-<meta name="description" content="4.3 (Structure and Interpretation of Computer Programs, 2e)">
-<meta name="keywords" content="4.3 (Structure and Interpretation of Computer Programs, 2e)">
-<meta name="resource-type" content="document">
-<meta name="distribution" content="global">
-<meta name="Generator" content="texi2any">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="4.3 (Structure and Interpretation of Computer Programs, 2e)" />
+<meta name="keywords" content="4.3 (Structure and Interpretation of Computer Programs, 2e)" />
+<meta name="resource-type" content="document" />
+<meta name="distribution" content="global" />
+<meta name="Generator" content="texi2any" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 
-<link href="index.xhtml" rel="start" title="Top">
-<link href="Term-Index.xhtml" rel="index" title="Term Index">
-<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="Chapter-4.xhtml" rel="up" title="Chapter 4">
-<link href="4_002e4.xhtml#g_t4_002e4" rel="next" title="4.4">
-<link href="4_002e2.xhtml#g_t4_002e2_002e5a" rel="prev" title="4.2.5a">
+<link href="index.xhtml" rel="start" title="Top" />
+<link href="Term-Index.xhtml" rel="index" title="Term Index" />
+<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents" />
+<link href="Chapter-4.xhtml" rel="up" title="Chapter 4" />
+<link href="4_002e4.xhtml#g_t4_002e4" rel="next" title="4.4" />
+<link href="4_002e2.xhtml#g_t4_002e2_002e5a" rel="prev" title="4.2.5a" />
 <style type="text/css">
 <!--
 a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
@@ -36,21 +37,21 @@ ul.mark-bullet {list-style-type: disc}
 <div class="section-level-extent" id="g_t4_002e3">
 <div class="nav-panel">
 <p>
-Next: <a href="4_002e4.xhtml#g_t4_002e4" accesskey="n" rel="next">Logic Programming</a>, Previous: <a href="4_002e2.xhtml#g_t4_002e2_002e5a" accesskey="p" rel="prev">Persistent Data Structures and Structural Sharing</a>, Up: <a href="Chapter-4.xhtml" accesskey="u" rel="up">Metalinguistic Abstraction</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
+Next: <a href="4_002e4.xhtml#g_t4_002e4" accesskey="n" rel="next">Logic Programming</a>, Previous: <a href="4_002e2.xhtml#g_t4_002e2_002e5a" accesskey="p" rel="prev">Persistent Data Structures and Structural Sharing</a>, Up: <a href="Chapter-4.xhtml" accesskey="u" rel="up">Metalinguistic Abstraction</a> &#160; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
 </div>
-<h3 class="section" id="Variations-on-a-Scheme-_002d_002d_002d-Nondeterministic-Computing"><span>4.3 Variations on a Scheme &mdash; Nondeterministic Computing<a class="copiable-link" href="#Variations-on-a-Scheme-_002d_002d_002d-Nondeterministic-Computing"> &para;</a></span></h3>
+<h3 class="section" id="Variations-on-a-Scheme-_002d_002d_002d-Nondeterministic-Computing"><span>4.3 Variations on a Scheme &#8212; Nondeterministic Computing<a class="copiable-link" href="#Variations-on-a-Scheme-_002d_002d_002d-Nondeterministic-Computing"> &#182;</a></span></h3>
 
 <p>In this section, we extend the Scheme evaluator to support a programming
 paradigm called <a class="index-entry-id" id="index-nondeterministic-computing-1"></a>
 <em class="dfn">nondeterministic computing</em> by building into the
 evaluator a facility to support automatic search.  This is a much more profound
 change to the language than the introduction of lazy evaluation in 
-<a class="ref" href="4_002e2.xhtml#g_t4_002e2">Variations on a Scheme &mdash; Lazy Evaluation</a>.
+<a class="ref" href="4_002e2.xhtml#g_t4_002e2">Variations on a Scheme &#8212; Lazy Evaluation</a>.
 </p>
-<p>Nondeterministic computing, like stream processing, is useful for &ldquo;generate
-and test&rdquo; applications.  Consider the task of starting with two lists of
-positive integers and finding a pair of integers&mdash;one from the first list and
-one from the second list&mdash;whose sum is prime.  We saw how to handle this with
+<p>Nondeterministic computing, like stream processing, is useful for &#8220;generate
+and test&#8221; applications.  Consider the task of starting with two lists of
+positive integers and finding a pair of integers&#8212;one from the first list and
+one from the second list&#8212;whose sum is prime.  We saw how to handle this with
 finite sequence operations in <a class="ref" href="2_002e2.xhtml#g_t2_002e2_002e3">Sequences as Conventional Interfaces</a> and with infinite streams in
 <a class="ref" href="3_002e5.xhtml#g_t3_002e5_002e3">Exploiting the Stream Paradigm</a>.  Our approach was to generate the sequence of all possible
 pairs and filter these to select the pairs whose sum is prime.  Whether we
@@ -124,15 +125,15 @@ prime_sum_pair(&amp;[1, 3, 5, 8], &amp;[20, 35, 110])
 from each of the lists, until a successful choice was made.
 </p>
 <p>Section <a class="ref" href="#g_t4_002e3_002e1">Amb and Search</a> introduces <code class="code">amb</code> and explains how it supports
-nondeterminism through the evaluator&rsquo;s automatic search mechanism.  
+nondeterminism through the evaluator&#8217;s automatic search mechanism.  
 <a class="ref" href="#g_t4_002e3_002e2">Examples of Nondeterministic Programs</a> presents examples of nondeterministic programs, and 
 <a class="ref" href="#g_t4_002e3_002e3">Implementing the <code class="code">Amb</code> Evaluator</a> gives the details of how to implement the <code class="code">amb</code> evaluator by
 modifying the ordinary Scheme evaluator.
 </p>
 
-<hr>
+<hr />
 <div class="subsection-level-extent" id="g_t4_002e3_002e1">
-<h4 class="subsection" id="Amb-and-Search"><span>4.3.1 Amb and Search<a class="copiable-link" href="#Amb-and-Search"> &para;</a></span></h4>
+<h4 class="subsection" id="Amb-and-Search"><span>4.3.1 Amb and Search<a class="copiable-link" href="#Amb-and-Search"> &#182;</a></span></h4>
 
 <p>To extend Scheme to support nondeterminism, we introduce a new special form
 called <code class="code">amb</code>.<a class="footnote" id="DOCF228" href="#FOOT228"><sup>228</sup></a>
@@ -143,7 +144,7 @@ The expression
 </pre></div>
 
 <p>returns the value of one of the <em class="math">n</em> expressions <em class="math">{⟨\kern0.03em e_i⟩}</em>
-&ldquo;ambiguously.&rdquo;  For example, the expression
+&#8220;ambiguously.&#8221;  For example, the expression
 </p>
 <div class="example">
 <pre class="example-preformatted">// All possible combinations via iterators
@@ -160,9 +161,9 @@ The expression
 
 <p><code class="code">Amb</code> with a single choice produces an ordinary (single) value.
 </p>
-<p><code class="code">Amb</code> with no choices&mdash;the expression <code class="code">(amb)</code>&mdash;is an expression
+<p><code class="code">Amb</code> with no choices&#8212;the expression <code class="code">(amb)</code>&#8212;is an expression
 with no acceptable values.  Operationally, we can think of <code class="code">(amb)</code> as an
-expression that when evaluated causes the computation to &ldquo;fail&rdquo;: The
+expression that when evaluated causes the computation to &#8220;fail&#8221;: The
 computation aborts and no value is produced.  Using this idea, we can express
 the requirement that a particular predicate expression <code class="code">p</code> must be true as
 follows:
@@ -239,7 +240,7 @@ known as <a class="index-entry-id" id="index-depth_002dfirst-search"></a>
 <em class="dfn">depth-first search</em> or <a class="index-entry-id" id="index-chronological-backtracking"></a>
 <em class="dfn">chronological backtracking</em>.<a class="footnote" id="DOCF232" href="#FOOT232"><sup>232</sup></a>
 </p>
-<h4 class="subsubheading" id="Driver-loop"><span>Driver loop<a class="copiable-link" href="#Driver-loop"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Driver-loop"><span>Driver loop<a class="copiable-link" href="#Driver-loop"> &#182;</a></span></h4>
 
 <p>The driver loop for the <code class="code">amb</code> evaluator has some unusual properties.  It
 reads an expression and prints the value of the first non-failing execution, as
@@ -331,10 +332,10 @@ possibilities that must be explored.)
 </pre></div>
 </blockquote>
 
-<hr>
+<hr />
 </div>
 <div class="subsection-level-extent" id="g_t4_002e3_002e2">
-<h4 class="subsection" id="Examples-of-Nondeterministic-Programs"><span>4.3.2 Examples of Nondeterministic Programs<a class="copiable-link" href="#Examples-of-Nondeterministic-Programs"> &para;</a></span></h4>
+<h4 class="subsection" id="Examples-of-Nondeterministic-Programs"><span>4.3.2 Examples of Nondeterministic Programs<a class="copiable-link" href="#Examples-of-Nondeterministic-Programs"> &#182;</a></span></h4>
 
 <p>Section <a class="ref" href="#g_t4_002e3_002e3">Implementing the <code class="code">Amb</code> Evaluator</a> describes the implementation of the <code class="code">amb</code> evaluator.
 First, however, we give some examples of how it can be used.  The advantage of
@@ -342,7 +343,7 @@ nondeterministic programming is that we can suppress the details of how search
 is carried out, thereby expressing our programs at a higher level of
 abstraction.
 </p>
-<h4 class="subsubheading" id="Logic-Puzzles"><span>Logic Puzzles<a class="copiable-link" href="#Logic-Puzzles"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Logic-Puzzles"><span>Logic Puzzles<a class="copiable-link" href="#Logic-Puzzles"> &#182;</a></span></h4>
 
 <p>The following puzzle (taken from <a class="ref" href="References.xhtml#Dinesman-1968">Dinesman 1968</a>) is typical of a large class of
 simple logic puzzles:
@@ -352,8 +353,8 @@ simple logic puzzles:
 apartment house that contains only five floors.  Baker does not live on the top
 floor.  Cooper does not live on the bottom floor.  Fletcher does not live on
 either the top or the bottom floor.  Miller lives on a higher floor than does
-Cooper.  Smith does not live on a floor adjacent to Fletcher&rsquo;s.  Fletcher does
-not live on a floor adjacent to Cooper&rsquo;s.  Where does everyone live?
+Cooper.  Smith does not live on a floor adjacent to Fletcher&#8217;s.  Fletcher does
+not live on a floor adjacent to Cooper&#8217;s.  Where does everyone live?
 </p></blockquote>
 
 <p>We can determine who lives on each floor in a straightforward way by
@@ -441,25 +442,25 @@ to solve the multiple dwelling puzzle.
 </p></blockquote>
 
 <blockquote class="quotation">
-<p><strong class="strong"><a class="anchor" id="Exercise-4_002e42"></a>Exercise 4.42:</strong> Solve the following &ldquo;Liars&rdquo;
+<p><strong class="strong"><a class="anchor" id="Exercise-4_002e42"></a>Exercise 4.42:</strong> Solve the following &#8220;Liars&#8221;
 puzzle (from <a class="ref" href="References.xhtml#Phillips-1934">Phillips 1934</a>):
 </p>
-<p>Five schoolgirls sat for an examination.  Their parents&mdash;so they
-thought&mdash;showed an undue degree of interest in the result.  They therefore
+<p>Five schoolgirls sat for an examination.  Their parents&#8212;so they
+thought&#8212;showed an undue degree of interest in the result.  They therefore
 agreed that, in writing home about the examination, each girl should make one
 true statement and one untrue one.  The following are the relevant passages
 from their letters:
 </p>
 <ul class="itemize mark-bullet">
-<li>Betty: &ldquo;Kitty was second in the examination.  I was only third.&rdquo;
+<li>Betty: &#8220;Kitty was second in the examination.  I was only third.&#8221;
 
-</li><li>Ethel: &ldquo;You&rsquo;ll be glad to hear that I was on top.  Joan was second.&rdquo;
+</li><li>Ethel: &#8220;You&#8217;ll be glad to hear that I was on top.  Joan was second.&#8221;
 
-</li><li>Joan: &ldquo;I was third, and poor old Ethel was bottom.&rdquo;
+</li><li>Joan: &#8220;I was third, and poor old Ethel was bottom.&#8221;
 
-</li><li>Kitty: &ldquo;I came out second.  Mary was only fourth.&rdquo;
+</li><li>Kitty: &#8220;I came out second.  Mary was only fourth.&#8221;
 
-</li><li>Mary: &ldquo;I was fourth.  Top place was taken by Betty.&rdquo;
+</li><li>Mary: &#8220;I was fourth.  Top place was taken by Betty.&#8221;
 
 </li></ul>
 
@@ -471,34 +472,34 @@ from their letters:
 solve the following puzzle:<a class="footnote" id="DOCF234" href="#FOOT234"><sup>234</sup></a>
 </p>
 <blockquote class="quotation">
-<p>Mary Ann Moore&rsquo;s father has a yacht and so has each of his four friends:
+<p>Mary Ann Moore&#8217;s father has a yacht and so has each of his four friends:
 Colonel Downing, Mr. Hall, Sir Barnacle Hood, and Dr.  Parker.  Each of the
 five also has one daughter and each has named his yacht after a daughter of one
-of the others.  Sir Barnacle&rsquo;s yacht is the Gabrielle, Mr. Moore owns the
+of the others.  Sir Barnacle&#8217;s yacht is the Gabrielle, Mr. Moore owns the
 Lorna; Mr. Hall the Rosalind.  The Melissa, owned by Colonel Downing, is named
-after Sir Barnacle&rsquo;s daughter.  Gabrielle&rsquo;s father owns the yacht that is named
-after Dr.  Parker&rsquo;s daughter.  Who is Lorna&rsquo;s father?
+after Sir Barnacle&#8217;s daughter.  Gabrielle&#8217;s father owns the yacht that is named
+after Dr.  Parker&#8217;s daughter.  Who is Lorna&#8217;s father?
 </p></blockquote>
 
 <p>Try to write the program so that it runs efficiently (see <a class="ref" href="#Exercise-4_002e40">Exercise 4.40</a>).
-Also determine how many solutions there are if we are not told that Mary Ann&rsquo;s
+Also determine how many solutions there are if we are not told that Mary Ann&#8217;s
 last name is Moore.
 </p></blockquote>
 
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-4_002e44"></a>Exercise 4.44:</strong> <a class="ref" href="2_002e2.xhtml#Exercise-2_002e42">Exercise 2.42</a> described the
-&ldquo;eight-queens puzzle&rdquo; of placing queens on a chessboard so that no two attack
+&#8220;eight-queens puzzle&#8221; of placing queens on a chessboard so that no two attack
 each other.  Write a nondeterministic program to solve this puzzle.
 </p></blockquote>
 
-<h4 class="subsubheading" id="Parsing-natural-language"><span>Parsing natural language<a class="copiable-link" href="#Parsing-natural-language"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Parsing-natural-language"><span>Parsing natural language<a class="copiable-link" href="#Parsing-natural-language"> &#182;</a></span></h4>
 
 <p>Programs designed to accept natural language as input usually start by
 attempting to <a class="index-entry-id" id="index-parse"></a>
 <em class="dfn">parse</em> the input, that is, to match the input against
 some grammatical structure.  For example, we might try to recognize simple
 sentences consisting of an article followed by a noun followed by a verb, such
-as &ldquo;The cat eats.&rdquo;  To accomplish such an analysis, we must be able to
+as &#8220;The cat eats.&#8221;  To accomplish such an analysis, we must be able to
 identify the parts of speech of individual words.  We could start with some
 lists that classify various words:<a class="footnote" id="DOCF235" href="#FOOT235"><sup>235</sup></a>
 </p>
@@ -513,9 +514,9 @@ const ARTICLES: &amp;[&amp;str] = &amp;[&quot;the&quot;, &quot;a&quot;];
 <p>We also need a <a class="index-entry-id" id="index-grammar"></a>
 <em class="dfn">grammar</em>, that is, a set of rules describing how
 grammatical elements are composed from simpler elements.  A very simple grammar
-might stipulate that a sentence always consists of two pieces&mdash;a noun phrase
-followed by a verb&mdash;and that a noun phrase consists of an article followed by
-a noun.  With this grammar, the sentence &ldquo;The cat eats&rdquo; is parsed as follows:
+might stipulate that a sentence always consists of two pieces&#8212;a noun phrase
+followed by a verb&#8212;and that a noun phrase consists of an article followed by
+a noun.  With this grammar, the sentence &#8220;The cat eats&#8221; is parsed as follows:
 </p>
 <div class="example">
 <pre class="example-preformatted">Sentence {
@@ -609,13 +610,13 @@ parsing constraints with the aid of <code class="code">require</code>.  Automati
 backtracking really pay off, however, when we consider more complex grammars
 where there are choices for how the units can be decomposed.
 </p>
-<p>Let&rsquo;s add to our grammar a list of prepositions:
+<p>Let&#8217;s add to our grammar a list of prepositions:
 </p>
 <div class="example">
 <pre class="example-preformatted">const PREPOSITIONS: &amp;[&amp;str] = &amp;[&quot;for&quot;, &quot;to&quot;, &quot;in&quot;, &quot;by&quot;, &quot;with&quot;];
 </pre></div>
 
-<p>and define a prepositional phrase (e.g., &ldquo;for the cat&rdquo;) to be a preposition
+<p>and define a prepositional phrase (e.g., &#8220;for the cat&#8221;) to be a preposition
 followed by a noun phrase:
 </p>
 <div class="example">
@@ -649,9 +650,9 @@ fn parse_verb_phrase(input: &amp;mut &amp;[&amp;str]) -&gt; Option&lt;VerbPhrase
 }
 </pre></div>
 
-<p>While we&rsquo;re at it, we can also elaborate the definition of noun phrases to
-permit such things as &ldquo;a cat in the class.&rdquo;  What we used to call a noun
-phrase, we&rsquo;ll now call a simple noun phrase, and a noun phrase will now be
+<p>While we&#8217;re at it, we can also elaborate the definition of noun phrases to
+permit such things as &#8220;a cat in the class.&#8221;  What we used to call a noun
+phrase, we&#8217;ll now call a simple noun phrase, and a noun phrase will now be
 either a simple noun phrase or a noun phrase extended by a prepositional
 phrase:
 </p>
@@ -704,7 +705,7 @@ fn parse_noun_phrase_ext(input: &amp;mut &amp;[&amp;str]) -&gt; Option&lt;NounPh
 </pre></div>
 
 <p>Observe that a given input may have more than one legal parse.  In the sentence
-&ldquo;The professor lectures to the student with the cat,&rdquo; it may be that the
+&#8220;The professor lectures to the student with the cat,&#8221; it may be that the
 professor is lecturing with the cat, or that the student has the cat.  Our
 nondeterministic program finds both possibilities:
 </p>
@@ -754,16 +755,16 @@ SentenceExt {
 
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-4_002e45"></a>Exercise 4.45:</strong> With the grammar given above, the
-following sentence can be parsed in five different ways: &ldquo;The professor
-lectures to the student in the class with the cat.&rdquo;  Give the five parses and
+following sentence can be parsed in five different ways: &#8220;The professor
+lectures to the student in the class with the cat.&#8221;  Give the five parses and
 explain the differences in shades of meaning among them.
 </p></blockquote>
 
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-4_002e46"></a>Exercise 4.46:</strong> The evaluators in 
-<a class="ref" href="4_002e1.xhtml#g_t4_002e1">The Metacircular Evaluator</a> and <a class="ref" href="4_002e2.xhtml#g_t4_002e2">Variations on a Scheme &mdash; Lazy Evaluation</a> do not determine what order operands are evaluated in.
+<a class="ref" href="4_002e1.xhtml#g_t4_002e1">The Metacircular Evaluator</a> and <a class="ref" href="4_002e2.xhtml#g_t4_002e2">Variations on a Scheme &#8212; Lazy Evaluation</a> do not determine what order operands are evaluated in.
 We will see that the <code class="code">amb</code> evaluator evaluates them from left to right.
-Explain why our parsing program wouldn&rsquo;t work if the operands were evaluated in
+Explain why our parsing program wouldn&#8217;t work if the operands were evaluated in
 some other order.
 </p></blockquote>
 
@@ -788,7 +789,7 @@ fn parse_verb_phrase_louis(input: &amp;mut &amp;[&amp;str]) -&gt; Option&lt;Verb
 }
 </pre></div>
 
-<p>Does this work?  Does the program&rsquo;s behavior change if we interchange the order
+<p>Does this work?  Does the program&#8217;s behavior change if we interchange the order
 of expressions in the <code class="code">amb</code>?
 </p></blockquote>
 
@@ -803,16 +804,16 @@ sentences.<a class="footnote" id="DOCF238" href="#FOOT238"><sup>238</sup></a>
 <p><strong class="strong"><a class="anchor" id="Exercise-4_002e49"></a>Exercise 4.49:</strong> Alyssa P. Hacker is more
 interested in generating interesting sentences than in parsing them.  She
 reasons that by simply changing the procedure <code class="code">parse_word</code> so that it
-ignores the &ldquo;input sentence&rdquo; and instead always succeeds and generates an
+ignores the &#8220;input sentence&#8221; and instead always succeeds and generates an
 appropriate word, we can use the programs we had built for parsing to do
-generation instead.  Implement Alyssa&rsquo;s idea, and show the first half-dozen or
+generation instead.  Implement Alyssa&#8217;s idea, and show the first half-dozen or
 so sentences generated.<a class="footnote" id="DOCF239" href="#FOOT239"><sup>239</sup></a>
 </p></blockquote>
 
-<hr>
+<hr />
 </div>
 <div class="subsection-level-extent" id="g_t4_002e3_002e3">
-<h4 class="subsection" id="Implementing-the-Amb-Evaluator"><span>4.3.3 Implementing the <code class="code">Amb</code> Evaluator<a class="copiable-link" href="#Implementing-the-Amb-Evaluator"> &para;</a></span></h4>
+<h4 class="subsection" id="Implementing-the-Amb-Evaluator"><span>4.3.3 Implementing the <code class="code">Amb</code> Evaluator<a class="copiable-link" href="#Implementing-the-Amb-Evaluator"> &#182;</a></span></h4>
 
 <p>The evaluation of an ordinary Scheme expression may return a value, may never
 terminate, or may signal an error.  In nondeterministic Scheme the evaluation
@@ -827,7 +828,7 @@ procedure produced by analysis of that expression.  The difference between the
 interpretation of ordinary Scheme and the interpretation of nondeterministic
 Scheme will be entirely in the execution procedures.
 </p>
-<h4 class="subsubheading" id="Execution-procedures-and-continuations"><span>Execution procedures and continuations<a class="copiable-link" href="#Execution-procedures-and-continuations"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Execution-procedures-and-continuations"><span>Execution procedures and continuations<a class="copiable-link" href="#Execution-procedures-and-continuations"> &#182;</a></span></h4>
 
 <p>Recall that the execution procedures for the ordinary evaluator take one
 argument: the environment of execution.  In contrast, the execution procedures
@@ -861,7 +862,7 @@ that can be called later to choose a different alternative.
 <p>A failure is triggered during evaluation (that is, a failure continuation is
 called) when a user program explicitly rejects the current line of attack (for
 example, a call to <code class="code">require</code> may result in execution of <code class="code">(amb)</code>, an
-expression that always fails&mdash;see <a class="ref" href="#g_t4_002e3_002e1">Amb and Search</a>).  The failure
+expression that always fails&#8212;see <a class="ref" href="#g_t4_002e3_002e1">Amb and Search</a>).  The failure
 continuation in hand at that point will cause the most recent choice point to
 choose another alternative.  If there are no more alternatives to be considered
 at that choice point, a failure at an earlier choice point is triggered, and so
@@ -877,13 +878,13 @@ failure continuation that undoes the side effect and propagates the failure.
 <p>In summary, failure continuations are constructed by
 </p>
 <ul class="itemize mark-bullet">
-<li><code class="code">amb</code> expressions&mdash;to provide a mechanism to make alternative choices if
+<li><code class="code">amb</code> expressions&#8212;to provide a mechanism to make alternative choices if
 the current choice made by the <code class="code">amb</code> expression leads to a dead end;
 
-</li><li>the top-level driver&mdash;to provide a mechanism to report failure when the
+</li><li>the top-level driver&#8212;to provide a mechanism to report failure when the
 choices are exhausted;
 
-</li><li>assignments&mdash;to intercept failures and undo assignments during backtracking.
+</li><li>assignments&#8212;to intercept failures and undo assignments during backtracking.
 
 </li></ul>
 
@@ -910,7 +911,7 @@ to propagate the failure back to the previous choice point or to the top level.
 
 </li></ul>
 
-<h4 class="subsubheading" id="Structure-of-the-evaluator"><span>Structure of the evaluator<a class="copiable-link" href="#Structure-of-the-evaluator"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Structure-of-the-evaluator"><span>Structure of the evaluator<a class="copiable-link" href="#Structure-of-the-evaluator"> &#182;</a></span></h4>
 
 <p>The syntax- and data-representation procedures for the <code class="code">amb</code> evaluator,
 and also the basic <code class="code">analyze</code> procedure, are identical to those in the
@@ -988,7 +989,7 @@ type Executor = Box&lt;dyn Fn(
 </pre></div>
 
 <p>will attempt to evaluate the given expression and will return either the
-expression&rsquo;s value (if the evaluation succeeds) or the symbol <code class="code">failed</code> (if
+expression&#8217;s value (if the evaluation succeeds) or the symbol <code class="code">failed</code> (if
 the evaluation fails).  The call to <code class="code">ambeval</code> in the driver loop shown
 below uses much more complicated continuation procedures, which continue the
 loop and support the <code class="code">try-again</code> request.
@@ -999,7 +1000,7 @@ other.  In going through the following code, you should compare each of the
 execution procedures with the corresponding procedure for the ordinary
 evaluator given in <a class="ref" href="4_002e1.xhtml#g_t4_002e1_002e7">Separating Syntactic Analysis from Execution</a>.
 </p>
-<h4 class="subsubheading" id="Simple-expressions"><span>Simple expressions<a class="copiable-link" href="#Simple-expressions"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Simple-expressions"><span>Simple expressions<a class="copiable-link" href="#Simple-expressions"> &#182;</a></span></h4>
 
 <p>The execution procedures for the simplest kinds of expressions are essentially
 the same as those for the ordinary evaluator, except for the need to manage the
@@ -1041,13 +1042,13 @@ fn analyze_lambda(params: Vec&lt;String&gt;, body: Vec&lt;Expr&gt;) -&gt; Execut
 }
 </pre></div>
 
-<p>Notice that looking up a variable always &lsquo;succeeds.&rsquo;  If
+<p>Notice that looking up a variable always &#8216;succeeds.&#8217;  If
 <code class="code">lookup_variable_value</code> fails to find the variable, it signals an error,
-as usual.  Such a &ldquo;failure&rdquo; indicates a program bug&mdash;a reference to an
+as usual.  Such a &#8220;failure&#8221; indicates a program bug&#8212;a reference to an
 unbound variable; it is not an indication that we should try another
 nondeterministic choice instead of the one that is currently being tried.
 </p>
-<h4 class="subsubheading" id="Conditionals-and-sequences"><span>Conditionals and sequences<a class="copiable-link" href="#Conditionals-and-sequences"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Conditionals-and-sequences"><span>Conditionals and sequences<a class="copiable-link" href="#Conditionals-and-sequences"> &#182;</a></span></h4>
 
 <p>Conditionals are also handled in a similar way as in the ordinary evaluator.
 The execution procedure generated by <code class="code">analyze_if</code> invokes the predicate
@@ -1110,7 +1111,7 @@ then <code class="code">b</code>, we call <code class="code">a</code> with a suc
 }
 </pre></div>
 
-<h4 class="subsubheading" id="Definitions-and-assignments"><span>Definitions and assignments<a class="copiable-link" href="#Definitions-and-assignments"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Definitions-and-assignments"><span>Definitions and assignments<a class="copiable-link" href="#Definitions-and-assignments"> &#182;</a></span></h4>
 
 <p>Definitions are another case where we must go to some trouble to manage the
 continuations, because it is necessary to evaluate the definition_value
@@ -1149,10 +1150,10 @@ which will require us to backtrack out of the assignment.  Thus, we must
 arrange to undo the assignment as part of the backtracking process.<a class="footnote" id="DOCF242" href="#FOOT242"><sup>242</sup></a>
 </p>
 <p>This is accomplished by giving <code class="code">vproc</code> a success continuation (marked with
-the comment &ldquo;*1*&rdquo; below) that saves the old value of the variable before
+the comment &#8220;*1*&#8221; below) that saves the old value of the variable before
 assigning the new value to the variable and proceeding from the assignment.
 The failure continuation that is passed along with the value of the assignment
-(marked with the comment &ldquo;*2*&rdquo; below) restores the old value of the variable
+(marked with the comment &#8220;*2*&#8221; below) restores the old value of the variable
 before continuing the failure.  That is, a successful assignment provides a
 failure continuation that will intercept a subsequent failure; whatever failure
 would otherwise have called <code class="code">fail2</code> calls this procedure instead, to undo
@@ -1183,7 +1184,7 @@ the assignment before actually calling <code class="code">fail2</code>.
 }
 </pre></div>
 
-<h4 class="subsubheading" id="Procedure-applications"><span>Procedure applications<a class="copiable-link" href="#Procedure-applications"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Procedure-applications"><span>Procedure applications<a class="copiable-link" href="#Procedure-applications"> &#182;</a></span></h4>
 
 <p>The execution procedure for applications contains no new ideas except for the
 technical complexity of managing the continuations.  This complexity arises in
@@ -1280,7 +1281,7 @@ evaluator, except for the need to manage the continuations.
 }
 </pre></div>
 
-<h4 class="subsubheading" id="Evaluating-amb-expressions"><span>Evaluating <code class="code">amb</code> expressions<a class="copiable-link" href="#Evaluating-amb-expressions"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Evaluating-amb-expressions"><span>Evaluating <code class="code">amb</code> expressions<a class="copiable-link" href="#Evaluating-amb-expressions"> &#182;</a></span></h4>
 
 <p>The <code class="code">amb</code> special form is the key element in the nondeterministic
 language.  Here we see the essence of the interpretation process and the reason
@@ -1315,7 +1316,7 @@ are no more alternatives to try, the entire <code class="code">amb</code> expres
 }
 </pre></div>
 
-<h4 class="subsubheading" id="Driver-loop-1"><span>Driver loop<a class="copiable-link" href="#Driver-loop-1"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Driver-loop-1"><span>Driver loop<a class="copiable-link" href="#Driver-loop-1"> &#182;</a></span></h4>
 
 <p>The driver loop for the <code class="code">amb</code> evaluator is complex, due to the mechanism
 that permits the user to try again in evaluating an expression.  The driver
@@ -1336,7 +1337,7 @@ print the obtained value and then invoke the internal loop again with a
 success continuation.  Ordinarily, we think of this second argument as a
 failure continuation to be used if the current evaluation branch later fails.
 In this case, however, we have completed a successful evaluation, so we can
-invoke the &ldquo;failure&rdquo; alternative branch in order to search for additional
+invoke the &#8220;failure&#8221; alternative branch in order to search for additional
 successful evaluations.
 </p>
 <div class="example">
@@ -1390,7 +1391,7 @@ is no evaluation in progress.
 <p><strong class="strong"><a class="anchor" id="Exercise-4_002e50"></a>Exercise 4.50:</strong> Implement a new special form
 <code class="code">ramb</code> that is like <code class="code">amb</code> except that it searches alternatives in a
 random order, rather than from left to right.  Show how this can help with
-Alyssa&rsquo;s problem in <a class="ref" href="#Exercise-4_002e49">Exercise 4.49</a>.
+Alyssa&#8217;s problem in <a class="ref" href="#Exercise-4_002e49">Exercise 4.49</a>.
 </p></blockquote>
 
 <blockquote class="quotation">
@@ -1518,20 +1519,20 @@ expressions.  Complete the following definition of <code class="code">analyze-re
 </div>
 </div>
 <div class="footnotes-segment">
-<hr>
+<hr />
 <h4 class="footnotes-heading">Footnotes</h4>
 
 <h5 class="footnote-body-heading"><a id="FOOT227" href="#DOCF227">(227)</a></h5>
 <p>We assume that we have previously defined a
 procedure <code class="code">is_prime</code> that tests whether numbers are prime.  Even with
 <code class="code">is_prime</code> defined, the <code class="code">prime-sum-pair</code> procedure may look
-suspiciously like the unhelpful &ldquo;pseudo-Lisp&rdquo; attempt to define the
+suspiciously like the unhelpful &#8220;pseudo-Lisp&#8221; attempt to define the
 square-root function, which we described at the beginning of 
-<a class="ref" href="1_002e1.xhtml#g_t1_002e1_002e7">Example: Square Roots by Newton&rsquo;s Method</a>.  In fact, a square-root procedure along those lines can actually
+<a class="ref" href="1_002e1.xhtml#g_t1_002e1_002e7">Example: Square Roots by Newton&#8217;s Method</a>.  In fact, a square-root procedure along those lines can actually
 be formulated as a nondeterministic program.  By incorporating a search
 mechanism into the evaluator, we are eroding the distinction between purely
 declarative descriptions and imperative specifications of how to compute
-answers.  We&rsquo;ll go even farther in this direction in <a class="ref" href="4_002e4.xhtml#g_t4_002e4">Logic Programming</a>.</p>
+answers.  We&#8217;ll go even farther in this direction in <a class="ref" href="4_002e4.xhtml#g_t4_002e4">Logic Programming</a>.</p>
 <h5 class="footnote-body-heading"><a id="FOOT228" href="#DOCF228">(228)</a></h5>
 <p>The idea of <code class="code">amb</code> for nondeterministic
 programming was first described in 1961 by John McCarthy (see <a class="ref" href="References.xhtml#McCarthy-1963">McCarthy 1963</a>).</p>
@@ -1554,10 +1555,10 @@ personal computer has many megabytes of <abbr class="abbr">RAM</abbr>, and most 
 <abbr class="abbr">RAM</abbr> is unused.  It is hard to underestimate the cost of mass-produced
 electronics.</p>
 <h5 class="footnote-body-heading"><a id="FOOT231" href="#DOCF231">(231)</a></h5>
-<a class="anchor" id="Footnote-250"></a><p>Automagically: &ldquo;Automatically, but
+<a class="anchor" id="Footnote-250"></a><p>Automagically: &#8220;Automatically, but
 in a way which, for some reason (typically because it is too complicated, or
-too ugly, or perhaps even too trivial), the speaker doesn&rsquo;t feel like
-explaining.&rdquo;  (<a class="ref" href="References.xhtml#Steele-et-al_002e-1983">Steele et al. 1983</a>, <a class="ref" href="References.xhtml#Raymond-1993">Raymond 1993</a>)</p>
+too ugly, or perhaps even too trivial), the speaker doesn&#8217;t feel like
+explaining.&#8221;  (<a class="ref" href="References.xhtml#Steele-et-al_002e-1983">Steele et al. 1983</a>, <a class="ref" href="References.xhtml#Raymond-1993">Raymond 1993</a>)</p>
 <h5 class="footnote-body-heading"><a id="FOOT232" href="#DOCF232">(232)</a></h5>
 <p>The integration of 
 automatic search strategies into programming languages has had a long and
@@ -1616,7 +1617,7 @@ the elements of a list are distinct:
 of <code class="code">eq?</code> to test for equality.</p>
 <h5 class="footnote-body-heading"><a id="FOOT234" href="#DOCF234">(234)</a></h5>
 <p>This is taken from a booklet called
-&ldquo;Problematical Recreations,&rdquo; published in the 1960s by Litton Industries,
+&#8220;Problematical Recreations,&#8221; published in the 1960s by Litton Industries,
 where it is attributed to the <cite class="cite">Kansas State Engineer</cite>.</p>
 <h5 class="footnote-body-heading"><a id="FOOT235" href="#DOCF235">(235)</a></h5>
 <p>Here we use the convention that the
@@ -1627,7 +1628,7 @@ words in the list.</p>
 modify the unparsed input list.  For this to work, our <code class="code">amb</code> evaluator
 must undo the effects of <code class="code">set!</code> operations when it backtracks.</p>
 <h5 class="footnote-body-heading"><a id="FOOT237" href="#DOCF237">(237)</a></h5>
-<p>Observe that this definition is recursive&mdash;a
+<p>Observe that this definition is recursive&#8212;a
 verb may be followed by any number of prepositional phrases.</p>
 <h5 class="footnote-body-heading"><a id="FOOT238" href="#DOCF238">(238)</a></h5>
 <p>This kind of grammar can become arbitrarily complex, but it
@@ -1639,15 +1640,15 @@ such as information-retrieval systems.  <a class="ref" href="References.xhtml#Wi
 approaches to real language understanding and also the applications of simple
 grammars to command languages.</p>
 <h5 class="footnote-body-heading"><a id="FOOT239" href="#DOCF239">(239)</a></h5>
-<p>Although Alyssa&rsquo;s idea works just fine (and is
-surprisingly simple), the sentences that it generates are a bit boring&mdash;they
-don&rsquo;t sample the possible sentences of this language in a very interesting way.
-In fact, the grammar is highly recursive in many places, and Alyssa&rsquo;s technique
-&ldquo;falls into&rdquo; one of these recursions and gets stuck.  See <a class="ref" href="#Exercise-4_002e50">Exercise 4.50</a>
+<p>Although Alyssa&#8217;s idea works just fine (and is
+surprisingly simple), the sentences that it generates are a bit boring&#8212;they
+don&#8217;t sample the possible sentences of this language in a very interesting way.
+In fact, the grammar is highly recursive in many places, and Alyssa&#8217;s technique
+&#8220;falls into&#8221; one of these recursions and gets stuck.  See <a class="ref" href="#Exercise-4_002e50">Exercise 4.50</a>
 for a way to deal with this.</p>
 <h5 class="footnote-body-heading"><a id="FOOT240" href="#DOCF240">(240)</a></h5>
 <p>We chose to
-implement the lazy evaluator in <a class="ref" href="4_002e2.xhtml#g_t4_002e2">Variations on a Scheme &mdash; Lazy Evaluation</a> as a modification of the
+implement the lazy evaluator in <a class="ref" href="4_002e2.xhtml#g_t4_002e2">Variations on a Scheme &#8212; Lazy Evaluation</a> as a modification of the
 ordinary metacircular evaluator of <a class="ref" href="4_002e1.xhtml#g_t4_002e1_002e1">The Core of the Evaluator</a>.  In contrast, we will
 base the <code class="code">amb</code> evaluator on the analyzing evaluator of 
 <a class="ref" href="4_002e1.xhtml#g_t4_002e1_002e7">Separating Syntactic Analysis from Execution</a>, because the execution procedures in that evaluator provide a
@@ -1658,13 +1659,13 @@ that the evaluator supports <code class="code">let</code> (see <a class="ref" hr
 used in our nondeterministic programs.</p>
 <h5 class="footnote-body-heading"><a id="FOOT242" href="#DOCF242">(242)</a></h5>
 <p>We
-didn&rsquo;t worry about undoing definitions, since we can assume that internal
+didn&#8217;t worry about undoing definitions, since we can assume that internal
 definitions are scanned out (<a class="ref" href="4_002e1.xhtml#g_t4_002e1_002e6">Internal Definitions</a>).</p>
 </div>
-<hr>
+<hr />
 <div class="nav-panel">
 <p>
-Next: <a href="4_002e4.xhtml#g_t4_002e4" accesskey="n" rel="next">Logic Programming</a>, Previous: <a href="4_002e2.xhtml#g_t4_002e2_002e5a" accesskey="p" rel="prev">Persistent Data Structures and Structural Sharing</a>, Up: <a href="Chapter-4.xhtml" accesskey="u" rel="up">Metalinguistic Abstraction</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
+Next: <a href="4_002e4.xhtml#g_t4_002e4" accesskey="n" rel="next">Logic Programming</a>, Previous: <a href="4_002e2.xhtml#g_t4_002e2_002e5a" accesskey="p" rel="prev">Persistent Data Structures and Structural Sharing</a>, Up: <a href="Chapter-4.xhtml" accesskey="u" rel="up">Metalinguistic Abstraction</a> &#160; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

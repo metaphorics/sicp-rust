@@ -1,23 +1,24 @@
-<!DOCTYPE html>
-<html>
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>3.1 (Structure and Interpretation of Computer Programs, 2e)</title>
 
-<meta name="description" content="3.1 (Structure and Interpretation of Computer Programs, 2e)">
-<meta name="keywords" content="3.1 (Structure and Interpretation of Computer Programs, 2e)">
-<meta name="resource-type" content="document">
-<meta name="distribution" content="global">
-<meta name="Generator" content="texi2any">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="3.1 (Structure and Interpretation of Computer Programs, 2e)" />
+<meta name="keywords" content="3.1 (Structure and Interpretation of Computer Programs, 2e)" />
+<meta name="resource-type" content="document" />
+<meta name="distribution" content="global" />
+<meta name="Generator" content="texi2any" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 
-<link href="index.xhtml" rel="start" title="Top">
-<link href="Term-Index.xhtml" rel="index" title="Term Index">
-<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="Chapter-3.xhtml" rel="up" title="Chapter 3">
-<link href="3_002e2.xhtml#g_t3_002e2" rel="next" title="3.2">
-<link href="Chapter-3.xhtml" rel="prev" title="Chapter 3">
+<link href="index.xhtml" rel="start" title="Top" />
+<link href="Term-Index.xhtml" rel="index" title="Term Index" />
+<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents" />
+<link href="Chapter-3.xhtml" rel="up" title="Chapter 3" />
+<link href="3_002e2.xhtml#g_t3_002e2" rel="next" title="3.2" />
+<link href="Chapter-3.xhtml" rel="prev" title="Chapter 3" />
 <style type="text/css">
 <!--
 a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
@@ -35,18 +36,18 @@ span:hover a.copiable-link {visibility: visible}
 <div class="section-level-extent" id="g_t3_002e1">
 <div class="nav-panel">
 <p>
-Next: <a href="3_002e2.xhtml#g_t3_002e2" accesskey="n" rel="next">The Environment Model of Evaluation</a>, Previous: <a href="Chapter-3.xhtml" accesskey="p" rel="prev">Modularity, Objects, and State</a>, Up: <a href="Chapter-3.xhtml" accesskey="u" rel="up">Modularity, Objects, and State</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
+Next: <a href="3_002e2.xhtml#g_t3_002e2" accesskey="n" rel="next">The Environment Model of Evaluation</a>, Previous: <a href="Chapter-3.xhtml" accesskey="p" rel="prev">Modularity, Objects, and State</a>, Up: <a href="Chapter-3.xhtml" accesskey="u" rel="up">Modularity, Objects, and State</a> &#160; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
 </div>
-<h3 class="section" id="Assignment-and-Local-State"><span>3.1 Assignment and Local State<a class="copiable-link" href="#Assignment-and-Local-State"> &para;</a></span></h3>
+<h3 class="section" id="Assignment-and-Local-State"><span>3.1 Assignment and Local State<a class="copiable-link" href="#Assignment-and-Local-State"> &#182;</a></span></h3>
 
 <p>We ordinarily view the world as populated by independent objects, each of which
-has a state that changes over time.  An object is said to &ldquo;have state&rdquo; if its
+has a state that changes over time.  An object is said to &#8220;have state&#8221; if its
 behavior is influenced by its history.  A bank account, for example, has state
-in that the answer to the question &ldquo;Can I withdraw $100?&rdquo;  depends upon the
+in that the answer to the question &#8220;Can I withdraw $100?&#8221;  depends upon the
 history of deposit and withdrawal transactions.  We can characterize an
-object&rsquo;s state by one or more <a class="index-entry-id" id="index-state-variables-1"></a>
+object&#8217;s state by one or more <a class="index-entry-id" id="index-state-variables-1"></a>
 <em class="dfn">state variables</em>, which among them
-maintain enough information about history to determine the object&rsquo;s current
+maintain enough information about history to determine the object&#8217;s current
 behavior.  In a simple banking system, we could characterize the state of an
 account by a current balance rather than by remembering the entire history of
 account transactions.
@@ -63,7 +64,7 @@ models of the system.  For such a model to be modular, it should be decomposed
 into computational objects that model the actual objects in the system.  Each
 computational object must have its own <a class="index-entry-id" id="index-local-state-variables"></a>
 <em class="dfn">local state variables</em>
-describing the actual object&rsquo;s state.  Since the states of objects in the
+describing the actual object&#8217;s state.  Since the states of objects in the
 system being modeled change over time, the state variables of the corresponding
 computational objects must also change.  If we choose to model the flow of time
 in the system by the elapsed time in the computer, then we must have a way to
@@ -74,9 +75,9 @@ the programming language, then the language must provide an <a class="index-entr
 to enable us to change the value associated with a name.
 </p>
 
-<hr>
+<hr />
 <div class="subsection-level-extent" id="g_t3_002e1_002e1">
-<h4 class="subsection" id="Local-State-Variables"><span>3.1.1 Local State Variables<a class="copiable-link" href="#Local-State-Variables"> &para;</a></span></h4>
+<h4 class="subsection" id="Local-State-Variables"><span>3.1.1 Local State Variables<a class="copiable-link" href="#Local-State-Variables"> &#182;</a></span></h4>
 
 <p>To illustrate what we mean by having a computational object with time-varying
 state, let us model the situation of withdrawing money from a bank account.  We
@@ -241,8 +242,8 @@ let mut new_withdraw = make_withdraw(100);
 local variable <code class="code">balance</code>, bound to the initial value 100.  Within this
 local environment, we use <code class="code">lambda</code> to create a procedure that takes
 <code class="code">amount</code> as an argument and behaves like our previous <code class="code">withdraw</code>
-procedure.  This procedure&mdash;returned as the result of evaluating the
-<code class="code">let</code> expression&mdash;is <code class="code">new_withdraw</code>, which behaves in precisely the
+procedure.  This procedure&#8212;returned as the result of evaluating the
+<code class="code">let</code> expression&#8212;is <code class="code">new_withdraw</code>, which behaves in precisely the
 same way as <code class="code">withdraw</code> but whose variable <code class="code">balance</code> is not accessible
 by any other procedure.<a class="footnote" id="DOCF125" href="#FOOT125"><sup>125</sup></a>
 </p>
@@ -263,8 +264,8 @@ application.  In <a class="ref" href="3_002e2.xhtml#g_t3_002e2">The Environment 
 with an explanation of <code class="code">set!</code> and local variables.  First, however, we
 examine some variations on the theme established by <code class="code">new_withdraw</code>.
 </p>
-<p>The following procedure, <code class="code">make_withdraw</code>, creates &ldquo;withdrawal
-processors.&rdquo;  The formal parameter <code class="code">balance</code> in <code class="code">make_withdraw</code>
+<p>The following procedure, <code class="code">make_withdraw</code>, creates &#8220;withdrawal
+processors.&#8221;  The formal parameter <code class="code">balance</code> in <code class="code">make_withdraw</code>
 specifies the initial amount of money in the account.<a class="footnote" id="DOCF126" href="#FOOT126"><sup>126</sup></a>
 </p>
 <div class="example">
@@ -308,7 +309,7 @@ affect the other.
 </p>
 <p>We can also create objects that handle deposits as well as withdrawals, and
 thus we can represent simple bank accounts.  Here is a procedure that returns a
-&ldquo;bank-account object&rdquo; with a specified initial balance:
+&#8220;bank-account object&#8221; with a specified initial balance:
 </p>
 <div class="example">
 <pre class="example-preformatted">use std::cell::Cell;
@@ -342,7 +343,7 @@ impl Account {
 <p>Each call to <code class="code">Account::new</code> sets up an environment with a local state
 variable <code class="code">balance</code>.  Within this environment, <code class="code">Account::new</code> defines
 procedures <code class="code">deposit</code> and <code class="code">withdraw</code> that access <code class="code">balance</code> and an
-additional procedure <code class="code">dispatch</code> that takes a &ldquo;message&rdquo; as input and
+additional procedure <code class="code">dispatch</code> that takes a &#8220;message&#8221; as input and
 returns one of the two local procedures.  The <code class="code">dispatch</code> procedure itself
 is returned as the value that represents the bank-account object.  This is
 precisely the <a class="index-entry-id" id="index-message_002dpassing"></a>
@@ -455,10 +456,10 @@ if an account is accessed more than seven consecutive times with an incorrect
 password, it invokes the procedure <code class="code">call-the-cops</code>.
 </p></blockquote>
 
-<hr>
+<hr />
 </div>
 <div class="subsection-level-extent" id="g_t3_002e1_002e2">
-<h4 class="subsection" id="The-Benefits-of-Introducing-Assignment"><span>3.1.2 The Benefits of Introducing Assignment<a class="copiable-link" href="#The-Benefits-of-Introducing-Assignment"> &para;</a></span></h4>
+<h4 class="subsection" id="The-Benefits-of-Introducing-Assignment"><span>3.1.2 The Benefits of Introducing Assignment<a class="copiable-link" href="#The-Benefits-of-Introducing-Assignment"> &#182;</a></span></h4>
 
 <p>As we shall see, introducing assignment into our programming language leads us
 into a thicket of difficult conceptual issues.  Nevertheless, viewing systems
@@ -467,7 +468,7 @@ maintaining a modular design.  As a simple example, consider the design of a
 procedure <code class="code">rand</code> that, whenever it is called, returns an integer chosen at
 random.
 </p>
-<p>It is not at all clear what is meant by &ldquo;chosen at random.&rdquo;  What we
+<p>It is not at all clear what is meant by &#8220;chosen at random.&#8221;  What we
 presumably want is for successive calls to <code class="code">rand</code> to produce a sequence of
 numbers that has statistical properties of uniform distribution.  We will not
 discuss methods for generating suitable sequences here.  Rather, let us assume
@@ -479,7 +480,7 @@ start with a given number <em class="math">x_1</em> and form
 let x3 = rand_update(x2);
 </pre></div>
 
-<p>then the sequence of values <em class="math">x_1</em>, <em class="math">x_2</em>, <em class="math">x_3</em>, &hellip; will have the
+<p>then the sequence of values <em class="math">x_1</em>, <em class="math">x_2</em>, <em class="math">x_3</em>, &#8230; will have the
 desired statistical properties.<a class="footnote" id="DOCF127" href="#FOOT127"><sup>127</sup></a>
 </p>
 <p>We can implement <code class="code">rand</code> as a procedure with a local state variable
@@ -580,7 +581,7 @@ intertwines the structure of accumulating test results with the fact that our
 particular experiment uses two random numbers, whereas other Monte Carlo
 experiments might use one random number or three.  Even the top-level procedure
 <code class="code">estimate-pi</code> has to be concerned with supplying an initial random number.
-The fact that the random-number generator&rsquo;s insides are leaking out into other
+The fact that the random-number generator&#8217;s insides are leaking out into other
 parts of the program makes it difficult for us to isolate the Monte Carlo idea
 so that it can be applied to other tasks.  In the first version of the program,
 assignment encapsulates the state of the random-number generator within the
@@ -656,16 +657,16 @@ repeatable sequences.  These are very handy to have when testing and debugging
 programs that use random numbers.
 </p></blockquote>
 
-<hr>
+<hr />
 </div>
 <div class="subsection-level-extent" id="g_t3_002e1_002e3">
-<h4 class="subsection" id="The-Costs-of-Introducing-Assignment"><span>3.1.3 The Costs of Introducing Assignment<a class="copiable-link" href="#The-Costs-of-Introducing-Assignment"> &para;</a></span></h4>
+<h4 class="subsection" id="The-Costs-of-Introducing-Assignment"><span>3.1.3 The Costs of Introducing Assignment<a class="copiable-link" href="#The-Costs-of-Introducing-Assignment"> &#182;</a></span></h4>
 
 <p>As we have seen, the <code class="code">set!</code> operation enables us to model objects that
 have local state.  However, this advantage comes at a price.  Our programming
 language can no longer be interpreted in terms of the substitution model of
 procedure application that we introduced in <a class="ref" href="1_002e1.xhtml#g_t1_002e1_002e5">The Substitution Model for Procedure Application</a>.  Moreover, no
-simple model with &ldquo;nice&rdquo; mathematical properties can be an adequate framework
+simple model with &#8220;nice&#8221; mathematical properties can be an adequate framework
 for dealing with objects and assignment in programming languages.
 </p>
 <p>So long as we do not use assignments, two evaluations of the same procedure
@@ -784,14 +785,14 @@ we introduce <code class="code">set!</code> and the idea that the value of a var
 a variable can no longer be simply a name.  Now a variable somehow refers to a
 place where a value can be stored, and the value stored at this place can
 change.  In <a class="ref" href="3_002e2.xhtml#g_t3_002e2">The Environment Model of Evaluation</a> we will see how environments play this role of
-&ldquo;place&rdquo; in our computational model.
+&#8220;place&#8221; in our computational model.
 </p>
-<h4 class="subsubheading" id="Sameness-and-change"><span>Sameness and change<a class="copiable-link" href="#Sameness-and-change"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Sameness-and-change"><span>Sameness and change<a class="copiable-link" href="#Sameness-and-change"> &#182;</a></span></h4>
 
 <p>The issue surfacing here is more profound than the mere breakdown of a
 particular model of computation.  As soon as we introduce change into our
 computational models, many notions that were previously straightforward become
-problematical.  Consider the concept of two things being &ldquo;the same.&rdquo;
+problematical.  Consider the concept of two things being &#8220;the same.&#8221;
 </p>
 <p>Suppose we call <code class="code">make-decrementer</code> twice with the same argument to create
 two procedures:
@@ -802,7 +803,7 @@ let d2 = make_decrementer(25);
 </pre></div>
 
 <p>Are <code class="code">D1</code> and <code class="code">D2</code> the same?  An acceptable answer is yes, because
-<code class="code">D1</code> and <code class="code">D2</code> have the same computational behavior&mdash;each is a
+<code class="code">D1</code> and <code class="code">D2</code> have the same computational behavior&#8212;each is a
 procedure that subtracts its input from 25.  In fact, <code class="code">D1</code> could be
 substituted for <code class="code">D2</code> in any computation without changing the result.
 </p>
@@ -828,13 +829,13 @@ w2(20);
 // =&gt; Ok(5)
 </pre></div>
 
-<p>Even though <code class="code">W1</code> and <code class="code">W2</code> are &ldquo;equal&rdquo; in the sense that they are
+<p>Even though <code class="code">W1</code> and <code class="code">W2</code> are &#8220;equal&#8221; in the sense that they are
 both created by evaluating the same expression, <code class="code">(make-simplified-withdraw
 25)</code>, it is not true that <code class="code">W1</code> could be substituted for <code class="code">W2</code> in any
 expression without changing the result of evaluating the expression.
 </p>
-<p>A language that supports the concept that &ldquo;equals can be substituted for
-equals&rdquo; in an expression without changing the value of the expression is said
+<p>A language that supports the concept that &#8220;equals can be substituted for
+equals&#8221; in an expression without changing the value of the expression is said
 to be <a class="index-entry-id" id="index-referentially-transparent"></a>
 <em class="dfn">referentially transparent</em>.  Referential transparency is
 violated when we include <code class="code">set!</code> in our computer language.  This makes it
@@ -843,15 +844,15 @@ expressions.  Consequently, reasoning about programs that use assignment
 becomes drastically more difficult.
 </p>
 <p>Once we forgo referential transparency, the notion of what it means for
-computational objects to be &ldquo;the same&rdquo; becomes difficult to capture in a
-formal way.  Indeed, the meaning of &ldquo;same&rdquo; in the real world that our
+computational objects to be &#8220;the same&#8221; becomes difficult to capture in a
+formal way.  Indeed, the meaning of &#8220;same&#8221; in the real world that our
 programs model is hardly clear in itself.  In general, we can determine that
-two apparently identical objects are indeed &ldquo;the same one&rdquo; only by modifying
+two apparently identical objects are indeed &#8220;the same one&#8221; only by modifying
 one object and then observing whether the other object has changed in the same
-way.  But how can we tell if an object has &ldquo;changed&rdquo; other than by observing
-the &ldquo;same&rdquo; object twice and seeing whether some property of the object
-differs from one observation to the next?  Thus, we cannot determine &ldquo;change&rdquo;
-without some <em class="emph">a priori</em> notion of &ldquo;sameness,&rdquo; and we cannot determine
+way.  But how can we tell if an object has &#8220;changed&#8221; other than by observing
+the &#8220;same&#8221; object twice and seeing whether some property of the object
+differs from one observation to the next?  Thus, we cannot determine &#8220;change&#8221;
+without some <em class="emph">a priori</em> notion of &#8220;sameness,&#8221; and we cannot determine
 sameness without observing the effects of change.
 </p>
 <p>As an example of how this issue arises in programming, consider the situation
@@ -872,7 +873,7 @@ let paul_acc = Rc::clone(&amp;peter_acc);  // Both refer to same account
 </pre></div>
 
 <p>In the first situation, the two bank accounts are distinct.  Transactions made
-by Peter will not affect Paul&rsquo;s account, and vice versa.  In the second
+by Peter will not affect Paul&#8217;s account, and vice versa.  In the second
 situation, however, we have defined <code class="code">paul-acc</code> to be <em class="emph">the same thing</em>
 as <code class="code">peter-acc</code>.  In effect, Peter and Paul now have a joint bank account,
 and if Peter makes a withdrawal from <code class="code">peter-acc</code> Paul will observe less
@@ -884,24 +885,24 @@ if we are searching for all the places in our program where <code class="code">p
 be changed, we must remember to look also at things that change
 <code class="code">peter-acc</code>.<a class="footnote" id="DOCF131" href="#FOOT131"><sup>131</sup></a>
 </p>
-<p>With reference to the above remarks on &ldquo;sameness&rdquo; and &ldquo;change,&rdquo; observe
+<p>With reference to the above remarks on &#8220;sameness&#8221; and &#8220;change,&#8221; observe
 that if Peter and Paul could only examine their bank balances, and could not
 perform operations that changed the balance, then the issue of whether the two
 accounts are distinct would be moot.  In general, so long as we never modify
 data objects, we can regard a compound data object to be precisely the totality
 of its pieces.  For example, a rational number is determined by giving its
 numerator and its denominator.  But this view is no longer valid in the
-presence of change, where a compound data object has an &ldquo;identity&rdquo; that is
+presence of change, where a compound data object has an &#8220;identity&#8221; that is
 something different from the pieces of which it is composed.  A bank account is
-still &ldquo;the same&rdquo; bank account even if we change the balance by making a
+still &#8220;the same&#8221; bank account even if we change the balance by making a
 withdrawal; conversely, we could have two different bank accounts with the same
 state information.  This complication is a consequence, not of our programming
 language, but of our perception of a bank account as an object.  We do not, for
 example, ordinarily regard a rational number as a changeable object with
-identity, such that we could change the numerator and still have &ldquo;the same&rdquo;
+identity, such that we could change the numerator and still have &#8220;the same&#8221;
 rational number.
 </p>
-<h4 class="subsubheading" id="Pitfalls-of-imperative-programming"><span>Pitfalls of imperative programming<a class="copiable-link" href="#Pitfalls-of-imperative-programming"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Pitfalls-of-imperative-programming"><span>Pitfalls of imperative programming<a class="copiable-link" href="#Pitfalls-of-imperative-programming"> &#182;</a></span></h4>
 
 <p>In contrast to functional programming, programming that makes extensive use of
 assignment is known as <a class="index-entry-id" id="index-imperative-programming"></a>
@@ -1006,10 +1007,10 @@ the arguments to <code class="code">+</code> are evaluated from left to right bu
 the arguments are evaluated from right to left.
 </p></blockquote>
 
-<hr>
+<hr />
 </div>
 <div class="subsection-level-extent" id="g_t3_002e1_002e4">
-<h4 class="subsection" id="The-Borrow-Checker-as-Guardian"><span>3.1.4 The Borrow Checker as Guardian<a class="copiable-link" href="#The-Borrow-Checker-as-Guardian"> &para;</a></span></h4>
+<h4 class="subsection" id="The-Borrow-Checker-as-Guardian"><span>3.1.4 The Borrow Checker as Guardian<a class="copiable-link" href="#The-Borrow-Checker-as-Guardian"> &#182;</a></span></h4>
 <a class="index-entry-id" id="index-ownership"></a>
 <a class="index-entry-id" id="index-borrowing"></a>
 <a class="index-entry-id" id="index-borrow-checker"></a>
@@ -1023,18 +1024,18 @@ sameness and change. In Rust, these challenges are addressed through a
 compile-time system called the <a class="index-entry-id" id="index-borrow-checker-1"></a>
 <em class="dfn">borrow checker</em>, which enforces strict
 rules about ownership and borrowing. Rather than relying on runtime garbage
-collection or manual memory management, Rust&rsquo;s ownership system provides memory
-safety and prevents data races at compile time&mdash;with zero runtime overhead.
+collection or manual memory management, Rust&#8217;s ownership system provides memory
+safety and prevents data races at compile time&#8212;with zero runtime overhead.
 </p>
-<p>The borrow checker is Rust&rsquo;s guardian against an entire class of bugs that plague
+<p>The borrow checker is Rust&#8217;s guardian against an entire class of bugs that plague
 systems programming: use-after-free, double-free, data races, iterator
 invalidation, and dangling pointers. By encoding ownership and borrowing rules
 in the type system, Rust transforms these runtime errors into compile-time
 errors, preventing them before the program ever runs.
 </p>
-<h4 class="subsubheading" id="Ownership_003a-Each-Value-Has-One-Owner"><span>Ownership: Each Value Has One Owner<a class="copiable-link" href="#Ownership_003a-Each-Value-Has-One-Owner"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Ownership_003a-Each-Value-Has-One-Owner"><span>Ownership: Each Value Has One Owner<a class="copiable-link" href="#Ownership_003a-Each-Value-Has-One-Owner"> &#182;</a></span></h4>
 
-<p>The foundation of Rust&rsquo;s memory model is the principle that <a class="index-entry-id" id="index-every-value"></a>
+<p>The foundation of Rust&#8217;s memory model is the principle that <a class="index-entry-id" id="index-every-value"></a>
 has exactly one owner
 <em class="dfn">every value
 has exactly one owner</em>. When the owner goes out of scope, the value is
@@ -1057,10 +1058,10 @@ cleaned up deterministically.
 
 <p>This simple principle has profound implications. Unlike languages with garbage
 collection, Rust knows <em class="emph">exactly</em> when to free memory: when the owner goes
-out of scope. There&rsquo;s no need for a runtime garbage collector scanning memory,
+out of scope. There&#8217;s no need for a runtime garbage collector scanning memory,
 no unpredictable pauses, no reference counting overhead.
 </p>
-<h4 class="subsubheading" id="Move-Semantics_003a-Ownership-Transfer"><span>Move Semantics: Ownership Transfer<a class="copiable-link" href="#Move-Semantics_003a-Ownership-Transfer"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Move-Semantics_003a-Ownership-Transfer"><span>Move Semantics: Ownership Transfer<a class="copiable-link" href="#Move-Semantics_003a-Ownership-Transfer"> &#182;</a></span></h4>
 
 <p>When we assign a value to another variable or pass it to a function, ownership
 is <a class="index-entry-id" id="index-transferred"></a>
@@ -1083,7 +1084,7 @@ to free the same memory, or to languages with garbage collection, where the
 runtime must track all references.
 </p>
 <p>The move semantics extend to function calls. When we pass a value to a function,
-ownership transfers to the function&rsquo;s parameter:
+ownership transfers to the function&#8217;s parameter:
 </p>
 <div class="example">
 <pre class="example-preformatted">fn take_ownership(s: String) {
@@ -1098,9 +1099,9 @@ fn demonstrate_function_move() {
 </pre></div>
 
 <p>To use the value after the function call, we must either return it or use
-borrowing, which we&rsquo;ll explore next.
+borrowing, which we&#8217;ll explore next.
 </p>
-<h4 class="subsubheading" id="Copy-vs_002e-Move_003a-The-Copy-Trait"><span>Copy vs. Move: The Copy Trait<a class="copiable-link" href="#Copy-vs_002e-Move_003a-The-Copy-Trait"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Copy-vs_002e-Move_003a-The-Copy-Trait"><span>Copy vs. Move: The Copy Trait<a class="copiable-link" href="#Copy-vs_002e-Move_003a-The-Copy-Trait"> &#182;</a></span></h4>
 
 <p>Not all types move by default. Types that implement the <code class="code">Copy</code> trait are
 copied implicitly instead of moved. The <code class="code">Copy</code> trait can only be
@@ -1125,10 +1126,10 @@ floating-point numbers, booleans, characters, and tuples/arrays containing only
 <code class="code">Vec&lt;T&gt;</code>) cannot be <code class="code">Copy</code>, as duplicating them requires allocating
 new memory.
 </p>
-<h4 class="subsubheading" id="Borrowing_003a-Temporary-Access-Without-Ownership"><span>Borrowing: Temporary Access Without Ownership<a class="copiable-link" href="#Borrowing_003a-Temporary-Access-Without-Ownership"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Borrowing_003a-Temporary-Access-Without-Ownership"><span>Borrowing: Temporary Access Without Ownership<a class="copiable-link" href="#Borrowing_003a-Temporary-Access-Without-Ownership"> &#182;</a></span></h4>
 
 <p>While move semantics prevent many bugs, moving values in and out of functions
-would be cumbersome. Rust&rsquo;s <a class="index-entry-id" id="index-borrowing-1"></a>
+would be cumbersome. Rust&#8217;s <a class="index-entry-id" id="index-borrowing-1"></a>
 <em class="dfn">borrowing</em> system allows functions to
 temporarily access values without taking ownership:
 </p>
@@ -1146,13 +1147,13 @@ fn demonstrate_borrowing() {
 </pre></div>
 
 <p>The <code class="code">&amp;</code> operator creates a <a class="index-entry-id" id="index-reference"></a>
-<em class="dfn">reference</em>&mdash;a pointer that borrows the
+<em class="dfn">reference</em>&#8212;a pointer that borrows the
 value without taking ownership. When the reference goes out of scope, nothing is
 dropped because the reference never owned the value.
 </p>
-<h4 class="subsubheading" id="The-Borrowing-Rules_003a-Multiple-Readers-or-One-Writer"><span>The Borrowing Rules: Multiple Readers or One Writer<a class="copiable-link" href="#The-Borrowing-Rules_003a-Multiple-Readers-or-One-Writer"> &para;</a></span></h4>
+<h4 class="subsubheading" id="The-Borrowing-Rules_003a-Multiple-Readers-or-One-Writer"><span>The Borrowing Rules: Multiple Readers or One Writer<a class="copiable-link" href="#The-Borrowing-Rules_003a-Multiple-Readers-or-One-Writer"> &#182;</a></span></h4>
 
-<p>Rust&rsquo;s borrowing system enforces two fundamental rules that prevent data races:
+<p>Rust&#8217;s borrowing system enforces two fundamental rules that prevent data races:
 </p>
 <ol class="enumerate">
 <li> You can have <em class="emph">either</em> any number of immutable references (<code class="code">&amp;T</code>)
@@ -1160,7 +1161,7 @@ dropped because the reference never owned the value.
 </li><li> But never both at the same time
 </li></ol>
 
-<p>These rules are enforced at compile time, within a scope. Here&rsquo;s why they matter:
+<p>These rules are enforced at compile time, within a scope. Here&#8217;s why they matter:
 </p>
 <div class="example">
 <pre class="example-preformatted"><a class="index-entry-id" id="index-mutable-borrow"></a><a class="index-entry-id" id="index-exclusive-access"></a>fn demonstrate_mutable_borrowing() {
@@ -1190,7 +1191,7 @@ fn demonstrate_multiple_immutable_borrows() {
 }
 </pre></div>
 
-<p>These rules prevent data races&mdash;situations where two or more pointers access
+<p>These rules prevent data races&#8212;situations where two or more pointers access
 the same memory location simultaneously, with at least one writing. By ensuring
 either multiple readers <em class="emph">or</em> one writer, Rust guarantees that data cannot
 be modified while others are reading it.
@@ -1216,14 +1217,14 @@ lexical scope:
 
 <p>This feature, called <a class="index-entry-id" id="index-non_002dlexical-lifetimes-1"></a>
 <em class="dfn">non-lexical lifetimes</em> (NLL), makes the borrow
-checker more precise: references are only considered active from where they&rsquo;re
+checker more precise: references are only considered active from where they&#8217;re
 created to their last use, not necessarily until the end of their lexical scope.
 </p>
-<h4 class="subsubheading" id="Lifetimes_003a-Relating-Borrowed-References"><span>Lifetimes: Relating Borrowed References<a class="copiable-link" href="#Lifetimes_003a-Relating-Borrowed-References"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Lifetimes_003a-Relating-Borrowed-References"><span>Lifetimes: Relating Borrowed References<a class="copiable-link" href="#Lifetimes_003a-Relating-Borrowed-References"> &#182;</a></span></h4>
 
 <p>When functions return references, Rust needs to ensure they remain valid. This
 is where <a class="index-entry-id" id="index-lifetime-annotations"></a>
-<em class="dfn">lifetime annotations</em> come in&mdash;they describe the relationship
+<em class="dfn">lifetime annotations</em> come in&#8212;they describe the relationship
 between the lifetimes of different references:
 </p>
 <div class="example">
@@ -1246,7 +1247,7 @@ fn demonstrate_lifetimes() {
 </pre></div>
 
 <p>The lifetime annotation <code class="code">'a</code> (pronounced &quot;lifetime a&quot;) says: &quot;the returned
-reference is valid for as long as both input references are valid.&quot; It doesn&rsquo;t
+reference is valid for as long as both input references are valid.&quot; It doesn&#8217;t
 change how long anything lives; it merely describes the relationship to the
 borrow checker.
 </p>
@@ -1254,16 +1255,16 @@ borrow checker.
 reference points to <code class="code">x</code> or <code class="code">y</code>, and thus cannot verify it remains
 valid. The lifetime parameter makes this relationship explicit.
 </p>
-<h4 class="subsubheading" id="Lifetime-Elision-Rules"><span>Lifetime Elision Rules<a class="copiable-link" href="#Lifetime-Elision-Rules"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Lifetime-Elision-Rules"><span>Lifetime Elision Rules<a class="copiable-link" href="#Lifetime-Elision-Rules"> &#182;</a></span></h4>
 
-<p>Most of the time, we don&rsquo;t need to write lifetime annotations. The Rust compiler
+<p>Most of the time, we don&#8217;t need to write lifetime annotations. The Rust compiler
 applies <a class="index-entry-id" id="index-lifetime-elision-rules"></a>
 <em class="dfn">lifetime elision rules</em> to infer lifetimes in common patterns:
 </p>
 <ol class="enumerate">
 <li> Each reference parameter gets its own lifetime parameter
-</li><li> If there&rsquo;s exactly one input lifetime, it&rsquo;s assigned to all output lifetimes
-</li><li> If there&rsquo;s a <code class="code">&amp;self</code> or <code class="code">&amp;mut self</code> parameter, its lifetime is assigned to all output lifetimes
+</li><li> If there&#8217;s exactly one input lifetime, it&#8217;s assigned to all output lifetimes
+</li><li> If there&#8217;s a <code class="code">&amp;self</code> or <code class="code">&amp;mut self</code> parameter, its lifetime is assigned to all output lifetimes
 </li></ol>
 
 <div class="example">
@@ -1292,9 +1293,9 @@ impl&lt;'a&gt; Parser&lt;'a&gt; {
 }
 </pre></div>
 
-<h4 class="subsubheading" id="Common-Borrow-Checker-Errors-and-Solutions"><span>Common Borrow Checker Errors and Solutions<a class="copiable-link" href="#Common-Borrow-Checker-Errors-and-Solutions"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Common-Borrow-Checker-Errors-and-Solutions"><span>Common Borrow Checker Errors and Solutions<a class="copiable-link" href="#Common-Borrow-Checker-Errors-and-Solutions"> &#182;</a></span></h4>
 
-<p>Let&rsquo;s examine common patterns that trigger borrow checker errors and their
+<p>Let&#8217;s examine common patterns that trigger borrow checker errors and their
 solutions:
 </p>
 <p><strong class="strong">Problem 1: Returning a reference to local data</strong>
@@ -1355,7 +1356,7 @@ impl Data {
 }
 </pre></div>
 
-<h4 class="subsubheading" id="Preventing-Data-Races-at-Compile-Time"><span>Preventing Data Races at Compile Time<a class="copiable-link" href="#Preventing-Data-Races-at-Compile-Time"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Preventing-Data-Races-at-Compile-Time"><span>Preventing Data Races at Compile Time<a class="copiable-link" href="#Preventing-Data-Races-at-Compile-Time"> &#182;</a></span></h4>
 
 <p>The borrowing rules directly prevent data races in concurrent programs. Consider
 this example that would cause a data race in other languages:
@@ -1377,18 +1378,18 @@ fn data_race_prevented() {
 </pre></div>
 
 <p>The borrow checker prevents the closure from capturing <code class="code">&amp;mut data</code> because
-it cannot guarantee the closure won&rsquo;t outlive the function. This static analysis
+it cannot guarantee the closure won&#8217;t outlive the function. This static analysis
 eliminates entire classes of concurrency bugs that would only appear at runtime
-in other languages&mdash;often intermittently and irreproducibly.
+in other languages&#8212;often intermittently and irreproducibly.
 </p>
-<h4 class="subsubheading" id="Connection-to-Chapter-3_003a-State-and-Time"><span>Connection to Chapter 3: State and Time<a class="copiable-link" href="#Connection-to-Chapter-3_003a-State-and-Time"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Connection-to-Chapter-3_003a-State-and-Time"><span>Connection to Chapter 3: State and Time<a class="copiable-link" href="#Connection-to-Chapter-3_003a-State-and-Time"> &#182;</a></span></h4>
 
-<p>Returning to the themes of Chapter 3, we see how Rust&rsquo;s ownership system
+<p>Returning to the themes of Chapter 3, we see how Rust&#8217;s ownership system
 addresses the challenges we identified with assignment and state:
 </p>
 <ol class="enumerate">
 <li> <strong class="strong">The substitution model:</strong> By restricting mutation to exclusive mutable
-borrows, Rust maintains local reasoning&mdash;within a scope with an immutable
+borrows, Rust maintains local reasoning&#8212;within a scope with an immutable
 reference, we know the value cannot change.
 
 </li><li> <strong class="strong">Sameness and identity:</strong> Ownership makes identity explicit. Two
@@ -1397,7 +1398,7 @@ owned values. The type system prevents confusion between these cases.
 
 </li><li> <strong class="strong">Pitfalls of imperative programming:</strong> The borrow checker prevents the bugs
 that plague imperative programs: use-after-free, double-free, data races,
-iterator invalidation. These are not runtime errors to debug&mdash;they are
+iterator invalidation. These are not runtime errors to debug&#8212;they are
 impossible by construction.
 </li></ol>
 
@@ -1428,7 +1429,7 @@ that attempts to find the longest common prefix of two strings:
 <li> Will this function compile? If not, what is the error?
 </li><li> Add appropriate lifetime annotations to make it compile.
 </li><li> What does the lifetime annotation tell the caller about the returned reference?
-</li><li> Why doesn&rsquo;t the function need to know which input string the result came from?
+</li><li> Why doesn&#8217;t the function need to know which input string the result came from?
 </li></ol>
 </blockquote>
 
@@ -1509,7 +1510,7 @@ assumptions about ownership and access patterns.
 </div>
 </div>
 <div class="footnotes-segment">
-<hr>
+<hr />
 <h4 class="footnotes-heading">Footnotes</h4>
 
 <h5 class="footnote-body-heading"><a id="FOOT122" href="#DOCF122">(122)</a></h5>
@@ -1545,7 +1546,7 @@ system-design principle known as the <a class="index-entry-id" id="index-hiding-
 <em class="dfn">hiding principle</em>: One can make a
 system more modular and robust by protecting parts of the system from each
 other; that is, by providing information access only to those parts of the
-system that have a &ldquo;need to know.&rdquo;</p>
+system that have a &#8220;need to know.&#8221;</p>
 <h5 class="footnote-body-heading"><a id="FOOT126" href="#DOCF126">(126)</a></h5>
 <p>In contrast with
 <code class="code">new_withdraw</code> above, we do not have to use <code class="code">let</code> to make
@@ -1561,9 +1562,9 @@ techniques for generating sequences of random numbers and establishing their
 statistical properties.  Notice that the <code class="code">rand-update</code> procedure computes
 a mathematical function: Given the same input twice, it produces the same
 output.  Therefore, the number sequence produced by <code class="code">rand-update</code>
-certainly is not &ldquo;random,&rdquo; if by &ldquo;random&rdquo; we insist that each number in the
-sequence is unrelated to the preceding number.  The relation between &ldquo;real
-randomness&rdquo; and so-called <a class="index-entry-id" id="index-pseudo_002drandom"></a>
+certainly is not &#8220;random,&#8221; if by &#8220;random&#8221; we insist that each number in the
+sequence is unrelated to the preceding number.  The relation between &#8220;real
+randomness&#8221; and so-called <a class="index-entry-id" id="index-pseudo_002drandom"></a>
 <em class="dfn">pseudo-random</em> sequences, which are
 produced by well-determined computations and yet have suitable statistical
 properties, is a complex question involving difficult issues in mathematics and
@@ -1571,14 +1572,14 @@ philosophy.  Kolmogorov, Solomonoff, and Chaitin have made great progress in
 clarifying these issues; a discussion can be found in <a class="ref" href="References.xhtml#Chaitin-1975">Chaitin 1975</a>.</p>
 <h5 class="footnote-body-heading"><a id="FOOT128" href="#DOCF128">(128)</a></h5>
 <p>This theorem is due to
-E. Ces&agrave;ro.  See section 4.5.2 of <a class="ref" href="References.xhtml#Knuth-1981">Knuth 1981</a> for a discussion and a proof.</p>
+E. Ces&#224;ro.  See section 4.5.2 of <a class="ref" href="References.xhtml#Knuth-1981">Knuth 1981</a> for a discussion and a proof.</p>
 <h5 class="footnote-body-heading"><a id="FOOT129" href="#DOCF129">(129)</a></h5>
 <p><abbr class="abbr">MIT</abbr> Scheme provides such a procedure.  If
 <code class="code">random</code> is given an exact integer (as in <a class="ref" href="1_002e2.xhtml#g_t1_002e2_002e6">Example: Testing for Primality</a>) it returns
 an exact integer, but if it is given a decimal value (as in this exercise) it
 returns a decimal value.</p>
 <h5 class="footnote-body-heading"><a id="FOOT130" href="#DOCF130">(130)</a></h5>
-<p>We don&rsquo;t substitute for the occurrence of <code class="code">balance</code> in the
+<p>We don&#8217;t substitute for the occurrence of <code class="code">balance</code> in the
 <code class="code">set!</code> expression because the <code class="code">⟨</code><var class="var">name</var><code class="code">⟩</code> in a <code class="code">set!</code> is not
 evaluated.  If we did substitute for it, we would get <code class="code">(set! 25 (- 25
 amount))</code>, which makes no sense.</p>
@@ -1587,10 +1588,10 @@ amount))</code>, which makes no sense.</p>
 being accessed by more than one name is known as <a class="index-entry-id" id="index-aliasing"></a>
 <em class="dfn">aliasing</em>.  The joint
 bank account situation illustrates a very simple example of an alias.  In
-<a class="ref" href="3_002e3.xhtml#g_t3_002e3">Modeling with Mutable Data</a> we will see much more complex examples, such as &ldquo;distinct&rdquo;
+<a class="ref" href="3_002e3.xhtml#g_t3_002e3">Modeling with Mutable Data</a> we will see much more complex examples, such as &#8220;distinct&#8221;
 compound data structures that share parts.  Bugs can occur in our programs if
-we forget that a change to an object may also, as a &ldquo;side effect,&rdquo; change a
-&ldquo;different&rdquo; object because the two &ldquo;different&rdquo; objects are actually a
+we forget that a change to an object may also, as a &#8220;side effect,&#8221; change a
+&#8220;different&#8221; object because the two &#8220;different&#8221; objects are actually a
 single object appearing under different aliases.  These so-called
 <a class="index-entry-id" id="index-side_002deffect-bugs"></a>
 <em class="dfn">side-effect bugs</em> are so difficult to locate and to analyze that some
@@ -1605,13 +1606,13 @@ call procedures must inherently be less efficient than programs that perform
 assignments.  (<a class="ref" href="References.xhtml#Steele-1977">Steele 1977</a> debunks this argument.)  Alternatively it may
 reflect a view that step-by-step assignment is easier for beginners to
 visualize than procedure call.  Whatever the reason, it often saddles beginning
-programmers with &ldquo;should I set this variable before or after that one&rdquo;
+programmers with &#8220;should I set this variable before or after that one&#8221;
 concerns that can complicate programming and obscure the important ideas.</p>
 </div>
-<hr>
+<hr />
 <div class="nav-panel">
 <p>
-Next: <a href="3_002e2.xhtml#g_t3_002e2" accesskey="n" rel="next">The Environment Model of Evaluation</a>, Previous: <a href="Chapter-3.xhtml" accesskey="p" rel="prev">Modularity, Objects, and State</a>, Up: <a href="Chapter-3.xhtml" accesskey="u" rel="up">Modularity, Objects, and State</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
+Next: <a href="3_002e2.xhtml#g_t3_002e2" accesskey="n" rel="next">The Environment Model of Evaluation</a>, Previous: <a href="Chapter-3.xhtml" accesskey="p" rel="prev">Modularity, Objects, and State</a>, Up: <a href="Chapter-3.xhtml" accesskey="u" rel="up">Modularity, Objects, and State</a> &#160; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

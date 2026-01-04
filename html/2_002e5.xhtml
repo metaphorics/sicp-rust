@@ -1,23 +1,24 @@
-<!DOCTYPE html>
-<html>
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>2.5 (Structure and Interpretation of Computer Programs, 2e)</title>
 
-<meta name="description" content="2.5 (Structure and Interpretation of Computer Programs, 2e)">
-<meta name="keywords" content="2.5 (Structure and Interpretation of Computer Programs, 2e)">
-<meta name="resource-type" content="document">
-<meta name="distribution" content="global">
-<meta name="Generator" content="texi2any">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="2.5 (Structure and Interpretation of Computer Programs, 2e)" />
+<meta name="keywords" content="2.5 (Structure and Interpretation of Computer Programs, 2e)" />
+<meta name="resource-type" content="document" />
+<meta name="distribution" content="global" />
+<meta name="Generator" content="texi2any" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 
-<link href="index.xhtml" rel="start" title="Top">
-<link href="Term-Index.xhtml" rel="index" title="Term Index">
-<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="Chapter-2.xhtml" rel="up" title="Chapter 2">
-<link href="Chapter-3.xhtml" rel="next" title="Chapter 3">
-<link href="2_002e4.xhtml#g_t2_002e4_002e3a" rel="prev" title="2.4.3a">
+<link href="index.xhtml" rel="start" title="Top" />
+<link href="Term-Index.xhtml" rel="index" title="Term Index" />
+<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents" />
+<link href="Chapter-2.xhtml" rel="up" title="Chapter 2" />
+<link href="Chapter-3.xhtml" rel="next" title="Chapter 3" />
+<link href="2_002e4.xhtml#g_t2_002e4_002e3a" rel="prev" title="2.4.3a" />
 <style type="text/css">
 <!--
 a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
@@ -36,9 +37,9 @@ ul.mark-bullet {list-style-type: disc}
 <div class="section-level-extent" id="g_t2_002e5">
 <div class="nav-panel">
 <p>
-Next: <a href="Chapter-3.xhtml" accesskey="n" rel="next">Modularity, Objects, and State</a>, Previous: <a href="2_002e4.xhtml#g_t2_002e4_002e3a" accesskey="p" rel="prev">Traits as Interfaces: Static and Dynamic Dispatch</a>, Up: <a href="Chapter-2.xhtml" accesskey="u" rel="up">Building Abstractions with Data</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Chapter-3.xhtml" accesskey="n" rel="next">Modularity, Objects, and State</a>, Previous: <a href="2_002e4.xhtml#g_t2_002e4_002e3a" accesskey="p" rel="prev">Traits as Interfaces: Static and Dynamic Dispatch</a>, Up: <a href="Chapter-2.xhtml" accesskey="u" rel="up">Building Abstractions with Data</a> &#160; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
 </div>
-<h3 class="section" id="Systems-with-Generic-Operations"><span>2.5 Systems with Generic Operations<a class="copiable-link" href="#Systems-with-Generic-Operations"> &para;</a></span></h3>
+<h3 class="section" id="Systems-with-Generic-Operations"><span>2.5 Systems with Generic Operations<a class="copiable-link" href="#Systems-with-Generic-Operations"> &#182;</a></span></h3>
 
 <p>In the previous section, we saw how to design systems in which data objects can
 be represented in more than one way.  The key idea is to link the code that
@@ -55,7 +56,7 @@ data-directed techniques to construct a package of arithmetic operations that
 incorporates all the arithmetic packages we have already constructed.
 </p>
 <p><a class="ref" href="#Figure-2_002e23">Figure 2.23</a> shows the structure of the system we shall build.  Notice the
-abstraction barriers.  From the perspective of someone using &ldquo;numbers,&rdquo; there
+abstraction barriers.  From the perspective of someone using &#8220;numbers,&#8221; there
 is a single procedure <code class="code">add</code> that operates on whatever numbers are
 supplied.  <code class="code">Add</code> is part of a generic interface that allows the separate
 ordinary-arithmetic, rational-arithmetic, and complex-arithmetic packages to be
@@ -68,12 +69,12 @@ arithmetic packages separately and combine them to produce a generic arithmetic
 system.
 </p>
 <div class="float">
-<a class="anchor" id="Figure-2_002e23"></a><img class="image" src="fig/chap2/Fig2.23b.std.svg" alt="fig/chap2/Fig2.23b">
+<a class="anchor" id="Figure-2_002e23"></a><img class="image" src="fig/chap2/Fig2.23b.std.svg" alt="fig/chap2/Fig2.23b" />
 <div class="caption"><p><strong class="strong">Figure 2.23:</strong> Generic arithmetic system.</p></div></div>
 
-<hr>
+<hr />
 <div class="subsection-level-extent" id="g_t2_002e5_002e1">
-<h4 class="subsection" id="Generic-Arithmetic-Operations"><span>2.5.1 Generic Arithmetic Operations<a class="copiable-link" href="#Generic-Arithmetic-Operations"> &para;</a></span></h4>
+<h4 class="subsection" id="Generic-Arithmetic-Operations"><span>2.5.1 Generic Arithmetic Operations<a class="copiable-link" href="#Generic-Arithmetic-Operations"> &#182;</a></span></h4>
 
 <p>The task of designing generic arithmetic operations is analogous to that of
 designing the generic complex-number operations.  We would like, for instance,
@@ -272,12 +273,12 @@ complex package.  Once within the complex package, the next tag
 (<code class="code">rectangular</code>) is used to direct the number to the rectangular package.
 In a large and complicated system there might be many levels, each interfaced
 with the next by means of generic operations.  As a data object is passed
-&ldquo;downward,&rdquo; the outer tag that is used to direct it to the appropriate
+&#8220;downward,&#8221; the outer tag that is used to direct it to the appropriate
 package is stripped off (by applying <code class="code">contents</code>) and the next level of tag
 (if any) becomes visible to be used for further dispatching.
 </p>
 <div class="float">
-<a class="anchor" id="Figure-2_002e24"></a><img class="image" src="fig/chap2/Fig2.24d.std.svg" alt="fig/chap2/Fig2.24d">
+<a class="anchor" id="Figure-2_002e24"></a><img class="image" src="fig/chap2/Fig2.24d.std.svg" alt="fig/chap2/Fig2.24d" />
 <div class="caption"><p><strong class="strong">Figure 2.24:</strong> Representation of <em class="math">{3 + 4i}</em> in rectangular form.</p></div></div>
 <p>In the above packages, we used <code class="code">add_rat</code>, <code class="code">add_complex</code>, and the
 other arithmetic procedures exactly as originally written.  Once these
@@ -291,10 +292,10 @@ the expression <code class="code">(magnitude z)</code> where <code class="code">
 <a class="ref" href="#Figure-2_002e24">Figure 2.24</a>.  To his surprise, instead of the answer 5 he gets an error
 message from <code class="code">apply-generic</code>, saying there is no method for the operation
 <code class="code">magnitude</code> on the types <code class="code">(complex)</code>.  He shows this interaction to
-Alyssa P. Hacker, who says &ldquo;The problem is that the complex-number selectors
+Alyssa P. Hacker, who says &#8220;The problem is that the complex-number selectors
 were never defined for <code class="code">complex</code> numbers, just for <code class="code">polar</code> and
 <code class="code">rectangular</code> numbers.  All you have to do to make this work is add the
-following to the <code class="code">complex</code> package:&rdquo;
+following to the <code class="code">complex</code> package:&#8221;
 </p>
 <div class="example">
 <pre class="example-preformatted">// Methods already available via pattern matching on Complex enum:
@@ -320,7 +321,7 @@ implementations do have a type system, which they use internally.  Primitive
 predicates such as <code class="code">symbol?</code> and <code class="code">number?</code>  determine whether data
 objects have particular types.  Modify the definitions of <code class="code">type_tag</code>,
 <code class="code">contents</code>, and <code class="code">attach_tag</code> from <a class="ref" href="2_002e4.xhtml#g_t2_002e4_002e2">Tagged data</a> so that our
-generic system takes advantage of Scheme&rsquo;s internal type system.  That is to
+generic system takes advantage of Scheme&#8217;s internal type system.  That is to
 say, the system should work as before except that ordinary numbers should be
 represented simply as Scheme numbers rather than as pairs whose <code class="code">car</code> is
 the symbol <code class="code">SchemeNumber</code>.
@@ -340,10 +341,10 @@ arithmetic package.  This operation should work for ordinary numbers, rational
 numbers, and complex numbers.
 </p></blockquote>
 
-<hr>
+<hr />
 </div>
 <div class="subsection-level-extent" id="g_t2_002e5_002e2">
-<h4 class="subsection" id="Combining-Data-of-Different-Types"><span>2.5.2 Combining Data of Different Types<a class="copiable-link" href="#Combining-Data-of-Different-Types"> &para;</a></span></h4>
+<h4 class="subsection" id="Combining-Data-of-Different-Types"><span>2.5.2 Combining Data of Different Types<a class="copiable-link" href="#Combining-Data-of-Different-Types"> &#182;</a></span></h4>
 
 <p>We have seen how to define a unified arithmetic system that encompasses
 ordinary numbers, complex numbers, rational numbers, and any other type of
@@ -393,7 +394,7 @@ extracted from these two packages.  Formulating coherent policies on the
 division of responsibility among packages can be an overwhelming task in
 designing systems with many packages and many cross-type operations.
 </p>
-<h4 class="subsubheading" id="Coercion"><span>Coercion<a class="copiable-link" href="#Coercion"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Coercion"><span>Coercion<a class="copiable-link" href="#Coercion"> &#182;</a></span></h4>
 
 <p>In the general situation of completely unrelated operations acting on
 completely unrelated types, implementing explicit cross-type operations,
@@ -441,7 +442,7 @@ table.
 <p>Once the coercion table has been set up, we can handle coercion in a uniform
 manner by modifying the <code class="code">apply-generic</code> procedure of <a class="ref" href="2_002e4.xhtml#g_t2_002e4_002e3">Data-Directed Programming and Additivity</a>.
 When asked to apply an operation, we first check whether the operation is
-defined for the arguments&rsquo; types, just as before.  If so, we dispatch to the
+defined for the arguments&#8217; types, just as before.  If so, we dispatch to the
 procedure found in the operation-and-type table.  Otherwise, we try coercion.
 For simplicity, we consider only the case where there are two
 arguments.<a class="footnote" id="DOCF109" href="#FOOT109"><sup>109</sup></a>  We check the
@@ -490,10 +491,10 @@ such complexity and still preserve modularity in our programs, it is usually
 necessary to build systems that take advantage of still further structure in
 the relations among types, as we discuss next.
 </p>
-<h4 class="subsubheading" id="Hierarchies-of-types"><span>Hierarchies of types<a class="copiable-link" href="#Hierarchies-of-types"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Hierarchies-of-types"><span>Hierarchies of types<a class="copiable-link" href="#Hierarchies-of-types"> &#182;</a></span></h4>
 
 <p>The coercion scheme presented above relied on the existence of natural
-relations between pairs of types.  Often there is more &ldquo;global&rdquo; structure in
+relations between pairs of types.  Often there is more &#8220;global&#8221; structure in
 how the different types relate to each other.  For instance, suppose we are
 building a generic arithmetic system to handle integers, rational numbers, real
 numbers, and complex numbers.  In such a system, it is quite natural to regard
@@ -513,7 +514,7 @@ subtype.  Such a structure, called a <a class="index-entry-id" id="index-tower">
 <a class="ref" href="#Figure-2_002e25">Figure 2.25</a>.
 </p>
 <div class="float">
-<a class="anchor" id="Figure-2_002e25"></a><img class="image" src="fig/chap2/Fig2.25.std.svg" alt="fig/chap2/Fig2.25">
+<a class="anchor" id="Figure-2_002e25"></a><img class="image" src="fig/chap2/Fig2.25.std.svg" alt="fig/chap2/Fig2.25" />
 <div class="caption"><p><strong class="strong">Figure 2.25:</strong> A tower of types.</p></div></div>
 <p>If we have a tower structure, then we can greatly simplify the problem of
 adding a new type to the hierarchy, for we need only specify how the new type
@@ -527,14 +528,14 @@ allow the system to transform the integer into a complex number through these
 steps and then add the two complex numbers.
 </p>
 <p>We can redesign our <code class="code">apply-generic</code> procedure in the following way: For
-each type, we need to supply a <code class="code">raise</code> procedure, which &ldquo;raises&rdquo; objects
+each type, we need to supply a <code class="code">raise</code> procedure, which &#8220;raises&#8221; objects
 of that type one level in the tower.  Then when the system is required to
 operate on objects of different types it can successively raise the lower types
 until all the objects are at the same level in the tower.  (<a class="ref" href="#Exercise-2_002e83">Exercise 2.83</a>
 and <a class="ref" href="#Exercise-2_002e84">Exercise 2.84</a> concern the details of implementing such a strategy.)
 </p>
 <p>Another advantage of a tower is that we can easily implement the notion that
-every type &ldquo;inherits&rdquo; all operations defined on a supertype.  For instance,
+every type &#8220;inherits&#8221; all operations defined on a supertype.  For instance,
 if we do not supply a special procedure for finding the real part of an
 integer, we should nevertheless expect that <code class="code">real_part</code> will be defined
 for integers by virtue of the fact that integers are a subtype of complex
@@ -546,14 +547,14 @@ until we either find a level at which the desired operation can be performed or
 hit the top (in which case we give up).
 </p>
 <p>Yet another advantage of a tower over a more general hierarchy is that it gives
-us a simple way to &ldquo;lower&rdquo; a data object to the simplest representation.  For
+us a simple way to &#8220;lower&#8221; a data object to the simplest representation.  For
 example, if we add <em class="math">{2 + 3i}</em> to <em class="math">{4 - 3i}</em>, it would be nice to obtain the
 answer as the integer 6 rather than as the complex number <em class="math">{6 + 0i}</em>.
 <a class="ref" href="#Exercise-2_002e85">Exercise 2.85</a> discusses a way to implement such a lowering operation.
 (The trick is that we need a general way to distinguish those objects that can
 be lowered, such as <em class="math">{6 + 0i}</em>, from those that cannot, such as <em class="math">{6 + 2i}</em>.)
 </p>
-<h4 class="subsubheading" id="Inadequacies-of-hierarchies"><span>Inadequacies of hierarchies<a class="copiable-link" href="#Inadequacies-of-hierarchies"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Inadequacies-of-hierarchies"><span>Inadequacies of hierarchies<a class="copiable-link" href="#Inadequacies-of-hierarchies"> &#182;</a></span></h4>
 
 <p>If the data types in our system can be naturally arranged in a tower, this
 greatly simplifies the problems of dealing with generic operations on different
@@ -565,21 +566,21 @@ quadrilaterals, for instance, are both subtypes of polygons.  In addition, a
 type may have more than one supertype.  For example, an isosceles right
 triangle may be regarded either as an isosceles triangle or as a right
 triangle.  This multiple-supertypes issue is particularly thorny, since it
-means that there is no unique way to &ldquo;raise&rdquo; a type in the hierarchy.
-Finding the &ldquo;correct&rdquo; supertype in which to apply an operation to an object
+means that there is no unique way to &#8220;raise&#8221; a type in the hierarchy.
+Finding the &#8220;correct&#8221; supertype in which to apply an operation to an object
 may involve considerable searching through the entire type network on the part
 of a procedure such as <code class="code">apply-generic</code>.  Since there generally are
 multiple subtypes for a type, there is a similar problem in coercing a value
-&ldquo;down&rdquo; the type hierarchy.  Dealing with large numbers of interrelated types
+&#8220;down&#8221; the type hierarchy.  Dealing with large numbers of interrelated types
 while still preserving modularity in the design of large systems is very
 difficult, and is an area of much current research.<a class="footnote" id="DOCF111" href="#FOOT111"><sup>111</sup></a>
 </p>
 <div class="float">
-<a class="anchor" id="Figure-2_002e26"></a><img class="image" src="fig/chap2/Fig2.26f.std.svg" alt="fig/chap2/Fig2.26f">
+<a class="anchor" id="Figure-2_002e26"></a><img class="image" src="fig/chap2/Fig2.26f.std.svg" alt="fig/chap2/Fig2.26f" />
 <div class="caption"><p><strong class="strong">Figure 2.26:</strong> Relations among types of geometric figures.</p></div></div>
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-2_002e81"></a>Exercise 2.81:</strong> Louis Reasoner has noticed that
-<code class="code">apply-generic</code> may try to coerce the arguments to each other&rsquo;s type even
+<code class="code">apply-generic</code> may try to coerce the arguments to each other&#8217;s type even
 if they already have the same type.  Therefore, he reasons, we need to put
 procedures in the coercion table to <a class="index-entry-id" id="index-coerce"></a>
 <em class="dfn">coerce</em> arguments of each type to
@@ -593,10 +594,10 @@ fn identity&lt;T&gt;(x: T) -&gt; T { x }
 </pre></div>
 
 <ol class="enumerate" type="a" start="1">
-<li> With Louis&rsquo;s coercion procedures installed, what happens if
+<li> With Louis&#8217;s coercion procedures installed, what happens if
 <code class="code">apply-generic</code> is called with two arguments of type <code class="code">SchemeNumber</code>
 or two arguments of type <code class="code">complex</code> for an operation that is not found in
-the table for those types?  For example, assume that we&rsquo;ve defined a generic
+the table for those types?  For example, assume that we&#8217;ve defined a generic
 exponentiation operation:
 
 <div class="example">
@@ -620,7 +621,7 @@ fn exp_f64(x: f64, y: f64) -&gt; f64 {
 </li><li> Is Louis correct that something had to be done about coercion with arguments of
 the same type, or does <code class="code">apply-generic</code> work correctly as is?
 
-</li><li> Modify <code class="code">apply-generic</code> so that it doesn&rsquo;t try coercion if the two
+</li><li> Modify <code class="code">apply-generic</code> so that it doesn&#8217;t try coercion if the two
 arguments have the same type.
 
 </li></ol>
@@ -652,20 +653,20 @@ of <a class="ref" href="#Exercise-2_002e83">Exercise 2.83</a>, modify the <code 
 coerces its arguments to have the same type by the method of successive
 raising, as discussed in this section.  You will need to devise a way to test
 which of two types is higher in the tower.  Do this in a manner that is
-&ldquo;compatible&rdquo; with the rest of the system and will not lead to problems in
+&#8220;compatible&#8221; with the rest of the system and will not lead to problems in
 adding new levels to the tower.
 </p></blockquote>
 
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-2_002e85"></a>Exercise 2.85:</strong> This section mentioned a method
-for &ldquo;simplifying&rdquo; a data object by lowering it in the tower of types as far
+for &#8220;simplifying&#8221; a data object by lowering it in the tower of types as far
 as possible.  Design a procedure <code class="code">drop</code> that accomplishes this for the
 tower described in <a class="ref" href="#Exercise-2_002e83">Exercise 2.83</a>.  The key is to decide, in some general
 way, whether an object can be lowered.  For example, the complex number 
 <em class="math">{1.5 + 0i}</em> can be lowered as far as <code class="code">real</code>, the complex number <em class="math">{1 + 0i}</em> can
 be lowered as far as <code class="code">integer</code>, and the complex number <em class="math">{2 + 3i}</em> cannot
 be lowered at all.  Here is a plan for determining whether an object can be
-lowered: Begin by defining a generic operation <code class="code">project</code> that &ldquo;pushes&rdquo;
+lowered: Begin by defining a generic operation <code class="code">project</code> that &#8220;pushes&#8221;
 an object down in the tower.  For example, projecting a complex number would
 involve throwing away the imaginary part.  Then a number can be dropped if,
 when we <code class="code">project</code> it and <code class="code">raise</code> the result back to the type we
@@ -676,7 +677,7 @@ operations<a class="footnote" id="DOCF112" href="#FOOT112"><sup>112</sup></a> an
 install <code class="code">project</code> as a generic operation in the system.  You will also
 need to make use of a generic equality predicate, such as described in
 <a class="ref" href="#Exercise-2_002e79">Exercise 2.79</a>.  Finally, use <code class="code">drop</code> to rewrite <code class="code">apply-generic</code>
-from <a class="ref" href="#Exercise-2_002e84">Exercise 2.84</a> so that it &ldquo;simplifies&rdquo; its answers.
+from <a class="ref" href="#Exercise-2_002e84">Exercise 2.84</a> so that it &#8220;simplifies&#8221; its answers.
 </p></blockquote>
 
 <blockquote class="quotation">
@@ -688,10 +689,10 @@ accommodate this.  You will have to define operations such as <code class="code"
 <code class="code">cosine</code> that are generic over ordinary numbers and rational numbers.
 </p></blockquote>
 
-<hr>
+<hr />
 </div>
 <div class="subsection-level-extent" id="g_t2_002e5_002e3">
-<h4 class="subsection" id="Example_003a-Symbolic-Algebra"><span>2.5.3 Example: Symbolic Algebra<a class="copiable-link" href="#Example_003a-Symbolic-Algebra"> &para;</a></span></h4>
+<h4 class="subsection" id="Example_003a-Symbolic-Algebra"><span>2.5.3 Example: Symbolic Algebra<a class="copiable-link" href="#Example_003a-Symbolic-Algebra"> &#182;</a></span></h4>
 
 <p>The manipulation of symbolic algebraic expressions is a complex process that
 illustrates many of the hardest problems that occur in the design of
@@ -703,7 +704,7 @@ operators, such as addition and multiplication.  As in other languages, we form
 abstractions that enable us to refer to compound objects in simple terms.
 Typical abstractions in symbolic algebra are ideas such as linear combination,
 polynomial, rational function, or trigonometric function.  We can regard these
-as compound &ldquo;types,&rdquo; which are often useful for directing the processing of
+as compound &#8220;types,&#8221; which are often useful for directing the processing of
 expressions.  For example, we could describe the expression
 \[ % :49:
   {x^2 \sin (y^2 + 1)} + {x \cos 2y} + {\cos(y^3 - 2y^2)}  \]
@@ -718,7 +719,7 @@ will illustrate the kinds of decisions the designer of such a system faces, and
 how to apply the ideas of abstract data and generic operations to help organize
 this effort.
 </p>
-<h4 class="subsubheading" id="Arithmetic-on-polynomials"><span>Arithmetic on polynomials<a class="copiable-link" href="#Arithmetic-on-polynomials"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Arithmetic-on-polynomials"><span>Arithmetic on polynomials<a class="copiable-link" href="#Arithmetic-on-polynomials"> &#182;</a></span></h4>
 
 <p>Our first task in designing a system for performing arithmetic on polynomials
 is to decide just what a polynomial is.  Polynomials are normally defined
@@ -740,15 +741,15 @@ is a polynomial in <em class="math">x</em> whose coefficients are polynomials in
 </p>
 <p>Already we are skirting some thorny issues.  Is the first of these polynomials
 the same as the polynomial <em class="math">{5y^2 + 3y + 7}</em>, or not?  A reasonable answer
-might be &ldquo;yes, if we are considering a polynomial purely as a mathematical
-function, but no, if we are considering a polynomial to be a syntactic form.&rdquo;
+might be &#8220;yes, if we are considering a polynomial purely as a mathematical
+function, but no, if we are considering a polynomial to be a syntactic form.&#8221;
 The second polynomial is algebraically equivalent to a polynomial in <em class="math">y</em>
 whose coefficients are polynomials in <em class="math">x</em>.  Should our system recognize this,
-or not?  Furthermore, there are other ways to represent a polynomial&mdash;for
+or not?  Furthermore, there are other ways to represent a polynomial&#8212;for
 example, as a product of factors, or (for a univariate polynomial) as the set
 of roots, or as a listing of the values of the polynomial at a specified set of
 points.<a class="footnote" id="DOCF114" href="#FOOT114"><sup>114</sup></a>  We can finesse these questions by
-deciding that in our algebraic-manipulation system a &ldquo;polynomial&rdquo; will be a
+deciding that in our algebraic-manipulation system a &#8220;polynomial&#8221; will be a
 particular syntactic form, not its underlying mathematical meaning.
 </p>
 <p>Now we must consider how to go about doing arithmetic on polynomials.  In this
@@ -792,8 +793,8 @@ fn mul_poly(p1: &amp;Poly, p2: &amp;Poly) -&gt; Result&lt;Poly, &amp;'static str
 </pre></div>
 
 <p>To incorporate polynomials into our generic arithmetic system, we need to
-supply them with type tags.  We&rsquo;ll use the tag <code class="code">polynomial</code>, and install
-appropriate operations on tagged polynomials in the operation table.  We&rsquo;ll
+supply them with type tags.  We&#8217;ll use the tag <code class="code">polynomial</code>, and install
+appropriate operations on tagged polynomials in the operation table.  We&#8217;ll
 embed all our code in an installation procedure for the polynomial package,
 similar to the ones in <a class="ref" href="#g_t2_002e5_002e1">Generic Arithmetic Operations</a>:
 </p>
@@ -939,7 +940,7 @@ also automatically able to handle polynomial operations such as
 The reason is that when the system tries to combine coefficients, it will
 dispatch through <code class="code">add</code> and <code class="code">mul</code>.  Since the coefficients are
 themselves polynomials (in <em class="math">y</em>), these will be combined using <code class="code">add_poly</code>
-and <code class="code">mul_poly</code>.  The result is a kind of &ldquo;data-directed recursion&rdquo; in
+and <code class="code">mul_poly</code>.  The result is a kind of &#8220;data-directed recursion&#8221; in
 which, for example, a call to <code class="code">mul_poly</code> will result in recursive calls to
 <code class="code">mul_poly</code> in order to multiply the coefficients.  If the coefficients of
 the coefficients were themselves polynomials (as might be used to represent
@@ -947,7 +948,7 @@ polynomials in three variables), the data direction would ensure that the
 system would follow through another level of recursive calls, and so on through
 as many levels as the structure of the data dictates.<a class="footnote" id="DOCF116" href="#FOOT116"><sup>116</sup></a>
 </p>
-<h4 class="subsubheading" id="Representing-term-lists"><span>Representing term lists<a class="copiable-link" href="#Representing-term-lists"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Representing-term-lists"><span>Representing term lists<a class="copiable-link" href="#Representing-term-lists"> &#182;</a></span></h4>
 
 <p>Finally, we must confront the job of implementing a good representation for
 term lists.  A term list is, in effect, a set of coefficients keyed by the
@@ -958,7 +959,7 @@ lists sequentially from highest to lowest order.  Thus, we will use some kind
 of ordered list representation.
 </p>
 <p>How should we structure the list that represents a term list?  One
-consideration is the &ldquo;density&rdquo; of the polynomials we intend to manipulate.  A
+consideration is the &#8220;density&#8221; of the polynomials we intend to manipulate.  A
 polynomial is said to be <a class="index-entry-id" id="index-dense"></a>
 <em class="dfn">dense</em> if it has nonzero coefficients in
 terms of most orders.  If it has many zero terms it is said to be
@@ -974,7 +975,7 @@ is sparse.
 <p>The term lists of dense polynomials are most efficiently represented as lists
 of the coefficients.  For example, <em class="math">A</em> above would be nicely represented as
 <code class="code">(1 2 0 3 -2 -5)</code>.  The order of a term in this representation is the
-length of the sublist beginning with that term&rsquo;s coefficient, decremented by
+length of the sublist beginning with that term&#8217;s coefficient, decremented by
 1.<a class="footnote" id="DOCF117" href="#FOOT117"><sup>117</sup></a>  This would be a terrible representation for
 a sparse polynomial such as <em class="math">B</em>: There would be a giant list of zeros
 punctuated by a few lonely nonzero terms.  A more reasonable representation of
@@ -1110,14 +1111,14 @@ arguments and returns a list of the quotient and remainder polys.
 </pre></div>
 </blockquote>
 
-<h4 class="subsubheading" id="Hierarchies-of-types-in-symbolic-algebra"><span>Hierarchies of types in symbolic algebra<a class="copiable-link" href="#Hierarchies-of-types-in-symbolic-algebra"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Hierarchies-of-types-in-symbolic-algebra"><span>Hierarchies of types in symbolic algebra<a class="copiable-link" href="#Hierarchies-of-types-in-symbolic-algebra"> &#182;</a></span></h4>
 
 <p>Our polynomial system illustrates how objects of one type (polynomials) may in
 fact be complex objects that have objects of many different types as parts.
 This poses no real difficulty in defining generic operations.  We need only
 install appropriate generic operations for performing the necessary
 manipulations of the parts of the compound types.  In fact, we saw that
-polynomials form a kind of &ldquo;recursive data abstraction,&rdquo; in that parts of a
+polynomials form a kind of &#8220;recursive data abstraction,&#8221; in that parts of a
 polynomial may themselves be polynomials.  Our generic operations and our
 data-directed programming style can handle this complication without much
 trouble.
@@ -1126,13 +1127,13 @@ trouble.
 cannot be naturally arranged in a tower.  For instance, it is possible to have
 polynomials in <em class="math">x</em> whose coefficients are polynomials in <em class="math">y</em>.  It is also
 possible to have polynomials in <em class="math">y</em> whose coefficients are polynomials in
-<em class="math">x</em>.  Neither of these types is &ldquo;above&rdquo; the other in any natural way, yet
+<em class="math">x</em>.  Neither of these types is &#8220;above&#8221; the other in any natural way, yet
 it is often necessary to add together elements from each set.  There are
 several ways to do this.  One possibility is to convert one polynomial to the
 type of the other by expanding and rearranging terms so that both polynomials
 have the same principal variable.  One can impose a towerlike structure on this
 by ordering the variables and thus always converting any polynomial to a
-&ldquo;canonical form&rdquo; with the highest-priority variable dominant and the
+&#8220;canonical form&#8221; with the highest-priority variable dominant and the
 lower-priority variables buried in the coefficients.  This strategy works
 fairly well, except that the conversion may expand a polynomial unnecessarily,
 making it hard to read and perhaps less efficient to work with.  The tower
@@ -1154,11 +1155,11 @@ variables, extend the polynomial package so that addition and multiplication of
 polynomials works for polynomials in different variables.  (This is not easy!)
 </p></blockquote>
 
-<h4 class="subsubheading" id="Extended-exercise_003a-Rational-functions"><span>Extended exercise: Rational functions<a class="copiable-link" href="#Extended-exercise_003a-Rational-functions"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Extended-exercise_003a-Rational-functions"><span>Extended exercise: Rational functions<a class="copiable-link" href="#Extended-exercise_003a-Rational-functions"> &#182;</a></span></h4>
 
 <p>We can extend our generic arithmetic system to include <a class="index-entry-id" id="index-rational-functions"></a>
 <em class="dfn">rational functions</em>.  
-These are &ldquo;fractions&rdquo; whose numerator and denominator are
+These are &#8220;fractions&#8221; whose numerator and denominator are
 polynomials, such as
 \[ % :58:
   {{x + 1 \over x^3 - 1}.}  \]
@@ -1167,8 +1168,8 @@ functions, and to perform such computations as
 \[ % :59:
   {x + 1 \over x^3 - 1} + {x \over x^2 - 1} \,=\, 
   {{x^3 + 2x^2 + 3x + 1 \over x^4 + x^3 - x - 1}.}  \]
-(Here the sum has been simplified by removing common factors.  Ordinary &ldquo;cross
-multiplication&rdquo; would have produced a fourth-degree polynomial over a
+(Here the sum has been simplified by removing common factors.  Ordinary &#8220;cross
+multiplication&#8221; would have produced a fourth-degree polynomial over a
 fifth-degree polynomial.)
 </p>
 <p>If we modify our rational-arithmetic package so that it uses generic
@@ -1193,9 +1194,9 @@ addition procedure does not reduce fractions to lowest terms.
 
 <p>We can reduce polynomial fractions to lowest terms using the same idea we used
 with integers: modifying <code class="code">Rational::new</code> to divide both the numerator and the
-denominator by their greatest common divisor.  The notion of &ldquo;greatest common
-divisor&rdquo; makes sense for polynomials.  In fact, we can compute the
-<abbr class="abbr">GCD</abbr> of two polynomials using essentially the same Euclid&rsquo;s Algorithm
+denominator by their greatest common divisor.  The notion of &#8220;greatest common
+divisor&#8221; makes sense for polynomials.  In fact, we can compute the
+<abbr class="abbr">GCD</abbr> of two polynomials using essentially the same Euclid&#8217;s Algorithm
 that works for integers.<a class="footnote" id="DOCF119" href="#FOOT119"><sup>119</sup></a>  The integer version is
 </p>
 <div class="example">
@@ -1393,7 +1394,7 @@ of better algorithms for computing polynomial <abbr class="abbr">GCD</abbr>s.<a 
 </div>
 </div>
 <div class="footnotes-segment">
-<hr>
+<hr />
 <h4 class="footnotes-heading">Footnotes</h4>
 
 <h5 class="footnote-body-heading"><a id="FOOT108" href="#DOCF108">(108)</a></h5>
@@ -1409,7 +1410,7 @@ type 1 to type 2 and from type 2 to type 3, then we can use this knowledge to
 convert from type 1 to type 3.  This can greatly decrease the number of
 coercion procedures we need to supply explicitly when we add a new type to the
 system.  If we are willing to build the required amount of sophistication into
-our system, we can have it search the &ldquo;graph&rdquo; of relations among types and
+our system, we can have it search the &#8220;graph&#8221; of relations among types and
 automatically generate those coercion procedures that can be inferred from the
 ones that are supplied explicitly.</p>
 <h5 class="footnote-body-heading"><a id="FOOT111" href="#DOCF111">(111)</a></h5>
@@ -1417,18 +1418,18 @@ ones that are supplied explicitly.</p>
 which also appears in the first edition of this book, is just as true now as it
 was when we wrote it twelve years ago.  Developing a useful, general framework
 for expressing the relations among different types of entities (what
-philosophers call &ldquo;ontology&rdquo;) seems intractably difficult.  The main
+philosophers call &#8220;ontology&#8221;) seems intractably difficult.  The main
 difference between the confusion that existed ten years ago and the confusion
 that exists now is that now a variety of inadequate ontological theories have
 been embodied in a plethora of correspondingly inadequate programming
 languages.  For example, much of the complexity of object-oriented programming
-languages&mdash;and the subtle and confusing differences among contemporary
-object-oriented languages&mdash;centers on the treatment of generic operations on
+languages&#8212;and the subtle and confusing differences among contemporary
+object-oriented languages&#8212;centers on the treatment of generic operations on
 interrelated types.  Our own discussion of computational objects in
 <a class="ref" href="Chapter-3.xhtml">Modularity, Objects, and State</a> avoids these issues entirely.  Readers familiar with
 object-oriented programming will notice that we have much to say in
-chapter 3 about local state, but we do not even mention &ldquo;classes&rdquo; or
-&ldquo;inheritance.&rdquo;  In fact, we suspect that these problems cannot be adequately
+chapter 3 about local state, but we do not even mention &#8220;classes&#8221; or
+&#8220;inheritance.&#8221;  In fact, we suspect that these problems cannot be adequately
 addressed in terms of computer-language design alone, without also drawing on
 work in knowledge representation and automated reasoning.</p>
 <h5 class="footnote-body-heading"><a id="FOOT112" href="#DOCF112">(112)</a></h5>
@@ -1458,7 +1459,7 @@ for a sum is almost identical to <code class="code">union_set</code>.</p>
 <h5 class="footnote-body-heading"><a id="FOOT116" href="#DOCF116">(116)</a></h5>
 <p>To make this
 work completely smoothly, we should also add to our generic arithmetic system
-the ability to coerce a &ldquo;number&rdquo; to a polynomial by regarding it as a
+the ability to coerce a &#8220;number&#8221; to a polynomial by regarding it as a
 polynomial of degree zero whose coefficient is the number.  This is necessary
 if we are going to perform operations such as
 \[ % :54:
@@ -1481,17 +1482,17 @@ guarantee, we could have implemented <code class="code">adjoin_term</code> to be
 <code class="code">adjoin_set</code> constructor for the ordered-list representation of sets
 (<a class="ref" href="2_002e3.xhtml#Exercise-2_002e61">Exercise 2.61</a>).</p>
 <h5 class="footnote-body-heading"><a id="FOOT119" href="#DOCF119">(119)</a></h5>
-<p>The fact that Euclid&rsquo;s Algorithm works for
+<p>The fact that Euclid&#8217;s Algorithm works for
 polynomials is formalized in algebra by saying that polynomials form a kind of
 algebraic domain called a <a class="index-entry-id" id="index-Euclidean-ring"></a>
 <em class="dfn">Euclidean ring</em>.  A Euclidean ring is a
 domain that admits addition, subtraction, and commutative multiplication,
 together with a way of assigning to each element <em class="math">x</em> of the ring a positive
-integer &ldquo;measure&rdquo; <em class="math">{m(x)}</em> with the properties that 
+integer &#8220;measure&#8221; <em class="math">{m(x)}</em> with the properties that 
 <em class="math">{m(xy) \ge m(x)}</em> for any nonzero <em class="math">x</em> and <em class="math">y</em> and that, given any <em class="math">x</em> and
 <em class="math">y</em>, there exists a <em class="math">q</em> such that <em class="math">{y = qx + r}</em> and either
 <em class="math">{r = 0}</em> or <em class="math">{m(r) &lt; m(x)}</em>.  From an abstract point of view, this
-is what is needed to prove that Euclid&rsquo;s Algorithm works.  For the domain of
+is what is needed to prove that Euclid&#8217;s Algorithm works.  For the domain of
 integers, the measure <em class="math">m</em> of an integer is the absolute value of the integer
 itself.  For the domain of polynomials, the measure of a polynomial is its
 degree.</p>
@@ -1505,13 +1506,13 @@ may fail to get a valid divisor.</p>
 <p>One
 extremely efficient and elegant method for computing polynomial <abbr class="abbr">GCD</abbr>s
 was discovered by Richard <a class="ref" href="References.xhtml#Zippel-_00281979_0029">Zippel (1979)</a>.  The method is a probabilistic
-algorithm, as is the fast test for primality that we discussed in <a class="ref" href="Chapter-1.xhtml">Building Abstractions with Procedures</a>.  Zippel&rsquo;s book (<a class="ref" href="References.xhtml#Zippel-1993">Zippel 1993</a>) describes this method, together with other ways to
+algorithm, as is the fast test for primality that we discussed in <a class="ref" href="Chapter-1.xhtml">Building Abstractions with Procedures</a>.  Zippel&#8217;s book (<a class="ref" href="References.xhtml#Zippel-1993">Zippel 1993</a>) describes this method, together with other ways to
 compute polynomial <abbr class="abbr">GCD</abbr>s.</p>
 </div>
-<hr>
+<hr />
 <div class="nav-panel">
 <p>
-Next: <a href="Chapter-3.xhtml" accesskey="n" rel="next">Modularity, Objects, and State</a>, Previous: <a href="2_002e4.xhtml#g_t2_002e4_002e3a" accesskey="p" rel="prev">Traits as Interfaces: Static and Dynamic Dispatch</a>, Up: <a href="Chapter-2.xhtml" accesskey="u" rel="up">Building Abstractions with Data</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Chapter-3.xhtml" accesskey="n" rel="next">Modularity, Objects, and State</a>, Previous: <a href="2_002e4.xhtml#g_t2_002e4_002e3a" accesskey="p" rel="prev">Traits as Interfaces: Static and Dynamic Dispatch</a>, Up: <a href="Chapter-2.xhtml" accesskey="u" rel="up">Building Abstractions with Data</a> &#160; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

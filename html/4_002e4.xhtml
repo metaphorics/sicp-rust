@@ -1,23 +1,24 @@
-<!DOCTYPE html>
-<html>
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>4.4 (Structure and Interpretation of Computer Programs, 2e)</title>
 
-<meta name="description" content="4.4 (Structure and Interpretation of Computer Programs, 2e)">
-<meta name="keywords" content="4.4 (Structure and Interpretation of Computer Programs, 2e)">
-<meta name="resource-type" content="document">
-<meta name="distribution" content="global">
-<meta name="Generator" content="texi2any">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="4.4 (Structure and Interpretation of Computer Programs, 2e)" />
+<meta name="keywords" content="4.4 (Structure and Interpretation of Computer Programs, 2e)" />
+<meta name="resource-type" content="document" />
+<meta name="distribution" content="global" />
+<meta name="Generator" content="texi2any" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 
-<link href="index.xhtml" rel="start" title="Top">
-<link href="Term-Index.xhtml" rel="index" title="Term Index">
-<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="Chapter-4.xhtml" rel="up" title="Chapter 4">
-<link href="Chapter-5.xhtml" rel="next" title="Chapter 5">
-<link href="4_002e3.xhtml#g_t4_002e3" rel="prev" title="4.3">
+<link href="index.xhtml" rel="start" title="Top" />
+<link href="Term-Index.xhtml" rel="index" title="Term Index" />
+<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents" />
+<link href="Chapter-4.xhtml" rel="up" title="Chapter 4" />
+<link href="Chapter-5.xhtml" rel="next" title="Chapter 5" />
+<link href="4_002e3.xhtml#g_t4_002e3" rel="prev" title="4.3" />
 <style type="text/css">
 <!--
 a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
@@ -37,9 +38,9 @@ ul.mark-bullet {list-style-type: disc}
 <div class="section-level-extent" id="g_t4_002e4">
 <div class="nav-panel">
 <p>
-Next: <a href="Chapter-5.xhtml" accesskey="n" rel="next">Computing with Register Machines</a>, Previous: <a href="4_002e3.xhtml#g_t4_002e3" accesskey="p" rel="prev">Variations on a Scheme &mdash; Nondeterministic Computing</a>, Up: <a href="Chapter-4.xhtml" accesskey="u" rel="up">Metalinguistic Abstraction</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Chapter-5.xhtml" accesskey="n" rel="next">Computing with Register Machines</a>, Previous: <a href="4_002e3.xhtml#g_t4_002e3" accesskey="p" rel="prev">Variations on a Scheme &#8212; Nondeterministic Computing</a>, Up: <a href="Chapter-4.xhtml" accesskey="u" rel="up">Metalinguistic Abstraction</a> &#160; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
 </div>
-<h3 class="section" id="Logic-Programming"><span>4.4 Logic Programming<a class="copiable-link" href="#Logic-Programming"> &para;</a></span></h3>
+<h3 class="section" id="Logic-Programming"><span>4.4 Logic Programming<a class="copiable-link" href="#Logic-Programming"> &#182;</a></span></h3>
 
 <p>In <a class="ref" href="Chapter-1.xhtml">Building Abstractions with Procedures</a> we stressed that computer science deals with imperative (how
 to) knowledge, whereas mathematics deals with declarative (what is) knowledge.
@@ -52,7 +53,7 @@ progress.
 </p>
 <p>Most programming languages, including Lisp, are organized around computing the
 values of mathematical functions.  Expression-oriented languages (such as Lisp,
-Fortran, and Algol) capitalize on the &ldquo;pun&rdquo; that an expression that describes
+Fortran, and Algol) capitalize on the &#8220;pun&#8221; that an expression that describes
 the value of a function may also be interpreted as a means of computing that
 value.  Because of this, most programming languages are strongly biased toward
 unidirectional computations (computations with well-defined inputs and
@@ -60,7 +61,7 @@ outputs).  There are, however, radically different programming languages that
 relax this bias.  We saw one such example in <a class="ref" href="3_002e3.xhtml#g_t3_002e3_002e5">Propagation of Constraints</a>, where the
 objects of computation were arithmetic constraints.  In a constraint system the
 direction and the order of computation are not so well specified; in carrying
-out a computation the system must therefore provide more detailed &ldquo;how to&rdquo;
+out a computation the system must therefore provide more detailed &#8220;how to&#8221;
 knowledge than would be the case with an ordinary arithmetic computation.  This
 does not mean, however, that the user is released altogether from the
 responsibility of providing imperative knowledge.  There are many constraint
@@ -68,7 +69,7 @@ networks that implement the same set of constraints, and the user must choose
 from the set of mathematically equivalent networks a suitable network to
 specify a particular computation.
 </p>
-<p>The nondeterministic program evaluator of <a class="ref" href="4_002e3.xhtml#g_t4_002e3">Variations on a Scheme &mdash; Nondeterministic Computing</a> also moves away
+<p>The nondeterministic program evaluator of <a class="ref" href="4_002e3.xhtml#g_t4_002e3">Variations on a Scheme &#8212; Nondeterministic Computing</a> also moves away
 from the view that programming is about constructing algorithms for computing
 unidirectional functions.  In a nondeterministic language, expressions can have
 more than one value, and, as a result, the computation is dealing with
@@ -78,9 +79,9 @@ of symbolic pattern matching called <a class="index-entry-id" id="index-unificat
 <em class="dfn">unification</em>.<a class="footnote" id="DOCF243" href="#FOOT243"><sup>243</sup></a>
 </p>
 <p>This approach, when it works, can be a very powerful way to write programs.
-Part of the power comes from the fact that a single &ldquo;what is&rdquo; fact can be
-used to solve a number of different problems that would have different &ldquo;how
-to&rdquo; components.  As an example, consider the <code class="code">append</code> operation, which
+Part of the power comes from the fact that a single &#8220;what is&#8221; fact can be
+used to solve a number of different problems that would have different &#8220;how
+to&#8221; components.  As an example, consider the <code class="code">append</code> operation, which
 takes two lists as arguments and combines their elements to form a single list.
 In a procedural language such as Lisp, we could define <code class="code">append</code> in terms
 of the basic list constructor <code class="code">cons</code>, as we did in <a class="ref" href="2_002e2.xhtml#g_t2_002e2_002e1">Representing Sequences</a>:
@@ -121,7 +122,7 @@ two parts:
 </p></blockquote>
 
 <p>But the same two rules are also sufficient for answering the following sorts of
-questions, which the procedure can&rsquo;t answer:
+questions, which the procedure can&#8217;t answer:
 </p>
 <blockquote class="quotation">
 <p>Find a list <code class="code">y</code> that <code class="code">append</code>s with <code class="code">(a b)</code> to produce <code class="code">(a
@@ -131,13 +132,13 @@ b c d)</code>.
 </p></blockquote>
 
 <p>In a logic programming language, the programmer writes an <code class="code">append</code>
-&ldquo;procedure&rdquo; by stating the two rules about <code class="code">append</code> given above.  &ldquo;How
-to&rdquo; knowledge is provided automatically by the interpreter to allow this
+&#8220;procedure&#8221; by stating the two rules about <code class="code">append</code> given above.  &#8220;How
+to&#8221; knowledge is provided automatically by the interpreter to allow this
 single pair of rules to be used to answer all three types of questions about
 <code class="code">append</code>.<a class="footnote" id="DOCF245" href="#FOOT245"><sup>245</sup></a>
 </p>
 <p>Contemporary logic programming languages (including the one we implement here)
-have substantial deficiencies, in that their general &ldquo;how to&rdquo; methods can
+have substantial deficiencies, in that their general &#8220;how to&#8221; methods can
 lead them into spurious infinite loops or other undesirable behavior.  Logic
 programming is an active field of research in computer
 science.<a class="footnote" id="DOCF246" href="#FOOT246"><sup>246</sup></a>
@@ -160,8 +161,8 @@ single conceptual units.  An interpreter for a logic programming language is
 considerably more complex than an interpreter for a language like Lisp.
 Nevertheless, we will see that our query-language interpreter contains many of
 the same elements found in the interpreter of <a class="ref" href="4_002e1.xhtml#g_t4_002e1">The Metacircular Evaluator</a>.  In
-particular, there will be an &ldquo;eval&rdquo; part that classifies expressions
-according to type and an &ldquo;apply&rdquo; part that implements the language&rsquo;s
+particular, there will be an &#8220;eval&#8221; part that classifies expressions
+according to type and an &#8220;apply&#8221; part that implements the language&#8217;s
 abstraction mechanism (procedures in the case of Lisp, and <a class="index-entry-id" id="index-rules"></a>
 <em class="dfn">rules</em> in
 the case of logic programming).  Also, a central role is played in the
@@ -171,9 +172,9 @@ of our query-language implementation is that we make substantial use of
 streams, which were introduced in <a class="ref" href="Chapter-3.xhtml">Modularity, Objects, and State</a>.
 </p>
 
-<hr>
+<hr />
 <div class="subsection-level-extent" id="g_t4_002e4_002e1">
-<h4 class="subsection" id="Deductive-Information-Retrieval"><span>4.4.1 Deductive Information Retrieval<a class="copiable-link" href="#Deductive-Information-Retrieval"> &para;</a></span></h4>
+<h4 class="subsection" id="Deductive-Information-Retrieval"><span>4.4.1 Deductive Information Retrieval<a class="copiable-link" href="#Deductive-Information-Retrieval"> &#182;</a></span></h4>
 
 <p>Logic programming excels in providing interfaces to data bases for information
 retrieval.  The query language we shall implement in this chapter is designed
@@ -185,7 +186,7 @@ high-technology company in the Boston area.  The language provides
 pattern-directed access to personnel information and can also take advantage of
 general rules in order to make logical deductions.
 </p>
-<h4 class="subsubheading" id="A-sample-data-base"><span>A sample data base<a class="copiable-link" href="#A-sample-data-base"> &para;</a></span></h4>
+<h4 class="subsubheading" id="A-sample-data-base"><span>A sample data base<a class="copiable-link" href="#A-sample-data-base"> &#182;</a></span></h4>
 
 <p>The personnel data base for Microshaft contains <a class="index-entry-id" id="index-assertions"></a>
 <em class="dfn">assertions</em> about
@@ -232,7 +233,7 @@ Term::List(vec![
 <p>Each assertion is a list (in this case a triple) whose elements can themselves
 be lists.
 </p>
-<p>As resident wizard, Ben is in charge of the company&rsquo;s computer division, and he
+<p>As resident wizard, Ben is in charge of the company&#8217;s computer division, and he
 supervises two programmers and one technician.  Here is the information about
 them:
 </p>
@@ -338,7 +339,7 @@ Term::List(vec![
 <p>All of these people are in the computer division, as indicated by the word
 <code class="code">computer</code> as the first item in their job descriptions.
 </p>
-<p>Ben is a high-level employee.  His supervisor is the company&rsquo;s big wheel
+<p>Ben is a high-level employee.  His supervisor is the company&#8217;s big wheel
 himself:
 </p>
 <div class="example">
@@ -601,10 +602,10 @@ Term::List(vec![
 ])
 </pre></div>
 
-<h4 class="subsubheading" id="Simple-queries"><span>Simple queries<a class="copiable-link" href="#Simple-queries"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Simple-queries"><span>Simple queries<a class="copiable-link" href="#Simple-queries"> &#182;</a></span></h4>
 
 <p>The query language allows users to retrieve information from the data base by
-posing queries in response to the system&rsquo;s prompt.  For example, to find all
+posing queries in response to the system&#8217;s prompt.  For example, to find all
 computer programmers one can say
 </p>
 <div class="example">
@@ -626,13 +627,13 @@ match a certain <a class="index-entry-id" id="index-pattern"></a>
 <em class="dfn">pattern</em>.  In this example, the pattern specifies
 entries consisting of three items, of which the first is the literal symbol
 <code class="code">job</code>, the second can be anything, and the third is the literal list
-<code class="code">(computer programmer)</code>.  The &ldquo;anything&rdquo; that can be the second item in
+<code class="code">(computer programmer)</code>.  The &#8220;anything&#8221; that can be the second item in
 the matching list is specified by a <a class="index-entry-id" id="index-pattern-variable"></a>
 <em class="dfn">pattern variable</em>, <code class="code">?x</code>.  The
 general form of a pattern variable is a symbol, taken to be the name of the
 variable, preceded by a question mark.  We will see below why it is useful to
 specify names for pattern variables rather than just putting <code class="code">?</code> into
-patterns to represent &ldquo;anything.&rdquo;  The system responds to a simple query by
+patterns to represent &#8220;anything.&#8221;  The system responds to a simple query by
 showing all entries in the data base that match the specified pattern.
 </p>
 <p>A pattern can have more than one variable.  For example, the query
@@ -644,14 +645,14 @@ db.employees.iter()
     .collect::&lt;Vec&lt;_&gt;&gt;()
 </pre></div>
 
-<p>will list all the employees&rsquo; addresses.
+<p>will list all the employees&#8217; addresses.
 </p>
 <p>A pattern can have no variables, in which case the query simply determines
 whether that pattern is an entry in the data base.  If so, there will be one
 match; if not, there will be no matches.
 </p>
 <p>The same pattern variable can appear more than once in a query, specifying that
-the same &ldquo;anything&rdquo; must appear in each position.  This is why variables have
+the same &#8220;anything&#8221; must appear in each position.  This is why variables have
 names.  For example,
 </p>
 <div class="example">
@@ -692,7 +693,7 @@ is <code class="code">computer</code>:
 </pre></div>
 
 <p>because the third item in the entry is a list of three elements, and the
-pattern&rsquo;s third item specifies that there should be two elements.  If we wanted
+pattern&#8217;s third item specifies that there should be two elements.  If we wanted
 to change the pattern so that the third item could be any list beginning with
 <code class="code">computer</code>, we could specify<a class="footnote" id="DOCF247" href="#FOOT247"><sup>247</sup></a>
 </p>
@@ -707,7 +708,7 @@ db.employees.iter()
 </p>
 <div class="example">
 <pre class="example-preformatted">// Pattern: &quot;computer&quot; followed by anything (dot notation = rest)
-[&quot;computer&quot;, rest &nbsp;..]  // Rust slice pattern
+[&quot;computer&quot;, rest &#160;..]  // Rust slice pattern
 </pre></div>
 
 <p>matches the data
@@ -734,12 +735,12 @@ matches the data
 
 <p>with <code class="code">?type</code> as the empty list <code class="code">()</code>.
 </p>
-<p>We can describe the query language&rsquo;s processing of simple queries as follows:
+<p>We can describe the query language&#8217;s processing of simple queries as follows:
 </p>
 <ul class="itemize mark-bullet">
 <li>The system finds all assignments to variables in the query pattern that
 <a class="index-entry-id" id="index-satisfy"></a>
-<em class="dfn">satisfy</em> the pattern&mdash;that is, all sets of values for the variables
+<em class="dfn">satisfy</em> the pattern&#8212;that is, all sets of values for the variables
 such that if the pattern variables are <a class="index-entry-id" id="index-instantiated-with"></a>
 <em class="dfn">instantiated with</em> (replaced
 by) the values, the result is in the data base.
@@ -768,7 +769,7 @@ the following information from the data base:
 </li></ol>
 </blockquote>
 
-<h4 class="subsubheading" id="Compound-queries"><span>Compound queries<a class="copiable-link" href="#Compound-queries"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Compound-queries"><span>Compound queries<a class="copiable-link" href="#Compound-queries"> &#182;</a></span></h4>
 
 <p>Simple queries form the primitive operations of the query language.  In order
 to form compound operations, the query language provides means of combination.
@@ -893,16 +894,16 @@ retrieve the following information:
 <li> the names of all people who are supervised by Ben Bitdiddle, together with
 their addresses;
 
-</li><li> all people whose salary is less than Ben Bitdiddle&rsquo;s, together with their
-salary and Ben Bitdiddle&rsquo;s salary;
+</li><li> all people whose salary is less than Ben Bitdiddle&#8217;s, together with their
+salary and Ben Bitdiddle&#8217;s salary;
 
 </li><li> all people who are supervised by someone who is not in the computer division,
-together with the supervisor&rsquo;s name and job.
+together with the supervisor&#8217;s name and job.
 
 </li></ol>
 </blockquote>
 
-<h4 class="subsubheading" id="Rules"><span>Rules<a class="copiable-link" href="#Rules"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Rules"><span>Rules<a class="copiable-link" href="#Rules"> &#182;</a></span></h4>
 
 <p>In addition to primitive queries and compound queries, the query language
 provides means for abstracting queries.  These are given by <a class="index-entry-id" id="index-rules-1"></a>
@@ -931,7 +932,7 @@ fn same&lt;T: Eq&gt;(x: &amp;T, y: &amp;T) -&gt; bool {
 }
 </pre></div>
 
-<p>The following rule declares that a person is a &ldquo;wheel&rdquo; in an organization if
+<p>The following rule declares that a person is a &#8220;wheel&#8221; in an organization if
 he supervises someone who is in turn a supervisor:
 </p>
 <div class="example">
@@ -961,7 +962,7 @@ query.<a class="footnote" id="DOCF251" href="#FOOT251"><sup>251</sup></a> We can
 conclusion with variable assignments that satisfy the rule body.  When we
 described simple queries (patterns), we said that an assignment to variables
 satisfies a pattern if the instantiated pattern is in the data base.  But the
-pattern needn&rsquo;t be explicitly in the data base as an assertion.  It can be an
+pattern needn&#8217;t be explicitly in the data base as an assertion.  It can be an
 implicit assertion implied by a rule.  For example, the query
 </p>
 <div class="example">
@@ -1004,13 +1005,13 @@ fn outranked_by(db: &amp;Database, staff: &amp;Name, boss: &amp;Name) -&gt; bool
 </pre></div>
 
 <p>says that a staff person is outranked by a boss in the organization if the boss
-is the person&rsquo;s supervisor or (recursively) if the person&rsquo;s supervisor is
+is the person&#8217;s supervisor or (recursively) if the person&#8217;s supervisor is
 outranked by the boss.
 </p>
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-4_002e57"></a>Exercise 4.57:</strong> Define a rule that says that
 person 1 can replace person 2 if either person 1 does the same job as person 2
-or someone who does person 1&rsquo;s job can also do person 2&rsquo;s job, and if person 1
+or someone who does person 1&#8217;s job can also do person 2&#8217;s job, and if person 1
 and person 2 are not the same person. Using your rule, give queries that find
 the following:
 </p>
@@ -1025,7 +1026,7 @@ together with the two salaries.
 
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-4_002e58"></a>Exercise 4.58:</strong> Define a rule that says that a
-person is a &ldquo;big shot&rdquo; in a division if the person works in the division but
+person is a &#8220;big shot&#8221; in a division if the person works in the division but
 does not have a supervisor who works in the division.
 </p></blockquote>
 
@@ -1047,7 +1048,7 @@ let meetings = vec![
 
 <p>Each of the above assertions is for a meeting of an entire division.  Ben also
 adds an entry for the company-wide meeting that spans all the divisions.  All
-of the company&rsquo;s employees attend this meeting.
+of the company&#8217;s employees attend this meeting.
 </p>
 <div class="example">
 <pre class="example-preformatted">// Company-wide meeting
@@ -1060,8 +1061,8 @@ occur that day.  What query should he use?
 
 </li><li> Alyssa P. Hacker is unimpressed.  She thinks it would be much more useful to be
 able to ask for her meetings by specifying her name.  So she designs a rule
-that says that a person&rsquo;s meetings include all <code class="code">whole-company</code> meetings
-plus all meetings of that person&rsquo;s division.  Fill in the body of Alyssa&rsquo;s
+that says that a person&#8217;s meetings include all <code class="code">whole-company</code> meetings
+plus all meetings of that person&#8217;s division.  Fill in the body of Alyssa&#8217;s
 rule.
 
 <div class="example">
@@ -1111,7 +1112,7 @@ for example,
 each other, in which each pair appears only once?  Explain.
 </p></blockquote>
 
-<h4 class="subsubheading" id="Logic-as-programs"><span>Logic as programs<a class="copiable-link" href="#Logic-as-programs"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Logic-as-programs"><span>Logic as programs<a class="copiable-link" href="#Logic-as-programs"> &#182;</a></span></h4>
 
 <p>We can regard a rule as a kind of logical implication: <em class="emph">If</em> an assignment
 of values to pattern variables satisfies the body, <em class="emph">then</em> it satisfies the
@@ -1138,8 +1139,8 @@ following two rules:
 <pre class="example-preformatted">(append-to-form x y z)
 </pre></div>
 
-<p>which we can interpret to mean &ldquo;<code class="code">x</code> and <code class="code">y</code> <code class="code">append</code> to form
-<code class="code">z</code>&rdquo;:
+<p>which we can interpret to mean &#8220;<code class="code">x</code> and <code class="code">y</code> <code class="code">append</code> to form
+<code class="code">z</code>&#8221;:
 </p>
 <div class="example">
 <pre class="example-preformatted">(rule (append-to-form () ?y ?y))
@@ -1162,8 +1163,8 @@ of two lists:
 (append-to-form (a b) (c d) (a b c d))
 </pre></div>
 
-<p>What is more striking, we can use the same rules to ask the question &ldquo;Which
-list, when <code class="code">append</code>ed to <code class="code">(a b)</code>, yields <code class="code">(a b c d)</code>?&rdquo;  This is
+<p>What is more striking, we can use the same rules to ask the question &#8220;Which
+list, when <code class="code">append</code>ed to <code class="code">(a b)</code>, yields <code class="code">(a b c d)</code>?&#8221;  This is
 done as follows:
 </p>
 <div class="example">
@@ -1237,32 +1238,32 @@ of Cain:
 (son Ada Jubal)
 </pre></div>
 
-<p>Formulate rules such as &ldquo;If <em class="math">S</em> is the son of <em class="math">f</em>, and <em class="math">f</em> is the son of
-<em class="math">G</em>, then <em class="math">S</em> is the grandson of <em class="math">G</em>&rdquo; and &ldquo;If <em class="math">W</em> is the wife of
-<em class="math">M</em>, and <em class="math">S</em> is the son of <em class="math">W</em>, then <em class="math">S</em> is the son of <em class="math">M</em>&rdquo; (which
+<p>Formulate rules such as &#8220;If <em class="math">S</em> is the son of <em class="math">f</em>, and <em class="math">f</em> is the son of
+<em class="math">G</em>, then <em class="math">S</em> is the grandson of <em class="math">G</em>&#8221; and &#8220;If <em class="math">W</em> is the wife of
+<em class="math">M</em>, and <em class="math">S</em> is the son of <em class="math">W</em>, then <em class="math">S</em> is the son of <em class="math">M</em>&#8221; (which
 was supposedly more true in biblical times than today) that will enable the
 query system to find the grandson of Cain; the sons of Lamech; the grandsons of
 Methushael.  (See <a class="ref" href="#Exercise-4_002e69">Exercise 4.69</a> for some rules to deduce more complicated
 relationships.)
 </p></blockquote>
 
-<hr>
+<hr />
 </div>
 <div class="subsection-level-extent" id="g_t4_002e4_002e2">
-<h4 class="subsection" id="How-the-Query-System-Works"><span>4.4.2 How the Query System Works<a class="copiable-link" href="#How-the-Query-System-Works"> &para;</a></span></h4>
+<h4 class="subsection" id="How-the-Query-System-Works"><span>4.4.2 How the Query System Works<a class="copiable-link" href="#How-the-Query-System-Works"> &#182;</a></span></h4>
 
 <p>In section <a class="ref" href="#g_t4_002e4_002e4">Implementing the Query System</a> we will present an implementation of the query
 interpreter as a collection of procedures.  In this section we give an overview
 that explains the general structure of the system independent of low-level
 implementation details.  After describing the implementation of the
 interpreter, we will be in a position to understand some of its limitations and
-some of the subtle ways in which the query language&rsquo;s logical operations differ
+some of the subtle ways in which the query language&#8217;s logical operations differ
 from the operations of mathematical logic.
 </p>
 <p>It should be apparent that the query evaluator must perform some kind of search
 in order to match queries against facts and rules in the data base.  One way to
 do this would be to implement the query system as a nondeterministic program,
-using the <code class="code">amb</code> evaluator of <a class="ref" href="4_002e3.xhtml#g_t4_002e3">Variations on a Scheme &mdash; Nondeterministic Computing</a> (see <a class="ref" href="#Exercise-4_002e78">Exercise 4.78</a>).
+using the <code class="code">amb</code> evaluator of <a class="ref" href="4_002e3.xhtml#g_t4_002e3">Variations on a Scheme &#8212; Nondeterministic Computing</a> (see <a class="ref" href="#Exercise-4_002e78">Exercise 4.78</a>).
 Another possibility is to manage the search with the aid of streams.  Our
 implementation follows this second approach.
 </p>
@@ -1278,7 +1279,7 @@ query interpreter fits together through a procedure that classifies expressions
 in a manner analogous to the way <code class="code">eval</code> classifies expressions for the
 interpreter described in <a class="ref" href="4_002e1.xhtml#g_t4_002e1">The Metacircular Evaluator</a>.
 </p>
-<h4 class="subsubheading" id="Pattern-matching"><span>Pattern matching<a class="copiable-link" href="#Pattern-matching"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Pattern-matching"><span>Pattern matching<a class="copiable-link" href="#Pattern-matching"> &#182;</a></span></h4>
 
 <p>A <a class="index-entry-id" id="index-pattern-matcher"></a>
 <em class="dfn">pattern matcher</em> is a program that tests whether some datum fits a
@@ -1308,7 +1309,7 @@ and a frame in which <code class="code">?y</code> is bound to <code class="code"
 will return the given frame augmented by a binding of <code class="code">?x</code> to <code class="code">a</code>.
 </p>
 <p>The pattern matcher is all the mechanism that is needed to process simple
-queries that don&rsquo;t involve rules.  For instance, to process the query
+queries that don&#8217;t involve rules.  For instance, to process the query
 </p>
 <div class="example">
 <pre class="example-preformatted">(job ?x (computer programmer))
@@ -1319,7 +1320,7 @@ pattern with respect to an initially empty frame.  For each match we find, we
 use the frame returned by the match to instantiate the pattern with a value for
 <code class="code">?x</code>.
 </p>
-<h4 class="subsubheading" id="Streams-of-frames"><span>Streams of frames<a class="copiable-link" href="#Streams-of-frames"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Streams-of-frames"><span>Streams of frames<a class="copiable-link" href="#Streams-of-frames"> &#182;</a></span></h4>
 
 <p>The testing of patterns against frames is organized through the use of streams.
 Given a single frame, the matching process runs through the data-base entries
@@ -1339,7 +1340,7 @@ which contains all possible extensions of every frame in the input stream.
 This stream is the output of the query.
 </p>
 <div class="float">
-<a class="anchor" id="Figure-4_002e4"></a><img class="image" src="fig/chap4/Fig4.4a.std.svg" alt="fig/chap4/Fig4.4a">
+<a class="anchor" id="Figure-4_002e4"></a><img class="image" src="fig/chap4/Fig4.4a.std.svg" alt="fig/chap4/Fig4.4a" />
 <div class="caption"><p><strong class="strong">Figure 4.4:</strong> A query processes a stream of frames.</p></div></div>
 <p>To answer a simple query, we use the query with an input stream consisting of a
 single empty frame.  The resulting output stream contains all extensions to the
@@ -1348,7 +1349,7 @@ used to generate a stream of copies of the original query pattern with the
 variables instantiated by the values in each frame, and this is the stream that
 is finally printed.
 </p>
-<h4 class="subsubheading" id="Compound-queries-1"><span>Compound queries<a class="copiable-link" href="#Compound-queries-1"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Compound-queries-1"><span>Compound queries<a class="copiable-link" href="#Compound-queries-1"> &#182;</a></span></h4>
 
 <p>The real elegance of the stream-of-frames implementation is evident when we
 deal with compound queries.  The processing of compound queries makes use of
@@ -1362,8 +1363,8 @@ specified frame.  For example, to handle the <code class="code">and</code> of tw
      (job ?person ?x))
 </pre></div>
 
-<p>(informally, &ldquo;Find all people who can do the job of a computer programmer
-trainee&rdquo;), we first find all entries that match the pattern
+<p>(informally, &#8220;Find all people who can do the job of a computer programmer
+trainee&#8221;), we first find all entries that match the pattern
 </p>
 <div class="example">
 <pre class="example-preformatted">(can_do_job ?x (computer programmer trainee))
@@ -1384,7 +1385,7 @@ frames that pass through the first query filter are filtered and further
 extended by the second query.
 </p>
 <div class="float">
-<a class="anchor" id="Figure-4_002e5"></a><img class="image" src="fig/chap4/Fig4.5a.std.svg" alt="fig/chap4/Fig4.5a">
+<a class="anchor" id="Figure-4_002e5"></a><img class="image" src="fig/chap4/Fig4.5a.std.svg" alt="fig/chap4/Fig4.5a" />
 <div class="caption"><p><strong class="strong">Figure 4.5:</strong> The <code class="code">and</code> combination of two queries is produced by operating on the stream of frames in series.</p></div></div>
 <p><a class="ref" href="#Figure-4_002e6">Figure 4.6</a> shows the analogous method for computing the <code class="code">or</code> of two
 queries as a parallel combination of the two component queries.  The input
@@ -1392,7 +1393,7 @@ stream of frames is extended separately by each query.  The two resulting
 streams are then merged to produce the final output stream.
 </p>
 <div class="float">
-<a class="anchor" id="Figure-4_002e6"></a><img class="image" src="fig/chap4/Fig4.6a.std.svg" alt="fig/chap4/Fig4.6a">
+<a class="anchor" id="Figure-4_002e6"></a><img class="image" src="fig/chap4/Fig4.6a.std.svg" alt="fig/chap4/Fig4.6a" />
 <div class="caption"><p><strong class="strong">Figure 4.6:</strong> The <code class="code">or</code> combination of two queries is produced by operating on the stream of frames in parallel and merging the results.</p></div></div>
 <p>Even from this high-level description, it is apparent that the processing of
 compound queries can be slow.  For example, since a query may produce more than
@@ -1433,14 +1434,14 @@ streams.  We use each frame in the stream to instantiate any variables in the
 pattern, then apply the Lisp predicate.  We remove from the input stream all
 frames for which the predicate fails.
 </p>
-<h4 class="subsubheading" id="Unification"><span>Unification<a class="copiable-link" href="#Unification"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Unification"><span>Unification<a class="copiable-link" href="#Unification"> &#182;</a></span></h4>
 
 <p>In order to handle rules in the query language, we must be able to find the
 rules whose conclusions match a given query pattern.  Rule conclusions are like
 assertions except that they can contain variables, so we will need a
-generalization of pattern matching&mdash;called <a class="index-entry-id" id="index-unification-2"></a>
-<em class="dfn">unification</em>&mdash;in which
-both the &ldquo;pattern&rdquo; and the &ldquo;datum&rdquo; may contain variables.
+generalization of pattern matching&#8212;called <a class="index-entry-id" id="index-unification-2"></a>
+<em class="dfn">unification</em>&#8212;in which
+both the &#8220;pattern&#8221; and the &#8220;datum&#8221; may contain variables.
 </p>
 <p>A unifier takes two patterns, each containing constants and variables, and
 determines whether it is possible to assign values to the variables that will
@@ -1498,7 +1499,7 @@ variables.
 </p>
 <p>Consider the unification of <code class="code">(?x a)</code> and <code class="code">((b ?y) ?z)</code>.  We can
 deduce that <code class="code">?x = (b ?y)</code> and <code class="code">a = ?z</code>, but we cannot further solve
-for <code class="code">?x</code> or <code class="code">?y</code>.  The unification doesn&rsquo;t fail, since it is
+for <code class="code">?x</code> or <code class="code">?y</code>.  The unification doesn&#8217;t fail, since it is
 certainly possible to make the two patterns equal by assigning values to
 <code class="code">?x</code> and <code class="code">?y</code>.  Since this match in no way restricts the values
 <code class="code">?y</code> can take on, no binding for <code class="code">?y</code> is put into the result frame.
@@ -1509,7 +1510,7 @@ later determined and added to the frame (by a pattern match or unification that
 is required to be consistent with this frame), the previously bound <code class="code">?x</code>
 will refer to this value.<a class="footnote" id="DOCF257" href="#FOOT257"><sup>257</sup></a>
 </p>
-<h4 class="subsubheading" id="Applying-rules"><span>Applying rules<a class="copiable-link" href="#Applying-rules"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Applying-rules"><span>Applying rules<a class="copiable-link" href="#Applying-rules"> &#182;</a></span></h4>
 
 <p>Unification is the key to the component of the query system that makes
 inferences from rules. To see how this is accomplished, consider processing a
@@ -1559,7 +1560,7 @@ rule.
 <code class="code">eval</code>/<code class="code">apply</code> evaluator for Lisp:
 </p>
 <ul class="itemize mark-bullet">
-<li>Bind the procedure&rsquo;s parameters to its arguments to form a frame that extends
+<li>Bind the procedure&#8217;s parameters to its arguments to form a frame that extends
 the original procedure environment.
 
 </li><li>Relative to the extended environment, evaluate the expression formed by the
@@ -1573,7 +1574,7 @@ are the means of abstraction in the query language.  In each case, we unwind
 the abstraction by creating appropriate bindings and evaluating the rule or
 procedure body relative to these.
 </p>
-<h4 class="subsubheading" id="Simple-queries-1"><span>Simple queries<a class="copiable-link" href="#Simple-queries-1"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Simple-queries-1"><span>Simple queries<a class="copiable-link" href="#Simple-queries-1"> &#182;</a></span></h4>
 
 <p>We saw earlier in this section how to evaluate simple queries in the absence of
 rules.  Now that we have seen how to apply rules, we can describe how to
@@ -1598,7 +1599,7 @@ form one large stream, which therefore consists of all the ways that any of the
 frames in the original input stream can be extended to produce a match with the
 given pattern.
 </p>
-<h4 class="subsubheading" id="The-query-evaluator-and-the-driver-loop"><span>The query evaluator and the driver loop<a class="copiable-link" href="#The-query-evaluator-and-the-driver-loop"> &para;</a></span></h4>
+<h4 class="subsubheading" id="The-query-evaluator-and-the-driver-loop"><span>The query evaluator and the driver loop<a class="copiable-link" href="#The-query-evaluator-and-the-driver-loop"> &#182;</a></span></h4>
 
 <p>Despite the complexity of the underlying matching operations, the system is
 organized much like an evaluator for any language.  The procedure that
@@ -1638,10 +1639,10 @@ the data base.  For instance,
              ?x ?middle-manager))))
 </pre></div>
 
-<hr>
+<hr />
 </div>
 <div class="subsection-level-extent" id="g_t4_002e4_002e3">
-<h4 class="subsection" id="Is-Logic-Programming-Mathematical-Logic_003f"><span>4.4.3 Is Logic Programming Mathematical Logic?<a class="copiable-link" href="#Is-Logic-Programming-Mathematical-Logic_003f"> &para;</a></span></h4>
+<h4 class="subsection" id="Is-Logic-Programming-Mathematical-Logic_003f"><span>4.4.3 Is Logic Programming Mathematical Logic?<a class="copiable-link" href="#Is-Logic-Programming-Mathematical-Logic_003f"> &#182;</a></span></h4>
 
 <p>The means of combination used in the query language may at first seem identical
 to the operations <code class="code">and</code>, <code class="code">or</code>, and <code class="code">not</code> of mathematical logic,
@@ -1673,18 +1674,18 @@ be scanned for each intermediate result (frame) produced by the first clause of
 the <code class="code">and</code>.
 </p>
 <p>The aim of logic programming is to provide the programmer with techniques for
-decomposing a computational problem into two separate problems: &ldquo;what&rdquo; is to
-be computed, and &ldquo;how&rdquo; this should be computed.  This is accomplished by
+decomposing a computational problem into two separate problems: &#8220;what&#8221; is to
+be computed, and &#8220;how&#8221; this should be computed.  This is accomplished by
 selecting a subset of the statements of mathematical logic that is powerful
 enough to be able to describe anything one might want to compute, yet weak
 enough to have a controllable procedural interpretation.  The intention here is
 that, on the one hand, a program specified in a logic programming language
 should be an effective program that can be carried out by a computer.  Control
-(&ldquo;how&rdquo; to compute) is effected by using the order of evaluation of the
+(&#8220;how&#8221; to compute) is effected by using the order of evaluation of the
 language.  We should be able to arrange the order of clauses and the order of
 subgoals within each clause so that the computation is done in an order deemed
 to be effective and efficient.  At the same time, we should be able to view the
-result of the computation (&ldquo;what&rdquo; to compute) as a simple consequence of the
+result of the computation (&#8220;what&#8221; to compute) as a simple consequence of the
 laws of logic.
 </p>
 <p>Our query language can be regarded as just such a procedurally interpretable
@@ -1694,10 +1695,10 @@ for those cases where the rule body holds.  A rule has a natural procedural
 interpretation: To establish the conclusion of the rule, establish the body of
 the rule.  Rules, therefore, specify computations.  However, because rules can
 also be regarded as statements of mathematical logic, we can justify any
-&ldquo;inference&rdquo; accomplished by a logic program by asserting that the same result
+&#8220;inference&#8221; accomplished by a logic program by asserting that the same result
 could be obtained by working entirely within mathematical logic.<a class="footnote" id="DOCF261" href="#FOOT261"><sup>261</sup></a>
 </p>
-<h4 class="subsubheading" id="Infinite-loops"><span>Infinite loops<a class="copiable-link" href="#Infinite-loops"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Infinite-loops"><span>Infinite loops<a class="copiable-link" href="#Infinite-loops"> &#182;</a></span></h4>
 
 <p>A consequence of the procedural interpretation of logic programs is that it is
 possible to construct hopelessly inefficient programs for solving certain
@@ -1715,7 +1716,7 @@ setting up a data base of famous marriages, including
 <pre class="example-preformatted">(married Mickey ?who)
 </pre></div>
 
-<p>we will get no response, because the system doesn&rsquo;t know that if <em class="math">A</em> is
+<p>we will get no response, because the system doesn&#8217;t know that if <em class="math">A</em> is
 married to <em class="math">B</em>, then <em class="math">B</em> is married to <em class="math">A</em>.  So we assert the rule
 </p>
 <div class="example">
@@ -1736,7 +1737,7 @@ married to <em class="math">B</em>, then <em class="math">B</em> is married to <
 conclusion <code class="code">(married ?x ?y)</code> successfully unifies with the query pattern
 <code class="code">(married Mickey ?who)</code> to produce a frame in which <code class="code">?x</code> is bound to
 <code class="code">Mickey</code> and <code class="code">?y</code> is bound to <code class="code">?who</code>.  So the interpreter
-proceeds to evaluate the rule body <code class="code">(married ?y ?x)</code> in this frame&mdash;in
+proceeds to evaluate the rule body <code class="code">(married ?y ?x)</code> in this frame&#8212;in
 effect, to process the query <code class="code">(married ?who Mickey)</code>.
 
 </li><li>One answer appears directly as an assertion in the data base: <code class="code">(married
@@ -1757,7 +1758,7 @@ the order of clauses in an <code class="code">and</code> (see <a class="ref" hre
 details concerning the order in which the system processes
 queries.<a class="footnote" id="DOCF262" href="#FOOT262"><sup>262</sup></a>
 </p>
-<h4 class="subsubheading" id="Problems-with-not"><span>Problems with <code class="code">not</code><a class="copiable-link" href="#Problems-with-not"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Problems-with-not"><span>Problems with <code class="code">not</code><a class="copiable-link" href="#Problems-with-not"> &#182;</a></span></h4>
 
 <p>Another quirk in the query system concerns <code class="code">not</code>.  Given the data base of
 <a class="ref" href="#g_t4_002e4_002e1">Deductive Information Retrieval</a>, consider the following two queries:
@@ -1786,13 +1787,13 @@ empty stream.
 as a filter on values for the variables.  If a <code class="code">not</code> clause is processed
 with a frame in which some of the variables remain unbound (as does <code class="code">?x</code>
 in the example above), the system will produce unexpected results. Similar
-problems occur with the use of <code class="code">lisp-value</code>&mdash;the Lisp predicate can&rsquo;t
+problems occur with the use of <code class="code">lisp-value</code>&#8212;the Lisp predicate can&#8217;t
 work if some of its arguments are unbound.  See <a class="ref" href="#Exercise-4_002e77">Exercise 4.77</a>.
 </p>
 <p>There is also a much more serious way in which the <code class="code">not</code> of the query
 language differs from the <code class="code">not</code> of mathematical logic.  In logic, we
-interpret the statement &ldquo;not <em class="math">P</em>&rdquo; to mean that <em class="math">P</em> is not true.  In the
-query system, however, &ldquo;not <em class="math">P</em>&rdquo; means that <em class="math">P</em> is not deducible from the
+interpret the statement &#8220;not <em class="math">P</em>&#8221; to mean that <em class="math">P</em> is not true.  In the
+query system, however, &#8220;not <em class="math">P</em>&#8221; means that <em class="math">P</em> is not deducible from the
 knowledge in the data base.  For example, given the personnel data base of
 <a class="ref" href="#g_t4_002e4_002e1">Deductive Information Retrieval</a>, the system would happily deduce all sorts of <code class="code">not</code>
 statements, such as that Ben Bitdiddle is not a baseball fan, that it is not
@@ -1860,7 +1861,7 @@ total salaries of all the computer programmers one will be able to say
           (salary ?x ?amount)))
 </pre></div>
 
-<p>In general, Ben&rsquo;s new system allows expressions of the form
+<p>In general, Ben&#8217;s new system allows expressions of the form
 </p>
 <div class="example">
 <pre class="example-preformatted">(accumulation-function &lt;<var class="var">variable</var>&gt;
@@ -1875,8 +1876,8 @@ mapping function that extracts the value of the designated variable from each
 frame in the stream and feed the resulting stream of values to the accumulation
 function.  Just as Ben completes the implementation and is about to try it out,
 Cy walks by, still puzzling over the <code class="code">wheel</code> query result in 
-<a class="ref" href="#Exercise-4_002e65">Exercise 4.65</a>.  When Cy shows Ben the system&rsquo;s response, Ben groans,
-&ldquo;Oh, no, my simple accumulation scheme won&rsquo;t work!&rdquo;
+<a class="ref" href="#Exercise-4_002e65">Exercise 4.65</a>.  When Cy shows Ben the system&#8217;s response, Ben groans,
+&#8220;Oh, no, my simple accumulation scheme won&#8217;t work!&#8221;
 </p>
 <p>What has Ben just realized?  Outline a method he can use to salvage the
 situation.
@@ -1905,7 +1906,7 @@ and <code class="code">(reverse ?x (1 2 3))</code>?
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-4_002e69"></a>Exercise 4.69:</strong> Beginning with the data base and
 the rules you formulated in <a class="ref" href="#Exercise-4_002e63">Exercise 4.63</a>, devise a rule for adding
-&ldquo;greats&rdquo; to a grandson relationship. This should enable the system to deduce
+&#8220;greats&#8221; to a grandson relationship. This should enable the system to deduce
 that Irad is the great-grandson of Adam, or that Jabal and Jubal are the
 great-great-great-great-great-grandsons of Adam.  (Hint: Represent the fact
 about Irad, for example, as <code class="code">((great grandson) Adam Irad)</code>.  Write rules
@@ -1916,18 +1917,18 @@ on queries such as <code class="code">((great grandson) ?g ?ggs)</code> and <cod
 Adam Irad)</code>.
 </p></blockquote>
 
-<hr>
+<hr />
 </div>
 <div class="subsection-level-extent" id="g_t4_002e4_002e4">
-<h4 class="subsection" id="Implementing-the-Query-System"><span>4.4.4 Implementing the Query System<a class="copiable-link" href="#Implementing-the-Query-System"> &para;</a></span></h4>
+<h4 class="subsection" id="Implementing-the-Query-System"><span>4.4.4 Implementing the Query System<a class="copiable-link" href="#Implementing-the-Query-System"> &#182;</a></span></h4>
 
 <p>Section <a class="ref" href="#g_t4_002e4_002e2">How the Query System Works</a> described how the query system works. Now we fill in the
 details by presenting a complete implementation of the system.
 </p>
 
-<hr>
+<hr />
 <div class="subsubsection-level-extent" id="g_t4_002e4_002e4_002e1">
-<h4 class="subsubsection" id="The-Driver-Loop-and-Instantiation"><span>4.4.4.1 The Driver Loop and Instantiation<a class="copiable-link" href="#The-Driver-Loop-and-Instantiation"> &para;</a></span></h4>
+<h4 class="subsubsection" id="The-Driver-Loop-and-Instantiation"><span>4.4.4.1 The Driver Loop and Instantiation<a class="copiable-link" href="#The-Driver-Loop-and-Instantiation"> &#182;</a></span></h4>
 
 <p>The driver loop for the query system repeatedly reads input expressions.  If
 the expression is a rule or assertion to be added to the data base, then the
@@ -2004,10 +2005,10 @@ in turn bound to 5).
 
 <p>The procedures that manipulate bindings are defined in <a class="ref" href="#g_t4_002e4_002e4_002e8">Frames and Bindings</a>.
 </p>
-<hr>
+<hr />
 </div>
 <div class="subsubsection-level-extent" id="g_t4_002e4_002e4_002e2">
-<h4 class="subsubsection" id="The-Evaluator"><span>4.4.4.2 The Evaluator<a class="copiable-link" href="#The-Evaluator"> &para;</a></span></h4>
+<h4 class="subsubsection" id="The-Evaluator"><span>4.4.4.2 The Evaluator<a class="copiable-link" href="#The-Evaluator"> &#182;</a></span></h4>
 
 <p>The <code class="code">qeval</code> procedure, called by the <code class="code">query_driver_loop</code>, is the
 basic evaluator of the query system.  It takes as inputs a query and a stream
@@ -2026,7 +2027,7 @@ query type.
 }
 </pre></div>
 
-<h4 class="subsubheading" id="Simple-queries-2"><span>Simple queries<a class="copiable-link" href="#Simple-queries-2"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Simple-queries-2"><span>Simple queries<a class="copiable-link" href="#Simple-queries-2"> &#182;</a></span></h4>
 
 <p>The <code class="code">simple_query</code> procedure handles simple queries.  It takes as
 arguments a simple query (a pattern) together with a stream of frames, and it
@@ -2058,7 +2059,7 @@ pattern against all assertions in the data base, producing a stream of extended
 frames, and we use <code class="code">apply_rules</code> to apply all possible rules, producing
 another stream of extended frames.
 </p>
-<h4 class="subsubheading" id="Compound-queries-2"><span>Compound queries<a class="copiable-link" href="#Compound-queries-2"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Compound-queries-2"><span>Compound queries<a class="copiable-link" href="#Compound-queries-2"> &#182;</a></span></h4>
 
 <p><code class="code">And</code> queries are handled as illustrated in <a class="ref" href="#Figure-4_002e5">Figure 4.5</a> by the
 <code class="code">conjoin</code> procedure.  <code class="code">Conjoin</code> takes as inputs the conjuncts and the
@@ -2091,7 +2092,7 @@ separately and merged into a single stream.
 }
 </pre></div>
 
-<h4 class="subsubheading" id="Filters"><span>Filters<a class="copiable-link" href="#Filters"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Filters"><span>Filters<a class="copiable-link" href="#Filters"> &#182;</a></span></h4>
 
 <p><code class="code">Not</code> is handled by the method outlined in <a class="ref" href="#g_t4_002e4_002e2">How the Query System Works</a>.  We
 attempt to extend each frame in the input stream to satisfy the query being
@@ -2123,10 +2124,10 @@ all the frames in the input stream.
 <p>The selectors that define the syntax of <code class="code">not</code> and <code class="code">lisp-value</code> are
 given in <a class="ref" href="#g_t4_002e4_002e4_002e7">Query Syntax Procedures</a>.
 </p>
-<hr>
+<hr />
 </div>
 <div class="subsubsection-level-extent" id="g_t4_002e4_002e4_002e3">
-<h4 class="subsubsection" id="Finding-Assertions-by-Pattern-Matching"><span>4.4.4.3 Finding Assertions by Pattern Matching<a class="copiable-link" href="#Finding-Assertions-by-Pattern-Matching"> &para;</a></span></h4>
+<h4 class="subsubsection" id="Finding-Assertions-by-Pattern-Matching"><span>4.4.4.3 Finding Assertions by Pattern Matching<a class="copiable-link" href="#Finding-Assertions-by-Pattern-Matching"> &#182;</a></span></h4>
 
 <p><code class="code">find_assertions</code>, called by <code class="code">simple_query</code> (<a class="ref" href="#g_t4_002e4_002e4_002e2">The Evaluator</a>),
 takes as input a pattern and a frame.  It returns a stream of frames, each
@@ -2228,13 +2229,13 @@ variable.
 <p>The procedures used by <code class="code">extend-if-consistent</code> to manipulate bindings are
 defined in <a class="ref" href="#g_t4_002e4_002e4_002e8">Frames and Bindings</a>.
 </p>
-<h4 class="subsubheading" id="Patterns-with-dotted-tails"><span>Patterns with dotted tails<a class="copiable-link" href="#Patterns-with-dotted-tails"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Patterns-with-dotted-tails"><span>Patterns with dotted tails<a class="copiable-link" href="#Patterns-with-dotted-tails"> &#182;</a></span></h4>
 
 <p>If a pattern contains a dot followed by a pattern variable, the pattern
 variable matches the rest of the data list (rather than the next element of the
 data list), just as one would expect with the dotted-tail notation described in
 <a class="ref" href="2_002e2.xhtml#Exercise-2_002e20">Exercise 2.20</a>.  Although the pattern matcher we have just implemented
-doesn&rsquo;t look for dots, it does behave as we want.  This is because the Lisp
+doesn&#8217;t look for dots, it does behave as we want.  This is because the Lisp
 <code class="code">read</code> primitive, which is used by <code class="code">query-driver_loop</code> to read the
 query and represent it as a list structure, treats dots in a special way.
 </p>
@@ -2254,10 +2255,10 @@ data list, binding the variable to that list.  For example, matching the
 pattern <code class="code">(computer . ?type)</code> against <code class="code">(computer programmer trainee)</code>
 will match <code class="code">?type</code> against the list <code class="code">(programmer trainee)</code>.
 </p>
-<hr>
+<hr />
 </div>
 <div class="subsubsection-level-extent" id="g_t4_002e4_002e4_002e4">
-<h4 class="subsubsection" id="Rules-and-Unification"><span>4.4.4.4 Rules and Unification<a class="copiable-link" href="#Rules-and-Unification"> &para;</a></span></h4>
+<h4 class="subsubsection" id="Rules-and-Unification"><span>4.4.4.4 Rules and Unification<a class="copiable-link" href="#Rules-and-Unification"> &#182;</a></span></h4>
 
 <p><code class="code">apply_rules</code> is the rule analog of <code class="code">find_assertions</code> 
 (<a class="ref" href="#g_t4_002e4_002e4_002e3">Finding Assertions by Pattern Matching</a>).  It takes as input a pattern and a frame, and it forms a stream
@@ -2293,7 +2294,7 @@ other.
 <p>The unification algorithm is implemented as a procedure that takes as inputs
 two patterns and a frame and returns either the extended frame or <code class="code">None</code>.
 The unifier is like the pattern matcher except that it is
-symmetrical&mdash;variables are allowed on both sides of the match.
+symmetrical&#8212;variables are allowed on both sides of the match.
 </p>
 <div class="example">
 <pre class="example-preformatted">pub fn unify(t1: &amp;Term, t2: &amp;Term, frame: &amp;Frame) -&gt; Option&lt;Frame&gt; {
@@ -2369,10 +2370,10 @@ be the value of a pattern variable depends on the variable.
 }
 </pre></div>
 
-<hr>
+<hr />
 </div>
 <div class="subsubsection-level-extent" id="g_t4_002e4_002e4_002e5">
-<h4 class="subsubsection" id="Maintaining-the-Data-Base"><span>4.4.4.5 Maintaining the Data Base<a class="copiable-link" href="#Maintaining-the-Data-Base"> &para;</a></span></h4>
+<h4 class="subsubsection" id="Maintaining-the-Data-Base"><span>4.4.4.5 Maintaining the Data Base<a class="copiable-link" href="#Maintaining-the-Data-Base"> &#182;</a></span></h4>
 
 <p>One important problem in designing logic programming languages is that of
 arranging things so that as few irrelevant data-base entries as possible will
@@ -2458,13 +2459,13 @@ ones in <a class="ref" href="3_002e5.xhtml#g_t3_002e5_002e2">Infinite Streams</a
 </pre></div>
 </blockquote>
 
-<hr>
+<hr />
 </div>
 <div class="subsubsection-level-extent" id="g_t4_002e4_002e4_002e6">
-<h4 class="subsubsection" id="Stream-Operations"><span>4.4.4.6 Stream Operations<a class="copiable-link" href="#Stream-Operations"> &para;</a></span></h4>
+<h4 class="subsubsection" id="Stream-Operations"><span>4.4.4.6 Stream Operations<a class="copiable-link" href="#Stream-Operations"> &#182;</a></span></h4>
 
 <p>The query system uses stream operations to manage the flow of frames. In Rust,
-we rely on <code class="code">Iterator</code>&rsquo;s lazy combinators.
+we rely on <code class="code">Iterator</code>&#8217;s lazy combinators.
 </p>
 <p><code class="code">Stream-append-delayed</code> and <code class="code">interleave-delayed</code> are handled
 conceptually by iterator chaining and flat mapping.
@@ -2490,10 +2491,10 @@ consisting of a single element:
 }
 </pre></div>
 
-<hr>
+<hr />
 </div>
 <div class="subsubsection-level-extent" id="g_t4_002e4_002e4_002e7">
-<h4 class="subsubsection" id="Query-Syntax-Procedures"><span>4.4.4.7 Query Syntax Procedures<a class="copiable-link" href="#Query-Syntax-Procedures"> &para;</a></span></h4>
+<h4 class="subsubsection" id="Query-Syntax-Procedures"><span>4.4.4.7 Query Syntax Procedures<a class="copiable-link" href="#Query-Syntax-Procedures"> &#182;</a></span></h4>
 
 <p>In Rust, the syntax of the query language is defined by the <code class="code">Query</code> and
 <code class="code">Term</code> enums. Instead of list manipulation procedures like <code class="code">type</code> and
@@ -2610,10 +2611,10 @@ transformation of string names.
 <pre class="example-preformatted">         (symbol-&gt;string (cadr variable))))))
 </pre></div>
 
-<hr>
+<hr />
 </div>
 <div class="subsubsection-level-extent" id="g_t4_002e4_002e4_002e8">
-<h4 class="subsubsection" id="Frames-and-Bindings"><span>4.4.4.8 Frames and Bindings<a class="copiable-link" href="#Frames-and-Bindings"> &para;</a></span></h4>
+<h4 class="subsubsection" id="Frames-and-Bindings"><span>4.4.4.8 Frames and Bindings<a class="copiable-link" href="#Frames-and-Bindings"> &#182;</a></span></h4>
 
 <p>In our Rust implementation, frames are represented using <code class="code">HashMap&lt;String, Term&gt;</code>,
 which provides efficient <em class="math">O(1)</em> lookup and insertion. Each frame maps
@@ -2711,7 +2712,7 @@ over the frame stream in these cases always produces either the empty stream or
 a singleton stream, so no interleaving is needed when combining these streams.
 </p>
 <ol class="enumerate" type="a" start="1">
-<li> Fill in the missing expressions in Alyssa&rsquo;s program.
+<li> Fill in the missing expressions in Alyssa&#8217;s program.
 
 <div class="example">
 <pre class="example-preformatted">fn simple_stream_flatmap&lt;I, F, B&gt;(s: I, proc: F) -&gt; impl Iterator&lt;Item = B&gt;
@@ -2731,7 +2732,7 @@ where
 }
 </pre></div>
 
-</li><li> Does the query system&rsquo;s behavior change if we change it in this way?
+</li><li> Does the query system&#8217;s behavior change if we change it in this way?
 
 </li></ol>
 </blockquote>
@@ -2807,7 +2808,7 @@ frame produced by the first query will require <em class="math">{n^2 /\, k}</em>
 pattern matcher.  Another approach would be to process the two clauses of the
 <code class="code">and</code> separately, then look for all pairs of output frames that are
 compatible.  If each query produces <em class="math">{n \,/\, k}</em> output frames, then this means
-that we must perform <em class="math">{n^2 /\, k^2}</em> compatibility checks&mdash;a factor of <em class="math">k</em>
+that we must perform <em class="math">{n^2 /\, k^2}</em> compatibility checks&#8212;a factor of <em class="math">k</em>
 fewer than the number of matches required in our current method.
 </p>
 <p>Devise an implementation of <code class="code">and</code> that uses this strategy.  You must
@@ -2819,12 +2820,12 @@ the two sets of bindings.  This operation is similar to unification.
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-4_002e77"></a>Exercise 4.77:</strong> In <a class="ref" href="#g_t4_002e4_002e3">Is Logic Programming Mathematical Logic?</a> we saw
 that <code class="code">not</code> and <code class="code">lisp-value</code> can cause the query language to give
-&ldquo;wrong&rdquo; answers if these filtering operations are applied to frames in which
+&#8220;wrong&#8221; answers if these filtering operations are applied to frames in which
 variables are unbound.  Devise a way to fix this shortcoming.  One idea is to
-perform the filtering in a &ldquo;delayed&rdquo; manner by appending to the frame a
-&ldquo;promise&rdquo; to filter that is fulfilled only when enough variables have been
+perform the filtering in a &#8220;delayed&#8221; manner by appending to the frame a
+&#8220;promise&#8221; to filter that is fulfilled only when enough variables have been
 bound to make the operation possible.  We could wait to perform filtering until
-all other operations have been performed.  However, for efficiency&rsquo;s sake, we
+all other operations have been performed.  However, for efficiency&#8217;s sake, we
 would like to perform filtering as soon as possible so as to cut down on the
 number of intermediate frames generated.
 </p></blockquote>
@@ -2832,7 +2833,7 @@ number of intermediate frames generated.
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-4_002e78"></a>Exercise 4.78:</strong> Redesign the query language as a
 nondeterministic program to be implemented using the evaluator of 
-<a class="ref" href="4_002e3.xhtml#g_t4_002e3">Variations on a Scheme &mdash; Nondeterministic Computing</a>, rather than as a stream process.  In this approach, each query will
+<a class="ref" href="4_002e3.xhtml#g_t4_002e3">Variations on a Scheme &#8212; Nondeterministic Computing</a>, rather than as a stream process.  In this approach, each query will
 produce a single answer (rather than the stream of all answers) and the user
 can type <code class="code">try-again</code> to see more answers.  You should find that much of
 the mechanism we built in this section is subsumed by nondeterministic search
@@ -2871,9 +2872,9 @@ procedure.
 environments rather than renaming.  See if you can build on your environment
 structure to create constructs in the query language for dealing with large
 systems, such as the rule analog of block-structured procedures.  Can you
-relate any of this to the problem of making deductions in a context (e.g., &ldquo;If
+relate any of this to the problem of making deductions in a context (e.g., &#8220;If
 I supposed that <em class="math">P</em> were true, then I would be able to deduce <em class="math">A</em> and
-<em class="math">B</em>.&rdquo;) as a method of problem solving?  (This problem is open-ended.  A good
+<em class="math">B</em>.&#8221;) as a method of problem solving?  (This problem is open-ended.  A good
 answer is probably worth a Ph.D.)
 </p></blockquote>
 
@@ -2881,7 +2882,7 @@ answer is probably worth a Ph.D.)
 </div>
 </div>
 <div class="footnotes-segment">
-<hr>
+<hr />
 <h4 class="footnotes-heading">Footnotes</h4>
 
 <h5 class="footnote-body-heading"><a id="FOOT243" href="#DOCF243">(243)</a></h5>
@@ -2909,7 +2910,7 @@ Edinburgh, recognized that execution of a Prolog program could be interpreted
 as proving theorems (using a proof technique called linear Horn-clause
 resolution).  The merging of the last two strands led to the logic-programming
 movement.  Thus, in assigning credit for the development of logic programming,
-the French can point to Prolog&rsquo;s genesis at the University of Marseille, while
+the French can point to Prolog&#8217;s genesis at the University of Marseille, while
 the British can highlight the work at the University of Edinburgh.  According
 to people at <abbr class="abbr">MIT</abbr>, logic programming was developed by these groups in
 an attempt to figure out what Hewitt was talking about in his brilliant but
@@ -2925,7 +2926,7 @@ rule corresponds to the <code class="code">append</code> of <code class="code">(
 problem of how to compute the answer.  There are many different mathematically
 equivalent sets of rules for formulating the <code class="code">append</code> relation, only some
 of which can be turned into effective devices for computing in any direction.
-In addition, sometimes &ldquo;what is&rdquo; information gives no clue &ldquo;how to&rdquo; compute
+In addition, sometimes &#8220;what is&#8221; information gives no clue &#8220;how to&#8221; compute
 an answer.  For example, consider the problem of computing the <em class="math">y</em> such that
 <em class="math">{y^2 = x}</em>.</p>
 <h5 class="footnote-body-heading"><a id="FOOT246" href="#DOCF246">(246)</a></h5>
@@ -2947,7 +2948,7 @@ introduced in <a class="ref" href="2_002e2.xhtml#Exercise-2_002e20">Exercise 2.2
 <h5 class="footnote-body-heading"><a id="FOOT248" href="#DOCF248">(248)</a></h5>
 <p>Actually, this description of <code class="code">not</code> is valid
 only for simple cases.  The real behavior of <code class="code">not</code> is more complex.  We
-will examine <code class="code">not</code>&rsquo;s peculiarities in <a class="ref" href="#g_t4_002e4_002e2">How the Query System Works</a> and
+will examine <code class="code">not</code>&#8217;s peculiarities in <a class="ref" href="#g_t4_002e4_002e2">How the Query System Works</a> and
 <a class="ref" href="#g_t4_002e4_002e3">Is Logic Programming Mathematical Logic?</a>.</p>
 <h5 class="footnote-body-heading"><a id="FOOT249" href="#DOCF249">(249)</a></h5>
 <p><code class="code">Lisp-value</code> should be used
@@ -2957,7 +2958,7 @@ matching in the query language is designed to do) or inequality (since that can
 be done with the <code class="code">same</code> rule shown below).</p>
 <h5 class="footnote-body-heading"><a id="FOOT250" href="#DOCF250">(250)</a></h5>
 <p>Notice that we do not need <code class="code">same</code> in order to make two
-things be the same: We just use the same pattern variable for each&mdash;in effect,
+things be the same: We just use the same pattern variable for each&#8212;in effect,
 we have one thing instead of two things in the first place.  For example, see
 <code class="code">?town</code> in the <code class="code">lives_near</code> rule and <code class="code">?middle-manager</code> in the
 <code class="code">wheel</code> rule below.  <code class="code">Same</code> is useful when we want to force two
@@ -3027,7 +3028,7 @@ familiar method of inference that says that if <em class="math">A</em> is true a
 implies B</em> is true, then we may conclude that <em class="math">B</em> is true.</p>
 <h5 class="footnote-body-heading"><a id="FOOT261" href="#DOCF261">(261)</a></h5>
 <p>We
-must qualify this statement by agreeing that, in speaking of the &ldquo;inference&rdquo;
+must qualify this statement by agreeing that, in speaking of the &#8220;inference&#8221;
 accomplished by a logic program, we assume that the computation terminates.
 Unfortunately, even this qualified statement is false for our implementation of
 the query language (and also false for programs in Prolog and most other
@@ -3054,8 +3055,8 @@ One attempt to build sophisticated control into such a program is described in
 control problems, is to put in special knowledge, such as detectors for
 particular kinds of loops (<a class="ref" href="#Exercise-4_002e67">Exercise 4.67</a>).  However, there can be no
 general scheme for reliably preventing a system from going down infinite paths
-in performing deductions.  Imagine a diabolical rule of the form &ldquo;To show
-<em class="math">{P(x)}</em> is true, show that <em class="math">{P(f(x))}</em> is true,&rdquo; for some
+in performing deductions.  Imagine a diabolical rule of the form &#8220;To show
+<em class="math">{P(x)}</em> is true, show that <em class="math">{P(f(x))}</em> is true,&#8221; for some
 suitably chosen function <em class="math">f</em>.</p>
 <h5 class="footnote-body-heading"><a id="FOOT263" href="#DOCF263">(263)</a></h5>
 <p>Consider the query
@@ -3083,10 +3084,10 @@ procedure here explicitly.
 <p><code class="code">Expand-question-mark</code> and <code class="code">contract-question-mark</code> use several
 procedures with <code class="code">string</code> in their names.  These are Scheme primitives.</p>
 </div>
-<hr>
+<hr />
 <div class="nav-panel">
 <p>
-Next: <a href="Chapter-5.xhtml" accesskey="n" rel="next">Computing with Register Machines</a>, Previous: <a href="4_002e3.xhtml#g_t4_002e3" accesskey="p" rel="prev">Variations on a Scheme &mdash; Nondeterministic Computing</a>, Up: <a href="Chapter-4.xhtml" accesskey="u" rel="up">Metalinguistic Abstraction</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Chapter-5.xhtml" accesskey="n" rel="next">Computing with Register Machines</a>, Previous: <a href="4_002e3.xhtml#g_t4_002e3" accesskey="p" rel="prev">Variations on a Scheme &#8212; Nondeterministic Computing</a>, Up: <a href="Chapter-4.xhtml" accesskey="u" rel="up">Metalinguistic Abstraction</a> &#160; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

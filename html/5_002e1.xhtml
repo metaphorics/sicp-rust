@@ -1,23 +1,24 @@
-<!DOCTYPE html>
-<html>
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>5.1 (Structure and Interpretation of Computer Programs, 2e)</title>
 
-<meta name="description" content="5.1 (Structure and Interpretation of Computer Programs, 2e)">
-<meta name="keywords" content="5.1 (Structure and Interpretation of Computer Programs, 2e)">
-<meta name="resource-type" content="document">
-<meta name="distribution" content="global">
-<meta name="Generator" content="texi2any">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="5.1 (Structure and Interpretation of Computer Programs, 2e)" />
+<meta name="keywords" content="5.1 (Structure and Interpretation of Computer Programs, 2e)" />
+<meta name="resource-type" content="document" />
+<meta name="distribution" content="global" />
+<meta name="Generator" content="texi2any" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 
-<link href="index.xhtml" rel="start" title="Top">
-<link href="Term-Index.xhtml" rel="index" title="Term Index">
-<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="Chapter-5.xhtml" rel="up" title="Chapter 5">
-<link href="5_002e2.xhtml#g_t5_002e2" rel="next" title="5.2">
-<link href="Chapter-5.xhtml" rel="prev" title="Chapter 5">
+<link href="index.xhtml" rel="start" title="Top" />
+<link href="Term-Index.xhtml" rel="index" title="Term Index" />
+<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents" />
+<link href="Chapter-5.xhtml" rel="up" title="Chapter 5" />
+<link href="5_002e2.xhtml#g_t5_002e2" rel="next" title="5.2" />
+<link href="Chapter-5.xhtml" rel="prev" title="Chapter 5" />
 <style type="text/css">
 <!--
 a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
@@ -36,18 +37,18 @@ ul.mark-bullet {list-style-type: disc}
 <div class="section-level-extent" id="g_t5_002e1">
 <div class="nav-panel">
 <p>
-Next: <a href="5_002e2.xhtml#g_t5_002e2" accesskey="n" rel="next">A Register-Machine Simulator</a>, Previous: <a href="Chapter-5.xhtml" accesskey="p" rel="prev">Computing with Register Machines</a>, Up: <a href="Chapter-5.xhtml" accesskey="u" rel="up">Computing with Register Machines</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
+Next: <a href="5_002e2.xhtml#g_t5_002e2" accesskey="n" rel="next">A Register-Machine Simulator</a>, Previous: <a href="Chapter-5.xhtml" accesskey="p" rel="prev">Computing with Register Machines</a>, Up: <a href="Chapter-5.xhtml" accesskey="u" rel="up">Computing with Register Machines</a> &#160; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
 </div>
-<h3 class="section" id="Designing-Register-Machines"><span>5.1 Designing Register Machines<a class="copiable-link" href="#Designing-Register-Machines"> &para;</a></span></h3>
+<h3 class="section" id="Designing-Register-Machines"><span>5.1 Designing Register Machines<a class="copiable-link" href="#Designing-Register-Machines"> &#182;</a></span></h3>
 
 <p>To design a register machine, we must design its <a class="index-entry-id" id="index-data-paths"></a>
 <em class="dfn">data paths</em>
 (registers and operations) and the <a class="index-entry-id" id="index-controller"></a>
 <em class="dfn">controller</em> that sequences these
 operations.  To illustrate the design of a simple register machine, let us
-examine Euclid&rsquo;s Algorithm, which is used to compute the greatest common
+examine Euclid&#8217;s Algorithm, which is used to compute the greatest common
 divisor (<abbr class="abbr">GCD</abbr>) of two integers.  As we saw in <a class="ref" href="1_002e2.xhtml#g_t1_002e2_002e5">Greatest Common Divisors</a>,
-Euclid&rsquo;s Algorithm can be carried out by an iterative process, as specified by
+Euclid&#8217;s Algorithm can be carried out by an iterative process, as specified by
 the following procedure:
 </p>
 <div class="example">
@@ -73,7 +74,7 @@ remainder of the old contents of <code class="code">a</code> divided by the old 
 <code class="code">b</code>.  It would be convenient if these replacements could be done
 simultaneously, but in our model of register machines we will assume that only
 one register can be assigned a new value at each step.  To accomplish the
-replacements, our machine will use a third &ldquo;temporary&rdquo; register, which we
+replacements, our machine will use a third &#8220;temporary&#8221; register, which we
 call <code class="code">t</code>.  (First the remainder will be placed in <code class="code">t</code>, then the
 contents of <code class="code">b</code> will be placed in <code class="code">a</code>, and finally the remainder
 stored in <code class="code">t</code> will be placed in <code class="code">b</code>.)
@@ -84,7 +85,7 @@ registers (<code class="code">a</code>, <code class="code">b</code>, and <code c
 Each way to assign a value to a register is indicated by an arrow with an
 <code class="code">X</code> behind the head, pointing from the source of data to the register.  We
 can think of the <code class="code">X</code> as a button that, when pushed, allows the value at
-the source to &ldquo;flow&rdquo; into the designated register.  The label next to each
+the source to &#8220;flow&#8221; into the designated register.  The label next to each
 button is the name we will use to refer to the button.  The names are
 arbitrary, and can be chosen to have mnemonic value (for example, <code class="code">a&lt;-b</code>
 denotes pushing the button that assigns the contents of register <code class="code">b</code> to
@@ -94,7 +95,7 @@ assignment), or a constant (a built-in value that cannot be changed,
 represented in a data-path diagram by a triangle containing the constant).
 </p>
 <div class="float">
-<a class="anchor" id="Figure-5_002e1"></a><img class="image" src="fig/chap5/Fig5.1a.std.svg" alt="fig/chap5/Fig5.1a">
+<a class="anchor" id="Figure-5_002e1"></a><img class="image" src="fig/chap5/Fig5.1a.std.svg" alt="fig/chap5/Fig5.1a" />
 <div class="caption"><p><strong class="strong">Figure 5.1:</strong> Data paths for a <abbr class="abbr">GCD</abbr> machine.</p></div></div>
 <p>An operation that computes a value from constants and the contents of registers
 is represented in a data-path diagram by a trapezoid containing a name for the
@@ -102,7 +103,7 @@ operation.  For example, the box marked <code class="code">rem</code> in <a clas
 represents an operation that computes the remainder of the contents of the
 registers <code class="code">a</code> and <code class="code">b</code> to which it is attached.  Arrows (without
 buttons) point from the input registers and constants to the box, and arrows
-connect the operation&rsquo;s output value to registers.  A test is represented by a
+connect the operation&#8217;s output value to registers.  A test is represented by a
 circle containing a name for the test.  For example, our <abbr class="abbr">GCD</abbr> machine
 has an operation that tests whether the contents of register <code class="code">b</code> is zero.
 A test also has arrows from its input registers and constants, but it has no
@@ -134,7 +135,7 @@ reaches <code class="code">done</code>, we will find the value of the <abbr clas
 <code class="code">a</code>.
 </p>
 <div class="float">
-<a class="anchor" id="Figure-5_002e2"></a><img class="image" src="fig/chap5/Fig5.2.std.svg" alt="fig/chap5/Fig5.2">
+<a class="anchor" id="Figure-5_002e2"></a><img class="image" src="fig/chap5/Fig5.2.std.svg" alt="fig/chap5/Fig5.2" />
 <div class="caption"><p><strong class="strong">Figure 5.2:</strong> Controller for a <abbr class="abbr">GCD</abbr> machine.</p></div></div>
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-5_002e1"></a>Exercise 5.1:</strong> Design a register machine to
@@ -156,9 +157,9 @@ procedure.  Draw data-path and controller diagrams for this machine.
 </blockquote>
 
 
-<hr>
+<hr />
 <div class="subsection-level-extent" id="g_t5_002e1_002e1">
-<h4 class="subsection" id="A-Language-for-Describing-Register-Machines"><span>5.1.1 A Language for Describing Register Machines<a class="copiable-link" href="#A-Language-for-Describing-Register-Machines"> &para;</a></span></h4>
+<h4 class="subsection" id="A-Language-for-Describing-Register-Machines"><span>5.1.1 A Language for Describing Register Machines<a class="copiable-link" href="#A-Language-for-Describing-Register-Machines"> &#182;</a></span></h4>
 
 <p>Data-path and controller diagrams are adequate for representing simple machines
 such as <abbr class="abbr">GCD</abbr>, but they are unwieldy for describing large machines such
@@ -170,7 +171,7 @@ that directly mirrors the diagrams.
 <p>We define the data paths of a machine by describing the registers and the
 operations.  To describe a register, we give it a name and specify the buttons
 that control assignment to it.  We give each of these buttons a name and
-specify the source of the data that enters the register under the button&rsquo;s
+specify the source of the data that enters the register under the button&#8217;s
 control.  (The source is a register, a constant, or an operation.)  To describe
 an operation, we give it a name and specify its inputs (registers or
 constants).
@@ -259,16 +260,16 @@ data-path and controller descriptions so that we see it all together.
 </p>
 <p>To obtain this form of description, we will replace the arbitrary button and
 operation names by the definitions of their behavior.  That is, instead of
-saying (in the controller) &ldquo;Push button <code class="code">t&lt;-r</code>&rdquo; and separately saying
-(in the data paths) &ldquo;Button <code class="code">t&lt;-r</code> assigns the value of the <code class="code">rem</code>
-operation to register <code class="code">t</code>&rdquo; and &ldquo;The <code class="code">rem</code> operation&rsquo;s inputs are
-the contents of registers <code class="code">a</code> and <code class="code">b</code>,&rdquo; we will say (in the
-controller) &ldquo;Push the button that assigns to register <code class="code">t</code> the value of
-the <code class="code">rem</code> operation on the contents of registers <code class="code">a</code> and <code class="code">b</code>.&rdquo;
-Similarly, instead of saying (in the controller) &ldquo;Perform the <code class="code">=</code> test&rdquo;
-and separately saying (in the data paths) &ldquo;The <code class="code">=</code> test operates on the
-contents of register <code class="code">b</code> and the constant 0,&rdquo; we will say &ldquo;Perform the
-<code class="code">=</code> test on the contents of register <code class="code">b</code> and the constant 0.&rdquo;  We
+saying (in the controller) &#8220;Push button <code class="code">t&lt;-r</code>&#8221; and separately saying
+(in the data paths) &#8220;Button <code class="code">t&lt;-r</code> assigns the value of the <code class="code">rem</code>
+operation to register <code class="code">t</code>&#8221; and &#8220;The <code class="code">rem</code> operation&#8217;s inputs are
+the contents of registers <code class="code">a</code> and <code class="code">b</code>,&#8221; we will say (in the
+controller) &#8220;Push the button that assigns to register <code class="code">t</code> the value of
+the <code class="code">rem</code> operation on the contents of registers <code class="code">a</code> and <code class="code">b</code>.&#8221;
+Similarly, instead of saying (in the controller) &#8220;Perform the <code class="code">=</code> test&#8221;
+and separately saying (in the data paths) &#8220;The <code class="code">=</code> test operates on the
+contents of register <code class="code">b</code> and the constant 0,&#8221; we will say &#8220;Perform the
+<code class="code">=</code> test on the contents of register <code class="code">b</code> and the constant 0.&#8221;  We
 will omit the data-path description, leaving only the controller sequence.
 Thus, the <abbr class="abbr">GCD</abbr> machine is described as follows:
 </p>
@@ -335,7 +336,7 @@ real machines.
 to describe the iterative factorial machine of <a class="ref" href="#Exercise-5_002e1">Exercise 5.1</a>.
 </p></blockquote>
 
-<h4 class="subsubheading" id="Actions"><span>Actions<a class="copiable-link" href="#Actions"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Actions"><span>Actions<a class="copiable-link" href="#Actions"> &#182;</a></span></h4>
 
 <p>Let us modify the <abbr class="abbr">GCD</abbr> machine so that we can type in the numbers
 whose <abbr class="abbr">GCD</abbr> we want and get the answer printed at our terminal.  We
@@ -346,7 +347,7 @@ available as primitive operations.<a class="footnote" id="DOCF266" href="#FOOT26
 <p><code class="code">Read</code> is like the operations we have been using in that it produces a
 value that can be stored in a register.  But <code class="code">read</code> does not take inputs
 from any registers; its value depends on something that happens outside the
-parts of the machine we are designing.  We will allow our machine&rsquo;s operations
+parts of the machine we are designing.  We will allow our machine&#8217;s operations
 to have such behavior, and thus will draw and notate the use of <code class="code">read</code>
 just as we do any other operation that computes a value.
 </p>
@@ -356,7 +357,7 @@ register.  Though it has an effect, this effect is not on a part of the machine
 we are designing.  We will refer to this kind of operation as an
 <a class="index-entry-id" id="index-action"></a>
 <em class="dfn">action</em>.  We will represent an action in a data-path diagram just as
-we represent an operation that computes a value&mdash;as a trapezoid that contains
+we represent an operation that computes a value&#8212;as a trapezoid that contains
 the name of the action.  Arrows point to the action box from any inputs
 (registers or constants).  We also associate a button with the action.  Pushing
 the button makes the action happen.  To make a controller push an action button
@@ -383,20 +384,20 @@ their <abbr class="abbr">GCD</abbr>, and prints the result.  This structure is l
 loops we used in the interpreters of <a class="ref" href="Chapter-4.xhtml">Metalinguistic Abstraction</a>.
 </p>
 <div class="float">
-<a class="anchor" id="Figure-5_002e4"></a><img class="image" src="fig/chap5/Fig5.4c.std.svg" alt="fig/chap5/Fig5.4c">
+<a class="anchor" id="Figure-5_002e4"></a><img class="image" src="fig/chap5/Fig5.4c.std.svg" alt="fig/chap5/Fig5.4c" />
 <div class="caption"><p><strong class="strong">Figure 5.4:</strong> A <abbr class="abbr">GCD</abbr> machine that reads inputs and prints results.</p></div></div>
-<hr>
+<hr />
 </div>
 <div class="subsection-level-extent" id="g_t5_002e1_002e2">
-<h4 class="subsection" id="Abstraction-in-Machine-Design"><span>5.1.2 Abstraction in Machine Design<a class="copiable-link" href="#Abstraction-in-Machine-Design"> &para;</a></span></h4>
+<h4 class="subsection" id="Abstraction-in-Machine-Design"><span>5.1.2 Abstraction in Machine Design<a class="copiable-link" href="#Abstraction-in-Machine-Design"> &#182;</a></span></h4>
 
-<p>We will often define a machine to include &ldquo;primitive&rdquo; operations that are
+<p>We will often define a machine to include &#8220;primitive&#8221; operations that are
 actually very complex.  For example, in <a class="ref" href="5_002e4.xhtml#g_t5_002e4">The Explicit-Control Evaluator</a> and <a class="ref" href="5_002e5.xhtml#g_t5_002e5">Compilation</a> we
-will treat Scheme&rsquo;s environment manipulations as primitive.  Such abstraction
+will treat Scheme&#8217;s environment manipulations as primitive.  Such abstraction
 is valuable because it allows us to ignore the details of parts of a machine so
 that we can concentrate on other aspects of the design.  The fact that we have
 swept a lot of complexity under the rug, however, does not mean that a machine
-design is unrealistic.  We can always replace the complex &ldquo;primitives&rdquo; by
+design is unrealistic.  We can always replace the complex &#8220;primitives&#8221; by
 simpler primitive operations.
 </p>
 <p>Consider the <abbr class="abbr">GCD</abbr> machine. The machine has an instruction that
@@ -413,7 +414,7 @@ this way:
 }
 </pre></div>
 
-<p>We can thus replace the remainder operation in the <abbr class="abbr">GCD</abbr> machine&rsquo;s data
+<p>We can thus replace the remainder operation in the <abbr class="abbr">GCD</abbr> machine&#8217;s data
 paths with a subtraction operation and a comparison test.  <a class="ref" href="#Figure-5_002e5">Figure 5.5</a>
 shows the data paths and controller for the elaborated machine.  The
 instruction
@@ -426,7 +427,7 @@ instruction
 instructions that contains a loop, as shown in <a class="ref" href="#Figure-5_002e6">Figure 5.6</a>.
 </p>
 <div class="float">
-<a class="anchor" id="Figure-5_002e5"></a><img class="image" src="fig/chap5/Fig5.5b.std.svg" alt="fig/chap5/Fig5.5b">
+<a class="anchor" id="Figure-5_002e5"></a><img class="image" src="fig/chap5/Fig5.5b.std.svg" alt="fig/chap5/Fig5.5b" />
 <div class="caption"><p><strong class="strong">Figure 5.5:</strong> Data paths and controller for the elaborated <abbr class="abbr">GCD</abbr> machine.</p></div></div>
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Figure-5_002e6"></a>Figure 5.6:</strong> <em class="math">\downarrow</em> Controller instruction sequence for the
@@ -476,7 +477,7 @@ instructions that contains a loop, as shown in <a class="ref" href="#Figure-5_00
 
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-5_002e3"></a>Exercise 5.3:</strong> Design a machine to compute square
-roots using Newton&rsquo;s method, as described in <a class="ref" href="1_002e1.xhtml#Sec_002e1_002e1_002e7">1.1.7</a>:
+roots using Newton&#8217;s method, as described in <a class="ref" href="1_002e1.xhtml#Sec_002e1_002e1_002e7">1.1.7</a>:
 </p>
 <div class="example">
 <pre class="example-preformatted">fn sqrt(x: f64) -&gt; f64 {
@@ -504,32 +505,32 @@ a data-path diagram and writing a controller definition in the register-machine
 language.
 </p></blockquote>
 
-<hr>
+<hr />
 </div>
 <div class="subsection-level-extent" id="g_t5_002e1_002e3">
-<h4 class="subsection" id="Subroutines"><span>5.1.3 Subroutines<a class="copiable-link" href="#Subroutines"> &para;</a></span></h4>
+<h4 class="subsection" id="Subroutines"><span>5.1.3 Subroutines<a class="copiable-link" href="#Subroutines"> &#182;</a></span></h4>
 
 <p>When designing a machine to perform a computation, we would often prefer to
 arrange for components to be shared by different parts of the computation
 rather than duplicate the components.  Consider a machine that includes two
-<abbr class="abbr">GCD</abbr> computations&mdash;one that finds the <abbr class="abbr">GCD</abbr> of the contents
+<abbr class="abbr">GCD</abbr> computations&#8212;one that finds the <abbr class="abbr">GCD</abbr> of the contents
 of registers <code class="code">a</code> and <code class="code">b</code> and one that finds the <abbr class="abbr">GCD</abbr> of the
 contents of registers <code class="code">c</code> and <code class="code">d</code>.  We might start by assuming we
 have a primitive <code class="code">gcd</code> operation, then expand the two instances of
 <code class="code">gcd</code> in terms of more primitive operations.  <a class="ref" href="#Figure-5_002e7">Figure 5.7</a> shows just
-the <abbr class="abbr">GCD</abbr> portions of the resulting machine&rsquo;s data paths, without
+the <abbr class="abbr">GCD</abbr> portions of the resulting machine&#8217;s data paths, without
 showing how they connect to the rest of the machine.  The figure also shows the
-corresponding portions of the machine&rsquo;s controller sequence.
+corresponding portions of the machine&#8217;s controller sequence.
 </p>
 <div class="float">
-<a class="anchor" id="Figure-5_002e7"></a><img class="image" src="fig/chap5/Fig5.7b.std.svg" alt="fig/chap5/Fig5.7b">
+<a class="anchor" id="Figure-5_002e7"></a><img class="image" src="fig/chap5/Fig5.7b.std.svg" alt="fig/chap5/Fig5.7b" />
 <div class="caption"><p><strong class="strong">Figure 5.7:</strong> Portions of the data paths and controller sequence<!-- /@w --> for a machine with two <abbr class="abbr">GCD</abbr> computations.</p></div></div>
 <p>This machine has two remainder operation boxes and two boxes for testing
 equality.  If the duplicated components are complicated, as is the remainder
 box, this will not be an economical way to build the machine.  We can avoid
 duplicating the data-path components by using the same components for both
 <abbr class="abbr">GCD</abbr> computations, provided that doing so will not affect the rest of
-the larger machine&rsquo;s computation.  If the values in registers <code class="code">a</code> and
+the larger machine&#8217;s computation.  If the values in registers <code class="code">a</code> and
 <code class="code">b</code> are not needed by the time the controller gets to <code class="code">gcd-2</code> (or if
 these values can be moved to other registers for safekeeping), we can change
 the machine so that it uses registers <code class="code">a</code> and <code class="code">b</code>, rather than
@@ -569,9 +570,9 @@ Label(&quot;after-gcd-2&quot;.into()),
 <p>We have removed the duplicate data-path components (so that the data paths are
 again as in <a class="ref" href="#Figure-5_002e1">Figure 5.1</a>), but the controller now has two <abbr class="abbr">GCD</abbr>
 sequences that differ only in their entry-point labels.  It would be better to
-replace these two sequences by branches to a single sequence&mdash;a <code class="code">gcd</code>
+replace these two sequences by branches to a single sequence&#8212;a <code class="code">gcd</code>
 <a class="index-entry-id" id="index-subroutine"></a>
-<em class="dfn">subroutine</em>&mdash;at the end of which we branch back to the correct place
+<em class="dfn">subroutine</em>&#8212;at the end of which we branch back to the correct place
 in the main instruction sequence.  We can accomplish this as follows: Before
 branching to <code class="code">gcd</code>, we place a distinguishing value (such as 0 or 1) into
 a special register, <code class="code">continue</code>.  At the end of the <code class="code">gcd</code> subroutine
@@ -674,10 +675,10 @@ the call to <code class="code">sub2</code>, <code class="code">sub1</code> will 
 finished.  The mechanism developed in the next section to handle recursion also
 provides a better solution to this problem of nested subroutine calls.
 </p>
-<hr>
+<hr />
 </div>
 <div class="subsection-level-extent" id="g_t5_002e1_002e4">
-<h4 class="subsection" id="Using-a-Stack-to-Implement-Recursion"><span>5.1.4 Using a Stack to Implement Recursion<a class="copiable-link" href="#Using-a-Stack-to-Implement-Recursion"> &para;</a></span></h4>
+<h4 class="subsection" id="Using-a-Stack-to-Implement-Recursion"><span>5.1.4 Using a Stack to Implement Recursion<a class="copiable-link" href="#Using-a-Stack-to-Implement-Recursion"> &#182;</a></span></h4>
 
 <p>With the ideas illustrated so far, we can implement any iterative process by
 specifying a register machine that has a register corresponding to each state
@@ -720,7 +721,7 @@ computation to a new <abbr class="abbr">GCD</abbr> computation, and <code class=
 requires computing another factorial as a subproblem.  In <abbr class="abbr">GCD</abbr>, the
 answer to the new <abbr class="abbr">GCD</abbr> computation is the answer to the original
 problem.  To compute the next <abbr class="abbr">GCD</abbr>, we simply place the new arguments
-in the input registers of the <abbr class="abbr">GCD</abbr> machine and reuse the machine&rsquo;s
+in the input registers of the <abbr class="abbr">GCD</abbr> machine and reuse the machine&#8217;s
 data paths by executing the same controller sequence.  When the machine is
 finished solving the final <abbr class="abbr">GCD</abbr> problem, it has completed the entire
 computation.
@@ -763,8 +764,8 @@ we may need to save an arbitrary number of register values.  These values must
 be restored in the reverse of the order in which they were saved, since in a
 nest of recursions the last subproblem to be entered is the first to be
 finished.  This dictates the use of a <a class="index-entry-id" id="index-stack-1"></a>
-<em class="dfn">stack</em>, or &ldquo;last in, first
-out&rdquo; data structure, to save register values.  We can extend the
+<em class="dfn">stack</em>, or &#8220;last in, first
+out&#8221; data structure, to save register values.  We can extend the
 register-machine language to include a stack by adding two kinds of
 instructions: Values are placed on the stack using a <code class="code">save</code> instruction
 and restored from the stack using a <code class="code">restore</code> instruction.  After a
@@ -772,7 +773,7 @@ sequence of values has been <code class="code">save</code>d on the stack, a sequ
 <code class="code">restore</code>s will retrieve these values in reverse order.<a class="footnote" id="DOCF268" href="#FOOT268"><sup>268</sup></a>
 </p>
 <p>With the aid of the stack, we can reuse a single copy of the factorial
-machine&rsquo;s data paths for each factorial subproblem.  There is a similar design
+machine&#8217;s data paths for each factorial subproblem.  There is a similar design
 issue in reusing the controller sequence that operates the data paths.  To
 reexecute the factorial computation, the controller cannot simply loop back to
 the beginning, as with an iterative process, because after solving the 
@@ -785,7 +786,7 @@ transfer to the part of the sequence that solves a subproblem and then continue
 where it left off on the main problem.  We can thus make a factorial subroutine
 that returns to the entry point stored in the <code class="code">continue</code> register.  Around
 each subroutine call, we save and restore <code class="code">continue</code> just as we do the
-<code class="code">n</code> register, since each &ldquo;level&rdquo; of the factorial computation will use
+<code class="code">n</code> register, since each &#8220;level&#8221; of the factorial computation will use
 the same <code class="code">continue</code> register.  That is, the factorial subroutine must put
 a new value in <code class="code">continue</code> when it calls itself for a subproblem, but it
 will need the old value in order to return to the place that called it to solve
@@ -811,7 +812,7 @@ subroutine returns.  Only the new value, which is the value produced by the
 subcomputation, is needed.
 </p>
 <div class="float">
-<a class="anchor" id="Figure-5_002e11"></a><img class="image" src="fig/chap5/Fig5.11b.std.svg" alt="fig/chap5/Fig5.11b">
+<a class="anchor" id="Figure-5_002e11"></a><img class="image" src="fig/chap5/Fig5.11b.std.svg" alt="fig/chap5/Fig5.11b" />
 <div class="caption"><p><strong class="strong">Figure 5.11:</strong> A recursive factorial machine.</p></div></div>
 <p>Although in principle the factorial computation requires an infinite machine,
 the machine in <a class="ref" href="#Figure-5_002e11">Figure 5.11</a> is actually finite except for the stack, which
@@ -828,7 +829,7 @@ registers that need to be saved depends on the particular machine, since not
 all recursive computations need the original values of registers that are
 modified during solution of the subproblem (see <a class="ref" href="#Exercise-5_002e4">Exercise 5.4</a>).
 </p>
-<h4 class="subsubheading" id="A-double-recursion"><span>A double recursion<a class="copiable-link" href="#A-double-recursion"> &para;</a></span></h4>
+<h4 class="subsubheading" id="A-double-recursion"><span>A double recursion<a class="copiable-link" href="#A-double-recursion"> &#182;</a></span></h4>
 
 <p>Let us examine a more complex recursive process, the tree-recursive computation
 of the Fibonacci numbers, which we introduced in <a class="ref" href="1_002e2.xhtml#g_t1_002e2_002e2">Tree Recursion</a>:
@@ -847,7 +848,7 @@ of the Fibonacci numbers, which we introduced in <a class="ref" href="1_002e2.xh
 a register machine with registers <code class="code">n</code>, <code class="code">val</code>, and <code class="code">continue</code>.
 The machine is more complex than the one for factorial, because there are two
 places in the controller sequence where we need to perform recursive
-calls&mdash;once to compute <em class="math">{\text{Fib}(n - 1)}</em> and once to compute <em class="math">{\text{Fib}(n - 2)}</em>.  To
+calls&#8212;once to compute <em class="math">{\text{Fib}(n - 1)}</em> and once to compute <em class="math">{\text{Fib}(n - 2)}</em>.  To
 set up for each of these calls, we save the registers whose values will be
 needed later, set the <code class="code">n</code> register to the number whose Fib we need to
 compute recursively (<em class="math">{n - 1}</em> or <em class="math">{n - 2}</em>), and assign to <code class="code">continue</code> the
@@ -939,16 +940,16 @@ point in the execution.
 
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-5_002e6"></a>Exercise 5.6:</strong> Ben Bitdiddle observes that the
-Fibonacci machine&rsquo;s controller sequence has an extra <code class="code">save</code> and an extra
+Fibonacci machine&#8217;s controller sequence has an extra <code class="code">save</code> and an extra
 <code class="code">restore</code>, which can be removed to make a faster machine.  Where are these
 instructions?
 </p></blockquote>
 
-<hr>
+<hr />
 </div>
 <div class="subsection-level-extent" id="g_t5_002e1_002e5">
 
-<h4 class="subsection" id="Instruction-Summary"><span>5.1.5 Instruction Summary<a class="copiable-link" href="#Instruction-Summary"> &para;</a></span></h4>
+<h4 class="subsection" id="Instruction-Summary"><span>5.1.5 Instruction Summary<a class="copiable-link" href="#Instruction-Summary"> &#182;</a></span></h4>
 
 
 
@@ -1034,20 +1035,20 @@ Inst::Restore(reg_name)
 </p>
 <p>represent numbers, booleans, strings, symbols, and lists.
 </p>
-<p>For example,<br>
+<p>For example,<br />
 </p>
-<p><code class="code">Value::String(&quot;abc&quot;.to_string())</code> is the string <code class="code">&quot;abc&quot;</code>,<br>
+<p><code class="code">Value::String(&quot;abc&quot;.to_string())</code> is the string <code class="code">&quot;abc&quot;</code>,<br />
 </p>
-<p><code class="code">Value::Symbol(&quot;abc&quot;.to_string())</code> is the symbol <code class="code">abc</code>,<br>
+<p><code class="code">Value::Symbol(&quot;abc&quot;.to_string())</code> is the symbol <code class="code">abc</code>,<br />
 </p>
-<p><code class="code">Value::Pair(...)</code> is a list,<br>
+<p><code class="code">Value::Pair(...)</code> is a list,<br />
 </p>
 <p>and <code class="code">Value::Nil</code> is the empty list.
 </p>
 </div>
 </div>
 <div class="footnotes-segment">
-<hr>
+<hr />
 <h4 class="footnotes-heading">Footnotes</h4>
 
 <h5 class="footnote-body-heading"><a id="FOOT266" href="#DOCF266">(266)</a></h5>
@@ -1055,7 +1056,7 @@ Inst::Restore(reg_name)
 great deal of complexity.  Usually a large portion of the implementation of a
 Lisp system is dedicated to making reading and printing work.</p>
 <h5 class="footnote-body-heading"><a id="FOOT267" href="#DOCF267">(267)</a></h5>
-<p>One might argue that we don&rsquo;t need to save the old <code class="code">n</code>;
+<p>One might argue that we don&#8217;t need to save the old <code class="code">n</code>;
 after we decrement it and solve the subproblem, we could simply increment it to
 recover the old value.  Although this strategy works for factorial, it cannot
 work in general, since the old value of a register cannot always be computed
@@ -1065,10 +1066,10 @@ from the new one.</p>
 <a class="ref" href="5_002e3.xhtml#g_t5_002e3">Storage Allocation and Garbage Collection</a> we will see how to implement a stack in terms of more
 primitive operations.</p>
 </div>
-<hr>
+<hr />
 <div class="nav-panel">
 <p>
-Next: <a href="5_002e2.xhtml#g_t5_002e2" accesskey="n" rel="next">A Register-Machine Simulator</a>, Previous: <a href="Chapter-5.xhtml" accesskey="p" rel="prev">Computing with Register Machines</a>, Up: <a href="Chapter-5.xhtml" accesskey="u" rel="up">Computing with Register Machines</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
+Next: <a href="5_002e2.xhtml#g_t5_002e2" accesskey="n" rel="next">A Register-Machine Simulator</a>, Previous: <a href="Chapter-5.xhtml" accesskey="p" rel="prev">Computing with Register Machines</a>, Up: <a href="Chapter-5.xhtml" accesskey="u" rel="up">Computing with Register Machines</a> &#160; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

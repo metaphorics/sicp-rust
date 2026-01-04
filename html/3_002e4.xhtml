@@ -1,23 +1,24 @@
-<!DOCTYPE html>
-<html>
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>3.4 (Structure and Interpretation of Computer Programs, 2e)</title>
 
-<meta name="description" content="3.4 (Structure and Interpretation of Computer Programs, 2e)">
-<meta name="keywords" content="3.4 (Structure and Interpretation of Computer Programs, 2e)">
-<meta name="resource-type" content="document">
-<meta name="distribution" content="global">
-<meta name="Generator" content="texi2any">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="3.4 (Structure and Interpretation of Computer Programs, 2e)" />
+<meta name="keywords" content="3.4 (Structure and Interpretation of Computer Programs, 2e)" />
+<meta name="resource-type" content="document" />
+<meta name="distribution" content="global" />
+<meta name="Generator" content="texi2any" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 
-<link href="index.xhtml" rel="start" title="Top">
-<link href="Term-Index.xhtml" rel="index" title="Term Index">
-<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="Chapter-3.xhtml" rel="up" title="Chapter 3">
-<link href="3_002e5.xhtml#g_t3_002e5" rel="next" title="3.5">
-<link href="3_002e3.xhtml#g_t3_002e3" rel="prev" title="3.3">
+<link href="index.xhtml" rel="start" title="Top" />
+<link href="Term-Index.xhtml" rel="index" title="Term Index" />
+<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents" />
+<link href="Chapter-3.xhtml" rel="up" title="Chapter 3" />
+<link href="3_002e5.xhtml#g_t3_002e5" rel="next" title="3.5" />
+<link href="3_002e3.xhtml#g_t3_002e3" rel="prev" title="3.3" />
 <style type="text/css">
 <!--
 a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
@@ -36,11 +37,11 @@ ul.mark-bullet {list-style-type: disc}
 <div class="section-level-extent" id="g_t3_002e4">
 <div class="nav-panel">
 <p>
-Next: <a href="3_002e5.xhtml#g_t3_002e5" accesskey="n" rel="next">Streams</a>, Previous: <a href="3_002e3.xhtml#g_t3_002e3" accesskey="p" rel="prev">Modeling with Mutable Data</a>, Up: <a href="Chapter-3.xhtml" accesskey="u" rel="up">Modularity, Objects, and State</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
+Next: <a href="3_002e5.xhtml#g_t3_002e5" accesskey="n" rel="next">Streams</a>, Previous: <a href="3_002e3.xhtml#g_t3_002e3" accesskey="p" rel="prev">Modeling with Mutable Data</a>, Up: <a href="Chapter-3.xhtml" accesskey="u" rel="up">Modularity, Objects, and State</a> &#160; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
 </div>
-<h3 class="section" id="Concurrency_003a-Time-Is-of-the-Essence"><span>3.4 Concurrency: Time Is of the Essence<a class="copiable-link" href="#Concurrency_003a-Time-Is-of-the-Essence"> &para;</a></span></h3>
+<h3 class="section" id="Concurrency_003a-Time-Is-of-the-Essence"><span>3.4 Concurrency: Time Is of the Essence<a class="copiable-link" href="#Concurrency_003a-Time-Is-of-the-Essence"> &#182;</a></span></h3>
 
-<p>We&rsquo;ve seen the power of computational objects with local state as tools for
+<p>We&#8217;ve seen the power of computational objects with local state as tools for
 modeling.  Yet, as <a class="ref" href="3_002e1.xhtml#g_t3_002e1_002e3">The Costs of Introducing Assignment</a> warned, this power extracts a price: the
 loss of referential transparency, giving rise to a thicket of questions about
 sameness and change, and the need to abandon the substitution model of
@@ -76,7 +77,7 @@ essential concept in programming.
 <p>We can go further in structuring computational models to match our perception
 of the physical world.  Objects in the world do not change one at a time in
 sequence.  Rather we perceive them as acting <a class="index-entry-id" id="index-concurrently"></a>
-<em class="dfn">concurrently</em>&mdash;all at
+<em class="dfn">concurrently</em>&#8212;all at
 once.  So it is often natural to model systems as collections of computational
 processes that execute concurrently.  Just as we can make our programs modular
 by organizing models in terms of objects with separate local state, it is often
@@ -100,9 +101,9 @@ either because the world operates in parallel or because our computers do,
 entails additional complexity in our understanding of time.
 </p>
 
-<hr>
+<hr />
 <div class="subsection-level-extent" id="g_t3_002e4_002e1">
-<h4 class="subsection" id="The-Nature-of-Time-in-Concurrent-Systems"><span>3.4.1 The Nature of Time in Concurrent Systems<a class="copiable-link" href="#The-Nature-of-Time-in-Concurrent-Systems"> &para;</a></span></h4>
+<h4 class="subsection" id="The-Nature-of-Time-in-Concurrent-Systems"><span>3.4.1 The Nature of Time in Concurrent Systems<a class="copiable-link" href="#The-Nature-of-Time-in-Concurrent-Systems"> &#182;</a></span></h4>
 
 <p>On the surface, time seems straightforward.  It is an ordering imposed on
 events.<a class="footnote" id="DOCF154" href="#FOOT154"><sup>154</sup></a>  For any events <em class="math">A</em> and <em class="math">B</em>, either <em class="math">A</em> occurs before <em class="math">B</em>,
@@ -148,7 +149,7 @@ fn withdraw(amount: i64) -&gt; Result&lt;i64, &amp;'static str&gt; {
 balance and attempt to withdraw a legitimate amount.  However, Paul
 might withdraw some funds in between the time that Peter checks the
 balance and the time Peter completes the withdrawal, thus invalidating
-Peter&rsquo;s test.
+Peter&#8217;s test.
 </p>
 <p>Things can be worse still.  Consider the expression
 </p>
@@ -158,7 +159,7 @@ Peter&rsquo;s test.
 
 <p>executed as part of each withdrawal process.  This consists of three steps: (1)
 accessing the value of the <code class="code">balance</code> variable; (2) computing the new
-balance; (3) setting <code class="code">balance</code> to this new value.  If Peter and Paul&rsquo;s
+balance; (3) setting <code class="code">balance</code> to this new value.  If Peter and Paul&#8217;s
 withdrawals execute this statement concurrently, then the two withdrawals might
 interleave the order in which they access <code class="code">balance</code> and set it to the new
 value.
@@ -166,7 +167,7 @@ value.
 <p>The timing diagram in <a class="ref" href="#Figure-3_002e29">Figure 3.29</a> depicts an order of events where
 <code class="code">balance</code> starts at 100, Peter withdraws 10, Paul withdraws 25, and yet
 the final value of <code class="code">balance</code> is 75.  As shown in the diagram, the reason
-for this anomaly is that Paul&rsquo;s assignment of 75 to <code class="code">balance</code> is made
+for this anomaly is that Paul&#8217;s assignment of 75 to <code class="code">balance</code> is made
 under the assumption that the value of <code class="code">balance</code> to be decremented is 100.
 That assumption, however, became invalid when Peter changed <code class="code">balance</code> to
 90.  This is a catastrophic failure for the banking system, because the total
@@ -175,7 +176,7 @@ total amount of money was $100.  Afterwards, Peter has $10, Paul has $25, and
 the bank has $75.<a class="footnote" id="DOCF155" href="#FOOT155"><sup>155</sup></a>
 </p>
 <div class="float">
-<a class="anchor" id="Figure-3_002e29"></a><img class="image" src="fig/chap3/Fig3.29b.std.svg" alt="fig/chap3/Fig3.29b">
+<a class="anchor" id="Figure-3_002e29"></a><img class="image" src="fig/chap3/Fig3.29b.std.svg" alt="fig/chap3/Fig3.29b" />
 <div class="caption"><p><strong class="strong">Figure 3.29:</strong> Timing diagram showing how interleaving the order of events in two banking withdrawals can lead to an incorrect final balance.</p></div></div>
 <p>The general phenomenon illustrated here is that several processes may share a
 common state variable.  What makes this complicated is that more than one
@@ -185,7 +186,7 @@ act as if the other customers did not exist.  When a customer changes the
 balance in a way that depends on the balance, he must be able to assume that,
 just before the moment of change, the balance is still what he thought it was.
 </p>
-<h4 class="subsubheading" id="Correct-behavior-of-concurrent-programs"><span>Correct behavior of concurrent programs<a class="copiable-link" href="#Correct-behavior-of-concurrent-programs"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Correct-behavior-of-concurrent-programs"><span>Correct behavior of concurrent programs<a class="copiable-link" href="#Correct-behavior-of-concurrent-programs"> &#182;</a></span></h4>
 
 <p>The above example typifies the subtle bugs that can creep into concurrent
 programs.  The root of this complexity lies in the assignments to variables
@@ -207,15 +208,15 @@ system designer to ensure that only one transaction could proceed at a time.
 This would be both inefficient and overly conservative.  <a class="ref" href="#Figure-3_002e30">Figure 3.30</a>
 shows Peter and Paul sharing a bank account, where Paul has a private account
 as well.  The diagram illustrates two withdrawals from the shared account (one
-by Peter and one by Paul) and a deposit to Paul&rsquo;s private account.<a class="footnote" id="DOCF157" href="#FOOT157"><sup>157</sup></a>  The two withdrawals from the
+by Peter and one by Paul) and a deposit to Paul&#8217;s private account.<a class="footnote" id="DOCF157" href="#FOOT157"><sup>157</sup></a>  The two withdrawals from the
 shared account must not be concurrent (since both access and update the same
-account), and Paul&rsquo;s deposit and withdrawal must not be concurrent (since both
-access and update the amount in Paul&rsquo;s wallet).  But there should be no problem
-permitting Paul&rsquo;s deposit to his private account to proceed concurrently with
-Peter&rsquo;s withdrawal from the shared account.
+account), and Paul&#8217;s deposit and withdrawal must not be concurrent (since both
+access and update the amount in Paul&#8217;s wallet).  But there should be no problem
+permitting Paul&#8217;s deposit to his private account to proceed concurrently with
+Peter&#8217;s withdrawal from the shared account.
 </p>
 <div class="float">
-<a class="anchor" id="Figure-3_002e30"></a><img class="image" src="fig/chap3/Fig3.30c.std.svg" alt="fig/chap3/Fig3.30c">
+<a class="anchor" id="Figure-3_002e30"></a><img class="image" src="fig/chap3/Fig3.30c.std.svg" alt="fig/chap3/Fig3.30c" />
 <div class="caption"><p><strong class="strong">Figure 3.30:</strong> Concurrent deposits and withdrawals from a joint account in Bank1 and a private account in Bank2.</p></div></div>
 <p>A less stringent restriction on concurrency would ensure that a concurrent
 system produces the same result as if the processes had run sequentially in
@@ -223,12 +224,12 @@ some order.  There are two important aspects to this requirement.  First, it
 does not require the processes to actually run sequentially, but only to
 produce results that are the same <em class="emph">as if</em> they had run sequentially.  For
 the example in <a class="ref" href="#Figure-3_002e30">Figure 3.30</a>, the designer of the bank account system can
-safely allow Paul&rsquo;s deposit and Peter&rsquo;s withdrawal to happen concurrently,
+safely allow Paul&#8217;s deposit and Peter&#8217;s withdrawal to happen concurrently,
 because the net result will be the same as if the two operations had happened
-sequentially.  Second, there may be more than one possible &ldquo;correct&rdquo; result
+sequentially.  Second, there may be more than one possible &#8220;correct&#8221; result
 produced by a concurrent program, because we require only that the result be
 the same as for <em class="emph">some</em> sequential order.  For example, suppose that Peter
-and Paul&rsquo;s joint account starts out with $100, and Peter deposits $40 while
+and Paul&#8217;s joint account starts out with $100, and Peter deposits $40 while
 Paul concurrently withdraws half the money in the account.  Then sequential
 execution could result in the account balance being either $70 or $90 (see
 <a class="ref" href="#Exercise-3_002e38">Exercise 3.38</a>).<a class="footnote" id="DOCF158" href="#FOOT158"><sup>158</sup></a>
@@ -237,7 +238,7 @@ execution could result in the account balance being either $70 or $90 (see
 programs.  A program for simulating diffusion (say, the flow of heat in an
 object) might consist of a large number of processes, each one representing a
 small volume of space, that update their values concurrently.  Each process
-repeatedly changes its value to the average of its own value and its neighbors&rsquo;
+repeatedly changes its value to the average of its own value and its neighbors&#8217;
 values.  This algorithm converges to the right answer independent of the order
 in which the operations are done; there is no need for any restrictions on
 concurrent use of the shared values.
@@ -268,12 +269,12 @@ to explain how these values can occur.
 </li></ol>
 </blockquote>
 
-<hr>
+<hr />
 </div>
 <div class="subsection-level-extent" id="g_t3_002e4_002e2">
-<h4 class="subsection" id="Mechanisms-for-Controlling-Concurrency"><span>3.4.2 Mechanisms for Controlling Concurrency<a class="copiable-link" href="#Mechanisms-for-Controlling-Concurrency"> &para;</a></span></h4>
+<h4 class="subsection" id="Mechanisms-for-Controlling-Concurrency"><span>3.4.2 Mechanisms for Controlling Concurrency<a class="copiable-link" href="#Mechanisms-for-Controlling-Concurrency"> &#182;</a></span></h4>
 
-<p>We&rsquo;ve seen that the difficulty in dealing with concurrent processes is rooted
+<p>We&#8217;ve seen that the difficulty in dealing with concurrent processes is rooted
 in the need to consider the interleaving of the order of events in the
 different processes.  For example, suppose we have two processes, one with
 three ordered events <em class="math">{(a, b, c)}</em> and one with three ordered events
@@ -304,7 +305,7 @@ mechanisms have been developed for this purpose.  In this section, we describe
 one of them, the <a class="index-entry-id" id="index-serializer"></a>
 <em class="dfn">serializer</em>.
 </p>
-<h4 class="subsubheading" id="Serializing-access-to-shared-state"><span>Serializing access to shared state<a class="copiable-link" href="#Serializing-access-to-shared-state"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Serializing-access-to-shared-state"><span>Serializing access to shared state<a class="copiable-link" href="#Serializing-access-to-shared-state"> &#182;</a></span></h4>
 
 <p>Serialization implements the following idea: Processes will execute
 concurrently, but there will be certain collections of procedures that cannot
@@ -323,7 +324,7 @@ concurrently with this procedure by serializing all of these procedures with
 the same serializer.  This guarantees that the value of the variable cannot be
 changed between an access and the corresponding assignment.
 </p>
-<h4 class="subsubheading" id="Serializers-in-Scheme"><span>Serializers in Scheme<a class="copiable-link" href="#Serializers-in-Scheme"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Serializers-in-Scheme"><span>Serializers in Scheme<a class="copiable-link" href="#Serializers-in-Scheme"> &#182;</a></span></h4>
 
 <p>To make the above mechanism more concrete, suppose that we have extended Scheme
 to include a procedure parallel execution:
@@ -349,7 +350,7 @@ concurrently.<a class="footnote" id="DOCF159" href="#FOOT159"><sup>159</sup></a>
 </p>
 <p>As an example of how this is used, consider
 </p>
-<p>Rust&rsquo;s type system prevents data races at compile time:
+<p>Rust&#8217;s type system prevents data races at compile time:
 </p><div class="example">
 <pre class="example-preformatted">use std::sync::{Arc, Mutex};
 use std::thread;
@@ -373,7 +374,7 @@ h2.join().unwrap();
 // Result is always 101 or 121 - no race conditions!
 </pre></div>
 
-<p>This creates two concurrent processes&mdash;<em class="math">P_1</em>, which sets <code class="code">x</code> to
+<p>This creates two concurrent processes&#8212;<em class="math">P_1</em>, which sets <code class="code">x</code> to
 <code class="code">x</code> times <code class="code">x</code>, and <em class="math">P_2</em>, which increments <code class="code">x</code>.  After
 execution is complete, <code class="code">x</code> will be left with one of five possible values,
 depending on the interleaving of the events of <em class="math">P_1</em> and <em class="math">P_2</em>:
@@ -589,11 +590,11 @@ impl Account {
 
 <p>because allowing unserialized access to the bank balance can result in
 anomalous behavior.  Do you agree?  Is there any scenario that demonstrates
-Ben&rsquo;s concern?
+Ben&#8217;s concern?
 </p></blockquote>
 
 <blockquote class="quotation">
-<p><strong class="strong"><a class="anchor" id="Exercise-3_002e42"></a>Exercise 3.42:</strong> Ben Bitdiddle suggests that it&rsquo;s
+<p><strong class="strong"><a class="anchor" id="Exercise-3_002e42"></a>Exercise 3.42:</strong> Ben Bitdiddle suggests that it&#8217;s
 a waste of time to create a new serialized procedure in response to every
 <code class="code">withdraw</code> and <code class="code">deposit</code> message.  He says that <code class="code">Account::new</code>
 could be changed so that the calls to <code class="code">protected</code> are done outside the
@@ -640,7 +641,7 @@ impl Account {
 concurrency is allowed by these two versions of <code class="code">Account::new</code>?
 </p></blockquote>
 
-<h4 class="subsubheading" id="Complexity-of-using-multiple-shared-resources"><span>Complexity of using multiple shared resources<a class="copiable-link" href="#Complexity-of-using-multiple-shared-resources"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Complexity-of-using-multiple-shared-resources"><span>Complexity of using multiple shared resources<a class="copiable-link" href="#Complexity-of-using-multiple-shared-resources"> &#182;</a></span></h4>
 
 <p>Serializers provide a powerful abstraction that helps isolate the complexities
 of concurrent programs so that they can be dealt with carefully and (hopefully)
@@ -675,9 +676,9 @@ balances for <em class="math">{a1}</em> and <em class="math">{a2}</em>, but then
 <code class="code">exchange</code> procedure to lock out any other concurrent accesses to the
 accounts during the entire time of the exchange.
 </p>
-<p>One way we can accomplish this is by using both accounts&rsquo; serializers to
+<p>One way we can accomplish this is by using both accounts&#8217; serializers to
 serialize the entire <code class="code">exchange</code> procedure.  To do this, we will arrange
-for access to an account&rsquo;s serializer.  Note that we are deliberately breaking
+for access to an account&#8217;s serializer.  Note that we are deliberately breaking
 the modularity of the bank-account object by exposing the serializer.  The
 following version of <code class="code">Account::new</code> is identical to the original version
 given in <a class="ref" href="3_002e1.xhtml#g_t3_002e1_002e1">Local State Variables</a>, except that a serializer is provided to protect
@@ -813,7 +814,7 @@ the balance in <code class="code">from-account</code> is at least <code class="c
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-3_002e45"></a>Exercise 3.45:</strong> Louis Reasoner thinks our
 bank-account system is unnecessarily complex and error-prone now that deposits
-and withdrawals aren&rsquo;t automatically serialized.  He suggests that
+and withdrawals aren&#8217;t automatically serialized.  He suggests that
 <code class="code">make-account-and-serializer</code> should have exported the serializer (for use
 by such procedures as <code class="code">serialized-exchange</code>) in addition to (rather than
 instead of) using it to serialize accounts and deposits as <code class="code">Account::new</code>
@@ -868,16 +869,16 @@ impl LouisAccount {
 }
 </pre></div>
 
-<p>Explain what is wrong with Louis&rsquo;s reasoning.  In particular, consider what
+<p>Explain what is wrong with Louis&#8217;s reasoning.  In particular, consider what
 happens when <code class="code">serialized-exchange</code> is called.
 </p></blockquote>
 
-<h4 class="subsubheading" id="Implementing-serializers"><span>Implementing serializers<a class="copiable-link" href="#Implementing-serializers"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Implementing-serializers"><span>Implementing serializers<a class="copiable-link" href="#Implementing-serializers"> &#182;</a></span></h4>
 
 <p>We implement serializers in terms of a more primitive synchronization mechanism
 called a <a class="index-entry-id" id="index-mutex"></a>
 <em class="dfn">mutex</em>.  A mutex is an object that supports two
-operations&mdash;the mutex can be <a class="index-entry-id" id="index-acquired"></a>
+operations&#8212;the mutex can be <a class="index-entry-id" id="index-acquired"></a>
 <em class="dfn">acquired</em>, and the mutex can be
 <a class="index-entry-id" id="index-released"></a>
 <em class="dfn">released</em>.  Once a mutex has been acquired, no other acquire
@@ -911,7 +912,7 @@ where
 }
 </pre></div>
 
-<p>The mutex is a mutable object (here we&rsquo;ll use a one-element list, which we&rsquo;ll
+<p>The mutex is a mutable object (here we&#8217;ll use a one-element list, which we&#8217;ll
 refer to as a <a class="index-entry-id" id="index-cell"></a>
 <em class="dfn">cell</em>) that can hold the value true or false.  When the
 value is false, the mutex is available to be acquired.  When the value is true,
@@ -1021,14 +1022,14 @@ semaphore must wait for release operations.  Give implementations of semaphores
 </li></ol>
 </blockquote>
 
-<h4 class="subsubheading" id="Deadlock"><span>Deadlock<a class="copiable-link" href="#Deadlock"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Deadlock"><span>Deadlock<a class="copiable-link" href="#Deadlock"> &#182;</a></span></h4>
 
 <p>Now that we have seen how to implement serializers, we can see that account
 exchanging still has a problem, even with the <code class="code">serialized-exchange</code>
 procedure above.  Imagine that Peter attempts to exchange <em class="math">{a1}</em> with <em class="math">{a2}</em>
 while Paul concurrently attempts to exchange <em class="math">{a2}</em> with <em class="math">{a1}</em>.  Suppose that
-Peter&rsquo;s process reaches the point where it has entered a serialized procedure
-protecting <em class="math">{a1}</em> and, just after that, Paul&rsquo;s process enters a serialized
+Peter&#8217;s process reaches the point where it has entered a serialized procedure
+protecting <em class="math">{a1}</em> and, just after that, Paul&#8217;s process enters a serialized
 procedure protecting <em class="math">{a2}</em>.  Now Peter cannot proceed (to enter a serialized
 procedure protecting <em class="math">{a2}</em>) until Paul exits the serialized procedure
 protecting <em class="math">{a2}</em>.  Similarly, Paul cannot proceed until Peter exits the
@@ -1065,13 +1066,13 @@ shared resources before it can know which additional shared resources it will
 require.)
 </p></blockquote>
 
-<h4 class="subsubheading" id="Concurrency_002c-time_002c-and-communication"><span>Concurrency, time, and communication<a class="copiable-link" href="#Concurrency_002c-time_002c-and-communication"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Concurrency_002c-time_002c-and-communication"><span>Concurrency, time, and communication<a class="copiable-link" href="#Concurrency_002c-time_002c-and-communication"> &#182;</a></span></h4>
 
-<p>We&rsquo;ve seen how programming concurrent systems requires controlling the ordering
-of events when different processes access shared state, and we&rsquo;ve seen how to
+<p>We&#8217;ve seen how programming concurrent systems requires controlling the ordering
+of events when different processes access shared state, and we&#8217;ve seen how to
 achieve this control through judicious use of serializers.  But the problems of
 concurrency lie deeper than this, because, from a fundamental point of view,
-it&rsquo;s not always clear what is meant by &ldquo;shared state.&rdquo;
+it&#8217;s not always clear what is meant by &#8220;shared state.&#8221;
 </p>
 <p>Mechanisms such as <code class="code">test-and-set!</code> require processes to examine a global
 shared flag at arbitrary times.  This is problematic and inefficient to
@@ -1085,15 +1086,15 @@ concurrency control.<a class="footnote" id="DOCF168" href="#FOOT168"><sup>168</s
 systems.  For instance, imagine a distributed banking system where individual
 branch banks maintain local values for bank balances and periodically compare
 these with values maintained by other branches.  In such a system the value of
-&ldquo;the account balance&rdquo; would be undetermined, except right after
+&#8220;the account balance&#8221; would be undetermined, except right after
 synchronization.  If Peter deposits money in an account he holds jointly with
-Paul, when should we say that the account balance has changed&mdash;when the
+Paul, when should we say that the account balance has changed&#8212;when the
 balance in the local branch changes, or not until after the synchronization?
 And if Paul accesses the account from a different branch, what are the
 reasonable constraints to place on the banking system such that the behavior is
-&ldquo;correct&rdquo;?  The only thing that might matter for correctness is the behavior
-observed by Peter and Paul individually and the &ldquo;state&rdquo; of the account
-immediately after synchronization.  Questions about the &ldquo;real&rdquo; account
+&#8220;correct&#8221;?  The only thing that might matter for correctness is the behavior
+observed by Peter and Paul individually and the &#8220;state&#8221; of the account
+immediately after synchronization.  Questions about the &#8220;real&#8221; account
 balance or the order of events between synchronizations may be irrelevant or
 meaningless.<a class="footnote" id="DOCF169" href="#FOOT169"><sup>169</sup></a>
 </p>
@@ -1107,17 +1108,17 @@ synchronize events) is a fundamental constant relating time and space.  The
 complexities we encounter in dealing with time and state in our computational
 models may in fact mirror a fundamental complexity of the physical universe.
 </p>
-<hr>
+<hr />
 </div>
 <div class="subsection-level-extent" id="g_t3_002e4_002e3">
-<h4 class="subsection" id="Fearless-Concurrency"><span>3.4.3 Fearless Concurrency<a class="copiable-link" href="#Fearless-Concurrency"> &para;</a></span></h4>
+<h4 class="subsection" id="Fearless-Concurrency"><span>3.4.3 Fearless Concurrency<a class="copiable-link" href="#Fearless-Concurrency"> &#182;</a></span></h4>
 <a class="index-entry-id" id="index-fearless-concurrency"></a>
 <a class="index-entry-id" id="index-data-races-1"></a>
 <a class="index-entry-id" id="index-Send-trait"></a>
 <a class="index-entry-id" id="index-Sync-trait"></a>
 
 <p>In the previous sections, we explored mechanisms for controlling
-concurrency through serialization&mdash;ensuring that certain procedures
+concurrency through serialization&#8212;ensuring that certain procedures
 cannot execute simultaneously. We saw how the <code class="code">make-serializer</code>
 abstraction in Scheme requires discipline from the programmer to avoid
 race conditions. A forgotten serialization call can lead to subtle,
@@ -1125,13 +1126,13 @@ non-deterministic bugs that appear only under specific timing conditions.
 </p>
 <p>Rust takes a radically different approach: <em class="emph">the compiler enforces
 concurrency safety at compile time</em>. Through its ownership system and
-two special traits&mdash;<code class="code">Send</code> and <code class="code">Sync</code>&mdash;Rust makes data races
+two special traits&#8212;<code class="code">Send</code> and <code class="code">Sync</code>&#8212;Rust makes data races
 impossible in safe code. This is what we call <em class="dfn">fearless concurrency</em>:
 <a class="index-entry-id" id="index-fearless-concurrency_002c-definition"></a>
 the ability to write concurrent programs without fear of data races,
 because the type system prevents them from compiling.
 </p>
-<h4 class="subsubheading" id="The-Problem_003a-Data-Races"><span>The Problem: Data Races<a class="copiable-link" href="#The-Problem_003a-Data-Races"> &para;</a></span></h4>
+<h4 class="subsubheading" id="The-Problem_003a-Data-Races"><span>The Problem: Data Races<a class="copiable-link" href="#The-Problem_003a-Data-Races"> &#182;</a></span></h4>
 
 <p>A <em class="dfn">data race</em> occurs when:
 <a class="index-entry-id" id="index-data-race_002c-definition"></a>
@@ -1141,7 +1142,7 @@ because the type system prevents them from compiling.
 </li><li> The accesses are not synchronized
 </li></ol>
 
-<p>Consider this hypothetical unsafe Rust code (which won&rsquo;t compile):
+<p>Consider this hypothetical unsafe Rust code (which won&#8217;t compile):
 </p>
 <div class="example">
 <pre class="example-preformatted">let mut counter = 0;
@@ -1164,7 +1165,7 @@ handle2.join().unwrap();
 </pre></div>
 
 <p>This code has a data race: both threads read and write <code class="code">counter</code>
-without synchronization. The final value is unpredictable&mdash;it might
+without synchronization. The final value is unpredictable&#8212;it might
 be 2000, or any value less than that, depending on how the increments
 interleave. Worse, on modern processors, the behavior might be undefined
 due to memory model violations.
@@ -1173,7 +1174,7 @@ due to memory model violations.
 directly at the problem: <code class="code">counter</code> is being accessed from multiple
 threads without proper synchronization.
 </p>
-<h4 class="subsubheading" id="The-Send-Trait_003a-Safe-Transfer"><span>The Send Trait: Safe Transfer<a class="copiable-link" href="#The-Send-Trait_003a-Safe-Transfer"> &para;</a></span></h4>
+<h4 class="subsubheading" id="The-Send-Trait_003a-Safe-Transfer"><span>The Send Trait: Safe Transfer<a class="copiable-link" href="#The-Send-Trait_003a-Safe-Transfer"> &#182;</a></span></h4>
 
 <p>The <code class="code">Send</code> trait marks types that are safe to <em class="emph">transfer ownership</em>
 <a class="index-entry-id" id="index-Send-trait-1"></a>
@@ -1187,7 +1188,7 @@ vectors, and user-defined structs composed of <code class="code">Send</code> typ
 <p>The <code class="code">auto</code> keyword means the compiler automatically implements
 <code class="code">Send</code> for types composed only of <code class="code">Send</code> components. The
 <code class="code">unsafe</code> keyword means that implementing <code class="code">Send</code> manually
-requires an <code class="code">unsafe impl</code> block&mdash;a signal that you&rsquo;re making
+requires an <code class="code">unsafe impl</code> block&#8212;a signal that you&#8217;re making
 guarantees the compiler cannot verify.
 </p>
 <p>Types that are <em class="emph">not</em> <code class="code">Send</code> include:
@@ -1212,7 +1213,7 @@ handle.join().unwrap();
 <p>The <code class="code">move</code> keyword transfers ownership of <code class="code">data</code> to the new
 thread. Since <code class="code">Vec&lt;i32&gt;</code> is <code class="code">Send</code>, this compiles successfully.
 </p>
-<h4 class="subsubheading" id="The-Sync-Trait_003a-Safe-Sharing"><span>The Sync Trait: Safe Sharing<a class="copiable-link" href="#The-Sync-Trait_003a-Safe-Sharing"> &para;</a></span></h4>
+<h4 class="subsubheading" id="The-Sync-Trait_003a-Safe-Sharing"><span>The Sync Trait: Safe Sharing<a class="copiable-link" href="#The-Sync-Trait_003a-Safe-Sharing"> &#182;</a></span></h4>
 
 <p>The <code class="code">Sync</code> trait marks types that are safe to <em class="emph">share references</em>
 <a class="index-entry-id" id="index-Sync-trait-1"></a>
@@ -1225,8 +1226,8 @@ across thread boundaries. A type <code class="code">T</code> is <code class="cod
 
 <p>Intuitively:
 </p><ul class="itemize mark-bullet">
-<li><code class="code">Send</code>: &ldquo;I can be moved to another thread&rdquo;
-</li><li><code class="code">Sync</code>: &ldquo;I can be shared (via <code class="code">&amp;T</code>) between threads&rdquo;
+<li><code class="code">Send</code>: &#8220;I can be moved to another thread&#8221;
+</li><li><code class="code">Sync</code>: &#8220;I can be shared (via <code class="code">&amp;T</code>) between threads&#8221;
 </li></ul>
 
 <p>Primitive types like <code class="code">i32</code>, <code class="code">bool</code>, and <code class="code">f64</code> are <code class="code">Sync</code>
@@ -1238,7 +1239,7 @@ they provide interior mutability without synchronization
 it provides synchronized interior mutability
 </li></ul>
 
-<h4 class="subsubheading" id="Spawning-Threads"><span>Spawning Threads<a class="copiable-link" href="#Spawning-Threads"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Spawning-Threads"><span>Spawning Threads<a class="copiable-link" href="#Spawning-Threads"> &#182;</a></span></h4>
 
 <p>The <code class="code">std::thread::spawn</code> function creates a new OS thread:
 <a class="index-entry-id" id="index-thread-spawning"></a>
@@ -1290,7 +1291,7 @@ let handle = thread::spawn(move || {
 });
 </pre></div>
 
-<h4 class="subsubheading" id="Scoped-Threads"><span>Scoped Threads<a class="copiable-link" href="#Scoped-Threads"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Scoped-Threads"><span>Scoped Threads<a class="copiable-link" href="#Scoped-Threads"> &#182;</a></span></h4>
 
 <p>The <code class="code">'static</code> requirement is sometimes too restrictive. The
 <code class="code">crossbeam</code> crate provides <em class="dfn">scoped threads</em> that can safely
@@ -1318,11 +1319,11 @@ before returning. This allows the threads to borrow from the parent scope.
 However, Rust still prevents data races: you cannot have multiple mutable
 borrows or a mutable borrow alongside immutable ones.
 </p>
-<h4 class="subsubheading" id="Message-Passing"><span>Message Passing<a class="copiable-link" href="#Message-Passing"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Message-Passing"><span>Message Passing<a class="copiable-link" href="#Message-Passing"> &#182;</a></span></h4>
 
 <p>One approach to sharing data between threads is <em class="emph">not to share at all</em>.
 <a class="index-entry-id" id="index-message-passing-2"></a>
-Instead, threads communicate by sending messages through channels. Rust&rsquo;s
+Instead, threads communicate by sending messages through channels. Rust&#8217;s
 standard library provides <code class="code">std::sync::mpsc</code> (multi-producer,
 single-consumer) channels:
 </p>
@@ -1395,9 +1396,9 @@ loop {
 </pre></div>
 
 <p>The <code class="code">select!</code> macro allows waiting on multiple channel operations,
-similar to the serializer&rsquo;s constraint that only one operation proceeds.
+similar to the serializer&#8217;s constraint that only one operation proceeds.
 </p>
-<h4 class="subsubheading" id="Shared-State-with-Arc-and-Mutex"><span>Shared State with Arc and Mutex<a class="copiable-link" href="#Shared-State-with-Arc-and-Mutex"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Shared-State-with-Arc-and-Mutex"><span>Shared State with Arc and Mutex<a class="copiable-link" href="#Shared-State-with-Arc-and-Mutex"> &#182;</a></span></h4>
 
 <p>While message passing is idiomatic, sometimes shared mutable state is
 <a class="index-entry-id" id="index-Arc"></a>
@@ -1409,7 +1410,7 @@ necessary. Rust provides two tools:
 </li><li> <code class="code">Mutex&lt;T&gt;</code>: mutual exclusion for synchronized access
 </li></ol>
 
-<p>Here&rsquo;s our counter example, written correctly:
+<p>Here&#8217;s our counter example, written correctly:
 </p>
 <div class="example">
 <pre class="example-preformatted">use std::sync::{Arc, Mutex};
@@ -1434,7 +1435,7 @@ for handle in handles {
 println!(&quot;Result: {}&quot;, *counter.lock().unwrap());  // Result: 10
 </pre></div>
 
-<p>Let&rsquo;s dissect this:
+<p>Let&#8217;s dissect this:
 </p>
 <ol class="enumerate">
 <li> <code class="code">Arc::new(Mutex::new(0))</code>: Creates a reference-counted pointer to
@@ -1460,19 +1461,19 @@ impl&lt;T: ?Sized + Send&gt; Sync for Mutex&lt;T&gt;
 allowing it to be shared across threads. The <code class="code">Mutex</code> ensures that only
 one thread can access the data at a time, preventing data races.
 </p>
-<h4 class="subsubheading" id="Message-Passing-vs_002e-Shared-State"><span>Message Passing vs. Shared State<a class="copiable-link" href="#Message-Passing-vs_002e-Shared-State"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Message-Passing-vs_002e-Shared-State"><span>Message Passing vs. Shared State<a class="copiable-link" href="#Message-Passing-vs_002e-Shared-State"> &#182;</a></span></h4>
 
 <p>These two approaches represent different concurrency philosophies:
 <a class="index-entry-id" id="index-concurrency-patterns"></a>
 </p>
-<p><strong class="strong">Message Passing</strong> (&ldquo;Share memory by communicating&rdquo;):
+<p><strong class="strong">Message Passing</strong> (&#8220;Share memory by communicating&#8221;):
 </p><ul class="itemize mark-bullet">
 <li><strong class="strong">Pros</strong>: Clear ownership, fewer synchronization bugs, composable
 </li><li><strong class="strong">Cons</strong>: Copying overhead, less intuitive for shared resources
 </li><li><strong class="strong">Use when</strong>: Tasks are independent, data flow is unidirectional
 </li></ul>
 
-<p><strong class="strong">Shared State</strong> (&ldquo;Communicate by sharing memory&rdquo;):
+<p><strong class="strong">Shared State</strong> (&#8220;Communicate by sharing memory&#8221;):
 </p><ul class="itemize mark-bullet">
 <li><strong class="strong">Pros</strong>: Zero-copy access, familiar to systems programmers
 </li><li><strong class="strong">Cons</strong>: Deadlock risk, harder to reason about, contention issues
@@ -1542,9 +1543,9 @@ fn worker(cache: Cache, key: String) -&gt; Option&lt;Vec&lt;u8&gt;&gt; {
 <a class="index-entry-id" id="index-RwLock"></a>
 reducing contention compared to <code class="code">Mutex</code>.
 </p>
-<h4 class="subsubheading" id="The-Compiler-as-Guardian"><span>The Compiler as Guardian<a class="copiable-link" href="#The-Compiler-as-Guardian"> &para;</a></span></h4>
+<h4 class="subsubheading" id="The-Compiler-as-Guardian"><span>The Compiler as Guardian<a class="copiable-link" href="#The-Compiler-as-Guardian"> &#182;</a></span></h4>
 
-<p>The key insight is that Rust&rsquo;s type system <em class="emph">encodes concurrency invariants</em>.
+<p>The key insight is that Rust&#8217;s type system <em class="emph">encodes concurrency invariants</em>.
 <a class="index-entry-id" id="index-type-system_002c-concurrency-safety"></a>
 You cannot write a data race in safe Rust because:
 </p>
@@ -1555,11 +1556,11 @@ You cannot write a data race in safe Rust because:
 </li><li> Lifetimes prevent use-after-free
 </li></ol>
 
-<p>Compare this to Section 3.4&rsquo;s serializers in Scheme, which rely on programmer
+<p>Compare this to Section 3.4&#8217;s serializers in Scheme, which rely on programmer
 discipline. In Rust, if your program compiles, you have a <em class="emph">proof</em> that
 it is free of data races.
 </p>
-<p>This doesn&rsquo;t prevent <em class="emph">all</em> concurrency bugs. Deadlocks are still possible:
+<p>This doesn&#8217;t prevent <em class="emph">all</em> concurrency bugs. Deadlocks are still possible:
 </p>
 <div class="example">
 <pre class="example-preformatted">let m1 = Arc::new(Mutex::new(0));
@@ -1585,7 +1586,7 @@ let t2 = thread::spawn(move || {
 acquire locks in the same order. This is a runtime protocol, not enforced
 by the type system.
 </p>
-<p>However, data races&mdash;the most insidious class of concurrency bugs&mdash;are
+<p>However, data races&#8212;the most insidious class of concurrency bugs&#8212;are
 <em class="emph">impossible</em> in safe Rust. This is fearless concurrency: the confidence
 to parallelize code without fear of undefined behavior.
 </p>
@@ -1611,7 +1612,7 @@ to parallelize code without fear of undefined behavior.
 }
 </pre></div>
 
-<p>This code doesn&rsquo;t compile. Identify the two errors and fix them. Then,
+<p>This code doesn&#8217;t compile. Identify the two errors and fix them. Then,
 rewrite the function using message passing instead of shared state.
 </p></blockquote>
 
@@ -1718,10 +1719,10 @@ operations. Verify that:
 contentions, wait times). How does performance compare to <code class="code">std::sync::RwLock</code>?
 </p></blockquote>
 
-<hr>
+<hr />
 </div>
 <div class="subsection-level-extent" id="g_t3_002e4_002e5">
-<h4 class="subsection" id="Async_002fAwait_003a-Cooperative-Concurrency"><span>3.4.4 Async/Await: Cooperative Concurrency<a class="copiable-link" href="#Async_002fAwait_003a-Cooperative-Concurrency"> &para;</a></span></h4>
+<h4 class="subsection" id="Async_002fAwait_003a-Cooperative-Concurrency"><span>3.4.4 Async/Await: Cooperative Concurrency<a class="copiable-link" href="#Async_002fAwait_003a-Cooperative-Concurrency"> &#182;</a></span></h4>
 <a class="index-entry-id" id="index-async_002fawait"></a>
 <a class="index-entry-id" id="index-futures"></a>
 <a class="index-entry-id" id="index-cooperative-concurrency"></a>
@@ -1740,27 +1741,27 @@ I/O-bound workloads.
 </li><li>Most threads spend time waiting for I/O, not computing
 </li></ul>
 
-<p>Rust&rsquo;s <code class="code">async/await</code> syntax provides an alternative: <em class="dfn">cooperative
+<p>Rust&#8217;s <code class="code">async/await</code> syntax provides an alternative: <em class="dfn">cooperative
 <a class="index-entry-id" id="index-cooperative-concurrency_002c-definition"></a>
 concurrency</em>, where tasks voluntarily yield control at specific points.
 This allows thousands or millions of concurrent tasks on a single thread,
 with minimal overhead.
 </p>
-<h4 class="subsubheading" id="Concurrency-vs_002e-Parallelism"><span>Concurrency vs. Parallelism<a class="copiable-link" href="#Concurrency-vs_002e-Parallelism"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Concurrency-vs_002e-Parallelism"><span>Concurrency vs. Parallelism<a class="copiable-link" href="#Concurrency-vs_002e-Parallelism"> &#182;</a></span></h4>
 
-<p>Before diving into async, let&rsquo;s clarify terminology:
+<p>Before diving into async, let&#8217;s clarify terminology:
 <a class="index-entry-id" id="index-concurrency-vs-parallelism"></a>
 </p>
 <ul class="itemize mark-bullet">
 <li><strong class="strong">Concurrency</strong>: Managing multiple tasks that make progress over
-overlapping time periods (&ldquo;dealing with lots of things at once&rdquo;)
+overlapping time periods (&#8220;dealing with lots of things at once&#8221;)
 </li><li><strong class="strong">Parallelism</strong>: Executing multiple tasks simultaneously on different
-CPU cores (&ldquo;doing lots of things at once&rdquo;)
+CPU cores (&#8220;doing lots of things at once&#8221;)
 </li></ul>
 
 <p>Threads can provide both: the OS may run threads in parallel on multiple
 cores, or interleave them on a single core. Async provides <em class="emph">concurrency
-without parallelism</em>&mdash;tasks cooperatively share a single thread (though
+without parallelism</em>&#8212;tasks cooperatively share a single thread (though
 async runtimes may use multiple threads internally).
 </p>
 <p><strong class="strong">Use threads when</strong>:
@@ -1777,9 +1778,9 @@ async runtimes may use multiple threads internally).
 </li><li>Low latency is critical (microsecond-scale task switching)
 </li></ul>
 
-<h4 class="subsubheading" id="Futures_003a-Lazy-Computations"><span>Futures: Lazy Computations<a class="copiable-link" href="#Futures_003a-Lazy-Computations"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Futures_003a-Lazy-Computations"><span>Futures: Lazy Computations<a class="copiable-link" href="#Futures_003a-Lazy-Computations"> &#182;</a></span></h4>
 
-<p>At the heart of Rust&rsquo;s async system is the <code class="code">Future</code> trait:
+<p>At the heart of Rust&#8217;s async system is the <code class="code">Future</code> trait:
 <a class="index-entry-id" id="index-Future-trait"></a>
 </p>
 <div class="example">
@@ -1797,7 +1798,7 @@ pub enum Poll&lt;T&gt; {
 </pre></div>
 
 <p>A <code class="code">Future</code> represents a value that may not be available yet. The
-<code class="code">poll</code> method asks: &ldquo;Are you done?&rdquo; It returns either:
+<code class="code">poll</code> method asks: &#8220;Are you done?&#8221; It returns either:
 </p><ul class="itemize mark-bullet">
 <li><code class="code">Poll::Ready(value)</code>: The computation completed with <code class="code">value</code>
 </li><li><code class="code">Poll::Pending</code>: Still working; poll again later
@@ -1808,7 +1809,7 @@ pub enum Poll&lt;T&gt; {
 a future merely constructs a state machine; no work happens until an
 executor calls <code class="code">poll</code>.
 </p>
-<p>Here&rsquo;s a simple future that completes after being polled three times:
+<p>Here&#8217;s a simple future that completes after being polled three times:
 </p>
 <div class="example">
 <pre class="example-preformatted">use std::future::Future;
@@ -1840,7 +1841,7 @@ impl Future for CountdownFuture {
 completes. The <code class="code">cx.waker().wake_by_ref()</code> call tells the executor
 to poll this future again.
 </p>
-<h4 class="subsubheading" id="Async-Functions-and-Await"><span>Async Functions and Await<a class="copiable-link" href="#Async-Functions-and-Await"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Async-Functions-and-Await"><span>Async Functions and Await<a class="copiable-link" href="#Async-Functions-and-Await"> &#182;</a></span></h4>
 
 <p>Manually implementing <code class="code">Future</code> is tedious. The <code class="code">async fn</code> syntax
 <a class="index-entry-id" id="index-async-fn"></a>
@@ -1866,7 +1867,7 @@ local variables and yields control
 
 <p>The <code class="code">.await</code> keyword is postfix (like <code class="code">?</code>) to emphasize that
 <a class="index-entry-id" id="index-_002eawait-keyword"></a>
-it&rsquo;s an operation on a future, not a function call. Compare:
+it&#8217;s an operation on a future, not a function call. Compare:
 </p>
 <div class="example">
 <pre class="example-preformatted">// Synchronous (blocking)
@@ -1886,9 +1887,9 @@ async fn fetch_async(url: &amp;str) -&gt; String {
 the network responds. In the async version, <code class="code">.await</code> yields control
 to the executor, which can run other tasks while waiting.
 </p>
-<h4 class="subsubheading" id="Async-Runtimes"><span>Async Runtimes<a class="copiable-link" href="#Async-Runtimes"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Async-Runtimes"><span>Async Runtimes<a class="copiable-link" href="#Async-Runtimes"> &#182;</a></span></h4>
 
-<p>Futures need an <em class="dfn">executor</em> to drive them to completion. Rust&rsquo;s standard
+<p>Futures need an <em class="dfn">executor</em> to drive them to completion. Rust&#8217;s standard
 <a class="index-entry-id" id="index-async-runtime"></a>
 <a class="index-entry-id" id="index-executor"></a>
 library defines the <code class="code">Future</code> trait but <em class="emph">does not provide an
@@ -1901,7 +1902,7 @@ executor</em>. This allows different runtimes to specialize:
 </li><li><strong class="strong">embassy</strong>: Embedded systems, <code class="code">no_std</code> compatible
 </li></ul>
 
-<p>Here&rsquo;s a Tokio example:
+<p>Here&#8217;s a Tokio example:
 </p>
 <div class="example">
 <pre class="example-preformatted">use tokio;
@@ -1930,7 +1931,7 @@ async fn main() {
 thread until the future completes. Inside the async block, you can use
 <code class="code">.await</code> freely.
 </p>
-<h4 class="subsubheading" id="Async-Blocks-and-Async-Move"><span>Async Blocks and Async Move<a class="copiable-link" href="#Async-Blocks-and-Async-Move"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Async-Blocks-and-Async-Move"><span>Async Blocks and Async Move<a class="copiable-link" href="#Async-Blocks-and-Async-Move"> &#182;</a></span></h4>
 
 <p>Just as closures capture their environment, <code class="code">async</code> blocks can too:
 <a class="index-entry-id" id="index-async-blocks"></a>
@@ -1977,15 +1978,15 @@ async fn main() {
 </pre></div>
 
 <p><code class="code">tokio::spawn</code> is the async equivalent of <code class="code">std::thread::spawn</code>:
-it runs a future on the runtime&rsquo;s thread pool. The future must be
+it runs a future on the runtime&#8217;s thread pool. The future must be
 <code class="code">'static</code>, so we use <code class="code">async move</code> to capture ownership.
 </p>
-<h4 class="subsubheading" id="Pin_003a-Preventing-Self_002dReferential-Moves"><span>Pin: Preventing Self-Referential Moves<a class="copiable-link" href="#Pin_003a-Preventing-Self_002dReferential-Moves"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Pin_003a-Preventing-Self_002dReferential-Moves"><span>Pin: Preventing Self-Referential Moves<a class="copiable-link" href="#Pin_003a-Preventing-Self_002dReferential-Moves"> &#182;</a></span></h4>
 
-<p>One of async Rust&rsquo;s thorniest concepts is <code class="code">Pin</code>. To understand why
+<p>One of async Rust&#8217;s thorniest concepts is <code class="code">Pin</code>. To understand why
 <a class="index-entry-id" id="index-Pin"></a>
 <a class="index-entry-id" id="index-self_002dreferential-structs"></a>
-it&rsquo;s necessary, consider how async functions are compiled.
+it&#8217;s necessary, consider how async functions are compiled.
 </p>
 <p>This async function:
 </p>
@@ -2015,7 +2016,7 @@ it&rsquo;s necessary, consider how async functions are compiled.
 the same struct</em>. If we move <code class="code">ExampleFuture</code> in memory, <code class="code">y</code>
 becomes a dangling pointer.
 </p>
-<p><code class="code">Pin&lt;&amp;mut T&gt;</code> is Rust&rsquo;s solution: it guarantees that <code class="code">T</code> will
+<p><code class="code">Pin&lt;&amp;mut T&gt;</code> is Rust&#8217;s solution: it guarantees that <code class="code">T</code> will
 not move in memory. The <code class="code">poll</code> method takes <code class="code">Pin&lt;&amp;mut Self&gt;</code>,
 ensuring the future stays put:
 </p>
@@ -2033,9 +2034,9 @@ handles it automatically. You only encounter <code class="code">Pin</code> when:
 </li></ul>
 
 <p>The key insight: <code class="code">Pin</code> is a <em class="emph">compile-time proof</em> that a value
-won&rsquo;t move. This allows safe self-references in generated state machines.
+won&#8217;t move. This allows safe self-references in generated state machines.
 </p>
-<h4 class="subsubheading" id="Structured-Concurrency"><span>Structured Concurrency<a class="copiable-link" href="#Structured-Concurrency"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Structured-Concurrency"><span>Structured Concurrency<a class="copiable-link" href="#Structured-Concurrency"> &#182;</a></span></h4>
 
 <p>Just as spawning threads creates the risk of orphaned tasks, spawning
 <a class="index-entry-id" id="index-structured-concurrency"></a>
@@ -2110,7 +2111,7 @@ fires, the fetch is cancelled. Only one branch executes.
 are ready. For fairness, use <code class="code">tokio::select! { biased; ... }</code> to
 prioritize branches in order.
 </p>
-<h4 class="subsubheading" id="When-to-Use-Async-vs_002e-Threads"><span>When to Use Async vs. Threads<a class="copiable-link" href="#When-to-Use-Async-vs_002e-Threads"> &para;</a></span></h4>
+<h4 class="subsubheading" id="When-to-Use-Async-vs_002e-Threads"><span>When to Use Async vs. Threads<a class="copiable-link" href="#When-to-Use-Async-vs_002e-Threads"> &#182;</a></span></h4>
 
 <p>Async is not always the right choice. Consider:
 </p>
@@ -2146,8 +2147,8 @@ fn parallel_sum(data: &amp;[i32]) -&gt; i32 {
 }
 </pre></div>
 
-<p>Async provides no benefit here&mdash;the task is CPU-bound, not I/O-bound.
-Rayon&rsquo;s thread pool efficiently parallelizes across cores.
+<p>Async provides no benefit here&#8212;the task is CPU-bound, not I/O-bound.
+Rayon&#8217;s thread pool efficiently parallelizes across cores.
 </p>
 <p><strong class="strong">Hybrid Approach</strong>:
 </p><div class="example">
@@ -2168,12 +2169,12 @@ async fn main() {
 <p><code class="code">spawn_blocking</code> runs the synchronous, CPU-bound computation on a
 separate thread pool, preventing it from blocking the async executor.
 </p>
-<h4 class="subsubheading" id="Zero_002dCost-Abstraction_003a-State-Machines"><span>Zero-Cost Abstraction: State Machines<a class="copiable-link" href="#Zero_002dCost-Abstraction_003a-State-Machines"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Zero_002dCost-Abstraction_003a-State-Machines"><span>Zero-Cost Abstraction: State Machines<a class="copiable-link" href="#Zero_002dCost-Abstraction_003a-State-Machines"> &#182;</a></span></h4>
 
 <p>Async functions compile to state machines with zero runtime overhead
 <a class="index-entry-id" id="index-zero_002dcost-abstraction-3"></a>
 <a class="index-entry-id" id="index-state-machines"></a>
-beyond what you&rsquo;d write manually. Consider:
+beyond what you&#8217;d write manually. Consider:
 </p>
 <div class="example">
 <pre class="example-preformatted">async fn process() -&gt; i32 {
@@ -2248,10 +2249,10 @@ as if you wrote the state machine by hand. Each <code class="code">.await</code>
 state transition. Local variables are stored in the enum.
 </p>
 <p>The size of the future is the size of the largest variant (plus a
-discriminant tag). Async code has minimal heap allocation&mdash;most futures
+discriminant tag). Async code has minimal heap allocation&#8212;most futures
 live on the stack or inline in their parent future.
 </p>
-<h4 class="subsubheading" id="Async-and-Cancellation-Safety"><span>Async and Cancellation Safety<a class="copiable-link" href="#Async-and-Cancellation-Safety"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Async-and-Cancellation-Safety"><span>Async and Cancellation Safety<a class="copiable-link" href="#Async-and-Cancellation-Safety"> &#182;</a></span></h4>
 
 <p>Unlike preemptive threads, async tasks can be <em class="emph">cancelled</em> at any
 <a class="index-entry-id" id="index-cancellation-safety"></a>
@@ -2295,9 +2296,9 @@ The solution is to make critical sections atomic:
 cancelled. Async code must be <em class="dfn">cancellation-safe</em>: safe to abort at
 any <code class="code">.await</code>.
 </p>
-<h4 class="subsubheading" id="Comparison-to-SICP_0027s-Streams"><span>Comparison to SICP&rsquo;s Streams<a class="copiable-link" href="#Comparison-to-SICP_0027s-Streams"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Comparison-to-SICP_0027s-Streams"><span>Comparison to SICP&#8217;s Streams<a class="copiable-link" href="#Comparison-to-SICP_0027s-Streams"> &#182;</a></span></h4>
 
-<p>Async programming shares deep connections with Chapter 3&rsquo;s streams. Recall
+<p>Async programming shares deep connections with Chapter 3&#8217;s streams. Recall
 <a class="index-entry-id" id="index-streams-1"></a>
 the stream paradigm: lazy sequences computed on demand. The <code class="code">cons-stream</code>
 construct delays evaluation:
@@ -2430,7 +2431,7 @@ async fn process_files(files: Vec&lt;(&amp;str, &amp;str)&gt;) {
 <li> Identify the cancellation safety issue. What can go wrong if a timeout occurs?
 </li><li> Fix the bug by making <code class="code">copy_file</code> cancellation-safe. Ensure that
 if the operation is cancelled, no partial file is left on disk.
-</li><li> Explain why <code class="code">tokio::fs::File</code> doesn&rsquo;t implement <code class="code">Drop</code> to
+</li><li> Explain why <code class="code">tokio::fs::File</code> doesn&#8217;t implement <code class="code">Drop</code> to
 delete the file on cancellation. What would be the downsides?
 </li></ol>
 
@@ -2441,7 +2442,7 @@ checking for partial writes and cleaning up explicitly.
 </div>
 </div>
 <div class="footnotes-segment">
-<hr>
+<hr />
 <h4 class="footnotes-heading">Footnotes</h4>
 
 <h5 class="footnote-body-heading"><a id="FOOT153" href="#DOCF153">(153)</a></h5>
@@ -2454,8 +2455,8 @@ execution of a sequential instruction stream, while retaining the behavior of
 the sequential program.</p>
 <h5 class="footnote-body-heading"><a id="FOOT154" href="#DOCF154">(154)</a></h5>
 <p>To quote some graffiti seen on a Cambridge building wall:
-&ldquo;Time is a device that was invented to keep everything from happening at
-once.&rdquo;</p>
+&#8220;Time is a device that was invented to keep everything from happening at
+once.&#8221;</p>
 <h5 class="footnote-body-heading"><a id="FOOT155" href="#DOCF155">(155)</a></h5>
 <p>An even worse failure for this system could occur if
 the two <code class="code">set!</code> operations attempt to change the balance simultaneously, in
@@ -2468,7 +2469,7 @@ multiprocessing computers, where elaborate <a class="index-entry-id" id="index-c
 <em class="dfn">cache-coherence</em> protocols
 are required to ensure that the various processors will maintain a consistent
 view of memory contents, despite the fact that data may be replicated
-(&ldquo;cached&rdquo;) among the different processors to increase the speed of memory
+(&#8220;cached&#8221;) among the different processors to increase the speed of memory
 access.</p>
 <h5 class="footnote-body-heading"><a id="FOOT156" href="#DOCF156">(156)</a></h5>
 <p>The
@@ -2476,8 +2477,8 @@ factorial program in <a class="ref" href="3_002e1.xhtml#g_t3_002e1_002e3">The Co
 sequential process.</p>
 <h5 class="footnote-body-heading"><a id="FOOT157" href="#DOCF157">(157)</a></h5>
 <p>The
-columns show the contents of Peter&rsquo;s wallet, the joint account (in Bank1),
-Paul&rsquo;s wallet, and Paul&rsquo;s private account (in Bank2), before and after each
+columns show the contents of Peter&#8217;s wallet, the joint account (in Bank1),
+Paul&#8217;s wallet, and Paul&#8217;s private account (in Bank2), before and after each
 withdrawal (W) and deposit (D).  Peter withdraws $10 from Bank1; Paul deposits
 $5 in Bank2, then withdraws $25 from Bank1.</p>
 <h5 class="footnote-body-heading"><a id="FOOT158" href="#DOCF158">(158)</a></h5>
@@ -2486,7 +2487,7 @@ way to express this idea is to say that concurrent programs are inherently
 <a class="index-entry-id" id="index-nondeterministic"></a>
 <em class="dfn">nondeterministic</em>. That is, they are described not by single-valued
 functions, but by functions whose results are sets of possible values.  In
-<a class="ref" href="4_002e3.xhtml#g_t4_002e3">Variations on a Scheme &mdash; Nondeterministic Computing</a> we will study a language for expressing nondeterministic
+<a class="ref" href="4_002e3.xhtml#g_t4_002e3">Variations on a Scheme &#8212; Nondeterministic Computing</a> we will study a language for expressing nondeterministic
 computations.</p>
 <h5 class="footnote-body-heading"><a id="FOOT159" href="#DOCF159">(159)</a></h5>
 <p><code class="code">Parallel-execute</code> is not part of standard Scheme,
@@ -2510,23 +2511,23 @@ this.  See <a class="ref" href="#Exercise-3_002e43">Exercise 3.43</a>.</p>
 are no longer automatically serialized by the account.</p>
 <h5 class="footnote-body-heading"><a id="FOOT163" href="#DOCF163">(163)</a></h5>
 <p>The
-term &ldquo;mutex&rdquo; is an abbreviation for <a class="index-entry-id" id="index-mutual-exclusion"></a>
+term &#8220;mutex&#8221; is an abbreviation for <a class="index-entry-id" id="index-mutual-exclusion"></a>
 <em class="dfn">mutual exclusion</em>.  The general
 problem of arranging a mechanism that permits concurrent processes to safely
 share resources is called the mutual exclusion problem.  Our mutex is a simple
 variant of the <a class="index-entry-id" id="index-semaphore"></a>
 <em class="dfn">semaphore</em> mechanism (see <a class="ref" href="#Exercise-3_002e47">Exercise 3.47</a>), which
-was introduced in the &ldquo;THE&rdquo; Multiprogramming System developed at the
-Technological University of Eindhoven and named for the university&rsquo;s initials
+was introduced in the &#8220;THE&#8221; Multiprogramming System developed at the
+Technological University of Eindhoven and named for the university&#8217;s initials
 in Dutch (<a class="ref" href="References.xhtml#Dijkstra-1968a">Dijkstra 1968a</a>).  The acquire and release operations were originally
 called P and V, from the Dutch words <em class="emph">passeren</em> (to pass) and
 <em class="emph">vrijgeven</em> (to release), in reference to the semaphores used on railroad
-systems.  Dijkstra&rsquo;s classic exposition (<a class="ref" href="References.xhtml#g_t1968b">1968b</a>) was one of the first to clearly
+systems.  Dijkstra&#8217;s classic exposition (<a class="ref" href="References.xhtml#g_t1968b">1968b</a>) was one of the first to clearly
 present the issues of concurrency control, and showed how to use semaphores to
 handle a variety of concurrency problems.</p>
 <h5 class="footnote-body-heading"><a id="FOOT164" href="#DOCF164">(164)</a></h5>
 <p>In most time-shared operating systems, processes that
-are blocked by a mutex do not waste time &ldquo;busy-waiting&rdquo; as above.  Instead,
+are blocked by a mutex do not waste time &#8220;busy-waiting&#8221; as above.  Instead,
 the system schedules another process to run while the first is waiting, and the
 blocked process is awakened when the mutex becomes available.</p>
 <h5 class="footnote-body-heading"><a id="FOOT165" href="#DOCF165">(165)</a></h5>
@@ -2555,9 +2556,9 @@ fn test_and_set_atomic(cell: &amp;AtomicBool) -&gt; bool {
 <p><code class="code">Without-interrupts</code> disables time-slicing interrupts while its procedure
 argument is being executed.</p>
 <h5 class="footnote-body-heading"><a id="FOOT166" href="#DOCF166">(166)</a></h5>
-<p>There are many variants of such instructions&mdash;including
+<p>There are many variants of such instructions&#8212;including
 test-and-set, test-and-clear, swap, compare-and-exchange, load-reserve, and
-store-conditional&mdash;whose design must be carefully matched to the machine&rsquo;s
+store-conditional&#8212;whose design must be carefully matched to the machine&#8217;s
 processor-memory interface.  One issue that arises here is to determine what
 happens if two processes attempt to acquire the same resource at exactly the
 same time by using such an instruction.  This requires some mechanism for
@@ -2568,7 +2569,7 @@ device.  Unfortunately, it is possible to prove that one cannot physically
 construct a fair arbiter that works 100% of the time unless one allows the
 arbiter an arbitrarily long time to make its decision.  The fundamental
 phenomenon here was originally observed by the fourteenth-century French
-philosopher Jean Buridan in his commentary on Aristotle&rsquo;s <i class="i">De caelo</i>.
+philosopher Jean Buridan in his commentary on Aristotle&#8217;s <i class="i">De caelo</i>.
 Buridan argued that a perfectly rational dog placed between two equally
 attractive sources of food will starve to death, because it is incapable of
 deciding which to go to first.</p>
@@ -2577,7 +2578,7 @@ deciding which to go to first.</p>
 deadlock by numbering the shared resources and acquiring them in order is due
 to <a class="ref" href="References.xhtml#Havender-_00281968_0029">Havender (1968)</a>.  Situations where deadlock cannot be avoided require
 <a class="index-entry-id" id="index-deadlock_002drecovery"></a>
-<em class="dfn">deadlock-recovery</em> methods, which entail having processes &ldquo;back out&rdquo;
+<em class="dfn">deadlock-recovery</em> methods, which entail having processes &#8220;back out&#8221;
 of the deadlocked state and try again.  Deadlock-recovery mechanisms are widely
 used in database management systems, a topic that is treated in detail in 
 <a class="ref" href="References.xhtml#Gray-and-Reuter-1993">Gray and Reuter 1993</a>.</p>
@@ -2586,7 +2587,7 @@ used in database management systems, a topic that is treated in detail in
 <a class="index-entry-id" id="index-barrier-synchronization"></a>
 <em class="dfn">barrier synchronization</em>.  The programmer permits concurrent processes
 to execute as they please, but establishes certain synchronization points
-(&ldquo;barriers&rdquo;) through which no process can proceed until all the processes
+(&#8220;barriers&#8221;) through which no process can proceed until all the processes
 have reached the barrier.  Modern processors provide machine instructions that
 permit programmers to establish synchronization points at places where
 consistency is required.  The <abbr class="abbr">PowerPC</abbr>, for example, includes for
@@ -2601,13 +2602,13 @@ be different in different countries.</p>
 <h5 class="footnote-body-heading"><a id="FOOT170" href="#DOCF170">(170)</a></h5>
 <p>For
 distributed systems, this perspective was pursued by <a class="ref" href="References.xhtml#Lamport-_00281978_0029">Lamport (1978)</a>, who showed
-how to use communication to establish &ldquo;global clocks&rdquo; that can be used to
+how to use communication to establish &#8220;global clocks&#8221; that can be used to
 establish orderings on events in distributed systems.</p>
 </div>
-<hr>
+<hr />
 <div class="nav-panel">
 <p>
-Next: <a href="3_002e5.xhtml#g_t3_002e5" accesskey="n" rel="next">Streams</a>, Previous: <a href="3_002e3.xhtml#g_t3_002e3" accesskey="p" rel="prev">Modeling with Mutable Data</a>, Up: <a href="Chapter-3.xhtml" accesskey="u" rel="up">Modularity, Objects, and State</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
+Next: <a href="3_002e5.xhtml#g_t3_002e5" accesskey="n" rel="next">Streams</a>, Previous: <a href="3_002e3.xhtml#g_t3_002e3" accesskey="p" rel="prev">Modeling with Mutable Data</a>, Up: <a href="Chapter-3.xhtml" accesskey="u" rel="up">Modularity, Objects, and State</a> &#160; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

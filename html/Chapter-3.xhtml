@@ -1,23 +1,24 @@
-<!DOCTYPE html>
-<html>
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Chapter 3 (Structure and Interpretation of Computer Programs, 2e)</title>
 
-<meta name="description" content="Chapter 3 (Structure and Interpretation of Computer Programs, 2e)">
-<meta name="keywords" content="Chapter 3 (Structure and Interpretation of Computer Programs, 2e)">
-<meta name="resource-type" content="document">
-<meta name="distribution" content="global">
-<meta name="Generator" content="texi2any">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Chapter 3 (Structure and Interpretation of Computer Programs, 2e)" />
+<meta name="keywords" content="Chapter 3 (Structure and Interpretation of Computer Programs, 2e)" />
+<meta name="resource-type" content="document" />
+<meta name="distribution" content="global" />
+<meta name="Generator" content="texi2any" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 
-<link href="index.xhtml" rel="start" title="Top">
-<link href="Term-Index.xhtml" rel="index" title="Term Index">
-<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="index.xhtml" rel="up" title="Top">
-<link href="3_002e1.xhtml#g_t3_002e1" rel="next" title="3.1">
-<link href="2_002e5.xhtml#g_t2_002e5" rel="prev" title="2.5">
+<link href="index.xhtml" rel="start" title="Top" />
+<link href="Term-Index.xhtml" rel="index" title="Term Index" />
+<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents" />
+<link href="index.xhtml" rel="up" title="Top" />
+<link href="3_002e1.xhtml#g_t3_002e1" rel="next" title="3.1" />
+<link href="2_002e5.xhtml#g_t2_002e5" rel="prev" title="2.5" />
 <style type="text/css">
 <!--
 a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
@@ -34,17 +35,17 @@ span:hover a.copiable-link {visibility: visible}
 <div class="chapter-level-extent" id="Chapter-3">
 <div class="nav-panel">
 <p>
-Next: <a href="3_002e1.xhtml#g_t3_002e1" accesskey="n" rel="next">Assignment and Local State</a>, Previous: <a href="2_002e5.xhtml#g_t2_002e5" accesskey="p" rel="prev">Systems with Generic Operations</a>, Up: <a href="index.xhtml" accesskey="u" rel="up">Top</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
+Next: <a href="3_002e1.xhtml#g_t3_002e1" accesskey="n" rel="next">Assignment and Local State</a>, Previous: <a href="2_002e5.xhtml#g_t2_002e5" accesskey="p" rel="prev">Systems with Generic Operations</a>, Up: <a href="index.xhtml" accesskey="u" rel="up">Top</a> &#160; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
 </div>
-<h2 class="chapter" id="Modularity_002c-Objects_002c-and-State"><span>3 Modularity, Objects, and State<a class="copiable-link" href="#Modularity_002c-Objects_002c-and-State"> &para;</a></span></h2>
+<h2 class="chapter" id="Modularity_002c-Objects_002c-and-State"><span>3 Modularity, Objects, and State<a class="copiable-link" href="#Modularity_002c-Objects_002c-and-State"> &#182;</a></span></h2>
 
 <blockquote class="quotation">
-<p>Mεταβάλλον ὰναπαύεται<br>
-(Even while it changes, it stands still.)<br>
-&mdash;Heraclitus
+<p>Mεταβάλλον ὰναπαύεται<br />
+(Even while it changes, it stands still.)<br />
+&#8212;Heraclitus
 </p>
-<p>Plus &ccedil;a change, plus c&rsquo;est la m&ecirc;me chose.<br>
-&mdash;Alphonse Karr
+<p>Plus &#231;a change, plus c&#8217;est la m&#234;me chose.<br />
+&#8212;Alphonse Karr
 </p></blockquote>
 
 <p>The preceding chapters introduced the basic elements from which programs are
@@ -56,7 +57,7 @@ requires organizational principles that can guide us in formulating the overall
 design of a program.  In particular, we need strategies to help us structure
 large systems so that they will be <a class="index-entry-id" id="index-modular"></a>
 <em class="dfn">modular</em>, that is, so that they can
-be divided &ldquo;naturally&rdquo; into coherent parts that can be separately developed
+be divided &#8220;naturally&#8221; into coherent parts that can be separately developed
 and maintained.
 </p>
 <p>One powerful design strategy, which is particularly appropriate to the
@@ -74,7 +75,7 @@ of the system.
 <p>To a large extent, then, the way we organize a large program is dictated by our
 perception of the system to be modeled.  In this chapter we will investigate
 two prominent organizational strategies arising from two rather different
-&ldquo;world views&rdquo; of the structure of systems.  The first organizational strategy
+&#8220;world views&#8221; of the structure of systems.  The first organizational strategy
 concentrates on <a class="index-entry-id" id="index-objects"></a>
 <em class="dfn">objects</em>, viewing a large system as a collection of
 distinct objects whose behaviors may change over time.  An alternative
@@ -101,10 +102,10 @@ this using a technique known as <a class="index-entry-id" id="index-delayed-eval
 </p>
 
 </div>
-<hr>
+<hr />
 <div class="nav-panel">
 <p>
-Next: <a href="3_002e1.xhtml#g_t3_002e1" accesskey="n" rel="next">Assignment and Local State</a>, Previous: <a href="2_002e5.xhtml#g_t2_002e5" accesskey="p" rel="prev">Systems with Generic Operations</a>, Up: <a href="index.xhtml" accesskey="u" rel="up">Top</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
+Next: <a href="3_002e1.xhtml#g_t3_002e1" accesskey="n" rel="next">Assignment and Local State</a>, Previous: <a href="2_002e5.xhtml#g_t2_002e5" accesskey="p" rel="prev">Systems with Generic Operations</a>, Up: <a href="index.xhtml" accesskey="u" rel="up">Top</a> &#160; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

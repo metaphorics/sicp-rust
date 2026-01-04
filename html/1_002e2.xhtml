@@ -1,23 +1,24 @@
-<!DOCTYPE html>
-<html>
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <!-- Created by GNU Texinfo 7.1, https://www.gnu.org/software/texinfo/ -->
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>1.2 (Structure and Interpretation of Computer Programs, 2e)</title>
 
-<meta name="description" content="1.2 (Structure and Interpretation of Computer Programs, 2e)">
-<meta name="keywords" content="1.2 (Structure and Interpretation of Computer Programs, 2e)">
-<meta name="resource-type" content="document">
-<meta name="distribution" content="global">
-<meta name="Generator" content="texi2any">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="1.2 (Structure and Interpretation of Computer Programs, 2e)" />
+<meta name="keywords" content="1.2 (Structure and Interpretation of Computer Programs, 2e)" />
+<meta name="resource-type" content="document" />
+<meta name="distribution" content="global" />
+<meta name="Generator" content="texi2any" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 
-<link href="index.xhtml" rel="start" title="Top">
-<link href="Term-Index.xhtml" rel="index" title="Term Index">
-<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="Chapter-1.xhtml" rel="up" title="Chapter 1">
-<link href="1_002e3.xhtml#g_t1_002e3" rel="next" title="1.3">
-<link href="1_002e1.xhtml#g_t1_002e1" rel="prev" title="1.1">
+<link href="index.xhtml" rel="start" title="Top" />
+<link href="Term-Index.xhtml" rel="index" title="Term Index" />
+<link href="index.xhtml#SEC_Contents" rel="contents" title="Table of Contents" />
+<link href="Chapter-1.xhtml" rel="up" title="Chapter 1" />
+<link href="1_002e3.xhtml#g_t1_002e3" rel="next" title="1.3" />
+<link href="1_002e1.xhtml#g_t1_002e1" rel="prev" title="1.1" />
 <style type="text/css">
 <!--
 a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
@@ -37,9 +38,9 @@ ul.mark-bullet {list-style-type: disc}
 <div class="section-level-extent" id="g_t1_002e2">
 <div class="nav-panel">
 <p>
-Next: <a href="1_002e3.xhtml#g_t1_002e3" accesskey="n" rel="next">Formulating Abstractions with Higher-Order Procedures</a>, Previous: <a href="1_002e1.xhtml#g_t1_002e1" accesskey="p" rel="prev">The Elements of Programming</a>, Up: <a href="Chapter-1.xhtml" accesskey="u" rel="up">Building Abstractions with Procedures</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
+Next: <a href="1_002e3.xhtml#g_t1_002e3" accesskey="n" rel="next">Formulating Abstractions with Higher-Order Procedures</a>, Previous: <a href="1_002e1.xhtml#g_t1_002e1" accesskey="p" rel="prev">The Elements of Programming</a>, Up: <a href="Chapter-1.xhtml" accesskey="u" rel="up">Building Abstractions with Procedures</a> &#160; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
 </div>
-<h3 class="section" id="Procedures-and-the-Processes-They-Generate"><span>1.2 Procedures and the Processes They Generate<a class="copiable-link" href="#Procedures-and-the-Processes-They-Generate"> &para;</a></span></h3>
+<h3 class="section" id="Procedures-and-the-Processes-They-Generate"><span>1.2 Procedures and the Processes They Generate<a class="copiable-link" href="#Procedures-and-the-Processes-They-Generate"> &#182;</a></span></h3>
 
 <p>We have now considered the elements of programming: We have used primitive
 arithmetic operations, we have combined these operations, and we have
@@ -47,7 +48,7 @@ abstracted these composite operations by defining them as compound procedures.
 But that is not enough to enable us to say that we know how to program.  Our
 situation is analogous to that of someone who has learned the rules for how the
 pieces move in chess but knows nothing of typical openings, tactics, or
-strategy.  Like the novice chess player, we don&rsquo;t yet know the common patterns
+strategy.  Like the novice chess player, we don&#8217;t yet know the common patterns
 of usage in the domain.  We lack the knowledge of which moves are worth making
 (which procedures are worth defining).  We lack the experience to predict the
 consequences of making a move (executing a procedure).
@@ -74,7 +75,7 @@ stage.  We would like to be able to make statements about the overall, or
 specified by a procedure.  This is very difficult to do in general, but we can
 at least try to describe some typical patterns of process evolution.
 </p>
-<p>In this section we will examine some common &ldquo;shapes&rdquo; for processes generated
+<p>In this section we will examine some common &#8220;shapes&#8221; for processes generated
 by simple procedures.  We will also investigate the rates at which these
 processes consume the important computational resources of time and space.  The
 procedures we will consider are very simple.  Their role is like that played by
@@ -82,9 +83,9 @@ test patterns in photography: as oversimplified prototypical patterns, rather
 than practical examples in their own right.
 </p>
 
-<hr>
+<hr />
 <div class="subsection-level-extent" id="g_t1_002e2_002e1">
-<h4 class="subsection" id="Linear-Recursion-and-Iteration"><span>1.2.1 Linear Recursion and Iteration<a class="copiable-link" href="#Linear-Recursion-and-Iteration"> &para;</a></span></h4>
+<h4 class="subsection" id="Linear-Recursion-and-Iteration"><span>1.2.1 Linear Recursion and Iteration<a class="copiable-link" href="#Linear-Recursion-and-Iteration"> &#182;</a></span></h4>
 
 <p>We begin by considering the factorial function, defined by
 
@@ -120,9 +121,9 @@ observation translates directly into a procedure:
 procedure in action computing 6!, as shown in <a class="ref" href="#Figure-1_002e3">Figure 1.3</a>.
 </p>
 <div class="float">
-<a class="anchor" id="Figure-1_002e3"></a><img class="image" src="fig/chap1/Fig1.3d.std.svg" alt="fig/chap1/Fig1.3d">
+<a class="anchor" id="Figure-1_002e3"></a><img class="image" src="fig/chap1/Fig1.3d.std.svg" alt="fig/chap1/Fig1.3d" />
 <div class="caption"><p><strong class="strong">Figure 1.3:</strong> A linear recursive process for computing 6!.</p></div></div>
-<p>Now let&rsquo;s take a different perspective on computing factorials.  We could
+<p>Now let&#8217;s take a different perspective on computing factorials.  We could
 describe a rule for computing <em class="math">{n!}</em> by specifying that we first multiply 1 by
 2, then multiply the result by 3, then by 4, and so on until we reach <em class="math">n</em>.
 More formally, we maintain a running product, together with a counter that
@@ -159,14 +160,14 @@ fn fact_iter(product: u64, counter: u64, max_count: u64) -&gt; u64 {
 computing 6!, as shown in <a class="ref" href="#Figure-1_002e4">Figure 1.4</a>.
 </p>
 <div class="float">
-<a class="anchor" id="Figure-1_002e4"></a><img class="image" src="fig/chap1/Fig1.4d.std.svg" alt="fig/chap1/Fig1.4d">
+<a class="anchor" id="Figure-1_002e4"></a><img class="image" src="fig/chap1/Fig1.4d.std.svg" alt="fig/chap1/Fig1.4d" />
 <div class="caption"><p><strong class="strong">Figure 1.4:</strong> A linear iterative process for computing 6!.</p></div></div>
 <p>Compare the two processes.  From one point of view, they seem hardly different
 at all.  Both compute the same mathematical function on the same domain, and
 each requires a number of steps proportional to <em class="math">n</em> to compute <em class="math">{n!}</em>.
 Indeed, both processes even carry out the same sequence of multiplications,
 obtaining the same sequence of partial products.  On the other hand, when we
-consider the &ldquo;shapes&rdquo; of the two processes, we find that they evolve quite
+consider the &#8220;shapes&#8221; of the two processes, we find that they evolve quite
 differently.
 </p>
 <p>Consider the first process.  The substitution model reveals a shape of
@@ -204,9 +205,9 @@ iterative case, the program variables provide a complete description of the
 state of the process at any point.  If we stopped the computation between
 steps, all we would need to do to resume the computation is to supply the
 interpreter with the values of the three program variables.  Not so with the
-recursive process.  In this case there is some additional &ldquo;hidden&rdquo;
+recursive process.  In this case there is some additional &#8220;hidden&#8221;
 information, maintained by the interpreter and not contained in the program
-variables, which indicates &ldquo;where the process is&rdquo; in negotiating the chain of
+variables, which indicates &#8220;where the process is&#8221; in negotiating the chain of
 deferred operations.  The longer the chain, the more information must be
 maintained.<a class="footnote" id="DOCF25" href="#FOOT25"><sup>25</sup></a>
 </p>
@@ -231,7 +232,7 @@ Rust) are designed in such a way that the interpretation of any recursive
 procedure consumes an amount of memory that grows with the number of procedure
 calls, even when the process described is, in principle, iterative.  As a
 consequence, these languages can describe iterative processes only by resorting
-to special-purpose &ldquo;looping constructs&rdquo; such as <code class="code">do</code>, <code class="code">repeat</code>,
+to special-purpose &#8220;looping constructs&#8221; such as <code class="code">do</code>, <code class="code">repeat</code>,
 <code class="code">until</code>, <code class="code">for</code>, and <code class="code">while</code>.  In Rust, while the LLVM compiler
 backend may optimize tail calls in some cases, tail-call optimization is not
 guaranteed by the language specification.  Therefore, for truly constant-space
@@ -277,7 +278,7 @@ recursive?
 
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-1_002e10"></a>Exercise 1.10:</strong> The following procedure computes
-a mathematical function called Ackermann&rsquo;s function.
+a mathematical function called Ackermann&#8217;s function.
 </p>
 <div class="example">
 <pre class="example-preformatted">fn a(x: u64, y: u64) -&gt; u64 {
@@ -316,17 +317,17 @@ procedures <code class="code">f</code>, <code class="code">g</code>, and <code c
 <em class="math">n</em>.  For example, <code class="code">k(n)</code> computes <em class="math">{5n^2}</em>.
 </p></blockquote>
 
-<hr>
+<hr />
 </div>
 <div class="subsection-level-extent" id="g_t1_002e2_002e2">
-<h4 class="subsection" id="Tree-Recursion"><span>1.2.2 Tree Recursion<a class="copiable-link" href="#Tree-Recursion"> &para;</a></span></h4>
+<h4 class="subsection" id="Tree-Recursion"><span>1.2.2 Tree Recursion<a class="copiable-link" href="#Tree-Recursion"> &#182;</a></span></h4>
 
 <p>Another common pattern of computation is called <a class="index-entry-id" id="index-tree-recursion"></a>
 <em class="dfn">tree recursion</em>.  As
 an example, consider computing the sequence of Fibonacci numbers, in which each
 number is the sum of the preceding two:
 </p>
-<div class="center">0, 1, 1, 2, 3, 5, 8, 13, 21, &hellip;.
+<div class="center">0, 1, 1, 2, 3, 5, 8, 13, 21, &#8230;.
 </div>
 <p>In general, the Fibonacci numbers can be defined by the rule
 
@@ -365,12 +366,12 @@ split into two at each level (except at the bottom); this reflects the fact
 that the <code class="code">fib</code> procedure calls itself twice each time it is invoked.
 </p>
 <div class="float">
-<a class="anchor" id="Figure-1_002e5"></a><img class="image" src="fig/chap1/Fig1.5d.std.svg" alt="fig/chap1/Fig1.5d">
+<a class="anchor" id="Figure-1_002e5"></a><img class="image" src="fig/chap1/Fig1.5d.std.svg" alt="fig/chap1/Fig1.5d" />
 <div class="caption"><p><strong class="strong">Figure 1.5:</strong> The tree-recursive process generated in computing <code class="code">fib(5)</code>.</p></div></div>
 <p>This procedure is instructive as a prototypical tree recursion, but it is a
 terrible way to compute Fibonacci numbers because it does so much redundant
 computation.  Notice in <a class="ref" href="#Figure-1_002e5">Figure 1.5</a> that the entire computation of
-<code class="code">fib(3)</code>&mdash;almost half the work&mdash;is duplicated.  In fact, it is not hard
+<code class="code">fib(3)</code>&#8212;almost half the work&#8212;is duplicated.  In fact, it is not hard
 to show that the number of times the procedure will compute <code class="code">fib(1)</code> or
 <code class="code">fib(0)</code> (the number of leaves in the above tree, in general) is
 precisely <em class="math">{\text{Fib}(n+1)}</em>.  To get an idea of how bad this is, one can
@@ -432,8 +433,8 @@ fn fib_iter(a: u64, b: u64, count: u64) -&gt; u64 {
 </pre></div>
 
 <p>This second method for computing <em class="math">{\text{Fib}(n)}</em> is a linear iteration.  The
-difference in number of steps required by the two methods&mdash;one linear in
-<em class="math">n</em>, one growing as fast as <em class="math">{\text{Fib}(n)}</em> itself&mdash;is enormous, even for
+difference in number of steps required by the two methods&#8212;one linear in
+<em class="math">n</em>, one growing as fast as <em class="math">{\text{Fib}(n)}</em> itself&#8212;is enormous, even for
 small inputs.
 </p>
 <p>One should not conclude from this that tree-recursive processes are useless.
@@ -448,7 +449,7 @@ definition of the Fibonacci sequence.  To formulate the iterative algorithm
 required noticing that the computation could be recast as an iteration with
 three state variables.
 </p>
-<h4 class="subsubheading" id="Example_003a-Counting-change"><span>Example: Counting change<a class="copiable-link" href="#Example_003a-Counting-change"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Example_003a-Counting-change"><span>Example: Counting change<a class="copiable-link" href="#Example_003a-Counting-change"> &#182;</a></span></h4>
 
 <p>It takes only a bit of cleverness to come up with the iterative Fibonacci
 algorithm.  In contrast, consider the following problem: How many different
@@ -541,8 +542,8 @@ quite a while for that 292 to be computed.)  On the other hand, it is not
 obvious how to design a better algorithm for computing the result, and we leave
 this problem as a challenge.  The observation that a tree-recursive process may
 be highly inefficient but often easy to specify and understand has led people
-to propose that one could get the best of both worlds by designing a &ldquo;smart
-compiler&rdquo; that could transform tree-recursive procedures into more efficient
+to propose that one could get the best of both worlds by designing a &#8220;smart
+compiler&#8221; that could transform tree-recursive procedures into more efficient
 procedures that compute the same result.<a class="footnote" id="DOCF29" href="#FOOT29"><sup>29</sup></a>
 </p>
 <blockquote class="quotation">
@@ -555,7 +556,7 @@ computes <em class="math">f</em> by means of an iterative process.
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-1_002e12"></a>Exercise 1.12:</strong> The following pattern of numbers
 is called <a class="index-entry-id" id="index-Pascal_0027s-triangle"></a>
-<em class="dfn">Pascal&rsquo;s triangle</em>.
+<em class="dfn">Pascal&#8217;s triangle</em>.
 </p>
 <div class="example">
 <pre class="example-preformatted">         1
@@ -567,7 +568,7 @@ is called <a class="index-entry-id" id="index-Pascal_0027s-triangle"></a>
 </pre></div>
 
 <p>The numbers at the edge of the triangle are all 1, and each number inside the
-triangle is the sum of the two numbers above it.<a class="footnote" id="DOCF30" href="#FOOT30"><sup>30</sup></a> Write a procedure that computes elements of Pascal&rsquo;s triangle by
+triangle is the sum of the two numbers above it.<a class="footnote" id="DOCF30" href="#FOOT30"><sup>30</sup></a> Write a procedure that computes elements of Pascal&#8217;s triangle by
 means of a recursive process.
 </p></blockquote>
 
@@ -579,10 +580,10 @@ Use induction and the definition of the Fibonacci numbers (see <a class="ref" hr
 to prove that <em class="math">{\text{Fib}(n)} = {(\varphi^n - \psi^n) / \sqrt{5}}</em>.
 </p></blockquote>
 
-<hr>
+<hr />
 </div>
 <div class="subsection-level-extent" id="g_t1_002e2_002e3">
-<h4 class="subsection" id="Orders-of-Growth"><span>1.2.3 Orders of Growth<a class="copiable-link" href="#Orders-of-Growth"> &para;</a></span></h4>
+<h4 class="subsection" id="Orders-of-Growth"><span>1.2.3 Orders of Growth<a class="copiable-link" href="#Orders-of-Growth"> &#182;</a></span></h4>
 
 <p>The previous examples illustrate that processes can differ considerably in the
 rates at which they consume computational resources.  One convenient way to
@@ -606,8 +607,8 @@ that do only a fixed number of operations at a time, the time required will be
 proportional to the number of elementary machine operations performed.
 </p>
 <p>We say that <em class="math">{R(n)}</em> has order of growth <em class="math">{\Theta(f(n))}</em>, written
-<em class="math">{R(n)} = {\Theta(f(n))}</em> (pronounced &ldquo;theta of
-<em class="math">{f(n)}</em>&rdquo;), if there are positive constants <em class="math">k_1</em> and <em class="math">k_2</em>
+<em class="math">{R(n)} = {\Theta(f(n))}</em> (pronounced &#8220;theta of
+<em class="math">{f(n)}</em>&#8221;), if there are positive constants <em class="math">k_1</em> and <em class="math">k_2</em>
 independent of <em class="math">n</em> such that <em class="math">{k_1 f(n)} \le {R(n)} \le {k_2 f(n)}</em> 
 for any sufficiently large value of <em class="math">n</em>.  (In other words, for large <em class="math">n</em>,
 the value <em class="math">{R(n)}</em> is sandwiched between <em class="math">{k_1 f(n)}</em> and
@@ -618,7 +619,7 @@ described in <a class="ref" href="#g_t1_002e2_002e1">Linear Recursion and Iterat
 the input <em class="math">n</em>.  Thus, the steps required for this process grows as
 <em class="math">{\Theta(n)}</em>.  We also saw that the space required grows as
 <em class="math">{\Theta(n)}</em>.  For the iterative factorial, the number of steps is still
-<em class="math">{\Theta(n)}</em> but the space is <em class="math">{\Theta(1)}</em>&mdash;that is,
+<em class="math">{\Theta(n)}</em> but the space is <em class="math">{\Theta(1)}</em>&#8212;that is,
 constant.<a class="footnote" id="DOCF31" href="#FOOT31"><sup>31</sup></a> The
 tree-recursive Fibonacci computation requires <em class="math">{\Theta(\varphi^n)}</em>
 steps and space <em class="math">{\Theta(n)}</em>, where <em class="math">\varphi</em> is the golden ratio
@@ -656,7 +657,7 @@ identity
 \]
 
 to reduce the size of the argument of sin.  (For purposes of this
-exercise an angle is considered &ldquo;sufficiently small&rdquo; if its magnitude is not
+exercise an angle is considered &#8220;sufficiently small&#8221; if its magnitude is not
 greater than 0.1 radians.) These ideas are incorporated in the following
 procedures:
 </p>
@@ -683,10 +684,10 @@ evaluated?
 </li></ol>
 </blockquote>
 
-<hr>
+<hr />
 </div>
 <div class="subsection-level-extent" id="g_t1_002e2_002e4">
-<h4 class="subsection" id="Exponentiation"><span>1.2.4 Exponentiation<a class="copiable-link" href="#Exponentiation"> &para;</a></span></h4>
+<h4 class="subsection" id="Exponentiation"><span>1.2.4 Exponentiation<a class="copiable-link" href="#Exponentiation"> &#182;</a></span></h4>
 
 <p>Consider the problem of computing the exponential of a given number.  We would
 like a procedure that takes as arguments a base <em class="math">b</em> and a positive integer
@@ -899,22 +900,22 @@ fn fib_iter(a: u64, b: u64, p: u64, q: u64, count: u64) -&gt; u64 {
 </pre></div>
 </blockquote>
 
-<hr>
+<hr />
 </div>
 <div class="subsection-level-extent" id="g_t1_002e2_002e4a">
-<h4 class="subsection" id="Const-Evaluation"><span>1.2.5 Const Evaluation<a class="copiable-link" href="#Const-Evaluation"> &para;</a></span></h4>
+<h4 class="subsection" id="Const-Evaluation"><span>1.2.5 Const Evaluation<a class="copiable-link" href="#Const-Evaluation"> &#182;</a></span></h4>
 
-<p>One of Rust&rsquo;s most powerful features for achieving zero-cost abstraction is
+<p>One of Rust&#8217;s most powerful features for achieving zero-cost abstraction is
 <a class="index-entry-id" id="index-compile_002dtime-computation"></a>
 <em class="dfn">compile-time computation</em> through const evaluation.  While the
-procedures we&rsquo;ve seen so far are evaluated at runtime, Rust allows us to
+procedures we&#8217;ve seen so far are evaluated at runtime, Rust allows us to
 evaluate certain computations during compilation, eliminating all runtime
 overhead for those operations.
 </p>
 <p>Consider the factorial function from <a class="ref" href="#g_t1_002e2_002e1">Linear Recursion and Iteration</a>.  When we write
 <code class="code">factorial(5)</code>, the computation happens when the program runs.  But if we
 know the argument at compile time, why should we pay for this computation
-every time the program executes?  Rust&rsquo;s <code class="code">const fn</code> feature allows the
+every time the program executes?  Rust&#8217;s <code class="code">const fn</code> feature allows the
 compiler to perform such calculations once, at compile time.
 </p>
 <div class="example">
@@ -933,7 +934,7 @@ const FACT_10: u64 = factorial(10); // Also at compile time
 <p>When we declare <code class="code">FACT_5</code>, the compiler evaluates <code class="code">factorial(5)</code>
 during compilation and replaces <code class="code">FACT_5</code> with the literal value
 <code class="code">120</code> in the generated code.  There is no function call at runtime, no
-stack frames, no computation&mdash;just the final value.  This is what we mean by
+stack frames, no computation&#8212;just the final value.  This is what we mean by
 <a class="index-entry-id" id="index-zero_002dcost-abstraction"></a>
 <em class="dfn">zero-cost abstraction</em>: we write high-level code (a factorial
 function), but pay no runtime cost for the abstraction.
@@ -943,11 +944,11 @@ evaluated at compile time.  However, this imposes certain restrictions: const
 functions cannot perform arbitrary operations.  They must be <a class="index-entry-id" id="index-pure"></a>
 functions
 <em class="dfn">pure
-functions</em>&mdash;functions that depend only on their arguments and have no side
+functions</em>&#8212;functions that depend only on their arguments and have no side
 effects.  They cannot allocate heap memory, perform I/O, or call non-const
 functions.
 </p>
-<p>Let&rsquo;s examine the difference between compile-time and runtime evaluation more
+<p>Let&#8217;s examine the difference between compile-time and runtime evaluation more
 closely by considering the Fibonacci sequence from <a class="ref" href="#g_t1_002e2_002e2">Tree Recursion</a>:
 </p>
 <div class="example">
@@ -972,7 +973,7 @@ fn compute_fib_at_runtime(n: u64) -&gt; u64 {
 before the program runs.  It evaluates the recursive calls during compilation,
 producing the value <code class="code">55</code>.  The compiled program contains only this
 literal value.  In contrast, <code class="code">compute_fib_at_runtime(10)</code> performs the
-computation every time it&rsquo;s called, even though the argument is the same.
+computation every time it&#8217;s called, even though the argument is the same.
 </p>
 <p>This distinction becomes critical for performance-sensitive code.  Consider
 computing powers of two for a lookup table:
@@ -994,13 +995,13 @@ const POWERS_OF_TWO: [u64; 64] = {
 </pre></div>
 
 <p>This example introduces <a class="index-entry-id" id="index-const-blocks"></a>
-<em class="dfn">const blocks</em>&mdash;blocks of code that execute
+<em class="dfn">const blocks</em>&#8212;blocks of code that execute
 at compile time.  The <code class="code">const</code> context allows us to use imperative loops
 and mutable bindings (within the block), but all computation happens during
 compilation.  The resulting array <code class="code">POWERS_OF_TWO</code> is embedded directly in
-the program&rsquo;s data section, with all 64 values pre-computed.
+the program&#8217;s data section, with all 64 values pre-computed.
 </p>
-<p>The compiler&rsquo;s const evaluation engine is quite sophisticated.  It can handle:
+<p>The compiler&#8217;s const evaluation engine is quite sophisticated.  It can handle:
 </p>
 <ul class="itemize mark-bullet">
 <li>Arithmetic operations and bitwise operations
@@ -1021,12 +1022,12 @@ to fail:
 }
 </pre></div>
 
-<h4 class="subheading" id="Const-Generics"><span>Const Generics<a class="copiable-link" href="#Const-Generics"> &para;</a></span></h4>
+<h4 class="subheading" id="Const-Generics"><span>Const Generics<a class="copiable-link" href="#Const-Generics"> &#182;</a></span></h4>
 
 <p>Const evaluation becomes even more powerful when combined with <a class="index-entry-id" id="index-const"></a>
 generics
 <em class="dfn">const
-generics</em>&mdash;generic parameters that are values rather than types.  This allows
+generics</em>&#8212;generic parameters that are values rather than types.  This allows
 us to write functions that are specialized for specific constant values at
 compile time.
 </p>
@@ -1045,7 +1046,7 @@ const SQUARES_5: [u64; 5] = create_array::&lt;5&gt;();
 const SQUARES_100: [u64; 100] = create_array::&lt;100&gt;();
 </pre></div>
 
-<p>Here, <code class="code">N</code> is a const generic parameter&mdash;a compile-time constant value.
+<p>Here, <code class="code">N</code> is a const generic parameter&#8212;a compile-time constant value.
 The compiler generates specialized versions of <code class="code">create_array</code> for each
 value of <code class="code">N</code> we use, and if called in a const context, it evaluates the
 entire function at compile time.
@@ -1086,10 +1087,10 @@ const POWERS_OF_3: [u64; 11] = create_power_table::&lt;3, 11&gt;();
 </pre></div>
 
 <p>The compiler generates all 11 powers for each base at compile time.  Looking
-up <code class="code">POWERS_OF_2[5]</code> at runtime is a simple array indexing operation&mdash;no
+up <code class="code">POWERS_OF_2[5]</code> at runtime is a simple array indexing operation&#8212;no
 exponentiation computation occurs.
 </p>
-<h4 class="subheading" id="When-Does-the-Compiler-Evaluate_003f"><span>When Does the Compiler Evaluate?<a class="copiable-link" href="#When-Does-the-Compiler-Evaluate_003f"> &para;</a></span></h4>
+<h4 class="subheading" id="When-Does-the-Compiler-Evaluate_003f"><span>When Does the Compiler Evaluate?<a class="copiable-link" href="#When-Does-the-Compiler-Evaluate_003f"> &#182;</a></span></h4>
 
 <p>Understanding when the compiler chooses to perform const evaluation versus
 deferring to runtime is crucial for writing efficient code.  The rules are:
@@ -1132,14 +1133,14 @@ always evaluated at compile time, even in non-const contexts.  This is part of
 the zero-cost abstraction philosophy: abstractions should impose no runtime
 penalty.
 </p>
-<h4 class="subheading" id="Limits-of-Const-Evaluation"><span>Limits of Const Evaluation<a class="copiable-link" href="#Limits-of-Const-Evaluation"> &para;</a></span></h4>
+<h4 class="subheading" id="Limits-of-Const-Evaluation"><span>Limits of Const Evaluation<a class="copiable-link" href="#Limits-of-Const-Evaluation"> &#182;</a></span></h4>
 
 <p>While powerful, const evaluation has limitations rooted in the halting
 problem.  The compiler must determine whether evaluation will complete, which
 is undecidable in general.  Therefore, Rust imposes practical limits:
 </p>
 <ul class="itemize mark-bullet">
-<li><strong class="strong">Recursion depth:</strong> There&rsquo;s a limit on how deeply recursive calls can
+<li><strong class="strong">Recursion depth:</strong> There&#8217;s a limit on how deeply recursive calls can
 nest during const evaluation (typically around 128 levels, but
 implementation-specific).
 
@@ -1147,31 +1148,31 @@ implementation-specific).
 instructions executed during const evaluation to prevent compilation from
 hanging on infinite loops.
 
-</li><li><strong class="strong">Available operations:</strong> Only a subset of Rust&rsquo;s operations are
+</li><li><strong class="strong">Available operations:</strong> Only a subset of Rust&#8217;s operations are
 permitted in const contexts.  For example, heap allocation through <code class="code">Box</code>
 or <code class="code">Vec</code> is not allowed in const functions (as of Rust 1.83).
 </li></ul>
 
-<p>When these limits are exceeded, you&rsquo;ll receive a compilation error indicating
+<p>When these limits are exceeded, you&#8217;ll receive a compilation error indicating
 that const evaluation failed.  The solution is typically to either reduce the
 complexity of the computation or perform it at runtime.
 </p>
-<h4 class="subheading" id="The-Philosophy-of-Zero_002dCost-Abstraction"><span>The Philosophy of Zero-Cost Abstraction<a class="copiable-link" href="#The-Philosophy-of-Zero_002dCost-Abstraction"> &para;</a></span></h4>
+<h4 class="subheading" id="The-Philosophy-of-Zero_002dCost-Abstraction"><span>The Philosophy of Zero-Cost Abstraction<a class="copiable-link" href="#The-Philosophy-of-Zero_002dCost-Abstraction"> &#182;</a></span></h4>
 
-<p>Const evaluation exemplifies Rust&rsquo;s commitment to zero-cost abstraction.  We
+<p>Const evaluation exemplifies Rust&#8217;s commitment to zero-cost abstraction.  We
 can write expressive, high-level code (recursive functions, loops, complex
 data structures) while maintaining the performance of hand-written, optimized
 machine code.  The abstraction cost is paid at compile time, not runtime.
 </p>
-<p>This philosophy pervades Rust&rsquo;s design.  Later, we&rsquo;ll see how it extends to
+<p>This philosophy pervades Rust&#8217;s design.  Later, we&#8217;ll see how it extends to
 iterators (<a class="ref" href="1_002e3.xhtml#g_t1_002e3_002e5">Iterator Combinators</a>), generic functions, and trait implementations.  In
 each case, the goal is the same: write code that is easy to understand and
-maintain, while generating machine code as efficient as if you&rsquo;d written
+maintain, while generating machine code as efficient as if you&#8217;d written
 low-level optimized code by hand.
 </p>
 <p>The key insight is that many programs contain computations whose inputs are
 known at compile time.  Configuration values, mathematical constants, lookup
-tables&mdash;all can be pre-computed once during compilation rather than
+tables&#8212;all can be pre-computed once during compilation rather than
 recomputed every execution.  Const evaluation makes this optimization
 automatic and transparent.
 </p>
@@ -1200,10 +1201,10 @@ compilation error (hint: overflow), and show how to correctly compute
 Why or why not?
 </p></blockquote>
 
-<hr>
+<hr />
 </div>
 <div class="subsection-level-extent" id="g_t1_002e2_002e5">
-<h4 class="subsection" id="Greatest-Common-Divisors"><span>1.2.6 Greatest Common Divisors<a class="copiable-link" href="#Greatest-Common-Divisors"> &para;</a></span></h4>
+<h4 class="subsection" id="Greatest-Common-Divisors"><span>1.2.6 Greatest Common Divisors<a class="copiable-link" href="#Greatest-Common-Divisors"> &#182;</a></span></h4>
 
 <p>The greatest common divisor (<abbr class="abbr">GCD</abbr>) of two integers <em class="math">a</em> and <em class="math">b</em> is
 defined to be the largest integer that divides both <em class="math">a</em> and <em class="math">b</em> with no
@@ -1241,9 +1242,9 @@ repeated reductions will always eventually produce a pair where the second
 number is 0.  Then the <abbr class="abbr">GCD</abbr> is the other number in the pair.  This
 method for computing the <abbr class="abbr">GCD</abbr> is known as 
 <a class="index-entry-id" id="index-Euclid_0027s-Algorithm"></a>
-<em class="dfn">Euclid&rsquo;s Algorithm</em>.<a class="footnote" id="DOCF37" href="#FOOT37"><sup>37</sup></a>
+<em class="dfn">Euclid&#8217;s Algorithm</em>.<a class="footnote" id="DOCF37" href="#FOOT37"><sup>37</sup></a>
 </p>
-<p>It is easy to express Euclid&rsquo;s Algorithm as a function:
+<p>It is easy to express Euclid&#8217;s Algorithm as a function:
 </p>
 <div class="example">
 <pre class="example-preformatted">fn gcd(a: u64, b: u64) -&gt; u64 {
@@ -1258,16 +1259,16 @@ method for computing the <abbr class="abbr">GCD</abbr> is known as
 <p>This generates an iterative process, whose number of steps grows as the
 logarithm of the numbers involved.
 </p>
-<p>The fact that the number of steps required by Euclid&rsquo;s Algorithm has
+<p>The fact that the number of steps required by Euclid&#8217;s Algorithm has
 logarithmic growth bears an interesting relation to the Fibonacci numbers:
 </p>
 <blockquote class="quotation">
-<p><strong class="strong">Lam&eacute;&rsquo;s Theorem:</strong> If Euclid&rsquo;s Algorithm requires <em class="math">k</em> steps to
+<p><strong class="strong">Lam&#233;&#8217;s Theorem:</strong> If Euclid&#8217;s Algorithm requires <em class="math">k</em> steps to
 compute the <abbr class="abbr">GCD</abbr> of some pair, then the smaller number in the pair
 must be greater than or equal to the <em class="math">k^{\text{th}}</em> Fibonacci number.<a class="footnote" id="DOCF38" href="#FOOT38"><sup>38</sup></a>
 </p></blockquote>
 
-<p>We can use this theorem to get an order-of-growth estimate for Euclid&rsquo;s
+<p>We can use this theorem to get an order-of-growth estimate for Euclid&#8217;s
 Algorithm.  Let <em class="math">n</em> be the smaller of the two inputs to the procedure.  If
 the process takes <em class="math">k</em> steps, then we must have 
 <em class="math">n \ge {\text{Fib}(k)} \approx {\varphi^k / \sqrt{5}}</em>.  Therefore the number of steps <em class="math">k</em>
@@ -1287,23 +1288,23 @@ indicate the <code class="code">remainder</code> operations that are actually pe
 evaluation of <code class="code">gcd(206, 40)</code>?  In the applicative-order evaluation?
 </p></blockquote>
 
-<hr>
+<hr />
 </div>
 <div class="subsection-level-extent" id="g_t1_002e2_002e6">
-<h4 class="subsection" id="Example_003a-Testing-for-Primality"><span>1.2.7 Example: Testing for Primality<a class="copiable-link" href="#Example_003a-Testing-for-Primality"> &para;</a></span></h4>
+<h4 class="subsection" id="Example_003a-Testing-for-Primality"><span>1.2.7 Example: Testing for Primality<a class="copiable-link" href="#Example_003a-Testing-for-Primality"> &#182;</a></span></h4>
 
 <p>This section describes two methods for checking the primality of an integer
 <em class="math">n</em>, one with order of growth <em class="math">{\Theta(\sqrt{n})}</em>, and a
-&ldquo;probabilistic&rdquo; algorithm with order of growth <em class="math">{\Theta(\log n)}</em>.
+&#8220;probabilistic&#8221; algorithm with order of growth <em class="math">{\Theta(\log n)}</em>.
 The exercises at the end of this section suggest programming projects based on
 these algorithms.
 </p>
-<h4 class="subsubheading" id="Searching-for-divisors"><span>Searching for divisors<a class="copiable-link" href="#Searching-for-divisors"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Searching-for-divisors"><span>Searching for divisors<a class="copiable-link" href="#Searching-for-divisors"> &#182;</a></span></h4>
 
 <p>Since ancient times, mathematicians have been fascinated by problems concerning
 prime numbers, and many people have worked on the problem of determining ways
 to test if numbers are prime.  One way to test if a number is prime is to find
-the number&rsquo;s divisors.  The following program finds the smallest integral
+the number&#8217;s divisors.  The following program finds the smallest integral
 divisor (greater than 1) of a given number <em class="math">n</em>.  It does this in a
 straightforward way, by testing <em class="math">n</em> for divisibility by successive integers
 starting with 2.
@@ -1344,13 +1345,13 @@ between 1 and <em class="math">\sqrt{n}</em>.  Consequently, the number of steps
 to identify <em class="math">n</em> as prime will have order of growth
 <em class="math">{\Theta(\sqrt{n})}</em>.
 </p>
-<h4 class="subsubheading" id="The-Fermat-test"><span>The Fermat test<a class="copiable-link" href="#The-Fermat-test"> &para;</a></span></h4>
+<h4 class="subsubheading" id="The-Fermat-test"><span>The Fermat test<a class="copiable-link" href="#The-Fermat-test"> &#182;</a></span></h4>
 
 <p>The <em class="math">{\Theta(\log n)}</em> primality test is based on a result from
-number theory known as Fermat&rsquo;s Little Theorem.<a class="footnote" id="DOCF40" href="#FOOT40"><sup>40</sup></a>
+number theory known as Fermat&#8217;s Little Theorem.<a class="footnote" id="DOCF40" href="#FOOT40"><sup>40</sup></a>
 </p>
 <blockquote class="quotation">
-<p><strong class="strong">Fermat&rsquo;s Little Theorem:</strong> If <em class="math">n</em> is a prime number and <em class="math">a</em> is any
+<p><strong class="strong">Fermat&#8217;s Little Theorem:</strong> If <em class="math">n</em> is a prime number and <em class="math">a</em> is any
 positive integer less than <em class="math">n</em>, then <em class="math">a</em> raised to the <em class="math">n^{\text{th}}</em> power is
 congruent to <em class="math">a</em> modulo <em class="math">n</em>.
 </p></blockquote>
@@ -1430,7 +1431,7 @@ otherwise.
 }
 </pre></div>
 
-<h4 class="subsubheading" id="Probabilistic-methods"><span>Probabilistic methods<a class="copiable-link" href="#Probabilistic-methods"> &para;</a></span></h4>
+<h4 class="subsubheading" id="Probabilistic-methods"><span>Probabilistic methods<a class="copiable-link" href="#Probabilistic-methods"> &#182;</a></span></h4>
 
 <p>The Fermat test differs in character from most familiar algorithms, in which
 one computes an answer that is guaranteed to be correct.  Here, the answer
@@ -1524,7 +1525,7 @@ procedure shown at the start of this section does lots of needless testing:
 After it checks to see if the number is divisible by 2 there is no point in
 checking to see if it is divisible by any larger even numbers.  This suggests
 that the values used for <code class="code">test-divisor</code> should not be 2, 3, 4, 5, 6,
-&hellip;, but rather 2, 3, 5, 7, 9, &hellip;.  To implement this change, define a
+&#8230;, but rather 2, 3, 5, 7, 9, &#8230;.  To implement this change, define a
 procedure <code class="code">next</code> that returns 3 if its input is equal to 2 and otherwise
 returns its input plus 2.  Modify the <code class="code">smallest_divisor</code> procedure to use
 <code class="code">(next test-divisor)</code> instead of <code class="code">(+ test-divisor 1)</code>.  With
@@ -1565,7 +1566,7 @@ Explain.
 <p><strong class="strong"><a class="anchor" id="Exercise-1_002e26"></a>Exercise 1.26:</strong> Louis Reasoner is having great
 difficulty doing <a class="ref" href="#Exercise-1_002e24">Exercise 1.24</a>.  His <code class="code">fast_prime</code> test seems to run
 more slowly than his <code class="code">is_prime</code> test.  Louis calls his friend Eva Lu Ator
-over to help.  When they examine Louis&rsquo;s code, they find that he has rewritten
+over to help.  When they examine Louis&#8217;s code, they find that he has rewritten
 the <code class="code">expmod</code> procedure to use an explicit multiplication, rather than
 calling <code class="code">square</code>:
 </p>
@@ -1581,9 +1582,9 @@ calling <code class="code">square</code>:
 }
 </pre></div>
 
-<p>&ldquo;I don&rsquo;t see what difference that could make,&rdquo; says Louis.  &ldquo;I&nbsp;do.&rdquo;<!-- /@w -->  says
-Eva.  &ldquo;By writing the procedure like that, you have transformed the
-<em class="math">{\Theta(\log n)}</em> process into a <em class="math">{\Theta(n)}</em> process.&rdquo;
+<p>&#8220;I don&#8217;t see what difference that could make,&#8221; says Louis.  &#8220;I&#160;do.&#8221;<!-- /@w -->  says
+Eva.  &#8220;By writing the procedure like that, you have transformed the
+<em class="math">{\Theta(\log n)}</em> process into a <em class="math">{\Theta(n)}</em> process.&#8221;
 Explain.
 </p></blockquote>
 
@@ -1599,14 +1600,14 @@ on the given Carmichael numbers.
 <p><strong class="strong"><a class="anchor" id="Exercise-1_002e28"></a>Exercise 1.28:</strong> One variant of the Fermat test
 that cannot be fooled is called the <a class="index-entry-id" id="index-Miller_002dRabin-test"></a>
 <em class="dfn">Miller-Rabin test</em> (<a class="ref" href="References.xhtml#Miller-1976">Miller 1976</a>;
-<a class="ref" href="References.xhtml#Rabin-1980">Rabin 1980</a>).  This starts from an alternate form of Fermat&rsquo;s Little Theorem,
+<a class="ref" href="References.xhtml#Rabin-1980">Rabin 1980</a>).  This starts from an alternate form of Fermat&#8217;s Little Theorem,
 which states that if <em class="math">n</em> is a prime number and <em class="math">a</em> is any positive integer
 less than <em class="math">n</em>, then <em class="math">a</em> raised to the <em class="math">{(n-1)}</em>-st power is congruent to 1
 modulo <em class="math">n</em>.  To test the primality of a number <em class="math">n</em> by the Miller-Rabin
 test, we pick a random number <em class="math">{a &lt; n}</em> and raise <em class="math">a</em> to the <em class="math">{(n-1)}</em>-st
 power modulo <em class="math">n</em> using the <code class="code">expmod</code> procedure.  However, whenever we
 perform the squaring step in <code class="code">expmod</code>, we check to see if we have
-discovered a &ldquo;nontrivial square root of 1 modulo <em class="math">n</em>,&rdquo; that is, a number
+discovered a &#8220;nontrivial square root of 1 modulo <em class="math">n</em>,&#8221; that is, a number
 not equal to 1 or <em class="math">{n-1}</em> whose square is equal to 1 modulo <em class="math">n</em>.  It is
 possible to prove that if such a nontrivial square root of 1 exists, then <em class="math">n</em>
 is not prime.  It is also possible to prove that if <em class="math">n</em> is an odd number that
@@ -1623,7 +1624,7 @@ have it return 0.
 </div>
 </div>
 <div class="footnotes-segment">
-<hr>
+<hr />
 <h4 class="footnotes-heading">Footnotes</h4>
 
 <h5 class="footnote-body-heading"><a id="FOOT24" href="#DOCF24">(24)</a></h5>
@@ -1649,7 +1650,7 @@ about at once.</p>
 <h5 class="footnote-body-heading"><a id="FOOT25" href="#DOCF25">(25)</a></h5>
 <p>When we discuss the implementation of procedures on
 register machines in <a class="ref" href="Chapter-5.xhtml">Computing with Register Machines</a>, we will see that any iterative process
-can be realized &ldquo;in hardware&rdquo; as a machine that has a fixed set of registers
+can be realized &#8220;in hardware&#8221; as a machine that has a fixed set of registers
 and no auxiliary memory.  In contrast, realizing a recursive process requires a
 machine that uses an auxiliary data structure known as a <a class="index-entry-id" id="index-stack"></a>
 <em class="dfn">stack</em>.</p>
@@ -1657,7 +1658,7 @@ machine that uses an auxiliary data structure known as a <a class="index-entry-i
 <p>Tail
 recursion has long been known as a compiler optimization trick.  A coherent
 semantic basis for tail recursion was provided by Carl <a class="ref" href="References.xhtml#Hewitt-_00281977_0029">Hewitt (1977)</a>, who
-explained it in terms of the &ldquo;message-passing&rdquo; model of computation that we
+explained it in terms of the &#8220;message-passing&#8221; model of computation that we
 shall discuss in <a class="ref" href="Chapter-3.xhtml">Modularity, Objects, and State</a>.  Inspired by this, Gerald Jay Sussman and Guy
 Lewis Steele Jr. (see <a class="ref" href="References.xhtml#Steele-and-Sussman-1975">Steele and Sussman 1975</a>) constructed a tail-recursive interpreter for
 Scheme.  Steele later showed how tail recursion is a consequence of the natural
@@ -1685,20 +1686,20 @@ transform processes that require an exponential number of steps (such as
 linearly with the input.  See <a class="ref" href="3_002e3.xhtml#Exercise-3_002e27">Exercise 3.27</a>.</p>
 <h5 class="footnote-body-heading"><a id="FOOT30" href="#DOCF30">(30)</a></h5>
 <p>The elements of
-Pascal&rsquo;s triangle are called the <a class="index-entry-id" id="index-binomial-coefficients"></a>
+Pascal&#8217;s triangle are called the <a class="index-entry-id" id="index-binomial-coefficients"></a>
 <em class="dfn">binomial coefficients</em>, because the
 <em class="math">{n^{\text{th}}}</em> row consists of the coefficients of the terms in the expansion of
 <em class="math">{(x + y)^n}</em>.  This pattern for computing the coefficients appeared in
-Blaise Pascal&rsquo;s 1653 seminal work on probability theory, <cite class="cite">Trait&eacute; du
-triangle arithm&eacute;tique</cite>.  According to <a class="ref" href="References.xhtml#Knuth-_00281973_0029">Knuth (1973)</a>, the same pattern appears
-in the <cite class="cite">Szu-yuen Y&uuml;-chien</cite> (&ldquo;The Precious Mirror of the Four
-Elements&rdquo;), published by the Chinese mathematician Chu Shih-chieh in 1303, in
+Blaise Pascal&#8217;s 1653 seminal work on probability theory, <cite class="cite">Trait&#233; du
+triangle arithm&#233;tique</cite>.  According to <a class="ref" href="References.xhtml#Knuth-_00281973_0029">Knuth (1973)</a>, the same pattern appears
+in the <cite class="cite">Szu-yuen Y&#252;-chien</cite> (&#8220;The Precious Mirror of the Four
+Elements&#8221;), published by the Chinese mathematician Chu Shih-chieh in 1303, in
 the works of the twelfth-century Persian poet and mathematician Omar Khayyam,
-and in the works of the twelfth-century Hindu mathematician Bh&aacute;scara
-&Aacute;ch&aacute;rya.</p>
+and in the works of the twelfth-century Hindu mathematician Bh&#225;scara
+&#193;ch&#225;rya.</p>
 <h5 class="footnote-body-heading"><a id="FOOT31" href="#DOCF31">(31)</a></h5>
 <p>These statements mask a great deal of oversimplification.
-For instance, if we count process steps as &ldquo;machine operations&rdquo; we are making
+For instance, if we count process steps as &#8220;machine operations&#8221; we are making
 the assumption that the number of machine operations needed to perform, say, a
 multiplication is independent of the size of the numbers to be multiplied,
 which is false if the numbers are sufficiently large.  Similar remarks hold for
@@ -1718,32 +1719,32 @@ numbers to the 1000th power.  See <a class="ref" href="#g_t1_002e2_002e6">Exampl
 <h5 class="footnote-body-heading"><a id="FOOT34" href="#DOCF34">(34)</a></h5>
 <p>This
 iterative algorithm is ancient.  It appears in the <cite class="cite">Chandah-sutra</cite> by
-&Aacute;ch&aacute;rya Pingala, written before 200 <abbr class="abbr">B.C.</abbr> See <a class="ref" href="References.xhtml#Knuth-1981">Knuth 1981</a>, section
+&#193;ch&#225;rya Pingala, written before 200 <abbr class="abbr">B.C.</abbr> See <a class="ref" href="References.xhtml#Knuth-1981">Knuth 1981</a>, section
 4.6.3, for a full discussion and analysis of this and other methods of
 exponentiation.</p>
 <h5 class="footnote-body-heading"><a id="FOOT35" href="#DOCF35">(35)</a></h5>
 <p>This algorithm,
-which is sometimes known as the &ldquo;Russian peasant method&rdquo; of multiplication,
+which is sometimes known as the &#8220;Russian peasant method&#8221; of multiplication,
 is ancient.  Examples of its use are found in the Rhind Papyrus, one of the two
 oldest mathematical documents in existence, written about 1700 <abbr class="abbr">B.C.</abbr>
-(and copied from an even older document) by an Egyptian scribe named A&rsquo;h-mose.</p>
+(and copied from an even older document) by an Egyptian scribe named A&#8217;h-mose.</p>
 <h5 class="footnote-body-heading"><a id="FOOT36" href="#DOCF36">(36)</a></h5>
 <p>This exercise was suggested to
 us by Joe Stoy, based on an example in <a class="ref" href="References.xhtml#Kaldewaij-1990">Kaldewaij 1990</a>.</p>
 <h5 class="footnote-body-heading"><a id="FOOT37" href="#DOCF37">(37)</a></h5>
-<p>Euclid&rsquo;s Algorithm is so called because 
-it appears in Euclid&rsquo;s <cite class="cite">Elements</cite> (Book 7, ca. 300 <abbr class="abbr">B.C.</abbr>).  
+<p>Euclid&#8217;s Algorithm is so called because 
+it appears in Euclid&#8217;s <cite class="cite">Elements</cite> (Book 7, ca. 300 <abbr class="abbr">B.C.</abbr>).  
 According to <a class="ref" href="References.xhtml#Knuth-_00281973_0029">Knuth (1973)</a>, it can be considered the oldest known nontrivial 
 algorithm.  The ancient Egyptian method of multiplication (<a class="ref" href="#Exercise-1_002e18">Exercise 1.18</a>) is 
-surely older, but, as Knuth explains, Euclid&rsquo;s algorithm is the oldest known to 
+surely older, but, as Knuth explains, Euclid&#8217;s algorithm is the oldest known to 
 have been presented as a general algorithm, rather than as a set of illustrative
 examples.</p>
 <h5 class="footnote-body-heading"><a id="FOOT38" href="#DOCF38">(38)</a></h5>
 <p>This
-theorem was proved in 1845 by Gabriel Lam&eacute;, a French mathematician and
+theorem was proved in 1845 by Gabriel Lam&#233;, a French mathematician and
 engineer known chiefly for his contributions to mathematical physics.  To prove
 the theorem, we consider pairs <em class="math">{(a_k, b_k)}</em>, where <em class="math">{a_k \ge b_k}</em>, 
-for which Euclid&rsquo;s Algorithm terminates in <em class="math">k</em> steps.  The proof
+for which Euclid&#8217;s Algorithm terminates in <em class="math">k</em> steps.  The proof
 is based on the claim that, if <em class="math">{(a_{k+1}, b_{k+1})} \to {(a_k, b_k)} \to {(a_{k-1}, b_{k-1})}</em> 
 are three successive pairs 
 in the reduction process, then we must have <em class="math">b_{k+1} \ge b_k + b_{k-1}</em>.  
@@ -1764,7 +1765,7 @@ process.  By our induction hypotheses, we have <em class="math">b_{k-1} \ge {\te
 and <em class="math">b_k \ge {\text{Fib}(k)}</em>.  Thus, applying the claim we just proved together with 
 the definition of the Fibonacci numbers gives 
 <em class="math">b_{k+1} \ge b_k + b_{k-1} \ge {\text{Fib}(k)} + {\text{Fib}(k-1)} = {\text{Fib}(k+1)}</em>, 
-which completes the proof of Lam&eacute;&rsquo;s Theorem.</p>
+which completes the proof of Lam&#233;&#8217;s Theorem.</p>
 <h5 class="footnote-body-heading"><a id="FOOT39" href="#DOCF39">(39)</a></h5>
 <p>If <em class="math">d</em> is a divisor of <em class="math">n</em>, then so is
 <em class="math">{n \,/\, d}</em>.  But <em class="math">d</em> and <em class="math">{n \,/\, d}</em> cannot both be greater than
@@ -1773,14 +1774,14 @@ which completes the proof of Lam&eacute;&rsquo;s Theorem.</p>
 <p>Pierre de Fermat
 (1601-1665) is considered to be the founder of modern number theory.  He
 obtained many important number-theoretic results, but he usually announced just
-the results, without providing his proofs.  Fermat&rsquo;s Little Theorem was stated
+the results, without providing his proofs.  Fermat&#8217;s Little Theorem was stated
 in a letter he wrote in 1640.  The first published proof was given by Euler in
 1736 (and an earlier, identical proof was discovered in the unpublished
-manuscripts of Leibniz).  The most famous of Fermat&rsquo;s results&mdash;known as
-Fermat&rsquo;s Last Theorem&mdash;was jotted down in 1637 in his copy of the book
+manuscripts of Leibniz).  The most famous of Fermat&#8217;s results&#8212;known as
+Fermat&#8217;s Last Theorem&#8212;was jotted down in 1637 in his copy of the book
 <cite class="cite">Arithmetic</cite> (by the third-century Greek mathematician Diophantus) with
-the remark &ldquo;I have discovered a truly remarkable proof, but this margin is too
-small to contain it.&rdquo;  Finding a proof of Fermat&rsquo;s Last Theorem became one of
+the remark &#8220;I have discovered a truly remarkable proof, but this margin is too
+small to contain it.&#8221;  Finding a proof of Fermat&#8217;s Last Theorem became one of
 the most famous challenges in number theory.  A complete solution was finally
 given in 1995 by Andrew Wiles of Princeton University.</p>
 <h5 class="footnote-body-heading"><a id="FOOT41" href="#DOCF41">(41)</a></h5>
@@ -1803,7 +1804,7 @@ Carmichael numbers below 100,000,000.  The smallest few are 561, 1105, 1729,
 2465, 2821, and 6601.  In testing primality of very large numbers chosen at
 random, the chance of stumbling upon a value that fools the Fermat test is less
 than the chance that cosmic radiation will cause the computer to make an error
-in carrying out a &ldquo;correct&rdquo; algorithm.  Considering an algorithm to be
+in carrying out a &#8220;correct&#8221; algorithm.  Considering an algorithm to be
 inadequate for the first reason but not for the second illustrates the
 difference between mathematics and engineering.</p>
 <h5 class="footnote-body-heading"><a id="FOOT43" href="#DOCF43">(43)</a></h5>
@@ -1812,19 +1813,19 @@ applications of probabilistic prime testing has been to the field of
 cryptography.  Although it is now computationally infeasible to factor an
 arbitrary 200-digit number, the primality of such a number can be checked in a
 few seconds with the Fermat test.  This fact forms the basis of a technique for
-constructing &ldquo;unbreakable codes&rdquo; suggested by <a class="ref" href="References.xhtml#Rivest-et-al_002e-_00281977_0029">Rivest et al. (1977)</a>.  
+constructing &#8220;unbreakable codes&#8221; suggested by <a class="ref" href="References.xhtml#Rivest-et-al_002e-_00281977_0029">Rivest et al. (1977)</a>.  
 The resulting <a class="index-entry-id" id="index-RSA-algorithm"></a>
 <em class="dfn">RSA algorithm</em> has become a widely used
 technique for enhancing the security of electronic communications.  Because of
 this and related developments, the study of prime numbers, once considered the
-epitome of a topic in &ldquo;pure&rdquo; mathematics to be studied only for its own sake,
+epitome of a topic in &#8220;pure&#8221; mathematics to be studied only for its own sake,
 now turns out to have important practical applications to cryptography,
 electronic funds transfer, and information retrieval.</p>
 </div>
-<hr>
+<hr />
 <div class="nav-panel">
 <p>
-Next: <a href="1_002e3.xhtml#g_t1_002e3" accesskey="n" rel="next">Formulating Abstractions with Higher-Order Procedures</a>, Previous: <a href="1_002e1.xhtml#g_t1_002e1" accesskey="p" rel="prev">The Elements of Programming</a>, Up: <a href="Chapter-1.xhtml" accesskey="u" rel="up">Building Abstractions with Procedures</a> &nbsp; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
+Next: <a href="1_002e3.xhtml#g_t1_002e3" accesskey="n" rel="next">Formulating Abstractions with Higher-Order Procedures</a>, Previous: <a href="1_002e1.xhtml#g_t1_002e1" accesskey="p" rel="prev">The Elements of Programming</a>, Up: <a href="Chapter-1.xhtml" accesskey="u" rel="up">Building Abstractions with Procedures</a> &#160; [<a href="index.xhtml#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Term-Index.xhtml" title="Index" rel="index">Index</a>]</p>
 </div>
 
 
