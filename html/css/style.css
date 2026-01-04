@@ -62,7 +62,7 @@ ul.no-bullet {
 }
 
 html {
-  font-family: "Linux Libertine O", serif;
+  font-family: "Noto Sans KR", "Linux Libertine O", serif;
   font-size: 170%; /* 100% for epub */
   color: #383838;
   line-height: 130%;
@@ -113,7 +113,7 @@ section {
 }
 
 h1, h2, h3, h4, h5 {
-  font-family: "Linux Biolinum O", sans-serif;
+  font-family: "Noto Sans KR", "Linux Biolinum O", sans-serif;
   margin-top: 1.6em;
   margin-bottom: 1.0rem;
   line-height: 125%;
@@ -222,7 +222,7 @@ h5 code {
 }
 
 pre, code, tt, samp {
-  font-family: "Inconsolata LGC", "DejaVu Sans Mono", monospace;
+  font-family: "Nanum Gothic Coding", "Inconsolata LGC", "DejaVu Sans Mono", monospace;
   font-size: 0.8rem;
 }
 

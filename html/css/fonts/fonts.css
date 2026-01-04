@@ -165,3 +165,25 @@
   font-weight: bold;
   font-style: normal;
 }
+
+/* Korean Fonts */
+@font-face {
+  font-family: "Noto Sans KR";
+  src: url("NotoSansKR-Regular.woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Noto Sans KR";
+  src: url("NotoSansKR-Bold.woff2");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Nanum Gothic Coding";
+  src: url("NanumGothicCoding-Regular.woff2");
+  font-weight: normal;
+  font-style: normal;
+}

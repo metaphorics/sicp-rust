@@ -5,6 +5,7 @@
 @comment             **********************************************************
 @setfilename         html
 @settitle            Structure and Interpretation of Computer Programs, 2e
+@documentlanguage    ko
 @comment             Unofficial Texinfo Format
 @comment
 @set utfversion      2.andresraba6.6
