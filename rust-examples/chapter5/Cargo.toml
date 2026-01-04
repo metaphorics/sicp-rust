@@ -1,10 +1,10 @@
 [package]
 name = "sicp-chapter5"
 version = "0.1.0"
-description = "SICP Chapter 5: Computing with Register Machines"
 edition.workspace = true
-rust-version.workspace = true
 license.workspace = true
+rust-version.workspace = true
+description = "SICP Chapter 5: Computing with Register Machines"
 
 [dependencies]
 sicp-common.workspace = true

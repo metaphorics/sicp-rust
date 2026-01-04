@@ -6,30 +6,32 @@ This guide explains how SICP's stream concepts map to Rust's Iterator trait. In 
 
 ## Concept Mappings
 
-| Scheme Concept | Rust Equivalent | Example |
-|----------------|-----------------|---------|
-| `delay` | Iterator (lazy by default) | `(0..).filter(...)` |
-| `force` | `.next()` or `.collect()` | `iter.next()` |
-| `cons-stream` | Iterator constructors | `std::iter::once(x).chain(rest)` |
-| `stream-car` | `.next().unwrap()` | `stream.next().unwrap()` |
-| `stream-cdr` | The iterator itself | `stream.skip(1)` |
-| `stream-map` | `.map()` | `stream.map(\|x\| x * 2)` |
-| `stream-filter` | `.filter()` | `stream.filter(\|&x\| x > 0)` |
-| `stream-ref` | `.nth()` | `stream.nth(5)` |
-| `the-empty-stream` | `std::iter::empty()` | `std::iter::empty::<i32>()` |
-| Infinite stream | Custom Iterator impl | `struct IntegersFrom { ... }` |
+| Scheme Concept     | Rust Equivalent            | Example                          |
+| ------------------ | -------------------------- | -------------------------------- |
+| `delay`            | Iterator (lazy by default) | `(0..).filter(...)`              |
+| `force`            | `.next()` or `.collect()`  | `iter.next()`                    |
+| `cons-stream`      | Iterator constructors      | `std::iter::once(x).chain(rest)` |
+| `stream-car`       | `.next().unwrap()`         | `stream.next().unwrap()`         |
+| `stream-cdr`       | The iterator itself        | `stream.skip(1)`                 |
+| `stream-map`       | `.map()`                   | `stream.map(\|x\| x * 2)`        |
+| `stream-filter`    | `.filter()`                | `stream.filter(\|&x\| x > 0)`    |
+| `stream-ref`       | `.nth()`                   | `stream.nth(5)`                  |
+| `the-empty-stream` | `std::iter::empty()`       | `std::iter::empty::<i32>()`      |
+| Infinite stream    | Custom Iterator impl       | `struct IntegersFrom { ... }`    |
 
 ## Key Features
 
 ### 1. Lazy Evaluation
 
 **Scheme:**
+
 ```scheme
 (define (integers-starting-from n)
   (cons-stream n (integers-starting-from (+ n 1))))
 ```
 
 **Rust:**
+
 ```rust
 struct IntegersFrom {
     current: i64,
@@ -48,6 +50,7 @@ impl Iterator for IntegersFrom {
 ### 2. Infinite Sequences
 
 **Fibonacci (Scheme):**
+
 ```scheme
 (define (fibgen a b)
   (cons-stream a (fibgen b (+ a b))))
@@ -55,6 +58,7 @@ impl Iterator for IntegersFrom {
 ```
 
 **Fibonacci (Rust):**
+
 ```rust
 struct Fibonacci {
     current: u64,
@@ -76,12 +80,14 @@ impl Iterator for Fibonacci {
 ### 3. Stream Operations
 
 **Adding Streams (Scheme):**
+
 ```scheme
 (define (add-streams s1 s2)
   (stream-map + s1 s2))
 ```
 
 **Adding Streams (Rust):**
+
 ```rust
 fn add_streams<I1, I2>(s1: I1, s2: I2) -> impl Iterator<Item = i64>
 where
@@ -95,6 +101,7 @@ where
 ### 4. Sieve of Eratosthenes
 
 **Scheme:**
+
 ```scheme
 (define (sieve stream)
   (cons-stream
@@ -108,6 +115,7 @@ where
 ```
 
 **Rust:**
+
 ```rust
 struct Sieve {
     candidates: Box<dyn Iterator<Item = u64>>,
@@ -132,11 +140,13 @@ impl Iterator for Sieve {
 ### 5. Implicit Stream Definitions
 
 **Ones (Scheme):**
+
 ```scheme
 (define ones (cons-stream 1 ones))
 ```
 
 **Ones (Rust):**
+
 ```rust
 fn ones() -> impl Iterator<Item = i64> {
     std::iter::repeat(1)
@@ -144,12 +154,14 @@ fn ones() -> impl Iterator<Item = i64> {
 ```
 
 **Integers (Scheme - implicit):**
+
 ```scheme
 (define integers
   (cons-stream 1 (add-streams ones integers)))
 ```
 
 **Integers (Rust - using scan):**
+
 ```rust
 fn integers() -> impl Iterator<Item = i64> {
     std::iter::repeat(1)
@@ -163,6 +175,7 @@ fn integers() -> impl Iterator<Item = i64> {
 ### 6. Signal Processing
 
 **Integration (Scheme):**
+
 ```scheme
 (define (integral integrand initial-value dt)
   (define int
@@ -173,6 +186,7 @@ fn integers() -> impl Iterator<Item = i64> {
 ```
 
 **Integration (Rust):**
+
 ```rust
 struct Integrator<I>
 where
@@ -201,16 +215,19 @@ where
 ## Running Examples
 
 ### Run all tests:
+
 ```bash
 cargo test --lib section_3_5
 ```
 
 ### Run the demonstration:
+
 ```bash
 cargo run --example streams_demo
 ```
 
 ### Expected test output:
+
 ```
 running 21 tests
 test section_3_5::tests::test_add_streams ... ok

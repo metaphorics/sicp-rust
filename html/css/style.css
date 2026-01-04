@@ -1,25 +1,65 @@
 @import url(fonts/fonts.css);
 
 /* Generated rules from HTML.pm centralized here */
-a.summary-letter {text-decoration: none}
-div.display {margin-left: 0em}
-div.example {margin-left: 0em}
-div.indentedblock {margin-left: 0em}
-div.lisp {margin-left: 0em}
-div.smalldisplay {margin-left: 0em}
-div.smallexample {margin-left: 0em}
-div.smallindentedblock {margin-left: 0em}
-div.smalllisp {margin-left: 0em}
-kbd {font-style:oblique}
-pre.display {font-family: inherit}
-pre.format {font-family: inherit}
-pre.menu-comment {font-family: serif}
-pre.menu-preformatted {font-family: serif}
-span.nocodebreak {white-space:nowrap}
-span.nolinebreak {white-space:nowrap}
-span.roman {font-family:serif; font-weight:normal}
-span.sansserif {font-family:sans-serif; font-weight:normal}
-ul.no-bullet {list-style: none}
+a.summary-letter {
+  text-decoration: none;
+}
+div.display {
+  margin-left: 0em;
+}
+div.example {
+  margin-left: 0em;
+}
+div.indentedblock {
+  margin-left: 0em;
+}
+div.lisp {
+  margin-left: 0em;
+}
+div.smalldisplay {
+  margin-left: 0em;
+}
+div.smallexample {
+  margin-left: 0em;
+}
+div.smallindentedblock {
+  margin-left: 0em;
+}
+div.smalllisp {
+  margin-left: 0em;
+}
+kbd {
+  font-style: oblique;
+}
+pre.display {
+  font-family: inherit;
+}
+pre.format {
+  font-family: inherit;
+}
+pre.menu-comment {
+  font-family: serif;
+}
+pre.menu-preformatted {
+  font-family: serif;
+}
+span.nocodebreak {
+  white-space: nowrap;
+}
+span.nolinebreak {
+  white-space: nowrap;
+}
+span.roman {
+  font-family: serif;
+  font-weight: normal;
+}
+span.sansserif {
+  font-family: sans-serif;
+  font-weight: normal;
+}
+ul.no-bullet {
+  list-style: none;
+}
 
 html {
   font-family: "Linux Libertine O", serif;
@@ -39,10 +79,12 @@ html {
     font-size: 140%; /* 100% for epub */
   }
   blockquote {
-    margin-left:  1em;
+    margin-left: 1em;
     margin-right: 1em;
   }
-  ul.no-bullet {padding-left: 1em}
+  ul.no-bullet {
+    padding-left: 1em;
+  }
 }
 
 @media (max-width: 480px) {
@@ -50,10 +92,12 @@ html {
     font-size: 120%; /* 100% for epub */
   }
   blockquote {
-    margin-left:  0.5em;
+    margin-left: 0.5em;
     margin-right: 0.5em;
   }
-  ul.no-bullet {padding-left: 0.6em}
+  ul.no-bullet {
+    padding-left: 0.6em;
+  }
 }
 
 body {
@@ -69,7 +113,7 @@ section {
 }
 
 h1, h2, h3, h4, h5 {
-  font-family: "Linux Biolinum O", sans-serif; 
+  font-family: "Linux Biolinum O", sans-serif;
   margin-top: 1.6em;
   margin-bottom: 1.0rem;
   line-height: 125%;
@@ -87,36 +131,51 @@ h2.unnumbered {
 h3.section {
   margin-top: 2em;
 }
-  
+
 strong {
-  font-family: "Linux Biolinum O", sans-serif; 
+  font-family: "Linux Biolinum O", sans-serif;
 }
 
-h1 { font-size: 1.88rem; }
+h1 {
+  font-size: 1.88rem;
+}
 
-h1.titlefont { 
-  margin-top: 5em; 
-  margin-bottom: 1em; 
-  line-height: 120%; 
+h1.titlefont {
+  margin-top: 5em;
+  margin-bottom: 1em;
+  line-height: 120%;
 }
 
 /* Hide the Info style node menu that has been
    made redundant by table of contents */
-h1.node-heading, 
-h1.node-heading + table.menu, 
+h1.node-heading,
+h1.node-heading + table.menu,
 a[name="Top"] + nav.header {
-  display: none; 
+  display: none;
 }
 
-h2 { font-size: 1.57rem; line-height: 110%; }
+h2 {
+  font-size: 1.57rem;
+  line-height: 110%;
+}
 
-h3 { font-size: 1.31rem; }
+h3 {
+  font-size: 1.31rem;
+}
 
-h4 { font-size: 1.1rem; }
-h4 code { font-size: 0.88rem; }
+h4 {
+  font-size: 1.1rem;
+}
+h4 code {
+  font-size: 0.88rem;
+}
 
-h5 { font-size: 1rem; }
-h5 code { font-size: 0.82rem; }
+h5 {
+  font-size: 1rem;
+}
+h5 code {
+  font-size: 0.82rem;
+}
 
 .chapnum {
   display: inline-block;
@@ -163,7 +222,7 @@ h5 code { font-size: 0.82rem; }
 }
 
 pre, code, tt, samp {
-  font-family: "Inconsolata LGC", "DejaVu Sans Mono", monospace; 
+  font-family: "Inconsolata LGC", "DejaVu Sans Mono", monospace;
   font-size: 0.8rem;
 }
 
@@ -173,11 +232,11 @@ pre, pre code, pre var {
 }
 
 .lisp .MathJax {
-  color: #606060; 
+  color: #606060;
 }
 
 .roman .MathJax {
-  color: #a07040; 
+  color: #a07040;
 }
 
 p, table.menu, div.lisp {
@@ -212,8 +271,8 @@ a[href] {
 }
 
 a[href] > sup {
-  font-size: 78%; 
-  vertical-align: top; 
+  font-size: 78%;
+  vertical-align: top;
   position: relative;
   top: -0.4ex;
   margin: -2ex;
@@ -225,7 +284,7 @@ a[href]:-webkit-any-link > sup {
 }
 
 nav.header p {
-  font-family: "Linux Biolinum O", sans-serif; 
+  font-family: "Linux Biolinum O", sans-serif;
   font-size: 0.9rem;
   padding: 0.5em;
   margin: 0;
@@ -242,7 +301,7 @@ nav.header:last-of-type {
 }
 
 span.roman {
-  font-family: "Linux Libertine O", serif; 
+  font-family: "Linux Libertine O", serif;
   font-size: 0.96rem;
 }
 
@@ -274,8 +333,8 @@ figcaption p {
   background-color: #ffffff;
   padding: 0 3ex;
   width: 100%;
-  -webkit-box-shadow: 4px 4px 22px rgba(0,0,0,0.5);
-  box-shadow: 4px 4px 22px rgba(0,0,0,0.5);
+  -webkit-box-shadow: 4px 4px 22px rgba(0, 0, 0, 0.5);
+  box-shadow: 4px 4px 22px rgba(0, 0, 0, 0.5);
   z-index: 12;
 }
 
@@ -321,7 +380,7 @@ table.menu td {
 }
 
 h2 ~ p:first-of-type:first-line, abbr {
-  font-family: "Linux Libertine O", serif; 
+  font-family: "Linux Libertine O", serif;
   letter-spacing: 0.04em;
   -moz-font-feature-settings: "onum", "c2sc", "smcp";
   -ms-font-feature-settings: "onum", "c2sc", "smcp";
@@ -367,15 +426,15 @@ a.cover {
 a.cover figure {
   margin-top: 1em;
   margin-bottom: 1em;
-  -webkit-box-shadow: 2px 3px 20px rgba(0,0,0,0.5);
-  box-shadow: 2px 3px 20px rgba(0,0,0,0.5);
+  -webkit-box-shadow: 2px 3px 20px rgba(0, 0, 0, 0.5);
+  box-shadow: 2px 3px 20px rgba(0, 0, 0, 0.5);
   display: inline-block;
 }
 
 a.cover object {
   position: relative;
   z-index: -1;
-  width: 100%; 
+  width: 100%;
   height: auto;
   background-color: #fbfbfb;
 }
@@ -435,7 +494,7 @@ mtext, mi[mathvariant="normal"], mi[_moz-math-font-style="normal"] {
 }
 math *[mathvariant="monospace"] {
   font-size: 0.8rem;
-  font-family: "Inconsolata LGC", monospace; 
+  font-family: "Inconsolata LGC", monospace;
 }
 
 .faulty {
@@ -476,17 +535,17 @@ a#References ~ p {
 }
 
 .jump a[href] {
-  color: rgba(220, 220, 220, .5);
+  color: rgba(220, 220, 220, 0.5);
   margin: -1.5ex;
   padding: 1.5ex;
 }
 
-.top { 
-  top: 0; 
+.top {
+  top: 0;
   padding: 0.7ex 0.0ex;
 }
 
-.bottom { 
-  bottom: 0; 
+.bottom {
+  bottom: 0;
   padding: 0.4ex 0.0ex;
 }

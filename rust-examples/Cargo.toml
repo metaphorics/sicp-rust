@@ -6,14 +6,14 @@ members = [
   "chapter3",
   "chapter4",
   "chapter5",
-  "sicp-common"
+  "sicp-common",
 ]
 
 [workspace.package]
 edition = "2024"
-rust-version = "1.92"
-repository = "https://github.com/openbook-kr/sicp-rust"
 license = "CC-BY-SA-4.0"
+repository = "https://github.com/openbook-kr/sicp-rust"
+rust-version = "1.92"
 
 [workspace.dependencies]
 # Persistent/immutable data structures

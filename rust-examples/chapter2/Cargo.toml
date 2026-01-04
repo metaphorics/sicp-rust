@@ -1,10 +1,10 @@
 [package]
 name = "sicp-chapter2"
 version = "0.1.0"
-description = "SICP Chapter 2: Building Abstractions with Data"
 edition.workspace = true
-rust-version.workspace = true
 license.workspace = true
+rust-version.workspace = true
+description = "SICP Chapter 2: Building Abstractions with Data"
 
 [dependencies]
 num.workspace = true

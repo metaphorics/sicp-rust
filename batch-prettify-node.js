@@ -7,9 +7,9 @@
 // (c) 2014 Andres Raba, GNU GPL v.3.
 // (c) 2025 Updated for Node.js
 
-const fs = require('fs');
-const path = require('path');
-const { JSDOM } = require('jsdom');
+const fs = require("fs");
+const path = require("path");
+const { JSDOM } = require("jsdom");
 
 // Get command-line arguments
 const args = process.argv.slice(2);
@@ -24,31 +24,31 @@ const files = args.filter(file => {
   if (fs.existsSync(file)) {
     return true;
   } else {
-    console.log('No such file: ' + file);
+    console.log("No such file: " + file);
     return false;
   }
 });
 
 // Load prettify scripts
-const highlightDir = path.join(__dirname, 'html', 'js', 'highlight');
-const prettifyJs = fs.readFileSync(path.join(highlightDir, 'prettify.js'), 'utf8');
-const langLispJs = fs.readFileSync(path.join(highlightDir, 'lang-lisp.js'), 'utf8');
+const highlightDir = path.join(__dirname, "html", "js", "highlight");
+const prettifyJs = fs.readFileSync(path.join(highlightDir, "prettify.js"), "utf8");
+const langLispJs = fs.readFileSync(path.join(highlightDir, "lang-lisp.js"), "utf8");
 
 // Load lang-rust.js if it exists
-let langRustJs = '';
-const langRustPath = path.join(highlightDir, 'lang-rust.js');
+let langRustJs = "";
+const langRustPath = path.join(highlightDir, "lang-rust.js");
 if (fs.existsSync(langRustPath)) {
-  langRustJs = fs.readFileSync(langRustPath, 'utf8');
+  langRustJs = fs.readFileSync(langRustPath, "utf8");
 }
 
 // Process a single file
 async function processFile(filePath) {
-  const html = fs.readFileSync(filePath, 'utf8');
+  const html = fs.readFileSync(filePath, "utf8");
 
   const dom = new JSDOM(html, {
-    runScripts: 'dangerously',
-    resources: 'usable',
-    url: 'file://' + path.resolve(filePath)
+    runScripts: "dangerously",
+    resources: "usable",
+    url: "file://" + path.resolve(filePath),
   });
 
   const { window } = dom;
@@ -65,27 +65,27 @@ async function processFile(filePath) {
   window.eval(scriptContent);
 
   // Run prettyPrint synchronously
-  if (typeof window.prettyPrint === 'function') {
+  if (typeof window.prettyPrint === "function") {
     // Find all code blocks and apply highlighting
-    const codeBlocks = document.querySelectorAll('pre.lisp, pre.rust, pre.example');
+    const codeBlocks = document.querySelectorAll("pre.lisp, pre.rust, pre.example");
     codeBlocks.forEach(block => {
-      block.classList.add('prettyprint');
+      block.classList.add("prettyprint");
     });
 
     window.prettyPrint();
   }
 
   // Remove prettifier scripts from document
-  const scripts = document.querySelectorAll('script.prettifier');
+  const scripts = document.querySelectorAll("script.prettifier");
   scripts.forEach(script => script.remove());
 
   // Serialize back to HTML
   const doctype = document.doctype
     ? `<!DOCTYPE ${document.doctype.name}>\n`
-    : '';
+    : "";
   const output = doctype + document.documentElement.outerHTML;
 
-  fs.writeFileSync(filePath, output, 'utf8');
+  fs.writeFileSync(filePath, output, "utf8");
 
   window.close();
 }
@@ -102,6 +102,6 @@ async function processAll() {
 }
 
 processAll().catch(err => {
-  console.error('Error:', err);
+  console.error("Error:", err);
   process.exit(1);
 });
