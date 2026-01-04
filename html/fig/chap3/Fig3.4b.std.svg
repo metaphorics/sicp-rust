@@ -389,13 +389,13 @@
           id="tspan3081"
           xml:space="preserve"
           style="font-size: 20px; font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; line-height: 139.99999762%; font-family: Inconsolata LGC; -inkscape-font-specification: Inconsolata LGC"
-        >(sum-of-squares</tspan></tspan><tspan
+        >sum_of_squares(</tspan></tspan><tspan
         x="90"
         y="434.04742"
         id="tspan7270"
         xml:space="preserve"
         style="font-size: 20px; font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; line-height: 120.00000477%; font-family: Inconsolata LGC; -inkscape-font-specification: Inconsolata LGC"
-      >(+ a 1)</tspan><tspan
+      >a + 1,</tspan><tspan
         x="90"
         y="459.24744"
         id="tspan7274"
@@ -406,7 +406,7 @@
           id="tspan7276"
           xml:space="preserve"
           style="font-size: 20px; font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; line-height: 120.00000477%; font-family: Inconsolata LGC; -inkscape-font-specification: Inconsolata LGC"
-        >(* a 2))</tspan></tspan></text>
+        >a * 2)</tspan></tspan></text>
     <text
       x="319.09091"
       y="346.79196"
@@ -430,7 +430,7 @@
           dy="0"
           id="tspan5503-6"
           style="font-size: 20px; font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; line-height: 120.00000477%; font-family: Inconsolata LGC; -inkscape-font-specification: Inconsolata LGC"
-        >(* x x)</tspan></tspan></text>
+        >x * x</tspan></tspan></text>
     <text
       x="510.00003"
       y="346.79196"
@@ -461,13 +461,13 @@
           id="tspan3085"
           xml:space="preserve"
           style="font-size: 20px; font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; line-height: 139.99999762%; font-family: Inconsolata LGC; -inkscape-font-specification: Inconsolata LGC"
-        >(+ (square x)</tspan></tspan><tspan
+        >square(x) +</tspan></tspan><tspan
         x="510.00003"
         y="437.07755"
         id="tspan7270-5"
         xml:space="preserve"
         style="font-size: 20px; font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; line-height: 139.99999762%; font-family: Inconsolata LGC; -inkscape-font-specification: Inconsolata LGC"
-      >(square y))</tspan><tspan
+      >square(y)</tspan><tspan
         x="510.00003"
         y="466.47754"
         id="tspan7274-6"

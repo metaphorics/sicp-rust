@@ -84,42 +84,42 @@
         id="tspan5890"
         xml:space="preserve"
         style="line-height: 139.99999762%"
-      >(define q (make-queue))</tspan><tspan
+      >let mut q = Queue::new();</tspan><tspan
         x="60.696136"
         y="149.3997"
         id="tspan5892"
         xml:space="preserve"
         style="line-height: 139.99999762%"
-      >(insert-queue! q 'a)      a</tspan><tspan
+      >q.insert('a');            a</tspan><tspan
         x="60.696136"
         y="178.79962"
         id="tspan5894"
         xml:space="preserve"
         style="line-height: 139.99999762%"
-      >(insert-queue! q 'b)      a b</tspan><tspan
+      >q.insert('b');            a b</tspan><tspan
         x="60.696136"
         y="208.19955"
         id="tspan5896"
         xml:space="preserve"
         style="line-height: 139.99999762%"
-      >(delete-queue! q)         b</tspan><tspan
+      >q.delete();               b</tspan><tspan
         x="60.696136"
         y="237.59947"
         id="tspan5898"
         xml:space="preserve"
         style="line-height: 139.99999762%"
-      >(insert-queue! q 'c)      b c</tspan><tspan
+      >q.insert('c');            b c</tspan><tspan
         x="60.696136"
         y="266.99939"
         id="tspan5900"
         xml:space="preserve"
         style="line-height: 139.99999762%"
-      >(insert-queue! q 'd)      b c d</tspan><tspan
+      >q.insert('d');            b c d</tspan><tspan
         x="60.696136"
         y="296.39932"
         id="tspan5902"
         xml:space="preserve"
         style="line-height: 139.99999762%"
-      >(delete-queue! q)         c d</tspan></text>
+      >q.delete();               c d</tspan></text>
   </g>
 </svg>

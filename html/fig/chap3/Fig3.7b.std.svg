@@ -384,24 +384,24 @@
           id="tspan5503"
           xml:space="preserve"
           style="font-size: 20px; font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; line-height: 120.00000477%; font-family: Inconsolata LGC; -inkscape-font-specification: Inconsolata LGC"
-        >(if (&gt;= balance amount)</tspan></tspan><tspan
+        >if balance.get() &gt;= amount {</tspan></tspan><tspan
         x="59.852066"
         y="448.5553"
         id="tspan5910"
         xml:space="preserve"
         style="font-size: 20px; font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; line-height: 139.99999762%; font-family: Inconsolata LGC; -inkscape-font-specification: Inconsolata LGC"
-      >(begin (set! balance (- balance amount))</tspan><tspan
+      >balance.set(balance.get() - amount);</tspan><tspan
         x="59.852066"
         y="477.95532"
         id="tspan5912"
         xml:space="preserve"
         style="font-size: 20px; font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; line-height: 139.99999762%; font-family: Inconsolata LGC; -inkscape-font-specification: Inconsolata LGC"
-      >balance)</tspan><tspan
+      >balance.get()</tspan><tspan
         x="59.852066"
         y="507.35535"
         id="tspan5914"
         xml:space="preserve"
         style="font-size: 20px; font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; line-height: 139.99999762%; font-family: Inconsolata LGC; -inkscape-font-specification: Inconsolata LGC"
-      >"insufficient funds")</tspan></text>
+      >} else { "insufficient funds" }</tspan></text>
   </g>
 </svg>

@@ -374,7 +374,7 @@
     ><tspan x="251.96719" y="404.73749" dx="3.1072624e-08" id="tspan3976"><tspan
           id="tspan4047"
           style="font-size: 20px; font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; text-align: center; text-anchor: middle; font-family: Inconsolata LGC; -inkscape-font-specification: Inconsolata LGC"
-        >set!</tspan> balance to $90</tspan></text>
+        >balance.set()</tspan> to $90</tspan></text>
     <text
       x="65.762672"
       y="712.12061"
@@ -457,6 +457,6 @@
     ><tspan x="576.51288" y="586.1012" id="tspan3976-1"><tspan
           id="tspan4045"
           style="font-size: 20px; font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; text-align: center; text-anchor: middle; font-family: Inconsolata LGC; -inkscape-font-specification: Inconsolata LGC"
-        >set!</tspan> balance to $75</tspan></text>
+        >balance.set()</tspan> to $75</tspan></text>
   </g>
 </svg>

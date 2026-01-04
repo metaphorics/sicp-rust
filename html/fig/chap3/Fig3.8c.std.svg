@@ -373,7 +373,7 @@
         y="242.96831"
         id="tspan6211"
         style="font-size: 22.90910721px; line-height: 120.00000477%"
-      >by the set!</tspan></text>
+      >by balance.set()</tspan></text>
     <text
       x="348.46124"
       y="380.34207"
@@ -381,31 +381,31 @@
       xml:space="preserve"
       style="font-size: 20px; font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; text-align: start; line-height: 139.99999762%; letter-spacing: 0px; word-spacing: 0px; text-anchor: start; fill: #383838; fill-opacity: 1; stroke: none; font-family: Inconsolata LGC; -inkscape-font-specification: Inconsolata LGC"
     ><tspan x="348.46124" y="380.34207" id="tspan6215" xml:space="preserve"
-      >(if (&gt;= balance amount)</tspan><tspan
+      >if balance.get() &gt;= amount {</tspan><tspan
         x="348.46124"
         y="409.7421"
         id="tspan6217"
         xml:space="preserve"
-      >(begin (set! balance</tspan><tspan
+      >balance.set(</tspan><tspan
         x="348.46124"
         y="439.14212"
         id="tspan6223"
         xml:space="preserve"
-      >(- balance</tspan><tspan
+      >balance.get() -</tspan><tspan
         x="348.46124"
         y="468.54214"
         id="tspan6225"
         xml:space="preserve"
-      >amount))</tspan><tspan
+      >amount);</tspan><tspan
         x="348.46124"
         y="497.94217"
         id="tspan6219"
         xml:space="preserve"
-      >balance)</tspan><tspan
+      >balance.get()</tspan><tspan
         x="348.46124"
         y="527.34216"
         id="tspan6221"
         xml:space="preserve"
-      >"insufficient funds")</tspan></text>
+      >} else { "insufficient funds" }</tspan></text>
   </g>
 </svg>

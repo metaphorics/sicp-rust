@@ -458,22 +458,22 @@
         dx="0"
         id="tspan3100"
         style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; line-height: 170.00000477%; font-family: Inconsolata LGC; -inkscape-font-specification: Inconsolata LGC"
-      >(define good-enough? ...)</tspan><tspan
+      >fn good_enough(...) { ... }</tspan><tspan
         x="48.82962"
         y="386.63992"
         id="tspan7406"
         style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; line-height: 139.99999762%; font-family: Inconsolata LGC; -inkscape-font-specification: Inconsolata LGC"
-      >(define improve ...)</tspan><tspan
+      >fn improve(...) { ... }</tspan><tspan
         x="48.82962"
         y="416.03989"
         id="tspan7408"
         style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; line-height: 139.99999762%; font-family: Inconsolata LGC; -inkscape-font-specification: Inconsolata LGC"
-      >(define sqrt-iter ...)</tspan><tspan
+      >fn sqrt_iter(...) { ... }</tspan><tspan
         x="48.82962"
         y="445.43985"
         id="tspan7410"
         style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; line-height: 139.99999762%; font-family: Inconsolata LGC; -inkscape-font-specification: Inconsolata LGC"
-      >(sqrt-iter 1.0)</tspan></text>
+      >sqrt_iter(1.0)</tspan></text>
     <path
       d="m 79.10232,120.82737 43.90904,0"
       id="path4451"

@@ -204,13 +204,13 @@
       xml:space="preserve"
       style="font-size: 20px; font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; text-align: start; line-height: 139.99999762%; letter-spacing: 0px; word-spacing: 0px; text-anchor: start; fill: #383838; fill-opacity: 1; stroke: none; font-family: Inconsolata LGC; -inkscape-font-specification: Inconsolata LGC"
     ><tspan xml:space="preserve" x="58" y="204.96252" id="tspan5487"
-      >(define (square x)</tspan><tspan
+      >fn square(x: i64) -&gt; i64 {</tspan><tspan
         xml:space="preserve"
         x="58"
         y="234.36253"
         dy="0 0 0 0 0"
         id="tspan5589"
-      >(* x x))</tspan></text>
+      >x * x }</tspan></text>
     <text
       x="252.72739"
       y="328.37167"
@@ -234,6 +234,6 @@
           dy="0 0 0 0"
           id="tspan5503"
           style="font-size: 20px; font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; line-height: 120.00000477%; font-family: Inconsolata LGC; -inkscape-font-specification: Inconsolata LGC"
-        >(* x x)</tspan></tspan></text>
+        >x * x</tspan></tspan></text>
   </g>
 </svg>

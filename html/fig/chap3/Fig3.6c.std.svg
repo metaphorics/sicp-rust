@@ -190,38 +190,38 @@
           id="tspan5503"
           xml:space="preserve"
           style="font-size: 20px; font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; line-height: 120.00000477%; font-family: Inconsolata LGC; -inkscape-font-specification: Inconsolata LGC"
-        >(lambda (amount)</tspan></tspan><tspan
+        >|amount|</tspan></tspan><tspan
         x="91.421577"
         y="358.05014"
         id="tspan7827"
         xml:space="preserve"
         style="font-size: 20px; font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; line-height: 139.99999762%; font-family: Inconsolata LGC; -inkscape-font-specification: Inconsolata LGC"
-      >(if (&gt;= balance amount)</tspan><tspan
+      >if balance.get() &gt;= amount {</tspan><tspan
         x="91.421577"
         y="387.4502"
         id="tspan7831"
         xml:space="preserve"
         style="font-size: 20px; font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; line-height: 139.99999762%; font-family: Inconsolata LGC; -inkscape-font-specification: Inconsolata LGC"
-      >(begin (set! balance</tspan><tspan
+      >balance.set(</tspan><tspan
         x="91.421577"
         y="416.85022"
         dx="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0"
         id="tspan3034"
         xml:space="preserve"
         style="font-size: 20px; font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; line-height: 139.99999762%; font-family: Inconsolata LGC; -inkscape-font-specification: Inconsolata LGC"
-      >(- balance amount))</tspan><tspan
+      >balance.get() - amount);</tspan><tspan
         x="91.421577"
         y="446.25024"
         id="tspan7833"
         xml:space="preserve"
         style="font-size: 20px; font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; line-height: 139.99999762%; font-family: Inconsolata LGC; -inkscape-font-specification: Inconsolata LGC"
-      >balance)</tspan><tspan
+      >balance.get()</tspan><tspan
         x="91.421577"
         y="475.6503"
         id="tspan7835"
         xml:space="preserve"
         style="font-size: 20px; font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; line-height: 139.99999762%; font-family: Inconsolata LGC; -inkscape-font-specification: Inconsolata LGC"
-      >"insufficient funds"))</tspan></text>
+      >} else { "insufficient funds" }</tspan></text>
     <text
       x="66.642113"
       y="110.28889"
