@@ -8,3 +8,4 @@ toc.xhtml
 \#*\#
 **/target/
 *.lock
+node_modules/

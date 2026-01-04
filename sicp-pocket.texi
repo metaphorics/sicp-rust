@@ -114,7 +114,7 @@
 @dfn{\term\}
 @end macro
 
-@setshortcontentsaftertitlepage
+@c @setshortcontentsaftertitlepage
 
 @titlepage
 
@@ -8748,7 +8748,8 @@ any book on matrix algebra) are the following:
 }  \]
 @end tex
 We can define the dot product as@footnote{This definition uses the extended
-version of @code{map} described in @ref{Footnote 78}.}
+version of @code{map} that takes multiple sequences, as described in
+@ref{2.2.1}.  In Rust, we achieve this with the @code{zip} iterator adapter.}
 
 @example
 fn dot_product(v: &[f64], w: &[f64]) -> f64 @{
@@ -16250,10 +16251,12 @@ global -->|                                       |       |
             | `---^---'                 body: ...
             V
     parameters: amount
-    body: (if (>= balance amount)
-              (begin (set! balance (- balance amount))
-                     balance)
-              "Insufficient funds")
+    body: |amount| @{
+              if balance.get() >= amount @{
+                  balance.set(balance.get() - amount);
+                  Ok(balance.get())
+              @} else @{ Err("Insufficient funds") @}
+          @}
 @end example
 @end ifinfo
 @iftex
@@ -16315,11 +16318,12 @@ env       | W1: --+                                           |
               `-|-^---'             +------+-----+
                 |                   | amount: 50 |
                 V                   +------------+
-      parameters: amount   (if (>= balance amount)
-      body: ...                (begin (set! balance
-                                            (- balance amount))
-                                      balance)
-                               "Insufficient funds")
+      parameters: amount   |amount| @{
+      body: ...                if balance.get() >= amount @{
+                                   balance.set(balance.get() - amount);
+                                   Ok(balance.get())
+                               @} else @{ Err("Insufficient funds") @}
+                           @}
 @end example
 @end ifinfo
 @iftex
@@ -17746,6 +17750,31 @@ The hash map handles the underlying memory management and provides @math{O(1)}
 average time for lookups and insertions. If we were to build a table manually
 using list structure, we would represent it as a @newterm{headed list}, as shown
 in @ref{Figure 3.22}.
+
+@float
+@anchor{Figure 3.22}
+@ifinfo
+@strong{Figure 3.22:} A table represented as a headed list.
+
+@example
+table
+  |
+  V
++---+---+   +---+---+   +---+---+   +---+---+
+| * | *-+-->| * | *-+-->| * | *-+-->| * | / |
++-|-+---+   +-|-+---+   +-|-+---+   +-|-+---+
+  V           V           V           V
++-------+   +---+---+   +---+---+   +---+---+
+|*table*|   | * | *-+   | * | *-+   | * | *-+
++-------+   +-|-+-|-+   +-|-+-|-+   +-|-+-|-+
+              V   V       V   V       V   V
+             "a"  1      "b"  2      "c"  3
+@end example
+@end ifinfo
+@iftex
+@strong{Figure 3.22:} A table represented as a headed list.
+@end iftex
+@end float
 
 @noindent
 To construct a new table, we simply create a list containing the symbol
@@ -19414,17 +19443,17 @@ impl Constraint for Squarer @{
             if b_val < 0.0 @{
                 panic!("square less than 0: SQUARER @{@}", b_val);
             @}
-            @r{@langle{}alternative1@rangle{}}  // set a to sqrt(b)
+            @r{<alternative1>}  // set a to sqrt(b)
         @} else @{
-            @r{@langle{}alternative2@rangle{}}  // if a has value, set b
+            @r{<alternative2>}  // if a has value, set b
         @}
     @}
 
     fn process_forget_value(&self, network: &mut ConstraintNetwork) @{
-        @r{@langle{}body1@rangle{}}
+        @r{<body1>}
     @}
 @}
-@r{@langle{}rest of definition@rangle{}}
+@r{<rest of definition>}
 @end example
 @end quotation
 
@@ -19712,7 +19741,7 @@ in two banking withdrawals can lead to an incorrect final balance.
  |  `----------+-----------'            `----------+-----------'
  |             V                                   |
  |  .----------------------.                       |
- |  | set! balance to $90  |                       |
+ |  | balance.set(90)      |                       |
  |  `----------+-----------'    ____               |
  |             |               /    \              |
  |             `------------->| $ 90 |             V
@@ -19846,10 +19875,11 @@ Peter deposits $10, Paul withdraws $20, and Mary withdraws half the money in
 the account, by executing the following commands:
 
 @example
-Peter: (set! balance (+ balance 10))
-Paul:  (set! balance (- balance 20))
-Mary:  (set! balance (- balance 
-                        (/ balance 2)))
+// Using AtomicI64 for shared mutable state:
+Peter: balance.fetch_add(10, Ordering::SeqCst);
+Paul:  balance.fetch_sub(20, Ordering::SeqCst);
+Mary:  let cur = balance.load(Ordering::SeqCst);
+       balance.store(cur - cur / 2, Ordering::SeqCst);
 @end example
 
 @enumerate a
@@ -20950,8 +20980,10 @@ selectors, @code{head} and @code{tail}, which satisfy the
 constraints
 
 @example
-(stream-car (cons-stream x y)) = x
-(stream-cdr (cons-stream x y)) = y
+// Iterator contract (Rust equivalent of stream axioms):
+// iter.next()  =>  Some(first_element)  // on first call
+// iter.next()  =>  Some(second_element) // on subsequent calls
+// iter.next()  =>  None                 // when exhausted
 @end example
 
 @noindent
@@ -21300,8 +21332,7 @@ versions as @newterm{call-by-need thunks}.}
 @quotation
 @strong{@anchor{Exercise 3.50}Exercise 3.50:} Complete the following
 definition, which generalizes @code{stream-map} to allow procedures that take
-multiple arguments, analogous to @code{map} in @ref{2.2.1}, 
-@ref{Footnote 78}.
+multiple arguments, analogous to @code{map} in @ref{2.2.1}.
 
 @example
 // Multi-iterator map using Iterator::zip
@@ -25207,10 +25238,9 @@ expression and an environment and evaluates the expression relative to the
 environment.@footnote{Warning: This @code{eval} primitive is not identical to
 the @code{eval} procedure we implemented in @ref{4.1.1}, because it
 uses @emph{actual} language environments rather than the sample environment
-structures we built in @ref{4.1.3}.}
-@code{eval} or other special operations.  Similarly, the @code{apply} primitive
+structures we built in @ref{4.1.3}.  Similarly, the @code{apply} primitive
 we saw earlier is not identical to the metacircular @code{apply}, because it
-uses actual Scheme procedures rather than the procedure objects we constructed
+uses actual Rust procedures rather than the procedure objects we constructed
 in @ref{4.1.3} and @ref{4.1.4}.} Thus,
 
 @example
@@ -31977,6 +32007,10 @@ machine.
    (inputs (register a) (register b)))
   ((name =)
    (inputs (register b) (constant 0)))))
+@end example
+
+@noindent
+In Rust, we represent these controller instructions as:
 
 @example
 vec![
@@ -31989,7 +32023,6 @@ vec![
     Goto(Label("test-b".into())),
     Label("gcd-done".into()),
 ]
-@end example             ; label
 @end example
 
 @end quotation
@@ -33489,20 +33522,6 @@ fn extract_labels(text: Vec<Inst>) -> (Vec<Inst>, HashMap<String, usize>) @{
 element is a label, an appropriate entry is added to the
 @code{labels} table.  Otherwise the element is accumulated onto the
 @code{instructions} list.
-                if labels.contains_key(&name) @{
-                    panic!("Multiply defined label: @{@}", name);
-                @}
-                labels.insert(name, instructions.len());
-            @}
-            _ => @{
-                instructions.push(inst);
-            @}
-        @}
-    @}
-
-    (instructions, labels)
-@}
-@end lisp
 
 @noindent
 The assembler performs two passes over the controller text.  In the first pass,
@@ -33651,7 +33670,6 @@ procedures to extract and classify the parts of an instruction.
 
 The @code{make_assign} procedure handles @code{assign} instructions:
 
-@lisp
 @subsection Executing Instructions
 
 The `execute` method of the machine runs the instruction sequence by calling `execute_instruction` on each instruction. This method dispatches on the type of instruction and performs the appropriate action.
@@ -35891,6 +35909,9 @@ their input.
 @end quotation
 
 @quotation
+@strong{@anchor{Exercise 5.29}Exercise 5.29:} Monitor the stack operations in
+the tree-recursive Fibonacci computation:
+
 @example
 fn fib(n: u64) -> u64 @{
     if n < 2 @{ n @} else @{ fib(n - 1) + fib(n - 2) @}
@@ -36779,7 +36800,7 @@ example, successive calls to @code{(make_label 'a)} would return @code{a1},
 @code{a2}, and so on.  @code{Make-label} can be implemented similarly to the
 generation of unique variable names in the query language, as follows:
 
-@lisp
+@example
 use std::sync::atomic::@{AtomicUsize, Ordering@};
 
 static LABEL_COUNTER: AtomicUsize = AtomicUsize::new(0);
@@ -36789,10 +36810,12 @@ fn new_label_number() -> usize @{
 @}
 
 fn make_label(name: &str) -> String @{
-    format!("@{}-@{}", name, new_label_number())
+    format!("@{@}-@{@}", name, new_label_number())
 @}
-@end lisp
-} In this arrangement of code, we must branch around the true branch if the
+@end example
+}
+
+In this arrangement of code, we must branch around the true branch if the
 test is false.  The only slight complication is in how the linkage for the true
 branch should be handled.  If the linkage for the conditional is @code{return}
 or a label, then the true and false branches will both use this same linkage.
@@ -38418,7 +38441,6 @@ immediately-invoked closure, this expression is equivalent to:
     @}
 @})(3, 4)
 @end example
-@end lisp
 
 @noindent
 Each time @code{lookup_variable_value} searches for @code{x}, it must determine
@@ -38730,7 +38752,6 @@ let expr = Expr::Definition @{
 compile_and_go(&expr, &mut machine);
 
 // (total-pushes = 0, maximum-depth = 0)
-@end example
 
 @i{;;; EC-Eval input:}
 (factorial 5)
@@ -38738,7 +38759,7 @@ compile_and_go(&expr, &mut machine);
 
 @i{;;; EC-Eval value:}
 @i{120}
-@end lisp
+@end example
 
 @noindent
 Compare this example with the evaluation of @code{(factorial 5)} using the
