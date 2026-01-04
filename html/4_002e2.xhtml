@@ -362,7 +362,7 @@ fn driver_loop_lazy(mut env: Environment&lt;Value&gt;) {
 </pre></div>
 
 <p>With these changes made, we can start the evaluator and test it.  The
-successful evaluation of the <code class="code">try</code> expression discussed in 
+successful evaluation of the <code class="code">try</code> expression discussed in
 <a class="ref" href="#g_t4_002e2_002e1">Normal Order and Applicative Order</a> indicates that the interpreter is performing lazy evaluation:
 </p>
 <div class="example">
@@ -742,7 +742,7 @@ delayed.<a class="footnote" id="DOCF226" href="#FOOT226"><sup>226</sup></a>  In 
 value will be forced only when it is really needed&#8212;e.g., for use as the
 argument of a primitive, or to be printed as an answer.
 </p>
-<p>Lazy pairs also help with the problem that arose with streams in 
+<p>Lazy pairs also help with the problem that arose with streams in
 <a class="ref" href="3_002e5.xhtml#g_t3_002e5_002e4">Streams and Delayed Evaluation</a>, where we found that formulating stream models of systems with
 loops may require us to sprinkle our programs with explicit <code class="code">delay</code>
 operations, beyond the ones supplied by <code class="code">cons-stream</code>.  With lazy
@@ -1445,7 +1445,7 @@ with or without the owner&#8217;s permission.&#8221;  Snarf down: &#8220;To snar
 with the connotation of absorbing, processing, or understanding.&#8221;  (These
 definitions were snarfed from <a class="ref" href="References.xhtml#Steele-et-al_002e-1983">Steele et al. 1983</a>.  See also <a class="ref" href="References.xhtml#Raymond-1993">Raymond 1993</a>.)</p>
 <h5 class="footnote-body-heading"><a id="FOOT217" href="#DOCF217">(217)</a></h5>
-<p>The difference 
+<p>The difference
 between the &#8220;lazy&#8221; terminology and the
 &#8220;normal-order&#8221; terminology is somewhat fuzzy.  Generally, &#8220;lazy&#8221; refers to
 the mechanisms of particular evaluators, while &#8220;normal-order&#8221; refers to the
@@ -1483,7 +1483,7 @@ argument passing, in contrast to <a class="index-entry-id" id="index-call_002dby
 evaluation.)  As language designers, we can build our evaluator to memoize, not
 to memoize, or leave this an option for programmers (<a class="ref" href="#Exercise-4_002e31">Exercise 4.31</a>).  As
 you might expect from <a class="ref" href="Chapter-3.xhtml">Modularity, Objects, and State</a>, these choices raise issues that become
-both subtle and confusing in the presence of assignments.  (See <a class="ref" href="#Exercise-4_002e27">Exercise 4.27</a> 
+both subtle and confusing in the presence of assignments.  (See <a class="ref" href="#Exercise-4_002e27">Exercise 4.27</a>
 and <a class="ref" href="#Exercise-4_002e29">Exercise 4.29</a>.)  An excellent article by <a class="ref" href="References.xhtml#Clinger-_00281982_0029">Clinger (1982)</a>
 attempts to clarify the multiple dimensions of confusion that arise here.</p>
 <h5 class="footnote-body-heading"><a id="FOOT222" href="#DOCF222">(222)</a></h5>

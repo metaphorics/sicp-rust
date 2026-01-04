@@ -1333,7 +1333,7 @@ all the frames that extend the given frame via a match to some assertion in the
 data base.<a class="footnote" id="DOCF252" href="#FOOT252"><sup>252</sup></a>
 </p>
 <p>In our system, a query takes an input stream of frames and performs the above
-matching operation for every frame in the stream, as indicated in <a class="ref" href="#Figure-4_002e4">Figure 4.4</a>.  
+matching operation for every frame in the stream, as indicated in <a class="ref" href="#Figure-4_002e4">Figure 4.4</a>.
 That is, for each frame in the input stream, the query generates a new
 stream consisting of all extensions to that frame by matches to assertions in
 the data base.  All these streams are then combined to form one huge stream,
@@ -1651,7 +1651,7 @@ and the application of query-language rules is in fact accomplished through a
 legitimate method of inference.<a class="footnote" id="DOCF260" href="#FOOT260"><sup>260</sup></a> This
 identification of the query language with mathematical logic is not really
 valid, though, because the query language provides a <a class="index-entry-id" id="index-control-structure"></a>
-<em class="dfn">control structure</em> 
+<em class="dfn">control structure</em>
 that interprets the logical statements procedurally.  We can often
 take advantage of this control structure.  For example, to find all of the
 supervisors of programmers we could formulate a query in either of two
@@ -1876,7 +1876,7 @@ will produce a stream of frames.  He will then pass this stream through a
 mapping function that extracts the value of the designated variable from each
 frame in the stream and feed the resulting stream of values to the accumulation
 function.  Just as Ben completes the implementation and is about to try it out,
-Cy walks by, still puzzling over the <code class="code">wheel</code> query result in 
+Cy walks by, still puzzling over the <code class="code">wheel</code> query result in
 <a class="ref" href="#Exercise-4_002e65">Exercise 4.65</a>.  When Cy shows Ben the system&#8217;s response, Ben groans,
 &#8220;Oh, no, my simple accumulation scheme won&#8217;t work!&#8221;
 </p>
@@ -2261,7 +2261,7 @@ will match <code class="code">?type</code> against the list <code class="code">(
 <div class="subsubsection-level-extent" id="g_t4_002e4_002e4_002e4">
 <h4 class="subsubsection" id="Rules-and-Unification"><span>4.4.4.4 Rules and Unification<a class="copiable-link" href="#Rules-and-Unification"> &#182;</a></span></h4>
 
-<p><code class="code">apply_rules</code> is the rule analog of <code class="code">find_assertions</code> 
+<p><code class="code">apply_rules</code> is the rule analog of <code class="code">find_assertions</code>
 (<a class="ref" href="#g_t4_002e4_002e4_002e3">Finding Assertions by Pattern Matching</a>).  It takes as input a pattern and a frame, and it forms a stream
 of extension frames by applying rules from the data base.
 </p>
@@ -2282,7 +2282,7 @@ of extension frames by applying rules from the data base.
 }
 </pre></div>
 
-<p><code class="code">apply_a_rule</code> (incorporated into <code class="code">apply_rules</code> above) applies rules using the method outlined in 
+<p><code class="code">apply_a_rule</code> (incorporated into <code class="code">apply_rules</code> above) applies rules using the method outlined in
 <a class="ref" href="#g_t4_002e4_002e2">How the Query System Works</a>.  It first augments its argument frame by unifying the rule
 conclusion with the pattern in the given frame.  If this succeeds, it evaluates
 the rule body in this new frame.
@@ -2505,7 +2505,7 @@ consisting of a single element:
 <pre class="example-preformatted">// See the definitions of Term and Query in section 4.4.4
 </pre></div>
 
-<p>The following procedures, used by <code class="code">query_driver_loop</code> (in 
+<p>The following procedures, used by <code class="code">query_driver_loop</code> (in
 <a class="ref" href="#g_t4_002e4_002e4_002e1">The Driver Loop and Instantiation</a>), specify that rules and assertions are added to the data base by
 expressions of the form <code class="code">assert!(⟨<var class="var">rule_or_assertion</var>⟩)</code>:
 </p>
@@ -2576,7 +2576,7 @@ enum variant.
 </pre></div>
 <pre class="example-preformatted">
 
-Unique variables are constructed during rule application (in 
+Unique variables are constructed during rule application (in
 <a class="ref" href="#g_t4_002e4_002e4_002e4">Rules and Unification</a>) by means of the following procedures.  The unique identifier for
 a rule application is a number, which is incremented each time a rule is
 applied.
@@ -2833,7 +2833,7 @@ number of intermediate frames generated.
 
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-4_002e78"></a>Exercise 4.78:</strong> Redesign the query language as a
-nondeterministic program to be implemented using the evaluator of 
+nondeterministic program to be implemented using the evaluator of
 <a class="ref" href="4_002e3.xhtml#g_t4_002e3">Variations on a Scheme &#8212; Nondeterministic Computing</a>, rather than as a stream process.  In this approach, each query will
 produce a single answer (rather than the stream of all answers) and the user
 can type <code class="code">try-again</code> to see more answers.  You should find that much of
@@ -2894,12 +2894,12 @@ they exhaustively searched the space of possible proofs.  The major
 breakthrough that made such a search plausible was the discovery in the early
 1960s of the <a class="index-entry-id" id="index-unification-algorithm"></a>
 <em class="dfn">unification algorithm</em> and the <a class="index-entry-id" id="index-resolution-principle"></a>
-<em class="dfn">resolution principle</em> 
-(<a class="ref" href="References.xhtml#Robinson-1965">Robinson 1965</a>).  Resolution was used, for example, by 
+<em class="dfn">resolution principle</em>
+(<a class="ref" href="References.xhtml#Robinson-1965">Robinson 1965</a>).  Resolution was used, for example, by
 <a class="ref" href="References.xhtml#Green-and-Raphael-_00281968_0029">Green and Raphael (1968)</a> (see also <a class="ref" href="References.xhtml#Green-1969">Green 1969</a>) as the basis for a deductive
 question-answering system.  During most of this period, researchers
 concentrated on algorithms that are guaranteed to find a proof if one exists.
-Such algorithms were difficult to control and to direct toward a proof.  
+Such algorithms were difficult to control and to direct toward a proof.
 <a class="ref" href="References.xhtml#Hewitt-_00281969_0029">Hewitt (1969)</a> recognized the possibility of merging the control structure of a
 programming language with the operations of a logic-manipulation system,
 leading to the work in automatic search mentioned in <a class="ref" href="4_002e3.xhtml#g_t4_002e3_002e1">Amb and Search</a>
@@ -2915,7 +2915,7 @@ the French can point to Prolog&#8217;s genesis at the University of Marseille, w
 the British can highlight the work at the University of Edinburgh.  According
 to people at <abbr class="abbr">MIT</abbr>, logic programming was developed by these groups in
 an attempt to figure out what Hewitt was talking about in his brilliant but
-impenetrable Ph.D. thesis.  For a history of logic programming, see 
+impenetrable Ph.D. thesis.  For a history of logic programming, see
 <a class="ref" href="References.xhtml#Robinson-1983">Robinson 1983</a>.</p>
 <h5 class="footnote-body-heading"><a id="FOOT244" href="#DOCF244">(244)</a></h5>
 <p>To see the correspondence between the
@@ -2982,7 +2982,7 @@ that some of the work of coarse matching can be done when the data base is
 constructed rather then when we want to select the candidates.  This is called
 <a class="index-entry-id" id="index-indexing"></a>
 <em class="dfn">indexing</em> the data base.  There is a vast technology built around
-data-base-indexing schemes.  Our implementation, described in 
+data-base-indexing schemes.  Our implementation, described in
 <a class="ref" href="#g_t4_002e4_002e4">Implementing the Query System</a>, contains a simple-minded form of such an optimization.</p>
 <h5 class="footnote-body-heading"><a id="FOOT253" href="#DOCF253">(253)</a></h5>
 <p>But this kind of exponential

@@ -1022,7 +1022,7 @@ elements using <code class="code">+</code>, starting from an initial 0.  The pla
 <code class="code">even-fibs</code> is analogous.
 </p>
 <div class="float">
-<a class="anchor" id="Figure-2_002e7"></a><img class="image" src="fig/chap2/Fig2.7e.std.svg" alt="fig/chap2/Fig2.7e" /> 
+<a class="anchor" id="Figure-2_002e7"></a><img class="image" src="fig/chap2/Fig2.7e.std.svg" alt="fig/chap2/Fig2.7e" />
 <div class="caption"><p><strong class="strong">Figure 2.7:</strong> The signal-flow plans for the procedures <code class="code">sum-odd-squares</code> (top) and <code class="code">even-fibs</code> (bottom) reveal the commonality between the two programs.</p></div></div>
 <p>Unfortunately, the two procedure definitions above fail to exhibit this
 signal-flow structure.  For instance, if we examine the <code class="code">sum-odd-squares</code>
@@ -1842,7 +1842,7 @@ fn reverse&lt;T: Clone&gt;(sequence: &amp;[T]) -&gt; Vec&lt;T&gt; {
 
 <p>We can extend the sequence paradigm to include many computations that are
 commonly expressed using nested loops.<a class="footnote" id="DOCF77" href="#FOOT77"><sup>77</sup></a> Consider this problem: Given a positive integer <em class="math">n</em>, find all
-ordered pairs of distinct positive integers <em class="math">i</em> and <em class="math">j</em>, where 
+ordered pairs of distinct positive integers <em class="math">i</em> and <em class="math">j</em>, where
 <em class="math">{1 \le j} &lt; {i \le n}</em>, such that <em class="math">{i + j}</em> is prime.  For example, if <em class="math">n</em> is 6,
 then the pairs are the following:
 <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
@@ -2018,7 +2018,7 @@ ordered pairs of positive integers less than or equal to <em class="math">n</em>
 select those pairs whose sum is prime, and then, for each pair <em class="math">{(i, j)}</em>
 that passes through the filter, produce the triple <em class="math">{(i, j, i + j)}</em>.
 </p>
-<p>Here is a way to generate the sequence of pairs: For each integer <em class="math">{i \le n}</em>, 
+<p>Here is a way to generate the sequence of pairs: For each integer <em class="math">{i \le n}</em>,
 enumerate the integers <em class="math">{j &lt; i}</em>, and for each such <em class="math">i</em> and <em class="math">j</em>
 generate the pair <em class="math">{(i, j)}</em>.  In terms of sequence operations, we map along
 the sequence <code class="code">(enumerate-interval 1 n)</code>.  For each <em class="math">i</em> in this sequence,
@@ -3742,7 +3742,7 @@ many additions and multiplications as does Horner&#8217;s rule, and thus Horner&
 rule is an optimal algorithm for polynomial evaluation.  This was proved (for
 the number of additions) by A. M. Ostrowski in a 1954 paper that essentially
 founded the modern study of optimal algorithms.  The analogous statement for
-multiplications was proved by V. Y. Pan in 1966.  The book by <a class="ref" href="References.xhtml#Borodin-and-Munro-_00281975_0029">Borodin and Munro (1975)</a> 
+multiplications was proved by V. Y. Pan in 1966.  The book by <a class="ref" href="References.xhtml#Borodin-and-Munro-_00281975_0029">Borodin and Munro (1975)</a>
 provides an overview of these and other results about optimal
 algorithms.</p>
 <h5 class="footnote-body-heading"><a id="FOOT76" href="#DOCF76">(76)</a></h5>
@@ -3858,7 +3858,7 @@ different types of painters, we are capitalizing on the abstract data idea
 discussed in <a class="ref" href="2_002e1.xhtml#g_t2_002e1_002e3">What Is Meant by Data?</a>, where we argued that a rational-number
 representation could be anything at all that satisfies an appropriate
 condition.  Here we&#8217;re using the fact that a painter can be implemented in any
-way at all, so long as it draws something in the designated frame.  
+way at all, so long as it draws something in the designated frame.
 <a class="ref" href="2_002e1.xhtml#g_t2_002e1_002e3">What Is Meant by Data?</a> also showed how pairs could be implemented as procedures.  Painters
 are our second example of a procedural representation for data.</p>
 <h5 class="footnote-body-heading"><a id="FOOT88" href="#DOCF88">(88)</a></h5>

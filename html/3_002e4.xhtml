@@ -264,7 +264,7 @@ transactions have been completed, assuming that the banking system forces the
 three processes to run sequentially in some order.
 
 </li><li> What are some other values that could be produced if the system allows the
-processes to be interleaved?  Draw timing diagrams like the one in <a class="ref" href="#Figure-3_002e29">Figure 3.29</a> 
+processes to be interleaved?  Draw timing diagrams like the one in <a class="ref" href="#Figure-3_002e29">Figure 3.29</a>
 to explain how these values can occur.
 
 </li></ol>
@@ -285,12 +285,12 @@ possible orderings for the events that are consistent with the individual
 orderings for the two processes:
 </p>
 <div class="example">
-<pre class="example-preformatted">(a,b,c,x,y,z)  (a,x,b,y,c,z)  (x,a,b,c,y,z)  
-(x,a,y,z,b,c)  (a,b,x,c,y,z)  (a,x,b,y,z,c)  
-(x,a,b,y,c,z)  (x,y,a,b,c,z)  (a,b,x,y,c,z)  
+<pre class="example-preformatted">(a,b,c,x,y,z)  (a,x,b,y,c,z)  (x,a,b,c,y,z)
+(x,a,y,z,b,c)  (a,b,x,c,y,z)  (a,x,b,y,z,c)
+(x,a,b,y,c,z)  (x,y,a,b,c,z)  (a,b,x,y,c,z)
 (a,x,y,b,c,z)  (x,a,b,y,z,c)  (x,y,a,b,z,c)
-(a,b,x,y,z,c)  (a,x,y,b,z,c)  (x,a,y,b,c,z)  
-(x,y,a,z,b,c)  (a,x,b,c,y,z)  (a,x,y,z,b,c)  
+(a,b,x,y,z,c)  (a,x,y,b,z,c)  (x,a,y,b,c,z)
+(x,y,a,z,b,c)  (a,x,b,c,y,z)  (a,x,y,z,b,c)
 (x,a,y,b,z,c)  (x,y,z,a,b,c)
 </pre></div>
 
@@ -345,7 +345,7 @@ for h in handles {
 </pre></div>
 
 <p>Each <code class="code">⟨</code><var class="var">p</var><code class="code">⟩</code> must be a procedure of no arguments.  <code class="code">Parallel-execute</code>
-creates a separate process for each <code class="code">⟨</code><var class="var">p</var><code class="code">⟩</code>, which applies 
+creates a separate process for each <code class="code">⟨</code><var class="var">p</var><code class="code">⟩</code>, which applies
 <code class="code">⟨</code><var class="var">p</var><code class="code">⟩</code> (to no arguments).  These processes all run
 concurrently.<a class="footnote" id="DOCF159" href="#FOOT159"><sup>159</sup></a>
 </p>
@@ -385,10 +385,10 @@ depending on the interleaving of the events of <em class="math">P_1</em> and <em
      <code class="code">x</code> to 101.
 121: <em class="math">P_2</em> increments <code class="code">x</code> to 11 and then <em class="math">P_1</em> sets
      <code class="code">x</code> to <code class="code">x</code> times <code class="code">x</code>.
-110: <em class="math">P_2</em> changes <code class="code">x</code> from 10 to 11 between the 
-     two times that <em class="math">P_1</em> accesses the value of 
+110: <em class="math">P_2</em> changes <code class="code">x</code> from 10 to 11 between the
+     two times that <em class="math">P_1</em> accesses the value of
      <code class="code">x</code> during the evaluation of <code class="code">(* x x)</code>.
- 11: <em class="math">P_2</em> accesses <code class="code">x</code>, then <em class="math">P_1</em> sets <code class="code">x</code> to 100, 
+ 11: <em class="math">P_2</em> accesses <code class="code">x</code>, then <em class="math">P_1</em> sets <code class="code">x</code> to 100,
      then <em class="math">P_2</em> sets <code class="code">x</code>.
 100: <em class="math">P_1</em> accesses <code class="code">x</code> (twice), then <em class="math">P_2</em> sets
      <code class="code">x</code> to 11, then <em class="math">P_1</em> sets <code class="code">x</code>.
@@ -432,7 +432,7 @@ h2.join().unwrap();
 possibilities are eliminated, because the execution of <em class="math">P_1</em> and <em class="math">P_2</em>
 cannot be interleaved.
 </p>
-<p>Here is a version of the <code class="code">Account::new</code> procedure from 
+<p>Here is a version of the <code class="code">Account::new</code> procedure from
 <a class="ref" href="3_002e1.xhtml#g_t3_002e1_002e1">Local State Variables</a>, where the deposits and withdrawals have been serialized:
 </p>
 <div class="example">
@@ -1045,7 +1045,7 @@ unique identification number and rewrite <code class="code">serialized-exchange<
 process will always attempt to enter a procedure protecting the lowest-numbered
 account first.  Although this method works well for the exchange problem, there
 are other situations that require more sophisticated deadlock-avoidance
-techniques, or where deadlock cannot be avoided at all.  (See <a class="ref" href="#Exercise-3_002e48">Exercise 3.48</a> 
+techniques, or where deadlock cannot be avoided at all.  (See <a class="ref" href="#Exercise-3_002e48">Exercise 3.48</a>
 and <a class="ref" href="#Exercise-3_002e49">Exercise 3.49</a>.)<a class="footnote" id="DOCF167" href="#FOOT167"><sup>167</sup></a>
 </p>
 <blockquote class="quotation">
@@ -2581,7 +2581,7 @@ to <a class="ref" href="References.xhtml#Havender-_00281968_0029">Havender (1968
 <a class="index-entry-id" id="index-deadlock_002drecovery"></a>
 <em class="dfn">deadlock-recovery</em> methods, which entail having processes &#8220;back out&#8221;
 of the deadlocked state and try again.  Deadlock-recovery mechanisms are widely
-used in database management systems, a topic that is treated in detail in 
+used in database management systems, a topic that is treated in detail in
 <a class="ref" href="References.xhtml#Gray-and-Reuter-1993">Gray and Reuter 1993</a>.</p>
 <h5 class="footnote-body-heading"><a id="FOOT168" href="#DOCF168">(168)</a></h5>
 <p>One such alternative to serialization is called
@@ -2592,7 +2592,7 @@ to execute as they please, but establishes certain synchronization points
 have reached the barrier.  Modern processors provide machine instructions that
 permit programmers to establish synchronization points at places where
 consistency is required.  The <abbr class="abbr">PowerPC</abbr>, for example, includes for
-this purpose two instructions called <abbr class="abbr">SYNC</abbr> and <abbr class="abbr">EIEIO</abbr> 
+this purpose two instructions called <abbr class="abbr">SYNC</abbr> and <abbr class="abbr">EIEIO</abbr>
 (Enforced In-order Execution of Input/Output).</p>
 <h5 class="footnote-body-heading"><a id="FOOT169" href="#DOCF169">(169)</a></h5>
 <p>This may seem like a strange point of view, but there are

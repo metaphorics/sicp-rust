@@ -252,9 +252,9 @@ time.
 </p>
 <p>Our implementation of streams will be based on a special form called
 <code class="code">delay</code>.  Evaluating <code class="code">(delay ⟨<var class="var">exp</var>⟩)</code> does not evaluate the
-expression <code class="code">⟨</code><var class="var">exp</var><code class="code">⟩</code>, but rather returns a so-called 
+expression <code class="code">⟨</code><var class="var">exp</var><code class="code">⟩</code>, but rather returns a so-called
 <a class="index-entry-id" id="index-delayed-object"></a>
-<em class="dfn">delayed object</em>, which we can think of as a &#8220;promise&#8221; to evaluate 
+<em class="dfn">delayed object</em>, which we can think of as a &#8220;promise&#8221; to evaluate
 <code class="code">⟨</code><var class="var">exp</var><code class="code">⟩</code> at some
 future time.  As a companion to <code class="code">delay</code>, there is a procedure called
 <code class="code">force</code> that takes a delayed object as argument and performs the
@@ -704,7 +704,7 @@ let primes = sieve(2..);
 </pre></div>
 
 <p>It is interesting to contemplate the signal-processing system set up by
-<code class="code">sieve</code>, shown in the &#8220;Henderson diagram&#8221; in 
+<code class="code">sieve</code>, shown in the &#8220;Henderson diagram&#8221; in
 <a class="ref" href="#Figure-3_002e31">Figure 3.31</a>.<a class="footnote" id="DOCF180" href="#FOOT180"><sup>180</sup></a>  The input stream
 feeds into an &#8220;un<code class="code">cons</code>er&#8221; that separates the first element of the
 stream from the rest of the stream.  The first element is used to construct a
@@ -896,7 +896,7 @@ fn factorials() -&gt; impl Iterator&lt;Item = u64&gt; {
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-3_002e55"></a>Exercise 3.55:</strong> Define a procedure
 <code class="code">partial_sums</code> that takes as argument a stream <em class="math">S</em> and returns the
-stream whose elements are <em class="math">S_0</em>, <em class="math">{S_0 + S_1}</em>, <em class="math">{S_0 + S_1} + {S_2, \dots}</em>.  
+stream whose elements are <em class="math">S_0</em>, <em class="math">{S_0 + S_1}</em>, <em class="math">{S_0 + S_1} + {S_2, \dots}</em>.
 For example, <code class="code">(partial-sums integers)</code> should be the
 stream 1, 3, 6, 10, 15, &#8230;.
 </p></blockquote>
@@ -971,7 +971,7 @@ when we compute the <em class="math">n^{\text{th}}</em> Fibonacci number using t
 <code class="code">fibs</code> based on the <code class="code">add_streams</code> procedure?  Show that the number of
 additions would be exponentially greater if we had implemented <code class="code">delay(⟨<var class="var">exp</var>⟩)</code>
 simply as <code class="code">|| ⟨<var class="var">exp</var>⟩</code>, without using the
-optimization provided by the <code class="code">memo_proc</code> procedure described in 
+optimization provided by the <code class="code">memo_proc</code> procedure described in
 <a class="ref" href="#g_t3_002e5_002e1">Streams Are Delayed Lists</a>.<a class="footnote" id="DOCF183" href="#FOOT183"><sup>183</sup></a>
 </p></blockquote>
 
@@ -1441,7 +1441,7 @@ for a power series <em class="math">S</em> with constant term 1.  You will need 
 </p></blockquote>
 
 <blockquote class="quotation">
-<p><strong class="strong"><a class="anchor" id="Exercise-3_002e62"></a>Exercise 3.62:</strong> Use the results of <a class="ref" href="#Exercise-3_002e60">Exercise 3.60</a> 
+<p><strong class="strong"><a class="anchor" id="Exercise-3_002e62"></a>Exercise 3.62:</strong> Use the results of <a class="ref" href="#Exercise-3_002e60">Exercise 3.60</a>
 and <a class="ref" href="#Exercise-3_002e61">Exercise 3.61</a> to define a procedure <code class="code">div_series</code> that
 divides two power series.  <code class="code">Div-series</code> should work for any two series,
 provided that the denominator series begins with a nonzero constant term.  (If
@@ -2750,7 +2750,7 @@ integers)</code> using Louis&#8217;s definition of <code class="code">pairs</cod
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-3_002e69"></a>Exercise 3.69:</strong> Write a procedure <code class="code">triples</code>
 that takes three infinite streams, <em class="math">S</em>, <em class="math">T</em>, and <em class="math">U</em>, and produces the
-stream of triples <em class="math">{(S_i, T_j, U_k)}</em> such that <em class="math">{i \le j \le k}</em>.  
+stream of triples <em class="math">{(S_i, T_j, U_k)}</em> such that <em class="math">{i \le j \le k}</em>.
 Use <code class="code">triples</code> to generate the stream of all Pythagorean
 triples of positive integers, i.e., the triples <em class="math">{(i, j, k)}</em> such that
 <em class="math">{i \le j}</em> and <em class="math">{i^2 + j^2 = k^2}</em>.
@@ -2800,7 +2800,7 @@ Ramanujan numbers.  The first such number is 1,729.  What are the next five?
 </p></blockquote>
 
 <blockquote class="quotation">
-<p><strong class="strong"><a class="anchor" id="Exercise-3_002e72"></a>Exercise 3.72:</strong> In a similar way to <a class="ref" href="#Exercise-3_002e71">Exercise 3.71</a> 
+<p><strong class="strong"><a class="anchor" id="Exercise-3_002e72"></a>Exercise 3.72:</strong> In a similar way to <a class="ref" href="#Exercise-3_002e71">Exercise 3.71</a>
 generate a stream of all numbers that can be written as the sum of two
 squares in three different ways (showing how they can be so written).
 </p></blockquote>
@@ -4437,7 +4437,7 @@ interactions between independent entities.  For instance, consider once more
 the implementation of a banking system that permits joint bank accounts.  In a
 conventional system using assignment and objects, we would model the fact that
 Peter and Paul share an account by having both Peter and Paul send their
-transaction requests to the same bank-account object, as we saw in 
+transaction requests to the same bank-account object, as we saw in
 <a class="ref" href="3_002e1.xhtml#g_t3_002e1_002e3">The Costs of Introducing Assignment</a>.  From the stream point of view, where there are no &#8220;objects&#8221;
 <em class="emph">per se</em>, we have already indicated that a bank account can be modeled as
 a process that operates on a stream of transaction requests to produce a stream
@@ -4460,7 +4460,7 @@ constrained by &#8220;real time&#8221; as perceived by Peter and Paul, in the se
 if Peter and Paul meet, they can agree that certain transactions were processed
 before the meeting, and other transactions were processed after the
 meeting.<a class="footnote" id="DOCF194" href="#FOOT194"><sup>194</sup></a> This
-is precisely the same constraint that we had to deal with in 
+is precisely the same constraint that we had to deal with in
 <a class="ref" href="3_002e4.xhtml#g_t3_002e4_002e1">The Nature of Time in Concurrent Systems</a>, where we found the need to introduce explicit synchronization to
 ensure a &#8220;correct&#8221; order of events in concurrent processing of objects with
 state.  Thus, in an attempt to support the functional style, the need to merge
@@ -4499,7 +4499,7 @@ you.  The fact that we are defining such similar procedures for streams and
 lists indicates that we are missing some underlying abstraction.
 Unfortunately, in order to exploit this abstraction, we will need to exert
 finer control over the process of evaluation than we can at present.  We will
-discuss this point further at the end of <a class="ref" href="#g_t3_002e5_002e4">Streams and Delayed Evaluation</a>.  In 
+discuss this point further at the end of <a class="ref" href="#g_t3_002e5_002e4">Streams and Delayed Evaluation</a>.  In
 <a class="ref" href="4_002e2.xhtml#g_t4_002e2">Variations on a Scheme &#8212; Lazy Evaluation</a>, we&#8217;ll develop a framework that unifies lists and streams.</p>
 <h5 class="footnote-body-heading"><a id="FOOT175" href="#DOCF175">(175)</a></h5>
 <p>Although <code class="code">head</code> and
@@ -4570,7 +4570,7 @@ ancient proof by Euclid that there are an infinite number of primes shows that
 better result was proved until 1851, when the Russian mathematician
 P. L. Chebyshev established that <em class="math">p_{n+1} \le 2p_n</em> for all <em class="math">n</em>.
 This result, originally conjectured in 1845, is known as <a class="index-entry-id" id="index-Bertrand_0027s-hypothesis"></a>
-<em class="dfn">Bertrand&#8217;s hypothesis</em>.  
+<em class="dfn">Bertrand&#8217;s hypothesis</em>.
 A proof can be found in section 22.3 of <a class="ref" href="References.xhtml#Hardy-and-Wright-1960">Hardy and Wright 1960</a>.</p>
 <h5 class="footnote-body-heading"><a id="FOOT183" href="#DOCF183">(183)</a></h5>
 <p>This exercise shows how call-by-need is closely related
@@ -4584,7 +4584,7 @@ to bind the local variable <code class="code">guesses</code>, because the value 
 depends on <code class="code">guesses</code> itself.  <a class="ref" href="#Exercise-3_002e63">Exercise 3.63</a> addresses why we want a
 local variable here.</p>
 <h5 class="footnote-body-heading"><a id="FOOT185" href="#DOCF185">(185)</a></h5>
-<p>As in 
+<p>As in
 <a class="ref" href="2_002e2.xhtml#g_t2_002e2_002e3">Sequences as Conventional Interfaces</a>, we represent a pair of integers as a list rather than a Lisp
 pair.</p>
 <h5 class="footnote-body-heading"><a id="FOOT186" href="#DOCF186">(186)</a></h5>
@@ -4603,7 +4603,7 @@ employed it in the language KRC (<a class="ref" href="References.xhtml#Turner-19
 weight of a pair increases as we move out along a row or down along a column of
 the array of pairs.</p>
 <h5 class="footnote-body-heading"><a id="FOOT189" href="#DOCF189">(189)</a></h5>
-<p>To quote from G. H. Hardy&#8217;s obituary of Ramanujan (<a class="ref" href="References.xhtml#Hardy-1921">Hardy 1921</a>): 
+<p>To quote from G. H. Hardy&#8217;s obituary of Ramanujan (<a class="ref" href="References.xhtml#Hardy-1921">Hardy 1921</a>):
 &#8220;It was Mr. Littlewood (I believe) who remarked that &#8216;every positive
 integer was one of his friends.&#8217;  I remember once going to see him when he was
 lying ill at Putney.  I had ridden in taxi-cab No. 1729, and remarked that the
@@ -4630,7 +4630,7 @@ Rather, we would need a different mapping procedure for each different
 combination of argument and result data types that might be specified for a
 <code class="code">proc</code>.  Maintaining a practical notion of &#8220;data type&#8221; in the presence
 of higher-order procedures raises many difficult issues.  One way of dealing
-with this problem is illustrated by the language ML (<a class="ref" href="References.xhtml#Gordon-et-al_002e-1979">Gordon et al. 1979</a>), 
+with this problem is illustrated by the language ML (<a class="ref" href="References.xhtml#Gordon-et-al_002e-1979">Gordon et al. 1979</a>),
 whose &#8220;polymorphic data types&#8221; include templates for
 higher-order transformations between data types.  Moreover, data types for most
 procedures in ML are never explicitly declared by the programmer.  Instead, ML
@@ -4645,9 +4645,9 @@ world line in space-time there is no change involved.</p>
 <h5 class="footnote-body-heading"><a id="FOOT193" href="#DOCF193">(193)</a></h5>
 <p>John Backus, the
 inventor of Fortran, gave high visibility to functional programming when he was
-awarded the <abbr class="abbr">ACM</abbr> Turing award in 1978.  His acceptance speech 
+awarded the <abbr class="abbr">ACM</abbr> Turing award in 1978.  His acceptance speech
 (<a class="ref" href="References.xhtml#Backus-1978">Backus 1978</a>) strongly advocated the functional approach.  A good overview of
-functional programming is given in <a class="ref" href="References.xhtml#Henderson-1980">Henderson 1980</a> and in 
+functional programming is given in <a class="ref" href="References.xhtml#Henderson-1980">Henderson 1980</a> and in
 <a class="ref" href="References.xhtml#Darlington-et-al_002e-1982">Darlington et al. 1982</a>.</p>
 <h5 class="footnote-body-heading"><a id="FOOT194" href="#DOCF194">(194)</a></h5>
 <p>Observe that, for any two streams, there is in general more
@@ -4655,7 +4655,7 @@ than one acceptable order of interleaving.  Thus, technically, &#8220;merge&#822
 relation rather than a function&#8212;the answer is not a deterministic function of
 the inputs.  We already mentioned (<a class="ref" href="3_002e4.xhtml#Footnote-167">Footnote 167</a>) that nondeterminism is
 essential when dealing with concurrency.  The merge relation illustrates the
-same essential nondeterminism, from the functional perspective.  In 
+same essential nondeterminism, from the functional perspective.  In
 <a class="ref" href="4_002e3.xhtml#g_t4_002e3">Variations on a Scheme &#8212; Nondeterministic Computing</a>, we will look at nondeterminism from yet another point of view.</p>
 <h5 class="footnote-body-heading"><a id="FOOT195" href="#DOCF195">(195)</a></h5>
 <p>The object model

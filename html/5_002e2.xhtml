@@ -84,7 +84,7 @@ the controller sequence and stopping when it reaches the end of the sequence.
 </p></blockquote>
 
 <p>As an example of how these procedures are used, we can define
-<code class="code">gcd-machine</code> to be a model of the <abbr class="abbr">GCD</abbr> machine of 
+<code class="code">gcd-machine</code> to be a model of the <abbr class="abbr">GCD</abbr> machine of
 <a class="ref" href="5_002e1.xhtml#g_t5_002e1_002e1">A Language for Describing Register Machines</a> as follows:
 </p>
 <div class="example">
@@ -186,7 +186,7 @@ include the registers, operations, and controller of the particular machine
 being defined.  First it allocates a register in the new machine for each of
 the supplied register names and installs the designated operations in the
 machine.  Then it uses an <a class="index-entry-id" id="index-assembler"></a>
-<em class="dfn">assembler</em> (described below in 
+<em class="dfn">assembler</em> (described below in
 <a class="ref" href="#g_t5_002e2_002e2">The Assembler</a>) to transform the controller list into instructions for the new
 machine and installs these as the machine&#8217;s instruction sequence.
 <code class="code">Make_machine</code> returns as its value the modified machine model.
@@ -343,7 +343,7 @@ branch by examining the contents of <code class="code">flag</code>.
 runs.  This sequencing is implemented by the internal procedure <code class="code">execute</code>.
 In the simulation model, each machine instruction is a data structure that
 includes a procedure of no arguments, called the <a class="index-entry-id" id="index-instruction-execution-procedure"></a>
-<em class="dfn">instruction execution procedure</em>, 
+<em class="dfn">instruction execution procedure</em>,
 such that calling this procedure simulates executing the
 instruction.  As the simulation runs, <code class="code">pc</code> points to the place in the
 instruction sequence beginning with the next instruction to be executed.
@@ -866,7 +866,7 @@ have to repeatedly invoke <code class="code">get_register_contents</code>,
 
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-5_002e15"></a>Exercise 5.15:</strong> Add <a class="index-entry-id" id="index-instruction-counting"></a>
-<em class="dfn">instruction counting</em> 
+<em class="dfn">instruction counting</em>
 to the register machine simulation.  That is, have the machine model
 keep track of the number of instructions executed.  Extend the machine model&#8217;s
 interface to accept a new message that prints the value of the instruction

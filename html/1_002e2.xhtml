@@ -258,7 +258,7 @@ differently.
 <p>Consider the first process.  The substitution model reveals a shape of
 expansion followed by contraction, indicated by the arrow in <a class="ref" href="#Figure-1_002e3">Figure 1.3</a>.
 The expansion occurs as the process builds up a chain of <a class="index-entry-id" id="index-deferred-operations"></a>
-<em class="dfn">deferred operations</em> 
+<em class="dfn">deferred operations</em>
 (in this case, a chain of multiplications).  The contraction occurs
 as the operations are actually performed.  This type of process, characterized
 by a chain of deferred operations, is called a <a class="index-entry-id" id="index-recursive-process"></a>
@@ -784,7 +784,7 @@ procedures that compute the same result.<a class="footnote" id="DOCF29" href="#F
 </p>
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-1_002e11"></a>Exercise 1.11:</strong> A function <em class="math">f</em> is defined by
-the rule that <em class="math">{f(n) = n}</em> if <em class="math">{n &lt; 3}</em> and <em class="math">{f(n)} = {f(n-1)} + {2f(n-2)} + {3f(n-3)}</em> if <em class="math">{n \ge 3}</em>.  
+the rule that <em class="math">{f(n) = n}</em> if <em class="math">{n &lt; 3}</em> and <em class="math">{f(n)} = {f(n-1)} + {2f(n-2)} + {3f(n-3)}</em> if <em class="math">{n \ge 3}</em>.
 Write a procedure that computes <em class="math">f</em> by means of a recursive process.  Write a procedure that
 computes <em class="math">f</em> by means of an iterative process.
 </p></blockquote>
@@ -810,9 +810,9 @@ means of a recursive process.
 
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-1_002e13"></a>Exercise 1.13:</strong> Prove that <em class="math">{\text{Fib}(n)}</em> is
-the closest integer to <em class="math">{\varphi^n / \sqrt{5}}</em>, where <em class="math">\varphi = {(1 + \sqrt{5}) / 2}</em>.  
+the closest integer to <em class="math">{\varphi^n / \sqrt{5}}</em>, where <em class="math">\varphi = {(1 + \sqrt{5}) / 2}</em>.
 Hint: Let <em class="math">\psi = {(1 - \sqrt{5}) / 2}</em>.
-Use induction and the definition of the Fibonacci numbers (see <a class="ref" href="#g_t1_002e2_002e2">Tree Recursion</a>) 
+Use induction and the definition of the Fibonacci numbers (see <a class="ref" href="#g_t1_002e2_002e2">Tree Recursion</a>)
 to prove that <em class="math">{\text{Fib}(n)} = {(\varphi^n - \psi^n) / \sqrt{5}}</em>.
 </p></blockquote>
 
@@ -845,7 +845,7 @@ proportional to the number of elementary machine operations performed.
 <p>We say that <em class="math">{R(n)}</em> has order of growth <em class="math">{\Theta(f(n))}</em>, written
 <em class="math">{R(n)} = {\Theta(f(n))}</em> (pronounced &#8220;theta of
 <em class="math">{f(n)}</em>&#8221;), if there are positive constants <em class="math">k_1</em> and <em class="math">k_2</em>
-independent of <em class="math">n</em> such that <em class="math">{k_1 f(n)} \le {R(n)} \le {k_2 f(n)}</em> 
+independent of <em class="math">n</em> such that <em class="math">{k_1 f(n)} \le {R(n)} \le {k_2 f(n)}</em>
 for any sufficiently large value of <em class="math">n</em>.  (In other words, for large <em class="math">n</em>,
 the value <em class="math">{R(n)}</em> is sandwiched between <em class="math">{k_1 f(n)}</em> and
 <em class="math">{k_2 f(n)}</em>.)
@@ -869,7 +869,7 @@ provides a useful indication of how we may expect the behavior of the process
 to change as we change the size of the problem.  For a <em class="math">{\Theta(n)}</em>
 (linear) process, doubling the size will roughly double the amount of resources
 used.  For an exponential process, each increment in problem size will multiply
-the resource utilization by a constant factor.  In the remainder of 
+the resource utilization by a constant factor.  In the remainder of
 <a class="ref" href="#g_t1_002e2">Procedures and the Processes They Generate</a> we will examine two algorithms whose order of growth is logarithmic,
 so that doubling the problem size increases the resource requirement by a
 constant amount.
@@ -883,7 +883,7 @@ number of steps used by this process as the amount to be changed increases?
 
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-1_002e15"></a>Exercise 1.15:</strong> The sine of an angle (specified
-in radians) can be computed by making use of the approximation 
+in radians) can be computed by making use of the approximation
 <em class="math">{\sin x  \approx x}</em> if <em class="math">x</em> is sufficiently small, and the trigonometric
 identity
 
@@ -1298,7 +1298,7 @@ fast as the logarithm of <em class="math">n</em> to the base 2.  The process has
 example, <code class="code">fast-expt</code> for <em class="math">n</em> = 1000 requires only 14
 multiplications.<a class="footnote" id="DOCF33" href="#FOOT33"><sup>33</sup></a> It is also possible to
 use the idea of successive squaring to devise an iterative algorithm that
-computes exponentials with a logarithmic number of steps (see <a class="ref" href="#Exercise-1_002e16">Exercise 1.16</a>), 
+computes exponentials with a logarithmic number of steps (see <a class="ref" href="#Exercise-1_002e16">Exercise 1.16</a>),
 although, as is often the case with iterative algorithms, this is not
 written down so straightforwardly as the recursive algorithm.<a class="footnote" id="DOCF34" href="#FOOT34"><sup>34</sup></a>
 </p>
@@ -1308,7 +1308,7 @@ an iterative exponentiation process that uses successive squaring and uses a
 logarithmic number of steps, as does <code class="code">fast-expt</code>.  (Hint: Using the
 observation that <em class="math">{(b^{n / 2})^2} = {(b^2)^{n / 2}}</em>, keep, along with
 the exponent <em class="math">n</em> and the base <em class="math">b</em>, an additional state variable <em class="math">a</em>, and
-define the state transformation in such a way that the product <em class="math">{ab^n}</em> 
+define the state transformation in such a way that the product <em class="math">{ab^n}</em>
 is unchanged from state to state.  At the beginning of the process
 <em class="math">a</em> is taken to be 1, and the answer is given by the value of <em class="math">a</em> at the
 end of the process.  In general, the technique of defining an
@@ -1355,12 +1355,12 @@ computing the Fibonacci numbers in a logarithmic number of steps.  Recall the
 transformation of the state variables <em class="math">a</em> and <em class="math">b</em> in the <code class="code">fib-iter</code>
 process of <a class="ref" href="#g_t1_002e2_002e2">Tree Recursion</a>: <em class="math">a \gets a + b</em> and <em class="math">b \gets a</em>.
 Call this transformation <em class="math">T</em>, and observe that applying <em class="math">T</em> over and over
-again <em class="math">n</em> times, starting with 1 and 0, produces the pair <em class="math">{\text{Fib}(n+1)}</em> and 
+again <em class="math">n</em> times, starting with 1 and 0, produces the pair <em class="math">{\text{Fib}(n+1)}</em> and
 <em class="math">{\text{Fib}(n)}</em>.  In other words, the Fibonacci numbers are produced
 by applying <em class="math">T^n</em>, the <em class="math">n^{\text{th}}</em> power of the transformation <em class="math">T</em>,
 starting with the pair (1, 0).  Now consider <em class="math">T</em> to be the special case of
 <em class="math">{p=0}</em> and <em class="math">{q=1}</em> in a family of transformations <em class="math">T_{pq}</em>,
-where <em class="math">T_{pq}</em> transforms the pair <em class="math">{(a, b)}</em> according to 
+where <em class="math">T_{pq}</em> transforms the pair <em class="math">{(a, b)}</em> according to
 <em class="math">a \gets {bq} + {aq} + {ap}</em> and <em class="math">b \gets {bp} + {aq}</em>.
 Show that if we apply such a transformation <em class="math">T_{pq}</em> twice, the
 effect is the same as using a single transformation <em class="math">T_{p'q'}</em> of the
@@ -1735,7 +1735,7 @@ example,
 possible to show that starting with any two positive integers and performing
 repeated reductions will always eventually produce a pair where the second
 number is 0.  Then the <abbr class="abbr">GCD</abbr> is the other number in the pair.  This
-method for computing the <abbr class="abbr">GCD</abbr> is known as 
+method for computing the <abbr class="abbr">GCD</abbr> is known as
 <a class="index-entry-id" id="index-Euclid_0027s-Algorithm"></a>
 <em class="dfn">Euclid&#8217;s Algorithm</em>.<a class="footnote" id="DOCF37" href="#FOOT37"><sup>37</sup></a>
 </p>
@@ -1765,7 +1765,7 @@ must be greater than or equal to the <em class="math">k^{\text{th}}</em> Fibonac
 
 <p>We can use this theorem to get an order-of-growth estimate for Euclid&#8217;s
 Algorithm.  Let <em class="math">n</em> be the smaller of the two inputs to the procedure.  If
-the process takes <em class="math">k</em> steps, then we must have 
+the process takes <em class="math">k</em> steps, then we must have
 <em class="math">n \ge {\text{Fib}(k)} \approx {\varphi^k / \sqrt{5}}</em>.  Therefore the number of steps <em class="math">k</em>
 grows as the logarithm (to the base <em class="math">\varphi</em>) of <em class="math">n</em>.  Hence, the order of
 growth is <em class="math">{\Theta(\log n)}</em>.
@@ -2227,39 +2227,39 @@ oldest mathematical documents in existence, written about 1700 <abbr class="abbr
 <p>This exercise was suggested to
 us by Joe Stoy, based on an example in <a class="ref" href="References.xhtml#Kaldewaij-1990">Kaldewaij 1990</a>.</p>
 <h5 class="footnote-body-heading"><a id="FOOT37" href="#DOCF37">(37)</a></h5>
-<p>Euclid&#8217;s Algorithm is so called because 
-it appears in Euclid&#8217;s <cite class="cite">Elements</cite> (Book 7, ca. 300 <abbr class="abbr">B.C.</abbr>).  
-According to <a class="ref" href="References.xhtml#Knuth-_00281973_0029">Knuth (1973)</a>, it can be considered the oldest known nontrivial 
-algorithm.  The ancient Egyptian method of multiplication (<a class="ref" href="#Exercise-1_002e18">Exercise 1.18</a>) is 
-surely older, but, as Knuth explains, Euclid&#8217;s algorithm is the oldest known to 
+<p>Euclid&#8217;s Algorithm is so called because
+it appears in Euclid&#8217;s <cite class="cite">Elements</cite> (Book 7, ca. 300 <abbr class="abbr">B.C.</abbr>).
+According to <a class="ref" href="References.xhtml#Knuth-_00281973_0029">Knuth (1973)</a>, it can be considered the oldest known nontrivial
+algorithm.  The ancient Egyptian method of multiplication (<a class="ref" href="#Exercise-1_002e18">Exercise 1.18</a>) is
+surely older, but, as Knuth explains, Euclid&#8217;s algorithm is the oldest known to
 have been presented as a general algorithm, rather than as a set of illustrative
 examples.</p>
 <h5 class="footnote-body-heading"><a id="FOOT38" href="#DOCF38">(38)</a></h5>
 <p>This
 theorem was proved in 1845 by Gabriel Lam&#233;, a French mathematician and
 engineer known chiefly for his contributions to mathematical physics.  To prove
-the theorem, we consider pairs <em class="math">{(a_k, b_k)}</em>, where <em class="math">{a_k \ge b_k}</em>, 
+the theorem, we consider pairs <em class="math">{(a_k, b_k)}</em>, where <em class="math">{a_k \ge b_k}</em>,
 for which Euclid&#8217;s Algorithm terminates in <em class="math">k</em> steps.  The proof
-is based on the claim that, if <em class="math">{(a_{k+1}, b_{k+1})} \to {(a_k, b_k)} \to {(a_{k-1}, b_{k-1})}</em> 
-are three successive pairs 
-in the reduction process, then we must have <em class="math">b_{k+1} \ge b_k + b_{k-1}</em>.  
-To verify the claim, consider that a reduction step is defined by applying the 
-transformation <em class="math">{a_{k-1} = b_k}</em>, <em class="math">{b_{k-1} =}</em> remainder of <em class="math">a_k</em> 
-divided by <em class="math">b_k</em>.  The second equation means that <em class="math">a_k = {qb_k} + {b_{k-1}}</em> 
-for some positive integer <em class="math">q</em>.  And since <em class="math">q</em> must be at least 1 we have 
-<em class="math">a_k = {qb_k} + b_{k-1} \ge b_k + b_{k-1}</em>.  But in the previous reduction 
+is based on the claim that, if <em class="math">{(a_{k+1}, b_{k+1})} \to {(a_k, b_k)} \to {(a_{k-1}, b_{k-1})}</em>
+are three successive pairs
+in the reduction process, then we must have <em class="math">b_{k+1} \ge b_k + b_{k-1}</em>.
+To verify the claim, consider that a reduction step is defined by applying the
+transformation <em class="math">{a_{k-1} = b_k}</em>, <em class="math">{b_{k-1} =}</em> remainder of <em class="math">a_k</em>
+divided by <em class="math">b_k</em>.  The second equation means that <em class="math">a_k = {qb_k} + {b_{k-1}}</em>
+for some positive integer <em class="math">q</em>.  And since <em class="math">q</em> must be at least 1 we have
+<em class="math">a_k = {qb_k} + b_{k-1} \ge b_k + b_{k-1}</em>.  But in the previous reduction
 step we have <em class="math">b_{k+1} = a_k</em>.  Therefore, <em class="math">b_{k+1} = a_k \ge b_k + b_{k-1}</em>.
-This verifies the claim.  Now we can prove the theorem by induction on <em class="math">k</em>, 
-the number of steps that the algorithm requires to terminate.  The result is true for 
-<em class="math">{k = 1}</em>, since this merely requires that <em class="math">b</em> be at least as large as <em class="math">{\text{Fib}(1) = 1}</em>.  
+This verifies the claim.  Now we can prove the theorem by induction on <em class="math">k</em>,
+the number of steps that the algorithm requires to terminate.  The result is true for
+<em class="math">{k = 1}</em>, since this merely requires that <em class="math">b</em> be at least as large as <em class="math">{\text{Fib}(1) = 1}</em>.
 Now, assume that the result is true for all integers less than or equal
-to <em class="math">k</em> and establish the result for <em class="math">{k + 1}</em>.  
-Let <em class="math">{(a_{k+1}, b_{k+1})} \to {(a_k, b_k)} \to {(a_{k-1}, b_{k-1})}</em> 
-be successive pairs in the reduction 
-process.  By our induction hypotheses, we have <em class="math">b_{k-1} \ge {\text{Fib}(k - 1)}</em> 
-and <em class="math">b_k \ge {\text{Fib}(k)}</em>.  Thus, applying the claim we just proved together with 
-the definition of the Fibonacci numbers gives 
-<em class="math">b_{k+1} \ge b_k + b_{k-1} \ge {\text{Fib}(k)} + {\text{Fib}(k-1)} = {\text{Fib}(k+1)}</em>, 
+to <em class="math">k</em> and establish the result for <em class="math">{k + 1}</em>.
+Let <em class="math">{(a_{k+1}, b_{k+1})} \to {(a_k, b_k)} \to {(a_{k-1}, b_{k-1})}</em>
+be successive pairs in the reduction
+process.  By our induction hypotheses, we have <em class="math">b_{k-1} \ge {\text{Fib}(k - 1)}</em>
+and <em class="math">b_k \ge {\text{Fib}(k)}</em>.  Thus, applying the claim we just proved together with
+the definition of the Fibonacci numbers gives
+<em class="math">b_{k+1} \ge b_k + b_{k-1} \ge {\text{Fib}(k)} + {\text{Fib}(k-1)} = {\text{Fib}(k+1)}</em>,
 which completes the proof of Lam&#233;&#8217;s Theorem.</p>
 <h5 class="footnote-body-heading"><a id="FOOT39" href="#DOCF39">(39)</a></h5>
 <p>If <em class="math">d</em> is a divisor of <em class="math">n</em>, then so is
@@ -2308,7 +2308,7 @@ applications of probabilistic prime testing has been to the field of
 cryptography.  Although it is now computationally infeasible to factor an
 arbitrary 200-digit number, the primality of such a number can be checked in a
 few seconds with the Fermat test.  This fact forms the basis of a technique for
-constructing &#8220;unbreakable codes&#8221; suggested by <a class="ref" href="References.xhtml#Rivest-et-al_002e-_00281977_0029">Rivest et al. (1977)</a>.  
+constructing &#8220;unbreakable codes&#8221; suggested by <a class="ref" href="References.xhtml#Rivest-et-al_002e-_00281977_0029">Rivest et al. (1977)</a>.
 The resulting <a class="index-entry-id" id="index-RSA-algorithm"></a>
 <em class="dfn">RSA algorithm</em> has become a widely used
 technique for enhancing the security of electronic communications.  Because of

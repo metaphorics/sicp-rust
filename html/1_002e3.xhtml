@@ -597,7 +597,7 @@ where
 </blockquote>
 
 <blockquote class="quotation">
-<p><strong class="strong"><a class="anchor" id="Exercise-1_002e31"></a>Exercise 1.31:</strong> 
+<p><strong class="strong"><a class="anchor" id="Exercise-1_002e31"></a>Exercise 1.31:</strong>
 </p>
 <ol class="enumerate" type="a" start="1">
 <li> The <code class="code">sum</code> procedure is only the simplest of a vast number of similar
@@ -664,7 +664,7 @@ one that generates a recursive process.
 </blockquote>
 
 <blockquote class="quotation">
-<p><strong class="strong"><a class="anchor" id="Exercise-1_002e32"></a>Exercise 1.32:</strong> 
+<p><strong class="strong"><a class="anchor" id="Exercise-1_002e32"></a>Exercise 1.32:</strong>
 </p>
 <ol class="enumerate" type="a" start="1">
 <li> Show that <code class="code">sum</code> and <code class="code">product</code> (<a class="ref" href="#Exercise-1_002e31">Exercise 1.31</a>) are both special
@@ -1338,7 +1338,7 @@ cosine function, starting with 1 as an initial approximation:<a class="footnote"
 // =&gt; 0.7390822985224023
 </pre></div>
 
-<p>Similarly, we can find a solution to the equation 
+<p>Similarly, we can find a solution to the equation
 <em class="math">{y = \sin y + \cos y}</em>:
 </p>
 <div class="example">
@@ -1351,9 +1351,9 @@ square roots in <a class="ref" href="1_002e1.xhtml#g_t1_002e1_002e7">Example: Sq
 improving a guess until the result satisfies some criterion.  In fact, we can
 readily formulate the square-root computation as a fixed-point search.
 Computing the square root of some number <em class="math">x</em> requires finding a <em class="math">y</em> such
-that <em class="math">{y^2 = x}</em>.  Putting this equation into the equivalent form 
+that <em class="math">{y^2 = x}</em>.  Putting this equation into the equivalent form
 <em class="math">{y = x / y}</em>, we recognize that we are looking for a fixed point of the
-function<a class="footnote" id="DOCF53" href="#FOOT53"><sup>53</sup></a> <em class="math">{y \mapsto x / y}</em>, 
+function<a class="footnote" id="DOCF53" href="#FOOT53"><sup>53</sup></a> <em class="math">{y \mapsto x / y}</em>,
 and we can therefore try to compute square roots as
 </p>
 <div class="example">
@@ -1371,11 +1371,11 @@ over, oscillating about the answer.
 <p>One way to control such oscillations is to prevent the guesses from changing so
 much.  Since the answer is always between our guess <em class="math">y</em> and <em class="math">{x / y}</em>, we
 can make a new guess that is not as far from <em class="math">y</em> as <em class="math">{x / y}</em> by averaging
-<em class="math">y</em> with <em class="math">{x / y}</em>, so that the next guess after <em class="math">y</em> is 
-<em class="math">{{1\over2}(y + x / y)}</em> 
+<em class="math">y</em> with <em class="math">{x / y}</em>, so that the next guess after <em class="math">y</em> is
+<em class="math">{{1\over2}(y + x / y)}</em>
 instead of <em class="math">{x / y}</em>.  The process of making such a sequence of
-guesses is simply the process of looking for a fixed point of 
-<em class="math">y \mapsto {{1\over2}(y + x / y)}</em>: 
+guesses is simply the process of looking for a fixed point of
+<em class="math">y \mapsto {{1\over2}(y + x / y)}</em>:
 </p>
 <div class="example">
 <pre class="example-preformatted">fn sqrt(x: f64) -&gt; f64 {
@@ -1397,8 +1397,8 @@ averaging successive approximations to a solution, a technique that we call
 </p>
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-1_002e35"></a>Exercise 1.35:</strong> Show that the golden ratio
-<em class="math">\varphi</em> (<a class="ref" href="1_002e2.xhtml#g_t1_002e2_002e2">Tree Recursion</a>) is a fixed point of the transformation 
-<em class="math">{x \mapsto 1 + 1 / x}</em>, and use this fact to compute <em class="math">\varphi</em> by means 
+<em class="math">\varphi</em> (<a class="ref" href="1_002e2.xhtml#g_t1_002e2_002e2">Tree Recursion</a>) is a fixed point of the transformation
+<em class="math">{x \mapsto 1 + 1 / x}</em>, and use this fact to compute <em class="math">\varphi</em> by means
 of the <code class="code">fixed_point</code> procedure.
 </p></blockquote>
 
@@ -1415,7 +1415,7 @@ this takes with and without average damping.  (Note that you cannot start
 </p></blockquote>
 
 <blockquote class="quotation">
-<p><strong class="strong"><a class="anchor" id="Exercise-1_002e37"></a>Exercise 1.37:</strong> 
+<p><strong class="strong"><a class="anchor" id="Exercise-1_002e37"></a>Exercise 1.37:</strong>
 </p>
 <ol class="enumerate" type="a" start="1">
 <li> An infinite <a class="index-entry-id" id="index-continued-fraction"></a>
@@ -1549,7 +1549,7 @@ Leonhard Euler published a memoir <cite class="cite">De Fractionibus Continuis</
 included a continued fraction expansion for <em class="math">{e - 2}</em>, where <em class="math">e</em> is the base
 of the natural logarithms.  In this fraction, the <em class="math">N_i</em> are all 1, and
 the <em class="math">D_i</em> are successively 1, 2, 1, 1, 4, 1, 1, 6, 1, 1, 8, &#8230;.
-Write a program that uses your <code class="code">cont_frac</code> procedure from <a class="ref" href="#Exercise-1_002e37">Exercise 1.37</a> 
+Write a program that uses your <code class="code">cont_frac</code> procedure from <a class="ref" href="#Exercise-1_002e37">Exercise 1.37</a>
 to approximate <em class="math">e</em>, based on Euler&#8217;s expansion.
 </p></blockquote>
 
@@ -1700,7 +1700,7 @@ square-root procedure to one that extracts cube roots:<a class="footnote" id="DO
 
 <p>When we first introduced the square-root procedure, in <a class="ref" href="1_002e1.xhtml#g_t1_002e1_002e7">Example: Square Roots by Newton&#8217;s Method</a>, we
 mentioned that this was a special case of <a class="index-entry-id" id="index-Newton_0027s-method"></a>
-<em class="dfn">Newton&#8217;s method</em>.  
+<em class="dfn">Newton&#8217;s method</em>.
 If <em class="math">{x \mapsto g(x)}</em> is a differentiable function, then a solution of the equation
 <em class="math">{g(x) = 0}</em> is a fixed point of the function <em class="math">{x \mapsto f(x)}</em> where
 
@@ -2063,7 +2063,7 @@ Both <code class="code">F</code> and <code class="code">T</code> require <code c
 <em class="dfn">smoothing</em> a
 function is an important concept in signal processing.  If <em class="math">f</em> is a function
 and <em class="math">{dx}</em> is some small number, then the smoothed version of <em class="math">f</em> is the
-function whose value at a point <em class="math">x</em> is the average of <em class="math">{f(x - dx)}</em>, 
+function whose value at a point <em class="math">x</em> is the average of <em class="math">{f(x - dx)}</em>,
 <em class="math">{f(x)}</em>, and <em class="math">{f(x + dx)}</em>.  Write a procedure
 <code class="code">smooth</code> that takes as input a procedure that computes <em class="math">f</em> and returns a
 procedure that computes the smoothed <em class="math">f</em>.  It is sometimes valuable to
@@ -2082,10 +2082,10 @@ damping.  The same method works for finding cube roots as fixed points of the
 average-damped <em class="math">{y \mapsto x / y^2}</em>.  Unfortunately, the process does not
 work for fourth roots&#8212;a single average damp is not enough to make a
 fixed-point search for <em class="math">{y \mapsto x / y^3}</em> converge.  On the other hand, if
-we average damp twice (i.e., use the average damp of the average damp of 
+we average damp twice (i.e., use the average damp of the average damp of
 <em class="math">{y \mapsto x / y^3}</em>) the fixed-point search does converge.  Do some experiments
 to determine how many average damps are required to compute <em class="math">n^{\text{th}}</em> roots as a
-fixed-point search based upon repeated average damping of <em class="math">{y \mapsto x / y^{\kern0.1em n-1}}</em>.  
+fixed-point search based upon repeated average damping of <em class="math">{y \mapsto x / y^{\kern0.1em n-1}}</em>.
 Use this to implement a simple procedure for computing
 <em class="math">n^{\text{th}}</em> roots using <code class="code">fixed_point</code>, <code class="code">average_damp</code>, and the
 <code class="code">repeated</code> procedure of <a class="ref" href="#Exercise-1_002e43">Exercise 1.43</a>.  Assume that any arithmetic
@@ -2588,8 +2588,8 @@ it&#8217;s needed versus <code class="code">fold</code>.
 
 <h5 class="footnote-body-heading"><a id="FOOT44" href="#DOCF44">(44)</a></h5>
 <p>This series, usually
-written in the equivalent form 
-<em class="math">{\pi\over4} = {1 - {1\over3} + {1\over5}} - {{1\over7} + \dots}</em>, 
+written in the equivalent form
+<em class="math">{\pi\over4} = {1 - {1\over3} + {1\over5}} - {{1\over7} + \dots}</em>,
 is due to Leibniz.  We&#8217;ll see how to use this as the basis for some
 fancy numerical tricks in <a class="ref" href="3_002e5.xhtml#g_t3_002e5_002e3">Exploiting the Stream Paradigm</a>.</p>
 <h5 class="footnote-body-heading"><a id="FOOT45" href="#DOCF45">(45)</a></h5>
@@ -2660,8 +2660,8 @@ that is obtained as the value returned by a higher-order procedure.</p>
 <a class="ref" href="#Exercise-1_002e45">Exercise 1.45</a> for a further generalization.</p>
 <h5 class="footnote-body-heading"><a id="FOOT56" href="#DOCF56">(56)</a></h5>
 <p>Elementary calculus books usually describe Newton&#8217;s method in
-terms of the sequence of approximations <em class="math">x_{n+1} = x_n - {g(x_n)\,/ Dg(x_n)}</em>. 
-Having language for talking about processes and using the idea of fixed points 
+terms of the sequence of approximations <em class="math">x_{n+1} = x_n - {g(x_n)\,/ Dg(x_n)}</em>.
+Having language for talking about processes and using the idea of fixed points
 simplifies the description of the method.</p>
 <h5 class="footnote-body-heading"><a id="FOOT57" href="#DOCF57">(57)</a></h5>
 <p>Newton&#8217;s

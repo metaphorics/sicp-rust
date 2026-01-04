@@ -94,7 +94,7 @@ different ways by different parts of a program.  This requires constructing
 <em class="dfn">generic procedures</em>&#8212;procedures that can operate on data that may be
 represented in more than one way.  Our main technique for building generic
 procedures will be to work in terms of data objects that have <a class="index-entry-id" id="index-type-tags"></a>
-<em class="dfn">type tags</em>, 
+<em class="dfn">type tags</em>,
 that is, data objects that include explicit information about how they
 are to be processed.  We will also discuss <a class="index-entry-id" id="index-data_002ddirected"></a>
 <em class="dfn">data-directed</em> programming,
@@ -121,7 +121,7 @@ and install alternative representations.
 <p>In <a class="ref" href="2_002e5.xhtml#g_t2_002e5">Systems with Generic Operations</a> we will show how to use type tags and data-directed style
 to develop a generic arithmetic package.  This provides procedures (<code class="code">add</code>,
 <code class="code">mul</code>, and so on) that can be used to manipulate all sorts of &#8220;numbers&#8221;
-and can be easily extended when a new kind of number is needed.  In 
+and can be easily extended when a new kind of number is needed.  In
 <a class="ref" href="2_002e5.xhtml#g_t2_002e5_002e3">Example: Symbolic Algebra</a>, we&#8217;ll show how to use generic arithmetic in a system that performs
 symbolic algebra.
 </p>
@@ -134,14 +134,14 @@ symbolic algebra.
 as a simple but unrealistic example of a program that uses generic operations.
 We begin by discussing two plausible representations for complex numbers as
 ordered pairs: rectangular form (real part and imaginary part) and polar form
-(magnitude and angle).<a class="footnote" id="DOCF102" href="#FOOT102"><sup>102</sup></a>  
+(magnitude and angle).<a class="footnote" id="DOCF102" href="#FOOT102"><sup>102</sup></a>
 Section <a class="ref" href="#g_t2_002e4_002e2">Tagged data</a> will show how both representations can be made to coexist in a
 single system through the use of type tags and generic operations.
 </p>
 <p>Like rational numbers, complex numbers are naturally represented as ordered
 pairs.  The set of complex numbers can be thought of as a two-dimensional space
 with two orthogonal axes, the &#8220;real&#8221; axis and the &#8220;imaginary&#8221; axis. (See
-<a class="ref" href="#Figure-2_002e20">Figure 2.20</a>.)  From this point of view, the complex number 
+<a class="ref" href="#Figure-2_002e20">Figure 2.20</a>.)  From this point of view, the complex number
 <em class="math">{z = x + iy}</em> (where <em class="math">{i^{\kern0.1em 2} = \text{−1}}</em>) can be thought of as the point in the plane
 whose real coordinate is <em class="math">x</em> and whose imaginary coordinate is <em class="math">y</em>.
 Addition of complex numbers reduces in this representation to addition of
@@ -643,7 +643,7 @@ representation.
 <h4 class="subsection" id="Tagged-data"><span>2.4.2 Tagged data<a class="copiable-link" href="#Tagged-data"> &#182;</a></span></h4>
 
 <p>One way to view data abstraction is as an application of the &#8220;principle of
-least commitment.&#8221;  In implementing the complex-number system in 
+least commitment.&#8221;  In implementing the complex-number system in
 <a class="ref" href="#g_t2_002e4_002e1">Representations for Complex Numbers</a>, we can use either Ben&#8217;s rectangular representation or Alyssa&#8217;s
 polar representation.  The abstraction barrier formed by the selectors and
 constructors permits us to defer to the last possible moment the choice of a
@@ -719,7 +719,7 @@ constructs a complex number, she tags it as polar.  In addition, Ben and Alyssa
 must make sure that the names of their procedures do not conflict.  One way to
 do this is for Ben to append the suffix <code class="code">rectangular</code> to the name of each
 of his representation procedures and for Alyssa to append <code class="code">polar</code> to the
-names of hers.  Here is Ben&#8217;s revised rectangular representation from 
+names of hers.  Here is Ben&#8217;s revised rectangular representation from
 <a class="ref" href="#g_t2_002e4_002e1">Representations for Complex Numbers</a>:
 </p>
 <div class="example">
@@ -824,7 +824,7 @@ fn make_from_mag_ang(r: f64, a: f64) -&gt; Complex {
 }
 </pre></div>
 
-<p>The resulting complex-number system has the structure shown in <a class="ref" href="#Figure-2_002e21">Figure 2.21</a>.  
+<p>The resulting complex-number system has the structure shown in <a class="ref" href="#Figure-2_002e21">Figure 2.21</a>.
 The system has been decomposed into three relatively independent parts:
 the complex-number-arithmetic operations, Alyssa&#8217;s polar implementation, and
 Ben&#8217;s rectangular implementation.  The polar and rectangular implementations
@@ -890,7 +890,7 @@ large-scale data-base-management systems.
 </p>
 <p>What we need is a means for modularizing the system design even further.  This
 is provided by the programming technique known as <a class="index-entry-id" id="index-data_002ddirected-programming-2"></a>
-<em class="dfn">data-directed programming</em>.  
+<em class="dfn">data-directed programming</em>.
 To understand how data-directed programming works, begin with
 the observation that whenever we deal with a set of generic operations that are
 common to a set of different types we are, in effect, dealing with a
@@ -920,12 +920,12 @@ to the table.
 <code class="code">get</code>, for manipulating the operation-and-type table:
 </p>
 <ul class="itemize mark-bullet">
-<li><code class="code">(put ⟨<var class="var">op</var>⟩ ⟨<var class="var">type</var>⟩ ⟨<var class="var">item</var>⟩)</code> installs the 
-<code class="code">⟨</code><var class="var">item</var><code class="code">⟩</code> in the table, indexed by the 
+<li><code class="code">(put ⟨<var class="var">op</var>⟩ ⟨<var class="var">type</var>⟩ ⟨<var class="var">item</var>⟩)</code> installs the
+<code class="code">⟨</code><var class="var">item</var><code class="code">⟩</code> in the table, indexed by the
 <code class="code">⟨</code><var class="var">op</var><code class="code">⟩</code> and the <code class="code">⟨</code><var class="var">type</var><code class="code">⟩</code>.
 
-</li><li><code class="code">(get ⟨<var class="var">op</var>⟩ ⟨<var class="var">type</var>⟩)</code> looks up the <code class="code">⟨</code><var class="var">op</var><code class="code">⟩</code>, 
-<code class="code">⟨</code><var class="var">type</var><code class="code">⟩</code> entry in the table and returns the item found there.  
+</li><li><code class="code">(get ⟨<var class="var">op</var>⟩ ⟨<var class="var">type</var>⟩)</code> looks up the <code class="code">⟨</code><var class="var">op</var><code class="code">⟩</code>,
+<code class="code">⟨</code><var class="var">type</var><code class="code">⟩</code> entry in the table and returns the item found there.
 If no item is found, <code class="code">get</code> returns false.
 
 </li></ul>
@@ -974,7 +974,7 @@ numbers.  This is accomplished by calling the following procedure:
 }
 </pre></div>
 
-<p>Notice that the internal procedures here are the same procedures from 
+<p>Notice that the internal procedures here are the same procedures from
 <a class="ref" href="#g_t2_002e4_002e1">Representations for Complex Numbers</a> that Ben wrote when he was working in isolation.  No changes are
 necessary in order to interface them to the rest of the system.  Moreover,
 since these procedure definitions are internal to the installation procedure,
@@ -1209,7 +1209,7 @@ incorporate the new personnel information into the central system?
 
 <p>The key idea of data-directed programming is to handle generic operations in
 programs by dealing explicitly with operation-and-type tables, such as the
-table in <a class="ref" href="#Figure-2_002e22">Figure 2.22</a>.  The style of programming we used in 
+table in <a class="ref" href="#Figure-2_002e22">Figure 2.22</a>.  The style of programming we used in
 <a class="ref" href="#g_t2_002e4_002e2">Tagged data</a> organized the required dispatching on type by having each operation
 take care of its own dispatching.  In effect, this decomposes the
 operation-and-type table into rows, with each generic operation procedure

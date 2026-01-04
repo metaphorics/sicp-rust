@@ -526,7 +526,7 @@ next.
 
 <p>We can imagine many ways to use list structure to represent algebraic
 expressions.  For example, we could use lists of symbols that mirror the usual
-algebraic notation, representing <em class="math">{ax + b}</em> as the list <code class="code">(a * x + b)</code>.  
+algebraic notation, representing <em class="math">{ax + b}</em> as the list <code class="code">(a * x + b)</code>.
 However, one especially straightforward choice is to use the same
 parenthesized prefix notation that Lisp uses for combinations; that is, to
 represent <em class="math">{ax + b}</em> as <code class="code">(+ (* a x) b)</code>.  Then our data
@@ -1231,7 +1231,7 @@ the list <code class="code">(1 3 5 7 9 11)</code>.
 </blockquote>
 
 <blockquote class="quotation">
-<p><strong class="strong"><a class="anchor" id="Exercise-2_002e65"></a>Exercise 2.65:</strong> Use the results of <a class="ref" href="#Exercise-2_002e63">Exercise 2.63</a> 
+<p><strong class="strong"><a class="anchor" id="Exercise-2_002e65"></a>Exercise 2.65:</strong> Use the results of <a class="ref" href="#Exercise-2_002e63">Exercise 2.63</a>
 and <a class="ref" href="#Exercise-2_002e64">Exercise 2.64</a> to give <em class="math">{\Theta(n)}</em> implementations of
 <code class="code">union_set</code> and <code class="code">intersection_set</code> for sets implemented as (balanced)
 binary trees.<a class="footnote" id="DOCF100" href="#FOOT100"><sup>100</sup></a>
@@ -1398,7 +1398,7 @@ root and moving down until we reach the leaf that holds the symbol.  Each time
 we move down a left branch we add a 0 to the code, and each time we move down a
 right branch we add a 1.  (We decide which branch to follow by testing to see
 which branch either is the leaf node for the symbol or contains the symbol in
-its set.)  For example, starting from the root of the tree in <a class="ref" href="#Figure-2_002e18">Figure 2.18</a>, 
+its set.)  For example, starting from the root of the tree in <a class="ref" href="#Figure-2_002e18">Figure 2.18</a>,
 we arrive at the leaf for D by following a right branch, then a left
 branch, then a right branch, then a right branch; hence, the code for D is
 1011.
@@ -1442,28 +1442,28 @@ the root of the entire tree.  Here is how the Huffman tree of <a class="ref" hre
 was generated:
 </p>
 <div class="example">
-<pre class="example-preformatted">Initial {(A 8) (B 3) (C 1) (D 1) 
+<pre class="example-preformatted">Initial {(A 8) (B 3) (C 1) (D 1)
 leaves   (E 1) (F 1) (G 1) (H 1)}
 
-Merge   {(A 8) (B 3) ({C D} 2) 
+Merge   {(A 8) (B 3) ({C D} 2)
          (E 1) (F 1) (G 1) (H 1)}
 
-Merge   {(A 8) (B 3) ({C D} 2) 
+Merge   {(A 8) (B 3) ({C D} 2)
          ({E F} 2) (G 1) (H 1)}
 
-Merge   {(A 8) (B 3) ({C D} 2) 
+Merge   {(A 8) (B 3) ({C D} 2)
          ({E F} 2) ({G H} 2)}
 
-Merge   {(A 8) (B 3) ({C D} 2) 
+Merge   {(A 8) (B 3) ({C D} 2)
          ({E F G H} 4)}
 
-Merge   {(A 8) ({B C D} 5) 
+Merge   {(A 8) ({B C D} 5)
          ({E F G H} 4)}
 
 Merge   {(A 8) ({B C D E F G H} 9)}
 
 Final   {({A B C D E F G H} 17)}
-merge    
+merge
 </pre></div>
 
 <p>The algorithm does not always specify a unique tree, because there may not be
@@ -1504,7 +1504,7 @@ symbols, rather than some more sophisticated set representation.  When we make
 a tree by merging two nodes, we obtain the weight of the tree as the sum of the
 weights of the nodes, and the set of symbols as the union of the sets of
 symbols for the nodes.  Since our symbol sets are represented as lists, we can
-form the union by using the <code class="code">append</code> procedure we defined in 
+form the union by using the <code class="code">append</code> procedure we defined in
 <a class="ref" href="2_002e2.xhtml#g_t2_002e2_002e1">Representing Sequences</a>:
 </p>
 <div class="example">
@@ -1718,7 +1718,7 @@ Sha na na na na na na na na
 Get a job
 Sha na na na na na na na na
 
-Wah yip yip yip yip 
+Wah yip yip yip yip
 yip yip yip yip yip
 Sha boom
 </pre></div>
@@ -1742,7 +1742,7 @@ that you designed in <a class="ref" href="#Exercise-2_002e68">Exercise 2.68</a>.
 number of steps needed to encode a symbol?  Be sure to include the number of
 steps needed to search the symbol list at each node encountered.  To answer
 this question in general is difficult.  Consider the special case where the
-relative frequencies of the <em class="math">n</em> symbols are as described in <a class="ref" href="#Exercise-2_002e71">Exercise 2.71</a>, 
+relative frequencies of the <em class="math">n</em> symbols are as described in <a class="ref" href="#Exercise-2_002e71">Exercise 2.71</a>,
 and give the order of growth (as a function of <em class="math">n</em>) of the number of
 steps needed to encode the most frequent and least frequent symbols in the
 alphabet.
@@ -2228,7 +2228,7 @@ devoted to this problem.  See <a class="ref" href="References.xhtml#Cormen-et-al
 <p><a class="ref" href="#Exercise-2_002e63">Exercise 2.63</a> through <a class="ref" href="#Exercise-2_002e65">Exercise 2.65</a> are due
 to Paul Hilfinger.</p>
 <h5 class="footnote-body-heading"><a id="FOOT101" href="#DOCF101">(101)</a></h5>
-<p>See <a class="ref" href="References.xhtml#Hamming-1980">Hamming 1980</a> 
+<p>See <a class="ref" href="References.xhtml#Hamming-1980">Hamming 1980</a>
 for a discussion of the mathematical properties of Huffman codes.</p>
 </div>
 <hr />

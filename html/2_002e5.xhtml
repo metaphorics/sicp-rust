@@ -268,7 +268,7 @@ fn make_complex_from_mag_ang(r: f64, a: f64) -&gt; Complex {
 </pre></div>
 
 <p>What we have here is a two-level tag system.  A typical complex number, such as
-<em class="math">{3 + 4i}</em> in rectangular form, would be represented as shown in <a class="ref" href="#Figure-2_002e24">Figure 2.24</a>.  
+<em class="math">{3 + 4i}</em> in rectangular form, would be represented as shown in <a class="ref" href="#Figure-2_002e24">Figure 2.24</a>.
 The outer tag (<code class="code">complex</code>) is used to direct the number to the
 complex package.  Once within the complex package, the next tag
 (<code class="code">rectangular</code>) is used to direct the number to the rectangular package.
@@ -663,7 +663,7 @@ adding new levels to the tower.
 for &#8220;simplifying&#8221; a data object by lowering it in the tower of types as far
 as possible.  Design a procedure <code class="code">drop</code> that accomplishes this for the
 tower described in <a class="ref" href="#Exercise-2_002e83">Exercise 2.83</a>.  The key is to decide, in some general
-way, whether an object can be lowered.  For example, the complex number 
+way, whether an object can be lowered.  For example, the complex number
 <em class="math">{1.5 + 0i}</em> can be lowered as far as <code class="code">real</code>, the complex number <em class="math">{1 + 0i}</em> can
 be lowered as far as <code class="code">integer</code>, and the complex number <em class="math">{2 + 3i}</em> cannot
 be lowered at all.  Here is a plan for determining whether an object can be
@@ -844,7 +844,7 @@ called a <a class="index-entry-id" id="index-poly"></a>
 terms.  We assume that we have selectors <code class="code">variable</code> and <code class="code">term-list</code>
 that extract those parts from a poly and a constructor <code class="code">make-poly</code> that
 assembles a poly from a given variable and a term list.  A variable will be
-just a symbol, so we can use the <code class="code">same_variable</code>  procedure of 
+just a symbol, so we can use the <code class="code">same_variable</code>  procedure of
 <a class="ref" href="2_002e3.xhtml#g_t2_002e3_002e2">Example: Symbolic Differentiation</a> to compare variables.  The following procedures define addition and
 multiplication of polys:
 </p>
@@ -1006,7 +1006,7 @@ fn mul_term_by_all_terms(t1: &amp;Term, l: &amp;[Term]) -&gt; Vec&lt;Term&gt; {
 that, since we operate on terms using the generic procedures <code class="code">add</code> and
 <code class="code">mul</code>, our polynomial package is automatically able to handle any type of
 coefficient that is known about by the generic arithmetic package.  If we
-include a coercion mechanism such as one of those discussed in 
+include a coercion mechanism such as one of those discussed in
 <a class="ref" href="#g_t2_002e5_002e2">Combining Data of Different Types</a>, then we also are automatically able to handle operations on
 polynomials of different coefficient types, such as
 <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
@@ -1295,7 +1295,7 @@ polynomials.
 <p><strong class="strong"><a class="anchor" id="Exercise-2_002e90"></a>Exercise 2.90:</strong> Suppose we want to have a
 polynomial system that is efficient for both sparse and dense polynomials.  One
 way to do this is to allow both kinds of term-list representations in our
-system.  The situation is analogous to the complex-number example of 
+system.  The situation is analogous to the complex-number example of
 <a class="ref" href="2_002e4.xhtml#g_t2_002e4">Multiple Representations for Abstract Data</a>, where we allowed both rectangular and polar representations.  To do
 this we must distinguish different types of term lists and make the operations
 on term lists generic.  Redesign the polynomial system to implement this
@@ -1448,7 +1448,7 @@ polynomials works for polynomials in different variables.  (This is not easy!)
 <h4 class="subsubheading" id="Extended-exercise_003a-Rational-functions"><span>Extended exercise: Rational functions<a class="copiable-link" href="#Extended-exercise_003a-Rational-functions"> &#182;</a></span></h4>
 
 <p>We can extend our generic arithmetic system to include <a class="index-entry-id" id="index-rational-functions"></a>
-<em class="dfn">rational functions</em>.  
+<em class="dfn">rational functions</em>.
 These are &#8220;fractions&#8221; whose numerator and denominator are
 polynomials, such as
 <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
@@ -1970,7 +1970,7 @@ algebraic domain called a <a class="index-entry-id" id="index-Euclidean-ring"></
 <em class="dfn">Euclidean ring</em>.  A Euclidean ring is a
 domain that admits addition, subtraction, and commutative multiplication,
 together with a way of assigning to each element <em class="math">x</em> of the ring a positive
-integer &#8220;measure&#8221; <em class="math">{m(x)}</em> with the properties that 
+integer &#8220;measure&#8221; <em class="math">{m(x)}</em> with the properties that
 <em class="math">{m(xy) \ge m(x)}</em> for any nonzero <em class="math">x</em> and <em class="math">y</em> and that, given any <em class="math">x</em> and
 <em class="math">y</em>, there exists a <em class="math">q</em> such that <em class="math">{y = qx + r}</em> and either
 <em class="math">{r = 0}</em> or <em class="math">{m(r) &lt; m(x)}</em>.  From an abstract point of view, this

@@ -66,7 +66,7 @@ be maintained in structures called <a class="index-entry-id" id="index-environme
 <em class="dfn">bindings</em>, which associate variable names with
 their corresponding values.  (A single frame may contain at most one binding
 for any variable.)  Each frame also has a pointer to its <a class="index-entry-id" id="index-enclosing-environment"></a>
-<em class="dfn">enclosing environment</em>, 
+<em class="dfn">enclosing environment</em>,
 unless, for the purposes of discussion, the frame is considered
 to be <a class="index-entry-id" id="index-global-1"></a>
 <em class="dfn">global</em>.  The <a class="index-entry-id" id="index-value-of-a-variable"></a>
@@ -178,7 +178,7 @@ environment, evaluate the procedure body.
 </p>
 <p>To show how this rule is followed, <a class="ref" href="#Figure-3_002e3">Figure 3.3</a> illustrates the environment
 structure created by evaluating the expression <code class="code">square(5)</code> in the global
-environment, where <code class="code">square</code> is the procedure generated in <a class="ref" href="#Figure-3_002e2">Figure 3.2</a>.  
+environment, where <code class="code">square</code> is the procedure generated in <a class="ref" href="#Figure-3_002e2">Figure 3.2</a>.
 Applying the procedure results in the creation of a new environment,
 labeled E1 in the figure, that begins with a frame in which <code class="code">x</code>, the
 formal parameter for the procedure, is bound to the argument 5.  The pointer

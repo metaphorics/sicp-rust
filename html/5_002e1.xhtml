@@ -777,7 +777,7 @@ sequence of values has been <code class="code">save</code>d on the stack, a sequ
 machine&#8217;s data paths for each factorial subproblem.  There is a similar design
 issue in reusing the controller sequence that operates the data paths.  To
 reexecute the factorial computation, the controller cannot simply loop back to
-the beginning, as with an iterative process, because after solving the 
+the beginning, as with an iterative process, because after solving the
 <em class="math">{(n - 1)!}</em> subproblem the machine must still multiply the result by <em class="math">n</em>.  The
 controller must suspend its computation of <em class="math">{n!}</em>, solve the <em class="math">{(n - 1)!}</em>
 subproblem, then continue its computation of <em class="math">{n!}</em>.  This view of the

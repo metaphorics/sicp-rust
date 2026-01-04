@@ -51,7 +51,7 @@ which the basic operations for manipulating list-structured data are primitive.
 Postulating the existence of such a memory is a useful abstraction when one is
 focusing on the mechanisms of control in a Scheme interpreter, but this does
 not reflect a realistic view of the actual primitive data operations of
-contemporary computers.  To obtain a more complete picture of how a 
+contemporary computers.  To obtain a more complete picture of how a
 language implementation
 operates, we must investigate how list structure can be represented in a way
 that is compatible with conventional computer memories.
@@ -60,15 +60,15 @@ that is compatible with conventional computer memories.
 purely an issue of representation: how to represent the &#8220;box-and-pointer&#8221;
 structure of pairs, using only the storage and addressing capabilities of
 typical computer memories.  The second issue concerns the management of memory
-as a computation proceeds.  The operation of a dynamic language depends 
-crucially on the ability to continually create new data objects.  These include 
-objects that are explicitly created by the procedures being interpreted as well 
-as structures created by the interpreter itself, such as environments and 
-argument lists.  Although the constant creation of new data objects would pose 
+as a computation proceeds.  The operation of a dynamic language depends
+crucially on the ability to continually create new data objects.  These include
+objects that are explicitly created by the procedures being interpreted as well
+as structures created by the interpreter itself, such as environments and
+argument lists.  Although the constant creation of new data objects would pose
 no problem on a computer with an infinite amount of rapidly addressable memory,
-computer memories are available only in finite sizes (more&#8217;s the pity).  
+computer memories are available only in finite sizes (more&#8217;s the pity).
 Dynamic systems thus provide an <a class="index-entry-id" id="index-automatic-storage-allocation"></a>
-<em class="dfn">automatic storage allocation</em> facility 
+<em class="dfn">automatic storage allocation</em> facility
 to support the illusion of an infinite memory.  When a data object is no longer
 needed, the memory allocated to it is automatically recycled and used to
 construct new data objects.  There are various techniques for providing such
@@ -98,7 +98,7 @@ one application of such <a class="index-entry-id" id="index-address-arithmetic">
 <a class="index-entry-id" id="index-vector-1"></a>
 <em class="dfn">vector</em>.  Abstractly, a vector is a compound data object whose
 individual elements can be accessed by means of an integer index in an amount
-of time that is independent of the index.<a class="footnote" id="DOCF269" href="#FOOT269"><sup>269</sup></a> In order to describe memory operations, we use 
+of time that is independent of the index.<a class="footnote" id="DOCF269" href="#FOOT269"><sup>269</sup></a> In order to describe memory operations, we use
 standard Rust-like indexing for manipulating vectors:
 </p>
 <ul class="itemize mark-bullet">
@@ -112,7 +112,7 @@ standard Rust-like indexing for manipulating vectors:
 fifth entry in the vector <code class="code">v</code> and <code class="code">v[5] = 7</code> changes the
 value of the fifth entry of the vector <code class="code">v</code> to 7.<a class="footnote" id="DOCF270" href="#FOOT270"><sup>270</sup></a>  For computer memory, this access can
 be implemented through the use of address arithmetic to combine a <a class="index-entry-id" id="index-base-address"></a>
-<em class="dfn">base address</em> 
+<em class="dfn">base address</em>
 that specifies the beginning location of a vector in memory with an
 <a class="index-entry-id" id="index-index"></a>
 <em class="dfn">index</em> that specifies the offset of a particular element of the
@@ -136,7 +136,7 @@ enables the system to distinguish a pointer to a pair (which consists of the
 &#8220;pair&#8221; data type and an index into the memory vectors) from pointers to other
 kinds of data (which consist of some other data type and whatever is being used
 to represent data of that type).  Two data objects are considered to be the
-same (<code class="code">eq?</code>) if their pointers are identical.<a class="footnote" id="DOCF272" href="#FOOT272"><sup>272</sup></a> 
+same (<code class="code">eq?</code>) if their pointers are identical.<a class="footnote" id="DOCF272" href="#FOOT272"><sup>272</sup></a>
 <a class="ref" href="#Figure-5_002e14">Figure 5.14</a> illustrates the use of this method to
 represent the list <code class="code">((1 2) 3 4)</code>, whose box-and-pointer diagram is also
 shown.  We use letter prefixes to denote the data-type information.  Thus, a
@@ -220,7 +220,7 @@ vector, or adding two numbers) use only the index portion of the typed pointer.
 <p>if we implement these, respectively, as
 </p>
 <div class="example lisp">
-<pre class="lisp-preformatted">(assign ⟨<var class="var">reg₁</var>⟩ 
+<pre class="lisp-preformatted">(assign ⟨<var class="var">reg₁</var>⟩
         (op vector-ref)
         (reg the-cars)
         (reg ⟨<var class="var">reg₂</var>⟩))
@@ -293,11 +293,11 @@ check the type field.
 
 <p>Although our register machines use stacks, we need do nothing special here,
 since stacks can be modeled in terms of lists.  The stack can be a list of the
-saved values, pointed to by a special register <code class="code">the-stack</code>.  Thus, 
+saved values, pointed to by a special register <code class="code">the-stack</code>.  Thus,
 <code class="code">(save ⟨<var class="var">reg</var>⟩)</code> can be implemented as
 </p>
 <div class="example lisp">
-<pre class="lisp-preformatted">(assign the-stack 
+<pre class="lisp-preformatted">(assign the-stack
         (op cons)
         (reg ⟨<var class="var">reg</var>⟩)
         (reg the-stack))
@@ -394,7 +394,7 @@ available as machine primitives.
 </blockquote>
 
 <blockquote class="quotation">
-<p><strong class="strong"><a class="anchor" id="Exercise-5_002e22"></a>Exercise 5.22:</strong> <a class="ref" href="3_002e3.xhtml#Exercise-3_002e12">Exercise 3.12</a> of 
+<p><strong class="strong"><a class="anchor" id="Exercise-5_002e22"></a>Exercise 5.22:</strong> <a class="ref" href="3_002e3.xhtml#Exercise-3_002e12">Exercise 3.12</a> of
 <a class="ref" href="3_002e3.xhtml#g_t3_002e3_002e1">Mutable List Structure</a> presented an <code class="code">append</code> procedure that appends two lists to form
 a new list and an <code class="code">append!</code> procedure that splices two lists together.
 Design a register machine to implement each of these procedures.  Assume that
@@ -537,7 +537,7 @@ garbage collector.
   (assign free (const 0))
   (assign scan (const 0))
   (assign old (reg root))
-  (assign relocate-continue 
+  (assign relocate-continue
           (label reassign-root))
   (goto (label relocate-old-result-in-new))
 reassign-root
@@ -592,7 +592,7 @@ set up so that the subroutine will return to update the <code class="code">car</
 Label(&quot;gc-loop&quot;.into()),
 Test(Op(&quot;=&quot;.into(), vec![Reg(&quot;scan&quot;.into()), Reg(&quot;free&quot;.into())])),
 Branch(&quot;gc-flip&quot;.into()),
-Assign(&quot;old&quot;.into(), Op(&quot;vector-ref&quot;.into(), 
+Assign(&quot;old&quot;.into(), Op(&quot;vector-ref&quot;.into(),
     vec![Reg(&quot;new-cars&quot;.into()), Reg(&quot;scan&quot;.into())])),
 Assign(&quot;relocate-continue&quot;.into(), Label(&quot;update-car&quot;.into())),
 Goto(Label(&quot;relocate-old-result-in-new&quot;.into())),
@@ -642,7 +642,7 @@ with the main loop.
            (reg new-cars)
            (reg scan)
            (reg new))
-  (assign  old 
+  (assign  old
            (op vector-ref)
            (reg new-cdrs)
            (reg scan))
@@ -682,7 +682,7 @@ broken-heart tag and forwarding address at the old location.
   (assign new (reg old))
   (goto (reg relocate-continue))
 pair
-  (assign  oldcr 
+  (assign  oldcr
            (op vector-ref)
            (reg the-cars)
            (reg old))
@@ -696,7 +696,7 @@ pair
            (reg new-cars)
            (reg new)
            (reg oldcr))
-  (assign  oldcr 
+  (assign  oldcr
            (op vector-ref)
            (reg the-cdrs)
            (reg old))

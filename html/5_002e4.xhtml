@@ -45,7 +45,7 @@ Next: <a href="5_002e5.xhtml#g_t5_002e5" accesskey="n" rel="next">Compilation</a
 
 <p>In <a class="ref" href="5_002e1.xhtml#g_t5_002e1">Designing Register Machines</a> we saw how to transform simple Scheme programs into
 descriptions of register machines.  We will now perform this transformation on
-a more complex program, the metacircular evaluator of 
+a more complex program, the metacircular evaluator of
 <a class="ref" href="4_002e1.xhtml#g_t4_002e1_002e1">The Core of the Evaluator</a>&#8211;<a class="ref" href="4_002e1.xhtml#g_t4_002e1_002e4">Running the Evaluator as a Program</a>, which shows how the behavior of a Scheme interpreter
 can be described in terms of the procedures <code class="code">eval</code> and <code class="code">apply</code>. The
 <a class="index-entry-id" id="index-explicit_002dcontrol-evaluator"></a>
@@ -53,9 +53,9 @@ can be described in terms of the procedures <code class="code">eval</code> and <
 the underlying procedure-calling and argument-passing mechanisms used in the
 evaluation process can be described in terms of operations on registers and
 stacks.  In addition, the explicit-control evaluator can serve as an
-implementation of a dynamic language interpreter, written in a style that is 
+implementation of a dynamic language interpreter, written in a style that is
 very similar to the native machine language of conventional computers.  The
-evaluator can be executed by the register-machine simulator of 
+evaluator can be executed by the register-machine simulator of
 <a class="ref" href="5_002e2.xhtml#g_t5_002e2">A Register-Machine Simulator</a>.
 </p>
 <h4 class="subsubheading" id="Registers-and-operations"><span>Registers and operations<a class="copiable-link" href="#Registers-and-operations"> &#182;</a></span></h4>
@@ -317,12 +317,12 @@ application.<a class="footnote" id="DOCF283" href="#FOOT283"><sup>283</sup></a>
 </p>
 <div class="example lisp">
 <pre class="lisp-preformatted">ev_appl_last_arg
-  (assign continue 
+  (assign continue
           (label ev_appl_accum_last_arg))
   (goto (label eval_dispatch))
 ev_appl_accum_last_arg
   (restore argl)
-  (assign argl 
+  (assign argl
           (op adjoin_arg)
           (reg val)
           (reg argl))
@@ -398,7 +398,7 @@ forms the body of the procedure.  <code class="code">Ev-sequence</code>, describ
 </p>
 <div class="example lisp">
 <pre class="lisp-preformatted">compound_apply
-  (assign unev 
+  (assign unev
           (op procedure_parameters)
           (reg proc))
   (assign env
@@ -1077,7 +1077,7 @@ the <code class="code">if</code>.
   (assign continue (label ev_if_decide))
   (assign exp (op if_predicate) (reg exp))
   <span class="r">; evaluate the predicate:</span>
-  (goto (label eval_dispatch))  
+  (goto (label eval_dispatch))
 </pre></div>
 
 <p>When we return from evaluating the predicate, we test whether it was true or
@@ -1113,7 +1113,7 @@ assumed to be available as a machine operation.
 </p>
 <div class="example lisp">
 <pre class="lisp-preformatted">ev_assignment
-  (assign unev 
+  (assign unev
           (op assignment_variable)
           (reg exp))
   (save unev)   <span class="r">; save variable for later</span>
@@ -1125,7 +1125,7 @@ assumed to be available as a machine operation.
   (assign continue
           (label ev_assignment_1))
   <span class="r">; evaluate the assignment value:</span>
-  (goto (label eval_dispatch))  
+  (goto (label eval_dispatch))
 ev_assignment_1
   (restore continue)
   (restore env)
@@ -1143,18 +1143,18 @@ ev_assignment_1
 </p>
 <div class="example lisp">
 <pre class="lisp-preformatted">ev_definition
-  (assign unev 
+  (assign unev
           (op definition_variable)
           (reg exp))
   (save unev)   <span class="r">; save variable for later</span>
-  (assign exp 
+  (assign exp
           (op definition_value)
           (reg exp))
   (save env)
   (save continue)
   (assign continue (label ev_definition_1))
   <span class="r">; evaluate the definition value:</span>
-  (goto (label eval_dispatch))  
+  (goto (label eval_dispatch))
 ev_definition_1
   (restore continue)
   (restore env)
@@ -1169,7 +1169,7 @@ ev_definition_1
 
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-5_002e23"></a>Exercise 5.23:</strong> Extend the evaluator to handle
-derived expressions such as <code class="code">cond</code>, <code class="code">let</code>, and so on 
+derived expressions such as <code class="code">cond</code>, <code class="code">let</code>, and so on
 (<a class="ref" href="4_002e1.xhtml#g_t4_002e1_002e2">Representing Expressions</a>).  You may &#8220;cheat&#8221; and assume that the syntax transformers such
 as <code class="code">cond_to_if</code> are available as machine operations.<a class="footnote" id="DOCF288" href="#FOOT288"><sup>288</sup></a>
 </p></blockquote>
@@ -1235,14 +1235,14 @@ return to the driver loop.<a class="footnote" id="DOCF290" href="#FOOT290"><sup>
 </p>
 <div class="example lisp">
 <pre class="lisp-preformatted">unknown_expression_type
-  (assign 
+  (assign
    val
    (const unknown_expression_type_error))
   (goto (label signal_error))
 unknown_procedure_type
   <span class="r">; clean up stack (from <code class="code">apply_dispatch</code>):</span>
-  (restore continue)    
-  (assign 
+  (restore continue)
+  (assign
    val
    (const unknown_procedure_type_error))
   (goto (label signal_error))
@@ -1255,7 +1255,7 @@ signal_error
 the driver loop, since it might not be empty after an error (such as an
 undefined variable) interrupts an evaluation.<a class="footnote" id="DOCF291" href="#FOOT291"><sup>291</sup></a>
 </p>
-<p>If we combine all the code fragments presented in 
+<p>If we combine all the code fragments presented in
 <a class="ref" href="#g_t5_002e4_002e1">The Core of the Explicit-Control Evaluator</a>&#8211;<a class="ref" href="#g_t5_002e4_002e4">Running the Evaluator</a>, we can create an evaluator machine model that we can
 run using the register-machine simulator of <a class="ref" href="5_002e2.xhtml#g_t5_002e2">A Register-Machine Simulator</a>.
 </p>
@@ -1318,7 +1318,7 @@ design but also to monitor the performance of the simulated evaluator.  For
 example, one important factor in performance is how efficiently the evaluator
 uses the stack.  We can observe the number of stack operations required to
 evaluate various expressions by defining the evaluator register machine with
-the version of the simulator that collects statistics on stack use 
+the version of the simulator that collects statistics on stack use
 (<a class="ref" href="5_002e2.xhtml#g_t5_002e2_002e4">Monitoring Machine Performance</a>), and adding an instruction at the evaluator&#8217;s <code class="code">print_result</code>
 entry point to print the statistics:
 </p>
@@ -1391,7 +1391,7 @@ by two constants.
 </blockquote>
 
 <blockquote class="quotation">
-<p><strong class="strong"><a class="anchor" id="Exercise-5_002e27"></a>Exercise 5.27:</strong> For comparison with <a class="ref" href="#Exercise-5_002e26">Exercise 5.26</a>, 
+<p><strong class="strong"><a class="anchor" id="Exercise-5_002e27"></a>Exercise 5.27:</strong> For comparison with <a class="ref" href="#Exercise-5_002e26">Exercise 5.26</a>,
 explore the behavior of the following procedure for computing factorials
 recursively:
 </p>
@@ -1548,7 +1548,7 @@ well with the time used) grows exponentially with <em class="math">n</em>.  Hint
 should be able to argue that there is a formula that expresses <em class="math">{S(n)}</em> in
 terms of <em class="math">{S(n - 1)}</em>, <em class="math">{S(n - 2)}</em>, and some fixed &#8220;overhead&#8221;
 constant <em class="math">k</em> that is independent of <em class="math">n</em>.  Give the formula, and say what
-<em class="math">k</em> is.  Then show that <em class="math">{S(n)}</em> can be expressed as 
+<em class="math">k</em> is.  Then show that <em class="math">{S(n)}</em> can be expressed as
 <em class="math">{a\cdot\text{Fib}(n + 1) + b}</em> and give the values of <em class="math">a</em> and <em class="math">b</em>.
 
 </li></ol>

@@ -185,7 +185,7 @@ that we implement in this section will take advantage of this fact and generate
 code that evaluates the operator using the instruction
 </p>
 <div class="example lisp">
-<pre class="lisp-preformatted">(assign proc 
+<pre class="lisp-preformatted">(assign proc
         (op lookup_variable_value)
         (const f)
         (reg env))
@@ -307,8 +307,8 @@ expression is accomplished by evaluating the component expressions.
 <p>The simplest method for combining instruction sequences is a procedure called
 <code class="code">append_instruction_sequences</code>.  It takes as arguments any number of
 instruction sequences that are to be executed sequentially; it appends them and
-returns the combined sequence.  That is, if <em class="math">{⟨\kern0.1em seq_1⟩}</em> 
-and <em class="math">{⟨\kern0.1em seq_2⟩}</em> are sequences of instructions, then 
+returns the combined sequence.  That is, if <em class="math">{⟨\kern0.1em seq_1⟩}</em>
+and <em class="math">{⟨\kern0.1em seq_2⟩}</em> are sequences of instructions, then
 evaluating
 </p>
 <div class="example lisp">
@@ -357,7 +357,7 @@ Otherwise, <code class="code">preserving</code> simply returns the appended inst
 Thus, for example,
 <code class="code">(preserving (list ⟨<var class="var">reg₁</var>⟩ ⟨<var class="var">reg₂</var>⟩) ⟨<var class="var">seg₁</var>⟩ ⟨<var class="var">seg₂</var>⟩)</code>
 produces one of the following four sequences of instructions, depending on how
-<em class="math">{⟨\kern0.1em seq_1⟩}</em> and <em class="math">{⟨\kern0.1em seq_2⟩}</em> 
+<em class="math">{⟨\kern0.1em seq_1⟩}</em> and <em class="math">{⟨\kern0.1em seq_2⟩}</em>
 use <em class="math">{⟨\kern0.1em reg_1⟩}</em> and <em class="math">{⟨\kern0.1em reg_2⟩}</em>:
 <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
   <mtable columnalign="left left left left" columnspacing="1em" rowspacing="4pt" columnlines="solid solid solid">
@@ -779,7 +779,7 @@ therefore be constructed as
 <pre class="lisp-preformatted">// In Rust, we use InstructionSeq::empty()
 </pre></div>
 
-<p>The procedures for combining instruction sequences are shown in 
+<p>The procedures for combining instruction sequences are shown in
 <a class="ref" href="#g_t5_002e5_002e4">Combining Instruction Sequences</a>.
 </p>
 <blockquote class="quotation">
@@ -1046,16 +1046,16 @@ would cause the previous contents of <code class="code">val</code> to be restore
 has the form
 </p>
 <div class="example">
-<pre class="example-preformatted">⟨<em class="emph">compilation of predicate, 
+<pre class="example-preformatted">⟨<em class="emph">compilation of predicate,
  target val, linkage next</em>⟩
 Test(Op(&quot;is-false&quot;.into(), vec![Reg(Val)])),
 Branch(&quot;false-branch&quot;.into()),
 // true-branch
-⟨<em class="emph">compilation of consequent with given 
+⟨<em class="emph">compilation of consequent with given
   target and given linkage or after-if</em>⟩
 // false-branch
 Label(&quot;false-branch&quot;.into()),
-⟨<em class="emph">compilation of alternative 
+⟨<em class="emph">compilation of alternative
   with given target and linkage</em>⟩
 // after-if
 Label(&quot;after-if&quot;.into()),
@@ -1155,11 +1155,11 @@ for the false branch to the label at the end of the conditional.
 the true and false branches, and <code class="code">continue</code> is preserved because it could
 be needed by the linkage code in those branches.  The code for the true and
 false branches (which are not executed sequentially) is appended using a
-special combiner <code class="code">parallel_instruction_sequences</code> described in 
+special combiner <code class="code">parallel_instruction_sequences</code> described in
 <a class="ref" href="#g_t5_002e5_002e4">Combining Instruction Sequences</a>.
 </p>
 <p>Note that <code class="code">cond</code> is a derived expression, so all that the compiler needs
-to do handle it is to apply the <code class="code">cond_to_if</code> transformer (from 
+to do handle it is to apply the <code class="code">cond_to_if</code> transformer (from
 <a class="ref" href="4_002e1.xhtml#g_t4_002e1_002e2">Representing Expressions</a>) and compile the resulting <code class="code">if</code> expression.
 </p>
 <h4 class="subsubheading" id="Compiling-sequences"><span>Compiling sequences<a class="copiable-link" href="#Compiling-sequences"> &#182;</a></span></h4>
@@ -1195,7 +1195,7 @@ linkage at the end of the sequence) are preserved.
 <code class="code">lambda</code> expression must have the form
 </p>
 <div class="example lisp">
-<pre class="lisp-preformatted">⟨<em class="emph">construct procedure object 
+<pre class="lisp-preformatted">⟨<em class="emph">construct procedure object
  and assign it to target register</em>⟩
 ⟨<var class="var">linkage</var>⟩
 </pre></div>
@@ -1210,9 +1210,9 @@ using a linkage that jumps to a label that is inserted after the body.  The
 object code thus has the form
 </p>
 <div class="example lisp">
-<pre class="lisp-preformatted">⟨<em class="emph">construct procedure object 
+<pre class="lisp-preformatted">⟨<em class="emph">construct procedure object
  and assign it to target register</em>⟩
- ⟨<em class="emph">code for given linkage</em>⟩ <em class="emph">or</em> 
+ ⟨<em class="emph">code for given linkage</em>⟩ <em class="emph">or</em>
   <code class="code">(goto (label after_lambda))</code>
  ⟨<em class="emph">compilation of procedure body</em>⟩
 after_lambda
@@ -1341,11 +1341,11 @@ applications.  The code for a combination compiled with a given target and
 linkage has the form
 </p>
 <div class="example lisp">
-<pre class="lisp-preformatted">⟨<em class="emph">compilation of operator, 
+<pre class="lisp-preformatted">⟨<em class="emph">compilation of operator,
  target <code class="code">proc</code>, linkage <code class="code">next</code></em>⟩
-⟨<em class="emph">evaluate operands and construct 
+⟨<em class="emph">evaluate operands and construct
  argument list in <code class="code">argl</code></em>⟩
-⟨<em class="emph">compilation of procedure call 
+⟨<em class="emph">compilation of procedure call
  with given target and linkage</em>⟩
 </pre></div>
 
@@ -1525,11 +1525,11 @@ procedures.  The procedure-application code has the following form:
 <pre class="example-preformatted">Test(Op(&quot;is-primitive-procedure&quot;.into(), vec![Reg(Proc)])),
 Branch(&quot;primitive-branch&quot;.into()),
 // compiled-branch
-⟨<em class="emph">code to apply compiled procedure 
+⟨<em class="emph">code to apply compiled procedure
   with given target and appropriate linkage</em>⟩
 // primitive-branch
 Label(&quot;primitive-branch&quot;.into()),
-Assign(target, Op(&quot;apply-primitive-procedure&quot;.into(), 
+Assign(target, Op(&quot;apply-primitive-procedure&quot;.into(),
     vec![Reg(Proc), Reg(Argl)])),
 ⟨<var class="var">linkage</var>⟩
 Label(&quot;after-call&quot;.into()),
@@ -1639,14 +1639,14 @@ might expect the code for a compiled-procedure application (to be generated by
 the linkage is a label
 </p>
 <div class="example lisp">
-<pre class="lisp-preformatted">(assign continue 
+<pre class="lisp-preformatted">(assign continue
         (label proc_return))
  (assign val
          (op compiled_procedure_entry)
          (reg proc))
  (goto (reg val))
 proc_return
- (assign ⟨<var class="var">target</var>⟩ 
+ (assign ⟨<var class="var">target</var>⟩
          (reg val))   <span class="r">; included if target is not <code class="code">val</code></span>
  (goto (label ⟨<var class="var">linkage</var>⟩))   <span class="r">; linkage code</span>
 </pre></div>
@@ -1655,9 +1655,9 @@ proc_return
 </p>
 <div class="example lisp">
 <pre class="lisp-preformatted">(save continue)
- (assign continue 
+ (assign continue
          (label proc_return))
- (assign val 
+ (assign val
          (op compiled_procedure_entry)
          (reg proc))
  (goto (reg val))
@@ -1687,7 +1687,7 @@ specified by the caller&#8217;s linkage:
 </p>
 <div class="example lisp">
 <pre class="lisp-preformatted">⟨<em class="emph">set up <code class="code">continue</code> for linkage</em>⟩
-(assign val 
+(assign val
         (op compiled_procedure_entry)
         (reg proc))
 (goto (reg val))
@@ -1699,7 +1699,7 @@ ends with becomes equivalent to the <code class="code">(goto (label ⟨<var clas
 <code class="code">proc_return</code> above.)
 </p>
 <div class="example lisp">
-<pre class="lisp-preformatted">(assign continue 
+<pre class="lisp-preformatted">(assign continue
         (label ⟨<var class="var">linkage</var>⟩))
 (assign val
         (op compiled_procedure_entry)
@@ -1913,7 +1913,7 @@ fn append_sequences(seqs: Vec&lt;InstructionSeq&gt;) -&gt; InstructionSeq {
 </pre></div>
 
 <p>This procedure uses some simple operations for manipulating sets represented as
-lists, similar to the (unordered) set representation described in 
+lists, similar to the (unordered) set representation described in
 <a class="ref" href="2_002e3.xhtml#g_t2_002e3_002e3">Example: Representing Sets</a>:
 </p>
 <div class="example lisp">
@@ -2069,7 +2069,7 @@ linkage code in this case.  The skeleton of the compiled code is thus
 </p>
 <div class="example">
 <pre class="example-preformatted">⟨<em class="emph">save env if modified by code to compute value</em>⟩
-  ⟨<em class="emph">compilation of definition value, 
+  ⟨<em class="emph">compilation of definition value,
    target val, linkage next</em>⟩
   ⟨<em class="emph">restore env if saved above</em>⟩
   Perform(Op(&quot;define-variable&quot;.into(),
@@ -2111,7 +2111,7 @@ Label(&quot;entry2&quot;.into()),
 Label(&quot;after-lambda1&quot;.into()),
   Perform(Op(&quot;define-variable&quot;.into(),
            vec![VExp::Const(Value::Symbol(&quot;factorial&quot;.into())),
-                VExp::Reg(Register::Val), 
+                VExp::Reg(Register::Val),
                 VExp::Reg(Register::Env)])),
   Assign(Register::Val, VExp::Const(Value::Ok))
 </pre></div>
@@ -2140,19 +2140,19 @@ value of the conditional, which is the value computed by either of its
 branches, is the value of the procedure.)
 </p>
 <div class="example">
-<pre class="example-preformatted">⟨<em class="emph">save continue, env if modified by 
+<pre class="example-preformatted">⟨<em class="emph">save continue, env if modified by
  predicate and needed by branches</em>⟩
-  ⟨<em class="emph">compilation of predicate, 
+  ⟨<em class="emph">compilation of predicate,
    target val, linkage next</em>⟩
   ⟨<em class="emph">restore continue, env if saved above</em>⟩
   Test(Op(&quot;is-false&quot;.into(), vec![Reg(Val)])),
   Branch(&quot;false-branch4&quot;.into()),
 // true-branch5
-  ⟨<em class="emph">compilation of true branch, 
+  ⟨<em class="emph">compilation of true branch,
    target val, linkage return</em>⟩
 // false-branch4
 Label(&quot;false-branch4&quot;.into()),
-  ⟨<em class="emph">compilation of false branch, 
+  ⟨<em class="emph">compilation of false branch,
    target val, linkage return</em>⟩
 Label(&quot;after-if3&quot;.into()),
 </pre></div>
@@ -2191,7 +2191,7 @@ the registers in question.
 </p>
 <div class="example">
 <pre class="example-preformatted">  Assign(Proc, Op(&quot;lookup-variable-value&quot;.into(),
-               vec![VExp::Const(Value::Symbol(&quot;=&quot;.into())), 
+               vec![VExp::Const(Value::Symbol(&quot;=&quot;.into())),
                     VExp::Reg(Env)])),
   Assign(Val, VExp::Const(Value::Number(1))),
   Assign(Argl, Op(&quot;list&quot;.into(), vec![VExp::Reg(Val)])),
@@ -2240,23 +2240,23 @@ procedure call in the predicate and needed for the procedure call and the
 <div class="example">
 <pre class="example-preformatted">vec![
     // construct the procedure and skip over code
-    Assign(Val, Op(&quot;make-compiled-procedure&quot;.into(), 
+    Assign(Val, Op(&quot;make-compiled-procedure&quot;.into(),
         vec![Label(&quot;entry2&quot;.into()), Reg(Env)])),
     Goto(Label(&quot;after-lambda1&quot;.into())),
 // entry2
 Label(&quot;entry2&quot;.into()),
     Assign(Env, Op(&quot;compiled-procedure-env&quot;.into(), vec![Reg(Proc)])),
-    Assign(Env, Op(&quot;extend-environment&quot;.into(), 
+    Assign(Env, Op(&quot;extend-environment&quot;.into(),
         vec![Const(Symbol(&quot;n&quot;.into())), Reg(Argl), Reg(Env)])),
     // begin actual procedure body
     Save(Continue),
     Save(Env),
     // compute (= n 1)
-    Assign(Proc, Op(&quot;lookup-variable-value&quot;.into(), 
+    Assign(Proc, Op(&quot;lookup-variable-value&quot;.into(),
         vec![Const(Symbol(&quot;=&quot;.into())), Reg(Env)])),
     Assign(Val, Const(1)),
     Assign(Argl, Op(&quot;list&quot;.into(), vec![Reg(Val)])),
-    Assign(Val, Op(&quot;lookup-variable-value&quot;.into(), 
+    Assign(Val, Op(&quot;lookup-variable-value&quot;.into(),
         vec![Const(Symbol(&quot;n&quot;.into())), Reg(Env)])),
     Assign(Argl, Op(&quot;cons&quot;.into(), vec![Reg(Val), Reg(Argl)])),
     Test(Op(&quot;is-primitive-procedure&quot;.into(), vec![Reg(Proc)])),
@@ -2268,7 +2268,7 @@ Label(&quot;compiled-branch16&quot;.into()),
     Goto(Reg(Val)),
 // primitive-branch17
 Label(&quot;primitive-branch17&quot;.into()),
-    Assign(Val, Op(&quot;apply-primitive-procedure&quot;.into(), 
+    Assign(Val, Op(&quot;apply-primitive-procedure&quot;.into(),
         vec![Reg(Proc), Reg(Argl)])),
 // after-call15
 Label(&quot;after-call15&quot;.into()),
@@ -2283,24 +2283,24 @@ Label(&quot;true-branch5&quot;.into()),
 // false-branch4
 Label(&quot;false-branch4&quot;.into()),
     // compute (* (factorial (- n 1)) n)
-    Assign(Proc, Op(&quot;lookup-variable-value&quot;.into(), 
+    Assign(Proc, Op(&quot;lookup-variable-value&quot;.into(),
         vec![Const(Symbol(&quot;*&quot;.into())), Reg(Env)])),
     Save(Continue),
     Save(Proc),
-    Assign(Val, Op(&quot;lookup-variable-value&quot;.into(), 
+    Assign(Val, Op(&quot;lookup-variable-value&quot;.into(),
         vec![Const(Symbol(&quot;n&quot;.into())), Reg(Env)])),
     Assign(Argl, Op(&quot;list&quot;.into(), vec![Reg(Val)])),
     Save(Argl),
     // compute (factorial (- n 1))
-    Assign(Proc, Op(&quot;lookup-variable-value&quot;.into(), 
+    Assign(Proc, Op(&quot;lookup-variable-value&quot;.into(),
         vec![Const(Symbol(&quot;factorial&quot;.into())), Reg(Env)])),
     Save(Proc),
     // compute (- n 1)
-    Assign(Proc, Op(&quot;lookup-variable-value&quot;.into(), 
+    Assign(Proc, Op(&quot;lookup-variable-value&quot;.into(),
         vec![Const(Symbol(&quot;-&quot;.into())), Reg(Env)])),
     Assign(Val, Const(1)),
     Assign(Argl, Op(&quot;list&quot;.into(), vec![Reg(Val)])),
-    Assign(Val, Op(&quot;lookup-variable-value&quot;.into(), 
+    Assign(Val, Op(&quot;lookup-variable-value&quot;.into(),
         vec![Const(Symbol(&quot;n&quot;.into())), Reg(Env)])),
     Assign(Argl, Op(&quot;cons&quot;.into(), vec![Reg(Val), Reg(Argl)])),
     Test(Op(&quot;is-primitive-procedure&quot;.into(), vec![Reg(Proc)])),
@@ -2312,7 +2312,7 @@ Label(&quot;compiled-branch7&quot;.into()),
     Goto(Reg(Val)),
 // primitive-branch8
 Label(&quot;primitive-branch8&quot;.into()),
-    Assign(Val, Op(&quot;apply-primitive-procedure&quot;.into(), 
+    Assign(Val, Op(&quot;apply-primitive-procedure&quot;.into(),
         vec![Reg(Proc), Reg(Argl)])),
 // after-call6
 Label(&quot;after-call6&quot;.into()),
@@ -2327,7 +2327,7 @@ Label(&quot;compiled-branch10&quot;.into()),
     Goto(Reg(Val)),
 // primitive-branch11
 Label(&quot;primitive-branch11&quot;.into()),
-    Assign(Val, Op(&quot;apply-primitive-procedure&quot;.into(), 
+    Assign(Val, Op(&quot;apply-primitive-procedure&quot;.into(),
         vec![Reg(Proc), Reg(Argl)])),
 // after-call9
 Label(&quot;after-call9&quot;.into()),
@@ -2344,12 +2344,12 @@ Label(&quot;compiled-branch13&quot;.into()),
     Goto(Reg(Val)),
 // primitive-branch14
 Label(&quot;primitive-branch14&quot;.into()),
-    Assign(Val, Op(&quot;apply-primitive-procedure&quot;.into(), 
+    Assign(Val, Op(&quot;apply-primitive-procedure&quot;.into(),
         vec![Reg(Proc), Reg(Argl)])),
     Goto(Reg(Continue)),
 // after-call12, after-if3, after-lambda1
 Label(&quot;after-lambda1&quot;.into()),
-    Perform(Op(&quot;define-variable&quot;.into(), 
+    Perform(Op(&quot;define-variable&quot;.into(),
         vec![Const(Symbol(&quot;factorial&quot;.into())), Reg(Val), Reg(Env)])),
     Assign(Val, Const(Value::Ok)),
 ]
@@ -2408,25 +2408,25 @@ produce the code shown in <a class="ref" href="#Figure-5_002e18">Figure 5.18</a>
 </p>
 <div class="example lisp">
 <pre class="lisp-preformatted">vec![
-    Assign(Val, Op(&quot;make-compiled-procedure&quot;.into(), 
+    Assign(Val, Op(&quot;make-compiled-procedure&quot;.into(),
         vec![Label(&quot;entry16&quot;.into()), Reg(Env)])),
     Goto(Label(&quot;after-lambda15&quot;.into())),
 // entry16
 Label(&quot;entry16&quot;.into()),
     Assign(Env, Op(&quot;compiled-procedure-env&quot;.into(), vec![Reg(Proc)])),
-    Assign(Env, Op(&quot;extend-environment&quot;.into(), 
+    Assign(Env, Op(&quot;extend-environment&quot;.into(),
         vec![Const(Value::Symbol(&quot;x&quot;.into())), Reg(Argl), Reg(Env)])),
-    Assign(Proc, Op(&quot;lookup-variable-value&quot;.into(), 
+    Assign(Proc, Op(&quot;lookup-variable-value&quot;.into(),
         vec![Const(Value::Symbol(&quot;+&quot;.into())), Reg(Env)])),
     Save(Continue), Save(Proc), Save(Env),
-    Assign(Proc, Op(&quot;lookup-variable-value&quot;.into(), 
+    Assign(Proc, Op(&quot;lookup-variable-value&quot;.into(),
         vec![Const(Value::Symbol(&quot;g&quot;.into())), Reg(Env)])),
     Save(Proc),
-    Assign(Proc, Op(&quot;lookup-variable-value&quot;.into(), 
+    Assign(Proc, Op(&quot;lookup-variable-value&quot;.into(),
         vec![Const(Value::Symbol(&quot;+&quot;.into())), Reg(Env)])),
     Assign(Val, Const(Value::Number(2))),
     Assign(Argl, Op(&quot;list&quot;.into(), vec![Reg(Val)])),
-    Assign(Val, Op(&quot;lookup-variable-value&quot;.into(), 
+    Assign(Val, Op(&quot;lookup-variable-value&quot;.into(),
         vec![Const(Value::Symbol(&quot;x&quot;.into())), Reg(Env)])),
     Assign(Argl, Op(&quot;cons&quot;.into(), vec![Reg(Val), Reg(Argl)])),
     Test(Op(&quot;is-primitive-procedure&quot;.into(), vec![Reg(Proc)])),
@@ -2457,7 +2457,7 @@ Label(&quot;primitive-branch22&quot;.into()),
 Label(&quot;after-call20&quot;.into()),
     Assign(Argl, Op(&quot;list&quot;.into(), vec![Reg(Val)])),
     Restore(Env),
-    Assign(Val, Op(&quot;lookup-variable-value&quot;.into(), 
+    Assign(Val, Op(&quot;lookup-variable-value&quot;.into(),
         vec![Const(Value::Symbol(&quot;x&quot;.into())), Reg(Env)])),
     Assign(Argl, Op(&quot;cons&quot;.into(), vec![Reg(Val), Reg(Argl)])),
     Restore(Proc),
@@ -2474,7 +2474,7 @@ Label(&quot;primitive-branch25&quot;.into()),
     Goto(Reg(Continue)),
 // after-call23
 Label(&quot;after-lambda15&quot;.into()),
-    Perform(Op(&quot;define-variable&quot;.into(), 
+    Perform(Op(&quot;define-variable&quot;.into(),
         vec![Const(Value::Symbol(&quot;f&quot;.into())), Reg(Val), Reg(Env)])),
     Assign(Val, Const(Value::Ok)),
 ]
@@ -2522,8 +2522,8 @@ use these primitive machine operations.  The expression <code class="code">(+ a 
 compiled into something as simple as<a class="footnote" id="DOCF303" href="#FOOT303"><sup>303</sup></a>
 </p>
 <div class="example lisp">
-<pre class="lisp-preformatted">(assign val (op lookup_variable_value) 
-            (const a) 
+<pre class="lisp-preformatted">(assign val (op lookup_variable_value)
+            (const a)
             (reg env))
 (assign val (op +)
             (reg val)
@@ -2634,7 +2634,7 @@ frame.
 <code class="code">lexical_address_lookup</code>, that takes as arguments an environment and a
 <a class="index-entry-id" id="index-lexical-address"></a>
 <em class="dfn">lexical address</em> that consists of two numbers: a <a class="index-entry-id" id="index-frame-number"></a>
-<em class="dfn">frame number</em>, 
+<em class="dfn">frame number</em>,
 which specifies how many frames to pass over, and a
 <a class="index-entry-id" id="index-displacement-number"></a>
 <em class="dfn">displacement number</em>, which specifies how many variables to pass over
@@ -2747,7 +2747,7 @@ this section.
 that internal definitions for block structure should not be considered &#8220;real&#8221;
 definitions.  Rather, a procedure body should be interpreted as if the
 internal variables being defined were installed as ordinary <code class="code">lambda</code>
-variables initialized to their correct values using <code class="code">set!</code>.  
+variables initialized to their correct values using <code class="code">set!</code>.
 <a class="ref" href="4_002e1.xhtml#g_t4_002e1_002e6">Internal Definitions</a> and <a class="ref" href="4_002e1.xhtml#Exercise-4_002e16">Exercise 4.16</a> showed how to modify the metacircular
 interpreter to accomplish this by scanning out internal definitions.  Modify
 the compiler to perform the same transformation before it compiles a procedure
@@ -2857,7 +2857,7 @@ is set.
 </p>
 <div class="example lisp">
 <pre class="lisp-preformatted"><span class="r">;; branches if <code class="code">flag</code> is set:</span>
-(branch (label external_entry)) 
+(branch (label external_entry))
 read_eval_print_loop
   (perform (op initialize_stack))
   <span class="r">…</span>
@@ -2894,7 +2894,7 @@ register-machine simulator (<a class="ref" href="5_002e2.xhtml#g_t5_002e2_002e2"
     let seq = compile(expression, Register::Val, &amp;Linkage::Return);
     // In our Rust implementation, we compile directly to ResolvedInst
     let instructions = assemble(seq.statements, ...);
-    
+
     println!(&quot;Compiled {} instructions&quot;, instructions.len());
 }
 </pre></div>
@@ -2921,7 +2921,7 @@ compile_and_go(&amp;expr, &amp;mut machine);
 </pre></div>
 
 <p>Compare this example with the evaluation of <code class="code">(factorial 5)</code> using the
-interpreted version of the same procedure, shown at the end of 
+interpreted version of the same procedure, shown at the end of
 <a class="ref" href="5_002e4.xhtml#g_t5_002e4_002e4">Running the Evaluator</a>.  The interpreted version required 144 pushes and a maximum stack
 depth of 28.  This illustrates the optimization that results from our
 compilation strategy.
@@ -2951,7 +2951,7 @@ machine by first compiling it with the compiler running on our original Lisp
 system, and linking it with a compiled version of the run-time
 library.<a class="footnote" id="DOCF311" href="#FOOT311"><sup>311</sup></a> Better yet, we can
 compile the compiler itself, and run this on the new machine to compile other
-Lisp programs.<a class="footnote" id="DOCF312" href="#FOOT312"><sup>312</sup></a>  Or we can compile one of the interpreters of 
+Lisp programs.<a class="footnote" id="DOCF312" href="#FOOT312"><sup>312</sup></a>  Or we can compile one of the interpreters of
 <a class="ref" href="4_002e1.xhtml#g_t4_002e1">The Metacircular Evaluator</a> to produce an interpreter that runs on the new machine.
 </p>
 <blockquote class="quotation">
@@ -3092,7 +3092,7 @@ storage-allocation routines and other run-time support.
 </p></blockquote>
 
 <blockquote class="quotation">
-<p><strong class="strong"><a class="anchor" id="Exercise-5_002e52"></a>Exercise 5.52:</strong> As a counterpoint to 
+<p><strong class="strong"><a class="anchor" id="Exercise-5_002e52"></a>Exercise 5.52:</strong> As a counterpoint to
 <a class="ref" href="#Exercise-5_002e51">Exercise 5.51</a>, modify the compiler so that it compiles Scheme procedures
 into sequences of C instructions.  Compile the metacircular evaluator of
 <a class="ref" href="4_002e1.xhtml#g_t4_002e1">The Metacircular Evaluator</a> to produce a Scheme interpreter written in C.
@@ -3138,25 +3138,25 @@ is much like quoting it, except that anything in the list that is flagged with
 a comma is evaluated.
 </p>
 <p>For example, if the value of <code class="code">linkage</code> is the symbol <code class="code">branch25</code>,
-then the expression 
+then the expression
 </p>
 <div class="example lisp">
 <pre class="lisp-preformatted">`((goto (label ,linkage)))
 </pre></div>
 
-<p>evaluates to the list 
-</p>	
-<div class="example lisp">
-<pre class="lisp-preformatted">((goto (label branch25))) 
-</pre></div>
-
-<p>Similarly, if the value of <code class="code">x</code> is the list <code class="code">(a b c)</code>, then 
+<p>evaluates to the list
 </p>
 <div class="example lisp">
-<pre class="lisp-preformatted">`(1 2 ,(car x)) 
+<pre class="lisp-preformatted">((goto (label branch25)))
 </pre></div>
 
-<p>evaluates to the list 
+<p>Similarly, if the value of <code class="code">x</code> is the list <code class="code">(a b c)</code>, then
+</p>
+<div class="example lisp">
+<pre class="lisp-preformatted">`(1 2 ,(car x))
+</pre></div>
+
+<p>evaluates to the list
 </p>
 <div class="example lisp">
 <pre class="lisp-preformatted">(1 2 a)

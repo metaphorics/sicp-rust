@@ -46,7 +46,7 @@ Next: <a href="4_002e4.xhtml#g_t4_002e4" accesskey="n" rel="next">Logic Programm
 paradigm called <a class="index-entry-id" id="index-nondeterministic-computing-1"></a>
 <em class="dfn">nondeterministic computing</em> by building into the
 evaluator a facility to support automatic search.  This is a much more profound
-change to the language than the introduction of lazy evaluation in 
+change to the language than the introduction of lazy evaluation in
 <a class="ref" href="4_002e2.xhtml#g_t4_002e2">Variations on a Scheme &#8212; Lazy Evaluation</a>.
 </p>
 <p>Nondeterministic computing, like stream processing, is useful for &#8220;generate
@@ -126,8 +126,8 @@ prime_sum_pair(&amp;[1, 3, 5, 8], &amp;[20, 35, 110])
 from each of the lists, until a successful choice was made.
 </p>
 <p>Section <a class="ref" href="#g_t4_002e3_002e1">Amb and Search</a> introduces <code class="code">amb</code> and explains how it supports
-nondeterminism through the evaluator&#8217;s automatic search mechanism.  
-<a class="ref" href="#g_t4_002e3_002e2">Examples of Nondeterministic Programs</a> presents examples of nondeterministic programs, and 
+nondeterminism through the evaluator&#8217;s automatic search mechanism.
+<a class="ref" href="#g_t4_002e3_002e2">Examples of Nondeterministic Programs</a> presents examples of nondeterministic programs, and
 <a class="ref" href="#g_t4_002e3_002e3">Implementing the <code class="code">Amb</code> Evaluator</a> gives the details of how to implement the <code class="code">amb</code> evaluator by
 modifying the ordinary Scheme evaluator.
 </p>
@@ -231,7 +231,7 @@ systematic search as follows: When the evaluator encounters an application of
 <code class="code">amb</code>, it initially selects the first alternative.  This selection may
 itself lead to a further choice.  The evaluator will always initially choose
 the first alternative at each choice point.  If a choice results in a failure,
-then the evaluator automagically<a class="footnote" id="DOCF231" href="#FOOT231"><sup>231</sup></a> 
+then the evaluator automagically<a class="footnote" id="DOCF231" href="#FOOT231"><sup>231</sup></a>
 <a class="index-entry-id" id="index-backtracks"></a>
 <em class="dfn">backtracks</em> to the most
 recent choice point and tries the next alternative.  If it runs out of
@@ -762,7 +762,7 @@ explain the differences in shades of meaning among them.
 </p></blockquote>
 
 <blockquote class="quotation">
-<p><strong class="strong"><a class="anchor" id="Exercise-4_002e46"></a>Exercise 4.46:</strong> The evaluators in 
+<p><strong class="strong"><a class="anchor" id="Exercise-4_002e46"></a>Exercise 4.46:</strong> The evaluators in
 <a class="ref" href="4_002e1.xhtml#g_t4_002e1">The Metacircular Evaluator</a> and <a class="ref" href="4_002e2.xhtml#g_t4_002e2">Variations on a Scheme &#8212; Lazy Evaluation</a> do not determine what order operands are evaluated in.
 We will see that the <code class="code">amb</code> evaluator evaluates them from left to right.
 Explain why our parsing program wouldn&#8217;t work if the operands were evaluated in
@@ -1528,7 +1528,7 @@ expressions.  Complete the following definition of <code class="code">analyze-re
 procedure <code class="code">is_prime</code> that tests whether numbers are prime.  Even with
 <code class="code">is_prime</code> defined, the <code class="code">prime-sum-pair</code> procedure may look
 suspiciously like the unhelpful &#8220;pseudo-Lisp&#8221; attempt to define the
-square-root function, which we described at the beginning of 
+square-root function, which we described at the beginning of
 <a class="ref" href="1_002e1.xhtml#g_t1_002e1_002e7">Example: Square Roots by Newton&#8217;s Method</a>.  In fact, a square-root procedure along those lines can actually
 be formulated as a nondeterministic program.  By incorporating a search
 mechanism into the evaluator, we are eroding the distinction between purely
@@ -1561,7 +1561,7 @@ in a way which, for some reason (typically because it is too complicated, or
 too ugly, or perhaps even too trivial), the speaker doesn&#8217;t feel like
 explaining.&#8221;  (<a class="ref" href="References.xhtml#Steele-et-al_002e-1983">Steele et al. 1983</a>, <a class="ref" href="References.xhtml#Raymond-1993">Raymond 1993</a>)</p>
 <h5 class="footnote-body-heading"><a id="FOOT232" href="#DOCF232">(232)</a></h5>
-<p>The integration of 
+<p>The integration of
 automatic search strategies into programming languages has had a long and
 checkered history.  The first suggestions that nondeterministic algorithms
 might be elegantly encoded in a programming language with search and automatic
@@ -1575,7 +1575,7 @@ proving, led to the genesis in Edinburgh and Marseille of the elegant language
 Prolog (which we will discuss in <a class="ref" href="4_002e4.xhtml#g_t4_002e4">Logic Programming</a>).  After sufficient
 frustration with automatic search, <a class="ref" href="References.xhtml#McDermott-and-Sussman-_00281972_0029">McDermott and Sussman (1972)</a> developed a
 language called Conniver, which included mechanisms for placing the search
-strategy under programmer control.  This proved unwieldy, however, and <a class="ref" href="References.xhtml#Sussman-and-Stallman-1975">Sussman and Stallman 1975</a> 
+strategy under programmer control.  This proved unwieldy, however, and <a class="ref" href="References.xhtml#Sussman-and-Stallman-1975">Sussman and Stallman 1975</a>
 found a more tractable approach while investigating methods
 of symbolic analysis for electrical circuits.  They developed a
 non-chronological backtracking scheme that was based on tracing out the logical
@@ -1589,7 +1589,7 @@ search that is now called <a class="index-entry-id" id="index-truth-maintenance"
 <em class="dfn">truth maintenance</em>.  Modern problem-solving
 systems all use some form of truth-maintenance system as a substrate.  See
 <a class="ref" href="References.xhtml#Forbus-and-deKleer-1993">Forbus and deKleer 1993</a> for a discussion of elegant ways to build
-truth-maintenance systems and applications using truth maintenance.  
+truth-maintenance systems and applications using truth maintenance.
 <a class="ref" href="References.xhtml#Zabih-et-al_002e-1987">Zabih et al. 1987</a> describes a nondeterministic extension to Scheme
 that is based on <code class="code">amb</code>; it is similar to the interpreter described in this
 section, but more sophisticated, because it uses dependency-directed
@@ -1651,7 +1651,7 @@ for a way to deal with this.</p>
 <p>We chose to
 implement the lazy evaluator in <a class="ref" href="4_002e2.xhtml#g_t4_002e2">Variations on a Scheme &#8212; Lazy Evaluation</a> as a modification of the
 ordinary metacircular evaluator of <a class="ref" href="4_002e1.xhtml#g_t4_002e1_002e1">The Core of the Evaluator</a>.  In contrast, we will
-base the <code class="code">amb</code> evaluator on the analyzing evaluator of 
+base the <code class="code">amb</code> evaluator on the analyzing evaluator of
 <a class="ref" href="4_002e1.xhtml#g_t4_002e1_002e7">Separating Syntactic Analysis from Execution</a>, because the execution procedures in that evaluator provide a
 convenient framework for implementing backtracking.</p>
 <h5 class="footnote-body-heading"><a id="FOOT241" href="#DOCF241">(241)</a></h5>

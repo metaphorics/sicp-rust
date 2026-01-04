@@ -591,7 +591,7 @@ pointer to the end.
 <p>In Rust, the standard library provides <code class="code">std::collections::VecDeque</code>, which
 efficiently handles insertions and deletions at both ends in <em class="math">{\Theta(1)}</em>
 time. This replaces the need for manual pointer manipulation. However, to
-understand the underlying principles, we can still represent a queue as a list, 
+understand the underlying principles, we can still represent a queue as a list,
 together with an additional pointer that indicates the final pair in the list.
 </p>
 <p>A queue can be represented, then, as a pair of pointers, <code class="code">front_ptr</code> and
@@ -659,7 +659,7 @@ also set the rear pointer to the new pair.
 
 <p>To delete the item at the front of the queue, we merely modify the front
 pointer so that it now points at the second item in the queue, which can be
-found by following the <code class="code">cdr</code> pointer of the first item (see 
+found by following the <code class="code">cdr</code> pointer of the first item (see
 <a class="ref" href="#Figure-3_002e21">Figure 3.21</a>):<a class="footnote" id="DOCF143" href="#FOOT143"><sup>143</sup></a>
 </p>
 <div class="example">
@@ -736,9 +736,9 @@ queue operations using this representation.
 front or the rear.  Operations on deques are the constructor <code class="code">make-deque</code>,
 the predicate <code class="code">empty-deque?</code>, selectors <code class="code">front-deque</code> and
 <code class="code">rear-deque</code>, and mutators <code class="code">front-insert-deque!</code>,
-<code class="code">rear-insert-deque!</code>, <code class="code">front-delete-deque!</code>, 
+<code class="code">rear-insert-deque!</code>, <code class="code">front-delete-deque!</code>,
 <code class="code">rear-delete-deque!</code>.  Show how to represent deques using pairs, and give
-implementations of the operations.<a class="footnote" id="DOCF144" href="#FOOT144"><sup>144</sup></a>  
+implementations of the operations.<a class="footnote" id="DOCF144" href="#FOOT144"><sup>144</sup></a>
 All operations should be accomplished in <em class="math">{\Theta(1)}</em> steps.
 </p></blockquote>
 
@@ -1074,7 +1074,7 @@ time that depends on the type of the function box.  For example, an
 input signal to an inverter changes to 0, then one inverter-delay later the
 inverter will change its output signal to 1.  If the input signal to an
 inverter changes to 1, then one inverter-delay later the inverter will change
-its output signal to 0.  We draw an inverter symbolically as in <a class="ref" href="#Figure-3_002e24">Figure 3.24</a>.  
+its output signal to 0.  We draw an inverter symbolically as in <a class="ref" href="#Figure-3_002e24">Figure 3.24</a>.
 An <a class="index-entry-id" id="index-and_002dgate"></a>
 <em class="dfn">and-gate</em>, also shown in figure 3.24, is a primitive
 function box with two inputs and one output.  It drives its output signal to a
@@ -1162,7 +1162,7 @@ to be attached to the half-adder:
 </pre></div>
 
 <p>The advantage of making this definition is that we can use <code class="code">half_adder</code>
-itself as a building block in creating more complex circuits.  <a class="ref" href="#Figure-3_002e26">Figure 3.26</a>, 
+itself as a building block in creating more complex circuits.  <a class="ref" href="#Figure-3_002e26">Figure 3.26</a>,
 for example, shows a <a class="index-entry-id" id="index-full_002dadder"></a>
 <em class="dfn">full-adder</em> composed of two half-adders
 and an or-gate.<a class="footnote" id="DOCF145" href="#FOOT145"><sup>145</sup></a> We can construct a full-adder as follows:
@@ -1293,10 +1293,10 @@ the delay time of the or-gate in terms of <code class="code">and-gate-delay</cod
 <a class="index-entry-id" id="index-ripple_002dcarry-adder"></a>
 <em class="dfn">ripple-carry adder</em> formed by stringing together <em class="math">n</em> full-adders.
 This is the simplest form of parallel adder for adding two <em class="math">n</em>-bit binary
-numbers.  The inputs <em class="math">A_1</em>, <em class="math">A_2</em>, <em class="math">A_3</em>, &#8230;, <em class="math">A_n</em> and 
+numbers.  The inputs <em class="math">A_1</em>, <em class="math">A_2</em>, <em class="math">A_3</em>, &#8230;, <em class="math">A_n</em> and
 <em class="math">B_1</em>, <em class="math">B_2</em>, <em class="math">B_3</em>,
 &#8230;, <em class="math">B_n</em> are the two binary numbers to be added (each <em class="math">A_k</em> and
-<em class="math">B_k</em> is a 0 or a 1).  The circuit generates <em class="math">S_1</em>, <em class="math">S_2</em>, 
+<em class="math">B_k</em> is a 0 or a 1).  The circuit generates <em class="math">S_1</em>, <em class="math">S_2</em>,
 <em class="math">S_3</em>, &#8230;, <em class="math">S_n</em>,
 the <em class="math">n</em> bits of the sum, and <em class="math">C</em>, the carry from the addition.  Write a
 procedure <code class="code">ripple-carry-adder</code> that generates this circuit.  The procedure
@@ -1318,7 +1318,7 @@ variables: a <code class="code">signal-value</code> (initially taken to be 0) an
 <code class="code">action-procedures</code> to be run when the signal changes value.  We implement
 the wire, using message-passing style, as a collection of local procedures
 together with a <code class="code">dispatch</code> procedure that selects the appropriate local
-operation, just as we did with the simple bank-account object in 
+operation, just as we did with the simple bank-account object in
 <a class="ref" href="3_002e1.xhtml#g_t3_002e1_002e1">Local State Variables</a>:
 </p>
 <div class="example">
@@ -1427,8 +1427,8 @@ agenda.
 </li><li><code class="code">(remove-first-agenda-item! ⟨<var class="var">agenda</var>⟩)</code> modifies the agenda by
 removing the first item.
 
-</li><li><code class="code">(add-to-agenda! ⟨<var class="var">time</var>⟩ ⟨<var class="var">action</var>⟩ ⟨<var class="var">agenda</var>⟩)</code> 
-modifies the agenda by adding the given action procedure to be run at the 
+</li><li><code class="code">(add-to-agenda! ⟨<var class="var">time</var>⟩ ⟨<var class="var">action</var>⟩ ⟨<var class="var">agenda</var>⟩)</code>
+modifies the agenda by adding the given action procedure to be run at the
 specified time.
 
 </li><li><code class="code">(current-time ⟨<var class="var">agenda</var>⟩)</code> returns the current simulation time.
@@ -2287,8 +2287,8 @@ terms of relations themselves.  The primitive elements of the language are
 <a class="index-entry-id" id="index-primitive-constraints"></a>
 <em class="dfn">primitive constraints</em>, which state that certain relations hold
 between quantities.  For example, <code class="code">(adder a b c)</code> specifies that the
-quantities <em class="math">a</em>, <em class="math">b</em>, and <em class="math">c</em> must be related by the equation 
-<em class="math">{a + b = c}</em>, <code class="code">(multiplier x y z)</code> expresses the constraint 
+quantities <em class="math">a</em>, <em class="math">b</em>, and <em class="math">c</em> must be related by the equation
+<em class="math">{a + b = c}</em>, <code class="code">(multiplier x y z)</code> expresses the constraint
 <em class="math">{xy = z}</em>, and <code class="code">(constant 3.14 x)</code> says that the value of <em class="math">x</em> must be 3.14.
 </p>
 <p>Our language provides a means of combining primitive constraints in order to
@@ -2390,7 +2390,7 @@ celsius_fahrenheit_converter(&amp;mut network, c, f);
 <p>This procedure creates the internal connectors <code class="code">u</code>, <code class="code">v</code>, <code class="code">w</code>,
 <code class="code">x</code>, and <code class="code">y</code>, and links them as shown in <a class="ref" href="#Figure-3_002e28">Figure 3.28</a> using the
 primitive constraint constructors <code class="code">adder</code>, <code class="code">multiplier</code>, and
-<code class="code">constant</code>.  Just as with the digital-circuit simulator of 
+<code class="code">constant</code>.  Just as with the digital-circuit simulator of
 <a class="ref" href="#g_t3_002e3_002e4">A Simulator for Digital Circuits</a>, expressing these combinations of primitive elements in terms of
 procedures automatically provides our language with a means of abstraction for
 compound objects.
@@ -2460,7 +2460,7 @@ distinguishing feature of constraint-based systems.
 <h4 class="subsubheading" id="Implementing-the-constraint-system"><span>Implementing the constraint system<a class="copiable-link" href="#Implementing-the-constraint-system"> &#182;</a></span></h4>
 
 <p>The constraint system is implemented via procedural objects with local state,
-in a manner very similar to the digital-circuit simulator of 
+in a manner very similar to the digital-circuit simulator of
 <a class="ref" href="#g_t3_002e3_002e4">A Simulator for Digital Circuits</a>.  Although the primitive objects of the constraint system are
 somewhat more complex, the overall system is simpler, since there is no concern
 about agendas and logic delays.
@@ -2959,7 +2959,7 @@ that, in a language in which we can deal with procedures as objects, there is
 no fundamental difference between &#8220;procedures&#8221; and &#8220;data,&#8221; and we can
 choose our syntactic sugar to allow us to program in whatever style we choose.</p>
 <h5 class="footnote-body-heading"><a id="FOOT147" href="#DOCF147">(147)</a></h5>
-<p>The agenda is a headed list, like the tables in 
+<p>The agenda is a headed list, like the tables in
 <a class="ref" href="#g_t3_002e3_002e3">Representing Tables</a>, but since the list is headed by the time, we do not need an
 additional dummy header (such as the <code class="code">*table*</code> symbol used with tables).</p>
 <h5 class="footnote-body-heading"><a id="FOOT148" href="#DOCF148">(148)</a></h5>
@@ -2992,7 +2992,7 @@ constraint.  In our temperature example, we used <code class="code">user</code> 
 because it avoids the need to name the intermediate expressions in a
 computation.  Our original formulation of the constraint language is cumbersome
 in the same way that many languages are cumbersome when dealing with operations
-on compound data.  For example, if we wanted to compute the product 
+on compound data.  For example, if we wanted to compute the product
 <em class="math">{(a + b) \cdot (c + d)}</em>, where the variables represent vectors, we could work
 in &#8220;imperative style,&#8221; using procedures that set the values of designated
 vector arguments but do not themselves return vectors as values:

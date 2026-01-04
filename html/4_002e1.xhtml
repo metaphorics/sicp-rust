@@ -74,7 +74,7 @@ in which expressions to be evaluated in environments are reduced to procedures
 to be applied to arguments, which in turn are reduced to new expressions to be
 evaluated in new environments, and so on, until we get down to symbols, whose
 values are looked up in the environment, and to primitive procedures, which are
-applied directly (see <a class="ref" href="#Figure-4_002e1">Figure 4.1</a>).<a class="footnote" id="DOCF199" href="#FOOT199"><sup>199</sup></a> 
+applied directly (see <a class="ref" href="#Figure-4_002e1">Figure 4.1</a>).<a class="footnote" id="DOCF199" href="#FOOT199"><sup>199</sup></a>
 This evaluation cycle will be embodied by the interplay between the two
 critical procedures in the evaluator, <code class="code">eval</code> and <code class="code">apply</code>, which are
 described in <a class="ref" href="#g_t4_002e1_002e1">The Core of the Evaluator</a> (see <a class="ref" href="#Figure-4_002e1">Figure 4.1</a>).
@@ -572,7 +572,7 @@ fn cond_to_if(clauses: &amp;[(Expr, Vec&lt;Expr&gt;)]) -&gt; Expr {
 <p>Expressions (such as <code class="code">cond</code>) that we choose to implement as syntactic
 transformations are called <a class="index-entry-id" id="index-derived-expressions"></a>
 <em class="dfn">derived expressions</em>.  <code class="code">Let</code>
-expressions are also derived expressions (see 
+expressions are also derived expressions (see
 <a class="ref" href="#Exercise-4_002e6">Exercise 4.6</a>).<a class="footnote" id="DOCF203" href="#FOOT203"><sup>203</sup></a>
 </p>
 <blockquote class="quotation">
@@ -709,7 +709,7 @@ is it sufficient to add a clause to <code class="code">eval</code> whose action 
 
 <blockquote class="quotation">
 <p><strong class="strong"><a class="anchor" id="Exercise-4_002e8"></a>Exercise 4.8:</strong> &#8220;Named <code class="code">let</code>&#8221; is a variant
-of <code class="code">let</code> that has the form 
+of <code class="code">let</code> that has the form
 </p>
 <div class="example">
 <pre class="example-preformatted">// Named let in Rust is a loop with initial values:
@@ -723,7 +723,7 @@ loop {
 except that <code class="code">⟨</code><var class="var">var</var><code class="code">⟩</code> is bound within <code class="code">⟨</code><var class="var">body</var><code class="code">⟩</code> to a procedure whose body
 is <code class="code">⟨</code><var class="var">body</var><code class="code">⟩</code> and whose parameters are the variables in the <code class="code">⟨</code><var class="var">bindings</var><code class="code">⟩</code>.
 Thus, one can repeatedly execute the <code class="code">⟨</code><var class="var">body</var><code class="code">⟩</code> by invoking the procedure
-named <code class="code">⟨</code><var class="var">var</var><code class="code">⟩</code>.  For example, the iterative Fibonacci procedure 
+named <code class="code">⟨</code><var class="var">var</var><code class="code">⟩</code>.  For example, the iterative Fibonacci procedure
 (<a class="ref" href="1_002e2.xhtml#g_t1_002e2_002e2">Tree Recursion</a>) can be rewritten using named <code class="code">let</code> as follows:
 </p>
 <div class="example">
@@ -798,7 +798,7 @@ procedures:
 </p>
 </li></ul>
 
-<p>These mechanisms for handling primitives are further described in 
+<p>These mechanisms for handling primitives are further described in
 <a class="ref" href="#g_t4_002e1_002e4">Running the Evaluator as a Program</a>.
 </p>
 <p>Compound procedures are constructed from parameters, procedure bodies, and
@@ -961,19 +961,19 @@ pub fn setup_environment() -&gt; Environment&lt;Value&gt; {
 
     // Arithmetic primitives
 
-    let env = env.define(&quot;+&quot;.to_string(), 
+    let env = env.define(&quot;+&quot;.to_string(),
 
                          Value::Primitive(&quot;+&quot;.into(), prim_add));
 
-    let env = env.define(&quot;-&quot;.to_string(), 
+    let env = env.define(&quot;-&quot;.to_string(),
 
                          Value::Primitive(&quot;-&quot;.into(), prim_sub));
 
-    let env = env.define(&quot;*&quot;.to_string(), 
+    let env = env.define(&quot;*&quot;.to_string(),
 
                          Value::Primitive(&quot;*&quot;.into(), prim_mul));
 
-    let env = env.define(&quot;/&quot;.to_string(), 
+    let env = env.define(&quot;/&quot;.to_string(),
 
                          Value::Primitive(&quot;/&quot;.into(), prim_div));
 
@@ -1122,7 +1122,7 @@ the evaluator will be able to compute factorials.
 <a class="anchor" id="Figure-4_002e3"></a><img class="image" src="fig/chap4/Fig4.3.std.svg" alt="fig/chap4/Fig4.3" />
 <div class="caption"><p><strong class="strong">Figure 4.3:</strong> The evaluator emulating a factorial machine.</p></div></div>
 <p>From this perspective, our evaluator is seen to be a <a class="index-entry-id" id="index-universal-machine"></a>
-<em class="dfn">universal machine</em>.  
+<em class="dfn">universal machine</em>.
 It mimics other machines when these are described as Rust
 programs.<a class="footnote" id="DOCF204" href="#FOOT204"><sup>204</sup></a> This is striking. Try to imagine an analogous evaluator
 for electrical circuits.  This would be a circuit that takes as input a signal
@@ -1219,7 +1219,7 @@ definitions in sequence, extending the environment frame one definition at a
 time.  This is particularly convenient for interactive program development, in
 which the programmer needs to freely mix the application of procedures with the
 definition of new procedures.  However, if we think carefully about the
-internal definitions used to implement block structure (introduced in 
+internal definitions used to implement block structure (introduced in
 <a class="ref" href="1_002e1.xhtml#g_t1_002e1_002e8">Procedures as Black-Box Abstractions</a>), we will find that name-by-name extension of the environment may
 not be the best way to define local variables.
 </p>
@@ -1622,8 +1622,8 @@ execution procedure may be called many times.
 </p>
 <div class="example">
 <pre class="example-preformatted">// Analyze returns a closure that takes and returns an environment
-fn eval(exp: &amp;Expr, env: Environment&lt;Value&gt;) 
-    -&gt; Result&lt;(Value, Environment&lt;Value&gt;), EvalError&gt; 
+fn eval(exp: &amp;Expr, env: Environment&lt;Value&gt;)
+    -&gt; Result&lt;(Value, Environment&lt;Value&gt;), EvalError&gt;
 {
     let executor = analyze(exp)?;
     executor(env)
@@ -1637,7 +1637,7 @@ procedures to which we dispatch perform only analysis, not full evaluation.
 The <code class="code">Executor</code> type now threads the environment functionally:
 </p>
 <div class="example">
-<pre class="example-preformatted">type Executor = Box&lt;dyn Fn(Environment&lt;Value&gt;) 
+<pre class="example-preformatted">type Executor = Box&lt;dyn Fn(Environment&lt;Value&gt;)
     -&gt; Result&lt;(Value, Environment&lt;Value&gt;), EvalError&gt;&gt;;
 
 fn analyze(exp: &amp;Expr) -&gt; Result&lt;Executor, EvalError&gt; {
@@ -1646,7 +1646,7 @@ fn analyze(exp: &amp;Expr) -&gt; Result&lt;Executor, EvalError&gt; {
         Expr::String(s) =&gt; analyze_self_evaluating_string(s.clone()),
         Expr::Quote(quoted) =&gt; analyze_quoted(quoted),
         Expr::Symbol(var) =&gt; analyze_variable(var.clone()),
-        Expr::Define { name, value } =&gt; 
+        Expr::Define { name, value } =&gt;
             analyze_definition(name.clone(), value),
         Expr::If { predicate, consequent, alternative } =&gt;
             analyze_if(predicate, consequent, alternative),
@@ -1661,7 +1661,7 @@ fn analyze(exp: &amp;Expr) -&gt; Result&lt;Executor, EvalError&gt; {
 </pre></div>
 
 <p>Here is the simplest syntactic analysis procedure, which handles
-self-evaluating expressions.  It returns an execution procedure that 
+self-evaluating expressions.  It returns an execution procedure that
 passes the environment through unchanged:
 </p>
 <div class="example">
@@ -1670,7 +1670,7 @@ passes the environment through unchanged:
 }
 </pre></div>
 
-<p>For a quoted expression, we can gain a little efficiency by extracting the 
+<p>For a quoted expression, we can gain a little efficiency by extracting the
 data once, in the analysis phase:
 </p>
 <div class="example">
@@ -1686,7 +1686,7 @@ this depends upon knowing the environment.<a class="footnote" id="DOCF214" href=
 <div class="example">
 <pre class="example-preformatted">use std::sync::Arc;
 
-type Executor = Arc&lt;dyn Fn(Environment&lt;Value&gt;) 
+type Executor = Arc&lt;dyn Fn(Environment&lt;Value&gt;)
     -&gt; Result&lt;(Value, Environment&lt;Value&gt;), EvalError&gt; + Send + Sync&gt;;
 
 fn analyze_variable(name: String) -&gt; Result&lt;Executor, EvalError&gt; {
@@ -1817,7 +1817,7 @@ section to support the special form <code class="code">let</code>.  (See <a clas
 <p><strong class="strong"><a class="anchor" id="Exercise-4_002e23"></a>Exercise 4.23:</strong> Alyssa P. Hacker doesn&#8217;t
 understand why <code class="code">analyze_sequence</code> needs to be so complicated.  All the
 other analysis procedures are straightforward transformations of the
-corresponding evaluation procedures (or <code class="code">eval</code> clauses) in 
+corresponding evaluation procedures (or <code class="code">eval</code> clauses) in
 <a class="ref" href="#g_t4_002e1_002e1">The Core of the Evaluator</a>.  She expected <code class="code">analyze_sequence</code> to look like this:
 </p>
 <div class="example">
@@ -2619,7 +2619,7 @@ transformation is called a <a class="index-entry-id" id="index-macro"></a>
 <em class="dfn">macro</em>.  Although it is easy to add an
 elementary mechanism for defining macros, the resulting language has subtle
 name-conflict problems.  There has been much research on mechanisms for macro
-definition that do not cause these difficulties.  See, for example, <a class="ref" href="References.xhtml#Kohlbecker-1986">Kohlbecker 1986</a>, 
+definition that do not cause these difficulties.  See, for example, <a class="ref" href="References.xhtml#Kohlbecker-1986">Kohlbecker 1986</a>,
 <a class="ref" href="References.xhtml#Clinger-and-Rees-1991">Clinger and Rees 1991</a>, and <a class="ref" href="References.xhtml#Hanson-1991">Hanson 1991</a>.</p>
 <h5 class="footnote-body-heading"><a id="FOOT204" href="#DOCF204">(204)</a></h5>
 <p>The fact that the machines are described in Rust is
@@ -2653,7 +2653,7 @@ biography of Turing.</p>
 is implemented by a relatively simple procedure, can emulate programs that are
 more complex than the evaluator itself.  The existence of a universal evaluator
 machine is a deep and wonderful property of computation.  <a class="index-entry-id" id="index-Recursion-theory"></a>
-<em class="dfn">Recursion theory</em>, 
+<em class="dfn">Recursion theory</em>,
 a branch of mathematical logic, is concerned with logical limits of
 computation.  Douglas Hofstadter&#8217;s beautiful book <cite class="cite">G&#246;del, Escher, Bach</cite>
 explores some of these ideas (<a class="ref" href="References.xhtml#Hofstadter-1979">Hofstadter 1979</a>).</p>

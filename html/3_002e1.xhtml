@@ -72,7 +72,7 @@ in the system by the elapsed time in the computer, then we must have a way to
 construct computational objects whose behaviors change as our programs run.  In
 particular, if we wish to model state variables by ordinary symbolic names in
 the programming language, then the language must provide an <a class="index-entry-id" id="index-assignment-operator"></a>
-<em class="dfn">assignment operator</em> 
+<em class="dfn">assignment operator</em>
 to enable us to change the value associated with a name.
 </p>
 
@@ -634,7 +634,7 @@ measuring the area of a unit circle.
 </p>
 <p>You will find it useful to have a procedure that returns a number chosen at
 random from a given range.  The following <code class="code">random-in-range</code> procedure
-implements this in terms of the <code class="code">random</code> procedure used in 
+implements this in terms of the <code class="code">random</code> procedure used in
 <a class="ref" href="1_002e2.xhtml#g_t1_002e2_002e6">Example: Testing for Primality</a>, which returns a nonnegative number less than its
 input.<a class="footnote" id="DOCF129" href="#FOOT129"><sup>129</sup></a>
 </p>
@@ -910,7 +910,7 @@ assignment is known as <a class="index-entry-id" id="index-imperative-programmin
 <em class="dfn">imperative programming</em>.  In addition to
 raising complications about computational models, programs written in
 imperative style are susceptible to bugs that cannot occur in functional
-programs.  For example, recall the iterative factorial program from 
+programs.  For example, recall the iterative factorial program from
 <a class="ref" href="1_002e2.xhtml#g_t1_002e2_002e1">Linear Recursion and Iteration</a>:
 </p>
 <div class="example">
@@ -997,7 +997,7 @@ expression is to evaluate its subexpressions.  But we never specified the order
 in which the subexpressions should be evaluated (e.g., left to right or right
 to left).  When we introduce assignment, the order in which the arguments to a
 procedure are evaluated can make a difference to the result.  Define a simple
-procedure <code class="code">f</code> such that evaluating 
+procedure <code class="code">f</code> such that evaluating
 </p>
 <div class="example">
 <pre class="example-preformatted">f(0) + f(1)
@@ -1517,7 +1517,7 @@ assumptions about ownership and access patterns.
 <h5 class="footnote-body-heading"><a id="FOOT122" href="#DOCF122">(122)</a></h5>
 <p>Actually, this is not quite
 true.  One exception was the random-number generator in <a class="ref" href="1_002e2.xhtml#g_t1_002e2_002e6">Example: Testing for Primality</a>.
-Another exception involved the operation/type tables we introduced in 
+Another exception involved the operation/type tables we introduced in
 <a class="ref" href="2_002e4.xhtml#g_t2_002e4_002e3">Data-Directed Programming and Additivity</a>, where the values of two calls to <code class="code">get</code> with the same
 arguments depended on intervening calls to <code class="code">put</code>.  On the other hand,
 until we introduce assignment, we have no way to create such procedures
@@ -1556,7 +1556,7 @@ This will be clearer after the discussion of the environment model of
 evaluation in <a class="ref" href="3_002e2.xhtml#g_t3_002e2">The Environment Model of Evaluation</a>.  (See also <a class="ref" href="3_002e2.xhtml#Exercise-3_002e10">Exercise 3.10</a>.)</p>
 <h5 class="footnote-body-heading"><a id="FOOT127" href="#DOCF127">(127)</a></h5>
 <p>One common way to implement
-<code class="code">rand-update</code> is to use the rule that <em class="math">x</em> is updated to <em class="math">{ax + b}</em> 
+<code class="code">rand-update</code> is to use the rule that <em class="math">x</em> is updated to <em class="math">{ax + b}</em>
 modulo <em class="math">m</em>, where <em class="math">a</em>, <em class="math">b</em>, and <em class="math">m</em> are appropriately chosen
 integers.  Chapter 3 of <a class="ref" href="References.xhtml#Knuth-1981">Knuth 1981</a> includes an extensive discussion of
 techniques for generating sequences of random numbers and establishing their
@@ -1597,7 +1597,7 @@ single object appearing under different aliases.  These so-called
 <a class="index-entry-id" id="index-side_002deffect-bugs"></a>
 <em class="dfn">side-effect bugs</em> are so difficult to locate and to analyze that some
 people have proposed that programming languages be designed in such a way as to
-not allow side effects or aliasing (<a class="ref" href="References.xhtml#Lampson-et-al_002e-1981">Lampson et al. 1981</a>; 
+not allow side effects or aliasing (<a class="ref" href="References.xhtml#Lampson-et-al_002e-1981">Lampson et al. 1981</a>;
 <a class="ref" href="References.xhtml#Morris-et-al_002e-1980">Morris et al. 1980</a>).</p>
 <h5 class="footnote-body-heading"><a id="FOOT132" href="#DOCF132">(132)</a></h5>
 <p>In view of this, it is ironic that introductory
