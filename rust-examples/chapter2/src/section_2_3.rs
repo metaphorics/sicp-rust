@@ -1,20 +1,20 @@
-//! Section 2.3: Symbolic Data
+//! Section 2.3: 기호 데이터 (Symbolic Data)
 //!
-//! This section introduces the ability to work with arbitrary symbols as data.
-//! We explore:
-//! - Quotation and symbol manipulation
-//! - Symbolic differentiation of algebraic expressions
-//! - Multiple representations of sets (unordered, ordered, binary trees)
-//! - Huffman encoding trees for variable-length codes
+//! 이 섹션에서는 임의의 기호(symbol)를 데이터로 다루는 능력을 소개합니다.
+//! 우리는 다음을 탐구합니다:
+//! - 인용(Quotation)과 기호 조작
+//! - 대수 식의 기호 미분
+//! - 집합의 다양한 표현 (비정렬, 정렬, 이진 트리)
+//! - 가변 길이 코드를 위한 허프만 인코딩 트리
 
 use std::fmt;
 
 // ============================================================================
-// 2.3.1: Quotation
+// 2.3.1: 인용 (Quotation)
 // ============================================================================
 
-/// Searches for an item in a list, returning the sublist starting with the first occurrence.
-/// Similar to Scheme's `memq` procedure.
+/// 리스트에서 항목을 검색하고, 첫 번째 발생부터 시작하는 하위 리스트를 반환합니다.
+/// Scheme의 `memq` 프로시저와 유사합니다.
 ///
 /// # Example
 /// ```
@@ -32,8 +32,8 @@ pub fn memq<T: PartialEq>(item: T, list: &[T]) -> Option<&[T]> {
     None
 }
 
-/// Recursive equality test for nested structures.
-/// In Rust, we can use PartialEq directly, but this demonstrates the concept.
+/// 중첩 구조에 대한 재귀적 등가성 테스트.
+/// Rust에서는 PartialEq를 직접 사용할 수 있지만, 이 함수는 개념을 보여줍니다.
 pub fn equal<T: PartialEq>(a: &[T], b: &[T]) -> bool {
     if a.len() != b.len() {
         return false;
@@ -42,31 +42,31 @@ pub fn equal<T: PartialEq>(a: &[T], b: &[T]) -> bool {
 }
 
 // ============================================================================
-// 2.3.2: Symbolic Differentiation
+// 2.3.2: 기호 미분 (Symbolic Differentiation)
 // ============================================================================
 
-/// Algebraic expression representation
+/// 대수 표현식 표현
 #[derive(Debug, Clone, PartialEq)]
 pub enum Expr {
-    /// A constant number
+    /// 상수 숫자
     Const(f64),
-    /// A variable (e.g., 'x', 'y')
+    /// 변수 (예: 'x', 'y')
     Var(&'static str),
-    /// Sum of two expressions
+    /// 두 표현식의 합
     Sum(Box<Expr>, Box<Expr>),
-    /// Product of two expressions
+    /// 두 표현식의 곱
     Product(Box<Expr>, Box<Expr>),
-    /// Exponentiation: base^exponent
+    /// 지수: base^exponent
     Exponent(Box<Expr>, i32),
 }
 
 impl Expr {
-    /// Checks if expression is a variable
+    /// 표현식이 변수인지 확인
     pub fn is_variable(&self) -> bool {
         matches!(self, Expr::Var(_))
     }
 
-    /// Checks if two expressions are the same variable
+    /// 두 표현식이 같은 변수인지 확인
     pub fn same_variable(&self, other: &Expr) -> bool {
         match (self, other) {
             (Expr::Var(v1), Expr::Var(v2)) => v1 == v2,
@@ -74,7 +74,7 @@ impl Expr {
         }
     }
 
-    /// Checks if expression equals a specific number
+    /// 표현식이 특정 숫자와 같은지 확인
     pub fn is_number(&self, n: f64) -> bool {
         match self {
             Expr::Const(val) => (*val - n).abs() < f64::EPSILON,
@@ -82,20 +82,20 @@ impl Expr {
         }
     }
 
-    /// Constructor for sum with simplification
+    /// 합을 위한 생성자 (단순화 포함)
     pub fn make_sum(a1: Expr, a2: Expr) -> Expr {
         match (&a1, &a2) {
             // 0 + a2 = a2
             (Expr::Const(n), _) if (*n - 0.0).abs() < f64::EPSILON => a2,
             // a1 + 0 = a1
             (_, Expr::Const(n)) if (*n - 0.0).abs() < f64::EPSILON => a1,
-            // Fold constants
+            // 상수 접기 (Fold constants)
             (Expr::Const(n1), Expr::Const(n2)) => Expr::Const(n1 + n2),
             _ => Expr::Sum(Box::new(a1), Box::new(a2)),
         }
     }
 
-    /// Constructor for product with simplification
+    /// 곱을 위한 생성자 (단순화 포함)
     pub fn make_product(m1: Expr, m2: Expr) -> Expr {
         match (&m1, &m2) {
             // 0 * anything = 0
@@ -106,13 +106,13 @@ impl Expr {
             (Expr::Const(n), _) if (*n - 1.0).abs() < f64::EPSILON => m2,
             // m1 * 1 = m1
             (_, Expr::Const(n)) if (*n - 1.0).abs() < f64::EPSILON => m1,
-            // Fold constants
+            // 상수 접기
             (Expr::Const(n1), Expr::Const(n2)) => Expr::Const(n1 * n2),
             _ => Expr::Product(Box::new(m1), Box::new(m2)),
         }
     }
 
-    /// Constructor for exponentiation with simplification
+    /// 지수를 위한 생성자 (단순화 포함)
     pub fn make_exponent(base: Expr, exp: i32) -> Expr {
         match exp {
             0 => Expr::Const(1.0),
@@ -121,7 +121,7 @@ impl Expr {
         }
     }
 
-    /// Extract addend (first term) of a sum
+    /// 합의 첫 번째 항(addend) 추출
     pub fn addend(&self) -> Option<&Expr> {
         match self {
             Expr::Sum(a, _) => Some(a),
@@ -129,7 +129,7 @@ impl Expr {
         }
     }
 
-    /// Extract augend (second term) of a sum
+    /// 합의 두 번째 항(augend) 추출
     pub fn augend(&self) -> Option<&Expr> {
         match self {
             Expr::Sum(_, b) => Some(b),
@@ -137,7 +137,7 @@ impl Expr {
         }
     }
 
-    /// Extract multiplier (first factor) of a product
+    /// 곱의 첫 번째 인수(multiplier) 추출
     pub fn multiplier(&self) -> Option<&Expr> {
         match self {
             Expr::Product(m, _) => Some(m),
@@ -145,7 +145,7 @@ impl Expr {
         }
     }
 
-    /// Extract multiplicand (second factor) of a product
+    /// 곱의 두 번째 인수(multiplicand) 추출
     pub fn multiplicand(&self) -> Option<&Expr> {
         match self {
             Expr::Product(_, m) => Some(m),
@@ -153,7 +153,7 @@ impl Expr {
         }
     }
 
-    /// Extract base of an exponent
+    /// 지수의 밑(base) 추출
     pub fn base(&self) -> Option<&Expr> {
         match self {
             Expr::Exponent(b, _) => Some(b),
@@ -161,7 +161,7 @@ impl Expr {
         }
     }
 
-    /// Extract exponent
+    /// 지수(exponent) 추출
     pub fn exponent(&self) -> Option<i32> {
         match self {
             Expr::Exponent(_, e) => Some(*e),
@@ -170,12 +170,12 @@ impl Expr {
     }
 }
 
-/// Symbolic differentiation
+/// 기호 미분
 ///
-/// Computes the derivative of an algebraic expression with respect to a variable.
+/// 변수에 대한 대수 표현식의 도함수를 계산합니다.
 ///
-/// # Rules
-/// - dc/dx = 0 (constant)
+/// # 규칙
+/// - dc/dx = 0 (상수)
 /// - dx/dx = 1
 /// - d(u+v)/dx = du/dx + dv/dx
 /// - d(uv)/dx = u(dv/dx) + v(du/dx)
@@ -224,17 +224,17 @@ impl fmt::Display for Expr {
 }
 
 // ============================================================================
-// 2.3.3: Representing Sets
+// 2.3.3: 집합 표현 (Representing Sets)
 // ============================================================================
 
-// --- Sets as Unordered Lists ---
+// --- 비정렬 리스트로서의 집합 (Sets as Unordered Lists) ---
 
-/// Check if element is in unordered set (O(n))
+/// 요소가 비정렬 집합에 있는지 확인 (O(n))
 pub fn element_of_set_unordered<T: PartialEq>(x: &T, set: &[T]) -> bool {
     set.iter().any(|elem| elem == x)
 }
 
-/// Add element to unordered set (O(n))
+/// 요소를 비정렬 집합에 추가 (O(n))
 pub fn adjoin_set_unordered<T: PartialEq + Clone>(x: T, set: &[T]) -> Vec<T> {
     if element_of_set_unordered(&x, set) {
         set.to_vec()
@@ -245,7 +245,7 @@ pub fn adjoin_set_unordered<T: PartialEq + Clone>(x: T, set: &[T]) -> Vec<T> {
     }
 }
 
-/// Intersection of two unordered sets (O(n²))
+/// 두 비정렬 집합의 교집합 (O(n²))
 pub fn intersection_set_unordered<T: PartialEq + Clone>(set1: &[T], set2: &[T]) -> Vec<T> {
     set1.iter()
         .filter(|&x| element_of_set_unordered(x, set2))
@@ -253,7 +253,7 @@ pub fn intersection_set_unordered<T: PartialEq + Clone>(set1: &[T], set2: &[T]) 
         .collect()
 }
 
-/// Union of two unordered sets (O(n²))
+/// 두 비정렬 집합의 합집합 (O(n²))
 pub fn union_set_unordered<T: PartialEq + Clone>(set1: &[T], set2: &[T]) -> Vec<T> {
     let mut result = set1.to_vec();
     for x in set2 {
@@ -264,9 +264,9 @@ pub fn union_set_unordered<T: PartialEq + Clone>(set1: &[T], set2: &[T]) -> Vec<
     result
 }
 
-// --- Sets as Ordered Lists ---
+// --- 정렬된 리스트로서의 집합 (Sets as Ordered Lists) ---
 
-/// Check if element is in ordered set (O(n) average, but can terminate early)
+/// 요소가 정렬된 집합에 있는지 확인 (평균 O(n), 하지만 조기 종료 가능)
 pub fn element_of_set_ordered<T: Ord>(x: &T, set: &[T]) -> bool {
     for elem in set {
         if elem == x {
@@ -279,7 +279,7 @@ pub fn element_of_set_ordered<T: Ord>(x: &T, set: &[T]) -> bool {
     false
 }
 
-/// Intersection of two ordered sets (O(n))
+/// 두 정렬된 집합의 교집합 (O(n))
 pub fn intersection_set_ordered<T: Ord + Clone>(set1: &[T], set2: &[T]) -> Vec<T> {
     if set1.is_empty() || set2.is_empty() {
         return vec![];
@@ -307,7 +307,7 @@ pub fn intersection_set_ordered<T: Ord + Clone>(set1: &[T], set2: &[T]) -> Vec<T
     result
 }
 
-/// Add element to ordered set (O(n))
+/// 요소를 정렬된 집합에 추가 (O(n))
 pub fn adjoin_set_ordered<T: Ord + Clone>(x: T, set: &[T]) -> Vec<T> {
     let mut result = Vec::new();
     let mut inserted = false;
@@ -318,7 +318,7 @@ pub fn adjoin_set_ordered<T: Ord + Clone>(x: T, set: &[T]) -> Vec<T> {
             inserted = true;
         }
         if elem == &x {
-            // Already in set
+            // 이미 집합에 있음
             return set.to_vec();
         }
         result.push(elem.clone());
@@ -331,7 +331,7 @@ pub fn adjoin_set_ordered<T: Ord + Clone>(x: T, set: &[T]) -> Vec<T> {
     result
 }
 
-/// Union of two ordered sets (O(n))
+/// 두 정렬된 집합의 합집합 (O(n))
 pub fn union_set_ordered<T: Ord + Clone>(set1: &[T], set2: &[T]) -> Vec<T> {
     if set1.is_empty() {
         return set2.to_vec();
@@ -365,7 +365,7 @@ pub fn union_set_ordered<T: Ord + Clone>(set1: &[T], set2: &[T]) -> Vec<T> {
         }
     }
 
-    // Add remaining elements
+    // 남은 요소들 추가
     while i1 < set1.len() {
         result.push(set1[i1].clone());
         i1 += 1;
@@ -378,9 +378,9 @@ pub fn union_set_ordered<T: Ord + Clone>(set1: &[T], set2: &[T]) -> Vec<T> {
     result
 }
 
-// --- Sets as Binary Trees ---
+// --- 이진 트리로서의 집합 (Sets as Binary Trees) ---
 
-/// Binary tree representation of a set
+/// 집합의 이진 트리 표현
 #[derive(Debug, Clone, PartialEq)]
 pub enum Tree<T> {
     Empty,
@@ -392,12 +392,12 @@ pub enum Tree<T> {
 }
 
 impl<T: Ord> Tree<T> {
-    /// Create an empty tree
+    /// 빈 트리 생성
     pub fn empty() -> Self {
         Tree::Empty
     }
 
-    /// Create a tree node
+    /// 트리 노드 생성
     pub fn make_tree(entry: T, left: Tree<T>, right: Tree<T>) -> Self {
         Tree::Node {
             entry,
@@ -406,7 +406,7 @@ impl<T: Ord> Tree<T> {
         }
     }
 
-    /// Check if element is in tree (O(log n) for balanced trees)
+    /// 요소가 트리에 있는지 확인 (균형 트리의 경우 O(log n))
     pub fn element_of_set(&self, x: &T) -> bool {
         match self {
             Tree::Empty => false,
@@ -418,7 +418,7 @@ impl<T: Ord> Tree<T> {
         }
     }
 
-    /// Add element to tree (O(log n) for balanced trees)
+    /// 요소를 트리에 추가 (균형 트리의 경우 O(log n))
     pub fn adjoin_set(self, x: T) -> Self {
         match self {
             Tree::Empty => Tree::make_tree(x, Tree::Empty, Tree::Empty),
@@ -432,7 +432,7 @@ impl<T: Ord> Tree<T> {
         }
     }
 
-    /// Convert tree to sorted list
+    /// 트리를 정렬된 리스트로 변환
     pub fn tree_to_list(&self) -> Vec<T>
     where
         T: Clone,
@@ -448,7 +448,7 @@ impl<T: Ord> Tree<T> {
         }
     }
 
-    /// Convert sorted list to balanced binary tree
+    /// 정렬된 리스트를 균형 이진 트리로 변환
     pub fn list_to_tree(elements: &[T]) -> Self
     where
         T: Clone,
@@ -475,7 +475,7 @@ impl<T: Ord> Tree<T> {
     }
 }
 
-// Database lookup using binary tree
+// 이진 트리를 사용한 데이터베이스 조회
 pub fn lookup<'a, K: Ord, V>(key: &K, records: &'a Tree<(K, V)>) -> Option<&'a V> {
     match records {
         Tree::Empty => None,
@@ -488,10 +488,10 @@ pub fn lookup<'a, K: Ord, V>(key: &K, records: &'a Tree<(K, V)>) -> Option<&'a V
 }
 
 // ============================================================================
-// 2.3.4: Huffman Encoding Trees
+// 2.3.4: 허프만 인코딩 트리 (Huffman Encoding Trees)
 // ============================================================================
 
-/// Huffman tree for variable-length encoding
+/// 가변 길이 인코딩을 위한 허프만 트리
 #[derive(Debug, Clone, PartialEq)]
 pub enum HuffmanTree {
     Leaf {
@@ -507,17 +507,17 @@ pub enum HuffmanTree {
 }
 
 impl HuffmanTree {
-    /// Create a leaf node
+    /// 잎 노드 생성
     pub fn make_leaf(symbol: char, weight: u32) -> Self {
         HuffmanTree::Leaf { symbol, weight }
     }
 
-    /// Check if tree is a leaf
+    /// 트리가 잎인지 확인
     pub fn is_leaf(&self) -> bool {
         matches!(self, HuffmanTree::Leaf { .. })
     }
 
-    /// Get symbol from leaf
+    /// 잎에서 기호 가져오기
     pub fn symbol_leaf(&self) -> Option<char> {
         match self {
             HuffmanTree::Leaf { symbol, .. } => Some(*symbol),
@@ -525,7 +525,7 @@ impl HuffmanTree {
         }
     }
 
-    /// Get weight
+    /// 가중치 가져오기
     pub fn weight(&self) -> u32 {
         match self {
             HuffmanTree::Leaf { weight, .. } => *weight,
@@ -533,7 +533,7 @@ impl HuffmanTree {
         }
     }
 
-    /// Get symbols
+    /// 기호들 가져오기
     pub fn symbols(&self) -> Vec<char> {
         match self {
             HuffmanTree::Leaf { symbol, .. } => vec![*symbol],
@@ -541,7 +541,7 @@ impl HuffmanTree {
         }
     }
 
-    /// Create a branch node
+    /// 분기 노드 생성
     pub fn make_code_tree(left: HuffmanTree, right: HuffmanTree) -> Self {
         let mut symbols = left.symbols();
         symbols.extend(right.symbols());
@@ -555,7 +555,7 @@ impl HuffmanTree {
         }
     }
 
-    /// Get left branch
+    /// 왼쪽 분기 가져오기
     pub fn left_branch(&self) -> Option<&HuffmanTree> {
         match self {
             HuffmanTree::Branch { left, .. } => Some(left),
@@ -563,7 +563,7 @@ impl HuffmanTree {
         }
     }
 
-    /// Get right branch
+    /// 오른쪽 분기 가져오기
     pub fn right_branch(&self) -> Option<&HuffmanTree> {
         match self {
             HuffmanTree::Branch { right, .. } => Some(right),
@@ -572,7 +572,7 @@ impl HuffmanTree {
     }
 }
 
-/// Choose branch based on bit (0 = left, 1 = right)
+/// 비트에 따라 분기 선택 (0 = 왼쪽, 1 = 오른쪽)
 fn choose_branch(bit: u8, branch: &HuffmanTree) -> Result<&HuffmanTree, &'static str> {
     match bit {
         0 => branch.left_branch().ok_or("Invalid branch"),
@@ -581,7 +581,7 @@ fn choose_branch(bit: u8, branch: &HuffmanTree) -> Result<&HuffmanTree, &'static
     }
 }
 
-/// Decode a bit sequence using a Huffman tree
+/// 허프만 트리를 사용하여 비트 시퀀스 디코딩
 pub fn decode(bits: &[u8], tree: &HuffmanTree) -> Result<Vec<char>, &'static str> {
     fn decode_1(
         bits: &[u8],
@@ -607,7 +607,7 @@ pub fn decode(bits: &[u8], tree: &HuffmanTree) -> Result<Vec<char>, &'static str
     decode_1(bits, tree, tree)
 }
 
-/// Encode a symbol using a Huffman tree
+/// 허프만 트리를 사용하여 기호 인코딩
 fn encode_symbol(symbol: char, tree: &HuffmanTree) -> Result<Vec<u8>, &'static str> {
     match tree {
         HuffmanTree::Leaf { .. } => Ok(vec![]),
@@ -627,7 +627,7 @@ fn encode_symbol(symbol: char, tree: &HuffmanTree) -> Result<Vec<u8>, &'static s
     }
 }
 
-/// Encode a message using a Huffman tree
+/// 허프만 트리를 사용하여 메시지 인코딩
 pub fn encode(message: &[char], tree: &HuffmanTree) -> Result<Vec<u8>, &'static str> {
     let mut result = Vec::new();
     for &ch in message {
@@ -636,7 +636,7 @@ pub fn encode(message: &[char], tree: &HuffmanTree) -> Result<Vec<u8>, &'static 
     Ok(result)
 }
 
-/// Insert element into ordered set (by weight)
+/// 정렬된 집합(가중치 순)에 요소 삽입
 fn adjoin_set_huffman(x: HuffmanTree, set: &[HuffmanTree]) -> Vec<HuffmanTree> {
     if set.is_empty() {
         return vec![x];
@@ -660,7 +660,7 @@ fn adjoin_set_huffman(x: HuffmanTree, set: &[HuffmanTree]) -> Vec<HuffmanTree> {
     result
 }
 
-/// Create initial leaf set from symbol-frequency pairs
+/// 기호-빈도 쌍에서 초기 잎 집합 생성
 pub fn make_leaf_set(pairs: &[(char, u32)]) -> Vec<HuffmanTree> {
     let mut result = Vec::new();
     for (symbol, weight) in pairs {
@@ -669,19 +669,19 @@ pub fn make_leaf_set(pairs: &[(char, u32)]) -> Vec<HuffmanTree> {
     result
 }
 
-/// Generate Huffman tree from symbol-frequency pairs
+/// 기호-빈도 쌍에서 허프만 트리 생성
 pub fn generate_huffman_tree(pairs: &[(char, u32)]) -> HuffmanTree {
     fn successive_merge(leaves: Vec<HuffmanTree>) -> HuffmanTree {
         if leaves.len() == 1 {
             return leaves[0].clone();
         }
 
-        // Take two smallest
+        // 가장 작은 두 개 선택
         let left = leaves[0].clone();
         let right = leaves[1].clone();
         let merged = HuffmanTree::make_code_tree(left, right);
 
-        // Add merged back to set
+        // 병합된 것을 다시 집합에 추가
         let remaining = adjoin_set_huffman(merged, &leaves[2..]);
         successive_merge(remaining)
     }

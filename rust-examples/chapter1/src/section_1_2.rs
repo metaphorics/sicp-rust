@@ -1,13 +1,13 @@
-//! Section 1.2: Procedures and the Processes They Generate
+//! Section 1.2: 프로시저와 그들이 생성하는 프로세스
 //!
-//! A procedure is a pattern for the local evolution of a computational process.
-//! This section explores:
-//! - Linear recursion and iteration
-//! - Tree recursion
-//! - Orders of growth
+//! 프로시저는 계산 프로세스의 국소적 진화를 위한 패턴입니다.
+//! 이 섹션에서는 다음을 다룹니다:
+//! - 선형 재귀와 반복 (Linear recursion and iteration)
+//! - 트리 재귀 (Tree recursion)
+//! - 증가 차수 (Orders of growth)
 
-/// Factorial using linear recursive process.
-/// The process builds up a chain of deferred operations.
+/// 선형 재귀 프로세스를 사용한 팩토리얼.
+/// 이 프로세스는 지연된 연산들의 체인을 구축합니다.
 ///
 /// # Examples
 /// ```
@@ -22,9 +22,9 @@ pub fn factorial_recursive(n: u64) -> u64 {
     }
 }
 
-/// Factorial using linear iterative process.
-/// Rust does not guarantee tail-call optimization, but this pattern
-/// maintains constant space through explicit accumulator.
+/// 선형 반복 프로세스를 사용한 팩토리얼.
+/// Rust는 꼬리 호출 최적화(TCO)를 보장하지 않지만, 이 패턴은
+/// 명시적 누산기(accumulator)를 통해 상수 공간을 유지합니다.
 ///
 /// # Examples
 /// ```
@@ -42,8 +42,8 @@ pub fn factorial_iterative(n: u64) -> u64 {
     fact_iter(1, 1, n)
 }
 
-/// Idiomatic Rust factorial using iterators.
-/// This is the preferred approach in Rust.
+/// 이터레이터를 사용한 관용적인(Idiomatic) Rust 팩토리얼.
+/// 이것이 Rust에서 선호되는 접근 방식입니다.
 ///
 /// # Examples
 /// ```
@@ -54,8 +54,8 @@ pub fn factorial(n: u64) -> u64 {
     (1..=n).product()
 }
 
-/// Fibonacci using tree recursion.
-/// This has exponential time complexity O(phi^n).
+/// 트리 재귀를 사용한 피보나치.
+/// 이것은 지수 시간 복잡도 O(phi^n)를 가집니다.
 ///
 /// # Examples
 /// ```
@@ -72,8 +72,8 @@ pub fn fib_tree(n: u64) -> u64 {
     }
 }
 
-/// Fibonacci using iterative process.
-/// Linear time O(n), constant space O(1).
+/// 반복 프로세스를 사용한 피보나치.
+/// 선형 시간 O(n), 상수 공간 O(1).
 ///
 /// # Examples
 /// ```
@@ -91,8 +91,8 @@ pub fn fib(n: u64) -> u64 {
     fib_iter(1, 0, n)
 }
 
-/// Greatest Common Divisor using Euclid's algorithm.
-/// O(log(min(a,b))) time complexity.
+/// 유클리드 호제법을 사용한 최대공약수(GCD).
+/// O(log(min(a,b))) 시간 복잡도.
 ///
 /// # Examples
 /// ```
@@ -103,8 +103,8 @@ pub fn gcd(a: u64, b: u64) -> u64 {
     if b == 0 { a } else { gcd(b, a % b) }
 }
 
-/// Test if n is prime using trial division.
-/// O(sqrt(n)) time complexity.
+/// 시범 나눗셈(trial division)을 사용한 소수 판별.
+/// O(sqrt(n)) 시간 복잡도.
 ///
 /// # Examples
 /// ```
@@ -119,7 +119,7 @@ pub fn is_prime(n: u64) -> bool {
     fn find_divisor(n: u64, test_divisor: u64) -> u64 {
         if test_divisor * test_divisor > n {
             n
-        } else if n.is_multiple_of(test_divisor) {
+        } else if n % test_divisor == 0 { // Rust에서는 is_multiple_of 대신 % 연산자가 더 일반적입니다.
             test_divisor
         } else {
             find_divisor(n, test_divisor + 1)
@@ -128,8 +128,8 @@ pub fn is_prime(n: u64) -> bool {
     find_divisor(n, 2) == n
 }
 
-/// Fast exponentiation using successive squaring.
-/// O(log n) time complexity.
+/// 연속 제곱을 사용한 빠른 거듭제곱.
+/// O(log n) 시간 복잡도.
 ///
 /// # Examples
 /// ```
@@ -139,7 +139,7 @@ pub fn is_prime(n: u64) -> bool {
 pub fn fast_expt(base: u64, exp: u64) -> u64 {
     if exp == 0 {
         1
-    } else if exp.is_multiple_of(2) {
+    } else if exp % 2 == 0 {
         let half = fast_expt(base, exp / 2);
         half * half
     } else {

@@ -1,18 +1,18 @@
-//! Section 2.5: Systems with Generic Operations
+//! Section 2.5: 제네릭 연산을 사용하는 시스템 (Systems with Generic Operations)
 //!
-//! This module demonstrates Rust's approach to generic operations through:
-//! - Trait-based polymorphism (replacing Scheme's apply-generic)
-//! - Type coercion via From/Into traits
-//! - Generic polynomial arithmetic with arbitrary coefficient types
+//! 이 모듈은 다음을 통해 Rust의 제네릭 연산 접근 방식을 보여줍니다:
+//! - 트레이트 기반 다형성 (Scheme의 apply-generic 대체)
+//! - From/Into 트레이트를 통한 타입 강제 형변환(coercion)
+//! - 임의의 계수 타입을 가진 제네릭 다항식 산술
 
 use std::fmt;
 use std::ops::{Add, Div, Mul, Sub};
 
 // ============================================================================
-// 2.5.1: Generic Arithmetic Operations
+// 2.5.1: 제네릭 산술 연산 (Generic Arithmetic Operations)
 // ============================================================================
 
-/// A Number type that can represent different kinds of numbers
+/// 다양한 종류의 숫자를 표현할 수 있는 Number 타입
 #[derive(Debug, Clone, PartialEq)]
 pub enum Number {
     SchemeNumber(i64),
@@ -20,7 +20,7 @@ pub enum Number {
     Complex(Complex),
 }
 
-/// Rational number representation
+/// 유리수 표현
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub struct Rational {
     numer: i64,
@@ -45,7 +45,7 @@ impl Rational {
     }
 }
 
-/// Complex number representation (using rectangular form internally)
+/// 복소수 표현 (내부적으로 직교 좌표계 사용)
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub struct Complex {
     real: f64,
@@ -81,9 +81,9 @@ impl Complex {
     }
 }
 
-// Generic arithmetic operations on Number type
-// In Scheme: (define (add x y) (apply-generic 'add x y))
-// In Rust: Use trait implementations with pattern matching
+// Number 타입에 대한 제네릭 산술 연산
+// Scheme에서: (define (add x y) (apply-generic 'add x y))
+// Rust에서: 패턴 매칭과 함께 트레이트 구현 사용
 
 impl Add for Number {
     type Output = Number;
@@ -94,7 +94,7 @@ impl Add for Number {
             (SchemeNumber(a), SchemeNumber(b)) => SchemeNumber(a + b),
             (Rational(a), Rational(b)) => Rational(a + b),
             (Complex(a), Complex(b)) => Complex(a + b),
-            // Mixed types - use coercion (see section 2.5.2)
+            // 혼합 타입 - 강제 형변환 사용 (2.5.2절 참조)
             (a, b) => {
                 let (a_c, b_c) = coerce_to_common(a, b);
                 a_c + b_c
@@ -154,7 +154,7 @@ impl Div for Number {
     }
 }
 
-// Rational arithmetic
+// 유리수 산술
 impl Add for Rational {
     type Output = Rational;
 
@@ -193,7 +193,7 @@ impl Div for Rational {
     }
 }
 
-// Complex arithmetic
+// 복소수 산술
 impl Add for Complex {
     type Output = Complex;
 
@@ -232,12 +232,12 @@ impl Div for Complex {
     }
 }
 
-// Utility function
+// 유틸리티 함수
 fn gcd(a: i64, b: i64) -> i64 {
     if b == 0 { a } else { gcd(b, a % b) }
 }
 
-// Exercise 2.79: Generic equality predicate
+// 연습문제 2.79: 제네릭 등가성 술어
 pub trait GenericEq {
     fn equ(&self, other: &Self) -> bool;
 }
@@ -256,7 +256,7 @@ impl GenericEq for Number {
     }
 }
 
-// Exercise 2.80: Generic zero predicate
+// 연습문제 2.80: 제네릭 0 판별 술어
 pub trait GenericZero {
     fn is_zero(&self) -> bool;
 }
@@ -272,15 +272,15 @@ impl GenericZero for Number {
 }
 
 // ============================================================================
-// 2.5.2: Combining Data of Different Types (Coercion)
+// 2.5.2: 서로 다른 타입의 데이터 결합 (강제 형변환) (Combining Data of Different Types)
 // ============================================================================
 
-// Type tower: Integer -> Rational -> Real -> Complex
+// 타입 탑(Type tower): Integer -> Rational -> Real -> Complex
 //
-// In Scheme, coercion is done via a coercion table:
+// Scheme에서는 강제 형변환 테이블을 통해 처리합니다:
 //   (put-coercion 'scheme-number 'complex scheme-number->complex)
 //
-// In Rust, we use From/Into traits to establish type conversions
+// Rust에서는 From/Into 트레이트를 사용하여 타입 변환을 설정합니다.
 
 impl From<i64> for Rational {
     fn from(n: i64) -> Rational {
@@ -300,30 +300,30 @@ impl From<Rational> for Complex {
     }
 }
 
-// Coercion strategy: raise lower type to higher type in tower
+// 강제 형변환 전략: 탑에서 더 낮은 타입을 더 높은 타입으로 올립니다(raise).
 fn coerce_to_common(a: Number, b: Number) -> (Number, Number) {
     use Number::*;
     match (&a, &b) {
-        // Same types - no coercion needed
+        // 같은 타입 - 변환 필요 없음
         (SchemeNumber(_), SchemeNumber(_))
         | (Rational(_), Rational(_))
         | (Complex(_), Complex(_)) => (a, b),
 
-        // Scheme number + Rational -> both to Rational
+        // Scheme number + Rational -> 둘 다 Rational
         (SchemeNumber(n), Rational(_)) => (Number::Rational(self::Rational::from(*n)), b),
         (Rational(_), SchemeNumber(n)) => (a, Number::Rational(self::Rational::from(*n))),
 
-        // Scheme number + Complex -> both to Complex
+        // Scheme number + Complex -> 둘 다 Complex
         (SchemeNumber(n), Complex(_)) => (Number::Complex(self::Complex::from(*n)), b),
         (Complex(_), SchemeNumber(n)) => (a, Number::Complex(self::Complex::from(*n))),
 
-        // Rational + Complex -> both to Complex
+        // Rational + Complex -> 둘 다 Complex
         (Rational(r), Complex(_)) => (Number::Complex(self::Complex::from(*r)), b),
         (Complex(_), Rational(r)) => (a, Number::Complex(self::Complex::from(*r))),
     }
 }
 
-// Exercise 2.83: Raise operation
+// 연습문제 2.83: Raise 연산
 pub trait Raise {
     type Output;
     fn raise(self) -> Self::Output;
@@ -343,8 +343,8 @@ impl Raise for Rational {
     }
 }
 
-// Exercise 2.84: Type level in tower
-#[allow(dead_code)] // Exercise helper - demonstrates tower hierarchy
+// 연습문제 2.84: 탑에서의 타입 레벨
+#[allow(dead_code)] // 연습문제 헬퍼 - 탑 계층 구조를 보여줍니다
 fn type_level(n: &Number) -> u8 {
     match n {
         Number::SchemeNumber(_) => 1,
@@ -353,7 +353,7 @@ fn type_level(n: &Number) -> u8 {
     }
 }
 
-// Exercise 2.85: Drop operation (simplify to lowest representation)
+// 연습문제 2.85: Drop 연산 (가장 낮은 표현으로 단순화)
 pub trait Drop {
     fn drop_if_possible(self) -> Self;
 }
@@ -386,10 +386,10 @@ impl Drop for Number {
 }
 
 // ============================================================================
-// 2.5.3: Example: Symbolic Algebra (Polynomials)
+// 2.5.3: 예제: 기호 대수 (다항식) (Example: Symbolic Algebra (Polynomials))
 // ============================================================================
 
-/// Generic numeric trait for polynomial coefficients
+/// 다항식 계수를 위한 제네릭 수 트레이트
 pub trait Numeric:
     Clone
     + PartialEq
@@ -439,7 +439,7 @@ impl Numeric for Complex {
     }
 }
 
-/// A term in a polynomial: coefficient * variable^order
+/// 다항식의 항: 계수 * 변수^차수
 #[derive(Debug, Clone, PartialEq)]
 pub struct Term<T: Numeric> {
     order: usize,
@@ -460,7 +460,7 @@ impl<T: Numeric> Term<T> {
     }
 }
 
-/// A polynomial with a single variable
+/// 단일 변수를 가진 다항식
 #[derive(Debug, Clone, PartialEq)]
 pub struct Polynomial<T: Numeric> {
     variable: char,
@@ -468,11 +468,11 @@ pub struct Polynomial<T: Numeric> {
 }
 
 impl<T: Numeric> Polynomial<T> {
-    /// Create a new polynomial with given variable
+    /// 주어진 변수로 새 다항식 생성
     pub fn new(variable: char, mut terms: Vec<Term<T>>) -> Self {
-        // Remove zero coefficient terms
+        // 계수가 0인 항 제거
         terms.retain(|t| !t.coeff.is_zero());
-        // Sort by order (highest first)
+        // 차수 내림차순 정렬
         terms.sort_by(|a, b| b.order.cmp(&a.order));
         Polynomial { variable, terms }
     }
@@ -489,7 +489,7 @@ impl<T: Numeric> Polynomial<T> {
         self.variable == other.variable
     }
 
-    /// Add two term lists
+    /// 두 항 리스트 더하기
     fn add_terms(t1: &[Term<T>], t2: &[Term<T>]) -> Vec<Term<T>> {
         match (t1.first(), t2.first()) {
             (None, _) => t2.to_vec(),
@@ -504,7 +504,7 @@ impl<T: Numeric> Polynomial<T> {
                     result.extend(Self::add_terms(t1, &t2[1..]));
                     result
                 } else {
-                    // Same order - add coefficients
+                    // 차수가 같음 - 계수 더하기
                     let new_coeff = term1.coeff.clone() + term2.coeff.clone();
                     let mut result = if !new_coeff.is_zero() {
                         vec![Term::new(term1.order, new_coeff)]
@@ -518,7 +518,7 @@ impl<T: Numeric> Polynomial<T> {
         }
     }
 
-    /// Multiply a term by all terms in a list
+    /// 항 하나를 항 리스트 전체에 곱하기
     fn mul_term_by_all_terms(t: &Term<T>, terms: &[Term<T>]) -> Vec<Term<T>> {
         terms
             .iter()
@@ -526,7 +526,7 @@ impl<T: Numeric> Polynomial<T> {
             .collect()
     }
 
-    /// Multiply two term lists
+    /// 두 항 리스트 곱하기
     fn mul_terms(t1: &[Term<T>], t2: &[Term<T>]) -> Vec<Term<T>> {
         if t1.is_empty() {
             vec![]
@@ -538,7 +538,7 @@ impl<T: Numeric> Polynomial<T> {
     }
 }
 
-// Polynomial arithmetic
+// 다항식 산술
 impl<T: Numeric> Add for Polynomial<T> {
     type Output = Polynomial<T>;
 
@@ -565,7 +565,7 @@ impl<T: Numeric> Mul for Polynomial<T> {
     }
 }
 
-// Display implementation for polynomials
+// 다항식 출력 구현
 impl<T: Numeric + fmt::Display> fmt::Display for Polynomial<T> {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         if self.terms.is_empty() {
@@ -587,14 +587,14 @@ impl<T: Numeric + fmt::Display> fmt::Display for Polynomial<T> {
     }
 }
 
-// Exercise 2.87: Zero test for polynomials
+// 연습문제 2.87: 다항식 0 테스트
 impl<T: Numeric> GenericZero for Polynomial<T> {
     fn is_zero(&self) -> bool {
         self.terms.is_empty() || self.terms.iter().all(|t| t.coeff.is_zero())
     }
 }
 
-// Exercise 2.88: Polynomial negation
+// 연습문제 2.88: 다항식 부정 (Negation)
 impl<T: Numeric> std::ops::Neg for Polynomial<T>
 where
     T: std::ops::Neg<Output = T>,
@@ -611,7 +611,7 @@ where
     }
 }
 
-// Exercise 2.88: Polynomial subtraction
+// 연습문제 2.88: 다항식 뺄셈
 impl<T: Numeric> Sub for Polynomial<T>
 where
     T: std::ops::Neg<Output = T>,
@@ -623,12 +623,12 @@ where
     }
 }
 
-// Exercise 2.91: Polynomial division
+// 연습문제 2.91: 다항식 나눗셈
 impl<T: Numeric> Polynomial<T>
 where
     T: std::ops::Neg<Output = T>,
 {
-    /// Divide two polynomials, returning (quotient, remainder)
+    /// 두 다항식을 나누어 (몫, 나머지)를 반환
     pub fn div_poly(self, divisor: Polynomial<T>) -> (Polynomial<T>, Polynomial<T>) {
         assert!(
             self.same_variable(&divisor),
@@ -656,11 +656,11 @@ where
             let new_order = t1.order - t2.order;
             let new_term = Term::new(new_order, new_coeff);
 
-            // Multiply divisor by new term
+            // 나누는 식(divisor)에 새 항을 곱함
             let product = Self::mul_term_by_all_terms(&new_term, divisor);
-            // Subtract from dividend
+            // 나누어지는 식(dividend)에서 뺌
             let rest_dividend = Self::subtract_terms(dividend, &product);
-            // Recursively divide
+            // 재귀적으로 나눗셈
             let (rest_quot, rest_rem) = Self::div_terms(&rest_dividend, divisor);
 
             let mut quotient = vec![new_term];
@@ -681,7 +681,7 @@ where
     }
 }
 
-// Negation for basic numeric types (needed for subtraction)
+// 기본 숫자 타입에 대한 부정 연산 (뺄셈을 위해 필요)
 impl std::ops::Neg for Rational {
     type Output = Rational;
     fn neg(self) -> Rational {
@@ -696,7 +696,7 @@ impl std::ops::Neg for Complex {
     }
 }
 
-// Display implementations
+// 출력 구현
 impl fmt::Display for Rational {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         if self.denom == 1 {

@@ -1,14 +1,14 @@
-//! Section 2.1: Introduction to Data Abstraction
+//! Section 2.1: 데이터 추상화 소개 (Introduction to Data Abstraction)
 //!
-//! This section demonstrates data abstraction through rational numbers and interval arithmetic.
+//! 이 섹션에서는 유리수와 구간 산술을 통해 데이터 추상화를 설명합니다.
 
 use std::fmt;
 
 // =============================================================================
-// 2.1.1: Arithmetic Operations for Rational Numbers
+// 2.1.1: 유리수 산술 연산 (Arithmetic Operations for Rational Numbers)
 // =============================================================================
 
-/// A rational number represented as numerator and denominator
+/// 분자와 분모로 표현된 유리수
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct Rational {
     num: i64,
@@ -16,11 +16,11 @@ pub struct Rational {
 }
 
 impl Rational {
-    /// Create a new rational number, reduced to lowest terms
+    /// 새로운 유리수를 생성하고, 기약분수로 약분합니다.
     pub fn new(n: i64, d: i64) -> Self {
-        assert!(d != 0, "Denominator cannot be zero");
+        assert!(d != 0, "분모는 0이 될 수 없습니다");
         let g = gcd(n, d);
-        // Normalize sign: denominator always positive
+        // 부호 정규화: 분모는 항상 양수
         let (num, denom) = if d < 0 {
             (-n / g, -d / g)
         } else {
@@ -29,12 +29,12 @@ impl Rational {
         Rational { num, denom }
     }
 
-    /// Get the numerator
+    /// 분자를 반환합니다.
     pub fn num(&self) -> i64 {
         self.num
     }
 
-    /// Get the denominator
+    /// 분모를 반환합니다.
     pub fn denom(&self) -> i64 {
         self.denom
     }
@@ -46,12 +46,12 @@ impl fmt::Display for Rational {
     }
 }
 
-/// Greatest common divisor using Euclid's algorithm
+/// 유클리드 호제법을 사용한 최대공약수 (GCD)
 pub fn gcd(a: i64, b: i64) -> i64 {
     if b == 0 { a.abs() } else { gcd(b, a % b) }
 }
 
-/// Add two rational numbers
+/// 두 유리수의 덧셈
 pub fn add_rat(x: &Rational, y: &Rational) -> Rational {
     Rational::new(
         x.num() * y.denom() + y.num() * x.denom(),
@@ -59,7 +59,7 @@ pub fn add_rat(x: &Rational, y: &Rational) -> Rational {
     )
 }
 
-/// Subtract two rational numbers
+/// 두 유리수의 뺄셈
 pub fn sub_rat(x: &Rational, y: &Rational) -> Rational {
     Rational::new(
         x.num() * y.denom() - y.num() * x.denom(),
@@ -67,23 +67,23 @@ pub fn sub_rat(x: &Rational, y: &Rational) -> Rational {
     )
 }
 
-/// Multiply two rational numbers
+/// 두 유리수의 곱셈
 pub fn mul_rat(x: &Rational, y: &Rational) -> Rational {
     Rational::new(x.num() * y.num(), x.denom() * y.denom())
 }
 
-/// Divide two rational numbers
+/// 두 유리수의 나눗셈
 pub fn div_rat(x: &Rational, y: &Rational) -> Rational {
     Rational::new(x.num() * y.denom(), x.denom() * y.num())
 }
 
-/// Test equality of two rational numbers
+/// 두 유리수의 등가성 검사
 pub fn equal_rat(x: &Rational, y: &Rational) -> bool {
     x.num() * y.denom() == y.num() * x.denom()
 }
 
 // =============================================================================
-// 2.1.2: Abstraction Barriers - Points and Segments
+// 2.1.2: 추상화 장벽 - 점과 선분 (Abstraction Barriers - Points and Segments)
 // =============================================================================
 
 #[derive(Debug, Clone, Copy, PartialEq)]
@@ -132,7 +132,7 @@ pub fn midpoint_segment(seg: &Segment) -> Point {
 }
 
 // =============================================================================
-// 2.1.4: Interval Arithmetic
+// 2.1.4: 구간 산술 (Interval Arithmetic)
 // =============================================================================
 
 #[derive(Debug, Clone, Copy, PartialEq)]
@@ -142,7 +142,7 @@ pub struct Interval {
 }
 
 impl Interval {
-    /// Create a new interval from lower and upper bounds
+    /// 하한과 상한으로 새로운 구간을 생성합니다.
     pub fn new(a: f64, b: f64) -> Self {
         Interval {
             lower: a.min(b),
@@ -150,12 +150,12 @@ impl Interval {
         }
     }
 
-    /// Create an interval from center and width
+    /// 중심과 너비(width)로 구간을 생성합니다.
     pub fn from_center_width(c: f64, w: f64) -> Self {
         Interval::new(c - w, c + w)
     }
 
-    /// Create an interval from center and percentage tolerance
+    /// 중심과 백분율 공차(tolerance)로 구간을 생성합니다.
     pub fn from_center_percent(c: f64, p: f64) -> Self {
         let w = c.abs() * p / 100.0;
         Interval::from_center_width(c, w)
@@ -211,7 +211,7 @@ pub fn mul_interval(x: &Interval, y: &Interval) -> Interval {
 }
 
 pub fn div_interval(x: &Interval, y: &Interval) -> Result<Interval, &'static str> {
-    // Check if interval spans zero
+    // 0을 포함하는 구간으로 나누는지 확인
     if y.lower_bound() <= 0.0 && y.upper_bound() >= 0.0 {
         return Err("Division by interval spanning zero");
     }
@@ -221,7 +221,7 @@ pub fn div_interval(x: &Interval, y: &Interval) -> Result<Interval, &'static str
     ))
 }
 
-// Parallel resistor formulas
+// 병렬 저항 공식
 pub fn par1(r1: &Interval, r2: &Interval) -> Result<Interval, &'static str> {
     div_interval(&mul_interval(r1, r2), &add_interval(r1, r2))
 }

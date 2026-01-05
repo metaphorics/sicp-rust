@@ -1,11 +1,11 @@
-//! Section 1.1: The Elements of Programming
+//! Section 1.1: 프로그래밍의 요소
 //!
-//! Every powerful programming language has three mechanisms:
-//! - **Primitive expressions**: the simplest entities
-//! - **Means of combination**: compound elements from simpler ones
-//! - **Means of abstraction**: compound elements can be named and manipulated
+//! 모든 강력한 프로그래밍 언어는 세 가지 메커니즘을 가지고 있습니다:
+//! - **원시 표현식 (Primitive expressions)**: 가장 단순한 개체들
+//! - **조합 수단 (Means of combination)**: 더 단순한 요소들로부터 복합 요소를 만드는 방법
+//! - **추상화 수단 (Means of abstraction)**: 복합 요소들에 이름을 붙이고 조작할 수 있는 방법
 
-/// Computes the square of a number.
+/// 숫자의 제곱을 계산합니다.
 ///
 /// # Examples
 /// ```
@@ -17,7 +17,7 @@ pub fn square(x: i64) -> i64 {
     x * x
 }
 
-/// Computes the sum of squares of two numbers.
+/// 두 숫자의 제곱의 합을 계산합니다.
 ///
 /// # Examples
 /// ```
@@ -28,7 +28,7 @@ pub fn sum_of_squares(x: i64, y: i64) -> i64 {
     square(x) + square(y)
 }
 
-/// Computes the absolute value of a number.
+/// 숫자의 절댓값을 계산합니다.
 ///
 /// # Examples
 /// ```
@@ -40,12 +40,12 @@ pub fn abs(x: i64) -> i64 {
     if x < 0 { -x } else { x }
 }
 
-/// Computes the average of two numbers.
+/// 두 숫자의 평균을 계산합니다.
 pub fn average(x: f64, y: f64) -> f64 {
     (x + y) / 2.0
 }
 
-/// Newton's method for computing square roots.
+/// 제곱근을 계산하기 위한 뉴턴의 방법.
 ///
 /// # Examples
 /// ```

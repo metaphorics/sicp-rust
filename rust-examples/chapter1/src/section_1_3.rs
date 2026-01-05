@@ -1,13 +1,13 @@
-//! Section 1.3: Formulating Abstractions with Higher-Order Procedures
+//! Section 1.3: 고차 프로시저를 이용한 추상화의 정식화 (Formulating Abstractions with Higher-Order Procedures)
 //!
-//! Procedures that manipulate procedures are called higher-order procedures.
-//! This section demonstrates Rust's closure system (Fn, FnMut, FnOnce).
+//! 프로시저를 조작하는 프로시저를 고차 프로시저(higher-order procedures)라고 합니다.
+//! 이 섹션에서는 Rust의 클로저 시스템(Fn, FnMut, FnOnce)을 보여줍니다.
 
-/// Generic sum using higher-order function.
-/// Demonstrates Rust's generic bounds with Fn traits.
+/// 고차 함수를 사용한 제네릭 합계(sum).
+/// Rust의 Fn 트레이트를 사용한 제네릭 바운드를 보여줍니다.
 ///
-/// Note: Recursive higher-order functions in Rust are complex due to
-/// ownership. The idiomatic approach is to use iteration (see `sum_iter`).
+/// 참고: Rust에서 재귀적 고차 함수는 소유권 문제로 인해 복잡합니다.
+/// 관용적인 접근 방식은 반복(iteration)을 사용하는 것입니다 (`sum_iter` 참조).
 ///
 /// # Examples
 /// ```
@@ -27,8 +27,8 @@ where
     }
 }
 
-/// Iterative sum using Rust idioms.
-/// More efficient as it avoids recursion overhead.
+/// Rust 관용구를 사용한 반복적 합계.
+/// 재귀 오버헤드를 피하므로 더 효율적입니다.
 pub fn sum_iter<Term, Next>(term: Term, mut a: i64, next: Next, b: i64) -> i64
 where
     Term: Fn(i64) -> i64,
@@ -42,17 +42,17 @@ where
     acc
 }
 
-/// Sum of integers from a to b.
+/// a부터 b까지 정수의 합.
 pub fn sum_integers(a: i64, b: i64) -> i64 {
     sum_iter(|x| x, a, |x| x + 1, b)
 }
 
-/// Sum of cubes from a to b.
+/// a부터 b까지 세제곱의 합.
 pub fn sum_cubes(a: i64, b: i64) -> i64 {
     sum_iter(|x| x * x * x, a, |x| x + 1, b)
 }
 
-/// Pi approximation using sum of series.
+/// 급수의 합을 이용한 파이(Pi) 근사.
 /// pi/8 = 1/(1*3) + 1/(5*7) + 1/(9*11) + ...
 pub fn pi_sum(a: i64, b: i64) -> f64 {
     fn sum_f64<Term, Next>(term: &Term, a: i64, next: &Next, b: i64) -> f64
@@ -69,7 +69,7 @@ pub fn pi_sum(a: i64, b: i64) -> f64 {
     sum_f64(&|x| 1.0 / ((x * (x + 2)) as f64), a, &|x| x + 4, b)
 }
 
-/// Generic product using higher-order function.
+/// 고차 함수를 사용한 제네릭 곱(product).
 pub fn product<Term, Next>(term: &Term, a: i64, next: &Next, b: i64) -> i64
 where
     Term: Fn(i64) -> i64,
@@ -82,8 +82,8 @@ where
     }
 }
 
-/// Generic accumulate - generalizes sum and product.
-/// Uses iterative approach to avoid ownership issues with recursive closures.
+/// 제네릭 누산(accumulate) - 합계와 곱을 일반화.
+/// 재귀적 클로저의 소유권 문제를 피하기 위해 반복적 접근 방식을 사용합니다.
 pub fn accumulate<T, Combiner, Term, Next>(
     combiner: Combiner,
     null_value: T,
@@ -106,8 +106,8 @@ where
     result
 }
 
-/// Fixed-point search.
-/// Finds x where f(x) = x within tolerance.
+/// 고정점(Fixed-point) 탐색.
+/// 허용 오차 내에서 f(x) = x 인 x를 찾습니다.
 pub fn fixed_point<F>(f: F, first_guess: f64) -> f64
 where
     F: Fn(f64) -> f64,
@@ -128,7 +128,7 @@ where
     }
 }
 
-/// Average damping - technique to help convergence.
+/// 평균 감쇠(Average damping) - 수렴을 돕는 기법.
 pub fn average_damp<F>(f: F) -> impl Fn(f64) -> f64
 where
     F: Fn(f64) -> f64,
@@ -136,12 +136,12 @@ where
     move |x| (x + f(x)) / 2.0
 }
 
-/// Square root using fixed-point with average damping.
+/// 평균 감쇠를 사용한 고정점 방식의 제곱근 구하기.
 pub fn sqrt_fixed_point(x: f64) -> f64 {
     fixed_point(average_damp(move |y| x / y), 1.0)
 }
 
-/// Newton's method as fixed-point of transformed function.
+/// 변환된 함수의 고정점으로서의 뉴턴의 방법.
 pub fn newtons_method<G>(g: G, guess: f64) -> f64
 where
     G: Fn(f64) -> f64 + Copy,

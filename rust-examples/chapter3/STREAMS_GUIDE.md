@@ -1,27 +1,29 @@
-# SICP Chapter 3.5: Streams in Rust
+# SICP 3.5장: Rust에서의 스트림 (Streams in Rust)
 
-## Overview
+## 개요 (Overview)
 
-This guide explains how SICP's stream concepts map to Rust's Iterator trait. In Scheme, streams use `delay` and `force` for lazy evaluation. In Rust, the Iterator trait provides lazy evaluation by default.
+이 가이드는 SICP의 스트림 개념이 Rust의 `Iterator` 트레이트와 어떻게 매핑되는지 설명합니다.
+Scheme에서 스트림은 지연 평가(lazy evaluation)를 위해 `delay`와 `force`를 사용합니다.
+Rust에서는 `Iterator` 트레이트가 기본적으로 지연 평가를 제공합니다.
 
-## Concept Mappings
+## 개념 매핑 (Concept Mappings)
 
-| Scheme Concept     | Rust Equivalent            | Example                          |
+| Scheme 개념        | Rust 대응                  | 예시                             |
 | ------------------ | -------------------------- | -------------------------------- |
-| `delay`            | Iterator (lazy by default) | `(0..).filter(...)`              |
-| `force`            | `.next()` or `.collect()`  | `iter.next()`                    |
-| `cons-stream`      | Iterator constructors      | `std::iter::once(x).chain(rest)` |
+| `delay`            | 이터레이터 (기본적으로 지연) | `(0..).filter(...)`              |
+| `force`            | `.next()` 또는 `.collect()`| `iter.next()`                    |
+| `cons-stream`      | 이터레이터 생성자          | `std::iter::once(x).chain(rest)` |
 | `stream-car`       | `.next().unwrap()`         | `stream.next().unwrap()`         |
-| `stream-cdr`       | The iterator itself        | `stream.skip(1)`                 |
+| `stream-cdr`       | 이터레이터 자체            | `stream.skip(1)`                 |
 | `stream-map`       | `.map()`                   | `stream.map(\|x\| x * 2)`        |
 | `stream-filter`    | `.filter()`                | `stream.filter(\|&x\| x > 0)`    |
 | `stream-ref`       | `.nth()`                   | `stream.nth(5)`                  |
 | `the-empty-stream` | `std::iter::empty()`       | `std::iter::empty::<i32>()`      |
-| Infinite stream    | Custom Iterator impl       | `struct IntegersFrom { ... }`    |
+| 무한 스트림        | 사용자 정의 이터레이터 구현| `struct IntegersFrom { ... }`    |
 
-## Key Features
+## 핵심 기능 (Key Features)
 
-### 1. Lazy Evaluation
+### 1. 지연 평가 (Lazy Evaluation)
 
 **Scheme:**
 
@@ -47,9 +49,9 @@ impl Iterator for IntegersFrom {
 }
 ```
 
-### 2. Infinite Sequences
+### 2. 무한 시퀀스 (Infinite Sequences)
 
-**Fibonacci (Scheme):**
+**피보나치 (Scheme):**
 
 ```scheme
 (define (fibgen a b)
@@ -57,7 +59,7 @@ impl Iterator for IntegersFrom {
 (define fibs (fibgen 0 1))
 ```
 
-**Fibonacci (Rust):**
+**피보나치 (Rust):**
 
 ```rust
 struct Fibonacci {
@@ -77,16 +79,16 @@ impl Iterator for Fibonacci {
 }
 ```
 
-### 3. Stream Operations
+### 3. 스트림 연산 (Stream Operations)
 
-**Adding Streams (Scheme):**
+**스트림 더하기 (Scheme):**
 
 ```scheme
 (define (add-streams s1 s2)
   (stream-map + s1 s2))
 ```
 
-**Adding Streams (Rust):**
+**스트림 더하기 (Rust):**
 
 ```rust
 fn add_streams<I1, I2>(s1: I1, s2: I2) -> impl Iterator<Item = i64>
@@ -98,7 +100,7 @@ where
 }
 ```
 
-### 4. Sieve of Eratosthenes
+### 4. 에라토스테네스의 체 (Sieve of Eratosthenes)
 
 **Scheme:**
 
@@ -137,7 +139,7 @@ impl Iterator for Sieve {
 }
 ```
 
-### 5. Implicit Stream Definitions
+### 5. 암시적 스트림 정의 (Implicit Stream Definitions)
 
 **Ones (Scheme):**
 
@@ -172,9 +174,9 @@ fn integers() -> impl Iterator<Item = i64> {
 }
 ```
 
-### 6. Signal Processing
+### 6. 신호 처리 (Signal Processing)
 
-**Integration (Scheme):**
+**적분 (Scheme):**
 
 ```scheme
 (define (integral integrand initial-value dt)
@@ -185,7 +187,7 @@ fn integers() -> impl Iterator<Item = i64> {
   int)
 ```
 
-**Integration (Rust):**
+**적분 (Rust):**
 
 ```rust
 struct Integrator<I>
@@ -212,21 +214,21 @@ where
 }
 ```
 
-## Running Examples
+## 예제 실행 (Running Examples)
 
-### Run all tests:
+### 모든 테스트 실행:
 
 ```bash
 cargo test --lib section_3_5
 ```
 
-### Run the demonstration:
+### 데모 실행:
 
 ```bash
 cargo run --example streams_demo
 ```
 
-### Expected test output:
+### 예상 테스트 출력:
 
 ```
 running 21 tests
@@ -255,20 +257,20 @@ test section_3_5::tests::test_sum_of_squares_odd ... ok
 test result: ok. 21 passed; 0 failed
 ```
 
-## Key Insights
+## 핵심 통찰 (Key Insights)
 
-1. **Lazy by Default**: Rust iterators are lazy by default - no explicit delay/force needed
-2. **Zero-Cost Abstraction**: Iterator combinators compile to efficient machine code
-3. **Type Safety**: The type system ensures correct composition of streams
-4. **Ownership**: Iterator ownership prevents issues with shared mutable state
-5. **Composability**: Iterator combinators (`map`, `filter`, `take`, etc.) compose naturally
-6. **Infinite Sequences**: Just as natural in Rust as in Scheme
+1. **기본적인 지연 평가 (Lazy by Default)**: Rust 이터레이터는 기본적으로 지연 평가되므로 명시적인 delay/force가 필요 없습니다.
+2. **비용 없는 추상화 (Zero-Cost Abstraction)**: 이터레이터 콤비네이터는 효율적인 기계어로 컴파일됩니다.
+3. **타입 안전성 (Type Safety)**: 타입 시스템이 스트림의 올바른 구성을 보장합니다.
+4. **소유권 (Ownership)**: 이터레이터 소유권은 공유된 가변 상태 문제를 방지합니다.
+5. **합성 가능성 (Composability)**: 이터레이터 콤비네이터들(`map`, `filter`, `take` 등)은 자연스럽게 합성됩니다.
+6. **무한 시퀀스 (Infinite Sequences)**: Rust에서도 Scheme만큼 자연스럽게 무한 시퀀스를 다룰 수 있습니다.
 
-## Advanced Patterns
+## 고급 패턴 (Advanced Patterns)
 
-### Sequence Acceleration (Euler Transform)
+### 수열 가속 (오일러 변환)
 
-The Euler transform accelerates convergence of alternating series:
+오일러 변환은 교대 급수의 수렴을 가속화합니다:
 
 ```rust
 struct EulerTransform<I>
@@ -300,7 +302,7 @@ where
 }
 ```
 
-### Differential Equation Solver
+### 미분 방정식 풀이 (Differential Equation Solver)
 
 ```rust
 fn solve<F>(f: F, y0: f64, dt: f64) -> impl Iterator<Item = f64>
@@ -317,32 +319,32 @@ where
 // Solves: dy/dt = f(y), y(0) = y0
 ```
 
-## Differences from Scheme
+## Scheme과의 차이점 (Differences from Scheme)
 
-1. **Explicit Types**: Rust requires type annotations for custom iterators
-2. **Ownership**: Must think about ownership when chaining iterators
-3. **No Memoization**: Rust iterators don't automatically cache values (use `Peekable` or custom caching)
-4. **Finite by Convention**: `Option<T>` signals end, not a special empty value
-5. **No Implicit Recursion**: Must explicitly design recursive stream structures
+1. **명시적 타입 (Explicit Types)**: Rust는 사용자 정의 이터레이터에 타입 어노테이션이 필요합니다.
+2. **소유권 (Ownership)**: 이터레이터를 체이닝할 때 소유권에 대해 생각해야 합니다.
+3. **메모이제이션 없음 (No Memoization)**: Rust 이터레이터는 값을 자동으로 캐시하지 않습니다 (`Peekable`이나 사용자 정의 캐싱 사용).
+4. **관습적인 유한성 (Finite by Convention)**: `Option<T>`가 종료를 알립니다(특별한 empty 값 대신).
+5. **암시적 재귀 없음 (No Implicit Recursion)**: 재귀적 스트림 구조를 명시적으로 설계해야 합니다.
 
-## Benefits of Rust Approach
+## Rust 접근 방식의 이점 (Benefits of Rust Approach)
 
-1. **Memory Safety**: No dangling references or use-after-free
-2. **Thread Safety**: Send/Sync traits ensure safe concurrency
-3. **Performance**: Zero-cost abstractions with inline optimizations
-4. **Compile-Time Guarantees**: Type system catches many bugs early
-5. **Clear Ownership**: Explicit ownership prevents subtle bugs
+1. **메모리 안전성 (Memory Safety)**: 댕글링 포인터(dangling pointer)나 해제 후 사용(use-after-free) 오류가 없습니다.
+2. **스레드 안전성 (Thread Safety)**: Send/Sync 트레이트가 안전한 동시성을 보장합니다.
+3. **성능 (Performance)**: 인라인 최적화를 통한 비용 없는 추상화.
+4. **컴파일 타임 보장 (Compile-Time Guarantees)**: 타입 시스템이 많은 버그를 조기에 잡아냅니다.
+5. **명확한 소유권 (Clear Ownership)**: 명시적 소유권은 미묘한 버그를 방지합니다.
 
-## Exercises
+## 연습 문제 (Exercises)
 
-Try implementing these SICP exercises in Rust:
+다음 SICP 연습 문제들을 Rust로 구현해 보세요:
 
-- Exercise 3.53: Describe the stream `s = 1 + (s + s)`
-- Exercise 3.54: Define `mul-streams` and use it for factorials
-- Exercise 3.55: Implement `partial-sums`
-- Exercise 3.56: Hamming numbers (2, 3, 5 only as prime factors)
-- Exercise 3.59: Power series operations
-- Exercise 3.64: Stream limit with tolerance
-- Exercise 3.65: ln(2) approximation with acceleration
+- Exercise 3.53: 스트림 `s = 1 + (s + s)` 기술하기
+- Exercise 3.54: `mul-streams`를 정의하고 팩토리얼에 사용하기
+- Exercise 3.55: `partial-sums` 구현하기
+- Exercise 3.56: 해밍 수 (소인수가 2, 3, 5뿐인 수)
+- Exercise 3.59: 거듭제곱 급수 연산
+- Exercise 3.64: 허용 오차를 가진 스트림 극한(limit)
+- Exercise 3.65: 가속을 이용한 ln(2) 근사
 
-All examples are implemented in `section_3_5.rs` with comprehensive tests!
+모든 예제는 `section_3_5.rs`에 포괄적인 테스트와 함께 구현되어 있습니다!

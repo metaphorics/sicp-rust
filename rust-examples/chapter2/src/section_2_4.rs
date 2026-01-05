@@ -1,18 +1,18 @@
-//! Section 2.4: Multiple Representations for Abstract Data
+//! Section 2.4: 추상 데이터의 다중 표현 (Multiple Representations for Abstract Data)
 //!
-//! This section demonstrates:
-//! - Multiple representations for complex numbers (rectangular and polar)
-//! - Tagged data using Rust enums
-//! - Data-directed programming using operation tables
-//! - Message passing style programming
+//! 이 섹션에서는 다음을 보여줍니다:
+//! - 복소수의 다중 표현 (직교 좌표계와 극 좌표계)
+//! - Rust 열거형(enum)을 사용한 태그된 데이터(tagged data)
+//! - 연산 테이블을 사용한 데이터 주도 프로그래밍 (Data-directed programming)
+//! - 메시지 전달 스타일 프로그래밍 (Message passing style programming)
 
 use std::collections::HashMap;
 
 // ============================================================================
-// Section 2.4.1: Representations for Complex Numbers
+// Section 2.4.1: 복소수 표현 (Representations for Complex Numbers)
 // ============================================================================
 
-/// Trait defining operations on complex numbers
+/// 복소수 연산을 정의하는 트레이트
 pub trait ComplexOps {
     fn real_part(&self) -> f64;
     fn imag_part(&self) -> f64;
@@ -20,7 +20,7 @@ pub trait ComplexOps {
     fn angle(&self) -> f64;
 }
 
-// Ben's rectangular representation
+// Ben의 직교 좌표계 표현
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub struct Rectangular {
     x: f64,
@@ -58,7 +58,7 @@ impl ComplexOps for Rectangular {
     }
 }
 
-// Alyssa's polar representation
+// Alyssa의 극 좌표계 표현
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub struct Polar {
     r: f64,
@@ -96,7 +96,7 @@ impl ComplexOps for Polar {
     }
 }
 
-// Generic arithmetic operations
+// 제네릭 산술 연산
 pub fn add_complex<T: ComplexOps, U: ComplexOps>(z1: &T, z2: &U) -> Rectangular {
     Rectangular::new(
         z1.real_part() + z2.real_part(),
@@ -120,10 +120,10 @@ pub fn div_complex<T: ComplexOps, U: ComplexOps>(z1: &T, z2: &U) -> Polar {
 }
 
 // ============================================================================
-// Section 2.4.2: Tagged Data
+// Section 2.4.2: 태그된 데이터 (Tagged Data)
 // ============================================================================
 
-/// Complex number with tagged representation
+/// 태그된 표현을 가진 복소수
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub enum Complex {
     Rectangular(f64, f64), // (x, y)
@@ -131,7 +131,7 @@ pub enum Complex {
 }
 
 impl Complex {
-    /// Get the type tag as a string
+    /// 타입 태그를 문자열로 반환
     pub fn type_tag(&self) -> &str {
         match self {
             Complex::Rectangular(_, _) => "rectangular",
@@ -139,7 +139,7 @@ impl Complex {
         }
     }
 
-    /// Extract the contents as a tuple
+    /// 내용을 튜플로 추출
     pub fn contents(&self) -> (f64, f64) {
         match self {
             Complex::Rectangular(x, y) => (*x, *y),
@@ -147,12 +147,12 @@ impl Complex {
         }
     }
 
-    /// Check if this is a rectangular representation
+    /// 직교 좌표계 표현인지 확인
     pub fn is_rectangular(&self) -> bool {
         matches!(self, Complex::Rectangular(_, _))
     }
 
-    /// Check if this is a polar representation
+    /// 극 좌표계 표현인지 확인
     pub fn is_polar(&self) -> bool {
         matches!(self, Complex::Polar(_, _))
     }
@@ -188,7 +188,7 @@ impl ComplexOps for Complex {
     }
 }
 
-/// Constructor functions that choose the appropriate representation
+/// 적절한 표현을 선택하는 생성자 함수들
 pub fn make_from_real_imag(x: f64, y: f64) -> Complex {
     Complex::Rectangular(x, y)
 }
@@ -197,7 +197,7 @@ pub fn make_from_mag_ang(r: f64, a: f64) -> Complex {
     Complex::Polar(r, a)
 }
 
-// Arithmetic operations on tagged complex numbers
+// 태그된 복소수에 대한 산술 연산
 pub fn add_complex_tagged(z1: &Complex, z2: &Complex) -> Complex {
     make_from_real_imag(
         z1.real_part() + z2.real_part(),
@@ -221,14 +221,14 @@ pub fn div_complex_tagged(z1: &Complex, z2: &Complex) -> Complex {
 }
 
 // ============================================================================
-// Section 2.4.3: Data-Directed Programming and Additivity
+// Section 2.4.3: 데이터 주도 프로그래밍과 가법성 (Data-Directed Programming and Additivity)
 // ============================================================================
 
-/// Function pointer types for operation table (zero-cost, no heap allocation)
+/// 연산 테이블을 위한 함수 포인터 타입 (제로 비용, 힙 할당 없음)
 pub type OperationFn = fn(f64, f64) -> f64;
 pub type ConstructorFn = fn(f64, f64) -> Complex;
 
-/// Operation table for data-directed programming
+/// 데이터 주도 프로그래밍을 위한 연산 테이블
 pub struct OperationTable {
     operations: HashMap<(String, String), OperationFn>,
     constructors: HashMap<(String, String), ConstructorFn>,
@@ -271,9 +271,9 @@ impl Default for OperationTable {
     }
 }
 
-/// Install Ben's rectangular package
+/// Ben의 직교 좌표계 패키지 설치
 pub fn install_rectangular_package(table: &mut OperationTable) {
-    // Internal procedures
+    // 내부 프로시저
     fn real_part(x: f64, _y: f64) -> f64 {
         x
     }
@@ -294,7 +294,7 @@ pub fn install_rectangular_package(table: &mut OperationTable) {
         Complex::Rectangular(r * a.cos(), r * a.sin())
     }
 
-    // Interface to the rest of the system
+    // 시스템의 나머지 부분에 대한 인터페이스
     table.put("real-part", "rectangular", real_part);
     table.put("imag-part", "rectangular", imag_part);
     table.put("magnitude", "rectangular", magnitude);
@@ -304,9 +304,9 @@ pub fn install_rectangular_package(table: &mut OperationTable) {
     table.put_constructor("make-from-mag-ang", "rectangular", make_rect_from_mag_ang);
 }
 
-/// Install Alyssa's polar package
+/// Alyssa의 극 좌표계 패키지 설치
 pub fn install_polar_package(table: &mut OperationTable) {
-    // Internal procedures
+    // 내부 프로시저
     fn magnitude(r: f64, _angle: f64) -> f64 {
         r
     }
@@ -327,7 +327,7 @@ pub fn install_polar_package(table: &mut OperationTable) {
         Complex::Polar((x.powi(2) + y.powi(2)).sqrt(), y.atan2(x))
     }
 
-    // Interface to the rest of the system
+    // 시스템의 나머지 부분에 대한 인터페이스
     table.put("real-part", "polar", real_part);
     table.put("imag-part", "polar", imag_part);
     table.put("magnitude", "polar", magnitude);
@@ -337,7 +337,7 @@ pub fn install_polar_package(table: &mut OperationTable) {
     table.put_constructor("make-from-mag-ang", "polar", Complex::Polar);
 }
 
-/// Apply a generic operation to arguments
+/// 제네릭 연산 적용
 pub fn apply_generic(op: &str, z: &Complex, table: &OperationTable) -> f64 {
     let type_tag = z.type_tag();
     let contents = z.contents();
@@ -349,7 +349,7 @@ pub fn apply_generic(op: &str, z: &Complex, table: &OperationTable) -> f64 {
     }
 }
 
-/// Generic selectors using the operation table
+/// 연산 테이블을 사용한 제네릭 선택자
 pub fn real_part_generic(z: &Complex, table: &OperationTable) -> f64 {
     apply_generic("real-part", z, table)
 }
@@ -366,7 +366,7 @@ pub fn angle_generic(z: &Complex, table: &OperationTable) -> f64 {
     apply_generic("angle", z, table)
 }
 
-/// Constructors using the operation table
+/// 연산 테이블을 사용한 생성자
 pub fn make_from_real_imag_generic(x: f64, y: f64, table: &OperationTable) -> Complex {
     table
         .get_constructor("make-from-real-imag", "rectangular")
@@ -380,13 +380,13 @@ pub fn make_from_mag_ang_generic(r: f64, a: f64, table: &OperationTable) -> Comp
 }
 
 // ============================================================================
-// Message Passing
+// 메시지 전달 (Message Passing)
 // ============================================================================
 
-/// Message-passing style complex number
+/// 메시지 전달 스타일 복소수
 pub type MessagePassingComplex = Box<dyn Fn(&str) -> f64>;
 
-/// Create a complex number from real and imaginary parts using message passing
+/// 메시지 전달을 사용하여 실수부와 허수부로 복소수 생성
 pub fn make_from_real_imag_message(x: f64, y: f64) -> MessagePassingComplex {
     Box::new(move |op: &str| match op {
         "real-part" => x,
@@ -397,7 +397,7 @@ pub fn make_from_real_imag_message(x: f64, y: f64) -> MessagePassingComplex {
     })
 }
 
-/// Create a complex number from magnitude and angle using message passing
+/// 메시지 전달을 사용하여 크기와 각도로 복소수 생성
 pub fn make_from_mag_ang_message(r: f64, a: f64) -> MessagePassingComplex {
     Box::new(move |op: &str| match op {
         "real-part" => r * a.cos(),
@@ -408,7 +408,7 @@ pub fn make_from_mag_ang_message(r: f64, a: f64) -> MessagePassingComplex {
     })
 }
 
-/// Apply a generic operation to a message-passing complex number
+/// 메시지 전달 복소수에 제네릭 연산 적용
 pub fn apply_generic_message(op: &str, arg: &MessagePassingComplex) -> f64 {
     arg(op)
 }
@@ -588,3 +588,4 @@ mod tests {
         apply_generic_message("invalid-op", &z);
     }
 }
+

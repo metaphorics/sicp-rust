@@ -1,23 +1,23 @@
-//! Section 2.2: Hierarchical Data and the Closure Property
+//! Section 2.2: 계층적 데이터와 클로저 속성 (Hierarchical Data and the Closure Property)
 //!
-//! This section demonstrates:
-//! - Representing sequences with Vec
-//! - Hierarchical structures (trees)
-//! - Sequences as conventional interfaces (map, filter, fold)
-//! - Picture language with trait-based painters
+//! 이 섹션에서는 다음을 보여줍니다:
+//! - Vec을 사용한 시퀀스 표현
+//! - 계층적 구조 (트리)
+//! - 관습적인 인터페이스로서의 시퀀스 (map, filter, fold)
+//! - 트레이트 기반 페인터(painter)를 사용한 그림 언어
 
 use std::ops::{Add, Mul, Sub};
 
 // =============================================================================
-// 2.2.1 Representing Sequences
+// 2.2.1 시퀀스 표현 (Representing Sequences)
 // =============================================================================
 
-/// Get the nth element of a list (0-indexed in Rust, but examples use 0-indexed too)
+/// 리스트의 n번째 원소를 가져옵니다 (Rust는 0부터 시작하지만, 예제들도 0부터 시작합니다)
 pub fn list_ref<T: Clone>(items: &[T], n: usize) -> T {
     items[n].clone()
 }
 
-/// Recursive length implementation
+/// 재귀적 길이 구현
 pub fn length<T>(items: &[T]) -> usize {
     if items.is_empty() {
         0
@@ -26,7 +26,7 @@ pub fn length<T>(items: &[T]) -> usize {
     }
 }
 
-/// Iterative length implementation
+/// 반복적 길이 구현
 pub fn length_iter<T>(items: &[T]) -> usize {
     fn length_helper<T>(items: &[T], count: usize) -> usize {
         if items.is_empty() {
@@ -38,7 +38,7 @@ pub fn length_iter<T>(items: &[T]) -> usize {
     length_helper(items, 0)
 }
 
-/// Append two vectors
+/// 두 벡터 합치기
 pub fn append<T: Clone>(list1: &[T], list2: &[T]) -> Vec<T> {
     if list1.is_empty() {
         list2.to_vec()
@@ -49,7 +49,7 @@ pub fn append<T: Clone>(list1: &[T], list2: &[T]) -> Vec<T> {
     }
 }
 
-/// Get the last element as a single-element vector
+/// 마지막 원소를 단일 원소 벡터로 가져옵니다
 pub fn last_pair<T: Clone>(items: &[T]) -> Vec<T> {
     if items.len() == 1 {
         vec![items[0].clone()]
@@ -58,7 +58,7 @@ pub fn last_pair<T: Clone>(items: &[T]) -> Vec<T> {
     }
 }
 
-/// Reverse a list
+/// 리스트 뒤집기
 pub fn reverse<T: Clone>(items: &[T]) -> Vec<T> {
     fn reverse_iter<T: Clone>(items: &[T], result: Vec<T>) -> Vec<T> {
         if items.is_empty() {
@@ -72,7 +72,7 @@ pub fn reverse<T: Clone>(items: &[T]) -> Vec<T> {
     reverse_iter(items, vec![])
 }
 
-/// Scale each element in a list by a factor
+/// 리스트의 각 원소를 일정 비율로 스케일링
 pub fn scale_list(items: &[i32], factor: i32) -> Vec<i32> {
     if items.is_empty() {
         vec![]
@@ -83,7 +83,7 @@ pub fn scale_list(items: &[i32], factor: i32) -> Vec<i32> {
     }
 }
 
-/// Map a function over a list
+/// 리스트에 함수 매핑 (Map)
 pub fn map<T, U, F>(proc: F, items: &[T]) -> Vec<U>
 where
     T: Clone,
@@ -98,12 +98,12 @@ where
     }
 }
 
-/// Scale list using map
+/// map을 사용한 리스트 스케일링
 pub fn scale_list_with_map(items: &[i32], factor: i32) -> Vec<i32> {
     map(|x| x * factor, items)
 }
 
-/// For-each: apply procedure to each element for side effects
+/// For-each: 부수 효과(side effects)를 위해 각 원소에 프로시저 적용
 pub fn for_each<T, F>(proc: F, items: &[T])
 where
     F: Fn(&T),
@@ -115,10 +115,10 @@ where
 }
 
 // =============================================================================
-// 2.2.2 Hierarchical Structures
+// 2.2.2 계층적 구조 (Hierarchical Structures)
 // =============================================================================
 
-/// Tree data structure using enum
+/// 열거형(enum)을 사용한 트리 데이터 구조
 #[derive(Debug, Clone, PartialEq)]
 pub enum Tree<T> {
     Leaf(T),
@@ -131,7 +131,7 @@ impl<T> Tree<T> {
     }
 }
 
-/// Count leaves in a tree
+/// 트리의 잎(leaf) 개수 세기
 pub fn count_leaves<T>(tree: &Tree<T>) -> usize {
     match tree {
         Tree::Leaf(_) => 1,
@@ -139,7 +139,7 @@ pub fn count_leaves<T>(tree: &Tree<T>) -> usize {
     }
 }
 
-/// Scale a numeric tree by a factor
+/// 숫자 트리를 일정 비율로 스케일링
 pub fn scale_tree(tree: &Tree<i32>, factor: i32) -> Tree<i32> {
     match tree {
         Tree::Leaf(value) => Tree::Leaf(value * factor),
@@ -149,7 +149,7 @@ pub fn scale_tree(tree: &Tree<i32>, factor: i32) -> Tree<i32> {
     }
 }
 
-/// Scale tree using map
+/// map을 사용한 트리 스케일링
 pub fn scale_tree_with_map(tree: &Tree<i32>, factor: i32) -> Tree<i32> {
     match tree {
         Tree::Leaf(value) => Tree::Leaf(value * factor),
@@ -162,7 +162,7 @@ pub fn scale_tree_with_map(tree: &Tree<i32>, factor: i32) -> Tree<i32> {
     }
 }
 
-/// Deep reverse a tree
+/// 트리를 깊게 뒤집기 (Deep reverse)
 pub fn deep_reverse<T: Clone>(tree: &Tree<T>) -> Tree<T> {
     match tree {
         Tree::Leaf(value) => Tree::Leaf(value.clone()),
@@ -173,7 +173,7 @@ pub fn deep_reverse<T: Clone>(tree: &Tree<T>) -> Tree<T> {
     }
 }
 
-/// Flatten a tree to a list (fringe)
+/// 트리를 리스트로 평탄화 (Fringe)
 pub fn fringe<T: Clone>(tree: &Tree<T>) -> Vec<T> {
     match tree {
         Tree::Leaf(value) => vec![value.clone()],
@@ -181,7 +181,7 @@ pub fn fringe<T: Clone>(tree: &Tree<T>) -> Vec<T> {
     }
 }
 
-/// Tree map abstraction
+/// 트리 맵 추상화
 pub fn tree_map<T, U, F>(f: F, tree: &Tree<T>) -> Tree<U>
 where
     F: Fn(&T) -> U + Clone,
@@ -194,7 +194,7 @@ where
     }
 }
 
-/// Generate all subsets of a set
+/// 집합의 모든 부분집합 생성
 pub fn subsets<T: Clone>(s: &[T]) -> Vec<Vec<T>> {
     if s.is_empty() {
         vec![vec![]]
@@ -213,10 +213,10 @@ pub fn subsets<T: Clone>(s: &[T]) -> Vec<Vec<T>> {
 }
 
 // =============================================================================
-// 2.2.3 Sequences as Conventional Interfaces
+// 2.2.3 관습적인 인터페이스로서의 시퀀스 (Sequences as Conventional Interfaces)
 // =============================================================================
 
-/// Filter elements that satisfy a predicate
+/// 술어(predicate)를 만족하는 원소 필터링
 pub fn filter<T, P>(predicate: P, sequence: &[T]) -> Vec<T>
 where
     T: Clone,
@@ -233,7 +233,7 @@ where
     }
 }
 
-/// Accumulate (fold right)
+/// 누산 (Accumulate, fold right)
 pub fn accumulate<T, U, F>(op: F, initial: U, sequence: &[T]) -> U
 where
     T: Clone,
@@ -250,7 +250,7 @@ where
     }
 }
 
-/// Enumerate integers in a range
+/// 범위 내 정수 열거
 pub fn enumerate_interval(low: i32, high: i32) -> Vec<i32> {
     if low > high {
         vec![]
@@ -261,12 +261,12 @@ pub fn enumerate_interval(low: i32, high: i32) -> Vec<i32> {
     }
 }
 
-/// Enumerate leaves of a tree
+/// 트리의 잎 열거
 pub fn enumerate_tree<T: Clone>(tree: &Tree<T>) -> Vec<T> {
     fringe(tree)
 }
 
-/// Flatmap operation
+/// 플랫맵 (Flatmap) 연산
 pub fn flatmap<T, U, F>(proc: F, seq: &[T]) -> Vec<U>
 where
     T: Clone,
@@ -276,12 +276,12 @@ where
     accumulate(|x, acc| [proc(x), acc].concat(), vec![], seq)
 }
 
-/// Remove an item from a sequence
+/// 시퀀스에서 항목 제거
 pub fn remove<T: Clone + PartialEq>(item: &T, sequence: &[T]) -> Vec<T> {
     filter(|x| x != item, sequence)
 }
 
-/// Generate all permutations of a set
+/// 집합의 모든 순열 생성
 pub fn permutations<T: Clone + PartialEq>(s: &[T]) -> Vec<Vec<T>> {
     if s.is_empty() {
         vec![vec![]]
@@ -302,7 +302,7 @@ pub fn permutations<T: Clone + PartialEq>(s: &[T]) -> Vec<Vec<T>> {
     }
 }
 
-/// Map using accumulate
+/// accumulate를 사용한 Map
 pub fn map_accumulate<T, U, F>(p: F, sequence: &[T]) -> Vec<U>
 where
     T: Clone,
@@ -320,7 +320,7 @@ where
     )
 }
 
-/// Append using accumulate
+/// accumulate를 사용한 Append
 pub fn append_accumulate<T: Clone>(seq1: &[T], seq2: &[T]) -> Vec<T> {
     accumulate(
         |x, acc| {
@@ -333,12 +333,12 @@ pub fn append_accumulate<T: Clone>(seq1: &[T], seq2: &[T]) -> Vec<T> {
     )
 }
 
-/// Length using accumulate
+/// accumulate를 사용한 Length
 pub fn length_accumulate<T: Clone>(sequence: &[T]) -> usize {
     accumulate(|_x, acc| acc + 1, 0, sequence)
 }
 
-/// Fold left (iterative accumulation)
+/// Fold left (반복적 누산)
 pub fn fold_left<T, U, F>(op: F, initial: U, sequence: &[T]) -> U
 where
     T: Clone,
@@ -361,10 +361,10 @@ where
 }
 
 // =============================================================================
-// 2.2.4 Picture Language
+// 2.2.4 그림 언어 (Picture Language)
 // =============================================================================
 
-/// 2D Vector representation
+/// 2D 벡터 표현
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub struct Vec2 {
     pub x: f64,
@@ -409,7 +409,7 @@ impl Mul<f64> for Vec2 {
     }
 }
 
-/// Frame defined by origin and two edge vectors
+/// 원점과 두 개의 가장자리 벡터로 정의된 프레임
 #[derive(Debug, Clone, Copy)]
 pub struct Frame {
     pub origin: Vec2,
@@ -426,13 +426,13 @@ impl Frame {
         }
     }
 
-    /// Map a point in unit square to frame coordinates
+    /// 단위 정사각형의 점을 프레임 좌표로 매핑
     pub fn coord_map(&self, v: Vec2) -> Vec2 {
         self.origin + self.edge1 * v.x + self.edge2 * v.y
     }
 }
 
-/// Line segment for drawing
+/// 그리기를 위한 선분
 #[derive(Debug, Clone, Copy)]
 pub struct Segment {
     pub start: Vec2,
@@ -445,12 +445,12 @@ impl Segment {
     }
 }
 
-/// Painter trait - draws an image in a frame
+/// 페인터(Painter) 트레이트 - 프레임 안에 이미지를 그립니다
 pub trait Painter {
     fn paint(&self, frame: &Frame);
 }
 
-/// Painter implementation using segments
+/// 선분들을 사용하는 페인터 구현
 pub struct SegmentPainter {
     pub segments: Vec<Segment>,
 }
@@ -466,7 +466,7 @@ impl Painter for SegmentPainter {
         for segment in &self.segments {
             let start = frame.coord_map(segment.start);
             let end = frame.coord_map(segment.end);
-            // In real implementation, would draw line from start to end
+            // 실제 구현에서는 start에서 end까지 선을 그립니다
             println!(
                 "Draw line from ({}, {}) to ({}, {})",
                 start.x, start.y, end.x, end.y
@@ -475,7 +475,7 @@ impl Painter for SegmentPainter {
     }
 }
 
-/// Transform a painter
+/// 페인터 변환
 pub fn transform_painter<P: Painter>(
     painter: P,
     origin: Vec2,
@@ -510,7 +510,7 @@ pub fn transform_painter<P: Painter>(
     }
 }
 
-/// Flip painter vertically
+/// 페인터를 수직으로 뒤집기
 pub fn flip_vert<P: Painter>(painter: P) -> impl Painter {
     transform_painter(
         painter,
@@ -520,7 +520,7 @@ pub fn flip_vert<P: Painter>(painter: P) -> impl Painter {
     )
 }
 
-/// Flip painter horizontally
+/// 페인터를 수평으로 뒤집기
 pub fn flip_horiz<P: Painter>(painter: P) -> impl Painter {
     transform_painter(
         painter,
@@ -530,7 +530,7 @@ pub fn flip_horiz<P: Painter>(painter: P) -> impl Painter {
     )
 }
 
-/// Rotate painter 90 degrees counterclockwise
+/// 페인터를 시계 반대 방향으로 90도 회전
 pub fn rotate90<P: Painter>(painter: P) -> impl Painter {
     transform_painter(
         painter,
@@ -540,7 +540,7 @@ pub fn rotate90<P: Painter>(painter: P) -> impl Painter {
     )
 }
 
-/// Rotate painter 180 degrees
+/// 페인터를 180도 회전
 pub fn rotate180<P: Painter>(painter: P) -> impl Painter {
     transform_painter(
         painter,
@@ -550,7 +550,7 @@ pub fn rotate180<P: Painter>(painter: P) -> impl Painter {
     )
 }
 
-/// Rotate painter 270 degrees counterclockwise
+/// 페인터를 시계 반대 방향으로 270도 회전
 pub fn rotate270<P: Painter>(painter: P) -> impl Painter {
     transform_painter(
         painter,
@@ -560,9 +560,9 @@ pub fn rotate270<P: Painter>(painter: P) -> impl Painter {
     )
 }
 
-// Note: beside and below require Box<dyn Painter> for dynamic dispatch
-// or generic type parameters. For simplicity in examples, we use the
-// transformation approach shown in the book.
+// 참고: beside와 below는 동적 디스패치(Box<dyn Painter>)나
+// 제네릭 타입 파라미터가 필요합니다. 예제의 단순화를 위해
+// 책에 나온 변환 접근 방식을 사용합니다.
 
 #[cfg(test)]
 mod tests {
