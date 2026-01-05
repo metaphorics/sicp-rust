@@ -47574,35 +47574,34 @@ Zippel, Richard.  1993.  @cite{Effective Polynomial Computation}.  Boston, @abbr
 Kluwer Academic Publishers.
 
 @node    Exercises, Figures, References, Top
-@unnumbered List of Exercises
+@unnumbered 연습 문제 목록
 
 @include exercises.texi
 
 @node    Figures, Term Index, Exercises, Top
-@unnumbered List of Figures
+@unnumbered 그림 목록
 
 @include figures.texi
 
 @node    Term Index, Colophon, Figures, Top
-@unnumbered Term Index
+@unnumbered 용어 색인
 
 @quotation
-Any inaccuracies in this index may be explained by the fact 
-that it has been prepared with the help of a computer. 
+이 색인의 부정확한 점들은 컴퓨터의 도움을 받아 작성되었다는 사실로 설명될 수 있을 것이다.
 
----Donald E. Knuth, @cite{Fundamental Algorithms}@* 
-(Volume 1 of @cite{The Art of Computer Programming}) 
+---도널드 E. 커누스, @cite{Fundamental Algorithms}@* 
+(@cite{The Art of Computer Programming} 제1권) 
 @end quotation
 
 @printindex cp
 
 @node    Colophon, , Term Index, Top
-@unnumbered Colophon
+@unnumbered 제작 노트 (Colophon)
 
-On the cover page is Agostino Ramelli's bookwheel mechanism from 1588. It could be seen as an early hypertext navigation aid. This image of the engraving is hosted by J. E. Johnson of @url{http://newgottland.com/2012/02/09/before-the-ereader-there-was-the-wheelreader/ramelli_bookwheel_1032px/, New Gottland}. 
+표지 그림은 아고스티노 라멜리(Agostino Ramelli)의 1588년 작 북휠(bookwheel) 메커니즘입니다. 이는 초기 하이퍼텍스트 탐색 도구로 볼 수 있습니다. 이 판화 이미지는 @url{http://newgottland.com/2012/02/09/before-the-ereader-there-was-the-wheelreader/ramelli_bookwheel_1032px/, New Gottland}의 J. E. Johnson이 제공했습니다.
 
-The typefaces are Linux Libertine for body text and Linux Biolinum for headings, both by Philipp H. Poll. Typewriter face is Inconsolata created by Raph Levien and supplemented by Dimosthenis Kaponis and Takashi Tanigawa in the form of Inconsolata LGC. 
+본문 폰트는 Linux Libertine, 제목 폰트는 Linux Biolinum을 사용했으며, 둘 다 필립 H. 폴(Philipp H. Poll)이 제작했습니다. 타자기체는 래프 레비언(Raph Levien)이 만든 Inconsolata를 사용했으며, 디모스테니스 카포니스(Dimosthenis Kaponis)와 타카시 타니가와(Takashi Tanigawa)가 Inconsolata LGC 형태로 보완했습니다.
 
-Graphic design and typography are done by Andres Raba. Texinfo source is converted to @abbr{HTML} using a customized version of @code{texi2any} utility in Texinfo 5.1 package. Diagrams are drawn with Inkscape and mathematics is typeset with the help of MathJax and MathML.
+그래픽 디자인과 타이포그래피는 안드레스 라바(Andres Raba)가 담당했습니다. Texinfo 소스는 Texinfo 5.1 패키지의 @code{texi2any} 유틸리티의 커스터마이즈 버전을 사용하여 @abbr{HTML}로 변환되었습니다. 다이어그램은 Inkscape로 그려졌으며, 수식은 MathJax와 MathML의 도움을 받아 조판되었습니다.
 
 @bye
