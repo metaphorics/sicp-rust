@@ -31,7 +31,7 @@ use std::rc::Rc;
 /// construct elements on-demand. Rust iterators are lazy by default).
 pub mod delayed_lists {
     /// 구간에서 두 번째 소수를 찾는다 (즉시 버전 - 비교용)
-    /// (Find the second prime in a range (eager version - for comparison))
+    /// (Finds the second prime in a range (eager version - for comparison)).
     pub fn second_prime_eager(low: u64, high: u64) -> Option<u64> {
         let primes: Vec<u64> = (low..=high).filter(|&n| is_prime(n)).collect(); // 모든 소수를 즉시 계산 (Eagerly evaluates ALL primes)
 
@@ -39,12 +39,12 @@ pub mod delayed_lists {
     }
 
     /// 구간에서 두 번째 소수를 찾는다 (지연 버전 - 이터레이터)
-    /// (Find the second prime in a range (lazy version - iterator))
+    /// (Finds the second prime in a range (lazy version - iterator)).
     pub fn second_prime_lazy(low: u64, high: u64) -> Option<u64> {
         (low..=high).filter(|&n| is_prime(n)).nth(1) // 두 번째 소수를 찾을 때까지만 계산 (Only computes until we find the 2nd prime)
     }
 
-    /// 간단한 소수 판정 (Simple primality test)
+    /// 간단한 소수 판정 (Simple primality test).
     fn is_prime(n: u64) -> bool {
         if n < 2 {
             return false;
@@ -61,7 +61,7 @@ pub mod delayed_lists {
     }
 
     /// 이터레이터 컴비네이터 시연 (map, filter, take)
-    /// (Demonstrates iterator combinators (map, filter, take))
+    /// (Demonstrates iterator combinators (map, filter, take)).
     pub fn sum_of_squares_of_odd_numbers(n: usize) -> u64 {
         (0..)
             .filter(|x| x % 2 == 1) // 홀수 필터 (Filter odd numbers)
@@ -76,7 +76,7 @@ pub mod delayed_lists {
 // =============================================================================
 
 /// n에서 시작하는 정수 무한 스트림
-/// (Infinite stream of integers starting from n)
+/// (Infinite stream of integers starting from n).
 pub struct IntegersFrom {
     current: i64,
 }
@@ -97,7 +97,7 @@ impl Iterator for IntegersFrom {
     }
 }
 
-/// 피보나치 수열 무한 스트림 (Infinite stream of Fibonacci numbers)
+/// 피보나치 수열 무한 스트림 (Infinite stream of Fibonacci numbers).
 pub struct Fibonacci {
     current: u64,
     next: u64,
@@ -131,7 +131,7 @@ impl Default for Fibonacci {
 }
 
 /// 에라토스테네스의 체 - 소수 무한 스트림
-/// (Sieve of Eratosthenes - infinite stream of prime numbers)
+/// (Sieve of Eratosthenes - infinite stream of prime numbers).
 ///
 /// 재귀적으로 필터링하는 더 복잡한 무한 스트림을 보여준다
 /// (This demonstrates a more complex infinite stream that filters recursively).
@@ -172,9 +172,9 @@ impl Default for Sieve {
 }
 
 /// 더 효율적인 알고리즘을 사용하는 대안 소수 체
-/// (Alternative prime sieve using a more efficient algorithm)
+/// (Alternative prime sieve using a more efficient algorithm).
 /// 이미 찾은 소수로 나눠떨어짐을 확인한다
-/// (that checks divisibility by previously found primes)
+/// (Checks divisibility by previously found primes).
 pub struct PrimesOptimized {
     primes_so_far: Vec<u64>,
     candidate: u64,
@@ -263,7 +263,7 @@ impl Default for DoublingStream {
 }
 
 /// 두 이터레이터를 원소별로 더하는 헬퍼 함수
-/// (Helper function to add two iterators element-wise)
+/// (Helper function to add two iterators element-wise).
 pub fn add_streams<I1, I2>(s1: I1, s2: I2) -> impl Iterator<Item = i64>
 where
     I1: Iterator<Item = i64>,
@@ -273,7 +273,7 @@ where
 }
 
 /// 두 이터레이터를 원소별로 곱하는 헬퍼 함수
-/// (Helper function to multiply two iterators element-wise)
+/// (Helper function to multiply two iterators element-wise).
 pub fn mul_streams<I1, I2>(s1: I1, s2: I2) -> impl Iterator<Item = i64>
 where
     I1: Iterator<Item = i64>,
@@ -283,7 +283,7 @@ where
 }
 
 /// 스트림을 상수로 스케일하는 헬퍼 함수
-/// (Helper function to scale a stream by a constant)
+/// (Helper function to scale a stream by a constant).
 pub fn scale_stream<I>(stream: I, factor: i64) -> impl Iterator<Item = i64>
 where
     I: Iterator<Item = i64>,
@@ -296,7 +296,7 @@ where
 // =============================================================================
 
 /// 스트림을 이용한 반복적 개선 - 제곱근 근사
-/// (Iterative improvement using streams - square root approximation)
+/// (Iterative improvement using streams - square root approximation).
 ///
 /// Scheme에서는 스트림이 상태 변수를 대체할 수 있음을 보여준다
 /// (In Scheme, this demonstrates how streams can replace state variables).
@@ -325,7 +325,7 @@ impl Iterator for SqrtStream {
     }
 }
 
-/// 부분 합 스트림 (Stream of partial sums)
+/// 부분 합 스트림 (Stream of partial sums).
 pub struct PartialSums<I>
 where
     I: Iterator<Item = f64>,
@@ -356,7 +356,7 @@ where
     }
 }
 
-/// 교대 급수로 파이 근사 (Pi approximation using alternating series)
+/// 교대 급수로 파이 근사 (Pi approximation using alternating series).
 pub struct PiSummands {
     n: f64,
 }
@@ -383,7 +383,7 @@ impl Default for PiSummands {
     }
 }
 
-/// 수열 가속을 위한 오일러 변환 (Euler transform for sequence acceleration)
+/// 수열 가속을 위한 오일러 변환 (Euler transform for sequence acceleration).
 pub struct EulerTransform<I>
 where
     I: Iterator<Item = f64>,
@@ -425,7 +425,7 @@ where
 }
 
 /// 스트림 제한 - 연속 요소가 허용 오차 안에 들어올 때를 찾는다
-/// (Stream limit - finds when consecutive elements are within tolerance)
+/// (Stream limit - finds when consecutive elements are within tolerance).
 pub fn stream_limit<I>(mut stream: I, tolerance: f64) -> Option<f64>
 where
     I: Iterator<Item = f64>,
@@ -447,7 +447,7 @@ where
 // =============================================================================
 
 /// i <= j를 만족하는 (i, j) 쌍을 생성하는 이터레이터
-/// (Iterator that generates pairs (i, j) where i <= j)
+/// (Iterator that generates pairs (i, j) where i <= j).
 pub struct Pairs {
     s_index: usize,
     t_index: usize,
@@ -509,8 +509,7 @@ impl Default for Pairs {
 // 3.5.4절: 스트림과 지연 평가 (Streams and Delayed Evaluation)
 // =============================================================================
 
-/// 신호 적분기 - 시간에 따라 합을 누적
-/// (Signal integrator - accumulates sum over time)
+/// 신호 적분기 - 시간에 따라 합을 누적 (Signal integrator - accumulates sum over time).
 ///
 /// 이터레이터로 신호 처리를 하는 방법을 보여준다
 /// (This demonstrates using iterators for signal processing).
@@ -556,7 +555,7 @@ where
 }
 
 /// 미분방정식 dy/dt = f(y)를 초기 조건 y(0) = y0로 푼다
-/// (Solve differential equation dy/dt = f(y) with initial condition y(0) = y0)
+/// (Solve differential equation dy/dt = f(y) with initial condition y(0) = y0).
 ///
 /// Scheme의 delay/force가 만드는 피드백 루프를 Rc<RefCell<>>로 구성한다
 /// (This uses Rc<RefCell<>> to create the feedback loop that Scheme achieves
@@ -601,10 +600,10 @@ where
 // 3.5.5절: 함수형 프로그램의 모듈성 (Modularity of Functional Programs)
 // =============================================================================
 
-/// 스트림을 사용하는 몬테카를로 추정 (Monte Carlo estimation using streams)
+/// 스트림을 사용하는 몬테카를로 추정 (Monte Carlo estimation using streams).
 pub mod monte_carlo {
 
-    /// 선형 합동 난수 생성기 (Linear congruential random number generator)
+    /// 선형 합동 난수 생성기 (Linear congruential random number generator).
     pub struct RandomNumbers {
         current: u64,
         a: u64,
@@ -622,7 +621,7 @@ pub mod monte_carlo {
             }
         }
 
-        /// [0, 1) 구간의 난수를 생성한다 (Generate random number in [0, 1))
+        /// [0, 1) 구간의 난수를 생성한다 (Generate random number in [0, 1)).
         pub fn next_f64(&mut self) -> f64 {
             self.current = (self.a * self.current + self.c) % self.m;
             self.current as f64 / self.m as f64
@@ -639,7 +638,7 @@ pub mod monte_carlo {
     }
 
     /// 실험 결과 스트림 (성공/실패)
-    /// (Stream of experiment results (pass/fail))
+    /// (Stream of experiment results (pass/fail)).
     pub fn cesaro_stream(seed: u64) -> impl Iterator<Item = bool> {
         let mut rng = RandomNumbers::new(seed);
 
@@ -651,7 +650,7 @@ pub mod monte_carlo {
     }
 
     /// 유클리드 알고리즘으로 최대공약수 계산
-    /// (GCD using Euclid's algorithm)
+    /// (GCD using Euclid's algorithm).
     fn gcd(a: u64, b: u64) -> u64 {
         if b == 0 {
             a
@@ -661,7 +660,7 @@ pub mod monte_carlo {
     }
 
     /// 몬테카를로 방법으로 파이를 추정한다
-    /// (Estimate pi using Monte Carlo method)
+    /// (Estimate pi using Monte Carlo method).
     pub fn estimate_pi(trials: usize, seed: u64) -> f64 {
         let successes = cesaro_stream(seed).take(trials).filter(|&x| x).count();
 

@@ -203,7 +203,6 @@ impl PasswordAccount {
     }
 
     /// 현재 잔액을 반환한다(조회에 비밀번호 불필요)
-    /// 현재 잔액을 반환한다(조회에 비밀번호 불필요)
     /// (Returns the current balance (no password needed for checking)).
     #[must_use]
     pub fn balance(&self) -> i64 {
@@ -273,7 +272,6 @@ impl SecureAccount {
         self.balance
     }
 
-    /// 실패한 비밀번호 시도 횟수를 반환한다
     /// 실패한 비밀번호 시도 횟수를 반환한다
     /// (Returns the number of failed password attempts).
     #[must_use]
@@ -363,7 +361,6 @@ impl SecureAccount {
 // ============================================================================
 
 /// 의사 난수를 위한 선형 합동 생성기
-/// 의사 난수를 위한 선형 합동 생성기
 /// (Linear Congruential Generator for pseudo-random numbers).
 ///
 /// `u64`가 `Copy`이므로 상태에 `Cell<u64>`를 사용한다
@@ -376,7 +373,6 @@ pub struct RandomGenerator {
 }
 
 impl RandomGenerator {
-    /// 기본 파라미터로 새 난수 생성기를 만든다
     /// 기본 파라미터로 새 난수 생성기를 만든다
     /// (Creates a new random generator with default parameters).
     #[must_use]
@@ -431,7 +427,6 @@ fn gcd(mut a: u64, mut b: u64) -> u64 {
     a
 }
 
-/// 몬테카를로와 체사로 정리를 이용해 파이를 추정한다
 /// 몬테카를로와 체사로 정리를 이용해 파이를 추정한다
 /// (Estimates pi using Monte Carlo and Cesaro's theorem).
 pub fn estimate_pi(trials: u64) -> f64 {
@@ -550,7 +545,6 @@ pub fn estimate_pi_integral(trials: u64) -> f64 {
     estimate_integral(in_circle, -1.0, 1.0, -1.0, 1.0, trials)
 }
 
-/// 연습문제 3.6: 재설정 가능한 난수 생성기
 /// 연습문제 3.6: 재설정 가능한 난수 생성기
 /// (Exercise 3.6: Resettable random number generator)
 pub enum RandCommand {

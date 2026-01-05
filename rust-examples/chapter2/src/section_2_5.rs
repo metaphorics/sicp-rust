@@ -25,7 +25,7 @@ pub enum Number {
     Complex(Complex),
 }
 
-/// 유리수 표현
+/// 유리수 표현 (Rational number representation)
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub struct Rational {
     numer: i64,
@@ -50,7 +50,7 @@ impl Rational {
     }
 }
 
-/// 복소수 표현 (내부적으로 직교 좌표계 사용)
+/// 복소수 표현 (내부적으로 직교 좌표계 사용) (Complex number representation (internally using rectangular coordinates))
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub struct Complex {
     real: f64,
@@ -243,7 +243,7 @@ fn gcd(a: i64, b: i64) -> i64 {
     if b == 0 { a } else { gcd(b, a % b) }
 }
 
-// 연습문제 2.79: 제네릭 등가성 술어
+// 연습문제 2.79: 제네릭 등가성 술어 (Exercise 2.79: Generic equality predicate)
 pub trait GenericEq {
     fn equ(&self, other: &Self) -> bool;
 }
@@ -262,7 +262,7 @@ impl GenericEq for Number {
     }
 }
 
-// 연습문제 2.80: 제네릭 0 판별 술어
+// 연습문제 2.80: 제네릭 0 판별 술어 (Exercise 2.80: Generic zero predicate)
 pub trait GenericZero {
     fn is_zero(&self) -> bool;
 }
@@ -400,7 +400,7 @@ impl Drop for Number {
 // 2.5.3: 예제: 기호 대수 (다항식) (Example: Symbolic Algebra (Polynomials))
 // ============================================================================
 
-/// 다항식 계수를 위한 제네릭 수 트레이트
+/// 다항식 계수를 위한 제네릭 수 트레이트 (Generic numeric trait for polynomial coefficients).
 pub trait Numeric:
     Clone
     + PartialEq
@@ -450,7 +450,7 @@ impl Numeric for Complex {
     }
 }
 
-/// 다항식의 항: 계수 * 변수^차수
+/// 다항식의 항: 계수 * 변수^차수 (Polynomial term: coefficient * variable^order).
 #[derive(Debug, Clone, PartialEq)]
 pub struct Term<T: Numeric> {
     order: usize,
@@ -471,7 +471,7 @@ impl<T: Numeric> Term<T> {
     }
 }
 
-/// 단일 변수를 가진 다항식
+/// 단일 변수를 가진 다항식 (Polynomial with a single variable).
 #[derive(Debug, Clone, PartialEq)]
 pub struct Polynomial<T: Numeric> {
     variable: char,
@@ -479,7 +479,7 @@ pub struct Polynomial<T: Numeric> {
 }
 
 impl<T: Numeric> Polynomial<T> {
-    /// 주어진 변수로 새 다항식 생성
+    /// 주어진 변수로 새 다항식 생성 (Creates a new polynomial with the given variable).
     pub fn new(variable: char, mut terms: Vec<Term<T>>) -> Self {
         // 계수가 0인 항 제거
         terms.retain(|t| !t.coeff.is_zero());
@@ -598,14 +598,14 @@ impl<T: Numeric + fmt::Display> fmt::Display for Polynomial<T> {
     }
 }
 
-// 연습문제 2.87: 다항식 0 테스트
+// 연습문제 2.87: 다항식 0 테스트 (Exercise 2.87: Polynomial zero test)
 impl<T: Numeric> GenericZero for Polynomial<T> {
     fn is_zero(&self) -> bool {
         self.terms.is_empty() || self.terms.iter().all(|t| t.coeff.is_zero())
     }
 }
 
-// 연습문제 2.88: 다항식 부정 (Negation)
+// 연습문제 2.88: 다항식 부정 (Negation) (Exercise 2.88: Polynomial negation)
 impl<T: Numeric> std::ops::Neg for Polynomial<T>
 where
     T: std::ops::Neg<Output = T>,
@@ -622,7 +622,7 @@ where
     }
 }
 
-// 연습문제 2.88: 다항식 뺄셈
+// 연습문제 2.88: 다항식 뺄셈 (Polynomial subtraction)
 impl<T: Numeric> Sub for Polynomial<T>
 where
     T: std::ops::Neg<Output = T>,
@@ -634,12 +634,12 @@ where
     }
 }
 
-// 연습문제 2.91: 다항식 나눗셈
+// 연습문제 2.91: 다항식 나눗셈 (Exercise 2.91: Polynomial division)
 impl<T: Numeric> Polynomial<T>
 where
     T: std::ops::Neg<Output = T>,
 {
-    /// 두 다항식을 나누어 (몫, 나머지)를 반환
+    /// 두 다항식을 나누어 (몫, 나머지)를 반환 (Divides two polynomials and returns (quotient, remainder)).
     pub fn div_poly(self, divisor: Polynomial<T>) -> (Polynomial<T>, Polynomial<T>) {
         assert!(
             self.same_variable(&divisor),

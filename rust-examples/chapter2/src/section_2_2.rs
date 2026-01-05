@@ -19,7 +19,7 @@ pub fn list_ref<T: Clone>(items: &[T], n: usize) -> T {
     items[n].clone()
 }
 
-/// 재귀적 길이 구현
+/// 재귀적 길이 구현 (Recursive length implementation).
 pub fn length<T>(items: &[T]) -> usize {
     if items.is_empty() {
         0
@@ -28,7 +28,7 @@ pub fn length<T>(items: &[T]) -> usize {
     }
 }
 
-/// 반복적 길이 구현
+/// 반복적 길이 구현 (Iterative length implementation).
 pub fn length_iter<T>(items: &[T]) -> usize {
     fn length_helper<T>(items: &[T], count: usize) -> usize {
         if items.is_empty() {
@@ -40,7 +40,7 @@ pub fn length_iter<T>(items: &[T]) -> usize {
     length_helper(items, 0)
 }
 
-/// 두 벡터 합치기
+/// 두 벡터 합치기 (Appends two vectors).
 pub fn append<T: Clone>(list1: &[T], list2: &[T]) -> Vec<T> {
     if list1.is_empty() {
         list2.to_vec()
@@ -51,7 +51,7 @@ pub fn append<T: Clone>(list1: &[T], list2: &[T]) -> Vec<T> {
     }
 }
 
-/// 마지막 원소를 단일 원소 벡터로 가져옵니다
+/// 마지막 원소를 단일 원소 벡터로 가져옵니다 (Returns the last element as a single-element vector).
 pub fn last_pair<T: Clone>(items: &[T]) -> Vec<T> {
     if items.len() == 1 {
         vec![items[0].clone()]
@@ -60,7 +60,7 @@ pub fn last_pair<T: Clone>(items: &[T]) -> Vec<T> {
     }
 }
 
-/// 리스트 뒤집기
+/// 리스트 뒤집기 (Reverses a list).
 pub fn reverse<T: Clone>(items: &[T]) -> Vec<T> {
     fn reverse_iter<T: Clone>(items: &[T], result: Vec<T>) -> Vec<T> {
         if items.is_empty() {
@@ -74,7 +74,7 @@ pub fn reverse<T: Clone>(items: &[T]) -> Vec<T> {
     reverse_iter(items, vec![])
 }
 
-/// 리스트의 각 원소를 일정 비율로 스케일링
+/// 리스트의 각 원소를 일정 비율로 스케일링 (Scales each element of a list by a factor).
 pub fn scale_list(items: &[i32], factor: i32) -> Vec<i32> {
     if items.is_empty() {
         vec![]
@@ -85,7 +85,7 @@ pub fn scale_list(items: &[i32], factor: i32) -> Vec<i32> {
     }
 }
 
-/// 리스트에 함수 매핑 (Map)
+/// 리스트에 함수 매핑 (Maps a function over a list).
 pub fn map<T, U, F>(proc: F, items: &[T]) -> Vec<U>
 where
     T: Clone,
@@ -100,13 +100,13 @@ where
     }
 }
 
-/// map을 사용한 리스트 스케일링 (List scaling using map)
+/// map을 사용한 리스트 스케일링 (List scaling using map).
 pub fn scale_list_with_map(items: &[i32], factor: i32) -> Vec<i32> {
     map(|x| x * factor, items)
 }
 
 /// For-each: 부수 효과(side effects)를 위해 각 원소에 프로시저 적용
-/// (For-each: apply a procedure to each element for side effects)
+/// (For-each: apply a procedure to each element for side effects).
 pub fn for_each<T, F>(proc: F, items: &[T])
 where
     F: Fn(&T),
@@ -121,7 +121,7 @@ where
 // 2.2.2 계층적 구조 (Hierarchical Structures)
 // =============================================================================
 
-/// 열거형(enum)을 사용한 트리 데이터 구조 (Tree data structure using enum)
+/// 열거형(enum)을 사용한 트리 데이터 구조 (Tree data structure using enum).
 #[derive(Debug, Clone, PartialEq)]
 pub enum Tree<T> {
     Leaf(T),
@@ -134,7 +134,7 @@ impl<T> Tree<T> {
     }
 }
 
-/// 트리의 잎(leaf) 개수 세기 (Counting leaves in a tree)
+/// 트리의 잎(leaf) 개수 세기 (Counting leaves in a tree).
 pub fn count_leaves<T>(tree: &Tree<T>) -> usize {
     match tree {
         Tree::Leaf(_) => 1,
@@ -142,7 +142,7 @@ pub fn count_leaves<T>(tree: &Tree<T>) -> usize {
     }
 }
 
-/// 숫자 트리를 일정 비율로 스케일링
+/// 숫자 트리를 일정 비율로 스케일링 (Scales a numeric tree by a factor).
 pub fn scale_tree(tree: &Tree<i32>, factor: i32) -> Tree<i32> {
     match tree {
         Tree::Leaf(value) => Tree::Leaf(value * factor),
@@ -152,7 +152,7 @@ pub fn scale_tree(tree: &Tree<i32>, factor: i32) -> Tree<i32> {
     }
 }
 
-/// map을 사용한 트리 스케일링 (Tree scaling using map)
+/// map을 사용한 트리 스케일링 (Tree scaling using map).
 pub fn scale_tree_with_map(tree: &Tree<i32>, factor: i32) -> Tree<i32> {
     match tree {
         Tree::Leaf(value) => Tree::Leaf(value * factor),
@@ -165,7 +165,7 @@ pub fn scale_tree_with_map(tree: &Tree<i32>, factor: i32) -> Tree<i32> {
     }
 }
 
-/// 트리를 깊게 뒤집기 (Deep reverse)
+/// 트리를 깊게 뒤집기 (Deep reverse of a tree).
 pub fn deep_reverse<T: Clone>(tree: &Tree<T>) -> Tree<T> {
     match tree {
         Tree::Leaf(value) => Tree::Leaf(value.clone()),
@@ -176,7 +176,7 @@ pub fn deep_reverse<T: Clone>(tree: &Tree<T>) -> Tree<T> {
     }
 }
 
-/// 트리를 리스트로 평탄화 (Fringe)
+/// 트리를 리스트로 평탄화 (Fringe: flattens a tree into a list).
 pub fn fringe<T: Clone>(tree: &Tree<T>) -> Vec<T> {
     match tree {
         Tree::Leaf(value) => vec![value.clone()],
@@ -184,7 +184,7 @@ pub fn fringe<T: Clone>(tree: &Tree<T>) -> Vec<T> {
     }
 }
 
-/// 트리 맵 추상화
+/// 트리 맵 추상화 (Tree map abstraction).
 pub fn tree_map<T, U, F>(f: F, tree: &Tree<T>) -> Tree<U>
 where
     F: Fn(&T) -> U + Clone,
@@ -197,7 +197,7 @@ where
     }
 }
 
-/// 집합의 모든 부분집합 생성
+/// 집합의 모든 부분집합 생성 (Generates all subsets of a set).
 pub fn subsets<T: Clone>(s: &[T]) -> Vec<Vec<T>> {
     if s.is_empty() {
         vec![vec![]]
@@ -219,7 +219,7 @@ pub fn subsets<T: Clone>(s: &[T]) -> Vec<Vec<T>> {
 // 2.2.3 관습적인 인터페이스로서의 시퀀스 (Sequences as Conventional Interfaces)
 // =============================================================================
 
-/// 술어(predicate)를 만족하는 원소 필터링 (Filter elements satisfying a predicate)
+/// 술어(predicate)를 만족하는 원소 필터링 (Filter elements satisfying a predicate).
 pub fn filter<T, P>(predicate: P, sequence: &[T]) -> Vec<T>
 where
     T: Clone,
@@ -236,7 +236,7 @@ where
     }
 }
 
-/// 누산 (Accumulate, fold right)
+/// 누산 (Accumulate, fold right).
 pub fn accumulate<T, U, F>(op: F, initial: U, sequence: &[T]) -> U
 where
     T: Clone,
@@ -253,7 +253,7 @@ where
     }
 }
 
-/// 범위 내 정수 열거
+/// 범위 내 정수 열거 (Enumerates integers in a range).
 pub fn enumerate_interval(low: i32, high: i32) -> Vec<i32> {
     if low > high {
         vec![]
@@ -264,12 +264,12 @@ pub fn enumerate_interval(low: i32, high: i32) -> Vec<i32> {
     }
 }
 
-/// 트리의 잎 열거
+/// 트리의 잎 열거 (Enumerates leaves of a tree).
 pub fn enumerate_tree<T: Clone>(tree: &Tree<T>) -> Vec<T> {
     fringe(tree)
 }
 
-/// 플랫맵 (Flatmap) 연산
+/// 플랫맵 (Flatmap) 연산 (Flatmap operation).
 pub fn flatmap<T, U, F>(proc: F, seq: &[T]) -> Vec<U>
 where
     T: Clone,
@@ -279,12 +279,12 @@ where
     accumulate(|x, acc| [proc(x), acc].concat(), vec![], seq)
 }
 
-/// 시퀀스에서 항목 제거
+/// 시퀀스에서 항목 제거 (Removes an item from a sequence).
 pub fn remove<T: Clone + PartialEq>(item: &T, sequence: &[T]) -> Vec<T> {
     filter(|x| x != item, sequence)
 }
 
-/// 집합의 모든 순열 생성
+/// 집합의 모든 순열 생성 (Generates all permutations of a set).
 pub fn permutations<T: Clone + PartialEq>(s: &[T]) -> Vec<Vec<T>> {
     if s.is_empty() {
         vec![vec![]]
@@ -305,7 +305,7 @@ pub fn permutations<T: Clone + PartialEq>(s: &[T]) -> Vec<Vec<T>> {
     }
 }
 
-/// accumulate를 사용한 Map
+/// accumulate를 사용한 Map (Map using accumulate).
 pub fn map_accumulate<T, U, F>(p: F, sequence: &[T]) -> Vec<U>
 where
     T: Clone,
@@ -323,7 +323,7 @@ where
     )
 }
 
-/// accumulate를 사용한 Append
+/// accumulate를 사용한 Append (Append using accumulate).
 pub fn append_accumulate<T: Clone>(seq1: &[T], seq2: &[T]) -> Vec<T> {
     accumulate(
         |x, acc| {
@@ -336,12 +336,12 @@ pub fn append_accumulate<T: Clone>(seq1: &[T], seq2: &[T]) -> Vec<T> {
     )
 }
 
-/// accumulate를 사용한 Length
+/// accumulate를 사용한 Length (Length using accumulate).
 pub fn length_accumulate<T: Clone>(sequence: &[T]) -> usize {
     accumulate(|_x, acc| acc + 1, 0, sequence)
 }
 
-/// Fold left (반복적 누산)
+/// Fold left (반복적 누산) (Fold left (iterative accumulation)).
 pub fn fold_left<T, U, F>(op: F, initial: U, sequence: &[T]) -> U
 where
     T: Clone,
@@ -367,7 +367,7 @@ where
 // 2.2.4 그림 언어 (Picture Language)
 // =============================================================================
 
-/// 2D 벡터 표현 (2D vector representation)
+/// 2D 벡터 표현 (2D vector representation).
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub struct Vec2 {
     pub x: f64,
@@ -412,7 +412,7 @@ impl Mul<f64> for Vec2 {
     }
 }
 
-/// 원점과 두 개의 가장자리 벡터로 정의된 프레임
+/// 원점과 두 개의 가장자리 벡터로 정의된 프레임 (Frame defined by origin and two edge vectors).
 #[derive(Debug, Clone, Copy)]
 pub struct Frame {
     pub origin: Vec2,
@@ -429,13 +429,13 @@ impl Frame {
         }
     }
 
-    /// 단위 정사각형의 점을 프레임 좌표로 매핑
+    /// 단위 정사각형의 점을 프레임 좌표로 매핑 (Maps a point in the unit square to frame coordinates).
     pub fn coord_map(&self, v: Vec2) -> Vec2 {
         self.origin + self.edge1 * v.x + self.edge2 * v.y
     }
 }
 
-/// 그리기를 위한 선분
+/// 그리기를 위한 선분 (Segment for drawing).
 #[derive(Debug, Clone, Copy)]
 pub struct Segment {
     pub start: Vec2,
@@ -449,12 +449,12 @@ impl Segment {
 }
 
 /// 페인터(Painter) 트레이트 - 프레임 안에 이미지를 그린다
-/// (Painter trait - draws an image inside a frame)
+/// (Painter trait - draws an image inside a frame).
 pub trait Painter {
     fn paint(&self, frame: &Frame);
 }
 
-/// 선분들을 사용하는 페인터 구현
+/// 선분들을 사용하는 페인터 구현 (Painter implementation using segments).
 pub struct SegmentPainter {
     pub segments: Vec<Segment>,
 }
@@ -480,7 +480,7 @@ impl Painter for SegmentPainter {
     }
 }
 
-/// 페인터 변환
+/// 페인터 변환 (Transforms a painter).
 pub fn transform_painter<P: Painter>(
     painter: P,
     origin: Vec2,
@@ -515,7 +515,7 @@ pub fn transform_painter<P: Painter>(
     }
 }
 
-/// 페인터를 수직으로 뒤집기
+/// 페인터를 수직으로 뒤집기 (Flips a painter vertically).
 pub fn flip_vert<P: Painter>(painter: P) -> impl Painter {
     transform_painter(
         painter,
@@ -525,7 +525,7 @@ pub fn flip_vert<P: Painter>(painter: P) -> impl Painter {
     )
 }
 
-/// 페인터를 수평으로 뒤집기
+/// 페인터를 수평으로 뒤집기 (Flips a painter horizontally).
 pub fn flip_horiz<P: Painter>(painter: P) -> impl Painter {
     transform_painter(
         painter,
@@ -535,7 +535,7 @@ pub fn flip_horiz<P: Painter>(painter: P) -> impl Painter {
     )
 }
 
-/// 페인터를 시계 반대 방향으로 90도 회전
+/// 페인터를 시계 반대 방향으로 90도 회전 (Rotates a painter 90 degrees counter-clockwise).
 pub fn rotate90<P: Painter>(painter: P) -> impl Painter {
     transform_painter(
         painter,
@@ -545,7 +545,7 @@ pub fn rotate90<P: Painter>(painter: P) -> impl Painter {
     )
 }
 
-/// 페인터를 180도 회전
+/// 페인터를 180도 회전 (Rotates a painter 180 degrees).
 pub fn rotate180<P: Painter>(painter: P) -> impl Painter {
     transform_painter(
         painter,
@@ -555,7 +555,7 @@ pub fn rotate180<P: Painter>(painter: P) -> impl Painter {
     )
 }
 
-/// 페인터를 시계 반대 방향으로 270도 회전
+/// 페인터를 시계 반대 방향으로 270도 회전 (Rotates a painter 270 degrees counter-clockwise).
 pub fn rotate270<P: Painter>(painter: P) -> impl Painter {
     transform_painter(
         painter,

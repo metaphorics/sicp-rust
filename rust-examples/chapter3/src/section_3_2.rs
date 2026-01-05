@@ -33,9 +33,9 @@ use std::fmt;
 pub enum Value {
     Number(f64),
     String(String),
-    /// (code, environment)로 표현된 프로시저 (A procedure represented as (code, environment))
+    /// (code, environment)로 표현된 프로시저 (A procedure represented as (code, environment)).
     /// 환경은 Rc<RefCell<>>로 공유되지 않고 소유된다
-    /// (The environment is owned, not shared via Rc<RefCell<>>)
+    /// (The environment is owned, not shared via Rc<RefCell<>>).
     Procedure {
         params: Vec<String>,
         body: String,
@@ -142,7 +142,7 @@ impl Wallet {
         self.balance
     }
 
-    /// 출금은 (new_wallet, result)를 반환한다 (Withdraw returns (new_wallet, result))
+    /// 출금은 (new_wallet, result)를 반환한다 (Withdraw returns (new_wallet, result)).
     pub fn withdraw(&self, amount: f64) -> (Self, Result<f64, &'static str>) {
         if self.balance >= amount {
             let new_balance = self.balance - amount;
@@ -157,7 +157,7 @@ impl Wallet {
         }
     }
 
-    /// 입금은 (new_wallet, new_balance)를 반환한다 (Deposit returns (new_wallet, new_balance))
+    /// 입금은 (new_wallet, new_balance)를 반환한다 (Deposit returns (new_wallet, new_balance)).
     #[must_use]
     pub fn deposit(&self, amount: f64) -> (Self, f64) {
         let new_balance = self.balance + amount;
@@ -224,7 +224,7 @@ impl WithdrawProcessor {
 // =============================================================================
 
 /// 재귀 팩토리얼 (SICP 연습문제 3.9 첫 번째 버전에 해당)
-/// (Recursive factorial (corresponds to SICP Exercise 3.9 first version))
+/// (Recursive factorial (corresponds to SICP Exercise 3.9 first version)).
 pub fn factorial_recursive(n: i64) -> i64 {
     if n == 1 {
         1
@@ -234,7 +234,7 @@ pub fn factorial_recursive(n: i64) -> i64 {
 }
 
 /// 내부 헬퍼를 쓰는 반복 팩토리얼 (연습문제 3.9 두 번째 버전)
-/// (Iterative factorial using an internal helper (Exercise 3.9 second version))
+/// (Iterative factorial using an internal helper (Exercise 3.9 second version)).
 pub fn factorial_iterative(n: i64) -> i64 {
     fn fact_iter(product: i64, counter: i64, max_count: i64) -> i64 {
         if counter > max_count {

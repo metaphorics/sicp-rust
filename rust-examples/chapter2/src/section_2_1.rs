@@ -8,7 +8,7 @@ use std::fmt;
 // 2.1.1: 유리수 산술 연산 (Arithmetic Operations for Rational Numbers)
 // =============================================================================
 
-/// 분자와 분모로 표현된 유리수
+/// 분자와 분모로 표현된 유리수 (Rational number represented by numerator and denominator).
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct Rational {
     num: i64,
@@ -16,9 +16,9 @@ pub struct Rational {
 }
 
 impl Rational {
-    /// 새로운 유리수를 생성하고, 기약분수로 약분합니다.
+    /// 새로운 유리수를 생성하고, 기약분수로 약분합니다 (Creates a new rational number and reduces it to lowest terms).
     pub fn new(n: i64, d: i64) -> Self {
-        assert!(d != 0, "분모는 0이 될 수 없습니다");
+        assert!(d != 0, "분모는 0이 될 수 없습니다 (Denominator cannot be zero)");
         let g = gcd(n, d);
         // 부호 정규화: 분모는 항상 양수
         let (num, denom) = if d < 0 {
@@ -29,12 +29,12 @@ impl Rational {
         Rational { num, denom }
     }
 
-    /// 분자를 반환합니다.
+    /// 분자를 반환합니다 (Returns the numerator).
     pub fn num(&self) -> i64 {
         self.num
     }
 
-    /// 분모를 반환합니다.
+    /// 분모를 반환합니다 (Returns the denominator).
     pub fn denom(&self) -> i64 {
         self.denom
     }
@@ -46,12 +46,12 @@ impl fmt::Display for Rational {
     }
 }
 
-/// 유클리드 호제법을 사용한 최대공약수 (GCD)
+/// 유클리드 호제법을 사용한 최대공약수 (Greatest Common Divisor using Euclidean algorithm).
 pub fn gcd(a: i64, b: i64) -> i64 {
     if b == 0 { a.abs() } else { gcd(b, a % b) }
 }
 
-/// 두 유리수의 덧셈
+/// 두 유리수의 덧셈 (Addition of two rational numbers).
 pub fn add_rat(x: &Rational, y: &Rational) -> Rational {
     Rational::new(
         x.num() * y.denom() + y.num() * x.denom(),
@@ -59,7 +59,7 @@ pub fn add_rat(x: &Rational, y: &Rational) -> Rational {
     )
 }
 
-/// 두 유리수의 뺄셈
+/// 두 유리수의 뺄셈 (Subtraction of two rational numbers).
 pub fn sub_rat(x: &Rational, y: &Rational) -> Rational {
     Rational::new(
         x.num() * y.denom() - y.num() * x.denom(),
@@ -67,17 +67,17 @@ pub fn sub_rat(x: &Rational, y: &Rational) -> Rational {
     )
 }
 
-/// 두 유리수의 곱셈
+/// 두 유리수의 곱셈 (Multiplication of two rational numbers).
 pub fn mul_rat(x: &Rational, y: &Rational) -> Rational {
     Rational::new(x.num() * y.num(), x.denom() * y.denom())
 }
 
-/// 두 유리수의 나눗셈
+/// 두 유리수의 나눗셈 (Division of two rational numbers).
 pub fn div_rat(x: &Rational, y: &Rational) -> Rational {
     Rational::new(x.num() * y.denom(), x.denom() * y.num())
 }
 
-/// 두 유리수의 등가성 검사
+/// 두 유리수의 등가성 검사 (Tests equality of two rational numbers).
 pub fn equal_rat(x: &Rational, y: &Rational) -> bool {
     x.num() * y.denom() == y.num() * x.denom()
 }
@@ -142,7 +142,7 @@ pub struct Interval {
 }
 
 impl Interval {
-    /// 하한과 상한으로 새로운 구간을 생성합니다.
+    /// 하한과 상한으로 새로운 구간을 생성합니다 (Creates a new interval with lower and upper bounds).
     pub fn new(a: f64, b: f64) -> Self {
         Interval {
             lower: a.min(b),
@@ -213,7 +213,7 @@ pub fn mul_interval(x: &Interval, y: &Interval) -> Interval {
 }
 
 pub fn div_interval(x: &Interval, y: &Interval) -> Result<Interval, &'static str> {
-    // 0을 포함하는 구간으로 나누는지 확인
+    // 0을 포함하는 구간으로 나누는지 확인 (Check if dividing by an interval that spans zero)
     if y.lower_bound() <= 0.0 && y.upper_bound() >= 0.0 {
         return Err("Division by interval spanning zero");
     }

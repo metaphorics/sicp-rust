@@ -35,7 +35,7 @@ where
 }
 
 /// Rust 관용구를 사용한 반복적 합계 (Iterative sum using Rust idioms).
-/// 재귀 오버헤드를 피하므로 더 효율적입니다.
+/// 재귀 오버헤드를 피하므로 더 효율적입니다 (More efficient as it avoids recursion overhead).
 pub fn sum_iter<Term, Next>(term: Term, mut a: i64, next: Next, b: i64) -> i64
 where
     Term: Fn(i64) -> i64,
@@ -91,7 +91,8 @@ where
 
 /// 제네릭 누산(accumulate) - 합계와 곱을 일반화
 /// (Generic accumulate - generalizes sum and product).
-/// 재귀적 클로저의 소유권 문제를 피하기 위해 반복적 접근 방식을 사용합니다.
+/// 재귀적 클로저의 소유권 문제를 피하기 위해 반복적 접근 방식을 사용합니다
+/// (Uses an iterative approach to avoid ownership issues with recursive closures).
 pub fn accumulate<T, Combiner, Term, Next>(
     combiner: Combiner,
     null_value: T,
@@ -146,12 +147,12 @@ where
     move |x| (x + f(x)) / 2.0
 }
 
-/// 평균 감쇠를 사용한 고정점 방식의 제곱근 구하기.
+/// 평균 감쇠를 사용한 고정점 방식의 제곱근 구하기 (Finding square roots using fixed-point method with average damping).
 pub fn sqrt_fixed_point(x: f64) -> f64 {
     fixed_point(average_damp(move |y| x / y), 1.0)
 }
 
-/// 변환된 함수의 고정점으로서의 뉴턴의 방법.
+/// 변환된 함수의 고정점으로서의 뉴턴의 방법 (Newton's method as a fixed point of a transformed function).
 pub fn newtons_method<G>(g: G, guess: f64) -> f64
 where
     G: Fn(f64) -> f64 + Copy,

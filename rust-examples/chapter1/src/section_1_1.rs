@@ -5,7 +5,7 @@
 //! - **조합 수단 (Means of combination)**: 더 단순한 요소들로부터 복합 요소를 만드는 방법
 //! - **추상화 수단 (Means of abstraction)**: 복합 요소들에 이름을 붙이고 조작할 수 있는 방법
 
-/// 숫자의 제곱을 계산합니다.
+/// 숫자의 제곱을 계산합니다 (Calculates the square of a number).
 ///
 /// # 예시 (Examples)
 /// ```
@@ -17,7 +17,7 @@ pub fn square(x: i64) -> i64 {
     x * x
 }
 
-/// 두 숫자의 제곱의 합을 계산합니다.
+/// 두 숫자의 제곱의 합을 계산합니다 (Calculates the sum of squares of two numbers).
 ///
 /// # 예시 (Examples)
 /// ```
@@ -28,7 +28,7 @@ pub fn sum_of_squares(x: i64, y: i64) -> i64 {
     square(x) + square(y)
 }
 
-/// 숫자의 절댓값을 계산합니다.
+/// 숫자의 절댓값을 계산합니다 (Calculates the absolute value of a number).
 ///
 /// # 예시 (Examples)
 /// ```
@@ -40,12 +40,12 @@ pub fn abs(x: i64) -> i64 {
     if x < 0 { -x } else { x }
 }
 
-/// 두 숫자의 평균을 계산합니다.
+/// 두 숫자의 평균을 계산합니다 (Calculates the average of two numbers).
 pub fn average(x: f64, y: f64) -> f64 {
     (x + y) / 2.0
 }
 
-/// 제곱근을 계산하기 위한 뉴턴의 방법.
+/// 제곱근을 계산하기 위한 뉴턴의 방법 (Newton's method for calculating square roots).
 ///
 /// # 예시 (Examples)
 /// ```

@@ -75,7 +75,7 @@ pub struct ConsList<T> {
 }
 
 impl<T: Clone> ConsList<T> {
-    /// 빈 리스트를 생성한다 (Create an empty list).
+    /// 빈 리스트를 생성한다 (Creates an empty list).
     pub fn new() -> Self {
         ConsList {
             arena: Arena::new(),
@@ -92,37 +92,37 @@ impl<T: Clone> ConsList<T> {
         self.head = Some(self.arena.alloc(cell));
     }
 
-    /// 머리 원소를 가져온다 (Get the head element).
+    /// 머리 원소를 가져온다 (Gets the head element).
     pub fn car(&self) -> Option<&T> {
         self.head.map(|id| &self.arena.get(id).car)
     }
 
-    /// 비어 있는지 확인한다 (Check if empty).
+    /// 비어 있는지 확인한다 (Checks if the list is empty).
     pub fn is_empty(&self) -> bool {
         self.head.is_none()
     }
 
-    /// 특정 셀의 car를 가져온다 (Get the car at a specific cell).
+    /// 특정 셀의 car를 가져온다 (Gets the car at a specific cell).
     pub fn get_car(&self, id: ArenaId<ConsCell<T>>) -> &T {
         &self.arena.get(id).car
     }
 
-    /// 특정 셀의 cdr를 가져온다 (Get the cdr at a specific cell).
+    /// 특정 셀의 cdr를 가져온다 (Gets the cdr at a specific cell).
     pub fn get_cdr(&self, id: ArenaId<ConsCell<T>>) -> Option<ArenaId<ConsCell<T>>> {
         self.arena.get(id).cdr
     }
 
-    /// 특정 셀의 car를 설정한다(아레나를 통한 변경) (Set the car at a specific cell (mutation via arena)).
+    /// 특정 셀의 car를 설정한다(아레나를 통한 변경) (Sets the car at a specific cell (mutation via arena)).
     pub fn set_car(&mut self, id: ArenaId<ConsCell<T>>, value: T) {
         self.arena.get_mut(id).car = value;
     }
 
-    /// 특정 셀의 cdr를 설정한다(아레나를 통한 변경) (Set the cdr at a specific cell (mutation via arena)).
+    /// 특정 셀의 cdr를 설정한다(아레나를 통한 변경) (Sets the cdr at a specific cell (mutation via arena)).
     pub fn set_cdr(&mut self, id: ArenaId<ConsCell<T>>, cdr: Option<ArenaId<ConsCell<T>>>) {
         self.arena.get_mut(id).cdr = cdr;
     }
 
-    /// 확인을 위해 Vec으로 변환한다 (Convert to Vec for inspection).
+    /// 확인을 위해 Vec으로 변환한다 (Converts to Vec for inspection).
     pub fn to_vec(&self) -> Vec<T> {
         let mut result = Vec::new();
         let mut current = self.head;
@@ -134,12 +134,12 @@ impl<T: Clone> ConsList<T> {
         result
     }
 
-    /// 머리 노드 ID를 가져온다 (Get the head node ID).
+    /// 머리 노드 ID를 가져온다 (Gets the head node ID).
     pub fn head_id(&self) -> Option<ArenaId<ConsCell<T>>> {
         self.head
     }
 
-    /// 마지막 노드 ID를 가져온다 (Get the last node ID).
+    /// 마지막 노드 ID를 가져온다 (Gets the last node ID).
     pub fn last_id(&self) -> Option<ArenaId<ConsCell<T>>> {
         let mut current = self.head?;
         while let Some(next) = self.arena.get(current).cdr {
@@ -148,7 +148,7 @@ impl<T: Clone> ConsList<T> {
         Some(current)
     }
 
-    /// 마지막 cdr을 변경해 다른 리스트를 덧붙인다(파괴적) (Append another list by mutating the last cdr (destructive)).
+    /// 마지막 cdr을 변경해 다른 리스트를 덧붙인다(파괴적) (Appends another list by mutating the last cdr (destructive)).
     pub fn append_mut(&mut self, other_head: Option<ArenaId<ConsCell<T>>>) {
         if let Some(last) = self.last_id() {
             self.arena.get_mut(last).cdr = other_head;
@@ -157,7 +157,7 @@ impl<T: Clone> ConsList<T> {
         }
     }
 
-    /// 사이클을 만든다(마지막이 첫 번째를 가리킴) (Make a cycle (last points back to first)).
+    /// 사이클을 만든다(마지막이 첫 번째를 가리킴) (Makes a cycle (last points back to first)).
     pub fn make_cycle(&mut self) {
         if let (Some(last), Some(head)) = (self.last_id(), self.head) {
             self.arena.get_mut(last).cdr = Some(head);
@@ -165,7 +165,7 @@ impl<T: Clone> ConsList<T> {
     }
 
     /// 리스트를 파괴적으로 뒤집는다(Scheme의 mystery 함수처럼)
-    /// (Reverse the list destructively (like Scheme's mystery function)).
+    /// (Reverses the list destructively (like Scheme's mystery function)).
     pub fn reverse_mut(&mut self) {
         let mut prev: Option<ArenaId<ConsCell<T>>> = None;
         let mut current = self.head;
@@ -179,7 +179,7 @@ impl<T: Clone> ConsList<T> {
         self.head = prev;
     }
 
-    /// 노드 개수를 센다(단순 버전, 사이클 미처리) (Count nodes (naive, doesn't handle cycles)).
+    /// 노드 개수를 센다(단순 버전, 사이클 미처리) (Counts nodes (naive version, doesn't handle cycles)).
     pub fn len_naive(&self) -> usize {
         let mut count = 0;
         let mut current = self.head;
@@ -190,7 +190,7 @@ impl<T: Clone> ConsList<T> {
         count
     }
 
-    /// 플로이드 알고리즘으로 사이클을 감지한다 (Detect cycle using Floyd's algorithm).
+    /// 플로이드 알고리즘으로 사이클을 감지한다 (Detects cycle using Floyd's algorithm).
     pub fn has_cycle(&self) -> bool {
         let mut slow = self.head;
         let mut fast = self.head;
@@ -771,24 +771,24 @@ pub mod constraints {
             }
         }
 
-        /// 새 커넥터를 생성한다 (Create a new connector).
+        /// 새 커넥터를 생성한다 (Creates a new connector).
         pub fn make_connector(&mut self) -> ConnectorId {
             let id = ConnectorId(self.connectors.len());
             self.connectors.push(ConnectorState::default());
             id
         }
 
-        /// 커넥터에 값이 있는지 확인한다 (Check if connector has a value).
+        /// 커넥터에 값이 있는지 확인한다 (Checks if connector has a value).
         pub fn has_value(&self, conn: ConnectorId) -> bool {
             self.connectors[conn.0].value.is_some()
         }
 
-        /// 커넥터 값을 가져온다 (Get connector value).
+        /// 커넥터 값을 가져온다 (Gets connector value).
         pub fn get_value(&self, conn: ConnectorId) -> Option<f64> {
             self.connectors[conn.0].value
         }
 
-        /// 값-설정 이벤트를 큐에 넣는다 (Queue a set-value event).
+        /// 값-설정 이벤트를 큐에 넣는다 (Queues a set-value event).
         pub fn set_value(&mut self, conn: ConnectorId, value: f64, informant: &str) {
             self.events.push_back(Event::SetValue {
                 connector: conn,
@@ -797,7 +797,7 @@ pub mod constraints {
             });
         }
 
-        /// 값-삭제 이벤트를 큐에 넣는다 (Queue a forget-value event).
+        /// 값-삭제 이벤트를 큐에 넣는다 (Queues a forget-value event).
         pub fn forget_value(&mut self, conn: ConnectorId, retractor: &str) {
             self.events.push_back(Event::ForgetValue {
                 connector: conn,
@@ -806,7 +806,7 @@ pub mod constraints {
         }
 
         /// 가산 제약을 생성한다: a1 + a2 = sum
-        /// (Create an adder constraint: a1 + a2 = sum).
+        /// (Creates an adder constraint: a1 + a2 = sum).
         pub fn adder(
             &mut self,
             a1: ConnectorId,
@@ -831,7 +831,7 @@ pub mod constraints {
         }
 
         /// 곱셈 제약을 생성한다: m1 * m2 = product
-        /// (Create a multiplier constraint: m1 * m2 = product).
+        /// (Creates a multiplier constraint: m1 * m2 = product).
         pub fn multiplier(
             &mut self,
             m1: ConnectorId,
@@ -854,7 +854,7 @@ pub mod constraints {
             id
         }
 
-        /// 상수 제약을 생성한다 (Create a constant constraint).
+        /// 상수 제약을 생성한다 (Creates a constant constraint).
         pub fn constant(&mut self, value: f64, connector: ConnectorId, name: &str) -> ConstraintId {
             let id = ConstraintId(self.constraints.len());
             self.constraints.push(ConstraintKind::Constant {
@@ -872,7 +872,7 @@ pub mod constraints {
             id
         }
 
-        /// 프로브를 생성한다 (Create a probe).
+        /// 프로브를 생성한다 (Creates a probe).
         pub fn probe(&mut self, name: &str, connector: ConnectorId) -> ConstraintId {
             let id = ConstraintId(self.constraints.len());
             self.constraints.push(ConstraintKind::Probe {
@@ -884,7 +884,7 @@ pub mod constraints {
             id
         }
 
-        /// 대기 중인 모든 이벤트를 처리한다 (Process all pending events).
+        /// 대기 중인 모든 이벤트를 처리한다 (Processes all pending events).
         pub fn propagate(&mut self) {
             while let Some(event) = self.events.pop_front() {
                 match event {
@@ -1023,7 +1023,7 @@ pub mod constraints {
             }
         }
 
-        /// 섭씨-화씨 변환기를 구성한다 (Build Celsius-Fahrenheit converter).
+        /// 섭씨-화씨 변환기를 구성한다 (Builds Celsius-Fahrenheit converter).
         pub fn celsius_fahrenheit_converter(&mut self, c: ConnectorId, f: ConnectorId) {
             let u = self.make_connector();
             let v = self.make_connector();
@@ -1039,7 +1039,7 @@ pub mod constraints {
             self.constant(32.0, y, "c3");
         }
 
-        /// 테스트용 프로브 출력 값을 가져온다 (Get probe output for testing).
+        /// 테스트용 프로브 출력 값을 가져온다 (Gets probe output for testing).
         pub fn get_probe_output(&self) -> &[String] {
             &self.probe_output
         }

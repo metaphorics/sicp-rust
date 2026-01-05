@@ -35,7 +35,7 @@ use std::collections::HashSet;
 // ============================================================================
 
 /// 리스트 원소를 비결정적으로 선택한다
-/// (An element of a list, nondeterministically chosen).
+/// (Nondeterministically selects an element from a list).
 ///
 /// `amb`의 가장 단순한 형태로, 모든 선택지에 대한 이터레이터를 반환한다
 /// (This is the simplest form of `amb` - it returns an iterator over all choices).
@@ -65,7 +65,7 @@ pub fn an_integer_starting_from(n: i32) -> impl Iterator<Item = i32> {
 // ============================================================================
 
 /// i ≤ j, i² + j² = k²를 만족하는 피타고라스 삼중쌍 (i, j, k)을 찾는다
-/// (Find Pythagorean triples (i, j, k) where i ≤ j, i² + j² = k²),
+/// (Finds Pythagorean triples (i, j, k) where i ≤ j, i² + j² = k²),
 /// 모든 값은 `low`와 `high` 사이에 있다
 /// (with all values between `low` and `high`).
 ///
@@ -94,7 +94,7 @@ pub fn pythagorean_triples_between(low: i32, high: i32) -> impl Iterator<Item = 
     })
 }
 
-/// 연습문제 4.37: Ben의 최적화 버전 (Ben's optimized version)
+/// 연습문제 4.37: Ben의 최적화 버전 (Ben's optimized version).
 ///
 /// 이 버전은 다음 이유로 더 효율적이다:
 /// (This version is more efficient because it:)
@@ -133,7 +133,7 @@ pub fn pythagorean_triples_between_optimized(
 // ============================================================================
 
 /// 모든 원소가 서로 다른지 확인 (논리 퍼즐에서 사용)
-/// (Distinct elements check (used in logic puzzles))
+/// (Checks if all elements are distinct (used in logic puzzles)).
 pub fn distinct<T: Eq + std::hash::Hash>(items: &[T]) -> bool {
     let mut seen = HashSet::new();
     items.iter().all(|item| seen.insert(item))
@@ -183,6 +183,7 @@ pub struct MultipleDwelling {
 }
 
 impl MultipleDwelling {
+    /// 퍼즐을 푼다 (Solves the puzzle).
     pub fn solve() -> impl Iterator<Item = Self> {
         (1..=5).flat_map(|baker| {
             (1..=5).flat_map(move |cooper| {
@@ -241,7 +242,7 @@ impl MultipleDwelling {
     }
 
     /// 연습문제 4.38: Smith-Fletcher 인접 제약을 제거한 경우
-    /// (Exercise 4.38: Without the Smith-Fletcher adjacency constraint)
+    /// (Exercise 4.38: Solves the puzzle without the Smith-Fletcher adjacency constraint).
     pub fn solve_without_smith_fletcher_adjacency() -> impl Iterator<Item = Self> {
         (1..=5).flat_map(|baker| {
             (1..=5).flat_map(move |cooper| {
@@ -286,7 +287,7 @@ impl MultipleDwelling {
     }
 
     /// 연습문제 4.40: 조기 가지치기를 적용한 최적화 버전
-    /// (Exercise 4.40: Optimized version with early pruning)
+    /// (Exercise 4.40: Optimized version with early pruning).
     ///
     /// 5^5 = 3125 조합을 전부 생성한 뒤 필터링하는 대신,
     /// 변수가 바인딩되는 즉시 제약을 검사해 조기 가지치기를 한다
@@ -376,11 +377,12 @@ pub struct LiarsPuzzle {
 
 impl LiarsPuzzle {
     /// 두 문장 중 정확히 하나만 참인지 확인 (XOR)
-    /// (Check if exactly one of two statements is true (XOR))
+    /// (Checks if exactly one of two statements is true (XOR)).
     fn exactly_one_true(a: bool, b: bool) -> bool {
         a ^ b // XOR: 정확히 하나만 참이면 true (XOR: true if exactly one is true)
     }
 
+    /// 퍼즐을 푼다 (Solves the puzzle).
     pub fn solve() -> impl Iterator<Item = Self> {
         (1..=5).flat_map(|betty| {
             (1..=5).flat_map(move |ethel| {
@@ -454,7 +456,7 @@ pub struct EightQueens {
 
 impl EightQueens {
     /// (row, col)에 퀸을 두는 것이 안전한지 검사
-    /// (Check if placing a queen at (row, col) is safe given existing queens)
+    /// (Checks if placing a queen at (row, col) is safe given existing queens).
     fn is_safe(board: &[usize], row: usize, col: usize) -> bool {
         for (other_col, &other_row) in board.iter().enumerate() {
             // 같은 행 (Same row)
@@ -474,11 +476,12 @@ impl EightQueens {
     }
 
     /// 백트래킹으로 8-퀸 해결
-    /// (Solve 8-queens using backtracking)
+    /// (Solves 8-queens using backtracking).
     pub fn solve() -> impl Iterator<Item = Self> {
         Self::solve_recursive(Vec::new(), 0)
     }
 
+    /// 재귀적으로 해를 찾는다 (Recursively finds solutions).
     fn solve_recursive(board: Vec<usize>, col: usize) -> Box<dyn Iterator<Item = Self>> {
         if col == 8 {
             // 완전한 해를 찾음 (Found a complete solution)
@@ -501,7 +504,7 @@ impl EightQueens {
     }
 
     /// 보드를 시각화 (디버깅용)
-    /// (Visualize the board (for debugging))
+    /// (Visualizes the board (for debugging)).
     pub fn display(&self) -> String {
         let mut result = String::new();
         for row in 0..8 {
@@ -569,7 +572,7 @@ where
 }
 
 /// 이터레이터 기반 탐색으로 피타고라스 삼중쌍을 찾는다
-/// (Pythagorean triple finder using iterator-based search)
+/// (Pythagorean triple finder using iterator-based search).
 ///
 /// 명시적 연속 없이 중첩 선택 지점을 보여준다.
 /// 각 `find_map`이 선택 지점이며 `None`을 반환하면 백트래킹된다
@@ -617,13 +620,14 @@ pub enum ParseTree {
 }
 
 /// 백트래킹을 사용하는 간단한 파서 (이터레이터 기반)
-/// (Simple parser using backtracking (iterator-based))
+/// (Simple parser using backtracking (iterator-based)).
 pub struct Parser {
     words: Vec<String>,
     pos: usize,
 }
 
 impl Parser {
+    /// 파서를 생성한다 (Creates a new parser).
     pub fn new(input: &str) -> Self {
         Parser {
             words: input.split_whitespace().map(String::from).collect(),
@@ -631,10 +635,12 @@ impl Parser {
         }
     }
 
+    /// 현재 단어를 본다 (Peeks at the current word).
     fn peek(&self) -> Option<&str> {
         self.words.get(self.pos).map(|s| s.as_str())
     }
 
+    /// 단어를 소비한다 (Consumes a word).
     fn consume(&mut self) -> Option<String> {
         if self.pos < self.words.len() {
             let word = self.words[self.pos].clone();
@@ -645,6 +651,7 @@ impl Parser {
         }
     }
 
+    /// 관사를 파싱한다 (Parses an article).
     fn parse_article(&mut self) -> Option<String> {
         match self.peek() {
             Some("그(the)") | Some("한(a)") => self.consume(),
@@ -652,6 +659,7 @@ impl Parser {
         }
     }
 
+    /// 명사를 파싱한다 (Parses a noun).
     fn parse_noun(&mut self) -> Option<String> {
         match self.peek() {
             Some("학생(student)")
@@ -662,6 +670,7 @@ impl Parser {
         }
     }
 
+    /// 동사를 파싱한다 (Parses a verb).
     fn parse_verb(&mut self) -> Option<String> {
         match self.peek() {
             Some("공부한다(studies)")
@@ -672,6 +681,7 @@ impl Parser {
         }
     }
 
+    /// 전치사를 파싱한다 (Parses a preposition).
     fn parse_preposition(&mut self) -> Option<String> {
         match self.peek() {
             Some("위해(for)")
@@ -683,12 +693,14 @@ impl Parser {
         }
     }
 
+    /// 단순 명사구를 파싱한다 (Parses a simple noun phrase).
     pub fn parse_simple_noun_phrase(&mut self) -> Option<ParseTree> {
         let article = self.parse_article()?;
         let noun = self.parse_noun()?;
         Some(ParseTree::SimpleNounPhrase(article, noun))
     }
 
+    /// 문장을 파싱한다 (Parses a sentence).
     pub fn parse_sentence(&mut self) -> Option<ParseTree> {
         let np = self.parse_noun_phrase()?;
         let vp = self.parse_verb_phrase()?;
@@ -700,11 +712,13 @@ impl Parser {
         Some(ParseTree::Sentence(Box::new(np), Box::new(vp)))
     }
 
+    /// 명사구를 파싱한다 (Parses a noun phrase).
     fn parse_noun_phrase(&mut self) -> Option<ParseTree> {
         let simple = self.parse_simple_noun_phrase()?;
         self.maybe_extend_noun_phrase(simple)
     }
 
+    /// 명사구를 확장하려고 시도한다 (Tries to extend a noun phrase).
     fn maybe_extend_noun_phrase(&mut self, np: ParseTree) -> Option<ParseTree> {
         // 전치사구로 확장 시도 (Try to extend with a prepositional phrase)
         let saved_pos = self.pos;
@@ -718,12 +732,14 @@ impl Parser {
         }
     }
 
+    /// 동사구를 파싱한다 (Parses a verb phrase).
     fn parse_verb_phrase(&mut self) -> Option<ParseTree> {
         let verb_str = self.parse_verb()?;
         let verb = ParseTree::Verb(verb_str);
         self.maybe_extend_verb_phrase(verb)
     }
 
+    /// 동사구를 확장하려고 시도한다 (Tries to extend a verb phrase).
     fn maybe_extend_verb_phrase(&mut self, vp: ParseTree) -> Option<ParseTree> {
         let saved_pos = self.pos;
         if let Some(pp) = self.parse_prep_phrase() {
@@ -735,6 +751,7 @@ impl Parser {
         }
     }
 
+    /// 전치사구를 파싱한다 (Parses a prepositional phrase).
     fn parse_prep_phrase(&mut self) -> Option<ParseTree> {
         let prep = self.parse_preposition()?;
         let np = self.parse_noun_phrase()?;
@@ -742,9 +759,145 @@ impl Parser {
     }
 }
 
+/// 주어진 입력으로 문장을 파싱한다 (Parses a sentence with the given input).
 pub fn parse(input: &str) -> Option<ParseTree> {
     let mut parser = Parser::new(input);
     parser.parse_sentence()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_pythagorean_triples() {
+        let triples: Vec<_> = pythagorean_triples_between(1, 20).collect();
+        assert!(triples.contains(&(3, 4, 5)));
+        assert!(triples.contains(&(5, 12, 13)));
+        assert!(triples.contains(&(8, 15, 17)));
+    }
+
+    #[test]
+    fn test_pythagorean_triples_optimized() {
+        let naive: Vec<_> = pythagorean_triples_between(1, 20).collect();
+        let optimized: Vec<_> = pythagorean_triples_between_optimized(1, 20).collect();
+        assert_eq!(naive.len(), optimized.len());
+        for triple in &naive {
+            assert!(optimized.contains(triple));
+        }
+    }
+
+    #[test]
+    fn test_multiple_dwelling() {
+        let solutions: Vec<_> = MultipleDwelling::solve().collect();
+        assert_eq!(solutions.len(), 1);
+        let sol = solutions[0];
+        assert_eq!(sol.baker, 3);
+        assert_eq!(sol.cooper, 2);
+        assert_eq!(sol.fletcher, 4);
+        assert_eq!(sol.miller, 5);
+        assert_eq!(sol.smith, 1);
+    }
+
+    #[test]
+    fn test_multiple_dwelling_without_smith_fletcher() {
+        let count = MultipleDwelling::solve_without_smith_fletcher_adjacency().count();
+        // 기대값: 해 5개 (연습문제 4.38) (Expected: 5 solutions (Exercise 4.38))
+        assert_eq!(count, 5);
+    }
+
+    #[test]
+    fn test_multiple_dwelling_optimized() {
+        let naive: Vec<_> = MultipleDwelling::solve().collect();
+        let optimized: Vec<_> = MultipleDwelling::solve_optimized().collect();
+        assert_eq!(naive.len(), optimized.len());
+        assert_eq!(naive[0], optimized[0]);
+    }
+
+    #[test]
+    fn test_liars_puzzle() {
+        let solutions: Vec<_> = LiarsPuzzle::solve().collect();
+        assert_eq!(
+            solutions.len(),
+            1,
+            "정확히 하나의 해가 있어야 함 (Should have exactly one solution)"
+        );
+        let sol = solutions[0];
+        // 해: Betty=3, Ethel=5, Joan=2, Kitty=1, Mary=4
+        // 퍼즐 제약과 대조 확인:
+        // - Betty (3등): "Kitty 2등" (F), "나는 3등" (T) → 하나만 참 ✓
+        // - Ethel (5등): "나는 1등" (F), "Joan 2등" (T) → 하나만 참 ✓
+        // - Joan (2등): "나는 3등" (F), "Ethel 5등" (T) → 하나만 참 ✓
+        // - Kitty (1등): "나는 2등" (F), "Mary 4등" (T) → 하나만 참 ✓
+        // - Mary (4등): "나는 4등" (T), "Betty 1등" (F) → 하나만 참 ✓
+        assert_eq!(sol.betty, 3);
+        assert_eq!(sol.ethel, 5);
+        assert_eq!(sol.joan, 2);
+        assert_eq!(sol.kitty, 1);
+        assert_eq!(sol.mary, 4);
+    }
+
+    #[test]
+    fn test_eight_queens() {
+        let solutions: Vec<_> = EightQueens::solve().take(10).collect();
+        assert!(!solutions.is_empty());
+
+        // 첫 해가 유효한지 확인 (Verify first solution is valid)
+        let first = &solutions[0];
+        for col in 0..8 {
+            for other_col in 0..8 {
+                if col == other_col {
+                    continue;
+                }
+                let row = first.board[col];
+                let other_row = first.board[other_col];
+
+                // 같은 행 금지 (No same row)
+                assert_ne!(row, other_row);
+
+                // 대각선 공격 금지 (No diagonal attack)
+                let row_diff = (row as i32 - other_row as i32).abs();
+                let col_diff = (col as i32 - other_col as i32).abs();
+                assert_ne!(row_diff, col_diff);
+            }
+        }
+    }
+
+    #[test]
+    fn test_pythagorean_triple_search() {
+        let result = pythagorean_triple_search(1, 20);
+        assert!(result.is_some());
+        let (i, j, k) = result.unwrap();
+        assert_eq!(i * i + j * j, k * k);
+        assert_eq!((i, j, k), (3, 4, 5)); // 첫 번째 해 (First solution)
+    }
+
+    #[test]
+    fn test_amb_search() {
+        let result = amb_search(vec![1, 2, 3], |x| if x > 1 { Some(x * 2) } else { None });
+        assert_eq!(result, Some(4));
+    }
+
+    #[test]
+    fn test_parse_simple_sentence() {
+        let tree = parse("그(the) 고양이(cat) 먹는다(eats)").unwrap();
+        match tree {
+            ParseTree::Sentence(_, _) => {}
+            _ => panic!("문장을 기대함 (Expected Sentence)"),
+        }
+    }
+
+    #[test]
+    fn test_parse_complex_sentence() {
+        let tree = parse("그(the) 학생(student) 함께(with) 그(the) 고양이(cat) 잔다(sleeps) 안에(in) 그(the) 수업(class)");
+        assert!(tree.is_some());
+    }
+
+    #[test]
+    fn test_distinct() {
+        assert!(distinct(&[1, 2, 3, 4, 5]));
+        assert!(!distinct(&[1, 2, 3, 2, 5]));
+    }
 }
 
 #[cfg(test)]

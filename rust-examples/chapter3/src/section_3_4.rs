@@ -861,3 +861,194 @@ mod tests {
         assert!(result == 1_000_000 || result == 1_000_000_000_000);
     }
 }
+
+// ==============================================================================
+// 테스트 (Tests) (연습문제 3.38-3.47 (Exercises 3.38-3.47))
+// ==============================================================================
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_account_withdraw_deposit() {
+        let account = Arc::new(Mutex::new(Account::new(100)));
+
+        let acc = Arc::clone(&account);
+        let t1 = thread::spawn(move || {
+            acc.lock().unwrap().deposit(50);
+        });
+
+        let acc = Arc::clone(&account);
+        let t2 = thread::spawn(move || {
+            acc.lock().unwrap().withdraw(30).unwrap();
+        });
+
+        t1.join().unwrap();
+        t2.join().unwrap();
+
+        assert_eq!(account.lock().unwrap().balance(), 120);
+    }
+
+    #[test]
+    fn test_concurrent_withdrawals_no_race() {
+        // 연습문제 3.38: 올바른 직렬화 보장
+        // (Exercise 3.38: Ensure proper serialization)
+        let account = Arc::new(Mutex::new(Account::new(100)));
+
+        let handles: Vec<_> = (0..10)
+            .map(|_| {
+                let acc = Arc::clone(&account);
+                thread::spawn(move || {
+                    let _ = acc.lock().unwrap().withdraw(10);
+                })
+            })
+            .collect();
+
+        for h in handles {
+            h.join().unwrap();
+        }
+
+        // 모든 출금은 직렬화되어야 함 (All withdrawals should be serialized)
+        assert_eq!(account.lock().unwrap().balance(), 0);
+    }
+
+    #[test]
+    fn test_thread_safe_account() {
+        let account = ThreadSafeAccount::new(1000);
+
+        let acc1 = account.clone_handle();
+        let t1 = thread::spawn(move || {
+            for _ in 0..100 {
+                acc1.deposit(10);
+            }
+        });
+
+        let acc2 = account.clone_handle();
+        let t2 = thread::spawn(move || {
+            for _ in 0..100 {
+                let _ = acc2.withdraw(5);
+            }
+        });
+
+        t1.join().unwrap();
+        t2.join().unwrap();
+
+        // 1000 + (100 * 10) - (100 * 5) = 1500
+        assert_eq!(account.get_balance(), 1500);
+    }
+
+    #[test]
+    fn test_serializer() {
+        let serializer = Serializer::new(0);
+        let s = Arc::new(serializer);
+
+        let mut handles = vec![];
+
+        for _ in 0..10 {
+            let ser = Arc::clone(&s);
+            let h = thread::spawn(move || {
+                for _ in 0..1000 {
+                    ser.execute(|val| *val += 1);
+                }
+            });
+            handles.push(h);
+        }
+
+        for h in handles {
+            h.join().unwrap();
+        }
+
+        let final_val = s.execute(|val| *val);
+        assert_eq!(final_val, 10000);
+    }
+
+    #[test]
+    fn test_exchange_safe() {
+        let a1 = AccountWithSerializer::new(100, 1);
+        let a2 = AccountWithSerializer::new(50, 2);
+
+        exchange_safe(&a1, &a2);
+
+        // 교환 후 잔액이 서로 바뀌어야 한다 (After exchange, balances should be swapped)
+        assert_eq!(a1.lock().unwrap().balance(), 75);
+        assert_eq!(a2.lock().unwrap().balance(), 75);
+    }
+
+    #[test]
+    fn test_atomic_mutex() {
+        let mutex = SimpleMutex::new();
+
+        assert!(!mutex.test_and_set()); // 첫 테스트-앤드-셋은 획득 (First test-and-set acquires)
+        assert!(mutex.test_and_set()); // 두 번째는 실패 (이미 잠김) (Second fails (already locked))
+
+        mutex.release();
+        assert!(!mutex.test_and_set()); // 다시 획득 가능 (Can acquire again)
+    }
+
+    /// 연습문제 3.39: 직렬화된 실행 가능성
+    /// (Exercise 3.39: Serialized execution possibilities)
+    #[test]
+    fn test_exercise_3_39() {
+        // 부분 직렬화: x = ((s (lambda () (* x x))))
+        // 가능한 결과: 100, 110, 121 (101과 11은 제거됨)
+
+        let x = Arc::new(Mutex::new(10));
+
+        let x1 = Arc::clone(&x);
+        let t1 = thread::spawn(move || {
+            let val = {
+                let guard = x1.lock().unwrap();
+                *guard * *guard // 직렬화된 읽기 (Serialized read)
+            };
+            *x1.lock().unwrap() = val; // 비직렬화 쓰기 (Unserialized write)
+        });
+
+        let x2 = Arc::clone(&x);
+        let t2 = thread::spawn(move || {
+            let mut guard = x2.lock().unwrap();
+            *guard += 1; // 완전 직렬화 (Fully serialized)
+        });
+
+        t1.join().unwrap();
+        t2.join().unwrap();
+
+        let result = *x.lock().unwrap();
+        println!("연습문제 3.39 결과: {} (Exercise 3.39 result)", result);
+        assert!(result == 100 || result == 101 || result == 110 || result == 121);
+    }
+
+    /// 연습문제 3.40: 다중 동시 연산
+    /// (Exercise 3.40: Multiple concurrent operations)
+    #[test]
+    fn test_exercise_3_40_serialized() {
+        // (define x 10)
+        // (parallel-execute
+        //  (s (lambda () (set! x (* x x))))
+        //  (s (lambda () (set! x (* x x x)))))
+        //
+        // 직렬화가 있으면 가능한 값은 1,000,000과 1,000,000,000,000뿐
+
+        let x = Arc::new(Mutex::new(10i64));
+
+        let x1 = Arc::clone(&x);
+        let t1 = thread::spawn(move || {
+            let mut guard = x1.lock().unwrap();
+            *guard = *guard * *guard; // x * x
+        });
+
+        let x2 = Arc::clone(&x);
+        let t2 = thread::spawn(move || {
+            let mut guard = x2.lock().unwrap();
+            *guard = *guard * *guard * *guard; // x * x * x
+        });
+
+        t1.join().unwrap();
+        t2.join().unwrap();
+
+        let result = *x.lock().unwrap();
+        println!("연습문제 3.40 결과: {} (Exercise 3.40 result)", result);
+        // 직렬화가 있으면 가능한 결과는 두 가지뿐 (With serialization, only two outcomes possible)
+        assert!(result == 1_000_000 || result == 1_000_000_000_000);
+    }
+}

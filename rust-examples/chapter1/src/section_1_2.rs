@@ -6,8 +6,8 @@
 //! - 트리 재귀 (Tree recursion)
 //! - 증가 차수 (Orders of growth)
 
-/// 선형 재귀 프로세스를 사용한 팩토리얼.
-/// 이 프로세스는 지연된 연산들의 체인을 구축합니다.
+/// 선형 재귀 프로세스를 사용한 팩토리얼 (Factorial using a linear recursive process).
+/// 이 프로세스는 지연된 연산들의 체인을 구축합니다 (This process builds up a chain of deferred operations).
 ///
 /// # 예시 (Examples)
 /// ```
@@ -22,9 +22,10 @@ pub fn factorial_recursive(n: u64) -> u64 {
     }
 }
 
-/// 선형 반복 프로세스를 사용한 팩토리얼.
+/// 선형 반복 프로세스를 사용한 팩토리얼 (Factorial using a linear iterative process).
 /// Rust는 꼬리 호출 최적화(TCO)를 보장하지 않지만, 이 패턴은
-/// 명시적 누산기(accumulator)를 통해 상수 공간을 유지합니다.
+/// 명시적 누산기(accumulator)를 통해 상수 공간을 유지합니다
+/// (Rust does not guarantee TCO, but this pattern maintains constant space via an explicit accumulator).
 ///
 /// # 예시 (Examples)
 /// ```
@@ -54,7 +55,7 @@ pub fn factorial(n: u64) -> u64 {
     (1..=n).product()
 }
 
-/// 트리 재귀를 사용한 피보나치.
+/// 트리 재귀를 사용한 피보나치 (Fibonacci using tree recursion).
 /// 이것은 지수 시간 복잡도 O(phi^n)를 가진다 (This has exponential time complexity O(phi^n)).
 ///
 /// # 예시 (Examples)
@@ -72,7 +73,7 @@ pub fn fib_tree(n: u64) -> u64 {
     }
 }
 
-/// 반복 프로세스를 사용한 피보나치.
+/// 반복 프로세스를 사용한 피보나치 (Fibonacci using an iterative process).
 /// 선형 시간 O(n), 상수 공간 O(1) (Linear time O(n), constant space O(1)).
 ///
 /// # 예시 (Examples)
@@ -121,7 +122,7 @@ pub fn is_prime(n: u64) -> bool {
     fn find_divisor(n: u64, test_divisor: u64) -> u64 {
         if test_divisor * test_divisor > n {
             n
-        } else if n % test_divisor == 0 { // Rust에서는 is_multiple_of 대신 % 연산자가 더 일반적입니다.
+        } else if n % test_divisor == 0 { // Rust에서는 is_multiple_of 대신 % 연산자가 더 일반적입니다 (In Rust, the % operator is more common than is_multiple_of).
             test_divisor
         } else {
             find_divisor(n, test_divisor + 1)
@@ -130,7 +131,7 @@ pub fn is_prime(n: u64) -> bool {
     find_divisor(n, 2) == n
 }
 
-/// 연속 제곱을 사용한 빠른 거듭제곱.
+/// 연속 제곱을 사용한 빠른 거듭제곱 (Fast exponentiation using successive squaring).
 /// O(log n) 시간 복잡도 (Time complexity O(log n)).
 ///
 /// # 예시 (Examples)
