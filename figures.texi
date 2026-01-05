@@ -1,4 +1,4 @@
-@subsubheading Chapter 1 
+@subsubheading 1장 
 
 @multitable @columnfractions 0.12 0.12 0.12 0.12 0.12 0.12 0.12 0.12 
 @item 
@@ -9,7 +9,7 @@
 @ref{Figure 1.5,,1.5} @tab 
 @end multitable 
 
-@subsubheading Chapter 2 
+@subsubheading 2장 
 
 @multitable @columnfractions 0.12 0.12 0.12 0.12 0.12 0.12 0.12 0.12 
 @item 
@@ -44,7 +44,7 @@
 @ref{Figure 2.26,,2.26} @tab 
 @end multitable 
 
-@subsubheading Chapter 3 
+@subsubheading 3장 
 
 @multitable @columnfractions 0.12 0.12 0.12 0.12 0.12 0.12 0.12 0.12 
 @item 
@@ -92,7 +92,7 @@
 @ref{Figure 3.38,,3.38} @tab 
 @end multitable 
 
-@subsubheading Chapter 4 
+@subsubheading 4장 
 
 @multitable @columnfractions 0.12 0.12 0.12 0.12 0.12 0.12 0.12 0.12 
 @item 
@@ -104,7 +104,7 @@
 @ref{Figure 4.6,,4.6} @tab 
 @end multitable 
 
-@subsubheading Chapter 5 
+@subsubheading 5장 
 
 @multitable @columnfractions 0.12 0.12 0.12 0.12 0.12 0.12 0.12 0.12 
 @item 
