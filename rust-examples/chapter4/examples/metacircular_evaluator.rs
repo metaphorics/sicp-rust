@@ -1,18 +1,18 @@
-//! Example: Using the Metacircular Evaluator
+//! 예제: 메타순환적 평가기 사용 (Using the Metacircular Evaluator)
 //!
-//! Demonstrates the SICP metacircular evaluator implemented in Rust.
+//! Rust로 구현된 SICP 메타순환적 평가기를 보여줍니다.
 //!
-//! Run with: cargo run --example metacircular_evaluator
+//! 실행 방법: cargo run --example metacircular_evaluator
 
 use sicp_chapter4::section_4_1::{CondClause, Expr, eval, setup_environment};
 
 fn main() {
-    println!("=== SICP Metacircular Evaluator in Rust ===\n");
+    println!("=== Rust로 구현된 SICP 메타순환적 평가기 ===\n");
 
     let env = setup_environment();
 
-    // Example 1: Simple arithmetic
-    println!("1. Arithmetic: (+ (* 2 3) (- 10 5))");
+    // 예제 1: 단순 산술 연산
+    println!("1. 산술 연산: (+ (* 2 3) (- 10 5))");
     let expr = Expr::Application {
         operator: Box::new(Expr::Symbol("+".to_string())),
         operands: vec![
@@ -27,12 +27,12 @@ fn main() {
         ],
     };
     match eval(&expr, env.clone()) {
-        Ok((result, _)) => println!("   Result: {}\n", result),
-        Err(e) => println!("   Error: {}\n", e),
+        Ok((result, _)) => println!("   결과: {}\n", result),
+        Err(e) => println!("   오류: {}\n", e),
     }
 
-    // Example 2: Define a function (factorial)
-    println!("2. Define factorial:");
+    // 예제 2: 함수 정의 (팩토리얼)
+    println!("2. 팩토리얼 정의:");
     println!("   (define factorial");
     println!("     (lambda (n)");
     println!("       (if (= n 0) 1 (* n (factorial (- n 1))))))");
@@ -64,7 +64,7 @@ fn main() {
         }),
     };
 
-    // Thread environment through defines
+    // 정의를 통해 환경 업데이트
     let (_, env) = eval(&factorial_def, env).unwrap();
 
     println!("   (factorial 6)");
@@ -73,12 +73,12 @@ fn main() {
         operands: vec![Expr::Number(6)],
     };
     match eval(&factorial_call, env.clone()) {
-        Ok((result, _)) => println!("   Result: {}\n", result),
-        Err(e) => println!("   Error: {}\n", e),
+        Ok((result, _)) => println!("   결과: {}\n", result),
+        Err(e) => println!("   오류: {}\n", e),
     }
 
-    // Example 3: Closures and higher-order functions
-    println!("3. Closures - make-adder:");
+    // 예제 3: 클로저와 고차 함수
+    println!("3. 클로저 - make-adder:");
     println!("   (define make-adder (lambda (x) (lambda (y) (+ x y))))");
 
     let make_adder_def = Expr::Define {
@@ -112,12 +112,12 @@ fn main() {
         operands: vec![Expr::Number(32)],
     };
     match eval(&add10_call, env.clone()) {
-        Ok((result, _)) => println!("   Result: {}\n", result),
-        Err(e) => println!("   Error: {}\n", e),
+        Ok((result, _)) => println!("   결과: {}\n", result),
+        Err(e) => println!("   오류: {}\n", e),
     }
 
-    // Example 4: Cond (derived expression)
-    println!("4. Cond expression:");
+    // 예제 4: Cond (파생 표현식)
+    println!("4. Cond 표현식:");
     println!("   (cond ((< 5 3) 'less)");
     println!("         ((> 5 3) 'greater)");
     println!("         (else 'equal))");
@@ -144,12 +144,12 @@ fn main() {
     ]);
 
     match eval(&cond_expr, env.clone()) {
-        Ok((result, _)) => println!("   Result: {}\n", result),
-        Err(e) => println!("   Error: {}\n", e),
+        Ok((result, _)) => println!("   결과: {}\n", result),
+        Err(e) => println!("   오류: {}\n", e),
     }
 
-    // Example 5: Let (derived expression)
-    println!("5. Let expression:");
+    // 예제 5: Let (파생 표현식)
+    println!("5. Let 표현식:");
     println!("   (let ((x 10) (y 20))");
     println!("     (* (+ x y) 2))");
 
@@ -171,14 +171,14 @@ fn main() {
     };
 
     match eval(&let_expr, env) {
-        Ok((result, _)) => println!("   Result: {}\n", result),
-        Err(e) => println!("   Error: {}\n", e),
+        Ok((result, _)) => println!("   결과: {}\n", result),
+        Err(e) => println!("   오류: {}\n", e),
     }
 
-    println!("=== Key Rust Concepts Demonstrated ===");
-    println!("1. Algebraic Data Types: Expr and Value enums with exhaustive matching");
-    println!("2. Persistent Data Structures: im::HashMap for O(1) clone environments");
-    println!("3. Functional State Threading: eval returns (Value, Environment)");
-    println!("4. Owned Closures: Lambda captures environment by clone, not shared reference");
-    println!("5. Error Handling: Result<(Value, Environment), EvalError> for type-safe errors");
+    println!("=== 주요 Rust 개념 데모 ===");
+    println!("1. 대수적 데이터 타입(ADT): 철저한 매칭(exhaustive matching)이 가능한 Expr 및 Value 열거형");
+    println!("2. 영속적 데이터 구조: O(1) 클론 환경을 위한 im::HashMap");
+    println!("3. 함수형 상태 전달: eval은 (Value, Environment)를 반환함");
+    println!("4. 소유된 클로저: 람다는 참조가 아닌 복제를 통해 환경을 캡처함");
+    println!("5. 에러 처리: 타입 안전한 에러를 위한 Result<(Value, Environment), EvalError>");
 }
