@@ -1,4 +1,4 @@
-@subsubheading 1장 
+@subsubheading 제1장 
 
 @multitable @columnfractions 0.12 0.12 0.12 0.12 0.12 0.12 0.12 0.12 
 @item 
@@ -9,7 +9,7 @@
 @ref{Figure 1.5,,1.5} @tab 
 @end multitable 
 
-@subsubheading 2장 
+@subsubheading 제2장 
 
 @multitable @columnfractions 0.12 0.12 0.12 0.12 0.12 0.12 0.12 0.12 
 @item 
@@ -44,7 +44,7 @@
 @ref{Figure 2.26,,2.26} @tab 
 @end multitable 
 
-@subsubheading 3장 
+@subsubheading 제3장 
 
 @multitable @columnfractions 0.12 0.12 0.12 0.12 0.12 0.12 0.12 0.12 
 @item 
@@ -92,7 +92,7 @@
 @ref{Figure 3.38,,3.38} @tab 
 @end multitable 
 
-@subsubheading 4장 
+@subsubheading 제4장 
 
 @multitable @columnfractions 0.12 0.12 0.12 0.12 0.12 0.12 0.12 0.12 
 @item 
@@ -104,7 +104,7 @@
 @ref{Figure 4.6,,4.6} @tab 
 @end multitable 
 
-@subsubheading 5장 
+@subsubheading 제5장 
 
 @multitable @columnfractions 0.12 0.12 0.12 0.12 0.12 0.12 0.12 0.12 
 @item 
@@ -123,9 +123,10 @@
 @ref{Figure 5.12,,5.12} @tab 
 @ref{Figure 5.13,,5.13} @tab 
 @ref{Figure 5.14,,5.14} @tab 
-@ref{Figure 5.15,,5.15}
-@item
-@ref{Figure 5.17,,5.17} @tab
-@ref{Figure 5.18,,5.18}
+@ref{Figure 5.15,,5.15} @tab 
+@ref{Figure 5.16,,5.16}
+@item 
+@ref{Figure 5.17,,5.17} @tab 
+@ref{Figure 5.18,,5.18} @tab 
 @end multitable 
 
