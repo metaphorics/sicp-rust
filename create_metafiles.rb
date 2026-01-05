@@ -22,7 +22,7 @@ NAV_T = <<EOF
 <head><title>SICP</title></head>
 <body>
   <nav id="toc" epub:type="toc">
-    <h1>Table of Contents</h1>
+    <h1>목차</h1>
   </nav>
 </body>
 </html>
@@ -34,16 +34,16 @@ OPF_T = <<EOF
 <?xml version="1.0"?>
 <package xmlns="http://www.idpf.org/2007/opf"
          xmlns:dc="http://purl.org/dc/elements/1.1/"
-         xml:lang="en" 
+         xml:lang="ko" 
          unique-identifier="bookid" 
          version="3.0">
   <metadata>
-    <dc:title>Structure and Interpretation of Computer Programs, Second Edition</dc:title>
+    <dc:title>컴퓨터 프로그램의 구조와 해석, 제2판 (Structure and Interpretation of Computer Programs, 2e)</dc:title>
     <dc:creator>Harold Abelson, Gerald Jay Sussman, Julie Sussman</dc:creator>
     <dc:publisher>MIT Press</dc:publisher>
     <dc:date>1996</dc:date>
     <dc:identifier id="bookid">urn:uuid:a412368e-e0ac-42ce-8c01-0f0da52f5731</dc:identifier>
-    <dc:language>en-US</dc:language>
+    <dc:language>ko-KR</dc:language>
     <meta name="cover" content="cover-image" />
     <meta property="dcterms:modified">#{now}</meta>
   </metadata>

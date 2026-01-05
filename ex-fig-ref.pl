@@ -45,9 +45,8 @@ if (defined($ARGV[0]) and $ARGV[0] eq "-e") {
 
 foreach $chap_no (sort keys(%ref_per_chap)) {
 
-	print "\@subsubheading Chapter $chap_no \n\n";
-	print "\@multitable \@columnfractions ";
-
+    print "\@subsubheading 제$chap_no장 \n\n";
+    print "\@multitable \@columnfractions ";
 	$frac = Math::BigFloat->new(1.0 / $columns);
 	# each column as a fraction of page width
 

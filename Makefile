@@ -54,20 +54,20 @@ exercises.texi figures.texi: ex-fig-ref.pl
 	 ./ex-fig-ref.pl -f > figures.texi
 
 $(NEXUS): $(SRC) $(CONV) $(MATH) $(PRETTY) exercises.texi figures.texi
-	@echo -n "Converting Texinfo file to HTML..."; \
+	@echo -n "Texinfo 파일을 HTML로 변환 중..."; \
 	PERL5LIB=lib texi2any --no-warn --html --split=section --no-headers --iftex $(SRC)
 	@# Remove temporary files.
 	@grep -lZ 'This file redirects' $(HTML) | xargs -0 rm -f --
-	@echo "done."
+	@echo "완료."
 
-	@echo -n "Replacing LaTeX with MathML..."; \
+	@echo -n "LaTeX을 MathML로 교체 중..."; \
 	./get-math.js db.json $(HTML); \
 	./put-math.js db.json $(HTML); \
-	echo "done."
+	echo "완료."
 
-	@echo -n "Syntax highlighting code..."; \
+	@echo -n "코드 구문 강조 적용 중..."; \
 	node ./batch-prettify-node.js $(HTML); \
-	echo "done."
+	echo "완료."
 
 	@# Add xml declaration
 	@for file in $(HTML); do \
@@ -83,7 +83,7 @@ $(NEXUS): $(SRC) $(CONV) $(MATH) $(PRETTY) exercises.texi figures.texi
 epub: $(GOAL)
 
 $(META): $(NEXUS) create_metafiles.rb 
-	@echo -n "Building ePub3 file, saving to parent directory..."
+	@echo -n "ePub3 파일 생성 중, 상위 디렉토리에 저장..."
 	@# Remove 'xmlns:xml' attribute inserted by batch-prettify.
 	@for file in $(HTML); do \
 	  sed -i.bak "s/xmlns:xml[^ ]\+[ ]//" $$file; \
@@ -107,12 +107,11 @@ $(GOAL): $(META) $(THUMB) $(FIG) $(CSS) $(FONT) mimetype META-INF/* LICENSE
 	cp index.in.xhtml index.xhtml; \
 	zip -Xr9Dq $(GOAL) $(META) $(HTML) META-INF/* LICENSE \
 	  index.xhtml $(DIR)css/* $(DIR)fig/* ; \
-	echo "done."
+	echo "완료."
 
 # Rust examples testing
 test-rust:
-	@echo "Testing Rust examples..."; \
+	@echo "Rust 예제 테스트 중..."; \
 	cd rust-examples && cargo test --workspace; \
-	echo "done."
-
+	echo "완료."
 .PHONY: all epub html test-rust

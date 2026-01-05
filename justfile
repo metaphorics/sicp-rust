@@ -81,11 +81,11 @@ loc:
 
 # Show chapter statistics
 stats:
-    @echo "Texinfo source:"
+    @echo "Texinfo 소스:"
     @wc -l sicp-pocket.texi
-    @echo "\nHTML output files:"
+    @echo "\nHTML 출력 파일:"
     @ls -1 html/*.xhtml | wc -l
-    @echo "\nSVG diagrams:"
+    @echo "\nSVG 다이어그램:"
     @fd -e svg . html/fig/ | wc -l
-    @echo "\nRust examples:"
-    @tokei rust-examples/ 2>/dev/null || echo "(install tokei for detailed stats)"
+    @echo "\nRust 예제:"
+    @tokei rust-examples/ 2>/dev/null || echo "(상세 통계를 위해 tokei를 설치하세요)"

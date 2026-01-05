@@ -4,7 +4,7 @@
 @comment
 @comment             **********************************************************
 @setfilename         html
-@settitle            Structure and Interpretation of Computer Programs, 2e
+@settitle            컴퓨터 프로그램의 구조와 해석, 제2판
 @documentlanguage    ko
 @comment             Unofficial Texinfo Format
 @comment
@@ -105,9 +105,9 @@
 
 @documentencoding UTF-8
 
-@dircategory Programming in Rust
+@dircategory Rust 프로그래밍
 @direntry
-* SICP-Rust: (sicp). Structure and Interpretation of Computer Programs, Rust Edition
+* SICP-Rust: (sicp). 컴퓨터 프로그램의 구조와 해석, Rust Edition
 @end direntry
 
 @macro newterm{term}
@@ -119,11 +119,11 @@
 
 @titlepage
 
-@titlefont{Structure and Interpretation@* of Computer Programs}
+@titlefont{컴퓨터 프로그램의 구조와 해석}
 
-@subtitle @abbr{Rust Edition}@* Unofficial Texinfo Format @value{utfversion}
+@subtitle @abbr{Rust Edition}@* 비공식 텍스인포 판 (Unofficial Texinfo Format) @value{utfversion}
 
-@author Harold Abelson and Gerald Jay Sussman with Julie Sussman, foreword by Alan J. Perlis
+@author 해럴드 에이벌슨 (Harold Abelson), 제럴드 제이 서스먼 (Gerald Jay Sussman), 줄리 서스먼 (Julie Sussman) 공저, 앨런 J. 펄리스 (Alan J. Perlis) 서문
 
 @page
 @vskip 0pt plus 1filll
@@ -136,9 +136,8 @@
 @image{fig/icons/sa, 6mm,,,.std.svg}
 
 @noindent
-This work is licensed under a Creative Commons Attribution-ShareAlike 4.0
-International License (@url{http://creativecommons.org/licenses/by-sa/4.0/, @abbr{CC BY-SA 4.0}}).
-Based on a work at @url{http://mitpress.mit.edu/sicp/, mitpress.mit.edu}.
+이 저작물은 크리에이티브 커먼즈 저작자표시-동일조건변경허락 4.0 국제 라이선스(@url{http://creativecommons.org/licenses/by-sa/4.0/, @abbr{CC BY-SA 4.0}})에 따라 이용할 수 있습니다.
+@url{http://mitpress.mit.edu/sicp/, mitpress.mit.edu}의 저작물을 바탕으로 합니다.
 
 @noindent
 The @abbr{MIT} Press@*
@@ -151,14 +150,12 @@ New York, St. Louis, San Francisco,@*
 Montreal, Toronto
 
 @noindent
-This book is one of a series of texts written by faculty of the Electrical
-Engineering and Computer Science Department at the Massachusetts Institute of
-Technology.  It was edited and produced by The @abbr{MIT} Press under a
-joint production-distribution arrangement with the McGraw-Hill Book Company.
+이 책은 매사추세츠 공과대학교(MIT) 전기공학 및 컴퓨터 과학과 교수진이 집필한 일련의 교재 중 하나입니다.
+McGraw-Hill Book Company와의 공동 제작 및 유통 협약에 따라 The @abbr{MIT} Press에서 편집 및 제작되었습니다.
 
 @noindent
-Unofficial Texinfo Format @url{http://sicpebook.wordpress.com, @value{utfversion}} (@value{utfversiondate}),
-based on @url{http://www.neilvandyke.org/sicp-texi/, 2.neilvandyke4} (January 10, 2007).
+비공식 텍스인포 판 (Unofficial Texinfo Format) @url{http://sicpebook.wordpress.com, @value{utfversion}} (@value{utfversiondate}),
+@url{http://www.neilvandyke.org/sicp-texi/, 2.neilvandyke4} (2007년 1월 10일) 기반.
 
 @end titlepage
 
@@ -174,330 +171,304 @@ based on @url{http://www.neilvandyke.org/sicp-texi/, 2.neilvandyke4} (January 10
 
 @ifinfo
 
-@heading Structure and Interpretation of Computer Programs
+@heading 컴퓨터 프로그램의 구조와 해석 (Structure and Interpretation of Computer Programs)
 
 @noindent
-Second Edition@*
-by Harold Abelson and Gerald Jay Sussman, with Julie Sussman@*
-foreword by Alan J. Perlis@*
+제2판 (Second Edition)@*
+해럴드 에이벌슨, 제럴드 제이 서스먼 공저, 줄리 서스먼 기여@*
+앨런 J. 펄리스 서문@*
 @copyright{} 1996 Massachusetts Institute of Technology
 
 @noindent
-Unofficial Texinfo Format version @value{utfversion} (@value{utfversiondate})
+비공식 텍스인포 판 (Unofficial Texinfo Format) 버전 @value{utfversion} (@value{utfversiondate})
 
 @end ifinfo
 
 @menu
-* UTF::              Unofficial Texinfo Format
-* Dedication::       Dedication
-* Foreword::         Foreword
-* Preface::          Preface to the Second Edition
-* Preface 1e::       Preface to the First Edition
-* Acknowledgments::  Acknowledgments
-* Chapter 1::        Building Abstractions with Procedures
-* Chapter 2::        Building Abstractions with Data
-* Chapter 3::        Modularity, Objects, and State
-* Chapter 4::        Metalinguistic Abstraction
-* Chapter 5::        Computing with Register Machines
-* References::       References
-* Exercises::        List of Exercises
-* Figures::          List of Figures
-* Term Index::       Term Index
-* Colophon::         Colophon
+* UTF::              비공식 텍스인포 판 (Unofficial Texinfo Format)
+* Dedication::       헌사
+* Foreword::         서문
+* Preface::          제2판 머리말
+* Preface 1e::       초판 머리말
+* Acknowledgments::  감사의 글
+* Chapter 1::        프로시저를 이용한 추상화 구축
+* Chapter 2::        데이터를 이용한 추상화 구축
+* Chapter 3::        모듈성, 객체, 그리고 상태
+* Chapter 4::        메타언어적 추상화
+* Chapter 5::        레지스터 기계를 이용한 계산
+* References::       참고 문헌
+* Exercises::        연습 문제 목록
+* Figures::          그림 목록
+* Term Index::       용어 색인
+* Colophon::         판권란
 
 @detailmenu
- --- The Detailed Node Listing ---
+ --- 상세 노드 목록 ---
 
-Programming in Rust
+Rust 프로그래밍
 
-* 1.1::              The Elements of Programming
-* 1.2::              Procedures and the Processes They Generate
-* 1.3::              Formulating Abstractions with Higher-Order Procedures
+* 1.1::              프로그래밍의 요소
+* 1.2::              프로시저와 그들이 생성하는 프로세스
+* 1.3::              고차 프로시저를 이용한 추상화의 정식화
 
-The Elements of Programming
+프로그래밍의 요소
 
-* 1.1.1::            Expressions
-* 1.1.2::            Naming and the Environment
-* 1.1.3::            Evaluating Combinations
-* 1.1.4::            Compound Procedures
-* 1.1.5::            The Substitution Model for Procedure Application
-* 1.1.6::            Conditional Expressions and Predicates
-* 1.1.7::            Example: Square Roots by Newton's Method
-* 1.1.8::            Procedures as Black-Box Abstractions
+* 1.1.1::            표현식
+* 1.1.2::            명명과 환경
+* 1.1.3::            조합의 평가
+* 1.1.4::            복합 프로시저
+* 1.1.5::            프로시저 적용의 치환 모델
+* 1.1.6::            조건식과 술어
+* 1.1.7::            예제: 뉴턴의 방법에 의한 제곱근
+* 1.1.8::            블랙박스 추상화로서의 프로시저
 
-Procedures and the Processes They Generate
+프로시저와 그들이 생성하는 프로세스
 
-* 1.2.1::            Linear Recursion and Iteration
-* 1.2.2::            Tree Recursion
-* 1.2.3::            Orders of Growth
-* 1.2.4::            Exponentiation
-* 1.2.5::            Greatest Common Divisors
-* 1.2.6::            Example: Testing for Primality
+* 1.2.1::            선형 재귀와 반복
+* 1.2.2::            트리 재귀
+* 1.2.3::            증가 차수
+* 1.2.4::            거듭제곱
+* 1.2.5::            최대공약수
+* 1.2.6::            예제: 소수성 판별
 
-Formulating Abstractions with Higher-Order Procedures
+고차 프로시저를 이용한 추상화의 정식화
 
-* 1.3.1::            Procedures as Arguments
-* 1.3.2::            Constructing Procedures Using Closures
-* 1.3.3::            Procedures as General Methods
-* 1.3.4::            Procedures as Returned Values
+* 1.3.1::            인자로서의 프로시저
+* 1.3.2::            클로저를 이용한 프로시저 구축
+* 1.3.3::            일반적 방법으로서의 프로시저
+* 1.3.4::            반환값으로서의 프로시저
 
-Building Abstractions with Data
+데이터를 이용한 추상화 구축
 
-* 2.1::              Introduction to Data Abstraction
-* 2.2::              Hierarchical Data and the Closure Property
-* 2.3::              Symbolic Data
-* 2.4::              Multiple Representations for Abstract Data
-* 2.5::              Systems with Generic Operations
+* 2.1::              데이터 추상화 소개
+* 2.2::              계층적 데이터와 클로저 속성
+* 2.3::              기호 데이터
+* 2.4::              추상 데이터의 다중 표현
+* 2.5::              제네릭 연산을 사용하는 시스템
 
-Introduction to Data Abstraction
+데이터 추상화 소개
 
-* 2.1.1::            Example: Arithmetic Operations for Rational Numbers
-* 2.1.2::            Abstraction Barriers
-* 2.1.3::            What Is Meant by Data?
-* 2.1.4::            Extended Exercise: Interval Arithmetic
+* 2.1.1::            예제: 유리수 산술 연산
+* 2.1.2::            추상화 장벽
+* 2.1.3::            데이터란 무엇인가?
+* 2.1.4::            심화 연습 문제: 구간 산술
 
-Hierarchical Data and the Closure Property
+계층적 데이터와 클로저 속성
 
-* 2.2.1::            Representing Sequences
-* 2.2.2::            Hierarchical Structures
-* 2.2.3::            Sequences as Conventional Interfaces
-* 2.2.4::            Example: A Picture Language
+* 2.2.1::            시퀀스 표현
+* 2.2.2::            계층적 구조
+* 2.2.3::            관습적인 인터페이스로서의 시퀀스
+* 2.2.4::            예제: 그림 언어
 
-Symbolic Data
+기호 데이터
 
-* 2.3.1::            Quotation
-* 2.3.2::            Example: Symbolic Differentiation
-* 2.3.3::            Example: Representing Sets
-* 2.3.4::            Example: Huffman Encoding Trees
+* 2.3.1::            인용
+* 2.3.2::            예제: 기호 미분
+* 2.3.3::            예제: 집합 표현
+* 2.3.4::            예제: 허프만 인코딩 트리
 
-Multiple Representations for Abstract Data
+추상 데이터의 다중 표현
 
-* 2.4.1::            Representations for Complex Numbers
-* 2.4.2::            Tagged data
-* 2.4.3::            Data.Directed Programming and Additivity
+* 2.4.1::            복소수 표현
+* 2.4.2::            태그된 데이터
+* 2.4.3::            데이터 주도 프로그래밍과 가법성
 
-Systems with Generic Operations
+제네릭 연산을 사용하는 시스템
 
-* 2.5.1::            Generic Arithmetic Operations
-* 2.5.2::            Combining Data of Different Types
-* 2.5.3::            Example: Symbolic Algebra
+* 2.5.1::            제네릭 산술 연산
+* 2.5.2::            서로 다른 타입의 데이터 결합
+* 2.5.3::            예제: 기호 대수
 
-Modularity, Objects, and State
+모듈성, 객체, 그리고 상태
 
-* 3.1::              Assignment and Local State
-* 3.2::              The Environment Model of Evaluation
-* 3.3::              Modeling with Mutable Data
-* 3.4::              Concurrency: Time Is of the Essence
-* 3.5::              Streams
+* 3.1::              할당과 지역 상태
+* 3.2::              평가의 환경 모델
+* 3.3::              가변 데이터를 이용한 모델링
+* 3.4::              동시성: 시간은 본질적인 요소이다
+* 3.5::              스트림
 
-Assignment and Local State
+할당과 지역 상태
 
-* 3.1.1::            Local State Variables
-* 3.1.2::            The Benefits of Introducing Assignment
-* 3.1.3::            The Costs of Introducing Assignment
+* 3.1.1::            지역 상태 변수
+* 3.1.2::            할당 도입의 이점
+* 3.1.3::            할당 도입의 비용
 
-The Environment Model of Evaluation
+평가의 환경 모델
 
-* 3.2.1::            The Rules for Evaluation
-* 3.2.2::            Applying Simple Procedures
-* 3.2.3::            Frames as the Repository of Local State
-* 3.2.4::            Internal Definitions
+* 3.2.1::            평가 규칙
+* 3.2.2::            단순 프로시저의 적용
+* 3.2.3::            지역 상태의 저장소로서의 프레임
+* 3.2.4::            내부 정의
 
-Modeling with Mutable Data
+가변 데이터를 이용한 모델링
 
-* 3.3.1::            Mutable List Structure
-* 3.3.2::            Representing Queues
-* 3.3.3::            Representing Tables
-* 3.3.4::            A Simulator for Digital Circuits
-* 3.3.5::            Propagation of Constraints
+* 3.3.1::            가변 리스트 구조
+* 3.3.2::            큐 표현
+* 3.3.3::            테이블 표현
+* 3.3.4::            디지털 회로 시뮬레이터
+* 3.3.5::            제약 조건 전파
 
-Concurrency: Time Is of the Essence
+동시성: 시간은 본질적인 요소이다
 
-* 3.4.1::            The Nature of Time in Concurrent Systems
-* 3.4.2::            Mechanisms for Controlling Concurrency
+* 3.4.1::            동시성 시스템에서 시간의 성질
+* 3.4.2::            동시성 제어 메커니즘
 
-Streams
+스트림
 
-* 3.5.1::            Streams Are Delayed Lists
-* 3.5.2::            Infinite Streams
-* 3.5.3::            Exploiting the Stream Paradigm
-* 3.5.4::            Streams and Delayed Evaluation
-* 3.5.5::            Modularity of Functional Programs and Modularity of
-                     Objects
+* 3.5.1::            스트림은 지연 리스트이다
+* 3.5.2::            무한 스트림
+* 3.5.3::            스트림 패러다임 활용
+* 3.5.4::            스트림과 지연 평가
+* 3.5.5::            함수형 프로그램의 모듈성과 객체의 모듈성
 
-Metalinguistic Abstraction
+메타언어적 추상화
 
-* 4.1::              The Metacircular Evaluator
-* 4.2::              Variations on a Scheme -- Lazy Evaluation
-* 4.3::              Variations on a Scheme -- Nondeterministic Computing
-* 4.4::              Logic Programming
+* 4.1::              메타순환적 평가기
+* 4.2::              Scheme의 변형 -- 지연 평가
+* 4.3::              Scheme의 변형 -- 비결정론적 계산
+* 4.4::              논리 프로그래밍
 
-The Metacircular Evaluator
+메타순환적 평가기
 
-* 4.1.1::            The Core of the Evaluator
-* 4.1.2::            Representing Expressions
-* 4.1.3::            Evaluator Data Structures
-* 4.1.4::            Running the Evaluator as a Program
-* 4.1.5::            Data as Programs
-* 4.1.6::            Internal Definitions
-* 4.1.7::            Separating Syntactic Analysis from Execution
+* 4.1.1::            평가기의 핵심
+* 4.1.2::            표현식 표현
+* 4.1.3::            평가기 데이터 구조
+* 4.1.4::            평가기를 프로그램으로 실행하기
+* 4.1.5::            프로그램으로서의 데이터
+* 4.1.6::            내부 정의
+* 4.1.7::            실행에서 구문 분석 분리하기
 
-Variations on a Scheme -- Lazy Evaluation
+Scheme의 변형 -- 지연 평가
 
-* 4.2.1::            Normal Order and Applicative Order
-* 4.2.2::            An Interpreter with Lazy Evaluation
-* 4.2.3::            Streams as Lazy Lists
+* 4.2.1::            정규 순서와 적용 순서
+* 4.2.2::            지연 평가 인터프리터
+* 4.2.3::            지연 리스트로서의 스트림
 
-Variations on a Scheme -- Nondeterministic Computing
+Scheme의 변형 -- 비결정론적 계산
 
-* 4.3.1::            Amb and Search
-* 4.3.2::            Examples of Nondeterministic Programs
-* 4.3.3::            Implementing the @code{Amb} Evaluator
+* 4.3.1::            Amb와 탐색
+* 4.3.2::            비결정론적 프로그램의 예
+* 4.3.3::            @code{Amb} 평가기 구현
 
-Logic Programming
+논리 프로그래밍
 
-* 4.4.1::            Deductive Information Retrieval
-* 4.4.2::            How the Query System Works
-* 4.4.3::            Is Logic Programming Mathematical Logic?
-* 4.4.4::            Implementing the Query System
+* 4.4.1::            연역적 정보 검색
+* 4.4.2::            질의 시스템의 작동 원리
+* 4.4.3::            논리 프로그래밍은 수리 논리학인가?
+* 4.4.4::            질의 시스템 구현
 
-Implementing the Query System
+질의 시스템 구현
 
-* 4.4.4.1::          The Driver Loop and Instantiation
-* 4.4.4.2::          The Evaluator
-* 4.4.4.3::          Finding Assertions by Pattern Matching
-* 4.4.4.4::          Rules and Unification
-* 4.4.4.5::          Maintaining the Data Base
-* 4.4.4.6::          Stream Operations
-* 4.4.4.7::          Query Syntax Procedures
-* 4.4.4.8::          Frames and Bindings
+* 4.4.4.1::          드라이버 루프와 인스턴스화
+* 4.4.4.2::          평가기
+* 4.4.4.3::          패턴 매칭에 의한 어설션 찾기
+* 4.4.4.4::          규칙과 단일화
+* 4.4.4.5::          데이터베이스 유지 관리
+* 4.4.4.6::          스트림 연산
+* 4.4.4.7::          질의 구문 프로시저
+* 4.4.4.8::          프레임과 바인딩
 
-Computing with Register Machines
+레지스터 기계를 이용한 계산
 
-* 5.1::              Designing Register Machines
-* 5.2::              A Register.Machine Simulator
-* 5.3::              Storage Allocation and Garbage Collection
-* 5.4::              The Explicit-Control Evaluator
-* 5.5::              Compilation
+* 5.1::              레지스터 기계 설계
+* 5.2::              레지스터 기계 시뮬레이터
+* 5.3::              저장소 할당과 가비지 컬렉션
+* 5.4::              명시적 제어 평가기
+* 5.5::              컴파일
 
-Designing Register Machines
+레지스터 기계 설계
 
-* 5.1.1::            A Language for Describing Register Machines
-* 5.1.2::            Abstraction in Machine Design
-* 5.1.3::            Subroutines
-* 5.1.4::            Using a Stack to Implement Recursion
-* 5.1.5::            Instruction Summary
+* 5.1.1::            레지스터 기계 기술 언어
+* 5.1.2::            기계 설계의 추상화
+* 5.1.3::            서브루틴
+* 5.1.4::            스택을 이용한 재귀 구현
+* 5.1.5::            명령어 요약
 
-A Register.Machine Simulator
+레지스터 기계 시뮬레이터
 
-* 5.2.1::            The Machine Model
-* 5.2.2::            The Assembler
-* 5.2.3::            Generating Execution Procedures for Instructions
-* 5.2.4::            Monitoring Machine Performance
+* 5.2.1::            기계 모델
+* 5.2.2::            어셈블러
+* 5.2.3::            명령어 실행 프로시저 생성
+* 5.2.4::            기계 성능 모니터링
 
-Storage Allocation and Garbage Collection
+저장소 할당과 가비지 컬렉션
 
-* 5.3.1::            Memory as Vectors
-* 5.3.2::            Maintaining the Illusion of Infinite Memory
+* 5.3.1::            벡터로서의 메모리
+* 5.3.2::            무한 메모리의 환상 유지하기
 
-Registers and operations
+레지스터와 연산
 
-* 5.4.1::            The Core of the Explicit.Control Evaluator
-* 5.4.2::            Sequence Evaluation and Tail Recursion
-* 5.4.3::            Conditionals, Assignments, and Definitions
-* 5.4.4::            Running the Evaluator
+* 5.4.1::            명시적 제어 평가기의 핵심
+* 5.4.2::            시퀀스 평가와 꼬리 재귀
+* 5.4.3::            조건식, 할당, 그리고 정의
+* 5.4.4::            평가기 실행
 
-An overview of the compiler
+컴파일러 개요
 
-* 5.5.1::            Structure of the Compiler
-* 5.5.2::            Compiling Expressions
-* 5.5.3::            Compiling Combinations
-* 5.5.4::            Combining Instruction Sequences
-* 5.5.5::            An Example of Compiled Code
-* 5.5.6::            Lexical Addressing
-* 5.5.7::            Interfacing Compiled Code to the Evaluator
+* 5.5.1::            컴파일러의 구조
+* 5.5.2::            표현식 컴파일
+* 5.5.3::            조합 컴파일
+* 5.5.4::            명령어 시퀀스 결합
+* 5.5.5::            컴파일된 코드의 예
+* 5.5.6::            어휘적 주소 지정
+* 5.5.7::            컴파일된 코드를 평가기에 연결하기
 
 @end detailmenu
 @end menu
 
 @node    UTF, Dedication, Top, Top
-@unnumbered Unofficial Texinfo Format
+@unnumbered 비공식 텍스인포 판 (Unofficial Texinfo Format)
 
-This is the second edition @abbr{SICP} book,@* from Unofficial Texinfo
-Format.
+이 책은 비공식 텍스인포 판 (Unofficial Texinfo Format) 기반의 @abbr{SICP} 제2판입니다.
 
-You are probably reading it in an Info hypertext browser, such as the Info
-mode of Emacs.  You might alternatively be reading it @TeX{}-formatted on your
-screen or printer, though that would be silly.  And, if printed, expensive. 
+아마도 여러분은 Emacs의 Info 모드와 같은 Info 하이퍼텍스트 브라우저에서 이 책을 읽고 있을 것입니다.
+또는 화면이나 프린터에서 @TeX{} 형식으로 읽고 있을 수도 있지만, 그것은 조금 어리석은 일일 것입니다.
+그리고 인쇄한다면 비용도 많이 들겠죠.
 
-The freely-distributed official @abbr{HTML}-and-@abbr{GIF} format was
-first converted personally to Unofficial Texinfo Format (@abbr{UTF})
-version 1 by Lytha Ayth during a long Emacs lovefest weekend in April, 2001.
+자유롭게 배포되는 공식 @abbr{HTML} 및 @abbr{GIF} 형식은 2001년 4월의 긴 Emacs 사랑 축제 주말 동안 Lytha Ayth에 의해 비공식 텍스인포 판(@abbr{UTF}) 버전 1로 처음 개인적으로 변환되었습니다.
 
-The @abbr{UTF} is easier to search than the @abbr{HTML} format.  It is
-also much more accessible to people running on modest computers, such as
-donated '386-based PCs.  A 386 can, in theory, run Linux, Emacs, and a Scheme
-interpreter simultaneously, but most 386s probably can't also run both Netscape
-and the necessary X Window System without prematurely introducing budding young
-underfunded hackers to the concept of @newterm{thrashing}.  @abbr{UTF} can also fit
-uncompressed on a 1.44@abbr{MB} floppy diskette, which may come in handy for
-installing @abbr{UTF} on PCs that do not have Internet or @abbr{LAN} access.
+@abbr{UTF}는 @abbr{HTML} 형식보다 검색하기 쉽습니다.
+또한 기증받은 '386 기반 PC와 같은 사양이 낮은 컴퓨터를 사용하는 사람들에게 훨씬 더 접근하기 좋습니다.
+386은 이론적으로 Linux, Emacs, 그리고 Scheme 인터프리터를 동시에 실행할 수 있지만, 대부분의 386은 자금이 부족한 신진 해커들에게 @newterm{스래싱(thrashing)}의 개념을 너무 일찍 소개하지 않고는 Netscape와 필요한 X Window System을 모두 실행할 수 없을 것입니다.
+@abbr{UTF}는 1.44@abbr{MB} 플로피 디스크에 압축하지 않고도 들어갈 수 있으므로, 인터넷이나 @abbr{LAN} 접속이 안 되는 PC에 @abbr{UTF}를 설치할 때 유용할 수 있습니다.
 
-The Texinfo conversion has been a straight transliteration, to the extent
-possible.  Like the @TeX{}-to-@abbr{HTML} conversion, this was not without
-some introduction of breakage.  In the case of Unofficial Texinfo Format,
-figures have suffered an amateurish resurrection of the lost art of
-@abbr{ASCII}.  Also, it's quite possible that some errors of ambiguity
-were introduced during the conversion of some of the copious superscripts (`^')
-and subscripts (`_').  Divining @emph{which} has been left as an exercise to
-the reader. But at least we don't put our brave astronauts at risk by encoding
-the @emph{greater-than-or-equal} symbol as @code{<u>&gt;</u>}.
+Texinfo 변환은 가능한 한 직접적인 전사(transliteration)였습니다.
+@TeX{}에서 @abbr{HTML}로의 변환과 마찬가지로, 이 과정에서도 약간의 깨짐이 도입되었습니다.
+비공식 텍스인포 판의 경우, 그림들은 잃어버린 예술인 @abbr{ASCII} 아트의 아마추어적인 부활을 겪었습니다.
+또한, 수많은 위첨자('^')와 아래첨자('_')를 변환하는 과정에서 일부 모호성 오류가 도입되었을 가능성이 큽니다.
+@emph{어떤 것}이 그런지는 독자의 연습 문제로 남겨두었습니다.
+하지만 적어도 우리는 @emph{크거나 같다} 기호를 @code{<u>&gt;</u>}로 인코딩하여 용감한 우주 비행사들을 위험에 빠뜨리지는 않았습니다.
 
-If you modify @file{sicp.texi} to correct errors or improve the
-@abbr{ASCII} art, then update the @code{@@set utfversion @value{utfversion}}
-line to reflect your delta.  For example, if you started with Lytha's version
-@code{1}, and your name is Bob, then you could name your successive versions
-@code{1.bob1}, @code{1.bob2}, @dots{} @code{1.bob@i{n}}.  Also update
-@code{utfversiondate}.  If you want to distribute your version on the Web, then
-embedding the string ``sicp.texi'' somewhere in the file or Web page will make
-it easier for people to find with Web search engines.
+오류를 수정하거나 @abbr{ASCII} 아트를 개선하기 위해 @file{sicp.texi}를 수정한다면, 변경 사항을 반영하기 위해 @code{@@set utfversion @value{utfversion}} 라인을 업데이트하십시오.
+예를 들어, Lytha의 버전 @code{1}에서 시작했고 여러분의 이름이 Bob이라면, 후속 버전을 @code{1.bob1}, @code{1.bob2}, @dots{} @code{1.bob@i{n}}과 같이 이름을 붙일 수 있습니다.
+또한 @code{utfversiondate}도 업데이트하십시오.
+여러분의 버전을 웹에 배포하고 싶다면, 파일이나 웹 페이지 어딘가에 ``sicp.texi'' 문자열을 포함시키면 웹 검색 엔진으로 사람들이 더 쉽게 찾을 수 있습니다.
 
-It is believed that the Unofficial Texinfo Format is in keeping with the
-spirit of the graciously freely-distributed @abbr{HTML} version.  But you
-never know when someone's armada of lawyers might need something to do, and get
-their shorts all in a knot over some benign little thing, so think twice before
-you use your full name or distribute Info, @abbr{DVI}, PostScript, or
-@abbr{PDF} formats that might embed your account or machine name.
-@i{Peath, Lytha Ayth}
+비공식 텍스인포 판은 우아하게 자유 배포되는 @abbr{HTML} 버전의 정신을 따르고 있다고 믿어집니다.
+하지만 언젠가 누군가의 변호사 군단이 할 일이 필요해져서 사소한 일로 트집을 잡을지 모르니, 실명을 사용하거나 여러분의 계정이나 기계 이름이 포함될 수 있는 Info, @abbr{DVI}, PostScript, 또는 @abbr{PDF} 형식을 배포하기 전에 한 번 더 생각해보십시오.
+@i{Lytha Ayth 드림}
 
-@b{Addendum:} See also the @abbr{SICP} video lectures by Abelson and Sussman:
-at @url{http://groups.csail.mit.edu/mac/classes/6.001/abelson-sussman-lectures/, @abbr{MIT CSAIL}} or 
+@b{추가:} 에이벌슨과 서스먼의 @abbr{SICP} 비디오 강의도 참고하십시오:
+@url{http://groups.csail.mit.edu/mac/classes/6.001/abelson-sussman-lectures/, @abbr{MIT CSAIL}} 또는 
 @url{http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-001-structure-and-interpretation-of-computer-programs-spring-2005/video-lectures/, @abbr{MIT OCW}}.
 
-@b{Second Addendum:} Above is the original introduction to the @abbr{UTF} 
-from 2001. Ten years later, @abbr{UTF} has been transformed: mathematical 
-symbols and formulas are properly typeset, and figures drawn in 
-vector graphics. The original text formulas and @abbr{ASCII} art figures 
-are still there in the Texinfo source, but will display only when compiled 
-to Info output. At the dawn of e-book readers and tablets, reading a 
-@abbr{PDF} on screen is officially not silly anymore. Enjoy!
-@i{A.R, May, 2011}
+@b{두 번째 추가:} 위 내용은 2001년의 원래 @abbr{UTF} 서문입니다.
+10년 후, @abbr{UTF}는 변화했습니다: 수학 기호와 공식이 제대로 조판되었고, 그림은 벡터 그래픽으로 다시 그려졌습니다.
+원래의 텍스트 공식과 @abbr{ASCII} 아트 그림은 여전히 Texinfo 소스에 남아 있지만, Info 출력으로 컴파일될 때만 표시됩니다.
+전자책 리더기와 태블릿의 여명기에, 화면에서 @abbr{PDF}를 읽는 것은 공식적으로 더 이상 어리석은 일이 아닙니다. 즐기십시오!
+@i{A.R, 2011년 5월}
 
-@b{Third Addendum:} Things go in spirals. We explored the powers of 
-Texinfo and LaTeX at typesetting the @abbr{PDF} book.
-Now it's time to come back to @abbr{HTML}. This turn it shall be
-@abbr{HTML5}. ``It can be a dangerous place, but it's our last, best hope
-for peace.'' (Sinclair, @cite{@w{Babylon 5}}.) Does the peace endure after the 
-browser wars? Anyway, the aim of the project is to approach the quality of LaTeX
-output by using the @abbr{HTML5} toolbox. JavaScript, @abbr{CSS3}, @abbr{SVG},
-MathJax, MathML, and web fonts are employed here. Due to the experimental
-nature of this undertaking, there will be glitches and errors in some browsers. 
-Technical and artistic help is appreciated. In the meantime, enjoy the book, and 
-fire up a @abbr{REPL}!
-@i{A.R, January, 2014}
+@b{세 번째 추가:} 사물은 나선형으로 돌아갑니다. 우리는 @abbr{PDF} 책을 조판하기 위해 Texinfo와 LaTeX의 위력을 탐구했습니다.
+이제 다시 @abbr{HTML}로 돌아올 때입니다. 이번에는 @abbr{HTML5}가 될 것입니다.
+``그곳은 위험한 곳일 수 있지만, 평화를 위한 우리의 마지막이자 최고의 희망입니다.'' (싱클레어, @cite{@w{바빌론 5}}.)
+브라우저 전쟁 이후에도 평화는 지속될까요? 어쨌든, 이 프로젝트의 목표는 @abbr{HTML5} 툴박스를 사용하여 LaTeX 출력의 품질에 접근하는 것입니다.
+JavaScript, @abbr{CSS3}, @abbr{SVG}, MathJax, MathML, 그리고 웹 폰트가 여기에 사용되었습니다.
+이 시도의 실험적인 성격 때문에 일부 브라우저에서는 글리치와 오류가 있을 것입니다.
+기술적이고 예술적인 도움을 환영합니다. 그동안 책을 즐기시고, @abbr{REPL}을 실행하십시오!
+@i{A.R, 2014년 1월}
 
 @node    Dedication, Foreword, UTF, Top
-@unnumbered Dedication
+@unnumbered 헌사 (Dedication)
 
 이 책은 컴퓨터 안에 깃든 영혼에 존경과 경의를 표하며 그에게 바칩니다.
 
