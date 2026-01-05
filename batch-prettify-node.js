@@ -48,8 +48,8 @@ async function processFile(filePath) {
   // Custom resource loader that suppresses warnings for local CSS/JS files
   // (they're not needed for server-side prettification)
   const virtualConsole = new (require("jsdom").VirtualConsole)();
-  virtualConsole.on("error", () => {});  // Suppress resource loading errors
-  virtualConsole.on("warn", () => {});   // Suppress warnings
+  virtualConsole.on("error", () => {}); // Suppress resource loading errors
+  virtualConsole.on("warn", () => {}); // Suppress warnings
 
   const dom = new JSDOM(html, {
     runScripts: "dangerously",

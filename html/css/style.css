@@ -222,7 +222,8 @@ h5 code {
 }
 
 pre, code, tt, samp {
-  font-family: "Nanum Gothic Coding", "Inconsolata LGC", "DejaVu Sans Mono", monospace;
+  font-family:
+    "Nanum Gothic Coding", "Inconsolata LGC", "DejaVu Sans Mono", monospace;
   font-size: 0.8rem;
 }
 

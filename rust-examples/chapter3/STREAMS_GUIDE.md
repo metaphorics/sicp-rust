@@ -8,18 +8,18 @@ Rust에서는 `Iterator` 트레이트가 기본적으로 지연 평가를 제공
 
 ## 개념 매핑 (Concept Mappings)
 
-| Scheme 개념        | Rust 대응                  | 예시                             |
-| ------------------ | -------------------------- | -------------------------------- |
+| Scheme 개념        | Rust 대응                    | 예시                             |
+| ------------------ | ---------------------------- | -------------------------------- |
 | `delay`            | 이터레이터 (기본적으로 지연) | `(0..).filter(...)`              |
-| `force`            | `.next()` 또는 `.collect()`| `iter.next()`                    |
-| `cons-stream`      | 이터레이터 생성자          | `std::iter::once(x).chain(rest)` |
-| `stream-car`       | `.next().unwrap()`         | `stream.next().unwrap()`         |
-| `stream-cdr`       | 이터레이터 자체            | `stream.skip(1)`                 |
-| `stream-map`       | `.map()`                   | `stream.map(\|x\| x * 2)`        |
-| `stream-filter`    | `.filter()`                | `stream.filter(\|&x\| x > 0)`    |
-| `stream-ref`       | `.nth()`                   | `stream.nth(5)`                  |
-| `the-empty-stream` | `std::iter::empty()`       | `std::iter::empty::<i32>()`      |
-| 무한 스트림        | 사용자 정의 이터레이터 구현| `struct IntegersFrom { ... }`    |
+| `force`            | `.next()` 또는 `.collect()`  | `iter.next()`                    |
+| `cons-stream`      | 이터레이터 생성자            | `std::iter::once(x).chain(rest)` |
+| `stream-car`       | `.next().unwrap()`           | `stream.next().unwrap()`         |
+| `stream-cdr`       | 이터레이터 자체              | `stream.skip(1)`                 |
+| `stream-map`       | `.map()`                     | `stream.map(\|x\| x * 2)`        |
+| `stream-filter`    | `.filter()`                  | `stream.filter(\|&x\| x > 0)`    |
+| `stream-ref`       | `.nth()`                     | `stream.nth(5)`                  |
+| `the-empty-stream` | `std::iter::empty()`         | `std::iter::empty::<i32>()`      |
+| 무한 스트림        | 사용자 정의 이터레이터 구현  | `struct IntegersFrom { ... }`    |
 
 ## 핵심 기능 (Key Features)
 

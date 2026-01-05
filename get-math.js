@@ -16,18 +16,18 @@
 const fs = require("fs");
 
 // MathJax v3 imports
-const { mathjax } = require('mathjax-full/js/mathjax.js');
-const { TeX } = require('mathjax-full/js/input/tex.js');
-const { liteAdaptor } = require('mathjax-full/js/adaptors/liteAdaptor.js');
-const { RegisterHTMLHandler } = require('mathjax-full/js/handlers/html.js');
-const { SerializedMmlVisitor } = require('mathjax-full/js/core/MmlTree/SerializedMmlVisitor.js');
-const { STATE } = require('mathjax-full/js/core/MathItem.js');
+const { mathjax } = require("mathjax-full/js/mathjax.js");
+const { TeX } = require("mathjax-full/js/input/tex.js");
+const { liteAdaptor } = require("mathjax-full/js/adaptors/liteAdaptor.js");
+const { RegisterHTMLHandler } = require("mathjax-full/js/handlers/html.js");
+const { SerializedMmlVisitor } = require("mathjax-full/js/core/MmlTree/SerializedMmlVisitor.js");
+const { STATE } = require("mathjax-full/js/core/MathItem.js");
 
 // Import TeX packages
-require('mathjax-full/js/input/tex/base/BaseConfiguration.js');
-require('mathjax-full/js/input/tex/ams/AmsConfiguration.js');
-require('mathjax-full/js/input/tex/newcommand/NewcommandConfiguration.js');
-require('mathjax-full/js/input/tex/noundefined/NoUndefinedConfiguration.js');
+require("mathjax-full/js/input/tex/base/BaseConfiguration.js");
+require("mathjax-full/js/input/tex/ams/AmsConfiguration.js");
+require("mathjax-full/js/input/tex/newcommand/NewcommandConfiguration.js");
+require("mathjax-full/js/input/tex/noundefined/NoUndefinedConfiguration.js");
 
 // Setup MathJax
 const EM = 16;
@@ -38,14 +38,14 @@ const adaptor = liteAdaptor({ fontSize: EM });
 RegisterHTMLHandler(adaptor);
 
 const tex = new TeX({
-  packages: ['base', 'ams', 'newcommand', 'noundefined'],
+  packages: ["base", "ams", "newcommand", "noundefined"],
   formatError(jax, err) {
-    console.error('TeX error:', err.message);
+    console.error("TeX error:", err.message);
     return null;
-  }
+  },
 });
 
-const html = mathjax.document('', { InputJax: tex });
+const html = mathjax.document("", { InputJax: tex });
 
 // Create MathML serializer
 const visitor = new SerializedMmlVisitor();
@@ -122,7 +122,7 @@ function convertLatex(latex) {
       em: EM,
       ex: EX,
       containerWidth: WIDTH,
-      end: STATE.CONVERT
+      end: STATE.CONVERT,
     });
     const mml = toMathML(node);
     return mml;
