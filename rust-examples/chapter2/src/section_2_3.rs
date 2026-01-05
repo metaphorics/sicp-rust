@@ -1,11 +1,12 @@
-//! Section 2.3: 기호 데이터 (Symbolic Data)
+//! 2.3절: 기호 데이터 (Section 2.3: Symbolic Data)
 //!
-//! 이 섹션에서는 임의의 기호(symbol)를 데이터로 다루는 능력을 소개합니다.
-//! 우리는 다음을 탐구합니다:
-//! - 인용(Quotation)과 기호 조작
-//! - 대수 식의 기호 미분
-//! - 집합의 다양한 표현 (비정렬, 정렬, 이진 트리)
-//! - 가변 길이 코드를 위한 허프만 인코딩 트리
+//! 이 절에서는 임의의 기호(symbol)를 데이터로 다루는 능력을 소개한다
+//! (This section introduces the ability to treat arbitrary symbols as data).
+//! 우리는 다음을 탐구한다 (We explore the following):
+//! - 인용(Quotation)과 기호 조작 (Quotation and symbol manipulation)
+//! - 대수 식의 기호 미분 (Symbolic differentiation of algebraic expressions)
+//! - 집합의 다양한 표현(비정렬, 정렬, 이진 트리) (Multiple representations of sets)
+//! - 가변 길이 코드를 위한 허프만 인코딩 트리 (Huffman encoding trees for variable-length codes)
 
 use std::fmt;
 
@@ -13,15 +14,19 @@ use std::fmt;
 // 2.3.1: 인용 (Quotation)
 // ============================================================================
 
-/// 리스트에서 항목을 검색하고, 첫 번째 발생부터 시작하는 하위 리스트를 반환합니다.
-/// Scheme의 `memq` 프로시저와 유사합니다.
+/// 리스트에서 항목을 검색하고, 첫 번째 발생부터 시작하는 하위 리스트를 반환한다
+/// (Searches an item in a list and returns the sublist starting at the first occurrence).
+/// Scheme의 `memq` 프로시저와 유사하다 (Similar to Scheme's `memq` procedure).
 ///
-/// # Example
+/// # 예시 (Example)
 /// ```
 /// # use sicp_chapter2::section_2_3::memq;
-/// let list = vec!["x", "apple", "sauce", "y", "apple", "pear"];
-/// assert_eq!(memq("apple", &list), Some(&["apple", "sauce", "y", "apple", "pear"][..]));
-/// assert_eq!(memq("banana", &list), None);
+/// let list = vec!["x", "사과 (apple)", "소스 (sauce)", "y", "사과 (apple)", "배 (pear)"];
+/// assert_eq!(
+///     memq("사과 (apple)", &list),
+///     Some(&["사과 (apple)", "소스 (sauce)", "y", "사과 (apple)", "배 (pear)"][..])
+/// );
+/// assert_eq!(memq("바나나 (banana)", &list), None);
 /// ```
 pub fn memq<T: PartialEq>(item: T, list: &[T]) -> Option<&[T]> {
     for (i, elem) in list.iter().enumerate() {
@@ -32,8 +37,10 @@ pub fn memq<T: PartialEq>(item: T, list: &[T]) -> Option<&[T]> {
     None
 }
 
-/// 중첩 구조에 대한 재귀적 등가성 테스트.
-/// Rust에서는 PartialEq를 직접 사용할 수 있지만, 이 함수는 개념을 보여줍니다.
+/// 중첩 구조에 대한 재귀적 등가성 테스트
+/// (Recursive equality test for nested structures).
+/// Rust에서는 PartialEq를 직접 사용할 수 있지만, 이 함수는 개념을 보여준다
+/// (In Rust, you can use PartialEq directly, but this function shows the concept).
 pub fn equal<T: PartialEq>(a: &[T], b: &[T]) -> bool {
     if a.len() != b.len() {
         return false;
@@ -50,13 +57,13 @@ pub fn equal<T: PartialEq>(a: &[T], b: &[T]) -> bool {
 pub enum Expr {
     /// 상수 숫자
     Const(f64),
-    /// 변수 (예: 'x', 'y')
+    /// 변수 (예: 'x', 'y') (Variable (e.g., 'x', 'y'))
     Var(&'static str),
     /// 두 표현식의 합
     Sum(Box<Expr>, Box<Expr>),
     /// 두 표현식의 곱
     Product(Box<Expr>, Box<Expr>),
-    /// 지수: base^exponent
+    /// 지수: base^exponent (Exponent: base^exponent)
     Exponent(Box<Expr>, i32),
 }
 
@@ -230,11 +237,13 @@ impl fmt::Display for Expr {
 // --- 비정렬 리스트로서의 집합 (Sets as Unordered Lists) ---
 
 /// 요소가 비정렬 집합에 있는지 확인 (O(n))
+/// (Check if element is in unordered set (O(n)))
 pub fn element_of_set_unordered<T: PartialEq>(x: &T, set: &[T]) -> bool {
     set.iter().any(|elem| elem == x)
 }
 
 /// 요소를 비정렬 집합에 추가 (O(n))
+/// (Add element to unordered set (O(n)))
 pub fn adjoin_set_unordered<T: PartialEq + Clone>(x: T, set: &[T]) -> Vec<T> {
     if element_of_set_unordered(&x, set) {
         set.to_vec()
@@ -246,6 +255,7 @@ pub fn adjoin_set_unordered<T: PartialEq + Clone>(x: T, set: &[T]) -> Vec<T> {
 }
 
 /// 두 비정렬 집합의 교집합 (O(n²))
+/// (Intersection of two unordered sets (O(n²)))
 pub fn intersection_set_unordered<T: PartialEq + Clone>(set1: &[T], set2: &[T]) -> Vec<T> {
     set1.iter()
         .filter(|&x| element_of_set_unordered(x, set2))
@@ -254,6 +264,7 @@ pub fn intersection_set_unordered<T: PartialEq + Clone>(set1: &[T], set2: &[T]) 
 }
 
 /// 두 비정렬 집합의 합집합 (O(n²))
+/// (Union of two unordered sets (O(n²)))
 pub fn union_set_unordered<T: PartialEq + Clone>(set1: &[T], set2: &[T]) -> Vec<T> {
     let mut result = set1.to_vec();
     for x in set2 {
@@ -267,6 +278,7 @@ pub fn union_set_unordered<T: PartialEq + Clone>(set1: &[T], set2: &[T]) -> Vec<
 // --- 정렬된 리스트로서의 집합 (Sets as Ordered Lists) ---
 
 /// 요소가 정렬된 집합에 있는지 확인 (평균 O(n), 하지만 조기 종료 가능)
+/// (Check if element is in ordered set (avg O(n), early exit possible))
 pub fn element_of_set_ordered<T: Ord>(x: &T, set: &[T]) -> bool {
     for elem in set {
         if elem == x {
@@ -279,7 +291,7 @@ pub fn element_of_set_ordered<T: Ord>(x: &T, set: &[T]) -> bool {
     false
 }
 
-/// 두 정렬된 집합의 교집합 (O(n))
+/// 두 정렬된 집합의 교집합 (O(n)) (Intersection of two ordered sets (O(n)))
 pub fn intersection_set_ordered<T: Ord + Clone>(set1: &[T], set2: &[T]) -> Vec<T> {
     if set1.is_empty() || set2.is_empty() {
         return vec![];
@@ -307,7 +319,7 @@ pub fn intersection_set_ordered<T: Ord + Clone>(set1: &[T], set2: &[T]) -> Vec<T
     result
 }
 
-/// 요소를 정렬된 집합에 추가 (O(n))
+/// 요소를 정렬된 집합에 추가 (O(n)) (Add element to ordered set (O(n)))
 pub fn adjoin_set_ordered<T: Ord + Clone>(x: T, set: &[T]) -> Vec<T> {
     let mut result = Vec::new();
     let mut inserted = false;
@@ -331,7 +343,7 @@ pub fn adjoin_set_ordered<T: Ord + Clone>(x: T, set: &[T]) -> Vec<T> {
     result
 }
 
-/// 두 정렬된 집합의 합집합 (O(n))
+/// 두 정렬된 집합의 합집합 (O(n)) (Union of two ordered sets (O(n)))
 pub fn union_set_ordered<T: Ord + Clone>(set1: &[T], set2: &[T]) -> Vec<T> {
     if set1.is_empty() {
         return set2.to_vec();
@@ -407,6 +419,7 @@ impl<T: Ord> Tree<T> {
     }
 
     /// 요소가 트리에 있는지 확인 (균형 트리의 경우 O(log n))
+    /// (Check if element is in tree (O(log n) for balanced tree))
     pub fn element_of_set(&self, x: &T) -> bool {
         match self {
             Tree::Empty => false,
@@ -419,6 +432,7 @@ impl<T: Ord> Tree<T> {
     }
 
     /// 요소를 트리에 추가 (균형 트리의 경우 O(log n))
+    /// (Add element to tree (O(log n) for balanced tree))
     pub fn adjoin_set(self, x: T) -> Self {
         match self {
             Tree::Empty => Tree::make_tree(x, Tree::Empty, Tree::Empty),
@@ -475,7 +489,7 @@ impl<T: Ord> Tree<T> {
     }
 }
 
-// 이진 트리를 사용한 데이터베이스 조회
+// 이진 트리를 사용한 데이터베이스 조회 (Database lookup using a binary tree)
 pub fn lookup<'a, K: Ord, V>(key: &K, records: &'a Tree<(K, V)>) -> Option<&'a V> {
     match records {
         Tree::Empty => None,
@@ -690,21 +704,27 @@ pub fn generate_huffman_tree(pairs: &[(char, u32)]) -> HuffmanTree {
 }
 
 // ============================================================================
-// Tests
+// 테스트 (Tests)
 // ============================================================================
 
 #[cfg(test)]
 mod tests {
     use super::*;
 
-    // --- 2.3.1 Tests ---
+    // --- 2.3.1 테스트 (Tests) ---
 
     #[test]
     fn test_memq() {
-        let list = vec!["apple", "banana", "pear"];
-        assert_eq!(memq("apple", &list), Some(&["apple", "banana", "pear"][..]));
-        assert_eq!(memq("banana", &list), Some(&["banana", "pear"][..]));
-        assert_eq!(memq("orange", &list), None);
+        let list = vec!["사과 (apple)", "바나나 (banana)", "배 (pear)"];
+        assert_eq!(
+            memq("사과 (apple)", &list),
+            Some(&["사과 (apple)", "바나나 (banana)", "배 (pear)"][..])
+        );
+        assert_eq!(
+            memq("바나나 (banana)", &list),
+            Some(&["바나나 (banana)", "배 (pear)"][..])
+        );
+        assert_eq!(memq("오렌지 (orange)", &list), None);
     }
 
     #[test]
@@ -716,7 +736,7 @@ mod tests {
         assert!(!equal(&a, &c));
     }
 
-    // --- 2.3.2 Tests ---
+    // --- 2.3.2 테스트 (Tests) ---
 
     #[test]
     fn test_deriv_constant() {
@@ -753,14 +773,15 @@ mod tests {
         // d(x^3)/dx = 3*x^2
         let exp = Expr::Exponent(Box::new(Expr::Var("x")), 3);
         let result = deriv(&exp, "x");
-        // Result should be 3 * x^2 * 1 = 3 * x^2
+        // 결과는 3 * x^2 * 1 = 3 * x^2 이어야 한다
+        // (Result should be 3 * x^2 * 1 = 3 * x^2)
         match result {
-            Expr::Product(_, _) => {} // Simplified form
-            _ => panic!("Expected product"),
+            Expr::Product(_, _) => {} // 단순화된 형태 (Simplified form)
+            _ => panic!("곱을 기대함 (Expected product)"),
         }
     }
 
-    // --- 2.3.3 Tests ---
+    // --- 2.3.3 테스트 (Tests) ---
 
     #[test]
     fn test_unordered_sets() {
@@ -816,7 +837,7 @@ mod tests {
         assert_eq!(result, list);
     }
 
-    // --- 2.3.4 Tests ---
+    // --- 2.3.4 테스트 (Tests) ---
 
     #[test]
     fn test_huffman_leaf() {
@@ -828,7 +849,7 @@ mod tests {
 
     #[test]
     fn test_huffman_decode() {
-        // Sample tree from Exercise 2.67
+        // 연습문제 2.67의 샘플 트리 (Sample tree from Exercise 2.67)
         let sample_tree = HuffmanTree::make_code_tree(
             HuffmanTree::make_leaf('A', 4),
             HuffmanTree::make_code_tree(
@@ -869,7 +890,7 @@ mod tests {
         let tree = generate_huffman_tree(&pairs);
         assert_eq!(tree.weight(), 13);
 
-        // Test that we can encode and decode
+        // 인코드/디코드 가능성 테스트 (Test that we can encode and decode)
         let message = vec!['A', 'B', 'C', 'D'];
         let encoded = encode(&message, &tree).unwrap();
         let decoded = decode(&encoded, &tree).unwrap();

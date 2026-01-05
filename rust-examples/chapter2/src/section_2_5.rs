@@ -1,8 +1,12 @@
-//! Section 2.5: 제네릭 연산을 사용하는 시스템 (Systems with Generic Operations)
+//! 2.5절: 제네릭 연산을 사용하는 시스템
+//! (Section 2.5: Systems with Generic Operations)
 //!
-//! 이 모듈은 다음을 통해 Rust의 제네릭 연산 접근 방식을 보여줍니다:
+//! 이 모듈은 다음을 통해 Rust의 제네릭 연산 접근 방식을 보여준다
+//! (This module demonstrates Rust's approach to generic operations):
 //! - 트레이트 기반 다형성 (Scheme의 apply-generic 대체)
+//!   (Trait-based polymorphism)
 //! - From/Into 트레이트를 통한 타입 강제 형변환(coercion)
+//!   (Type coercion via From/Into traits)
 //! - 임의의 계수 타입을 가진 제네릭 다항식 산술
 
 use std::fmt;
@@ -13,6 +17,7 @@ use std::ops::{Add, Div, Mul, Sub};
 // ============================================================================
 
 /// 다양한 종류의 숫자를 표현할 수 있는 Number 타입
+/// (Number type that can represent various kinds of numbers)
 #[derive(Debug, Clone, PartialEq)]
 pub enum Number {
     SchemeNumber(i64),
@@ -81,9 +86,10 @@ impl Complex {
     }
 }
 
-// Number 타입에 대한 제네릭 산술 연산
+// Number 타입에 대한 제네릭 산술 연산 (Generic arithmetic for Number)
 // Scheme에서: (define (add x y) (apply-generic 'add x y))
 // Rust에서: 패턴 매칭과 함께 트레이트 구현 사용
+// (In Rust: use trait implementations with pattern matching)
 
 impl Add for Number {
     type Output = Number;
@@ -272,15 +278,18 @@ impl GenericZero for Number {
 }
 
 // ============================================================================
-// 2.5.2: 서로 다른 타입의 데이터 결합 (강제 형변환) (Combining Data of Different Types)
+// 2.5.2: 서로 다른 타입의 데이터 결합 (강제 형변환)
+// (Combining Data of Different Types)
 // ============================================================================
 
 // 타입 탑(Type tower): Integer -> Rational -> Real -> Complex
 //
-// Scheme에서는 강제 형변환 테이블을 통해 처리합니다:
+// Scheme에서는 강제 형변환 테이블을 통해 처리한다
+// (In Scheme, this is handled via a coercion table):
 //   (put-coercion 'scheme-number 'complex scheme-number->complex)
 //
-// Rust에서는 From/Into 트레이트를 사용하여 타입 변환을 설정합니다.
+// Rust에서는 From/Into 트레이트를 사용하여 타입 변환을 설정한다
+// (In Rust, use From/Into traits to define type conversions).
 
 impl From<i64> for Rational {
     fn from(n: i64) -> Rational {
@@ -300,7 +309,8 @@ impl From<Rational> for Complex {
     }
 }
 
-// 강제 형변환 전략: 탑에서 더 낮은 타입을 더 높은 타입으로 올립니다(raise).
+// 강제 형변환 전략: 탑에서 더 낮은 타입을 더 높은 타입으로 올린다(raise)
+// (Coercion strategy: raise lower types to higher types in the tower).
 fn coerce_to_common(a: Number, b: Number) -> (Number, Number) {
     use Number::*;
     match (&a, &b) {
@@ -323,7 +333,7 @@ fn coerce_to_common(a: Number, b: Number) -> (Number, Number) {
     }
 }
 
-// 연습문제 2.83: Raise 연산
+// 연습문제 2.83: Raise 연산 (Exercise 2.83: Raise operation)
 pub trait Raise {
     type Output;
     fn raise(self) -> Self::Output;
@@ -354,6 +364,7 @@ fn type_level(n: &Number) -> u8 {
 }
 
 // 연습문제 2.85: Drop 연산 (가장 낮은 표현으로 단순화)
+// (Exercise 2.85: Drop operation (simplify to lowest representation))
 pub trait Drop {
     fn drop_if_possible(self) -> Self;
 }
@@ -718,7 +729,7 @@ impl fmt::Display for Complex {
 }
 
 // ============================================================================
-// Tests and Examples
+// 테스트와 예시 (Tests and Examples)
 // ============================================================================
 
 #[cfg(test)]
@@ -759,7 +770,7 @@ mod tests {
             assert!((result.real - 8.0).abs() < 1e-10);
             assert!((result.imag - 4.0).abs() < 1e-10);
         } else {
-            panic!("Expected Complex result");
+            panic!("복소수 결과를 기대함 (Expected Complex result)");
         }
     }
 
@@ -771,7 +782,7 @@ mod tests {
         // 2x^2 + x + 5
         let p2 = Polynomial::new('x', vec![Term::new(2, 2), Term::new(1, 1), Term::new(0, 5)]);
 
-        // Result: 5x^2 + 3x + 6
+        // 결과: 5x^2 + 3x + 6 (Result: 5x^2 + 3x + 6)
         let sum = p1 + p2;
         assert_eq!(sum.terms.len(), 3);
         assert_eq!(sum.terms[0], Term::new(2, 5));
@@ -787,7 +798,7 @@ mod tests {
         // (x + 2)
         let p2 = Polynomial::new('x', vec![Term::new(1, 1), Term::new(0, 2)]);
 
-        // Result: x^2 + 3x + 2
+        // 결과: x^2 + 3x + 2 (Result: x^2 + 3x + 2)
         let product = p1 * p2;
         assert_eq!(product.terms.len(), 3);
         assert_eq!(product.terms[0], Term::new(2, 1));
@@ -822,37 +833,37 @@ mod tests {
     }
 }
 
-// Example usage in main
+// main에서의 사용 예 (Example usage in main)
 pub fn run_examples() {
-    println!("=== Section 2.5: Generic Operations ===\n");
+    println!("=== 2.5절: 제네릭 연산 (Section 2.5: Generic Operations) ===\n");
 
-    // Generic arithmetic
-    println!("Generic Arithmetic:");
+    // 제네릭 산술 (Generic arithmetic)
+    println!("제네릭 산술 (Generic Arithmetic):");
     let n1 = Number::SchemeNumber(10);
     let n2 = Number::SchemeNumber(5);
     println!("10 + 5 = {:?}", n1.clone() + n2.clone());
     println!("10 * 5 = {:?}", n1 * n2);
 
-    // Rational numbers
-    println!("\nRational Numbers:");
+    // 유리수 (Rational numbers)
+    println!("\n유리수 (Rational Numbers):");
     let r1 = Rational::new(1, 2);
     let r2 = Rational::new(1, 3);
     println!("1/2 + 1/3 = {}", r1 + r2);
 
-    // Complex numbers
-    println!("\nComplex Numbers:");
+    // 복소수 (Complex numbers)
+    println!("\n복소수 (Complex Numbers):");
     let c1 = Complex::from_real_imag(3.0, 4.0);
     let c2 = Complex::from_real_imag(1.0, 2.0);
     println!("(3+4i) + (1+2i) = {}", c1 + c2);
 
-    // Coercion
-    println!("\nType Coercion:");
+    // 강제 형변환 (Coercion)
+    println!("\n타입 강제 형변환 (Type Coercion):");
     let n = Number::SchemeNumber(5);
     let c = Number::Complex(Complex::from_real_imag(3.0, 4.0));
     println!("5 + (3+4i) = {:?}", n + c);
 
-    // Polynomials
-    println!("\nPolynomial Arithmetic:");
+    // 다항식 (Polynomials)
+    println!("\n다항식 산술 (Polynomial Arithmetic):");
     let p1 = Polynomial::new('x', vec![Term::new(2, 1), Term::new(0, -1)]);
     println!("p1 = {}", p1);
 
@@ -865,8 +876,8 @@ pub fn run_examples() {
     let product = p1 * p2;
     println!("p1 * p2 = {}", product);
 
-    // Polynomial with rational coefficients
-    println!("\nPolynomial with Rational Coefficients:");
+    // 유리수 계수를 가진 다항식 (Polynomial with rational coefficients)
+    println!("\n유리수 계수 다항식 (Polynomial with Rational Coefficients):");
     let pr: Polynomial<Rational> = Polynomial::new(
         'y',
         vec![

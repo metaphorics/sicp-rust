@@ -1,34 +1,43 @@
-//! Section 3.2: The Environment Model of Evaluation
+//! 3.2절: 평가의 환경 모델 (Section 3.2: The Environment Model of Evaluation)
 //!
-//! This section translates SICP's environment model to Rust using idiomatic patterns.
-//! Instead of `Rc<RefCell<T>>`, we use:
+//! 이 절은 SICP의 환경 모델을 관용적인 Rust 패턴으로 번역한다
+//! (This section translates SICP's environment model to Rust using idiomatic patterns).
+//! `Rc<RefCell<T>>` 대신 다음을 사용한다:
+//! (Instead of `Rc<RefCell<T>>`, we use:)
 //!
-//! - **Persistent environments**: Immutable `Environment<V>` with structural sharing
-//! - **Functional updates**: Operations return new state
-//! - **Cell<T>**: For simple `Copy` types when interior mutability is needed
+//! - **영속적 환경 (Persistent environments)**: 구조적 공유를 갖는 불변 `Environment<V>`
+//! - **함수형 갱신 (Functional updates)**: 연산이 새 상태를 반환
+//! - **`Cell<T>`**: 내부 가변성이 필요할 때 단순 `Copy` 타입에 사용
+//!   (For simple `Copy` types when interior mutability is needed)
 //!
-//! Key concepts:
-//! - Environments as persistent chains of frames
-//! - Procedures as (code, environment) pairs - environment is owned, not shared
-//! - Variable lookup walks the environment chain (immutably)
-//! - Closures capture their defining environment (by clone, which is O(1) due to sharing)
+//! 핵심 개념 (Key concepts):
+//! - 프레임의 영속 체인으로서의 환경 (Environments as persistent chains of frames)
+//! - (코드, 환경) 쌍으로서의 프로시저 - 환경은 공유가 아닌 소유
+//!   (Procedures as (code, environment) pairs - environment is owned, not shared)
+//! - 변수 조회는 환경 체인을 따라간다(불변) (Variable lookup walks the environment chain (immutably))
+//! - 클로저는 정의 환경을 캡처한다(구조적 공유로 O(1) 복제)
+//!   (Closures capture their defining environment (by clone, which is O(1) due to sharing))
 
 use sicp_common::Environment;
 use std::cell::Cell;
 use std::fmt;
 
 // =============================================================================
-// PART 1: VALUE TYPE FOR RUNTIME REPRESENTATION
+// PART 1: 런타임 표현을 위한 값 타입 (VALUE TYPE FOR RUNTIME REPRESENTATION)
 // =============================================================================
 
-/// Runtime value type for demonstrating the environment model.
-/// Procedures own their captured environment (no Rc<RefCell<>>).
+/// 환경 모델을 보여주기 위한 런타임 값 타입
+/// (Runtime value type for demonstrating the environment model).
+/// 프로시저는 캡처한 환경을 소유한다(`Rc<RefCell<>>` 없음)
+/// (Procedures own their captured environment (no Rc<RefCell<>>)).
 #[derive(Clone)]
 pub enum Value {
     Number(f64),
     String(String),
-    /// A procedure represented as (code, environment)
-    /// The environment is OWNED, not shared via Rc<RefCell<>>
+    /// (code, environment)로 표현된 프로시저
+    /// (A procedure represented as (code, environment))
+    /// 환경은 Rc<RefCell<>>로 공유되지 않고 소유된다
+    /// (The environment is OWNED, not shared via Rc<RefCell<>>)
     Procedure {
         params: Vec<String>,
         body: String,
@@ -55,28 +64,28 @@ impl fmt::Debug for Value {
 }
 
 // =============================================================================
-// PART 2: ENVIRONMENT EXAMPLES
+// PART 2: 환경 예시 (ENVIRONMENT EXAMPLES)
 // =============================================================================
 
-/// Demonstrates the persistent environment model.
+/// 영속적 환경 모델을 시연한다 (Demonstrates the persistent environment model).
 ///
-/// # Example
+/// # 예시 (Example)
 ///
 /// ```
 /// use sicp_chapter3::section_3_2::env_demo;
 ///
 /// let (result_x, result_y, result_z) = env_demo();
-/// assert_eq!(result_x, Some(7));  // Shadowed in inner
-/// assert_eq!(result_y, Some(5));  // From outer
-/// assert_eq!(result_z, Some(6));  // From inner
+/// assert_eq!(result_x, Some(7));  // 내부에서 섀도잉 (Shadowed in inner)
+/// assert_eq!(result_y, Some(5));  // 외부에서 옴 (From outer)
+/// assert_eq!(result_z, Some(6));  // 내부에서 옴 (From inner)
 /// ```
 pub fn env_demo() -> (Option<i64>, Option<i64>, Option<i64>) {
-    // Create outer environment (like global frame)
+    // 외부 환경 생성(전역 프레임과 유사) (Create outer environment (like global frame))
     let outer = Environment::<i64>::new()
         .define("x".to_string(), 3)
         .define("y".to_string(), 5);
 
-    // Create inner environment extending outer (shadows x)
+    // 외부를 확장한 내부 환경 생성(x를 섀도잉) (Create inner environment extending outer (shadows x))
     let inner = outer.extend([("z".to_string(), 6), ("x".to_string(), 7)]);
 
     // Lookups

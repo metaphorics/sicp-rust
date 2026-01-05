@@ -288,7 +288,7 @@ impl<T> Default for Queue<T> {
     }
 }
 
-/// Deque (double-ended queue) - Exercise 3.23
+/// 덱(양방향 큐) - 연습문제 3.23 (Deque (double-ended queue) - Exercise 3.23)
 #[derive(Debug)]
 pub struct Deque<T> {
     items: VecDeque<T>,
@@ -337,10 +337,10 @@ impl<T> Default for Deque<T> {
 }
 
 // =============================================================================
-// 3.3.3 Representing Tables
+// 3.3.3 테이블 표현 (Representing Tables)
 // =============================================================================
 
-/// One-dimensional table.
+/// 1차원 테이블 (One-dimensional table).
 #[derive(Debug)]
 pub struct Table<K, V> {
     records: HashMap<K, V>,
@@ -368,7 +368,7 @@ impl<K: Eq + Hash, V> Default for Table<K, V> {
     }
 }
 
-/// Two-dimensional table.
+/// 2차원 테이블 (Two-dimensional table).
 #[derive(Debug)]
 pub struct Table2D<K1, K2, V> {
     subtables: HashMap<K1, HashMap<K2, V>>,
@@ -396,9 +396,11 @@ impl<K1: Eq + Hash, K2: Eq + Hash, V> Default for Table2D<K1, K2, V> {
     }
 }
 
-/// Memoization using a simple closure + cache pattern.
+/// 단순 클로저 + 캐시 패턴을 사용한 메모이제이션
+/// (Memoization using a simple closure + cache pattern).
 ///
-/// Uses interior mutability only for the cache (acceptable pattern).
+/// 캐시에만 내부 가변성을 사용한다(허용되는 패턴)
+/// (Uses interior mutability only for the cache (acceptable pattern)).
 pub struct Memoized<T, R, F>
 where
     T: Eq + Hash + Clone,
@@ -434,36 +436,40 @@ where
 }
 
 // =============================================================================
-// 3.3.4 A Simulator for Digital Circuits
+// 3.3.4 디지털 회로 시뮬레이터 (A Simulator for Digital Circuits)
 // =============================================================================
 
 pub mod circuits {
     use super::*;
 
-    pub type Signal = u8; // 0 or 1
+    pub type Signal = u8; // 0 또는 1 (0 or 1)
     pub type Time = u64;
     pub type WireId = usize;
     pub type ActionId = usize;
 
-    /// Wire state stored in the simulator.
+    /// 시뮬레이터에 저장된 와이어 상태 (Wire state stored in the simulator).
     #[derive(Debug, Default)]
     pub struct Wire {
         signal: Signal,
         actions: Vec<ActionId>,
     }
 
-    /// Gate delays.
+    /// 게이트 지연 (Gate delays).
     pub const INVERTER_DELAY: Time = 2;
     pub const AND_GATE_DELAY: Time = 3;
     pub const OR_GATE_DELAY: Time = 5;
 
-    /// Action closure type that takes mutable simulator reference.
+    /// 가변 시뮬레이터 참조를 받는 액션 클로저 타입
+    /// (Action closure type that takes mutable simulator reference).
     type ActionFn = Box<dyn FnMut(&mut Simulator)>;
 
-    /// Digital circuit simulator with owned mutable state.
+    /// 소유된 가변 상태를 가진 디지털 회로 시뮬레이터
+    /// (Digital circuit simulator with owned mutable state).
     ///
-    /// This replaces the Rc<RefCell<>> pattern with a single owner
-    /// that passes `&mut self` to action callbacks.
+    /// `Rc<RefCell<>>` 패턴을 단일 소유자로 대체하고
+    /// 액션 콜백에 `&mut self`를 전달한다
+    /// (This replaces the Rc<RefCell<>> pattern with a single owner
+    /// that passes `&mut self` to action callbacks).
     pub struct Simulator {
         wires: Vec<Wire>,
         actions: Vec<Option<ActionFn>>,
@@ -481,24 +487,26 @@ pub mod circuits {
             }
         }
 
-        /// Create a new wire and return its ID.
+        /// 새 와이어를 생성하고 ID를 반환한다 (Create a new wire and return its ID).
         pub fn make_wire(&mut self) -> WireId {
             let id = self.wires.len();
             self.wires.push(Wire::default());
             id
         }
 
-        /// Get wire signal.
+        /// 와이어 신호를 가져온다 (Get wire signal).
         pub fn get_signal(&self, wire: WireId) -> Signal {
             self.wires[wire].signal
         }
 
-        /// Set wire signal, triggering actions if changed.
+        /// 와이어 신호를 설정하고 변경 시 액션을 트리거한다
+        /// (Set wire signal, triggering actions if changed).
         pub fn set_signal(&mut self, wire: WireId, value: Signal) {
             let old_value = self.wires[wire].signal;
             if old_value != value {
                 self.wires[wire].signal = value;
-                // Collect action IDs to run (avoid borrow conflict)
+                // 실행할 액션 ID를 수집(빌림 충돌 회피)
+                // (Collect action IDs to run (avoid borrow conflict))
                 let action_ids: Vec<ActionId> = self.wires[wire].actions.clone();
                 for action_id in action_ids {
                     self.run_action(action_id);
@@ -506,19 +514,19 @@ pub mod circuits {
             }
         }
 
-        /// Add action to wire.
+        /// 와이어에 액션을 추가한다 (Add action to wire).
         fn add_action_to_wire(&mut self, wire: WireId, action_id: ActionId) {
             self.wires[wire].actions.push(action_id);
         }
 
-        /// Register an action and return its ID.
+        /// 액션을 등록하고 ID를 반환한다 (Register an action and return its ID).
         fn register_action(&mut self, action: ActionFn) -> ActionId {
             let id = self.actions.len();
             self.actions.push(Some(action));
             id
         }
 
-        /// Run an action by ID.
+        /// ID로 액션을 실행한다 (Run an action by ID).
         fn run_action(&mut self, action_id: ActionId) {
             if let Some(mut action) = self.actions[action_id].take() {
                 action(self);
@@ -526,19 +534,20 @@ pub mod circuits {
             }
         }
 
-        /// Schedule action after delay.
+        /// 지연 후 액션을 예약한다 (Schedule action after delay).
         pub fn after_delay(&mut self, delay: Time, action: ActionFn) {
             let time = self.current_time + delay;
             let action_id = self.register_action(action);
             self.agenda.entry(time).or_default().push_back(action_id);
         }
 
-        /// Current simulation time.
+        /// 현재 시뮬레이션 시간 (Current simulation time).
         pub fn current_time(&self) -> Time {
             self.current_time
         }
 
-        /// Run simulation until agenda is empty.
+        /// 아젠다가 빌 때까지 시뮬레이션을 실행한다
+        /// (Run simulation until agenda is empty).
         pub fn propagate(&mut self) {
             while let Some((&time, _)) = self.agenda.first_key_value() {
                 self.current_time = time;
@@ -550,7 +559,7 @@ pub mod circuits {
             }
         }
 
-        // Logical operations
+        // 논리 연산 (Logical operations)
         pub fn logical_not(s: Signal) -> Signal {
             if s == 0 { 1 } else { 0 }
         }
@@ -563,7 +572,7 @@ pub mod circuits {
             if a == 1 || b == 1 { 1 } else { 0 }
         }
 
-        /// Inverter gate.
+        /// 인버터 게이트 (Inverter gate).
         pub fn inverter(&mut self, input: WireId, output: WireId) {
             let action_id = self.register_action(Box::new(move |sim: &mut Simulator| {
                 let new_value = Self::logical_not(sim.get_signal(input));
@@ -575,11 +584,11 @@ pub mod circuits {
                 );
             }));
             self.add_action_to_wire(input, action_id);
-            // Trigger initial action
+            // 초기 액션 트리거 (Trigger initial action)
             self.run_action(action_id);
         }
 
-        /// AND gate.
+        /// AND 게이트 (AND gate).
         pub fn and_gate(&mut self, a1: WireId, a2: WireId, output: WireId) {
             let action_fn = move |sim: &mut Simulator| {
                 let new_value = Self::logical_and(sim.get_signal(a1), sim.get_signal(a2));
@@ -606,7 +615,7 @@ pub mod circuits {
             self.add_action_to_wire(a2, action_id2);
         }
 
-        /// OR gate.
+        /// OR 게이트 (OR gate).
         pub fn or_gate(&mut self, a1: WireId, a2: WireId, output: WireId) {
             let action_fn = move |sim: &mut Simulator| {
                 let new_value = Self::logical_or(sim.get_signal(a1), sim.get_signal(a2));
@@ -633,7 +642,7 @@ pub mod circuits {
             self.add_action_to_wire(a2, action_id2);
         }
 
-        /// Half adder circuit.
+        /// 하프 애더 회로 (Half adder circuit).
         pub fn half_adder(&mut self, a: WireId, b: WireId, sum: WireId, carry: WireId) {
             let d = self.make_wire();
             let e = self.make_wire();
@@ -644,7 +653,7 @@ pub mod circuits {
             self.and_gate(d, e, sum);
         }
 
-        /// Full adder circuit.
+        /// 풀 애더 회로 (Full adder circuit).
         pub fn full_adder(
             &mut self,
             a: WireId,
@@ -671,21 +680,21 @@ pub mod circuits {
 }
 
 // =============================================================================
-// 3.3.5 Propagation of Constraints - Message Queue Architecture
+// 3.3.5 제약 전파 - 메시지 큐 아키텍처 (Propagation of Constraints - Message Queue Architecture)
 // =============================================================================
 
 pub mod constraints {
     use super::*;
 
-    /// Connector identifier.
+    /// 커넥터 식별자 (Connector identifier).
     #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
     pub struct ConnectorId(pub usize);
 
-    /// Constraint identifier.
+    /// 제약 식별자 (Constraint identifier).
     #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
     pub struct ConstraintId(pub usize);
 
-    /// Connector state.
+    /// 커넥터 상태 (Connector state).
     #[derive(Debug, Clone, Default)]
     pub struct ConnectorState {
         pub value: Option<f64>,
@@ -693,7 +702,7 @@ pub mod constraints {
         pub constraints: Vec<ConstraintId>,
     }
 
-    /// Event for message-queue based propagation.
+    /// 메시지 큐 기반 전파 이벤트 (Event for message-queue based propagation).
     #[derive(Debug, Clone)]
     pub enum Event {
         SetValue {
@@ -713,7 +722,7 @@ pub mod constraints {
         },
     }
 
-    /// Constraint types.
+    /// 제약 타입 (Constraint types).
     #[derive(Debug, Clone)]
     pub enum ConstraintKind {
         Adder {
@@ -739,10 +748,12 @@ pub mod constraints {
         },
     }
 
-    /// Constraint network using message-queue architecture.
+    /// 메시지 큐 아키텍처를 사용하는 제약 네트워크
+    /// (Constraint network using message-queue architecture).
     ///
-    /// This eliminates all `Rc<RefCell<>>` patterns by using a centralized
-    /// state with explicit event propagation.
+    /// 중앙집중 상태와 명시적 이벤트 전파로 `Rc<RefCell<>>` 패턴을 제거한다
+    /// (This eliminates all `Rc<RefCell<>>` patterns by using a centralized
+    /// state with explicit event propagation).
     pub struct ConstraintNetwork {
         connectors: Vec<ConnectorState>,
         constraints: Vec<ConstraintKind>,
@@ -760,24 +771,24 @@ pub mod constraints {
             }
         }
 
-        /// Create a new connector.
+        /// 새 커넥터를 생성한다 (Create a new connector).
         pub fn make_connector(&mut self) -> ConnectorId {
             let id = ConnectorId(self.connectors.len());
             self.connectors.push(ConnectorState::default());
             id
         }
 
-        /// Check if connector has a value.
+        /// 커넥터에 값이 있는지 확인한다 (Check if connector has a value).
         pub fn has_value(&self, conn: ConnectorId) -> bool {
             self.connectors[conn.0].value.is_some()
         }
 
-        /// Get connector value.
+        /// 커넥터 값을 가져온다 (Get connector value).
         pub fn get_value(&self, conn: ConnectorId) -> Option<f64> {
             self.connectors[conn.0].value
         }
 
-        /// Queue a set-value event.
+        /// 값-설정 이벤트를 큐에 넣는다 (Queue a set-value event).
         pub fn set_value(&mut self, conn: ConnectorId, value: f64, informant: &str) {
             self.events.push_back(Event::SetValue {
                 connector: conn,
@@ -786,7 +797,7 @@ pub mod constraints {
             });
         }
 
-        /// Queue a forget-value event.
+        /// 값-삭제 이벤트를 큐에 넣는다 (Queue a forget-value event).
         pub fn forget_value(&mut self, conn: ConnectorId, retractor: &str) {
             self.events.push_back(Event::ForgetValue {
                 connector: conn,
@@ -794,7 +805,8 @@ pub mod constraints {
             });
         }
 
-        /// Create an adder constraint: a1 + a2 = sum.
+        /// 가산 제약을 생성한다: a1 + a2 = sum
+        /// (Create an adder constraint: a1 + a2 = sum).
         pub fn adder(
             &mut self,
             a1: ConnectorId,
@@ -810,7 +822,7 @@ pub mod constraints {
                 name: name.to_string(),
             });
 
-            // Connect to connectors
+            // 커넥터에 연결 (Connect to connectors)
             self.connectors[a1.0].constraints.push(id);
             self.connectors[a2.0].constraints.push(id);
             self.connectors[sum.0].constraints.push(id);
@@ -818,7 +830,8 @@ pub mod constraints {
             id
         }
 
-        /// Create a multiplier constraint: m1 * m2 = product.
+        /// 곱셈 제약을 생성한다: m1 * m2 = product
+        /// (Create a multiplier constraint: m1 * m2 = product).
         pub fn multiplier(
             &mut self,
             m1: ConnectorId,
@@ -841,7 +854,7 @@ pub mod constraints {
             id
         }
 
-        /// Create a constant constraint.
+        /// 상수 제약을 생성한다 (Create a constant constraint).
         pub fn constant(&mut self, value: f64, connector: ConnectorId, name: &str) -> ConstraintId {
             let id = ConstraintId(self.constraints.len());
             self.constraints.push(ConstraintKind::Constant {
@@ -852,14 +865,14 @@ pub mod constraints {
 
             self.connectors[connector.0].constraints.push(id);
 
-            // Set the constant value immediately
+            // 상수 값을 즉시 설정 (Set the constant value immediately)
             self.connectors[connector.0].value = Some(value);
             self.connectors[connector.0].informant = Some(name.to_string());
 
             id
         }
 
-        /// Create a probe.
+        /// 프로브를 생성한다 (Create a probe).
         pub fn probe(&mut self, name: &str, connector: ConnectorId) -> ConstraintId {
             let id = ConstraintId(self.constraints.len());
             self.constraints.push(ConstraintKind::Probe {
@@ -871,7 +884,7 @@ pub mod constraints {
             id
         }
 
-        /// Process all pending events.
+        /// 대기 중인 모든 이벤트를 처리한다 (Process all pending events).
         pub fn propagate(&mut self) {
             while let Some(event) = self.events.pop_front() {
                 match event {
@@ -904,7 +917,7 @@ pub mod constraints {
                 self.connectors[conn.0].value = Some(value);
                 self.connectors[conn.0].informant = Some(informant.to_string());
 
-                // Notify constraints
+                // 제약에 통지 (Notify constraints)
                 let constraints: Vec<ConstraintId> = self.connectors[conn.0].constraints.clone();
                 for cid in constraints {
                     self.events
@@ -972,12 +985,12 @@ pub mod constraints {
                     }
                 }
                 ConstraintKind::Constant { .. } => {
-                    // Constants don't respond to changes
+                    // 상수는 변경에 반응하지 않음 (Constants don't respond to changes)
                 }
                 ConstraintKind::Probe { name, connector } => {
                     if let Some(value) = self.get_value(connector) {
                         self.probe_output
-                            .push(format!("Probe: {} = {}", name, value));
+                            .push(format!("프로브 (Probe): {} = {}", name, value));
                     }
                 }
             }
@@ -1001,15 +1014,16 @@ pub mod constraints {
                     self.forget_value(product, &name);
                 }
                 ConstraintKind::Constant { .. } => {
-                    // Constants don't forget
+                    // 상수는 잊지 않음 (Constants don't forget)
                 }
                 ConstraintKind::Probe { name, connector: _ } => {
-                    self.probe_output.push(format!("Probe: {} = ?", name));
+                    self.probe_output
+                        .push(format!("프로브 (Probe): {} = ?", name));
                 }
             }
         }
 
-        /// Build Celsius-Fahrenheit converter.
+        /// 섭씨-화씨 변환기를 구성한다 (Build Celsius-Fahrenheit converter).
         pub fn celsius_fahrenheit_converter(&mut self, c: ConnectorId, f: ConnectorId) {
             let u = self.make_connector();
             let v = self.make_connector();
@@ -1025,7 +1039,7 @@ pub mod constraints {
             self.constant(32.0, y, "c3");
         }
 
-        /// Get probe output for testing.
+        /// 테스트용 프로브 출력 값을 가져온다 (Get probe output for testing).
         pub fn get_probe_output(&self) -> &[String] {
             &self.probe_output
         }
@@ -1039,7 +1053,7 @@ pub mod constraints {
 }
 
 // =============================================================================
-// TESTS
+// 테스트 (TESTS)
 // =============================================================================
 
 #[cfg(test)]
@@ -1179,19 +1193,19 @@ mod tests {
             if *n <= 1 {
                 *n
             } else {
-                *n * 2 // Simplified for testing
+                *n * 2 // 테스트 단순화 (Simplified for testing)
             }
         });
 
-        // First call
+        // 첫 호출 (First call)
         assert_eq!(fib.call(&5), 10);
         assert_eq!(call_count.get(), 1);
 
-        // Second call (should use cache)
+        // 두 번째 호출(캐시 사용) (Second call (should use cache))
         assert_eq!(fib.call(&5), 10);
-        assert_eq!(call_count.get(), 1); // No additional call
+        assert_eq!(call_count.get(), 1); // 추가 호출 없음 (No additional call)
 
-        // Different argument
+        // 다른 인자 (Different argument)
         assert_eq!(fib.call(&3), 6);
         assert_eq!(call_count.get(), 2);
     }
@@ -1206,11 +1220,11 @@ mod tests {
 
         sim.inverter(input, output);
 
-        // Input 0 -> Output 1 (after delay)
+        // 입력 0 -> 출력 1 (지연 후) (Input 0 -> Output 1 (after delay))
         sim.propagate();
         assert_eq!(sim.get_signal(output), 1);
 
-        // Input 1 -> Output 0
+        // 입력 1 -> 출력 0 (Input 1 -> Output 0)
         sim.set_signal(input, 1);
         sim.propagate();
         assert_eq!(sim.get_signal(output), 0);
@@ -1228,10 +1242,10 @@ mod tests {
         sim.and_gate(a, b, output);
         sim.propagate();
 
-        // 0 AND 0 = 0
+        // 0 그리고(AND) 0 = 0 (0 AND 0 = 0)
         assert_eq!(sim.get_signal(output), 0);
 
-        // 1 AND 1 = 1
+        // 1 그리고(AND) 1 = 1 (1 AND 1 = 1)
         sim.set_signal(a, 1);
         sim.set_signal(b, 1);
         sim.propagate();
@@ -1251,14 +1265,14 @@ mod tests {
         sim.half_adder(a, b, sum, carry);
         sim.propagate();
 
-        // 0 + 0 = 0, carry 0
+        // 0 + 0 = 0, 캐리 0 (0 + 0 = 0, carry 0)
         assert_eq!(sim.get_signal(sum), 0);
         assert_eq!(sim.get_signal(carry), 0);
 
-        // 1 + 0 = 1, carry 0
+        // 1 + 0 = 1, 캐리 0 (1 + 0 = 1, carry 0)
         sim.set_signal(a, 1);
         sim.propagate();
-        // Note: Half adder has propagation delay
+        // 참고: 하프 애더는 전파 지연이 있다 (Note: Half adder has propagation delay)
         assert_eq!(sim.get_signal(a), 1);
         assert_eq!(sim.get_signal(b), 0);
     }
@@ -1274,7 +1288,7 @@ mod tests {
 
         net.adder(a, b, sum, "adder");
 
-        // Set a=3, b=5 -> sum should be 8
+        // a=3, b=5 설정 -> sum은 8이어야 한다 (Set a=3, b=5 -> sum should be 8)
         net.set_value(a, 3.0, "user");
         net.set_value(b, 5.0, "user");
         net.propagate();
@@ -1295,7 +1309,7 @@ mod tests {
 
         net.adder(a, b, sum, "adder");
 
-        // Set a=3, sum=8 -> b should be 5
+        // a=3, sum=8 설정 -> b는 5여야 한다 (Set a=3, sum=8 -> b should be 5)
         net.set_value(a, 3.0, "user");
         net.set_value(sum, 8.0, "user");
         net.propagate();
@@ -1314,7 +1328,7 @@ mod tests {
 
         net.multiplier(m1, m2, product, "mult");
 
-        // Set m1=4, m2=5 -> product should be 20
+        // m1=4, m2=5 설정 -> product는 20이어야 한다 (Set m1=4, m2=5 -> product should be 20)
         net.set_value(m1, 4.0, "user");
         net.set_value(m2, 5.0, "user");
         net.propagate();
@@ -1332,7 +1346,7 @@ mod tests {
 
         net.celsius_fahrenheit_converter(c, f);
 
-        // Set C = 25 -> F should be 77
+        // C = 25 설정 -> F는 77이어야 한다 (Set C = 25 -> F should be 77)
         net.set_value(c, 25.0, "user");
         net.propagate();
 
@@ -1351,7 +1365,7 @@ mod tests {
 
         net.celsius_fahrenheit_converter(c, f);
 
-        // Set F = 212 -> C should be 100
+        // F = 212 설정 -> C는 100이어야 한다 (Set F = 212 -> C should be 100)
         net.set_value(f, 212.0, "user");
         net.propagate();
 

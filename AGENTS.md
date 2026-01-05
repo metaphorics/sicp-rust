@@ -6,6 +6,7 @@
 - For every occurrence of translated terms, include the English original in parentheses.
 - Include comments and bibliography in the translation scope.
 - Translate code and literals (do not keep them in English), while preserving Texinfo commands, `@ref` keys, and node identifiers.
+- Keep variable/function/type/module names in English across all code and code examples.
 - Apply to all chapters.
 
 ## Execution Notes

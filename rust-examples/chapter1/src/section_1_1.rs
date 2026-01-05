@@ -1,4 +1,4 @@
-//! Section 1.1: 프로그래밍의 요소
+//! 1.1절: 프로그래밍의 요소 (Section 1.1: Elements of Programming)
 //!
 //! 모든 강력한 프로그래밍 언어는 세 가지 메커니즘을 가지고 있습니다:
 //! - **원시 표현식 (Primitive expressions)**: 가장 단순한 개체들
@@ -7,7 +7,7 @@
 
 /// 숫자의 제곱을 계산합니다.
 ///
-/// # Examples
+/// # 예시 (Examples)
 /// ```
 /// use sicp_chapter1::square;
 /// assert_eq!(square(5), 25);
@@ -19,7 +19,7 @@ pub fn square(x: i64) -> i64 {
 
 /// 두 숫자의 제곱의 합을 계산합니다.
 ///
-/// # Examples
+/// # 예시 (Examples)
 /// ```
 /// use sicp_chapter1::sum_of_squares;
 /// assert_eq!(sum_of_squares(3, 4), 25);
@@ -30,7 +30,7 @@ pub fn sum_of_squares(x: i64, y: i64) -> i64 {
 
 /// 숫자의 절댓값을 계산합니다.
 ///
-/// # Examples
+/// # 예시 (Examples)
 /// ```
 /// use sicp_chapter1::abs;
 /// assert_eq!(abs(-5), 5);
@@ -47,7 +47,7 @@ pub fn average(x: f64, y: f64) -> f64 {
 
 /// 제곱근을 계산하기 위한 뉴턴의 방법.
 ///
-/// # Examples
+/// # 예시 (Examples)
 /// ```
 /// use sicp_chapter1::sqrt;
 /// let result = sqrt(9.0);

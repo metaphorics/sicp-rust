@@ -61,3 +61,4 @@
 - **Code/Literals**: Translate code and literals to Korean with English in parentheses, while preserving Texinfo commands, @ref keys, and node identifiers.
 - **Rust Source**: Translate doc comments, inline comments, and string literals; keep identifiers and Rust keywords unchanged for compilability.
 - **Markdown Code Blocks**: Translate comments and string literals inside fenced blocks; keep identifiers and syntax intact.
+- **Identifiers**: Keep variable/function/type/module names in English across all code and code examples.

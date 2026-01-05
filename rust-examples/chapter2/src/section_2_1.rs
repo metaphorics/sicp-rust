@@ -1,4 +1,4 @@
-//! Section 2.1: 데이터 추상화 소개 (Introduction to Data Abstraction)
+//! 2.1절: 데이터 추상화 소개 (Section 2.1: Introduction to Data Abstraction)
 //!
 //! 이 섹션에서는 유리수와 구간 산술을 통해 데이터 추상화를 설명합니다.
 
@@ -150,12 +150,14 @@ impl Interval {
         }
     }
 
-    /// 중심과 너비(width)로 구간을 생성합니다.
+    /// 중심과 너비(width)로 구간을 생성한다
+    /// (Creates an interval from center and width).
     pub fn from_center_width(c: f64, w: f64) -> Self {
         Interval::new(c - w, c + w)
     }
 
-    /// 중심과 백분율 공차(tolerance)로 구간을 생성합니다.
+    /// 중심과 백분율 공차(tolerance)로 구간을 생성한다
+    /// (Creates an interval from center and percent tolerance).
     pub fn from_center_percent(c: f64, p: f64) -> Self {
         let w = c.abs() * p / 100.0;
         Interval::from_center_width(c, w)
@@ -235,7 +237,7 @@ pub fn par2(r1: &Interval, r2: &Interval) -> Result<Interval, &'static str> {
 }
 
 // =============================================================================
-// Tests
+// 테스트 (Tests)
 // =============================================================================
 
 #[cfg(test)]
@@ -262,7 +264,7 @@ mod tests {
 
     #[test]
     fn test_rational_normalization() {
-        // Test sign normalization
+        // 부호 정규화 테스트 (Test sign normalization)
         let r1 = Rational::new(-1, 2);
         assert_eq!(r1.num(), -1);
         assert_eq!(r1.denom(), 2);
@@ -322,7 +324,7 @@ mod tests {
         assert_eq!(quot.lower_bound(), 1.0);
         assert_eq!(quot.upper_bound(), 4.0);
 
-        // Test division by interval spanning zero
+        // 0을 포함하는 구간으로 나눗셈 테스트 (Test division by interval spanning zero)
         let i3 = Interval::new(-1.0, 1.0);
         assert!(div_interval(&i1, &i3).is_err());
     }
@@ -346,20 +348,21 @@ mod tests {
 
     #[test]
     fn test_parallel_resistors() {
-        // 6.8 ohm with 10% tolerance
+        // 10% 공차의 6.8옴 (6.8 ohm with 10% tolerance)
         let r1 = Interval::from_center_percent(6.8, 10.0);
-        // 4.7 ohm with 5% tolerance
+        // 5% 공차의 4.7옴 (4.7 ohm with 5% tolerance)
         let r2 = Interval::from_center_percent(4.7, 5.0);
 
         let result1 = par1(&r1, &r2).unwrap();
         let result2 = par2(&r1, &r2).unwrap();
 
-        // Both should give valid intervals, though they may differ
-        // due to the dependency problem in interval arithmetic
+        // 둘 다 유효한 구간이어야 하지만, 구간 산술의 의존성 문제로
+        // 값이 다를 수 있다 (Both should give valid intervals, though they may differ
+        // due to the dependency problem in interval arithmetic)
         println!("par1: {}", result1);
         println!("par2: {}", result2);
 
-        // par2 should give tighter bounds
+        // par2가 더 좁은 경계를 제공해야 한다 (par2 should give tighter bounds)
         assert!(result2.width() <= result1.width());
     }
 }

@@ -1,38 +1,47 @@
-//! Section 3.1: Assignment and Local State
+//! 3.1절: 할당과 지역 상태 (Section 3.1: Assignment and Local State)
 //!
-//! This section demonstrates idiomatic Rust approaches to modeling stateful objects.
-//! Instead of using `Rc<RefCell<T>>` (a code smell), we use:
+//! 이 절은 상태 있는 객체를 모델링하는 관용적인 Rust 접근을 보여준다
+//! (This section demonstrates idiomatic Rust approaches to modeling stateful objects).
+//! `Rc<RefCell<T>>`(코드 스멜) 대신 다음을 사용한다:
+//! (Instead of using `Rc<RefCell<T>>` (a code smell), we use:)
 //!
-//! - **Pure functional patterns**: Operations return new state instead of mutating
-//! - **`Cell<T>`**: For simple `Copy` types when interior mutability is truly needed
-//! - **Struct-based APIs**: Replace closures-with-state with explicit structs
+//! - **순수 함수형 패턴 (Pure functional patterns)**: 변경 대신 새 상태를 반환
+//! - **`Cell<T>`**: 내부 가변성이 정말 필요할 때 단순 `Copy` 타입에 사용
+//!   (For simple `Copy` types when interior mutability is truly needed)
+//! - **구조체 기반 API (Struct-based APIs)**: 상태를 가진 클로저를 명시적 구조체로 대체
+//!   (Replace closures-with-state with explicit structs)
 //!
-//! # Key Rust Concepts
+//! # 핵심 Rust 개념 (Key Rust Concepts)
 //!
-//! - `Cell<T>`: Simple interior mutability for `Copy` types (no borrow API needed)
-//! - Functional updates: `fn withdraw(&self, amount) -> (Self, Result<...>)`
-//! - Struct methods: Clearer ownership than closure captures
+//! - `Cell<T>`: `Copy` 타입을 위한 단순 내부 가변성(빌림 API 불필요)
+//!   (Simple interior mutability for `Copy` types (no borrow API needed))
+//! - 함수형 갱신: `fn withdraw(&self, amount) -> (Self, Result<...>)`
+//!   (Functional updates)
+//! - 구조체 메서드: 클로저 캡처보다 명확한 소유권
+//!   (Struct methods: clearer ownership than closure captures)
 //!
-//! # Comparison: Scheme vs Idiomatic Rust
+//! # 비교: Scheme vs 관용적 Rust (Comparison: Scheme vs Idiomatic Rust)
 //!
-//! | Scheme | Anti-Pattern Rust | Idiomatic Rust |
+//! | Scheme | 안티 패턴 Rust (Anti-Pattern Rust) | 관용적 Rust (Idiomatic Rust) |
 //! |--------|-------------------|----------------|
-//! | `set!` | `RefCell::borrow_mut()` | Return new value |
-//! | Closure with state | `Rc<RefCell<T>>` in closure | Struct with methods |
-//! | Message passing | `match msg { ... borrow_mut ... }` | Enum + struct methods |
+//! | `set!` | `RefCell::borrow_mut()` | 새 값 반환 (Return new value) |
+//! | 상태 가진 클로저 (Closure with state) | 클로저 안의 `Rc<RefCell<T>>` | 메서드를 가진 구조체 |
+//! | 메시지 전달 (Message passing) | `match msg { ... borrow_mut ... }` | Enum + 구조체 메서드 |
 
 use std::cell::Cell;
 
 // ============================================================================
-// 3.1.1: Local State Variables - Functional Approach
+// 3.1.1: 지역 상태 변수 - 함수형 접근 (Local State Variables - Functional Approach)
 // ============================================================================
 
-/// A bank account with balance tracking.
+/// 잔액을 추적하는 은행 계좌 (A bank account with balance tracking).
 ///
-/// Instead of mutable closures with `RefCell`, we use a simple struct.
-/// Operations return a new `Account` (functional update pattern).
+/// `RefCell`을 사용하는 가변 클로저 대신 간단한 구조체를 사용한다
+/// (Instead of mutable closures with `RefCell`, we use a simple struct).
+/// 연산은 새 `Account`를 반환한다(함수형 갱신 패턴)
+/// (Operations return a new `Account` (functional update pattern)).
 ///
-/// # Example
+/// # 예시 (Example)
 ///
 /// ```
 /// use sicp_chapter3::section_3_1::Account;
@@ -45,8 +54,8 @@ use std::cell::Cell;
 /// assert_eq!(result, Ok(50));
 ///
 /// let (acc, result) = acc.withdraw(60);
-/// assert_eq!(result, Err("Insufficient funds"));
-/// assert_eq!(acc.balance(), 50); // Balance unchanged on failure
+/// assert_eq!(result, Err("잔액 부족 (Insufficient funds)"));
+/// assert_eq!(acc.balance(), 50); // 실패 시 잔액은 변경되지 않음 (Balance unchanged on failure)
 /// ```
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct Account {
@@ -54,7 +63,7 @@ pub struct Account {
 }
 
 impl Account {
-    /// Creates a new account with the given initial balance.
+    /// 주어진 초기 잔액으로 새 계좌를 만든다 (Creates a new account with the given initial balance).
     #[must_use]
     pub fn new(initial_balance: i64) -> Self {
         Self {
@@ -62,16 +71,19 @@ impl Account {
         }
     }
 
-    /// Returns the current balance.
+    /// 현재 잔액을 반환한다 (Returns the current balance).
     #[must_use]
     pub fn balance(&self) -> i64 {
         self.balance
     }
 
-    /// Withdraws the specified amount, returning (new_account, result).
+    /// 지정 금액을 출금하고 (new_account, result)를 반환한다
+    /// (Withdraws the specified amount, returning (new_account, result)).
     ///
-    /// On success, returns the new balance. On failure, returns an error
-    /// and the account is unchanged.
+    /// 성공 시 새 잔액을 반환하고, 실패 시 오류를 반환하며
+    /// 계좌는 변경되지 않는다
+    /// (On success, returns the new balance. On failure, returns an error
+    /// and the account is unchanged).
     pub fn withdraw(&self, amount: i64) -> (Self, Result<i64, &'static str>) {
         if self.balance >= amount {
             let new_balance = self.balance - amount;
@@ -82,11 +94,12 @@ impl Account {
                 Ok(new_balance),
             )
         } else {
-            (*self, Err("Insufficient funds"))
+            (*self, Err("잔액 부족 (Insufficient funds)"))
         }
     }
 
-    /// Deposits the specified amount, returning (new_account, new_balance).
+    /// 지정 금액을 입금하고 (new_account, new_balance)를 반환한다
+    /// (Deposits the specified amount, returning (new_account, new_balance)).
     #[must_use]
     pub fn deposit(&self, amount: i64) -> (Self, i64) {
         let new_balance = self.balance + amount;
@@ -99,19 +112,22 @@ impl Account {
     }
 }
 
-/// Factory function that creates a withdraw closure (for compatibility).
+/// 출금 클로저를 생성하는 팩토리 함수(호환성용)
+/// (Factory function that creates a withdraw closure (for compatibility)).
 ///
-/// Note: This still uses `Cell<T>` for interior mutability, but `Cell` is
-/// much simpler than `RefCell` for `Copy` types - no borrow API needed.
+/// 참고: 내부 가변성에 `Cell<T>`를 여전히 사용하지만, `Cell`은 `Copy` 타입에 대해
+/// `RefCell`보다 훨씬 단순하다(빌림 API 불필요)
+/// (Note: This still uses `Cell<T>` for interior mutability, but `Cell` is
+/// much simpler than `RefCell` for `Copy` types - no borrow API needed).
 ///
-/// In Scheme:
+/// Scheme에서:
 /// ```scheme
 /// (define (make-withdraw balance)
 ///   (lambda (amount)
 ///     (if (>= balance amount)
 ///         (begin (set! balance (- balance amount))
 ///                balance)
-///         "Insufficient funds")))
+///         "잔액 부족 (Insufficient funds)")))
 /// ```
 pub fn make_withdraw(initial_balance: i64) -> impl FnMut(i64) -> Result<i64, &'static str> {
     let balance = Cell::new(initial_balance);
@@ -123,15 +139,18 @@ pub fn make_withdraw(initial_balance: i64) -> impl FnMut(i64) -> Result<i64, &'s
             balance.set(new_balance);
             Ok(new_balance)
         } else {
-            Err("Insufficient funds")
+            Err("잔액 부족 (Insufficient funds)")
         }
     }
 }
 
-/// Global withdraw using thread-local storage (for demonstration).
+/// 스레드 로컬 저장소를 사용하는 전역 출금(시연용)
+/// (Global withdraw using thread-local storage (for demonstration)).
 ///
-/// Note: Global mutable state is generally discouraged in Rust.
-/// This is shown for pedagogical comparison with Scheme.
+/// 참고: Rust에서 전역 가변 상태는 일반적으로 권장되지 않는다
+/// (Note: Global mutable state is generally discouraged in Rust).
+/// 이는 Scheme과의 교육적 비교를 위해 보여준다
+/// (This is shown for pedagogical comparison with Scheme).
 pub mod global_state {
     use std::cell::Cell;
 
@@ -147,7 +166,7 @@ pub mod global_state {
                 balance.set(new_balance);
                 Ok(new_balance)
             } else {
-                Err("Insufficient funds")
+                Err("잔액 부족 (Insufficient funds)")
             }
         })
     }
@@ -158,13 +177,15 @@ pub mod global_state {
 }
 
 // ============================================================================
-// Password-Protected Account (Functional)
+// 비밀번호 보호 계좌(함수형) (Password-Protected Account (Functional))
 // ============================================================================
 
-/// A password-protected bank account.
+/// 비밀번호로 보호된 은행 계좌 (A password-protected bank account).
 ///
-/// Instead of `Rc<RefCell<T>>` with message-passing closures, we use
-/// a struct with methods that return new state.
+/// 메시지 전달 클로저의 `Rc<RefCell<T>>` 대신
+/// 새 상태를 반환하는 메서드를 가진 구조체를 사용한다
+/// (Instead of `Rc<RefCell<T>>` with message-passing closures, we use
+/// a struct with methods that return new state).
 #[derive(Debug, Clone)]
 pub struct PasswordAccount {
     balance: i64,
@@ -172,7 +193,7 @@ pub struct PasswordAccount {
 }
 
 impl PasswordAccount {
-    /// Creates a new password-protected account.
+    /// 새 비밀번호 보호 계좌를 생성한다 (Creates a new password-protected account).
     #[must_use]
     pub fn new(initial_balance: i64, password: impl Into<String>) -> Self {
         Self {
@@ -181,16 +202,19 @@ impl PasswordAccount {
         }
     }
 
-    /// Returns the current balance (no password needed for checking).
+    /// 현재 잔액을 반환한다(조회에 비밀번호 불필요)
+    /// 현재 잔액을 반환한다(조회에 비밀번호 불필요)
+    /// (Returns the current balance (no password needed for checking)).
     #[must_use]
     pub fn balance(&self) -> i64 {
         self.balance
     }
 
-    /// Attempts to withdraw, returning (new_account, result).
+    /// 출금을 시도하고 (new_account, result)를 반환한다
+    /// (Attempts to withdraw, returning (new_account, result)).
     pub fn withdraw(&self, pwd: &str, amount: i64) -> (Self, Result<i64, &'static str>) {
         if pwd != self.password {
-            return (self.clone(), Err("Incorrect password"));
+            return (self.clone(), Err("잘못된 비밀번호 (Incorrect password)"));
         }
         if self.balance >= amount {
             let new_balance = self.balance - amount;
@@ -202,14 +226,15 @@ impl PasswordAccount {
                 Ok(new_balance),
             )
         } else {
-            (self.clone(), Err("Insufficient funds"))
+            (self.clone(), Err("잔액 부족 (Insufficient funds)"))
         }
     }
 
-    /// Attempts to deposit, returning (new_account, result).
+    /// 입금을 시도하고 (new_account, result)를 반환한다
+    /// (Attempts to deposit, returning (new_account, result)).
     pub fn deposit(&self, pwd: &str, amount: i64) -> (Self, Result<i64, &'static str>) {
         if pwd != self.password {
-            return (self.clone(), Err("Incorrect password"));
+            return (self.clone(), Err("잘못된 비밀번호 (Incorrect password)"));
         }
         let new_balance = self.balance + amount;
         (
@@ -222,7 +247,8 @@ impl PasswordAccount {
     }
 }
 
-/// A secure account that tracks failed password attempts.
+/// 실패한 비밀번호 시도를 추적하는 보안 계좌
+/// (A secure account that tracks failed password attempts).
 #[derive(Debug, Clone)]
 pub struct SecureAccount {
     balance: i64,
@@ -231,7 +257,7 @@ pub struct SecureAccount {
 }
 
 impl SecureAccount {
-    /// Creates a new secure account.
+    /// 새 보안 계좌를 생성한다 (Creates a new secure account).
     #[must_use]
     pub fn new(initial_balance: i64, password: impl Into<String>) -> Self {
         Self {
@@ -241,27 +267,31 @@ impl SecureAccount {
         }
     }
 
-    /// Returns the current balance.
+    /// 현재 잔액을 반환한다 (Returns the current balance).
     #[must_use]
     pub fn balance(&self) -> i64 {
         self.balance
     }
 
-    /// Returns the number of failed password attempts.
+    /// 실패한 비밀번호 시도 횟수를 반환한다
+    /// 실패한 비밀번호 시도 횟수를 반환한다
+    /// (Returns the number of failed password attempts).
     #[must_use]
     pub fn failed_attempts(&self) -> u8 {
         self.failed_attempts
     }
 
-    /// Attempts to withdraw, returning (new_account, result).
-    /// After 7 consecutive wrong passwords, returns "Calling the cops!".
+    /// 출금을 시도하고 (new_account, result)를 반환한다
+    /// (Attempts to withdraw, returning (new_account, result)).
+    /// 연속 7회 비밀번호 오류 후 "경찰을 부릅니다 (Calling the cops!)"를 반환한다
+    /// (After 7 consecutive wrong passwords, returns "Calling the cops!").
     pub fn withdraw(&self, pwd: &str, amount: i64) -> (Self, Result<i64, &'static str>) {
         if pwd != self.password {
             let new_attempts = self.failed_attempts + 1;
             let error = if new_attempts >= 7 {
-                "Calling the cops!"
+                "경찰을 부릅니다 (Calling the cops!)"
             } else {
-                "Incorrect password"
+                "잘못된 비밀번호 (Incorrect password)"
             };
             return (
                 Self {
@@ -273,7 +303,7 @@ impl SecureAccount {
             );
         }
 
-        // Reset failed attempts on successful auth
+        // 인증 성공 시 실패 횟수 초기화 (Reset failed attempts on successful auth)
         if self.balance >= amount {
             let new_balance = self.balance - amount;
             (
@@ -291,19 +321,20 @@ impl SecureAccount {
                     password: self.password.clone(),
                     failed_attempts: 0,
                 },
-                Err("Insufficient funds"),
+                Err("잔액 부족 (Insufficient funds)"),
             )
         }
     }
 
-    /// Attempts to deposit, returning (new_account, result).
+    /// 입금을 시도하고 (new_account, result)를 반환한다
+    /// (Attempts to deposit, returning (new_account, result)).
     pub fn deposit(&self, pwd: &str, amount: i64) -> (Self, Result<i64, &'static str>) {
         if pwd != self.password {
             let new_attempts = self.failed_attempts + 1;
             let error = if new_attempts >= 7 {
-                "Calling the cops!"
+                "경찰을 부릅니다 (Calling the cops!)"
             } else {
-                "Incorrect password"
+                "잘못된 비밀번호 (Incorrect password)"
             };
             return (
                 Self {
@@ -328,12 +359,15 @@ impl SecureAccount {
 }
 
 // ============================================================================
-// 3.1.2: Random Numbers
+// 3.1.2: 난수 (Random Numbers)
 // ============================================================================
 
-/// Linear Congruential Generator for pseudo-random numbers.
+/// 의사 난수를 위한 선형 합동 생성기
+/// 의사 난수를 위한 선형 합동 생성기
+/// (Linear Congruential Generator for pseudo-random numbers).
 ///
-/// Uses `Cell<u64>` for state since `u64` is `Copy` - simpler than `RefCell`.
+/// `u64`가 `Copy`이므로 상태에 `Cell<u64>`를 사용한다
+/// (`RefCell`보다 단순) (Uses `Cell<u64>` for state since `u64` is `Copy` - simpler than `RefCell`).
 pub struct RandomGenerator {
     state: Cell<u64>,
     a: u64,
@@ -342,7 +376,9 @@ pub struct RandomGenerator {
 }
 
 impl RandomGenerator {
-    /// Creates a new random generator with default parameters.
+    /// 기본 파라미터로 새 난수 생성기를 만든다
+    /// 기본 파라미터로 새 난수 생성기를 만든다
+    /// (Creates a new random generator with default parameters).
     #[must_use]
     pub fn new(seed: u64) -> Self {
         Self {
@@ -353,7 +389,7 @@ impl RandomGenerator {
         }
     }
 
-    /// Generates the next random number.
+    /// 다음 난수를 생성한다 (Generates the next random number).
     pub fn rand(&self) -> u64 {
         let current = self.state.get();
         let next = (self.a.wrapping_mul(current).wrapping_add(self.c)) % self.m;
@@ -361,18 +397,18 @@ impl RandomGenerator {
         next
     }
 
-    /// Generates a random number in range [0, max).
+    /// [0, max) 범위의 난수를 생성한다 (Generates a random number in range [0, max)).
     pub fn rand_max(&self, max: u64) -> u64 {
         self.rand() % max
     }
 
-    /// Resets to a specific seed.
+    /// 특정 시드로 초기화한다 (Resets to a specific seed).
     pub fn reset(&self, seed: u64) {
         self.state.set(seed);
     }
 }
 
-/// Monte Carlo simulation.
+/// 몬테카를로 시뮬레이션 (Monte Carlo simulation).
 pub fn monte_carlo<F>(trials: u64, mut experiment: F) -> f64
 where
     F: FnMut() -> bool,
@@ -395,7 +431,9 @@ fn gcd(mut a: u64, mut b: u64) -> u64 {
     a
 }
 
-/// Estimates pi using Monte Carlo and Cesaro's theorem.
+/// 몬테카를로와 체사로 정리를 이용해 파이를 추정한다
+/// 몬테카를로와 체사로 정리를 이용해 파이를 추정한다
+/// (Estimates pi using Monte Carlo and Cesaro's theorem).
 pub fn estimate_pi(trials: u64) -> f64 {
     let rng = RandomGenerator::new(12345);
 
@@ -410,10 +448,10 @@ pub fn estimate_pi(trials: u64) -> f64 {
 }
 
 // ============================================================================
-// EXERCISES
+// 연습문제 (EXERCISES)
 // ============================================================================
 
-/// Exercise 3.1: Accumulator (functional version)
+/// 연습문제 3.1: 누산기(함수형 버전) (Exercise 3.1: Accumulator (functional version))
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct Accumulator {
     sum: i64,
@@ -437,7 +475,8 @@ impl Accumulator {
     }
 }
 
-/// Closure-based accumulator using Cell (for compatibility).
+/// Cell을 사용하는 클로저 기반 누산기(호환성용)
+/// (Closure-based accumulator using Cell (for compatibility)).
 pub fn make_accumulator(initial: i64) -> impl FnMut(i64) -> i64 {
     let sum = Cell::new(initial);
 
@@ -448,7 +487,7 @@ pub fn make_accumulator(initial: i64) -> impl FnMut(i64) -> i64 {
     }
 }
 
-/// Exercise 3.2: Monitored procedure
+/// 연습문제 3.2: 감시된 프로시저 (Exercise 3.2: Monitored procedure)
 pub struct Monitored<F, T, R>
 where
     F: FnMut(T) -> R,
@@ -484,7 +523,7 @@ where
     }
 }
 
-/// Exercise 3.5: Monte Carlo integration
+/// 연습문제 3.5: 몬테카를로 적분 (Exercise 3.5: Monte Carlo integration)
 pub fn estimate_integral<P>(predicate: P, x1: f64, x2: f64, y1: f64, y2: f64, trials: u64) -> f64
 where
     P: Fn(f64, f64) -> bool,
@@ -504,13 +543,16 @@ where
     fraction * rect_area
 }
 
-/// Estimates pi using Monte Carlo integration.
+/// 몬테카를로 적분으로 파이를 추정한다
+/// (Estimates pi using Monte Carlo integration).
 pub fn estimate_pi_integral(trials: u64) -> f64 {
     let in_circle = |x: f64, y: f64| x * x + y * y <= 1.0;
     estimate_integral(in_circle, -1.0, 1.0, -1.0, 1.0, trials)
 }
 
-/// Exercise 3.6: Resettable random number generator
+/// 연습문제 3.6: 재설정 가능한 난수 생성기
+/// 연습문제 3.6: 재설정 가능한 난수 생성기
+/// (Exercise 3.6: Resettable random number generator)
 pub enum RandCommand {
     Generate,
     Reset(u64),
@@ -528,9 +570,10 @@ pub fn make_rand(seed: u64) -> impl FnMut(RandCommand) -> u64 {
     }
 }
 
-/// Exercise 3.7: Joint accounts (functional)
+/// 연습문제 3.7: 공동 계좌(함수형) (Exercise 3.7: Joint accounts (functional))
 ///
-/// Creates a view of an account with a different password.
+/// 다른 비밀번호로 계좌 뷰를 생성한다
+/// (Creates a view of an account with a different password).
 #[derive(Debug, Clone)]
 pub struct JointAccount {
     inner: PasswordAccount,
@@ -543,9 +586,9 @@ impl JointAccount {
         original_pwd: &str,
         new_pwd: impl Into<String>,
     ) -> Option<Self> {
-        // Verify the original password works
+        // 원래 비밀번호가 동작하는지 확인 (Verify the original password works)
         let (_, result) = account.withdraw(original_pwd, 0);
-        if result.is_err() && result != Err("Insufficient funds") {
+        if result.is_err() && result != Err("잔액 부족 (Insufficient funds)") {
             return None;
         }
         Some(Self {
@@ -556,10 +599,11 @@ impl JointAccount {
 
     pub fn withdraw(&self, pwd: &str, amount: i64) -> (Self, Result<i64, &'static str>) {
         if pwd != self.joint_password {
-            return (self.clone(), Err("Incorrect password"));
+            return (self.clone(), Err("잘못된 비밀번호 (Incorrect password)"));
         }
-        // We need the original password - but in functional style we'd need to store it
-        // For simplicity, this shows the concept
+        // 원래 비밀번호가 필요하지만, 함수형 스타일에서는 저장해야 한다
+        // (We need the original password - but in functional style we'd need to store it)
+        // 단순화를 위해 개념만 보여준다 (For simplicity, this shows the concept)
         let (new_inner, result) = self.inner.withdraw(&self.inner.password, amount);
         (
             Self {
@@ -571,7 +615,7 @@ impl JointAccount {
     }
 }
 
-/// Exercise 3.8: Order-dependent evaluation
+/// 연습문제 3.8: 순서 의존 평가 (Exercise 3.8: Order-dependent evaluation)
 pub fn make_order_dependent() -> impl FnMut(i32) -> i32 {
     let state = Cell::new(1i32);
 
@@ -584,7 +628,7 @@ pub fn make_order_dependent() -> impl FnMut(i32) -> i32 {
 }
 
 // ============================================================================
-// TESTS
+// 테스트 (TESTS)
 // ============================================================================
 
 #[cfg(test)]
@@ -602,7 +646,7 @@ mod tests {
         assert_eq!(result, Ok(50));
 
         let (acc, result) = acc.withdraw(60);
-        assert_eq!(result, Err("Insufficient funds"));
+        assert_eq!(result, Err("잔액 부족 (Insufficient funds)"));
         assert_eq!(acc.balance(), 50);
 
         let (acc, result) = acc.withdraw(15);
@@ -624,7 +668,7 @@ mod tests {
 
         assert_eq!(global_state::withdraw(25), Ok(75));
         assert_eq!(global_state::withdraw(25), Ok(50));
-        assert_eq!(global_state::withdraw(60), Err("Insufficient funds"));
+        assert_eq!(global_state::withdraw(60), Err("잔액 부족 (Insufficient funds)"));
         assert_eq!(global_state::withdraw(15), Ok(35));
     }
 
@@ -635,41 +679,41 @@ mod tests {
 
         assert_eq!(w1(50), Ok(50));
         assert_eq!(w2(70), Ok(30));
-        assert_eq!(w2(40), Err("Insufficient funds"));
+        assert_eq!(w2(40), Err("잔액 부족 (Insufficient funds)"));
         assert_eq!(w1(40), Ok(10));
     }
 
     #[test]
     fn test_password_account() {
-        let acc = PasswordAccount::new(100, "secret");
+        let acc = PasswordAccount::new(100, "비밀 (secret)");
 
-        let (acc, result) = acc.withdraw("secret", 40);
+        let (acc, result) = acc.withdraw("비밀 (secret)", 40);
         assert_eq!(result, Ok(60));
 
-        let (acc, result) = acc.withdraw("wrong", 10);
-        assert_eq!(result, Err("Incorrect password"));
+        let (acc, result) = acc.withdraw("틀림 (wrong)", 10);
+        assert_eq!(result, Err("잘못된 비밀번호 (Incorrect password)"));
         assert_eq!(acc.balance(), 60);
 
-        let (acc, result) = acc.deposit("secret", 20);
+        let (acc, result) = acc.deposit("비밀 (secret)", 20);
         assert_eq!(result, Ok(80));
         assert_eq!(acc.balance(), 80);
     }
 
     #[test]
     fn test_secure_account() {
-        let acc = SecureAccount::new(100, "secret");
+        let acc = SecureAccount::new(100, "비밀 (secret)");
 
-        // Try 6 wrong passwords
+        // 6회 잘못된 비밀번호 시도 (Try 6 wrong passwords)
         let mut acc = acc;
         for _ in 0..6 {
-            let (new_acc, result) = acc.withdraw("wrong", 10);
-            assert_eq!(result, Err("Incorrect password"));
+            let (new_acc, result) = acc.withdraw("틀림 (wrong)", 10);
+            assert_eq!(result, Err("잘못된 비밀번호 (Incorrect password)"));
             acc = new_acc;
         }
 
-        // 7th attempt should call the cops
-        let (_, result) = acc.withdraw("wrong", 10);
-        assert_eq!(result, Err("Calling the cops!"));
+        // 7번째 시도는 경찰을 불러야 한다 (7th attempt should call the cops)
+        let (_, result) = acc.withdraw("틀림 (wrong)", 10);
+        assert_eq!(result, Err("경찰을 부릅니다 (Calling the cops!)"));
     }
 
     #[test]
@@ -704,7 +748,7 @@ mod tests {
         let pi_estimate = estimate_pi(100_000);
         assert!(
             pi_estimate > 2.0 && pi_estimate < 4.0,
-            "Pi estimate {} should be in range [2, 4]",
+            "파이 추정치 {}는 [2, 4] 범위에 있어야 한다 (Pi estimate should be in range [2, 4])",
             pi_estimate
         );
     }

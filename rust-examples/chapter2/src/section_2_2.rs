@@ -1,10 +1,11 @@
-//! Section 2.2: 계층적 데이터와 클로저 속성 (Hierarchical Data and the Closure Property)
+//! 2.2절: 계층적 데이터와 클로저 속성
+//! (Section 2.2: Hierarchical Data and the Closure Property)
 //!
 //! 이 섹션에서는 다음을 보여줍니다:
-//! - Vec을 사용한 시퀀스 표현
+//! - Vec을 사용한 시퀀스 표현 (Sequence representation using Vec)
 //! - 계층적 구조 (트리)
 //! - 관습적인 인터페이스로서의 시퀀스 (map, filter, fold)
-//! - 트레이트 기반 페인터(painter)를 사용한 그림 언어
+//! - 트레이트 기반 페인터(painter)를 사용한 그림 언어 (Picture language using trait-based painters)
 
 use std::ops::{Add, Mul, Sub};
 
@@ -12,7 +13,8 @@ use std::ops::{Add, Mul, Sub};
 // 2.2.1 시퀀스 표현 (Representing Sequences)
 // =============================================================================
 
-/// 리스트의 n번째 원소를 가져옵니다 (Rust는 0부터 시작하지만, 예제들도 0부터 시작합니다)
+/// 리스트의 n번째 원소를 가져온다 (Rust는 0부터 시작하지만, 예제들도 0부터 시작한다)
+/// (Gets the nth element of a list (Rust is 0-based and examples follow that)).
 pub fn list_ref<T: Clone>(items: &[T], n: usize) -> T {
     items[n].clone()
 }
@@ -98,12 +100,13 @@ where
     }
 }
 
-/// map을 사용한 리스트 스케일링
+/// map을 사용한 리스트 스케일링 (List scaling using map)
 pub fn scale_list_with_map(items: &[i32], factor: i32) -> Vec<i32> {
     map(|x| x * factor, items)
 }
 
 /// For-each: 부수 효과(side effects)를 위해 각 원소에 프로시저 적용
+/// (For-each: apply a procedure to each element for side effects)
 pub fn for_each<T, F>(proc: F, items: &[T])
 where
     F: Fn(&T),
@@ -118,7 +121,7 @@ where
 // 2.2.2 계층적 구조 (Hierarchical Structures)
 // =============================================================================
 
-/// 열거형(enum)을 사용한 트리 데이터 구조
+/// 열거형(enum)을 사용한 트리 데이터 구조 (Tree data structure using enum)
 #[derive(Debug, Clone, PartialEq)]
 pub enum Tree<T> {
     Leaf(T),
@@ -131,7 +134,7 @@ impl<T> Tree<T> {
     }
 }
 
-/// 트리의 잎(leaf) 개수 세기
+/// 트리의 잎(leaf) 개수 세기 (Counting leaves in a tree)
 pub fn count_leaves<T>(tree: &Tree<T>) -> usize {
     match tree {
         Tree::Leaf(_) => 1,
@@ -149,7 +152,7 @@ pub fn scale_tree(tree: &Tree<i32>, factor: i32) -> Tree<i32> {
     }
 }
 
-/// map을 사용한 트리 스케일링
+/// map을 사용한 트리 스케일링 (Tree scaling using map)
 pub fn scale_tree_with_map(tree: &Tree<i32>, factor: i32) -> Tree<i32> {
     match tree {
         Tree::Leaf(value) => Tree::Leaf(value * factor),
@@ -216,7 +219,7 @@ pub fn subsets<T: Clone>(s: &[T]) -> Vec<Vec<T>> {
 // 2.2.3 관습적인 인터페이스로서의 시퀀스 (Sequences as Conventional Interfaces)
 // =============================================================================
 
-/// 술어(predicate)를 만족하는 원소 필터링
+/// 술어(predicate)를 만족하는 원소 필터링 (Filter elements satisfying a predicate)
 pub fn filter<T, P>(predicate: P, sequence: &[T]) -> Vec<T>
 where
     T: Clone,
@@ -364,7 +367,7 @@ where
 // 2.2.4 그림 언어 (Picture Language)
 // =============================================================================
 
-/// 2D 벡터 표현
+/// 2D 벡터 표현 (2D vector representation)
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub struct Vec2 {
     pub x: f64,
@@ -445,7 +448,8 @@ impl Segment {
     }
 }
 
-/// 페인터(Painter) 트레이트 - 프레임 안에 이미지를 그립니다
+/// 페인터(Painter) 트레이트 - 프레임 안에 이미지를 그린다
+/// (Painter trait - draws an image inside a frame)
 pub trait Painter {
     fn paint(&self, frame: &Frame);
 }
@@ -466,7 +470,8 @@ impl Painter for SegmentPainter {
         for segment in &self.segments {
             let start = frame.coord_map(segment.start);
             let end = frame.coord_map(segment.end);
-            // 실제 구현에서는 start에서 end까지 선을 그립니다
+            // 실제 구현에서는 start에서 end까지 선을 그린다
+            // (In a real implementation, draw a line from start to end)
             println!(
                 "Draw line from ({}, {}) to ({}, {})",
                 start.x, start.y, end.x, end.y

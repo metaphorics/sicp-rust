@@ -1,4 +1,4 @@
-//! Section 1.2: 프로시저와 그들이 생성하는 프로세스
+//! 1.2절: 프로시저와 그들이 생성하는 프로세스 (Section 1.2: Procedures and the Processes They Generate)
 //!
 //! 프로시저는 계산 프로세스의 국소적 진화를 위한 패턴입니다.
 //! 이 섹션에서는 다음을 다룹니다:
@@ -9,7 +9,7 @@
 /// 선형 재귀 프로세스를 사용한 팩토리얼.
 /// 이 프로세스는 지연된 연산들의 체인을 구축합니다.
 ///
-/// # Examples
+/// # 예시 (Examples)
 /// ```
 /// use sicp_chapter1::section_1_2::factorial_recursive;
 /// assert_eq!(factorial_recursive(5), 120);
@@ -26,7 +26,7 @@ pub fn factorial_recursive(n: u64) -> u64 {
 /// Rust는 꼬리 호출 최적화(TCO)를 보장하지 않지만, 이 패턴은
 /// 명시적 누산기(accumulator)를 통해 상수 공간을 유지합니다.
 ///
-/// # Examples
+/// # 예시 (Examples)
 /// ```
 /// use sicp_chapter1::section_1_2::factorial_iterative;
 /// assert_eq!(factorial_iterative(5), 120);
@@ -42,10 +42,10 @@ pub fn factorial_iterative(n: u64) -> u64 {
     fact_iter(1, 1, n)
 }
 
-/// 이터레이터를 사용한 관용적인(Idiomatic) Rust 팩토리얼.
-/// 이것이 Rust에서 선호되는 접근 방식입니다.
+/// 이터레이터를 사용한 관용적인 Rust 팩토리얼 (Idiomatic Rust factorial using iterators).
+/// 이것이 Rust에서 선호되는 접근 방식이다 (This is the preferred approach in Rust).
 ///
-/// # Examples
+/// # 예시 (Examples)
 /// ```
 /// use sicp_chapter1::section_1_2::factorial;
 /// assert_eq!(factorial(5), 120);
@@ -55,9 +55,9 @@ pub fn factorial(n: u64) -> u64 {
 }
 
 /// 트리 재귀를 사용한 피보나치.
-/// 이것은 지수 시간 복잡도 O(phi^n)를 가집니다.
+/// 이것은 지수 시간 복잡도 O(phi^n)를 가진다 (This has exponential time complexity O(phi^n)).
 ///
-/// # Examples
+/// # 예시 (Examples)
 /// ```
 /// use sicp_chapter1::section_1_2::fib_tree;
 /// assert_eq!(fib_tree(10), 55);
@@ -73,9 +73,9 @@ pub fn fib_tree(n: u64) -> u64 {
 }
 
 /// 반복 프로세스를 사용한 피보나치.
-/// 선형 시간 O(n), 상수 공간 O(1).
+/// 선형 시간 O(n), 상수 공간 O(1) (Linear time O(n), constant space O(1)).
 ///
-/// # Examples
+/// # 예시 (Examples)
 /// ```
 /// use sicp_chapter1::section_1_2::fib;
 /// assert_eq!(fib(10), 55);
@@ -91,10 +91,11 @@ pub fn fib(n: u64) -> u64 {
     fib_iter(1, 0, n)
 }
 
-/// 유클리드 호제법을 사용한 최대공약수(GCD).
-/// O(log(min(a,b))) 시간 복잡도.
+/// 유클리드 호제법을 사용한 최대공약수(GCD)
+/// (Greatest common divisor using Euclidean algorithm).
+/// O(log(min(a,b))) 시간 복잡도 (Time complexity O(log(min(a,b)))).
 ///
-/// # Examples
+/// # 예시 (Examples)
 /// ```
 /// use sicp_chapter1::section_1_2::gcd;
 /// assert_eq!(gcd(206, 40), 2);
@@ -103,10 +104,11 @@ pub fn gcd(a: u64, b: u64) -> u64 {
     if b == 0 { a } else { gcd(b, a % b) }
 }
 
-/// 시범 나눗셈(trial division)을 사용한 소수 판별.
-/// O(sqrt(n)) 시간 복잡도.
+/// 시범 나눗셈(trial division)을 사용한 소수 판별
+/// (Primality test using trial division).
+/// O(sqrt(n)) 시간 복잡도 (Time complexity O(sqrt(n))).
 ///
-/// # Examples
+/// # 예시 (Examples)
 /// ```
 /// use sicp_chapter1::section_1_2::is_prime;
 /// assert!(is_prime(17));
@@ -129,9 +131,9 @@ pub fn is_prime(n: u64) -> bool {
 }
 
 /// 연속 제곱을 사용한 빠른 거듭제곱.
-/// O(log n) 시간 복잡도.
+/// O(log n) 시간 복잡도 (Time complexity O(log n)).
 ///
-/// # Examples
+/// # 예시 (Examples)
 /// ```
 /// use sicp_chapter1::section_1_2::fast_expt;
 /// assert_eq!(fast_expt(2, 10), 1024);

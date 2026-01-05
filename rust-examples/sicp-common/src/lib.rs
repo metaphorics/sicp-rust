@@ -22,6 +22,6 @@ pub mod arena;
 pub mod environment;
 pub mod list;
 
-// Re-export main types for convenience
+// 편의를 위해 주요 타입을 다시 내보낸다 (Re-export main types for convenience)
 pub use arena::{Arena, ArenaId};
 pub use environment::Environment;

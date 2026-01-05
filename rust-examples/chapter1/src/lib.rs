@@ -11,5 +11,5 @@ pub mod section_1_1;
 pub mod section_1_2;
 pub mod section_1_3;
 
-// 자주 사용되는 항목들을 재수출(re-export)합니다.
+// 자주 사용되는 항목들을 재수출한다 (Re-export commonly used items).
 pub use section_1_1::*;

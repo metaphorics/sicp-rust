@@ -1,4 +1,5 @@
-//! Section 2.4: 추상 데이터의 다중 표현 (Multiple Representations for Abstract Data)
+//! 2.4절: 추상 데이터의 다중 표현
+//! (Section 2.4: Multiple Representations for Abstract Data)
 //!
 //! 이 섹션에서는 다음을 보여줍니다:
 //! - 복소수의 다중 표현 (직교 좌표계와 극 좌표계)
@@ -9,7 +10,7 @@
 use std::collections::HashMap;
 
 // ============================================================================
-// Section 2.4.1: 복소수 표현 (Representations for Complex Numbers)
+// 2.4.1절: 복소수 표현 (Representations for Complex Numbers)
 // ============================================================================
 
 /// 복소수 연산을 정의하는 트레이트
@@ -20,7 +21,7 @@ pub trait ComplexOps {
     fn angle(&self) -> f64;
 }
 
-// Ben의 직교 좌표계 표현
+// Ben의 직교 좌표계 표현 (Ben's rectangular representation)
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub struct Rectangular {
     x: f64,
@@ -58,7 +59,7 @@ impl ComplexOps for Rectangular {
     }
 }
 
-// Alyssa의 극 좌표계 표현
+// Alyssa의 극 좌표계 표현 (Alyssa's polar representation)
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub struct Polar {
     r: f64,
@@ -120,7 +121,7 @@ pub fn div_complex<T: ComplexOps, U: ComplexOps>(z1: &T, z2: &U) -> Polar {
 }
 
 // ============================================================================
-// Section 2.4.2: 태그된 데이터 (Tagged Data)
+// 2.4.2절: 태그된 데이터 (Tagged Data)
 // ============================================================================
 
 /// 태그된 표현을 가진 복소수
@@ -221,7 +222,8 @@ pub fn div_complex_tagged(z1: &Complex, z2: &Complex) -> Complex {
 }
 
 // ============================================================================
-// Section 2.4.3: 데이터 주도 프로그래밍과 가법성 (Data-Directed Programming and Additivity)
+// 2.4.3절: 데이터 주도 프로그래밍과 가법성
+// (Data-Directed Programming and Additivity)
 // ============================================================================
 
 /// 연산 테이블을 위한 함수 포인터 타입 (제로 비용, 힙 할당 없음)
@@ -271,7 +273,7 @@ impl Default for OperationTable {
     }
 }
 
-/// Ben의 직교 좌표계 패키지 설치
+/// Ben의 직교 좌표계 패키지 설치 (Install Ben's rectangular package)
 pub fn install_rectangular_package(table: &mut OperationTable) {
     // 내부 프로시저
     fn real_part(x: f64, _y: f64) -> f64 {
@@ -304,7 +306,7 @@ pub fn install_rectangular_package(table: &mut OperationTable) {
     table.put_constructor("make-from-mag-ang", "rectangular", make_rect_from_mag_ang);
 }
 
-/// Alyssa의 극 좌표계 패키지 설치
+/// Alyssa의 극 좌표계 패키지 설치 (Install Alyssa's polar package)
 pub fn install_polar_package(table: &mut OperationTable) {
     // 내부 프로시저
     fn magnitude(r: f64, _angle: f64) -> f64 {
@@ -414,7 +416,7 @@ pub fn apply_generic_message(op: &str, arg: &MessagePassingComplex) -> f64 {
 }
 
 // ============================================================================
-// Tests
+// 테스트 (Tests)
 // ============================================================================
 
 #[cfg(test)]
@@ -588,4 +590,3 @@ mod tests {
         apply_generic_message("invalid-op", &z);
     }
 }
-
