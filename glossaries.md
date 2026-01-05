@@ -52,5 +52,8 @@
 ## Style Guide
 *   **Main Text**: Plain form (~한다).
 *   **Guides/READMEs**: Polite form (~합니다/해요).
-*   **First Occurrence**: Use "Korean Term (English Term)".
-*   **Subsequent Occurrences**: Use "Korean Term".
+*   **Every Occurrence**: Use "Korean Term (English Term)" every time.
+*   **Scope**: Apply to narrative text, headings, comments, and bibliography entries.
+*   **Code/Literals**: Translate code and literals to Korean with English in parentheses, while preserving Texinfo commands, @ref keys, and node identifiers.
+*   **Rust Source**: Translate doc comments, inline comments, and string literals; keep identifiers and Rust keywords unchanged for compilability.
+*   **Markdown Code Blocks**: Translate comments and string literals inside fenced blocks; keep identifiers and syntax intact.

@@ -1,12 +1,18 @@
-//! Section 3.3: Modeling with Mutable Data
+//! 3.3절: 가변 데이터로 모델링 (Modeling with Mutable Data)
 //!
-//! This section demonstrates idiomatic Rust patterns for mutable data structures:
+//! 이 절은 가변 데이터 구조를 위한 관용적인 Rust 패턴을 보여준다
+//! (This section demonstrates idiomatic Rust patterns for mutable data structures):
 //!
-//! - **Arena-based cons lists**: Type-safe indices replace `Rc<RefCell<>>`
-//! - **VecDeque queues**: Standard library solution for FIFO
-//! - **HashMap tables**: Already idiomatic
-//! - **Mutable simulator**: Owned state with `&mut self` methods
-//! - **Message-queue constraints**: Event-driven propagation without circular refs
+//! - **아레나 기반 cons 리스트 (Arena-based cons lists)**: 타입 안전 인덱스로 `Rc<RefCell<>>`를 대체
+//!   (Type-safe indices replace `Rc<RefCell<>>`)
+//! - **VecDeque 큐 (VecDeque queues)**: FIFO를 위한 표준 라이브러리 해법
+//!   (Standard library solution for FIFO)
+//! - **HashMap 테이블 (HashMap tables)**: 이미 관용적인 구현
+//!   (Already idiomatic)
+//! - **가변 시뮬레이터 (Mutable simulator)**: `&mut self` 메서드를 통한 소유 상태
+//!   (Owned state with `&mut self` methods)
+//! - **메시지 큐 제약 (Message-queue constraints)**: 순환 참조 없이 이벤트 주도 전파
+//!   (Event-driven propagation without circular refs)
 
 use sicp_common::{Arena, ArenaId};
 use std::cell::Cell;
@@ -14,10 +20,10 @@ use std::collections::{BTreeMap, HashMap, VecDeque};
 use std::hash::Hash;
 
 // =============================================================================
-// 3.3.1 Mutable List Structure - Arena-based
+// 3.3.1 가변 리스트 구조 - 아레나 기반 (Mutable List Structure - Arena-based)
 // =============================================================================
 
-/// Mutable pair using Cell for Copy types (no RefCell needed).
+/// Copy 타입을 위한 Cell 기반 가변 쌍(RefCell 불필요) (Mutable pair using Cell for Copy types (no RefCell needed)).
 #[derive(Debug)]
 pub struct MutablePair<T: Copy> {
     car: Cell<T>,
@@ -49,17 +55,19 @@ impl<T: Copy> MutablePair<T> {
     }
 }
 
-/// A cons cell stored in an arena.
+/// 아레나에 저장된 cons 셀 (A cons cell stored in an arena).
 #[derive(Debug, Clone)]
 pub struct ConsCell<T> {
     pub car: T,
     pub cdr: Option<ArenaId<ConsCell<T>>>,
 }
 
-/// Arena-based mutable cons list.
+/// 아레나 기반 가변 cons 리스트 (Arena-based mutable cons list).
 ///
-/// This replaces `Rc<RefCell<Cons<T>>>` with arena allocation,
-/// eliminating runtime borrow checking overhead.
+/// `Rc<RefCell<Cons<T>>>`를 아레나 할당으로 대체하여
+/// 런타임 빌림 검사 오버헤드를 제거한다
+/// (This replaces `Rc<RefCell<Cons<T>>>` with arena allocation,
+/// eliminating runtime borrow checking overhead).
 #[derive(Debug)]
 pub struct ConsList<T> {
     arena: Arena<ConsCell<T>>,
@@ -67,7 +75,7 @@ pub struct ConsList<T> {
 }
 
 impl<T: Clone> ConsList<T> {
-    /// Create an empty list.
+    /// 빈 리스트를 생성한다 (Create an empty list).
     pub fn new() -> Self {
         ConsList {
             arena: Arena::new(),
@@ -75,7 +83,7 @@ impl<T: Clone> ConsList<T> {
         }
     }
 
-    /// Cons a new element to the front.
+    /// 맨 앞에 새 원소를 cons 한다 (Cons a new element to the front).
     pub fn cons(&mut self, car: T) {
         let cell = ConsCell {
             car,
@@ -84,37 +92,37 @@ impl<T: Clone> ConsList<T> {
         self.head = Some(self.arena.alloc(cell));
     }
 
-    /// Get the head element.
+    /// 머리 원소를 가져온다 (Get the head element).
     pub fn car(&self) -> Option<&T> {
         self.head.map(|id| &self.arena.get(id).car)
     }
 
-    /// Check if empty.
+    /// 비어 있는지 확인한다 (Check if empty).
     pub fn is_empty(&self) -> bool {
         self.head.is_none()
     }
 
-    /// Get the car at a specific cell.
+    /// 특정 셀의 car를 가져온다 (Get the car at a specific cell).
     pub fn get_car(&self, id: ArenaId<ConsCell<T>>) -> &T {
         &self.arena.get(id).car
     }
 
-    /// Get the cdr at a specific cell.
+    /// 특정 셀의 cdr를 가져온다 (Get the cdr at a specific cell).
     pub fn get_cdr(&self, id: ArenaId<ConsCell<T>>) -> Option<ArenaId<ConsCell<T>>> {
         self.arena.get(id).cdr
     }
 
-    /// Set the car at a specific cell (mutation via arena).
+    /// 특정 셀의 car를 설정한다(아레나를 통한 변경) (Set the car at a specific cell (mutation via arena)).
     pub fn set_car(&mut self, id: ArenaId<ConsCell<T>>, value: T) {
         self.arena.get_mut(id).car = value;
     }
 
-    /// Set the cdr at a specific cell (mutation via arena).
+    /// 특정 셀의 cdr를 설정한다(아레나를 통한 변경) (Set the cdr at a specific cell (mutation via arena)).
     pub fn set_cdr(&mut self, id: ArenaId<ConsCell<T>>, cdr: Option<ArenaId<ConsCell<T>>>) {
         self.arena.get_mut(id).cdr = cdr;
     }
 
-    /// Convert to Vec for inspection.
+    /// 확인을 위해 Vec으로 변환한다 (Convert to Vec for inspection).
     pub fn to_vec(&self) -> Vec<T> {
         let mut result = Vec::new();
         let mut current = self.head;
@@ -126,12 +134,12 @@ impl<T: Clone> ConsList<T> {
         result
     }
 
-    /// Get the head node ID.
+    /// 머리 노드 ID를 가져온다 (Get the head node ID).
     pub fn head_id(&self) -> Option<ArenaId<ConsCell<T>>> {
         self.head
     }
 
-    /// Get the last node ID.
+    /// 마지막 노드 ID를 가져온다 (Get the last node ID).
     pub fn last_id(&self) -> Option<ArenaId<ConsCell<T>>> {
         let mut current = self.head?;
         while let Some(next) = self.arena.get(current).cdr {
@@ -140,7 +148,7 @@ impl<T: Clone> ConsList<T> {
         Some(current)
     }
 
-    /// Append another list by mutating the last cdr (destructive).
+    /// 마지막 cdr을 변경해 다른 리스트를 덧붙인다(파괴적) (Append another list by mutating the last cdr (destructive)).
     pub fn append_mut(&mut self, other_head: Option<ArenaId<ConsCell<T>>>) {
         if let Some(last) = self.last_id() {
             self.arena.get_mut(last).cdr = other_head;
@@ -149,14 +157,15 @@ impl<T: Clone> ConsList<T> {
         }
     }
 
-    /// Make a cycle (last points back to first).
+    /// 사이클을 만든다(마지막이 첫 번째를 가리킴) (Make a cycle (last points back to first)).
     pub fn make_cycle(&mut self) {
         if let (Some(last), Some(head)) = (self.last_id(), self.head) {
             self.arena.get_mut(last).cdr = Some(head);
         }
     }
 
-    /// Reverse the list destructively (like Scheme's mystery function).
+    /// 리스트를 파괴적으로 뒤집는다(Scheme의 mystery 함수처럼)
+    /// (Reverse the list destructively (like Scheme's mystery function)).
     pub fn reverse_mut(&mut self) {
         let mut prev: Option<ArenaId<ConsCell<T>>> = None;
         let mut current = self.head;
@@ -170,7 +179,7 @@ impl<T: Clone> ConsList<T> {
         self.head = prev;
     }
 
-    /// Count nodes (naive, doesn't handle cycles).
+    /// 노드 개수를 센다(단순 버전, 사이클 미처리) (Count nodes (naive, doesn't handle cycles)).
     pub fn len_naive(&self) -> usize {
         let mut count = 0;
         let mut current = self.head;
@@ -181,20 +190,20 @@ impl<T: Clone> ConsList<T> {
         count
     }
 
-    /// Detect cycle using Floyd's algorithm.
+    /// 플로이드 알고리즘으로 사이클을 감지한다 (Detect cycle using Floyd's algorithm).
     pub fn has_cycle(&self) -> bool {
         let mut slow = self.head;
         let mut fast = self.head;
 
         while let (Some(s), Some(f)) = (slow, fast) {
-            // Move slow one step
+            // slow를 한 칸 이동 (Move slow one step)
             slow = self.arena.get(s).cdr;
 
-            // Move fast two steps
+            // fast를 두 칸 이동 (Move fast two steps)
             if let Some(f1) = self.arena.get(f).cdr {
                 fast = self.arena.get(f1).cdr;
 
-                // Check if they meet
+                // 두 포인터가 만나는지 확인 (Check if they meet)
                 if let (Some(s_id), Some(f_id)) = (slow, fast)
                     && s_id == f_id
                 {
@@ -219,7 +228,7 @@ impl<T: Clone> FromIterator<T> for ConsList<T> {
         let items: Vec<T> = iter.into_iter().collect();
         let mut list = ConsList::new();
 
-        // Build from back to front
+        // 뒤에서 앞으로 구성 (Build from back to front)
         for item in items.into_iter().rev() {
             list.cons(item);
         }
@@ -228,13 +237,14 @@ impl<T: Clone> FromIterator<T> for ConsList<T> {
 }
 
 // =============================================================================
-// 3.3.2 Representing Queues - VecDeque
+// 3.3.2 큐 표현 - VecDeque (Representing Queues - VecDeque)
 // =============================================================================
 
-/// Queue using VecDeque (idiomatic Rust).
+/// VecDeque 기반 큐(관용적인 Rust) (Queue using VecDeque (idiomatic Rust)).
 ///
-/// The SICP-style queue with front/rear pointers is replaced by
-/// the standard library's efficient double-ended queue.
+/// 앞/뒤 포인터를 가진 SICP 스타일 큐를 표준 라이브러리의 효율적인 덱으로 대체한다
+/// (The SICP-style queue with front/rear pointers is replaced by
+/// the standard library's efficient double-ended queue).
 #[derive(Debug)]
 pub struct Queue<T> {
     items: VecDeque<T>,

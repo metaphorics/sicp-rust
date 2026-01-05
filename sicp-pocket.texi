@@ -2589,22 +2589,15 @@ V     /  . \   . 1  .  . 1  .  . 0  .  . 1  .  . 0  ..
 @image{fig/chap1/Fig1.5d,147mm,,,.std.svg}
 
 @caption{@strong{Figure 1.5:} @code{fib(5)}를 계산할 때 생성된 트리 재귀적 프로세스.}
-
 @end iftex
-
 @end float
 
 @noindent
-This procedure is instructive as a prototypical tree recursion, but it is a
-terrible way to compute Fibonacci numbers because it does so much redundant
-computation.  Notice in @ref{Figure 1.5} that the entire computation of
-@code{fib(3)}---almost half the work---is duplicated.  In fact, it is not hard
-to show that the number of times the procedure will compute @code{fib(1)} or
-@code{fib(0)} (the number of leaves in the above tree, in general) is
-precisely @math{{\text{Fib}(n+1)}}.  To get an idea of how bad this is, one can
-show that the value of @math{{\text{Fib}(n)}} grows exponentially with @math{n}.  More
-precisely (see @ref{Exercise 1.13}), @math{{\text{Fib}(n)}} is the closest integer
-to @math{{\varphi^n / \sqrt{5}}}, where
+이 프로시저는 전형적인 트리 재귀로서 교육적이지만, 너무 많은 중복 계산을 수행하기 때문에 피보나치 수를 계산하는 방법으로는 끔찍하다.
+@ref{Figure 1.5}에서 @code{fib(3)} 전체 계산---거의 절반의 작업---이 중복되는 것에 주목하라.
+사실, 이 프로시저가 @code{fib(1)} 또는 @code{fib(0)}을 계산하는 횟수(일반적으로 위 트리의 잎 노드 수)가 정확히 @math{{\text{Fib}(n+1)}}임을 보이기란 어렵지 않다.
+이것이 얼마나 나쁜지 감을 잡기 위해, @math{{\text{Fib}(n)}}의 값이 @math{n}에 따라 기하급수적으로 증가함을 보일 수 있다.
+더 정확하게는(@ref{Exercise 1.13} 참조), @math{{\text{Fib}(n)}}은 @math{{\varphi^n / \sqrt{5}}}에 가장 가까운 정수이다. 여기서
 @ifinfo
 
 @example
@@ -2621,7 +2614,7 @@ to @math{{\varphi^n / \sqrt{5}}}, where
 
 @end tex
 @noindent
-is the @newterm{golden ratio}, which satisfies the equation
+는 @newterm{황금비(golden ratio)}이며, 다음 방정식을 만족한다.
 @ifinfo
 
 @example
@@ -2637,17 +2630,12 @@ is the @newterm{golden ratio}, which satisfies the equation
 \]
 
 @end tex
-Thus, the process uses a number of steps that grows exponentially with the
-input.  On the other hand, the space required grows only linearly with the
-input, because we need keep track only of which nodes are above us in the tree
-at any point in the computation.  In general, the number of steps required by a
-tree-recursive process will be proportional to the number of nodes in the tree,
-while the space required will be proportional to the maximum depth of the tree.
+따라서 이 프로세스는 입력에 따라 기하급수적으로 증가하는 수의 단계를 사용한다.
+반면에 필요한 공간은 입력에 따라 선형적으로만 증가하는데, 이는 계산의 어느 시점에서든 트리의 우리 위에 어떤 노드들이 있는지만 추적하면 되기 때문이다.
+일반적으로, 트리 재귀적 프로세스에 필요한 단계의 수는 트리의 노드 수에 비례하는 반면, 필요한 공간은 트리의 최대 깊이에 비례한다.
 
-We can also formulate an iterative process for computing the Fibonacci numbers.
-The idea is to use a pair of integers @math{a} and @math{b}, initialized to
-@math{{\text{Fib(1) = 1}}} and @math{{\text{Fib(0) = 0}}}, and to repeatedly apply the
-simultaneous transformations
+우리는 또한 피보나치 수를 계산하기 위한 반복적 프로세스를 공식화할 수 있다.
+아이디어는 정수 쌍 @math{a}와 @math{b}를 사용하여 @math{{\text{Fib(1) = 1}}}과 @math{{\text{Fib(0) = 0}}}으로 초기화하고, 다음과 같은 동시 변환을 반복적으로 적용하는 것이다.
 
 @ifinfo
 
@@ -2669,10 +2657,8 @@ b <- a
 
 @end tex
 @noindent
-It is not hard to show that, after applying this transformation @math{n} times,
-@math{a} and @math{b} will be equal, respectively, to @math{{\text{Fib}(n+1)}} and
-@math{{\text{Fib}(n)}}.  Thus, we can compute Fibonacci numbers iteratively using
-the procedure
+이 변환을 @math{n}번 적용한 후, @math{a}와 @math{b}가 각각 @math{{\text{Fib}(n+1)}}과 @math{{\text{Fib}(n)}}과 같아질 것임을 보이기란 어렵지 않다.
+따라서 우리는 다음 프로시저를 사용하여 피보나치 수를 반복적으로 계산할 수 있다.
 
 @example
 fn fib(n: u64) -> u64 @{
@@ -2689,65 +2675,45 @@ fn fib_iter(a: u64, b: u64, count: u64) -> u64 @{
 @end example
 
 @noindent
-This second method for computing @math{{\text{Fib}(n)}} is a linear iteration.  The
-difference in number of steps required by the two methods---one linear in
-@math{n}, one growing as fast as @math{{\text{Fib}(n)}} itself---is enormous, even for
-small inputs.
+@math{{\text{Fib}(n)}}을 계산하는 이 두 번째 방법은 선형 반복이다.
+두 방법 사이에 필요한 단계 수의 차이---하나는 @math{n}에 선형적이고, 하나는 @math{{\text{Fib}(n)}} 자체만큼 빠르게 증가함---는 작은 입력에 대해서도 엄청나다.
 
-One should not conclude from this that tree-recursive processes are useless.
-When we consider processes that operate on hierarchically structured data
-rather than numbers, we will find that tree recursion is a natural and powerful
-tool.@footnote{An example of this was hinted at in @ref{1.1.3}. The
-interpreter itself evaluates expressions using a tree-recursive process.} But
-even in numerical operations, tree-recursive processes can be useful in helping
-us to understand and design programs.  For instance, although the first
-@code{fib} procedure is much less efficient than the second one, it is more
-straightforward, being little more than a translation into Lisp of the
-definition of the Fibonacci sequence.  To formulate the iterative algorithm
-required noticing that the computation could be recast as an iteration with
-three state variables.
+이로부터 트리 재귀적 프로세스가 쓸모없다고 결론지어서는 안 된다.
+숫자가 아니라 계층적으로 구조화된 데이터에서 작동하는 프로세스를 고려할 때, 우리는 트리 재귀가 자연스럽고 강력한 도구임을 알게 될 것이다.@footnote{이것의 한 예가 @ref{1.1.3}에서 암시되었다. 인터프리터 자체가 트리 재귀적 프로세스를 사용하여 표현식을 평가한다.}
+하지만 수치 연산에서도 트리 재귀적 프로세스는 우리가 프로그램을 이해하고 설계하는 데 도움이 될 수 있다.
+예를 들어, 첫 번째 @code{fib} 프로시저는 두 번째 것보다 훨씬 덜 효율적이지만, 피보나치 수열의 정의를 리스프로 거의 그대로 번역한 것이어서 더 직관적이다.
+반복적 알고리즘을 공식화하려면 계산을 세 개의 상태 변수를 가진 반복으로 재구성할 수 있다는 점을 알아차려야 했다.
 
 @subsubheading Example: Counting change
 
-It takes only a bit of cleverness to come up with the iterative Fibonacci
-algorithm.  In contrast, consider the following problem: How many different
-ways can we make change of $1.00, given half-dollars, quarters, dimes,
-nickels, and pennies?  More generally, can we write a procedure to compute the
-number of ways to change any given amount of money?
+반복적인 피보나치 알고리즘을 생각해내는 데는 약간의 기발함만 있으면 된다.
+대조적으로 다음 문제를 고려해 보자: 50센트, 25센트, 10센트, 5센트, 그리고 1센트 동전이 주어졌을 때, 1달러를 거슬러 줄 수 있는 방법은 몇 가지인가?
+더 일반적으로, 임의의 금액에 대해 거스름돈을 만드는 방법의 수를 계산하는 프로시저를 작성할 수 있을까?
 
-This problem has a simple solution as a recursive procedure.  Suppose we think
-of the types of coins available as arranged in some order.  Then the following
-relation holds:
+이 문제는 재귀적 프로시저로서 간단한 해결책이 있다.
+우리가 사용할 수 있는 동전의 종류가 어떤 순서로 배열되어 있다고 가정하자.
+그러면 다음과 같은 관계가 성립한다:
 
-The number of ways to change amount @math{a} using @math{n} kinds of coins equals
+금액 @math{a}를 @math{n}종류의 동전으로 거슬러 주는 방법의 수는 다음과 같은 두 종류의 방법의 합과 같다:
 
 @itemize @bullet
 
 @item
-the number of ways to change amount @math{a} using all but the first kind of coin,
-plus
+첫 번째 종류의 동전을 전혀 사용하지 않고 금액 @math{a}를 거슬러 주는 방법의 수.
+플러스
 
 @item
-the number of ways to change amount @math{{a - d}} using all @math{n} kinds of
-coins, where @math{d} is the denomination of the first kind of coin.
+금액 @math{{a - d}}를 @math{n}종류의 모든 동전으로 거슬러 주는 방법의 수. 여기서 @math{d}는 첫 번째 종류 동전의 액면가이다.
 
 @end itemize
 
 @noindent
-To see why this is true, observe that the ways to make change can be divided
-into two groups: those that do not use any of the first kind of coin, and those
-that do.  Therefore, the total number of ways to make change for some amount is
-equal to the number of ways to make change for the amount without using any of
-the first kind of coin, plus the number of ways to make change assuming that we
-do use the first kind of coin.  But the latter number is equal to the number of
-ways to make change for the amount that remains after using a coin of the first
-kind.
+이것이 왜 사실인지 보려면, 거스름돈을 만드는 방법들이 두 그룹으로 나뉠 수 있다는 점을 관찰하라: 첫 번째 종류의 동전을 전혀 사용하지 않는 방법들과 사용하는 방법들.
+따라서 어떤 금액에 대해 거스름돈을 만드는 전체 방법의 수는 첫 번째 동전을 사용하지 않고 그 금액을 만드는 방법의 수에, 적어도 하나의 첫 번째 동전을 사용한다고 가정하고 만드는 방법의 수를 더한 것과 같다.
+그런데 후자의 수는 첫 번째 종류의 동전을 하나 사용한 후 남은 금액에 대해 거스름돈을 만드는 방법의 수와 같다.
 
-Thus, we can recursively reduce the problem of changing a given amount to the
-problem of changing smaller amounts using fewer kinds of coins.  Consider this
-reduction rule carefully, and convince yourself that we can use it to describe
-an algorithm if we specify the following degenerate cases:@footnote{For
-example, work through in detail how the reduction rule applies to the problem
+따라서 우리는 거스름돈 만들기 문제를 더 적은 금액이나 더 적은 종류의 동전을 거슬러 주는 문제로 재귀적으로 축소할 수 있다.
+이 축소 규칙을 주의 깊게 살펴보고, 다음과 같은 퇴화된 사례(degenerate cases)를 지정하면 알고리즘을 기술하는 데 사용할 수 있다는 것을 스스로 확신해 보라:@footnote{예를 들어, 축소 규칙이 10센트를 5센트와 1센트 동전으로 거슬러 주는 문제에 어떻게 적용되는지 자세히 살펴보라.}
 of making change for 10 cents using pennies and nickels.}
 
 @itemize @bullet
@@ -2783,165 +2749,151 @@ fn cc(amount: i64, kinds_of_coins: u64) -> u64 @{
 @}
 
 fn first_denomination(kinds_of_coins: u64) -> i64 @{
+
     match kinds_of_coins @{
+
         1 => 1,
+
         2 => 5,
+
         3 => 10,
+
         4 => 25,
+
         5 => 50,
+
         _ => 0,
+
     @}
+
 @}
+
 @end example
 
+
+
 @noindent
-(The @code{first_denomination} procedure takes as input the number of kinds of
-coins available and returns the denomination of the first kind.  Here we are
-thinking of the coins as arranged in order from largest to smallest, but any
-order would do as well.)  We can now answer our original question about
-changing a dollar:
+
+(@code{first_denomination} 프로시저는 사용할 수 있는 동전의 종류를 입력으로 받아 첫 번째 동전의 액면가를 반환한다. 여기서는 동전들이 큰 것부터 작은 것 순으로 나열되어 있다고 가정했지만 어떤 순서라도 상관없다.)
+
+우리는 이제 1달러를 거슬러 주는 방법의 수에 대한 원래 질문에 답할 수 있다:
+
+
 
 @example
+
 count_change(100)
+
 @i{292}
+
 @end example
+
+
 
 @noindent
-@code{Count-change} generates a tree-recursive process with redundancies
-similar to those in our first implementation of @code{fib}.  (It will take
-quite a while for that 292 to be computed.)  On the other hand, it is not
-obvious how to design a better algorithm for computing the result, and we leave
-this problem as a challenge.  The observation that a tree-recursive process may
-be highly inefficient but often easy to specify and understand has led people
-to propose that one could get the best of both worlds by designing a ``smart
-compiler'' that could transform tree-recursive procedures into more efficient
-procedures that compute the same result.@footnote{One approach to coping with
-redundant computations is to arrange matters so that we automatically construct
-a table of values as they are computed.  Each time we are asked to apply the
-procedure to some argument, we first look to see if the value is already stored
-in the table, in which case we avoid performing the redundant computation.
-This strategy, known as @newterm{tabulation} or @newterm{memoization}, can be
-implemented in a straightforward way.  Tabulation can sometimes be used to
-transform processes that require an exponential number of steps (such as
-@code{count_change}) into processes whose space and time requirements grow
-linearly with the input.  See @ref{Exercise 3.27}.}
+
+@code{count_change}는 @code{fib}의 첫 번째 구현과 유사한 중복을 가진 트리 재귀적 프로세스를 생성한다. (결과값 292를 계산하는 데 꽤 오랜 시간이 걸릴 것이다.)
+
+반면에, 결과를 계산하기 위한 더 나은 알고리즘을 설계하는 것은 명확하지 않으며, 이 문제를 도전 과제로 남겨둔다.
+
+트리 재귀적 프로세스가 매우 비효율적일 수 있지만 종종 명시하고 이해하기 쉽다는 관찰은, 트리 재귀적 프로시저를 동일한 결과를 계산하는 더 효율적인 프로시저로 변환할 수 있는 ``스마트 컴파일러''를 설계함으로써 두 세계의 장점을 모두 얻을 수 있다는 제안으로 이어졌다.@footnote{중복 계산에 대처하는 한 가지 방법은 값이 계산될 때 자동으로 테이블을 구성하도록 하는 것이다. 프로시저를 어떤 인자에 적용하라는 요청을 받을 때마다, 먼저 그 값이 이미 테이블에 저장되어 있는지 확인하고, 그렇다면 중복 계산을 피한다. @newterm{도표화(tabulation)} 또는 @newterm{메모이제이션(memoization)}이라고 알려진 이 전략은 간단한 방법으로 구현될 수 있다. 도표화는 때때로 기하급수적인 수의 단계가 필요한 프로세스(@code{count_change}와 같은)를 공간과 시간 요구 사항이 입력에 따라 선형적으로 증가하는 프로세스로 변환하는 데 사용될 수 있다. @ref{Exercise 3.27}을 참조하라.}
+
+
 
 @quotation
-@strong{@anchor{Exercise 1.11}Exercise 1.11:} A function @math{f} is defined by
-the rule that @math{{f(n) = n}} if @math{{n < 3}} and @math{{f(n)} = {f(n-1)} + {2f(n-2)} + {3f(n-3)}} if @math{{n \ge 3}}.  
-Write a procedure that computes @math{f} by means of a recursive process.  Write a procedure that
-computes @math{f} by means of an iterative process.
+
+@strong{@anchor{Exercise 1.11}Exercise 1.11:} 함수 @math{f}는 다음 규칙에 의해 정의된다: @math{{n < 3}}이면 @math{{f(n) = n}}이고, @math{{n \ge 3}}이면 @math{{f(n)} = {f(n-1)} + {2f(n-2)} + {3f(n-3)}}이다.
+
+재귀적 프로세스에 의해 @math{f}를 계산하는 프로시저를 작성하라. 반복적 프로세스에 의해 @math{f}를 계산하는 프로시저를 작성하라.
+
 @end quotation
 
+
+
 @quotation
-@strong{@anchor{Exercise 1.12}Exercise 1.12:} The following pattern of numbers
-is called @newterm{Pascal's triangle}.
+
+@strong{@anchor{Exercise 1.12}Exercise 1.12:} 다음은 @newterm{파스칼의 삼각형(Pascal's triangle)}이라고 불리는 숫자들의 배열이다.
+
+
 
 @example
+
          1
+
        1   1
+
      1   2   1
+
    1   3   3   1
+
  1   4   6   4   1
+
        . . .
+
 @end example
 
-The numbers at the edge of the triangle are all 1, and each number inside the
-triangle is the sum of the two numbers above it.@footnote{The elements of
-Pascal's triangle are called the @newterm{binomial coefficients}, because the
-@math{{n^{\text{th}}}} row consists of the coefficients of the terms in the expansion of
-@math{{(x + y)^n}}.  This pattern for computing the coefficients appeared in
-Blaise Pascal's 1653 seminal work on probability theory, @cite{Trait@'e du
-triangle arithm@'etique}.  According to @ref{Knuth (1973)}, the same pattern appears
-in the @cite{Szu-yuen Y@"u-chien} (``The Precious Mirror of the Four
-Elements''), published by the Chinese mathematician Chu Shih-chieh in 1303, in
-the works of the twelfth-century Persian poet and mathematician Omar Khayyam,
-and in the works of the twelfth-century Hindu mathematician Bh@'ascara
-@'Ach@'arya.} Write a procedure that computes elements of Pascal's triangle by
-means of a recursive process.
+
+
+삼각형의 양 끝에 있는 숫자는 모두 1이다. 삼각형 내부의 각 숫자는 그 바로 위에 있는 두 숫자의 합이다.@footnote{파스칼 삼각형의 요소를 @newterm{이항 계수(binomial coefficients)}라고 부르는데, 이는 @math{{n^{\text{th}}}} 행이 @math{{(x + y)^n}} 전개식의 항들의 계수로 구성되기 때문이다. 계수를 계산하는 이 패턴은 블레즈 파스칼(Blaise Pascal)의 1653년 확률론에 관한 독창적인 저작인 @cite{Trait@'e du triangle arithm@'etique}에 등장했다. @ref{Knuth (1973)}에 따르면, 동일한 패턴이 1303년 중국 수학자 주세걸(Chu Shih-chieh)이 발표한 @cite{사원옥감(Szu-yuen Y@"u-chien, ``The Precious Mirror of the Four Elements'')}, 12세기 페르시아 시인이자 수학자인 오마르 하이얌(Omar Khayyam)의 저작, 그리고 12세기 힌두 수학자 바스카라 아차리야(Bh@'ascara @'Ach@'arya)의 저작에도 나타난다.}
+
+재귀적 프로세스에 의해 파스칼 삼각형의 요소를 계산하는 프로시저를 작성하라.
+
 @end quotation
+
+
 
 @quotation
-@strong{@anchor{Exercise 1.13}Exercise 1.13:} Prove that @math{{\text{Fib}(n)}} is
-the closest integer to @math{{\varphi^n / \sqrt{5}}}, where @math{\varphi = {(1 + \sqrt{5}) / 2}}.  
-Hint: Let @math{\psi = {(1 - \sqrt{5}) / 2}}.
-Use induction and the definition of the Fibonacci numbers (see @ref{1.2.2}) 
-to prove that @math{{\text{Fib}(n)} = {(\varphi^n - \psi^n) / \sqrt{5}}}.
+
+@strong{@anchor{Exercise 1.13}Exercise 1.13:} @math{{\text{Fib}(n)}}이 @math{{\varphi^n / \sqrt{5}}}에 가장 가까운 정수임을 증명하라. 여기서 @math{\varphi = {(1 + \sqrt{5}) / 2}}이다.
+
+힌트: @math{\psi = {(1 - \sqrt{5}) / 2}}라고 하자. 수학적 귀납법과 피보나치 수의 정의(@ref{1.2.2} 참조)를 사용하여 @math{{\text{Fib}(n)} = {(\varphi^n - \psi^n) / \sqrt{5}}}임을 증명하라.
+
 @end quotation
 
-@node	1.2.3, 1.2.4, 1.2.2, 1.2
+
+
+@node   1.2.3, 1.2.4, 1.2.2, 1.2
+
 @subsection Orders of Growth
 
-The previous examples illustrate that processes can differ considerably in the
-rates at which they consume computational resources.  One convenient way to
-describe this difference is to use the notion of @newterm{order of growth} to
-obtain a gross measure of the resources required by a process as the inputs
-become larger.
 
-Let @math{n} be a parameter that measures the size of the problem, and let
-@math{{R(n)}} be the amount of resources the process requires for a problem of
-size @math{n}.  In our previous examples we took @math{n} to be the number for which
-a given function is to be computed, but there are other possibilities.  For
+
+이전 예제들은 서로 다른 프로세스가 계산 자원을 소비하는 속도에 큰 차이가 있을 수 있음을 보여주었다.
+
+이러한 차이를 기술하는 데 사용되는 편리한 척도가 @newterm{증가 차수(order of growth)}라는 개념이다. 증가 차수는 입력이 커짐에 따라 프로세스에 필요한 자원의 양에 대한 거친 척도를 제공한다.
+
+
+
+@math{n}을 문제의 크기를 나타내는 매개변수라고 하고, @math{{R(n)}}을 문제 크기가 @math{n}일 때 프로세스에 필요한 자원의 양이라고 하자.
+
+우리의 이전 예제들에서 우리는 @math{n}을 주어진 함수가 계산될 대상인 숫자로 잡았지만, 다른 가능성들도 있다. 예를 들어,
 instance, if our goal is to compute an approximation to the square root of a
-number, we might take @math{n} to be the number of digits accuracy required.  For
-matrix multiplication we might take @math{n} to be the number of rows in the
-matrices.  In general there are a number of properties of the problem with
-respect to which it will be desirable to analyze a given process.  Similarly,
-@math{{R(n)}} might measure the number of internal storage registers used, the
-number of elementary machine operations performed, and so on.  In computers
-that do only a fixed number of operations at a time, the time required will be
-proportional to the number of elementary machine operations performed.
+숫자의 제곱근 근사값을 구하는 것이 목표라면, 필요한 정확도(자리수)를 @math{n}으로 잡을 수 있을 것이다.
+행렬 곱셈의 경우 행렬의 행 수를 @math{n}으로 잡을 수 있다.
+일반적으로 주어진 프로세스를 분석하는 데 바람직한 문제의 여러 속성이 있을 수 있다.
+마찬가지로, @math{{R(n)}}은 사용된 내부 저장 레지스터의 수, 수행된 기본 기계 명령어의 수 등을 측정할 수 있다.
+컴퓨터에서 한 번에 고정된 수의 연산만 수행할 수 있는 경우, 필요한 시간은 수행된 기본 기계 명령어의 수에 비례할 것이다.
 
-We say that @math{{R(n)}} has order of growth @math{{\Theta(f(n))}}, written
-@math{{R(n)} = {\Theta(f(n))}} (pronounced ``theta of
-@math{{f(n)}}''), if there are positive constants @math{k_1} and @math{k_2}
-independent of @math{n} such that @math{{k_1 f(n)} \le {R(n)} \le {k_2 f(n)}} 
-for any sufficiently large value of @math{n}.  (In other words, for large @math{n},
-the value @math{{R(n)}} is sandwiched between @math{{k_1 f(n)}} and
-@math{{k_2 f(n)}}.)
+우리는 충분히 큰 @math{n}에 대해 @math{{R(n)}}이 @math{{k_1 f(n)}}과 @math{{k_2 f(n)}} 사이에 있도록 하는, @math{n}과 독립적인 양의 상수 @math{k_1}과 @math{k_2}가 존재한다면, @math{{R(n)}}이 @math{{\Theta(f(n))}}의 증가 차수를 갖는다고 말한다. (``@math{{f(n)}}의 세타''라고 읽는다.)
 
-For instance, with the linear recursive process for computing factorial
-described in @ref{1.2.1} the number of steps grows proportionally to
-the input @math{n}.  Thus, the steps required for this process grows as
-@math{{\Theta(n)}}.  We also saw that the space required grows as
-@math{{\Theta(n)}}.  For the iterative factorial, the number of steps is still
-@math{{\Theta(n)}} but the space is @math{{\Theta(1)}}---that is,
-constant.@footnote{These statements mask a great deal of oversimplification.
-For instance, if we count process steps as ``machine operations'' we are making
-the assumption that the number of machine operations needed to perform, say, a
-multiplication is independent of the size of the numbers to be multiplied,
-which is false if the numbers are sufficiently large.  Similar remarks hold for
-the estimates of space.  Like the design and description of a process, the
-analysis of a process can be carried out at various levels of abstraction.} The
-tree-recursive Fibonacci computation requires @math{{\Theta(\varphi^n)}}
-steps and space @math{{\Theta(n)}}, where @math{\varphi} is the golden ratio
-described in @ref{1.2.2}.
+예를 들어, @ref{1.2.1}에서 설명한 팩토리얼을 계산하기 위한 선형 재귀적 프로세스의 경우, 단계의 수는 입력 @math{n}에 비례하여 증가한다. 따라서 이 프로세스에 필요한 단계는 @math{{\Theta(n)}}으로 증가한다. 우리는 또한 공간 요구 사항도 @math{{\Theta(n)}}으로 증가함을 보았다.
+반복적 팩토리얼의 경우, 단계의 수는 여전히 @math{{\Theta(n)}}이지만 공간은 @math{{\Theta(1)}}---즉, 상수이다.@footnote{이러한 진술들은 상당한 지나친 단순화를 감추고 있다. 예를 들어, 프로세스 단계를 ``기계 연산''으로 센다면 우리는 곱셈을 수행하는 데 필요한 기계 연산의 수가 곱해지는 숫자의 크기와 독립적이라는 가정을 하고 있는 것인데, 이는 숫자가 충분히 크면 거짓이다. 공간 추정치에 대해서도 비슷한 언급이 성립한다. 프로세스의 설계 및 기술과 마찬가지로, 프로세스의 분석도 다양한 추상화 수준에서 수행될 수 있다.}
+트리 재귀적 피보나치 계산은 @math{{\Theta(\varphi^n)}} 단계와 @math{{\Theta(n)}} 공간이 필요하다. 여기서 @math{\varphi}는 @ref{1.2.2}에서 설명한 황금비이다.
 
-Orders of growth provide only a crude description of the behavior of a process.
-For example, a process requiring @math{n^2} steps and a process requiring
-@math{{1000n^2}} steps and a process requiring @math{{3n^2} + {10n} + 17} steps all
-have @math{{\Theta(n^2)}} order of growth.  On the other hand, order of growth
-provides a useful indication of how we may expect the behavior of the process
-to change as we change the size of the problem.  For a @math{{\Theta(n)}}
-(linear) process, doubling the size will roughly double the amount of resources
-used.  For an exponential process, each increment in problem size will multiply
-the resource utilization by a constant factor.  In the remainder of 
-@ref{1.2} we will examine two algorithms whose order of growth is logarithmic,
-so that doubling the problem size increases the resource requirement by a
-constant amount.
+증가 차수는 프로세스의 행동에 대한 거친 설명만을 제공한다.
+예를 들어, @math{n^2} 단계가 필요한 프로세스와 @math{{1000n^2}} 단계가 필요한 프로세스, 그리고 @math{{3n^2} + {10n} + 17} 단계가 필요한 프로세스는 모두 @math{{\Theta(n^2)}}의 증가 차수를 갖는다.
+반면에 증가 차수는 문제의 크기가 변함에 따라 프로세스의 행동이 어떻게 변할지 예측하는 데 유용한 가이드를 제공한다.
+@math{{\Theta(n)}} (선형) 프로세스의 경우, 크기를 두 배로 늘리면 자원 사용량도 대략 두 배가 된다.
+지수적 프로세스의 경우, 문제 크기가 조금만 커져도 자원 사용량이 급격히 증가한다.
+@ref{1.2}의 나머지 부분에서 우리는 증가 차수가 로그형(logarithmic)인 두 알고리즘을 조사할 것인데, 이 경우 문제 크기를 두 배로 늘려도 자원 요구 사항은 일정한 양만큼만 증가한다.
 
 @quotation
-@strong{@anchor{Exercise 1.14}Exercise 1.14:} Draw the tree illustrating the
-process generated by the @code{count_change} procedure of @ref{1.2.2}
-in making change for 11 cents.  What are the orders of growth of the space and
-number of steps used by this process as the amount to be changed increases?
+@strong{@anchor{Exercise 1.14}Exercise 1.14:} @ref{1.2.2}의 @code{count_change} 프로시저가 11센트를 거슬러 줄 때 생성하는 프로세스를 보여주는 트리를 그려라.
+거슬러 줄 금액이 증가함에 따라 이 프로세스에 사용되는 공간과 단계 수의 증가 차수는 각각 어떻게 되는가?
 @end quotation
 
 @quotation
-@strong{@anchor{Exercise 1.15}Exercise 1.15:} The sine of an angle (specified
-in radians) can be computed by making use of the approximation 
-@math{{\sin x  \approx x}} if @math{x} is sufficiently small, and the trigonometric
-identity
+@strong{@anchor{Exercise 1.15}Exercise 1.15:} 각도가 충분히 작을 때(라디안 단위), 각도 @math{x}의 사인(sine) 값은 @math{{\sin x  \approx x}}로 근사될 수 있으며, 삼각 항등식
 @ifinfo
 
 @example
@@ -2960,10 +2912,7 @@ sin x = 3 sin --- - 4 sin^3 ---
 
 @end tex
 @noindent
-to reduce the size of the argument of sin.  (For purposes of this
-exercise an angle is considered ``sufficiently small'' if its magnitude is not
-greater than 0.1 radians.) These ideas are incorporated in the following
-procedures:
+를 사용하여 사인 인자의 크기를 줄일 수 있다. (이 연습 문제를 위해 각도의 절댓값이 0.1 라디안보다 크지 않으면 ``충분히 작은'' 것으로 간주한다.) 이 아이디어들은 다음 프로시저들에 구현되어 있다:
 
 @example
 fn cube(x: f64) -> f64 @{ x * x * x @}
@@ -2980,79 +2929,133 @@ fn sine(angle: f64) -> f64 @{
 @enumerate a
 
 @item
-How many times is the procedure @code{p} applied when @code{sine(12.15)} is
-evaluated?
+@code{sine(12.15)}를 평가할 때 프로시저 @code{p}는 몇 번 호출되는가?
 
 @item
-What is the order of growth in space and number of steps (as a function of
-@math{a}) used by the process generated by the @code{sine} procedure when
-@code{sine(a)} is evaluated?
+@code{sine(a)}를 평가할 때 프로세스에 의해 사용되는 공간과 단계 수(의 증가 차수)를 @math{a}의 함수로 나타내면 무엇인가?
 
 @end enumerate
 @end quotation
 
-@node	1.2.4, 1.2.4a, 1.2.3, 1.2
+@node   1.2.4, 1.2.4a, 1.2.3, 1.2
+
 @subsection Exponentiation
 
-Consider the problem of computing the exponential of a given number.  We would
-like a procedure that takes as arguments a base @math{b} and a positive integer
-exponent @math{n} and computes @math{b^n}.  One way to do this is via the
-recursive definition
+
+
+주어진 숫자의 거듭제곱을 계산하는 문제를 고려해 보자.
+
+우리는 밑 @math{b}와 양의 정수 지수 @math{n}을 인자로 받아 @math{b^n}을 계산하는 프로시저를 원한다.
+
+이를 수행하는 한 가지 방법은 다음과 같은 재귀적 정의를 이용하는 것이다.
+
 @ifinfo
 
+
+
 @example
+
 b^n = b * b^(n - 1)
+
 b^0 = 1
+
 @end example
+
+
 
 @end ifinfo
+
 @tex
 
+
+
 \[ % :13:
+
  
+
 \begin{array}{l}
+
   b^n \,=\, b\cdot b^{n-1}, \\ 
+
   b^0 \,=\, 1, 
+
 \end{array}
+
 \]
 
+
+
 @end tex
-which translates readily into the procedure
+
+이것은 다음 프로시저로 바로 번역된다:
+
+
 
 @example
+
 fn expt(b: u64, n: u64) -> u64 @{
+
     if n == 0 @{
+
         1
+
     @} else @{
+
         b * expt(b, n - 1)
+
     @}
+
 @}
+
 @end example
 
+
+
 @noindent
-This is a linear recursive process, which requires @math{{\Theta(n)}} steps and
-@math{{\Theta(n)}} space.  Just as with factorial, we can readily formulate an
-equivalent linear iteration:
+
+이것은 선형 재귀적 프로세스로, @math{{\Theta(n)}} 단계와 @math{{\Theta(n)}} 공간이 필요하다.
+
+팩토리얼과 마찬가지로, 우리는 이에 상응하는 선형 반복을 손쉽게 공식화할 수 있다:
+
+
 
 @example
+
 fn expt(b: u64, n: u64) -> u64 @{
+
     expt_iter(b, n, 1)
+
 @}
+
+
 
 fn expt_iter(b: u64, counter: u64, product: u64) -> u64 @{
+
     if counter == 0 @{
+
         product
+
     @} else @{
+
         expt_iter(b, counter - 1, b * product)
+
     @}
+
 @}
+
 @end example
 
-@noindent
-This version requires @math{{\Theta(n)}} steps and @math{{\Theta(1)}} space.
 
-We can compute exponentials in fewer steps by using successive squaring.  For
+
+@noindent
+
+이 버전은 @math{{\Theta(n)}} 단계와 @math{{\Theta(1)}} 공간이 필요하다.
+
+
+
+우리는 연속적인 제곱(successive squaring)을 사용하여 더 적은 단계로 거듭제곱을 계산할 수 있다. 예를 들어,
 instance, rather than computing @math{b^8} as
+@math{b^8}을 다음과 같이 계산하는 대신
 @ifinfo
 
 @example
@@ -3068,7 +3071,7 @@ b * (b * (b * (b * (b * (b * (b * b))))))
 \]
 
 @end tex
-we can compute it using three multiplications:
+우리는 세 번의 곱셈을 사용하여 그것을 계산할 수 있다:
 @ifinfo
 
 @example
@@ -3090,9 +3093,8 @@ b^8 = b^4 * b^4
 \]
 
 @end tex
-This method works fine for exponents that are powers of 2.  We can also take
-advantage of successive squaring in computing exponentials in general if we use
-the rule
+이 방법은 지수가 2의 거듭제곱일 때 잘 작동한다.
+우리는 다음 규칙을 사용하면 일반적으로 거듭제곱을 계산하는 데 있어 연속적인 제곱의 이점을 누릴 수 있다.
 @ifinfo
 
 @example
@@ -3112,7 +3114,7 @@ b^n = b * b^(n - 1)  if n is odd
 \]
 
 @end tex
-We can express this method as a procedure:
+우리는 이 방법을 프로시저로 표현할 수 있다:
 
 @example
 fn fast_expt(b: u64, n: u64) -> u64 @{
@@ -3128,8 +3130,7 @@ fn fast_expt(b: u64, n: u64) -> u64 @{
 @end example
 
 @noindent
-where the predicate to test whether an integer is even is defined in terms of
-the primitive procedure @code{remainder} by
+여기서 정수가 짝수인지 테스트하는 술어는 원시 연산자 @code{%}를 사용하여 다음과 같이 정의된다:
 
 @example
 fn is_even(n: u64) -> bool @{
@@ -3138,56 +3139,24 @@ fn is_even(n: u64) -> bool @{
 @end example
 
 @noindent
-The process evolved by @code{fast-expt} grows logarithmically with @math{n} in
-both space and number of steps.  To see this, observe that computing
-@math{b^{2n}} using @code{fast-expt} requires only one more multiplication
-than computing @math{b^n}.  The size of the exponent we can compute therefore
-doubles (approximately) with every new multiplication we are allowed.  Thus,
-the number of multiplications required for an exponent of @math{n} grows about as
-fast as the logarithm of @math{n} to the base 2.  The process has
-@math{{\Theta(\log n)}} growth.@footnote{More precisely, the number of
-multiplications required is equal to 1 less than the log base 2 of @math{n} plus
-the number of ones in the binary representation of @math{n}.  This total is always
-less than twice the log base 2 of @math{n}.  The arbitrary constants @math{k_1} and
-@math{k_2} in the definition of order notation imply that, for a logarithmic
-process, the base to which logarithms are taken does not matter, so all such
-processes are described as @math{{\Theta(\log n)}}.}
+@code{fast_expt}에 의해 진화된 프로세스는 공간과 단계 수 모두에서 @math{n}에 대해 로그형으로 증가한다.
+이를 보려면, @code{fast_expt}를 사용하여 @math{b^{2n}}을 계산하는 것이 @math{b^n}을 계산하는 것보다 단 한 번의 곱셈만 더 필요하다는 점을 관찰하라.
+따라서 우리가 계산할 수 있는 지수의 크기는 우리가 허용하는 각 새로운 곱셈에 대해 (대략) 두 배가 된다.
+결과적으로 지수 @math{n}에 대해 필요한 곱셈의 수는 2를 밑으로 하는 @math{n}의 로그만큼 빠르게 증가한다.
+이 프로세스는 @math{{\Theta(\log n)}}의 증가율을 갖는다.@footnote{더 정확하게는, 필요한 곱셈의 수는 @math{n}의 이진수 표현에서의 비트 수와 @math{n}의 이진수 표현에서의 1의 개수의 합에서 1을 뺀 것과 같다. 이 합계는 항상 @math{n}의 이진 로그의 두 배보다 작다. 증가 차수 표기법의 정의에서 임의의 상수 @math{k_1}과 @math{k_2}는 로그형 프로세스의 경우 로그의 밑이 무엇인지는 중요하지 않음을 의미하므로, 그러한 모든 프로세스는 @math{{\Theta(\log n)}}으로 기술된다.}
 
-The difference between @math{{\Theta(\log n)}} growth and
-@math{{\Theta(n)}} growth becomes striking as @math{n} becomes large.  For
-example, @code{fast-expt} for @math{n} = 1000 requires only 14
-multiplications.@footnote{You may wonder why anyone would care about raising
-numbers to the 1000th power.  See @ref{1.2.6}.} It is also possible to
-use the idea of successive squaring to devise an iterative algorithm that
-computes exponentials with a logarithmic number of steps (see @ref{Exercise 1.16}), 
-although, as is often the case with iterative algorithms, this is not
-written down so straightforwardly as the recursive algorithm.@footnote{This
-iterative algorithm is ancient.  It appears in the @cite{Chandah-sutra} by
-@'Ach@'arya Pingala, written before 200 @abbr{B.C.} See @ref{Knuth 1981}, section
-4.6.3, for a full discussion and analysis of this and other methods of
-exponentiation.}
+@math{{\Theta(\log n)}} 증가율과 @math{{\Theta(n)}} 증가율 사이의 차이는 @math{n}이 커짐에 따라 매우 두드러지게 된다.
+예를 들어, @math{n = 1000}일 때 @code{fast_expt}는 단지 14번의 곱셈만 필요하다.@footnote{누군가 왜 숫자를 1000제곱하는 것에 관심을 가질지 궁금할 수 있다. @ref{1.2.6}을 보라.}
+또한 연속적인 제곱의 아이디어를 사용하여 로그형의 단계 수로 거듭제곱을 계산하는 반복적 알고리즘을 고안하는 것도 가능하다(@ref{Exercise 1.16} 참조). 비록 반복적 알고리즘의 경우 대개 그렇듯이 재귀적 알고리즘만큼 직관적으로 작성되지는 않지만 말이다.@footnote{이 반복적 알고리즘은 고대부터 전해 내려온다. 그것은 기원전 200년 이전에 쓰여진 핑갈라 아차리야(Pingala @'Ach@'arya)의 @cite{Chandah-sutra}에 나타난다. 이 방법과 다른 거듭제곱 방법에 대한 전체적인 논의와 분석은 @ref{Knuth 1981}, 섹션 4.6.3을 참조하라.}
 
 @quotation
-@strong{@anchor{Exercise 1.16}Exercise 1.16:} Design a procedure that evolves
-an iterative exponentiation process that uses successive squaring and uses a
-logarithmic number of steps, as does @code{fast-expt}.  (Hint: Using the
-observation that @math{{(b^{n / 2})^2} = {(b^2)^{n / 2}}}, keep, along with
-the exponent @math{n} and the base @math{b}, an additional state variable @math{a}, and
-define the state transformation in such a way that the product @math{{ab^n}} 
-is unchanged from state to state.  At the beginning of the process
-@math{a} is taken to be 1, and the answer is given by the value of @math{a} at the
-end of the process.  In general, the technique of defining an
-@newterm{invariant quantity} that remains unchanged from state to state is a
-powerful way to think about the design of iterative algorithms.)
+@strong{@anchor{Exercise 1.16}Exercise 1.16:} @code{fast_expt}와 마찬가지로 연속적인 제곱을 사용하고 로그형의 단계 수를 사용하는 반복적 거듭제곱 프로세스를 진화시키는 프로시저를 설계하라. (힌트: @math{{(b^{n / 2})^2} = {(b^2)^{n / 2}}}라는 관찰을 사용하여, 지수 @math{n}과 밑 @math{b}와 함께 추가적인 상태 변수 @math{a}를 유지하고, 곱 @math{{ab^n}}이 한 상태에서 다음 상태로 바뀔 때 변하지 않도록 상태 변환을 정의하라. 프로세스 시작 시 @math{a}는 1로 잡고, 답은 프로세스 종료 시 @math{a}의 값으로 주어진다. 일반적으로 상태 간에 변하지 않고 유지되는 @newterm{불변량(invariant quantity)}을 정의하는 기술은 반복적 알고리즘의 설계를 생각하는 강력한 방법이다.)
 @end quotation
 
 @quotation
-@strong{@anchor{Exercise 1.17}Exercise 1.17:} The exponentiation algorithms in
-this section are based on performing exponentiation by means of repeated
-multiplication.  In a similar way, one can perform integer multiplication by
-means of repeated addition.  The following multiplication procedure (in which
-it is assumed that our language can only add, not multiply) is analogous to the
-@code{expt} procedure:
+@strong{@anchor{Exercise 1.17}Exercise 1.17:} 이 절의 거듭제곱 알고리즘들은 반복적인 곱셈을 통해 거듭제곱을 수행하는 것에 기초한다.
+비슷한 방식으로, 반복적인 덧셈을 통해 정수 곱셈을 수행할 수 있다.
+다음 곱셈 프로시저(우리의 언어가 곱셈은 못 하고 더하기만 할 수 있다고 가정한다)는 @code{expt} 프로시저와 유사하다:
 
 @example
 fn multiply(a: u64, b: u64) -> u64 @{
@@ -3199,9 +3168,8 @@ fn multiply(a: u64, b: u64) -> u64 @{
 @}
 @end example
 
-This algorithm takes a number of steps that is linear in @code{b}.  Now suppose
-we include, together with addition, operations @code{double}, which doubles an
-integer, and @code{halve}, which divides an (even) integer by 2.  Using these,
+이 알고리즘은 @code{b}에 선형적인 수의 단계를 필요로 한다.
+이제 덧셈과 함께, 정수를 두 배로 만드는 @code{double} 연산과, (짝수) 정수를 2로 나누는 @code{halve} 연산이 포함되어 있다고 가정하자. 이것들을 사용하여,
 design a multiplication procedure analogous to @code{fast-expt} that uses a
 logarithmic number of steps.
 @end quotation
@@ -3229,15 +3197,8 @@ by applying @math{T^n}, the @math{n^{\text{th}}} power of the transformation @ma
 starting with the pair (1, 0).  Now consider @math{T} to be the special case of
 @math{{p=0}} and @math{{q=1}} in a family of transformations @math{T_{pq}},
 where @math{T_{pq}} transforms the pair @math{{(a, b)}} according to 
-@math{a \gets {bq} + {aq} + {ap}} and @math{b \gets {bp} + {aq}}.
-Show that if we apply such a transformation @math{T_{pq}} twice, the
-effect is the same as using a single transformation @math{T_{p'q'}} of the
-same form, and compute @math{p'\!} and @math{q'\!} in terms of @math{p} and @math{q}.  This
-gives us an explicit way to square these transformations, and thus we can
-compute @math{T^n} using successive squaring, as in the @code{fast-expt}
-procedure.  Put this all together to complete the following procedure, which
-runs in a logarithmic number of steps:@footnote{This exercise was suggested to
-us by Joe Stoy, based on an example in @ref{Kaldewaij 1990}.}
+@math{a \gets {bq} + {aq} + {ap}} 그리고 @math{b \gets {bp} + {aq}}이다.
+이러한 변환 @math{T_{pq}}를 두 번 적용하는 효과가 동일한 형태의 단일 변환 @math{T_{p'q'}}를 사용하는 것과 같음을 보이고, @math{p'}와 @math{q'}를 @math{p}와 @math{q}에 대한 식으로 계산하라. 이것은 이러한 변환들을 제곱하는 명시적인 방법을 제공하며, 따라서 우리는 @code{fast-expt} 프로시저에서와 같이 연속적인 제곱을 사용하여 @math{T^n}을 계산할 수 있다. 이 모든 것을 종합하여 로그형의 단계 수로 실행되는 다음 프로시저를 완성하라:@footnote{이 연습 문제는 @ref{Kaldewaij 1990}의 예제를 바탕으로 Joe Stoy가 제안했다.}
 
 @example
 fn fib(n: u64) -> u64 @{
@@ -3250,8 +3211,8 @@ fn fib_iter(a: u64, b: u64, p: u64, q: u64, count: u64) -> u64 @{
     @} else if count % 2 == 0 @{
         fib_iter(a,
                  b,
-                 ⟨??⟩,  // compute p'
-                 ⟨??⟩,  // compute q'
+                 ⟨??⟩,  // p' 계산
+                 ⟨??⟩,  // q' 계산
                  count / 2)
     @} else @{
         fib_iter(b * q + a * q + a * p,
@@ -3267,17 +3228,9 @@ fn fib_iter(a: u64, b: u64, p: u64, q: u64, count: u64) -> u64 @{
 @node 1.2.4a, 1.2.5, 1.2.4, 1.2
 @subsection Const Evaluation
 
-One of Rust's most powerful features for achieving zero-cost abstraction is
-@newterm{compile-time computation} through const evaluation.  While the
-procedures we've seen so far are evaluated at runtime, Rust allows us to
-evaluate certain computations during compilation, eliminating all runtime
-overhead for those operations.
+제로 비용 추상화(zero-cost abstraction)를 달성하기 위한 Rust의 가장 강력한 특징 중 하나는 @newterm{상수 평가(const evaluation)}를 통한 @newterm{컴파일 타임 계산(compile-time computation)}이다. 지금까지 본 프로시저들은 런타임에 평가되지만, Rust는 특정 계산을 컴파일 중에 수행할 수 있게 하여 해당 연산에 대한 모든 런타임 오버헤드를 제거한다.
 
-Consider the factorial function from @ref{1.2.1}.  When we write
-@code{factorial(5)}, the computation happens when the program runs.  But if we
-know the argument at compile time, why should we pay for this computation
-every time the program executes?  Rust's @code{const fn} feature allows the
-compiler to perform such calculations once, at compile time.
+@ref{1.2.1}의 팩토리얼 함수를 고려해 보자. @code{factorial(5)}라고 작성하면, 계산은 프로그램이 실행될 때 일어난다. 하지만 인자를 컴파일 타임에 알고 있다면, 왜 프로그램이 실행될 때마다 이 계산 비용을 지불해야 할까? Rust의 @code{const fn} 기능을 사용하면 컴파일러가 그러한 계산을 컴파일 타임에 한 번만 수행할 수 있다.
 
 @example
 const fn factorial(n: u64) -> u64 @{
