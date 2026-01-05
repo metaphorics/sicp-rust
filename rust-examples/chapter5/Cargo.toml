@@ -4,7 +4,7 @@ version = "0.1.0"
 edition.workspace = true
 license.workspace = true
 rust-version.workspace = true
-description = "SICP Chapter 5: Computing with Register Machines"
+description = "SICP 5장: 레지스터 기계를 이용한 계산"
 
 [dependencies]
 sicp-common.workspace = true

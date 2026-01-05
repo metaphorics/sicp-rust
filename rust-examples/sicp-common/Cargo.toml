@@ -4,7 +4,7 @@ version = "0.1.0"
 edition.workspace = true
 license.workspace = true
 rust-version.workspace = true
-description = "Shared utilities for SICP Rust examples: arena allocation, persistent environments, functional patterns"
+description = "SICP 공통 유틸리티"
 
 [dependencies]
 im = "15.1"
