@@ -1,43 +1,51 @@
-//! SICP Section 5.5: Compilation
+//! SICP 5.5절: 컴파일 (Compilation)
 //!
-//! This module implements a compiler that translates Scheme-like expressions
+//! 이 모듈은 Scheme 유사 표현식을 레지스터 머신용 명령 시퀀스로
+//! 변환하는 컴파일러를 구현한다. 메타서큘러 평가기와 같은 분석을 수행하지만,
+//! 실행 절차 대신 머신 명령을 생성한다.
+//! (This module implements a compiler that translates Scheme-like expressions
 //! into instruction sequences for a register machine. The compiler performs
 //! the same analysis as the metacircular evaluator but generates machine
-//! instructions instead of execution procedures.
+//! instructions instead of execution procedures.)
 //!
-//! ## Key Concepts
+//! ## 핵심 개념 (Key Concepts)
 //!
-//! - **Instruction Sequences**: Contain needs/modifies register sets and statements
-//! - **Targets**: Specify which register receives the result (usually `val`)
-//! - **Linkage**: Specifies what happens after execution (next/return/label)
-//! - **Register Optimization**: The compiler avoids unnecessary save/restore operations
+//! - **명령 시퀀스 (Instruction Sequences)**: needs/modifies 레지스터 집합과 문장을 포함
+//! - **대상 (Targets)**: 결과를 받을 레지스터 지정 (보통 `val`)
+//! - **연결 (Linkage)**: 실행 이후 동작 지정 (next/return/label)
+//! - **레지스터 최적화 (Register Optimization)**: 불필요한 save/restore를 피함
 //!
-//! ## Rust Mapping
+//! ## Rust 매핑 (Rust Mapping)
 //!
-//! - Instruction sequences → `InstructionSeq` struct with register tracking
-//! - Linkage descriptors → `Linkage` enum (Next, Return, Label)
-//! - Register machine → `Register` and `Instruction` enums
-//! - Sequence combiners → functions operating on `InstructionSeq`
+//! - 명령 시퀀스 → 레지스터 추적을 가진 `InstructionSeq` 구조체
+//! - 연결 설명자 → `Linkage` 열거형 (Next, Return, Label)
+//! - 레지스터 머신 → `Register`와 `Instruction` 열거형
+//! - 시퀀스 결합기 → `InstructionSeq`를 다루는 함수들
 
 use std::collections::HashSet;
 use std::fmt;
 
 // ============================================================================
-// Types
+// 타입 (Types)
 // ============================================================================
 
-/// Virtual machine registers
+/// 가상 머신 레지스터 (Virtual machine registers)
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub enum Register {
-    /// Environment register (current evaluation environment)
+    /// 환경 레지스터 (현재 평가 환경)
+    /// (Environment register (current evaluation environment))
     Env,
-    /// Procedure register (holds procedure to be applied)
+    /// 프로시저 레지스터 (적용할 프로시저 보관)
+    /// (Procedure register (holds procedure to be applied))
     Proc,
-    /// Value register (holds intermediate and final results)
+    /// 값 레지스터 (중간/최종 결과 보관)
+    /// (Value register (holds intermediate and final results))
     Val,
-    /// Argument list register (holds arguments for procedure application)
+    /// 인자 리스트 레지스터 (프로시저 적용 인자 보관)
+    /// (Argument list register (holds arguments for procedure application))
     Argl,
-    /// Continue register (holds return address)
+    /// continue 레지스터 (반환 주소 보관)
+    /// (Continue register (holds return address))
     Continue,
 }
 
@@ -53,7 +61,7 @@ impl fmt::Display for Register {
     }
 }
 
-/// All registers used by the compiler
+/// 컴파일러가 사용하는 모든 레지스터 (All registers used by the compiler)
 pub const ALL_REGS: &[Register] = &[
     Register::Env,
     Register::Proc,
@@ -62,68 +70,85 @@ pub const ALL_REGS: &[Register] = &[
     Register::Continue,
 ];
 
-/// Linkage descriptor specifying what happens after instruction execution
+/// 명령 실행 이후 동작을 지정하는 연결 설명자
+/// (Linkage descriptor specifying what happens after instruction execution)
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum Linkage {
-    /// Continue to the next instruction in sequence
+    /// 시퀀스의 다음 명령으로 계속
+    /// (Continue to the next instruction in sequence)
     Next,
-    /// Return from the current procedure
+    /// 현재 프로시저에서 반환
+    /// (Return from the current procedure)
     Return,
-    /// Jump to a named label
+    /// 이름 있는 라벨로 점프
+    /// (Jump to a named label)
     Label(String),
 }
 
 impl fmt::Display for Linkage {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
-            Linkage::Next => write!(f, "next"),
-            Linkage::Return => write!(f, "return"),
+            Linkage::Next => write!(f, "다음(next)"),
+            Linkage::Return => write!(f, "반환(return)"),
             Linkage::Label(label) => write!(f, "{}", label),
         }
     }
 }
 
-/// Machine instruction (simplified representation)
+/// 머신 명령 (단순화된 표현)
+/// (Machine instruction (simplified representation))
 #[derive(Debug, Clone, PartialEq)]
 pub enum Instruction {
-    /// Assign a value to a register: (assign reg (op operation) args...)
+    /// 레지스터에 값 할당: (assign reg (op operation) args...)
+    /// (Assign a value to a register: (assign reg (op operation) args...))
     Assign {
         target: Register,
         source: Box<InstructionValue>,
     },
-    /// Perform an operation (side effect only): (perform (op operation) args...)
+    /// 연산 수행 (부수효과만): (perform (op operation) args...)
+    /// (Perform an operation (side effect only): (perform (op operation) args...))
     Perform { operation: Box<InstructionValue> },
-    /// Test a condition: (test (op predicate) args...)
+    /// 조건 검사: (test (op predicate) args...)
+    /// (Test a condition: (test (op predicate) args...))
     Test { condition: Box<InstructionValue> },
-    /// Branch to a label if test is true: (branch (label name))
+    /// 테스트가 참이면 라벨로 분기: (branch (label name))
+    /// (Branch to a label if test is true: (branch (label name)))
     Branch { label: String },
-    /// Unconditional goto: (goto destination)
+    /// 무조건 goto: (goto destination)
+    /// (Unconditional goto: (goto destination))
     Goto { destination: Box<InstructionValue> },
-    /// Label marking a position in code
+    /// 코드 위치를 표시하는 라벨
+    /// (Label marking a position in code)
     Label { name: String },
-    /// Save register to stack: (save reg)
+    /// 레지스터를 스택에 저장: (save reg)
+    /// (Save register to stack: (save reg))
     Save { register: Register },
-    /// Restore register from stack: (restore reg)
+    /// 스택에서 레지스터 복원: (restore reg)
+    /// (Restore register from stack: (restore reg))
     Restore { register: Register },
 }
 
-/// Value source for instructions
+/// 명령을 위한 값 소스 (Value source for instructions)
 #[derive(Debug, Clone, PartialEq)]
 pub enum InstructionValue {
-    /// Constant value
+    /// 상수 값 (Constant value)
     Const(Value),
-    /// Register reference: (reg name)
+    /// 레지스터 참조: (reg name)
+    /// (Register reference: (reg name))
     Reg(Register),
-    /// Label reference: (label name)
+    /// 라벨 참조: (label name)
+    /// (Label reference: (label name))
     Label(String),
-    /// Operation application: (op name) with arguments
+    /// 연산 적용: (op name)과 인자들
+    /// (Operation application: (op name) with arguments)
     Op {
         name: String,
         args: Vec<InstructionValue>,
     },
 }
 
-/// Runtime values (simplified)
+/// 런타임 값 (단순화)
+/// (Runtime values (simplified))
 #[derive(Debug, Clone, PartialEq)]
 pub enum Value {
     Number(i64),
@@ -131,7 +156,8 @@ pub enum Value {
     Symbol(String),
     Bool(bool),
     Nil,
-    /// Special marker for 'ok' result
+    /// 'ok' 결과를 위한 특수 마커
+    /// (Special marker for 'ok' result)
     Ok,
 }
 
@@ -144,54 +170,70 @@ impl fmt::Display for Value {
             Value::Bool(true) => write!(f, "#t"),
             Value::Bool(false) => write!(f, "#f"),
             Value::Nil => write!(f, "()"),
-            Value::Ok => write!(f, "ok"),
+            Value::Ok => write!(f, "확인(ok)"),
         }
     }
 }
 
-/// Expression AST (simplified from SICP chapter 4)
+/// 표현식 AST (SICP 4장 단순화)
+/// (Expression AST (simplified from SICP chapter 4))
 #[derive(Debug, Clone, PartialEq)]
 pub enum Expr {
-    /// Self-evaluating numbers
+    /// 자기평가 숫자 (Self-evaluating numbers)
     Number(i64),
-    /// Self-evaluating strings
+    /// 자기평가 문자열 (Self-evaluating strings)
     String(String),
-    /// Variable reference (symbol)
+    /// 변수 참조 (심볼)
+    /// (Variable reference (symbol))
     Symbol(String),
-    /// Quoted expression: (quote expr)
+    /// 인용 표현식: (quote expr)
+    /// (Quoted expression: (quote expr))
     Quote(Box<Expr>),
-    /// Conditional: (if predicate consequent alternative)
+    /// 조건식: (if predicate consequent alternative)
+    /// (Conditional: (if predicate consequent alternative))
     If {
         predicate: Box<Expr>,
         consequent: Box<Expr>,
         alternative: Box<Expr>,
     },
-    /// Lambda abstraction: (lambda (params...) body...)
+    /// 람다 추상화: (lambda (params...) body...)
+    /// (Lambda abstraction: (lambda (params...) body...))
     Lambda {
         params: Vec<String>,
         body: Vec<Expr>,
     },
-    /// Variable definition: (define var expr)
+    /// 변수 정의: (define var expr)
+    /// (Variable definition: (define var expr))
     Define { name: String, value: Box<Expr> },
-    /// Assignment: (set! var expr)
+    /// 대입: (set! var expr)
+    /// (Assignment: (set! var expr))
     Set { name: String, value: Box<Expr> },
-    /// Sequence: (begin expr...)
+    /// 시퀀스: (begin expr...)
+    /// (Sequence: (begin expr...))
     Begin(Vec<Expr>),
-    /// Conditional with multiple clauses: (cond (pred expr)...)
+    /// 다중 절 조건식: (cond (pred expr)...)
+    /// (Conditional with multiple clauses: (cond (pred expr)...))
     Cond(Vec<(Expr, Expr)>),
-    /// Procedure application: (operator operand...)
+    /// 프로시저 적용: (operator operand...)
+    /// (Procedure application: (operator operand...))
     Application {
         operator: Box<Expr>,
         operands: Vec<Expr>,
     },
 }
 
-/// An instruction sequence with register usage information
+/// 레지스터 사용 정보가 포함된 명령 시퀀스
+///
+/// 포함 내용:
+/// - `needs`: 실행 전에 초기화되어야 하는 레지스터
+/// - `modifies`: 실행으로 값이 바뀌는 레지스터
+/// - `statements`: 실제 머신 명령
+/// (An instruction sequence with register usage information
 ///
 /// Contains:
 /// - `needs`: Registers that must be initialized before execution
 /// - `modifies`: Registers whose values are changed by execution
-/// - `statements`: The actual machine instructions
+/// - `statements`: The actual machine instructions)
 #[derive(Debug, Clone)]
 pub struct InstructionSeq {
     pub needs: HashSet<Register>,
@@ -200,7 +242,7 @@ pub struct InstructionSeq {
 }
 
 impl InstructionSeq {
-    /// Create a new instruction sequence
+    /// 새 명령 시퀀스 생성 (Create a new instruction sequence)
     pub fn new(
         needs: HashSet<Register>,
         modifies: HashSet<Register>,
@@ -213,65 +255,76 @@ impl InstructionSeq {
         }
     }
 
-    /// Create an empty instruction sequence
+    /// 빈 명령 시퀀스 생성 (Create an empty instruction sequence)
     pub fn empty() -> Self {
         Self::new(HashSet::new(), HashSet::new(), Vec::new())
     }
 
-    /// Check if this sequence needs a specific register
+    /// 시퀀스가 특정 레지스터를 필요로 하는지 확인
+    /// (Check if this sequence needs a specific register)
     pub fn needs_register(&self, reg: Register) -> bool {
         self.needs.contains(&reg)
     }
 
-    /// Check if this sequence modifies a specific register
+    /// 시퀀스가 특정 레지스터를 수정하는지 확인
+    /// (Check if this sequence modifies a specific register)
     pub fn modifies_register(&self, reg: Register) -> bool {
         self.modifies.contains(&reg)
     }
 }
 
 // ============================================================================
-// Label Generation
+// 라벨 생성 (Label Generation)
 // ============================================================================
 
 use std::sync::atomic::{AtomicUsize, Ordering};
 
 static LABEL_COUNTER: AtomicUsize = AtomicUsize::new(0);
 
-/// Generate a unique label with the given prefix
+/// 주어진 접두어로 고유 라벨 생성
+/// (Generate a unique label with the given prefix)
 pub fn make_label(prefix: &str) -> String {
     let counter = LABEL_COUNTER.fetch_add(1, Ordering::SeqCst);
     format!("{}{}", prefix, counter)
 }
 
-/// Reset label counter (useful for testing)
+/// 라벨 카운터 초기화 (테스트에 유용)
+/// (Reset label counter (useful for testing))
 pub fn reset_label_counter() {
     LABEL_COUNTER.store(0, Ordering::SeqCst);
 }
 
 // ============================================================================
-// Set Operations (for register sets)
+// 집합 연산 (레지스터 집합용) (Set Operations (for register sets))
 // ============================================================================
 
-/// Union of two register sets
+/// 두 레지스터 집합의 합집합 (Union of two register sets)
 fn set_union(s1: &HashSet<Register>, s2: &HashSet<Register>) -> HashSet<Register> {
     s1.union(s2).copied().collect()
 }
 
-/// Difference of two register sets (elements in s1 not in s2)
+/// 두 레지스터 집합의 차집합 (s1에 있고 s2에 없는 요소)
+/// (Difference of two register sets (elements in s1 not in s2))
 fn set_difference(s1: &HashSet<Register>, s2: &HashSet<Register>) -> HashSet<Register> {
     s1.difference(s2).copied().collect()
 }
 
 // ============================================================================
-// Sequence Combiners
+// 시퀀스 결합기 (Sequence Combiners)
 // ============================================================================
 
-/// Append two instruction sequences sequentially
+/// 두 명령 시퀀스를 순차적으로 이어 붙임
+///
+/// 결과 시퀀스:
+/// - Needs: seq1이 필요한 레지스터 ∪ (seq2가 필요한 레지스터 - seq1이 수정한 레지스터)
+/// - Modifies: seq1이 수정한 레지스터 ∪ seq2가 수정한 레지스터
+/// - Statements: seq1의 문장 뒤에 seq2의 문장
+/// (Append two instruction sequences sequentially
 ///
 /// The resulting sequence:
 /// - Needs: registers needed by seq1 ∪ (registers needed by seq2 - registers modified by seq1)
 /// - Modifies: registers modified by seq1 ∪ registers modified by seq2
-/// - Statements: seq1 statements followed by seq2 statements
+/// - Statements: seq1 statements followed by seq2 statements)
 pub fn append_instruction_sequences(seq1: InstructionSeq, seq2: InstructionSeq) -> InstructionSeq {
     let needs = set_union(&seq1.needs, &set_difference(&seq2.needs, &seq1.modifies));
     let modifies = set_union(&seq1.modifies, &seq2.modifies);
@@ -280,18 +333,23 @@ pub fn append_instruction_sequences(seq1: InstructionSeq, seq2: InstructionSeq) 
     InstructionSeq::new(needs, modifies, statements)
 }
 
-/// Append multiple instruction sequences
+/// 여러 명령 시퀀스를 이어 붙임 (Append multiple instruction sequences)
 pub fn append_sequences(seqs: Vec<InstructionSeq>) -> InstructionSeq {
     seqs.into_iter()
         .reduce(append_instruction_sequences)
         .unwrap_or_else(InstructionSeq::empty)
 }
 
-/// Preserve registers around execution of seq1 before seq2
+/// seq1 실행 후 seq2 전에 레지스터 보존
+///
+/// `regs`에 있는 레지스터 중 다음 조건을 만족하면 seq1 앞뒤에 save/restore 삽입:
+/// - seq1이 수정했고, AND
+/// - seq2가 필요로 함
+/// (Preserve registers around execution of seq1 before seq2
 ///
 /// Inserts save/restore around seq1 for any register in `regs` that:
 /// - Is modified by seq1, AND
-/// - Is needed by seq2
+/// - Is needed by seq2)
 pub fn preserving(regs: &[Register], seq1: InstructionSeq, seq2: InstructionSeq) -> InstructionSeq {
     if regs.is_empty() {
         return append_instruction_sequences(seq1, seq2);
@@ -301,7 +359,8 @@ pub fn preserving(regs: &[Register], seq1: InstructionSeq, seq2: InstructionSeq)
     let rest_regs = &regs[1..];
 
     if seq1.modifies_register(first_reg) && seq2.needs_register(first_reg) {
-        // Need to save and restore this register
+        // 이 레지스터는 저장/복원이 필요
+        // (Need to save and restore this register)
         let mut needs = seq1.needs.clone();
         needs.insert(first_reg);
 
@@ -318,26 +377,36 @@ pub fn preserving(regs: &[Register], seq1: InstructionSeq, seq2: InstructionSeq)
         let protected_seq1 = InstructionSeq::new(needs, modifies, statements);
         preserving(rest_regs, protected_seq1, seq2)
     } else {
-        // No save/restore needed for this register
+        // 이 레지스터는 save/restore 불필요
+        // (No save/restore needed for this register)
         preserving(rest_regs, seq1, seq2)
     }
 }
 
-/// Append body sequence to main sequence without considering body's register use
+/// 본문 시퀀스를 메인 시퀀스에 추가 (본문 레지스터 사용은 고려하지 않음)
+///
+/// 람다 컴파일에서 본문은 "인라인"이 아니므로 사용됨 -
+/// 본문 코드는 나중에 점프되어 실행되며, 순차 실행되지 않는다.
+/// (Append body sequence to main sequence without considering body's register use
 ///
 /// Used for lambda compilation where the body is not "in line" -
-/// it's code that will be jumped to later, not executed sequentially.
+/// it's code that will be jumped to later, not executed sequentially.)
 pub fn tack_on_instruction_sequence(seq: InstructionSeq, body: InstructionSeq) -> InstructionSeq {
     let mut statements = seq.statements;
     statements.extend(body.statements);
     InstructionSeq::new(seq.needs, seq.modifies, statements)
 }
 
-/// Combine two instruction sequences that execute in parallel (not sequentially)
+/// 병렬(비순차)로 실행되는 두 시퀀스를 결합
+///
+/// 조건 분기에서 사용 - 실제로는 하나만 실행되지만,
+/// 첫 번째가 레지스터를 수정하더라도 두 번째 시퀀스는
+/// 필요한 레지스터를 모두 필요로 한다.
+/// (Combine two instruction sequences that execute in parallel (not sequentially)
 ///
 /// Used for conditional branches - only one will actually execute,
 /// so the second sequence still needs all its registers even if the
-/// first sequence modifies them.
+/// first sequence modifies them.)
 pub fn parallel_instruction_sequences(
     seq1: InstructionSeq,
     seq2: InstructionSeq,
@@ -350,14 +419,16 @@ pub fn parallel_instruction_sequences(
 }
 
 // ============================================================================
-// Linkage Code Generation
+// 연결 코드 생성 (Linkage Code Generation)
 // ============================================================================
 
-/// Generate code for a linkage descriptor
+/// 연결 설명자에 대한 코드 생성
+/// (Generate code for a linkage descriptor)
 pub fn compile_linkage(linkage: &Linkage) -> InstructionSeq {
     match linkage {
         Linkage::Return => {
-            // Return: jump to address in continue register
+            // Return: continue 레지스터의 주소로 점프
+            // (Return: jump to address in continue register)
             InstructionSeq::new(
                 HashSet::from([Register::Continue]),
                 HashSet::new(),
@@ -367,11 +438,13 @@ pub fn compile_linkage(linkage: &Linkage) -> InstructionSeq {
             )
         }
         Linkage::Next => {
-            // Next: no code needed, just fall through
+            // Next: 코드 불필요, 그냥 통과
+            // (Next: no code needed, just fall through)
             InstructionSeq::empty()
         }
         Linkage::Label(label) => {
-            // Jump to specific label
+            // 특정 라벨로 점프
+            // (Jump to specific label)
             InstructionSeq::new(
                 HashSet::new(),
                 HashSet::new(),
@@ -383,24 +456,28 @@ pub fn compile_linkage(linkage: &Linkage) -> InstructionSeq {
     }
 }
 
-/// Append linkage code to an instruction sequence
+/// 명령 시퀀스에 연결 코드 추가
+///
+/// linkage가 Return이면 continue 레지스터를 보존한다.
+/// seq가 continue를 수정할 수 있지만 linkage가 필요로 하기 때문이다.
+/// (Append linkage code to an instruction sequence
 ///
 /// Preserves the continue register if the linkage is Return,
-/// since seq might modify continue but the linkage needs it.
+/// since seq might modify continue but the linkage needs it.)
 pub fn end_with_linkage(linkage: &Linkage, seq: InstructionSeq) -> InstructionSeq {
     preserving(&[Register::Continue], seq, compile_linkage(linkage))
 }
 
 // ============================================================================
-// Expression Compilation
+// 표현식 컴파일 (Expression Compilation)
 // ============================================================================
 
-/// Compile an expression to an instruction sequence
+/// 표현식을 명령 시퀀스로 컴파일
 ///
-/// # Arguments
-/// - `expr`: The expression to compile
-/// - `target`: Register where the result should be placed
-/// - `linkage`: What to do after computing the result
+/// # 인자 (Arguments)
+/// - `expr`: 컴파일할 표현식 (The expression to compile)
+/// - `target`: 결과를 둘 레지스터 (Register where the result should be placed)
+/// - `linkage`: 결과 계산 후 동작 (What to do after computing the result)
 pub fn compile(expr: &Expr, target: Register, linkage: &Linkage) -> InstructionSeq {
     match expr {
         Expr::Number(_) | Expr::String(_) => compile_self_evaluating(expr, target, linkage),
@@ -412,7 +489,8 @@ pub fn compile(expr: &Expr, target: Register, linkage: &Linkage) -> InstructionS
         Expr::Lambda { .. } => compile_lambda(expr, target, linkage),
         Expr::Begin(exprs) => compile_sequence(exprs, target, linkage),
         Expr::Cond(clauses) => {
-            // Convert cond to nested if
+            // cond를 중첩 if로 변환
+            // (Convert cond to nested if)
             let if_expr = cond_to_if(clauses);
             compile(&if_expr, target, linkage)
         }
@@ -421,15 +499,16 @@ pub fn compile(expr: &Expr, target: Register, linkage: &Linkage) -> InstructionS
 }
 
 // ============================================================================
-// Simple Expression Compilers
+// 단순 표현식 컴파일러 (Simple Expression Compilers)
 // ============================================================================
 
-/// Compile self-evaluating expressions (numbers, strings)
+/// 자기평가 표현식 컴파일 (숫자, 문자열)
+/// (Compile self-evaluating expressions (numbers, strings))
 fn compile_self_evaluating(expr: &Expr, target: Register, linkage: &Linkage) -> InstructionSeq {
     let value = match expr {
         Expr::Number(n) => Value::Number(*n),
         Expr::String(s) => Value::String(s.clone()),
-        _ => panic!("Not a self-evaluating expression"),
+        _ => panic!("자기평가 표현식이 아님 (Not a self-evaluating expression)"),
     };
 
     let seq = InstructionSeq::new(
@@ -444,11 +523,11 @@ fn compile_self_evaluating(expr: &Expr, target: Register, linkage: &Linkage) -> 
     end_with_linkage(linkage, seq)
 }
 
-/// Compile quoted expressions
+/// 인용 표현식 컴파일 (Compile quoted expressions)
 fn compile_quoted(expr: &Expr, target: Register, linkage: &Linkage) -> InstructionSeq {
     let quoted_value = match expr {
         Expr::Quote(e) => expr_to_value(e),
-        _ => panic!("Not a quoted expression"),
+        _ => panic!("인용 표현식이 아님 (Not a quoted expression)"),
     };
 
     let seq = InstructionSeq::new(
@@ -463,11 +542,11 @@ fn compile_quoted(expr: &Expr, target: Register, linkage: &Linkage) -> Instructi
     end_with_linkage(linkage, seq)
 }
 
-/// Compile variable lookup
+/// 변수 조회 컴파일 (Compile variable lookup)
 fn compile_variable(expr: &Expr, target: Register, linkage: &Linkage) -> InstructionSeq {
     let var_name = match expr {
         Expr::Symbol(name) => name.clone(),
-        _ => panic!("Not a variable"),
+        _ => panic!("변수가 아님 (Not a variable)"),
     };
 
     let seq = InstructionSeq::new(
@@ -476,7 +555,7 @@ fn compile_variable(expr: &Expr, target: Register, linkage: &Linkage) -> Instruc
         vec![Instruction::Assign {
             target,
             source: Box::new(InstructionValue::Op {
-                name: "lookup-variable-value".to_string(),
+                name: "변수-조회(lookup-variable-value)".to_string(),
                 args: vec![
                     InstructionValue::Const(Value::Symbol(var_name)),
                     InstructionValue::Reg(Register::Env),
@@ -488,11 +567,11 @@ fn compile_variable(expr: &Expr, target: Register, linkage: &Linkage) -> Instruc
     end_with_linkage(linkage, seq)
 }
 
-/// Compile assignment (set!)
+/// 대입 컴파일 (set!) (Compile assignment (set!))
 fn compile_assignment(expr: &Expr, target: Register, linkage: &Linkage) -> InstructionSeq {
     let (var_name, value_expr) = match expr {
         Expr::Set { name, value } => (name.clone(), value.as_ref()),
-        _ => panic!("Not an assignment"),
+        _ => panic!("대입이 아님 (Not an assignment)"),
     };
 
     let get_value_code = compile(value_expr, Register::Val, &Linkage::Next);
@@ -503,7 +582,7 @@ fn compile_assignment(expr: &Expr, target: Register, linkage: &Linkage) -> Instr
         vec![
             Instruction::Perform {
                 operation: Box::new(InstructionValue::Op {
-                    name: "set-variable-value!".to_string(),
+                    name: "변수-설정(set-variable-value!)".to_string(),
                     args: vec![
                         InstructionValue::Const(Value::Symbol(var_name)),
                         InstructionValue::Reg(Register::Val),
@@ -524,11 +603,11 @@ fn compile_assignment(expr: &Expr, target: Register, linkage: &Linkage) -> Instr
     )
 }
 
-/// Compile definition
+/// 정의 컴파일 (Compile definition)
 fn compile_definition(expr: &Expr, target: Register, linkage: &Linkage) -> InstructionSeq {
     let (var_name, value_expr) = match expr {
         Expr::Define { name, value } => (name.clone(), value.as_ref()),
-        _ => panic!("Not a definition"),
+        _ => panic!("정의가 아님 (Not a definition)"),
     };
 
     let get_value_code = compile(value_expr, Register::Val, &Linkage::Next);
@@ -539,7 +618,7 @@ fn compile_definition(expr: &Expr, target: Register, linkage: &Linkage) -> Instr
         vec![
             Instruction::Perform {
                 operation: Box::new(InstructionValue::Op {
-                    name: "define-variable!".to_string(),
+                    name: "변수-정의(define-variable!)".to_string(),
                     args: vec![
                         InstructionValue::Const(Value::Symbol(var_name)),
                         InstructionValue::Reg(Register::Val),
@@ -561,10 +640,10 @@ fn compile_definition(expr: &Expr, target: Register, linkage: &Linkage) -> Instr
 }
 
 // ============================================================================
-// Conditional Compilation
+// 조건식 컴파일 (Conditional Compilation)
 // ============================================================================
 
-/// Compile if expression
+/// if 표현식 컴파일 (Compile if expression)
 fn compile_if(expr: &Expr, target: Register, linkage: &Linkage) -> InstructionSeq {
     let (predicate, consequent, alternative) = match expr {
         Expr::If {
@@ -576,12 +655,12 @@ fn compile_if(expr: &Expr, target: Register, linkage: &Linkage) -> InstructionSe
             consequent.as_ref(),
             alternative.as_ref(),
         ),
-        _ => panic!("Not an if expression"),
+        _ => panic!("if 표현식이 아님 (Not an if expression)"),
     };
 
-    let t_branch = make_label("true-branch");
-    let f_branch = make_label("false-branch");
-    let after_if = make_label("after-if");
+    let t_branch = make_label("참-분기(true-branch)");
+    let f_branch = make_label("거짓-분기(false-branch)");
+    let after_if = make_label("if-이후(after-if)");
 
     let consequent_linkage = if linkage == &Linkage::Next {
         Linkage::Label(after_if.clone())
@@ -599,7 +678,7 @@ fn compile_if(expr: &Expr, target: Register, linkage: &Linkage) -> InstructionSe
         vec![
             Instruction::Test {
                 condition: Box::new(InstructionValue::Op {
-                    name: "false?".to_string(),
+                    name: "거짓?(false?)".to_string(),
                     args: vec![InstructionValue::Reg(Register::Val)],
                 }),
             },
@@ -641,11 +720,12 @@ fn compile_if(expr: &Expr, target: Register, linkage: &Linkage) -> InstructionSe
     )
 }
 
-/// Convert cond to nested if expressions
+/// cond를 중첩 if 표현식으로 변환 (Convert cond to nested if expressions)
 fn cond_to_if(clauses: &[(Expr, Expr)]) -> Expr {
     if clauses.is_empty() {
-        // No clauses - return false
-        Expr::Number(0) // Using 0 as false placeholder
+        // 절이 없음 - 거짓 반환
+        // (No clauses - return false)
+        Expr::Number(0) // 0을 거짓 자리표시자로 사용 (Using 0 as false placeholder)
     } else {
         let (pred, conseq) = &clauses[0];
         let rest = &clauses[1..];
@@ -658,10 +738,11 @@ fn cond_to_if(clauses: &[(Expr, Expr)]) -> Expr {
 }
 
 // ============================================================================
-// Sequence Compilation
+// 시퀀스 컴파일 (Sequence Compilation)
 // ============================================================================
 
-/// Compile a sequence of expressions (for begin or procedure body)
+/// 표현식 시퀀스 컴파일 (begin 또는 프로시저 본문)
+/// (Compile a sequence of expressions (for begin or procedure body))
 fn compile_sequence(exprs: &[Expr], target: Register, linkage: &Linkage) -> InstructionSeq {
     if exprs.is_empty() {
         InstructionSeq::empty()
@@ -677,18 +758,19 @@ fn compile_sequence(exprs: &[Expr], target: Register, linkage: &Linkage) -> Inst
 }
 
 // ============================================================================
-// Lambda Compilation
+// 람다 컴파일 (Lambda Compilation)
 // ============================================================================
 
-/// Compile lambda expression (procedure creation)
+/// 람다 표현식 컴파일 (프로시저 생성)
+/// (Compile lambda expression (procedure creation))
 fn compile_lambda(expr: &Expr, target: Register, linkage: &Linkage) -> InstructionSeq {
     let (params, body) = match expr {
         Expr::Lambda { params, body } => (params, body),
-        _ => panic!("Not a lambda expression"),
+        _ => panic!("람다 표현식이 아님 (Not a lambda expression)"),
     };
 
-    let proc_entry = make_label("entry");
-    let after_lambda = make_label("after-lambda");
+    let proc_entry = make_label("진입(entry)");
+    let after_lambda = make_label("람다-이후(after-lambda)");
 
     let lambda_linkage = if linkage == &Linkage::Next {
         Linkage::Label(after_lambda.clone())
@@ -702,7 +784,7 @@ fn compile_lambda(expr: &Expr, target: Register, linkage: &Linkage) -> Instructi
         vec![Instruction::Assign {
             target,
             source: Box::new(InstructionValue::Op {
-                name: "make-compiled-procedure".to_string(),
+                name: "컴파일-프로시저-생성(make-compiled-procedure)".to_string(),
                 args: vec![
                     InstructionValue::Label(proc_entry.clone()),
                     InstructionValue::Reg(Register::Env),
@@ -725,7 +807,7 @@ fn compile_lambda(expr: &Expr, target: Register, linkage: &Linkage) -> Instructi
     ])
 }
 
-/// Compile lambda body
+/// 람다 본문 컴파일 (Compile lambda body)
 fn compile_lambda_body(params: &[String], body: &[Expr], entry_label: &str) -> InstructionSeq {
     let param_list = params
         .iter()
@@ -742,14 +824,14 @@ fn compile_lambda_body(params: &[String], body: &[Expr], entry_label: &str) -> I
             Instruction::Assign {
                 target: Register::Env,
                 source: Box::new(InstructionValue::Op {
-                    name: "compiled-procedure-env".to_string(),
+                    name: "컴파일-프로시저-환경(compiled-procedure-env)".to_string(),
                     args: vec![InstructionValue::Reg(Register::Proc)],
                 }),
             },
             Instruction::Assign {
                 target: Register::Env,
                 source: Box::new(InstructionValue::Op {
-                    name: "extend-environment".to_string(),
+                    name: "환경-확장(extend-environment)".to_string(),
                     args: vec![
                         InstructionValue::Const(Value::Symbol(format!("{:?}", param_list))),
                         InstructionValue::Reg(Register::Argl),
@@ -767,14 +849,14 @@ fn compile_lambda_body(params: &[String], body: &[Expr], entry_label: &str) -> I
 }
 
 // ============================================================================
-// Application Compilation
+// 적용 컴파일 (Application Compilation)
 // ============================================================================
 
-/// Compile procedure application
+/// 프로시저 적용 컴파일 (Compile procedure application)
 fn compile_application(expr: &Expr, target: Register, linkage: &Linkage) -> InstructionSeq {
     let (operator, operands) = match expr {
         Expr::Application { operator, operands } => (operator.as_ref(), operands),
-        _ => panic!("Not an application"),
+        _ => panic!("적용이 아님 (Not an application)"),
     };
 
     let proc_code = compile(operator, Register::Proc, &Linkage::Next);
@@ -794,7 +876,8 @@ fn compile_application(expr: &Expr, target: Register, linkage: &Linkage) -> Inst
     )
 }
 
-/// Construct argument list from compiled operand codes
+/// 컴파일된 피연산자 코드로 인자 리스트 구성
+/// (Construct argument list from compiled operand codes)
 fn construct_arglist(operand_codes: Vec<InstructionSeq>) -> InstructionSeq {
     if operand_codes.is_empty() {
         InstructionSeq::new(
@@ -817,7 +900,7 @@ fn construct_arglist(operand_codes: Vec<InstructionSeq>) -> InstructionSeq {
                 vec![Instruction::Assign {
                     target: Register::Argl,
                     source: Box::new(InstructionValue::Op {
-                        name: "list".to_string(),
+                        name: "리스트(list)".to_string(),
                         args: vec![InstructionValue::Reg(Register::Val)],
                     }),
                 }],
@@ -836,7 +919,8 @@ fn construct_arglist(operand_codes: Vec<InstructionSeq>) -> InstructionSeq {
     }
 }
 
-/// Build code to get remaining arguments (after the last one)
+/// 남은 인자들을 가져오는 코드 구성 (마지막 인자 이후)
+/// (Build code to get remaining arguments (after the last one))
 fn code_to_get_rest_args(operand_codes: &[InstructionSeq]) -> InstructionSeq {
     let code_for_next_arg = preserving(
         &[Register::Argl],
@@ -847,7 +931,7 @@ fn code_to_get_rest_args(operand_codes: &[InstructionSeq]) -> InstructionSeq {
             vec![Instruction::Assign {
                 target: Register::Argl,
                 source: Box::new(InstructionValue::Op {
-                    name: "cons".to_string(),
+                    name: "쌍(cons)".to_string(),
                     args: vec![
                         InstructionValue::Reg(Register::Val),
                         InstructionValue::Reg(Register::Argl),
@@ -868,11 +952,12 @@ fn code_to_get_rest_args(operand_codes: &[InstructionSeq]) -> InstructionSeq {
     }
 }
 
-/// Compile procedure call (primitive vs compiled dispatch)
+/// 프로시저 호출 컴파일 (기본 vs 컴파일된 디스패치)
+/// (Compile procedure call (primitive vs compiled dispatch))
 fn compile_procedure_call(target: Register, linkage: &Linkage) -> InstructionSeq {
-    let primitive_branch = make_label("primitive-branch");
-    let compiled_branch = make_label("compiled-branch");
-    let after_call = make_label("after-call");
+    let primitive_branch = make_label("기본-분기(primitive-branch)");
+    let compiled_branch = make_label("컴파일-분기(compiled-branch)");
+    let after_call = make_label("호출-이후(after-call)");
 
     let compiled_linkage = if linkage == &Linkage::Next {
         Linkage::Label(after_call.clone())
@@ -886,7 +971,7 @@ fn compile_procedure_call(target: Register, linkage: &Linkage) -> InstructionSeq
         vec![
             Instruction::Test {
                 condition: Box::new(InstructionValue::Op {
-                    name: "primitive-procedure?".to_string(),
+                    name: "기본-프로시저?(primitive-procedure?)".to_string(),
                     args: vec![InstructionValue::Reg(Register::Proc)],
                 }),
             },
@@ -923,7 +1008,7 @@ fn compile_procedure_call(target: Register, linkage: &Linkage) -> InstructionSeq
                 vec![Instruction::Assign {
                     target,
                     source: Box::new(InstructionValue::Op {
-                        name: "apply-primitive-procedure".to_string(),
+                        name: "기본-프로시저-적용(apply-primitive-procedure)".to_string(),
                         args: vec![
                             InstructionValue::Reg(Register::Proc),
                             InstructionValue::Reg(Register::Argl),
@@ -947,13 +1032,14 @@ fn compile_procedure_call(target: Register, linkage: &Linkage) -> InstructionSeq
     ])
 }
 
-/// Apply compiled procedure
+/// 컴파일된 프로시저 적용 (Apply compiled procedure)
 fn compile_proc_appl(target: Register, linkage: &Linkage) -> InstructionSeq {
     let all_regs_set: HashSet<Register> = ALL_REGS.iter().copied().collect();
 
     match (target, linkage) {
         (Register::Val, Linkage::Return) => {
-            // Tail call optimization: just jump to procedure
+            // 꼬리 호출 최적화: 프로시저로 바로 점프
+            // (Tail call optimization: just jump to procedure)
             InstructionSeq::new(
                 HashSet::from([Register::Proc, Register::Continue]),
                 all_regs_set,
@@ -961,7 +1047,7 @@ fn compile_proc_appl(target: Register, linkage: &Linkage) -> InstructionSeq {
                     Instruction::Assign {
                         target: Register::Val,
                         source: Box::new(InstructionValue::Op {
-                            name: "compiled-procedure-entry".to_string(),
+                            name: "컴파일-프로시저-진입(compiled-procedure-entry)".to_string(),
                             args: vec![InstructionValue::Reg(Register::Proc)],
                         }),
                     },
@@ -972,10 +1058,11 @@ fn compile_proc_appl(target: Register, linkage: &Linkage) -> InstructionSeq {
             )
         }
         (Register::Val, _) => {
-            // Set continue to linkage target, then jump
+            // continue를 linkage 대상으로 설정 후 점프
+            // (Set continue to linkage target, then jump)
             let continue_target = match linkage {
                 Linkage::Label(label) => InstructionValue::Label(label.clone()),
-                _ => panic!("Invalid linkage for val target"),
+                _ => panic!("val 대상의 linkage가 유효하지 않음 (Invalid linkage for val target)"),
             };
 
             InstructionSeq::new(
@@ -989,7 +1076,7 @@ fn compile_proc_appl(target: Register, linkage: &Linkage) -> InstructionSeq {
                     Instruction::Assign {
                         target: Register::Val,
                         source: Box::new(InstructionValue::Op {
-                            name: "compiled-procedure-entry".to_string(),
+                            name: "컴파일-프로시저-진입(compiled-procedure-entry)".to_string(),
                             args: vec![InstructionValue::Reg(Register::Proc)],
                         }),
                     },
@@ -1000,14 +1087,15 @@ fn compile_proc_appl(target: Register, linkage: &Linkage) -> InstructionSeq {
             )
         }
         (_, Linkage::Return) => {
-            panic!("Return linkage with target != val not supported");
+            panic!("target != val 인 Return linkage는 지원하지 않음 (Return linkage with target != val not supported)");
         }
         (_, _) => {
-            // Non-val target with label linkage
-            let proc_return = make_label("proc-return");
+            // label linkage와 val이 아닌 target
+            // (Non-val target with label linkage)
+            let proc_return = make_label("프로시저-반환(proc-return)");
             let linkage_label = match linkage {
                 Linkage::Label(label) => label.clone(),
-                _ => panic!("Invalid linkage"),
+                _ => panic!("유효하지 않은 linkage (Invalid linkage)"),
             };
 
             InstructionSeq::new(
@@ -1021,7 +1109,7 @@ fn compile_proc_appl(target: Register, linkage: &Linkage) -> InstructionSeq {
                     Instruction::Assign {
                         target: Register::Val,
                         source: Box::new(InstructionValue::Op {
-                            name: "compiled-procedure-entry".to_string(),
+                            name: "컴파일-프로시저-진입(compiled-procedure-entry)".to_string(),
                             args: vec![InstructionValue::Reg(Register::Proc)],
                         }),
                     },
@@ -1043,21 +1131,22 @@ fn compile_proc_appl(target: Register, linkage: &Linkage) -> InstructionSeq {
 }
 
 // ============================================================================
-// Helper Functions
+// 보조 함수 (Helper Functions)
 // ============================================================================
 
-/// Convert expression to runtime value (for quoted expressions)
+/// 표현식을 런타임 값으로 변환 (인용 표현식용)
+/// (Convert expression to runtime value (for quoted expressions))
 fn expr_to_value(expr: &Expr) -> Value {
     match expr {
         Expr::Number(n) => Value::Number(*n),
         Expr::String(s) => Value::String(s.clone()),
         Expr::Symbol(s) => Value::Symbol(s.clone()),
-        _ => Value::Symbol("<complex-value>".to_string()),
+        _ => Value::Symbol("<복합-값(complex-value)>".to_string()),
     }
 }
 
 // ============================================================================
-// Tests
+// 테스트 (Tests)
 // ============================================================================
 
 #[cfg(test)]
@@ -1097,7 +1186,8 @@ mod tests {
 
         let seq = compile(&expr, Register::Val, &Linkage::Next);
 
-        // Should have multiple statements including labels, test, branch
+        // 라벨/테스트/분기를 포함한 여러 문장이 있어야 함
+        // (Should have multiple statements including labels, test, branch)
         assert!(seq.statements.len() > 5);
         assert!(seq.needs_register(Register::Env));
     }
@@ -1112,7 +1202,8 @@ mod tests {
 
         let seq = compile(&expr, Register::Val, &Linkage::Next);
 
-        // Should create procedure and include body code
+        // 프로시저 생성과 본문 코드가 포함되어야 함
+        // (Should create procedure and include body code)
         assert!(seq.statements.len() > 3);
         assert!(seq.needs_register(Register::Env));
         assert!(seq.modifies_register(Register::Val));
@@ -1128,7 +1219,8 @@ mod tests {
 
         let seq = compile(&expr, Register::Val, &Linkage::Next);
 
-        // Should compile operator, operands, construct arglist, and call
+        // 연산자/피연산자 컴파일, arglist 구성, 호출이 포함되어야 함
+        // (Should compile operator, operands, construct arglist, and call)
         assert!(seq.statements.len() > 5);
         assert!(seq.needs_register(Register::Env));
     }
@@ -1163,13 +1255,13 @@ mod tests {
 
         let combined = append_instruction_sequences(seq1.clone(), seq2.clone());
 
-        // Should need Env (from seq1) and Val (from seq2, not modified by seq1... wait, it is!)
-        // Actually: needs Env (seq1 needs) ∪ (Val (seq2 needs) - Val (seq1 modifies))
+        // Env 필요 (seq1) + Val 필요 (seq2, seq1이 수정) 조건 확인
+        // 실제로: needs Env (seq1 needs) ∪ (Val (seq2 needs) - Val (seq1 modifies))
         // = Env ∪ (Val - Val) = Env ∪ ∅ = Env
         assert!(combined.needs_register(Register::Env));
         assert!(!combined.needs_register(Register::Val)); // Val is provided by seq1
 
-        // Should modify Val (seq1) ∪ Proc (seq2)
+        // 수정 레지스터: Val (seq1) ∪ Proc (seq2)
         assert!(combined.modifies_register(Register::Val));
         assert!(combined.modifies_register(Register::Proc));
     }
@@ -1190,7 +1282,8 @@ mod tests {
 
         let preserved = preserving(&[Register::Val], seq1, seq2);
 
-        // Should NOT insert save/restore since seq2 doesn't need Val
+        // seq2가 Val을 필요로 하지 않으므로 save/restore 없음
+        // (Should NOT insert save/restore since seq2 doesn't need Val)
         assert_eq!(preserved.statements.len(), 0);
     }
 
@@ -1206,7 +1299,8 @@ mod tests {
 
         let preserved = preserving(&[Register::Val], seq1, seq2);
 
-        // Should insert save/restore
+        // save/restore 삽입
+        // (Should insert save/restore)
         assert_eq!(preserved.statements.len(), 2); // save + restore
     }
 
@@ -1247,11 +1341,13 @@ mod tests {
 
         let seq = compile(&factorial, Register::Val, &Linkage::Next);
 
-        // Should produce a complex instruction sequence
+        // 복잡한 명령 시퀀스가 생성되어야 함
+        // (Should produce a complex instruction sequence)
         assert!(seq.statements.len() > 10);
         assert!(seq.needs_register(Register::Env));
 
-        // Check that it contains expected instruction types
+        // 기대하는 명령 타입 포함 여부 확인
+        // (Check that it contains expected instruction types)
         let has_label = seq
             .statements
             .iter()
@@ -1265,16 +1361,17 @@ mod tests {
             .iter()
             .any(|inst| matches!(inst, Instruction::Branch { .. }));
 
-        assert!(has_label, "Should have labels");
-        assert!(has_test, "Should have test instructions");
-        assert!(has_branch, "Should have branch instructions");
+        assert!(has_label, "라벨이 있어야 함 (Should have labels)");
+        assert!(has_test, "테스트 명령이 있어야 함 (Should have test instructions)");
+        assert!(has_branch, "분기 명령이 있어야 함 (Should have branch instructions)");
     }
 
     #[test]
     fn test_tail_call_optimization() {
         reset_label_counter();
 
-        // Lambda that tail-calls another procedure
+        // 다른 프로시저를 꼬리 호출하는 람다
+        // (Lambda that tail-calls another procedure)
         let expr = Expr::Lambda {
             params: vec!["x".to_string()],
             body: vec![Expr::Application {
@@ -1285,8 +1382,10 @@ mod tests {
 
         let seq = compile(&expr, Register::Val, &Linkage::Next);
 
-        // The body compiles with linkage=return, enabling tail call optimization
-        // This should not push a new frame for the final call
+        // 본문은 linkage=return으로 컴파일되어 꼬리 호출 최적화가 가능
+        // 마지막 호출에서 새 프레임을 푸시하지 않아야 함
+        // (The body compiles with linkage=return, enabling tail call optimization
+        // This should not push a new frame for the final call)
         assert!(seq.statements.len() > 0);
     }
 }

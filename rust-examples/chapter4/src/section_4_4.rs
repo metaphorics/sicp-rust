@@ -1,68 +1,74 @@
-//! SICP Section 4.4: Logic Programming
+//! SICP 4.4절: 논리 프로그래밍 (Logic Programming)
 //!
-//! This module implements a query language system similar to Prolog,
-//! demonstrating pattern matching, unification, and logical inference.
+//! 이 모듈은 Prolog와 유사한 질의 언어 시스템을 구현하며,
+//! 패턴 매칭, 통일, 논리적 추론을 시연한다
+//! (This module implements a query language system similar to Prolog,
+//! demonstrating pattern matching, unification, and logical inference).
 //!
-//! # Core Concepts
+//! # 핵심 개념 (Core Concepts)
 //!
-//! - **Pattern Matching**: One-way matching of patterns against data
-//! - **Unification**: Two-way matching allowing variables on both sides
-//! - **Backtracking**: Exploring multiple solution paths via frames
-//! - **Rules**: Logical implications for deductive reasoning
+//! - **패턴 매칭 (Pattern Matching)**: 패턴을 데이터에 단방향으로 매칭
+//! - **통일 (Unification)**: 양쪽에 변수가 있어도 가능한 양방향 매칭
+//! - **백트래킹 (Backtracking)**: 프레임을 통해 여러 해 경로를 탐색
+//! - **규칙 (Rules)**: 연역을 위한 논리적 함의
 //!
-//! # Architecture
+//! # 아키텍처 (Architecture)
 //!
 //! ```text
-//! Query → qeval → [Frames] → Results
+//! 질의 (Query) → qeval → [프레임 (Frames)] → 결과 (Results)
 //!   ↓
-//! Database (Assertions + Rules)
+//! 데이터베이스 (Database) (단언+규칙 (Assertions + Rules))
 //!   ↓
-//! Unification / Pattern Matching
+//! 통일 / 패턴 매칭 (Unification / Pattern Matching)
 //!   ↓
-//! Frame (Variable Bindings)
+//! 프레임 (변수 바인딩) (Frame (Variable Bindings))
 //! ```
 
 use std::collections::HashMap;
 use std::fmt;
 
 // ============================================================================
-// Core Data Structures
+// 핵심 데이터 구조 (Core Data Structures)
 // ============================================================================
 
-/// Represents a term in the logic programming system.
-/// Terms can be atoms (constants), variables, or lists of terms.
+/// 논리 프로그래밍 시스템에서의 항(term)을 나타낸다
+/// (Represents a term in the logic programming system).
+/// 항은 원자(상수), 변수, 또는 항의 리스트일 수 있다
+/// (Terms can be atoms (constants), variables, or lists of terms).
 #[derive(Debug, Clone, PartialEq, Eq, Hash)]
 pub enum Term {
-    /// Atomic constant value (e.g., "ben", "computer", "60000")
+    /// 원자 상수 값 (예: "ben", "computer", "60000")
+    /// (Atomic constant value (e.g., "ben", "computer", "60000"))
     Atom(String),
-    /// Pattern variable (e.g., ?x, ?person)
+    /// 패턴 변수 (예: ?x, ?person) (Pattern variable (e.g., ?x, ?person))
     Var(String),
-    /// List of terms (e.g., (job ?x programmer))
+    /// 항의 리스트 (예: (job ?x programmer))
+    /// (List of terms (e.g., (job ?x programmer)))
     List(Vec<Term>),
 }
 
 impl Term {
-    /// Create an atom term
+    /// 원자 항 생성 (Create an atom term)
     pub fn atom(s: impl Into<String>) -> Self {
         Term::Atom(s.into())
     }
 
-    /// Create a variable term
+    /// 변수 항 생성 (Create a variable term)
     pub fn var(s: impl Into<String>) -> Self {
         Term::Var(s.into())
     }
 
-    /// Create a list term
+    /// 리스트 항 생성 (Create a list term)
     pub fn list(terms: Vec<Term>) -> Self {
         Term::List(terms)
     }
 
-    /// Check if this term is a variable
+    /// 항이 변수인지 확인 (Check if this term is a variable)
     pub fn is_var(&self) -> bool {
         matches!(self, Term::Var(_))
     }
 
-    /// Get variable name if this is a variable
+    /// 변수가 맞다면 변수 이름 반환 (Get variable name if this is a variable)
     pub fn var_name(&self) -> Option<&str> {
         match self {
             Term::Var(name) => Some(name),
@@ -90,19 +96,20 @@ impl fmt::Display for Term {
     }
 }
 
-/// Type alias for patterns (patterns are terms with variables)
+/// 패턴 타입 별칭 (패턴은 변수를 포함한 항)
+/// (Type alias for patterns (patterns are terms with variables))
 pub type Pattern = Term;
 
-/// Represents different types of queries
+/// 다양한 질의 타입을 나타낸다 (Represents different types of queries)
 #[derive(Debug, Clone, PartialEq)]
 pub enum Query {
-    /// Simple pattern query
+    /// 단순 패턴 질의 (Simple pattern query)
     Simple(Pattern),
-    /// Conjunction (all must succeed)
+    /// 논리곱 (모두 성공해야 함) (Conjunction (all must succeed))
     And(Vec<Query>),
-    /// Disjunction (at least one must succeed)
+    /// 논리합 (하나 이상 성공) (Disjunction (at least one must succeed))
     Or(Vec<Query>),
-    /// Negation (must fail)
+    /// 부정 (실패해야 함) (Negation (must fail))
     Not(Box<Query>),
 }
 
@@ -124,12 +131,12 @@ impl Query {
     }
 }
 
-/// Represents a logical rule: conclusion :- body
+/// 논리 규칙: conclusion :- body (Represents a logical rule: conclusion :- body)
 #[derive(Debug, Clone)]
 pub struct Rule {
-    /// The pattern that this rule concludes
+    /// 규칙이 결론으로 내리는 패턴 (The pattern that this rule concludes)
     pub conclusion: Pattern,
-    /// The query that must be satisfied for this rule to apply
+    /// 규칙 적용에 필요한 질의 (The query that must be satisfied for this rule to apply)
     pub body: Query,
 }
 
@@ -139,14 +146,16 @@ impl Rule {
     }
 }
 
-/// Frame: a mapping from variables to their values
+/// 프레임: 변수에서 값으로의 매핑
+/// (Frame: a mapping from variables to their values)
 pub type Frame = HashMap<String, Term>;
 
 // ============================================================================
-// Database
+// 데이터베이스 (Database)
 // ============================================================================
 
-/// Database containing assertions (facts) and rules
+/// 단언(사실)과 규칙을 담는 데이터베이스
+/// (Database containing assertions (facts) and rules)
 #[derive(Debug, Default)]
 pub struct Database {
     assertions: Vec<Term>,
@@ -161,49 +170,56 @@ impl Database {
         }
     }
 
-    /// Add an assertion (fact) to the database
+    /// 단언(사실)을 데이터베이스에 추가 (Add an assertion (fact) to the database)
     pub fn add_assertion(&mut self, assertion: Term) {
         self.assertions.push(assertion);
     }
 
-    /// Add a rule to the database
+    /// 규칙을 데이터베이스에 추가 (Add a rule to the database)
     pub fn add_rule(&mut self, rule: Rule) {
         self.rules.push(rule);
     }
 
-    /// Get all assertions
+    /// 모든 단언 가져오기 (Get all assertions)
     pub fn assertions(&self) -> &[Term] {
         &self.assertions
     }
 
-    /// Get all rules
+    /// 모든 규칙 가져오기 (Get all rules)
     pub fn rules(&self) -> &[Rule] {
         &self.rules
     }
 }
 
 // ============================================================================
-// Unification
+// 통일 (Unification)
 // ============================================================================
 
-/// Unify two terms with respect to a frame.
-/// Returns None if unification fails, otherwise returns the extended frame.
+/// 프레임에 대해 두 항을 통일한다
+/// (Unify two terms with respect to a frame).
+/// 통일에 실패하면 None, 성공하면 확장된 프레임을 반환한다
+/// (Returns None if unification fails, otherwise returns the extended frame).
 ///
-/// Unification is symmetric - variables can appear on both sides.
+/// 통일은 대칭적이며 양쪽에 변수 등장 가능
+/// (Unification is symmetric - variables can appear on both sides).
 pub fn unify(t1: &Term, t2: &Term, frame: &Frame) -> Option<Frame> {
-    // If terms are equal, unification succeeds with current frame
+    // 항이 같으면 현재 프레임으로 통일 성공
+    // (If terms are equal, unification succeeds with current frame)
     if t1 == t2 {
         return Some(frame.clone());
     }
 
     match (t1, t2) {
-        // Variable on left: try to extend frame
+        // 왼쪽이 변수: 프레임 확장 시도
+        // (Variable on left: try to extend frame)
         (Term::Var(v1), _) => extend_if_possible(v1, t2, frame),
 
-        // Variable on right: try to extend frame
+        // 오른쪽이 변수: 프레임 확장 시도
+        // (Variable on right: try to extend frame)
         (_, Term::Var(v2)) => extend_if_possible(v2, t1, frame),
 
-        // Both are lists: unify element by element
+        // 둘 다 리스트면 원소별 통일
+        // (Both are lists: unify element by element)
         (Term::List(l1), Term::List(l2)) if l1.len() == l2.len() => {
             let mut current_frame = frame.clone();
             for (term1, term2) in l1.iter().zip(l2.iter()) {
@@ -215,45 +231,53 @@ pub fn unify(t1: &Term, t2: &Term, frame: &Frame) -> Option<Frame> {
             Some(current_frame)
         }
 
-        // Otherwise, unification fails
+        // 그 외는 통일 실패 (Otherwise, unification fails)
         _ => None,
     }
 }
 
-/// Extend frame by binding variable to value if possible
+/// 가능하다면 변수를 값에 바인딩해 프레임 확장
+/// (Extend frame by binding variable to value if possible)
 fn extend_if_possible(var: &str, val: &Term, frame: &Frame) -> Option<Frame> {
-    // Check if variable already has a binding
+    // 변수가 이미 바인딩되어 있는지 확인
+    // (Check if variable already has a binding)
     if let Some(binding) = frame.get(var) {
-        // If bound, unify the bound value with the new value
+        // 이미 바인딩되어 있으면 기존 값과 새 값을 통일
+        // (If bound, unify the bound value with the new value)
         return unify(binding, val, frame);
     }
 
-    // If val is a variable, check if it has a binding
+    // val이 변수면 바인딩을 확인
+    // (If val is a variable, check if it has a binding)
     if let Term::Var(v) = val
         && let Some(binding) = frame.get(v)
     {
         return unify(&Term::Var(var.to_string()), binding, frame);
     }
 
-    // Check for circular dependency (occurs check)
+    // 순환 의존성 검사 (발생 검사)
+    // (Check for circular dependency (occurs check))
     if depends_on(val, var, frame) {
         return None;
     }
 
-    // Create new frame with binding
+    // 바인딩을 추가한 새 프레임 생성
+    // (Create new frame with binding)
     let mut new_frame = frame.clone();
     new_frame.insert(var.to_string(), val.clone());
     Some(new_frame)
 }
 
-/// Check if expression depends on variable (occurs check)
+/// 표현식이 변수에 의존하는지 검사 (발생 검사)
+/// (Check if expression depends on variable (occurs check))
 fn depends_on(term: &Term, var: &str, frame: &Frame) -> bool {
     match term {
         Term::Var(v) => {
             if v == var {
                 return true;
             }
-            // Check if this variable's binding depends on var
+            // 이 변수의 바인딩이 var에 의존하는지 확인
+            // (Check if this variable's binding depends on var)
             if let Some(binding) = frame.get(v) {
                 return depends_on(binding, var, frame);
             }
@@ -265,22 +289,27 @@ fn depends_on(term: &Term, var: &str, frame: &Frame) -> bool {
 }
 
 // ============================================================================
-// Pattern Matching
+// 패턴 매칭 (Pattern Matching)
 // ============================================================================
 
-/// Pattern match: one-way matching where variables only appear in pattern.
-/// Returns None if match fails, otherwise returns the extended frame.
+/// 패턴 매칭: 변수는 패턴에만 등장하는 단방향 매칭
+/// (Pattern match: one-way matching where variables only appear in pattern).
+/// 매칭 실패 시 None, 성공 시 확장된 프레임 반환
+/// (Returns None if match fails, otherwise returns the extended frame).
 pub fn pattern_match(pattern: &Term, data: &Term, frame: &Frame) -> Option<Frame> {
-    // If pattern and data are equal, matching succeeds
+    // 패턴과 데이터가 같으면 매칭 성공
+    // (If pattern and data are equal, matching succeeds)
     if pattern == data {
         return Some(frame.clone());
     }
 
     match (pattern, data) {
-        // Variable in pattern: extend frame
+        // 패턴 쪽 변수: 프레임 확장
+        // (Variable in pattern: extend frame)
         (Term::Var(v), _) => extend_if_consistent(v, data, frame),
 
-        // Both are lists: match element by element
+        // 둘 다 리스트: 원소별 매칭
+        // (Both are lists: match element by element)
         (Term::List(p_list), Term::List(d_list)) if p_list.len() == d_list.len() => {
             let mut current_frame = frame.clone();
             for (p, d) in p_list.iter().zip(d_list.iter()) {
@@ -292,18 +321,21 @@ pub fn pattern_match(pattern: &Term, data: &Term, frame: &Frame) -> Option<Frame
             Some(current_frame)
         }
 
-        // Otherwise, match fails
+        // 그 외는 매칭 실패 (Otherwise, match fails)
         _ => None,
     }
 }
 
-/// Extend frame if consistent with existing bindings
+/// 기존 바인딩과 일관되면 프레임 확장
+/// (Extend frame if consistent with existing bindings)
 fn extend_if_consistent(var: &str, data: &Term, frame: &Frame) -> Option<Frame> {
     if let Some(binding) = frame.get(var) {
-        // Variable already bound: check consistency
+        // 이미 바인딩된 변수: 일관성 확인
+        // (Variable already bound: check consistency)
         pattern_match(binding, data, frame)
     } else {
-        // Variable not bound: add binding
+        // 미바인딩 변수: 바인딩 추가
+        // (Variable not bound: add binding)
         let mut new_frame = frame.clone();
         new_frame.insert(var.to_string(), data.clone());
         Some(new_frame)
@@ -311,15 +343,17 @@ fn extend_if_consistent(var: &str, data: &Term, frame: &Frame) -> Option<Frame> 
 }
 
 // ============================================================================
-// Instantiation
+// 인스턴스화 (Instantiation)
 // ============================================================================
 
-/// Instantiate a term by replacing variables with their values from the frame
+/// 프레임의 값으로 변수를 치환해 항을 인스턴스화
+/// (Instantiate a term by replacing variables with their values from the frame)
 pub fn instantiate(term: &Term, frame: &Frame) -> Term {
     match term {
         Term::Var(v) => {
             if let Some(value) = frame.get(v) {
-                // Recursively instantiate in case value contains variables
+                // 값에 변수가 있을 수 있으므로 재귀 인스턴스화
+                // (Recursively instantiate in case value contains variables)
                 instantiate(value, frame)
             } else {
                 term.clone()
@@ -331,11 +365,13 @@ pub fn instantiate(term: &Term, frame: &Frame) -> Term {
 }
 
 // ============================================================================
-// Query Evaluation
+// 질의 평가 (Query Evaluation)
 // ============================================================================
 
-/// Evaluate a query against the database, producing a vector of frames.
-/// Each frame represents a solution to the query.
+/// 데이터베이스에 대해 질의를 평가하고 프레임 벡터를 생성한다
+/// (Evaluate a query against the database, producing a vector of frames).
+/// 각 프레임은 질의의 하나의 해를 나타낸다
+/// (Each frame represents a solution to the query).
 pub fn qeval(query: &Query, frames: Vec<Frame>, db: &Database) -> Vec<Frame> {
     match query {
         Query::Simple(pattern) => simple_query(pattern, frames, db),
@@ -345,21 +381,23 @@ pub fn qeval(query: &Query, frames: Vec<Frame>, db: &Database) -> Vec<Frame> {
     }
 }
 
-/// Process a simple query (pattern matching)
+/// 단순 질의를 처리 (패턴 매칭)
+/// (Process a simple query (pattern matching))
 fn simple_query(pattern: &Pattern, frames: Vec<Frame>, db: &Database) -> Vec<Frame> {
     frames
         .into_iter()
         .flat_map(|frame| {
             let mut results = Vec::new();
 
-            // Try to match against all assertions
+            // 모든 단언과 매칭 시도
+            // (Try to match against all assertions)
             for assertion in db.assertions() {
                 if let Some(new_frame) = pattern_match(pattern, assertion, &frame) {
                     results.push(new_frame);
                 }
             }
 
-            // Try to apply all rules
+            // 모든 규칙 적용 시도 (Try to apply all rules)
             results.extend(apply_rules(pattern, &frame, db));
 
             results
@@ -367,17 +405,21 @@ fn simple_query(pattern: &Pattern, frames: Vec<Frame>, db: &Database) -> Vec<Fra
         .collect()
 }
 
-/// Apply all applicable rules
+/// 적용 가능한 모든 규칙 적용
+/// (Apply all applicable rules)
 fn apply_rules(pattern: &Pattern, frame: &Frame, db: &Database) -> Vec<Frame> {
     let mut results = Vec::new();
 
     for rule in db.rules() {
-        // Rename variables in rule to avoid conflicts
+        // 규칙 내 변수를 이름 변경해 충돌 회피
+        // (Rename variables in rule to avoid conflicts)
         let (renamed_conclusion, renamed_body) = rename_rule_variables(rule);
 
-        // Try to unify pattern with rule conclusion
+        // 패턴과 규칙 결론 통일 시도
+        // (Try to unify pattern with rule conclusion)
         if let Some(unified_frame) = unify(pattern, &renamed_conclusion, frame) {
-            // Evaluate rule body in the unified frame
+            // 통일된 프레임에서 규칙 본문 평가
+            // (Evaluate rule body in the unified frame)
             let body_results = qeval(&renamed_body, vec![unified_frame], db);
             results.extend(body_results);
         }
@@ -386,11 +428,15 @@ fn apply_rules(pattern: &Pattern, frame: &Frame, db: &Database) -> Vec<Frame> {
     results
 }
 
-/// Rename variables in a rule to avoid conflicts
-/// In a real implementation, we'd use a counter to generate unique names
+/// 규칙 내 변수를 이름 변경해 충돌 회피
+/// (Rename variables in a rule to avoid conflicts)
+/// 실제 구현이라면 카운터로 고유 이름을 만든다
+/// (In a real implementation, we'd use a counter to generate unique names)
 fn rename_rule_variables(rule: &Rule) -> (Pattern, Query) {
-    // For simplicity, we'll use a basic renaming scheme
-    // A production system would use a unique ID generator
+    // 단순화를 위해 기본적인 이름 변경을 사용
+    // (For simplicity, we'll use a basic renaming scheme)
+    // 실제 시스템은 고유 ID 생성기를 사용해야 함
+    // (A production system would use a unique ID generator)
     static mut RULE_COUNTER: usize = 0;
 
     let id = unsafe {
@@ -433,18 +479,19 @@ fn rename_query_variables(query: &Query, id: usize) -> Query {
     }
 }
 
-/// Process conjunction (AND)
+/// 논리곱 처리 (AND) (Process conjunction (AND))
 fn conjoin(queries: &[Query], frames: Vec<Frame>, db: &Database) -> Vec<Frame> {
     if queries.is_empty() {
         return frames;
     }
 
-    // Process first query, then recursively process rest
+    // 첫 질의를 처리한 뒤 나머지를 재귀 처리
+    // (Process first query, then recursively process rest)
     let first_results = qeval(&queries[0], frames, db);
     conjoin(&queries[1..], first_results, db)
 }
 
-/// Process disjunction (OR)
+/// 논리합 처리 (OR) (Process disjunction (OR))
 fn disjoin(queries: &[Query], frames: Vec<Frame>, db: &Database) -> Vec<Frame> {
     queries
         .iter()
@@ -452,35 +499,40 @@ fn disjoin(queries: &[Query], frames: Vec<Frame>, db: &Database) -> Vec<Frame> {
         .collect()
 }
 
-/// Process negation (NOT)
+/// 부정 처리 (NOT) (Process negation (NOT))
 fn negate(query: &Query, frames: Vec<Frame>, db: &Database) -> Vec<Frame> {
     frames
         .into_iter()
         .filter(|frame| {
-            // A frame passes the NOT filter if the query fails on it
+            // 질의가 실패하면 NOT 필터를 통과
+            // (A frame passes the NOT filter if the query fails on it)
             qeval(query, vec![frame.clone()], db).is_empty()
         })
         .collect()
 }
 
 // ============================================================================
-// Helper Functions
+// 헬퍼 함수 (Helper Functions)
 // ============================================================================
 
-/// Execute a query and return instantiated results
+/// 질의를 실행하고 인스턴스화된 결과를 반환
+/// (Execute a query and return instantiated results)
 pub fn query(query: &Query, db: &Database) -> Vec<Term> {
     let initial_frame = HashMap::new();
     let result_frames = qeval(query, vec![initial_frame], db);
 
-    // For simple queries, instantiate the pattern
+    // 단순 질의는 패턴을 인스턴스화
+    // (For simple queries, instantiate the pattern)
     match query {
         Query::Simple(pattern) => result_frames
             .iter()
             .map(|frame| instantiate(pattern, frame))
             .collect(),
         _ => {
-            // For complex queries, we'd need to track which pattern to instantiate
-            // For now, return empty
+            // 복합 질의는 어떤 패턴을 인스턴스화할지 추적이 필요함
+            // (For complex queries, we'd need to track which pattern to instantiate)
+            // 현재는 빈 벡터 반환
+            // (For now, return empty)
             Vec::new()
         }
     }
@@ -491,7 +543,7 @@ mod tests {
     use super::*;
 
     // ========================================================================
-    // Unification Tests
+    // 통일 테스트 (Unification Tests)
     // ========================================================================
 
     #[test]
@@ -523,7 +575,8 @@ mod tests {
         let var2 = Term::var("y");
 
         let result = unify(&var1, &var2, &frame).unwrap();
-        // Either x->y or y->x binding is valid
+        // x->y 또는 y->x 바인딩 모두 유효
+        // (Either x->y or y->x binding is valid)
         assert!(result.contains_key("x") || result.contains_key("y"));
     }
 
@@ -551,12 +604,12 @@ mod tests {
         let var = Term::var("x");
         let recursive = Term::list(vec![Term::atom("f"), Term::var("x")]);
 
-        // Should fail due to occurs check
+        // 발생 검사로 실패해야 함 (Should fail due to occurs check)
         assert!(unify(&var, &recursive, &frame).is_none());
     }
 
     // ========================================================================
-    // Pattern Matching Tests
+    // 패턴 매칭 테스트 (Pattern Matching Tests)
     // ========================================================================
 
     #[test]
@@ -591,13 +644,13 @@ mod tests {
     }
 
     // ========================================================================
-    // Database and Query Tests
+    // 데이터베이스 및 질의 테스트 (Database and Query Tests)
     // ========================================================================
 
     fn create_microshaft_db() -> Database {
         let mut db = Database::new();
 
-        // Add job assertions
+        // job 단언 추가 (Add job assertions)
         db.add_assertion(Term::list(vec![
             Term::atom("job"),
             Term::list(vec![Term::atom("bitdiddle"), Term::atom("ben")]),
@@ -616,7 +669,7 @@ mod tests {
             Term::list(vec![Term::atom("computer"), Term::atom("programmer")]),
         ]));
 
-        // Add salary assertions
+        // salary 단언 추가 (Add salary assertions)
         db.add_assertion(Term::list(vec![
             Term::atom("salary"),
             Term::list(vec![Term::atom("bitdiddle"), Term::atom("ben")]),
@@ -635,7 +688,7 @@ mod tests {
             Term::atom("35000"),
         ]));
 
-        // Add supervisor assertions
+        // supervisor 단언 추가 (Add supervisor assertions)
         db.add_assertion(Term::list(vec![
             Term::atom("supervisor"),
             Term::list(vec![Term::atom("hacker"), Term::atom("alyssa")]),
@@ -655,7 +708,7 @@ mod tests {
     fn test_simple_query() {
         let db = create_microshaft_db();
 
-        // Query: (job ?x (computer programmer))
+        // 질의: (job ?x (computer programmer)) (Query)
         let q = Query::simple(Term::list(vec![
             Term::atom("job"),
             Term::var("x"),
@@ -663,14 +716,14 @@ mod tests {
         ]));
 
         let results = query(&q, &db);
-        assert_eq!(results.len(), 2); // Alyssa and Cy
+        assert_eq!(results.len(), 2); // Alyssa와 Cy (Alyssa and Cy)
     }
 
     #[test]
     fn test_and_query() {
         let db = create_microshaft_db();
 
-        // Query: (and (job ?x (computer programmer))
+        // 질의: (and (job ?x (computer programmer))
         //             (salary ?x ?amount))
         let query = Query::and(vec![
             Query::simple(Term::list(vec![
@@ -687,14 +740,14 @@ mod tests {
 
         let initial_frame = HashMap::new();
         let results = qeval(&query, vec![initial_frame], &db);
-        assert_eq!(results.len(), 2); // Alyssa and Cy
+        assert_eq!(results.len(), 2); // Alyssa와 Cy (Alyssa and Cy)
     }
 
     #[test]
     fn test_rule_application() {
         let mut db = Database::new();
 
-        // Add facts
+        // 사실 추가 (Add facts)
         db.add_assertion(Term::list(vec![
             Term::atom("parent"),
             Term::atom("adam"),
@@ -707,7 +760,7 @@ mod tests {
             Term::atom("enoch"),
         ]));
 
-        // Add rule: (grandparent ?g ?gc) :- (and (parent ?g ?p) (parent ?p ?gc))
+        // 규칙 추가: (grandparent ?g ?gc) :- (and (parent ?g ?p) (parent ?p ?gc))
         db.add_rule(Rule::new(
             Term::list(vec![
                 Term::atom("grandparent"),
@@ -728,7 +781,7 @@ mod tests {
             ]),
         ));
 
-        // Query: (grandparent ?x ?y)
+        // 질의: (grandparent ?x ?y) (Query)
         let q = Query::simple(Term::list(vec![
             Term::atom("grandparent"),
             Term::var("x"),
@@ -736,14 +789,14 @@ mod tests {
         ]));
 
         let results = query(&q, &db);
-        assert_eq!(results.len(), 1); // Adam is grandparent of Enoch
+        assert_eq!(results.len(), 1); // Adam은 Enoch의 조부모 (Adam is grandparent of Enoch)
     }
 
     #[test]
     fn test_not_query() {
         let db = create_microshaft_db();
 
-        // Query: (and (job ?x ?job)
+        // 질의: (and (job ?x ?job)
         //             (not (job ?x (computer programmer))))
         let query = Query::and(vec![
             Query::simple(Term::list(vec![
@@ -760,7 +813,7 @@ mod tests {
 
         let initial_frame = HashMap::new();
         let results = qeval(&query, vec![initial_frame], &db);
-        assert_eq!(results.len(), 1); // Only Ben (the wizard)
+        assert_eq!(results.len(), 1); // Ben만 해당 (마법사) (Only Ben (the wizard))
     }
 
     #[test]

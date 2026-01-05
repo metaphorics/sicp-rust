@@ -1,34 +1,37 @@
-//! SICP Section 5.2: A Register-Machine Simulator
+//! SICP 5.2절: 레지스터 기계 시뮬레이터 (A Register-Machine Simulator)
 //!
-//! This module implements a simulator for register machines, allowing us to
-//! test machine designs and measure their performance characteristics.
+//! 이 모듈은 레지스터 기계 시뮬레이터를 구현하여
+//! 기계 설계를 테스트하고 성능 특성을 측정할 수 있게 한다
+//! (This module implements a simulator for register machines, allowing us to
+//! test machine designs and measure their performance characteristics).
 //!
-//! # Architecture
+//! # 아키텍처 (Architecture)
 //!
-//! The simulator consists of several key components:
+//! 시뮬레이터는 다음 주요 구성요소로 이루어진다:
+//! (The simulator consists of several key components:)
 //!
-//! - **Machine**: The main structure containing registers, stack, and instruction sequence
-//! - **Assembler**: Converts controller text into executable instructions
-//! - **Instructions**: Parsed and resolved instruction representations
-//! - **Stack**: Tracks values with performance monitoring
+//! - **Machine**: 레지스터, 스택, 명령 시퀀스를 포함하는 메인 구조
+//! - **Assembler**: 컨트롤러 텍스트를 실행 가능한 명령으로 변환
+//! - **Instructions**: 파싱되고 해석된 명령 표현
+//! - **Stack**: 성능 모니터링과 함께 값을 추적
 //!
-//! # Memory Model
+//! # 메모리 모델 (Memory Model)
 //!
 //! ```text
-//! Machine (owns all state)
+//! Machine (모든 상태 소유) (owns all state)
 //!   ├── registers: HashMap<String, Value>
-//!   ├── stack: Stack (Vec<Value> + statistics)
+//!   ├── stack: Stack (Vec<Value> + 통계 (statistics))
 //!   ├── instructions: Vec<Instruction>
-//!   ├── pc: usize (program counter as index)
-//!   └── flag: bool (for test/branch)
+//!   ├── pc: usize (프로그램 카운터 인덱스) (program counter as index)
+//!   └── flag: bool (test/branch용) (for test/branch)
 //! ```
 //!
-//! # Example
+//! # 예시 (Example)
 //!
 //! ```ignore
 //! use sicp_chapter5::section_5_2::*;
 //!
-//! // Create a simple GCD machine
+//! // 간단한 GCD 기계 생성 (Create a simple GCD machine)
 //! let mut machine = MachineBuilder::new()
 //!     .register("a")
 //!     .register("b")
@@ -38,7 +41,7 @@
 //!         if let (Value::Number(a), Value::Number(b)) = (&args[0], &args[1]) {
 //!             Value::Number(a % b)
 //!         } else {
-//!             panic!("rem requires numbers")
+//!             panic!("rem 은 숫자가 필요함 (rem requires numbers)")
 //!         }
 //!     })
 //!     .controller(vec![
@@ -63,26 +66,27 @@ use std::collections::HashMap;
 use std::fmt;
 
 // ============================================================================
-// Value Type
+// 값 타입 (Value Type)
 // ============================================================================
 
-/// Values that can be stored in registers or on the stack
+/// 레지스터나 스택에 저장될 수 있는 값
+/// (Values that can be stored in registers or on the stack)
 #[derive(Debug, Clone, PartialEq)]
 pub enum Value {
-    /// Unassigned register value
+    /// 미할당 레지스터 값 (Unassigned register value)
     Unassigned,
-    /// Integer number
+    /// 정수 (Integer number)
     Number(i64),
-    /// Boolean value (for test results)
+    /// 불리언 값 (test 결과용) (Boolean value (for test results))
     Bool(bool),
-    /// Instruction pointer (for label values)
+    /// 명령 포인터 (라벨 값용) (Instruction pointer (for label values))
     InstructionPointer(usize),
 }
 
 impl fmt::Display for Value {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         match self {
-            Value::Unassigned => write!(f, "*unassigned*"),
+            Value::Unassigned => write!(f, "*미할당 (unassigned)*"),
             Value::Number(n) => write!(f, "{}", n),
             Value::Bool(b) => write!(f, "{}", b),
             Value::InstructionPointer(ip) => write!(f, "@{}", ip),
@@ -91,7 +95,8 @@ impl fmt::Display for Value {
 }
 
 impl Value {
-    /// Convert value to boolean for branching
+    /// 분기용으로 값을 불리언으로 변환
+    /// (Convert value to boolean for branching)
     pub fn as_bool(&self) -> bool {
         match self {
             Value::Bool(b) => *b,
@@ -101,20 +106,21 @@ impl Value {
         }
     }
 
-    /// Extract number or panic
+    /// 숫자를 추출하거나 패닉 (Extract number or panic)
     pub fn as_number(&self) -> i64 {
         match self {
             Value::Number(n) => *n,
-            _ => panic!("Expected number, got {:?}", self),
+            _ => panic!("숫자를 기대했지만 {:?}를 받음 (Expected number, got {:?})", self, self),
         }
     }
 }
 
 // ============================================================================
-// Stack with Performance Monitoring
+// 성능 모니터링이 있는 스택 (Stack with Performance Monitoring)
 // ============================================================================
 
-/// Stack that tracks performance statistics
+/// 성능 통계를 추적하는 스택
+/// (Stack that tracks performance statistics)
 #[derive(Debug)]
 pub struct Stack {
     data: Vec<Value>,
@@ -123,7 +129,7 @@ pub struct Stack {
 }
 
 impl Stack {
-    /// Create a new empty stack
+    /// 새 빈 스택 생성 (Create a new empty stack)
     pub fn new() -> Self {
         Stack {
             data: Vec::new(),
@@ -132,7 +138,7 @@ impl Stack {
         }
     }
 
-    /// Push a value onto the stack
+    /// 스택에 값 푸시 (Push a value onto the stack)
     pub fn push(&mut self, value: Value) {
         self.data.push(value);
         self.pushes += 1;
@@ -141,39 +147,40 @@ impl Stack {
         }
     }
 
-    /// Pop a value from the stack
+    /// 스택에서 값 팝 (Pop a value from the stack)
     pub fn pop(&mut self) -> Value {
-        self.data.pop().expect("Empty stack: POP")
+        self.data.pop().expect("빈 스택: POP (Empty stack: POP)")
     }
 
-    /// Check if stack is empty
+    /// 스택이 비었는지 확인 (Check if stack is empty)
     pub fn is_empty(&self) -> bool {
         self.data.is_empty()
     }
 
-    /// Get current depth
+    /// 현재 깊이 반환 (Get current depth)
     pub fn depth(&self) -> usize {
         self.data.len()
     }
 
-    /// Initialize stack (clear and reset statistics)
+    /// 스택 초기화 (clear 및 통계 리셋)
+    /// (Initialize stack (clear and reset statistics))
     pub fn initialize(&mut self) {
         self.data.clear();
         self.pushes = 0;
         self.max_depth = 0;
     }
 
-    /// Get total number of pushes
+    /// 총 push 횟수 반환 (Get total number of pushes)
     pub fn total_pushes(&self) -> usize {
         self.pushes
     }
 
-    /// Get maximum depth reached
+    /// 최대 깊이 반환 (Get maximum depth reached)
     pub fn maximum_depth(&self) -> usize {
         self.max_depth
     }
 
-    /// Print stack statistics
+    /// 스택 통계 출력 (Print stack statistics)
     pub fn print_statistics(&self) {
         println!(
             "(total-pushes = {} maximum-depth = {})",
@@ -189,23 +196,23 @@ impl Default for Stack {
 }
 
 // ============================================================================
-// Value Expressions (before resolution)
+// 값 표현식 (해석 전) (Value Expressions (before resolution))
 // ============================================================================
 
-/// Value expression (unresolved)
+/// 값 표현식 (해석 전) (Value expression (unresolved))
 #[derive(Debug, Clone, PartialEq)]
 pub enum VExp {
-    /// Constant value
+    /// 상수 값 (Constant value)
     Const(Value),
-    /// Register reference
+    /// 레지스터 참조 (Register reference)
     Reg(String),
-    /// Label reference
+    /// 라벨 참조 (Label reference)
     Label(String),
-    /// Operation application
+    /// 연산 적용 (Operation application)
     Op(OpExp),
 }
 
-/// Operation expression
+/// 연산 표현식 (Operation expression)
 #[derive(Debug, Clone, PartialEq)]
 pub struct OpExp {
     pub op_name: String,
@@ -222,48 +229,50 @@ impl OpExp {
 }
 
 // ============================================================================
-// Resolved Value Expressions
+// 해석된 값 표현식 (Resolved Value Expressions)
 // ============================================================================
 
-/// Resolved value expression (after assembly)
+/// 해석된 값 표현식 (어셈블 후)
+/// (Resolved value expression (after assembly))
 #[derive(Debug, Clone)]
 enum ResolvedVExp {
-    /// Constant value
+    /// 상수 값 (Constant value)
     Const(Value),
-    /// Register index
+    /// 레지스터 인덱스 (Register index)
     Reg(usize),
-    /// Label (instruction pointer)
+    /// 라벨 (명령 포인터) (Label (instruction pointer))
     Label(usize),
-    /// Operation with resolved operands
+    /// 해석된 피연산자를 가진 연산
+    /// (Operation with resolved operands)
     Op(String, Vec<ResolvedVExp>),
 }
 
 // ============================================================================
-// Instructions (before resolution)
+// 명령 (해석 전) (Instructions (before resolution))
 // ============================================================================
 
-/// Instruction text (before assembly)
+/// 명령 텍스트 (어셈블 전) (Instruction text (before assembly))
 #[derive(Debug, Clone, PartialEq)]
 pub enum Inst {
-    /// Label marker
+    /// 라벨 마커 (Label marker)
     Label(String),
-    /// Assign value to register
+    /// 레지스터에 값 할당 (Assign value to register)
     Assign(String, VExp),
-    /// Test condition and set flag
+    /// 조건 테스트 후 플래그 설정 (Test condition and set flag)
     Test(OpExp),
-    /// Branch if flag is true
+    /// 플래그가 true면 분기 (Branch if flag is true)
     Branch(String),
-    /// Goto label or register
+    /// 라벨 또는 레지스터로 goto (Goto label or register)
     Goto(GotoDest),
-    /// Save register to stack
+    /// 레지스터를 스택에 저장 (Save register to stack)
     Save(String),
-    /// Restore register from stack
+    /// 스택에서 레지스터 복원 (Restore register from stack)
     Restore(String),
-    /// Perform operation (for side effects)
+    /// 연산 수행 (부수 효과용) (Perform operation (for side effects))
     Perform(OpExp),
 }
 
-/// Goto destination
+/// Goto 대상 (Goto destination)
 #[derive(Debug, Clone, PartialEq)]
 pub enum GotoDest {
     Label(String),
@@ -271,28 +280,28 @@ pub enum GotoDest {
 }
 
 // ============================================================================
-// Resolved Instructions
+// 해석된 명령 (Resolved Instructions)
 // ============================================================================
 
-/// Resolved instruction (after assembly)
+/// 해석된 명령 (어셈블 후) (Resolved instruction (after assembly))
 #[derive(Debug, Clone)]
 enum ResolvedInst {
-    /// Assign value to register
+    /// 레지스터에 값 할당 (Assign value to register)
     Assign {
         target_reg: usize,
         value: ResolvedVExp,
     },
-    /// Test condition and set flag
+    /// 조건 테스트 후 플래그 설정 (Test condition and set flag)
     Test { condition: ResolvedVExp },
-    /// Branch if flag is true
+    /// 플래그가 true면 분기 (Branch if flag is true)
     Branch { destination: usize },
-    /// Goto destination
+    /// goto 대상 (Goto destination)
     Goto { destination: GotoDestResolved },
-    /// Save register to stack
+    /// 레지스터를 스택에 저장 (Save register to stack)
     Save { reg: usize },
-    /// Restore register from stack
+    /// 스택에서 레지스터 복원 (Restore register from stack)
     Restore { reg: usize },
-    /// Perform operation
+    /// 연산 수행 (Perform operation)
     Perform { action: ResolvedVExp },
 }
 
@@ -303,41 +312,45 @@ enum GotoDestResolved {
 }
 
 // ============================================================================
-// Machine
+// 기계 (Machine)
 // ============================================================================
 
-/// Operation function type
+/// 연산 함수 타입 (Operation function type)
 pub type OpFn = Box<dyn Fn(&[Value]) -> Value>;
 
-/// Register machine
+/// 레지스터 기계 (Register machine)
 pub struct Machine {
-    /// Register storage (indexed by register index)
+    /// 레지스터 저장소 (레지스터 인덱스로 접근)
+    /// (Register storage (indexed by register index))
     registers: Vec<Value>,
-    /// Register name to index mapping
+    /// 레지스터 이름 -> 인덱스 매핑
+    /// (Register name to index mapping)
     register_map: HashMap<String, usize>,
-    /// Stack
+    /// 스택 (Stack)
     stack: Stack,
-    /// Program counter (index into instructions)
+    /// 프로그램 카운터 (명령 인덱스)
+    /// (Program counter (index into instructions))
     pc: usize,
-    /// Flag register (for test/branch)
+    /// 플래그 레지스터 (test/branch용)
+    /// (Flag register (for test/branch))
     flag: bool,
-    /// Instruction sequence
+    /// 명령 시퀀스 (Instruction sequence)
     instructions: Vec<ResolvedInst>,
-    /// Operations table
+    /// 연산 테이블 (Operations table)
     operations: HashMap<String, OpFn>,
-    /// Instruction count
+    /// 명령 카운트 (Instruction count)
     instruction_count: usize,
 }
 
 impl Machine {
-    /// Execute the machine starting from the beginning
+    /// 처음부터 기계 실행 (Execute the machine starting from the beginning)
     pub fn start(&mut self) {
         self.pc = 0;
         self.instruction_count = 0;
         self.execute();
     }
 
-    /// Execute instructions until done
+    /// 완료될 때까지 명령 실행 (Execute instructions until done)
     fn execute(&mut self) {
         while self.pc < self.instructions.len() {
             self.instruction_count += 1;
@@ -346,7 +359,7 @@ impl Machine {
         }
     }
 
-    /// Execute a single instruction
+    /// 단일 명령 실행 (Execute a single instruction)
     fn execute_instruction(&mut self, inst: ResolvedInst) {
         match inst {
             ResolvedInst::Assign { target_reg, value } => {
@@ -374,7 +387,7 @@ impl Machine {
                     if let Value::InstructionPointer(ip) = self.registers[reg] {
                         self.pc = ip;
                     } else {
-                        panic!("Goto register must contain instruction pointer");
+                        panic!("Goto 레지스터에는 명령 포인터가 있어야 함 (Goto register must contain instruction pointer)");
                     }
                 }
             },
@@ -395,7 +408,8 @@ impl Machine {
         }
     }
 
-    /// Evaluate a resolved value expression
+    /// 해석된 값 표현식을 평가
+    /// (Evaluate a resolved value expression)
     fn eval_value_exp(&self, exp: &ResolvedVExp) -> Value {
         match exp {
             ResolvedVExp::Const(v) => v.clone(),
@@ -406,74 +420,78 @@ impl Machine {
                 let op = self
                     .operations
                     .get(op_name)
-                    .unwrap_or_else(|| panic!("Unknown operation: {}", op_name));
+                    .unwrap_or_else(|| panic!("알 수 없는 연산 (Unknown operation): {}", op_name));
                 op(&args)
             }
         }
     }
 
-    /// Get register value by name
+    /// 이름으로 레지스터 값 가져오기 (Get register value by name)
     pub fn get_register(&self, name: &str) -> Value {
         let idx = self
             .register_map
             .get(name)
-            .unwrap_or_else(|| panic!("Unknown register: {}", name));
+            .unwrap_or_else(|| panic!("알 수 없는 레지스터 (Unknown register): {}", name));
         self.registers[*idx].clone()
     }
 
-    /// Set register value by name
+    /// 이름으로 레지스터 값 설정 (Set register value by name)
     pub fn set_register(&mut self, name: &str, value: Value) {
         let idx = self
             .register_map
             .get(name)
-            .unwrap_or_else(|| panic!("Unknown register: {}", name));
+            .unwrap_or_else(|| panic!("알 수 없는 레지스터 (Unknown register): {}", name));
         self.registers[*idx] = value;
     }
 
-    /// Get stack statistics
+    /// 스택 통계 가져오기 (Get stack statistics)
     pub fn stack_statistics(&self) -> (usize, usize) {
         (self.stack.total_pushes(), self.stack.maximum_depth())
     }
 
-    /// Print stack statistics
+    /// 스택 통계 출력 (Print stack statistics)
     pub fn print_stack_statistics(&self) {
         self.stack.print_statistics();
     }
 
-    /// Get instruction count
+    /// 명령 카운트 반환 (Get instruction count)
     pub fn instruction_count(&self) -> usize {
         self.instruction_count
     }
 
-    /// Reset instruction count
+    /// 명령 카운트 리셋 (Reset instruction count)
     pub fn reset_instruction_count(&mut self) {
         self.instruction_count = 0;
     }
 
-    /// Initialize stack
+    /// 스택 초기화 (Initialize stack)
     pub fn initialize_stack(&mut self) {
         self.stack.initialize();
     }
 }
 
 // ============================================================================
-// Assembler
+// 어셈블러 (Assembler)
 // ============================================================================
 
-/// Assemble controller text into executable instructions
+/// 컨트롤러 텍스트를 실행 가능한 명령으로 어셈블
+/// (Assemble controller text into executable instructions)
 fn assemble(
     controller: Vec<Inst>,
     register_map: &HashMap<String, usize>,
     operations: &HashMap<String, OpFn>,
 ) -> Vec<ResolvedInst> {
-    // Pass 1: Extract labels and build instruction list
+    // 1단계: 라벨 추출 및 명령 리스트 구축
+    // (Pass 1: Extract labels and build instruction list)
     let (insts, labels) = extract_labels(controller);
 
-    // Pass 2: Resolve all references and create execution procedures
+    // 2단계: 모든 참조를 해석하고 실행 절차 생성
+    // (Pass 2: Resolve all references and create execution procedures)
     update_insts(insts, &labels, register_map, operations)
 }
 
-/// Extract labels from controller text
+/// 컨트롤러 텍스트에서 라벨 추출
+/// (Extract labels from controller text)
 fn extract_labels(text: Vec<Inst>) -> (Vec<Inst>, HashMap<String, usize>) {
     let mut instructions = Vec::new();
     let mut labels = HashMap::new();
@@ -482,7 +500,7 @@ fn extract_labels(text: Vec<Inst>) -> (Vec<Inst>, HashMap<String, usize>) {
         match inst {
             Inst::Label(name) => {
                 if labels.contains_key(&name) {
-                    panic!("Multiply defined label: {}", name);
+                    panic!("중복 정의된 라벨 (Multiply defined label): {}", name);
                 }
                 labels.insert(name, instructions.len());
             }
@@ -495,7 +513,8 @@ fn extract_labels(text: Vec<Inst>) -> (Vec<Inst>, HashMap<String, usize>) {
     (instructions, labels)
 }
 
-/// Update instructions with resolved references
+/// 해석된 참조로 명령 갱신
+/// (Update instructions with resolved references)
 fn update_insts(
     insts: Vec<Inst>,
     labels: &HashMap<String, usize>,
@@ -508,7 +527,7 @@ fn update_insts(
         .collect()
 }
 
-/// Resolve a single instruction
+/// 단일 명령 해석 (Resolve a single instruction)
 fn resolve_instruction(
     inst: Inst,
     labels: &HashMap<String, usize>,
@@ -518,7 +537,7 @@ fn resolve_instruction(
         Inst::Assign(reg_name, value_exp) => {
             let target_reg = *register_map
                 .get(&reg_name)
-                .unwrap_or_else(|| panic!("Unknown register: {}", reg_name));
+                .unwrap_or_else(|| panic!("알 수 없는 레지스터 (Unknown register): {}", reg_name));
             let value = resolve_value_exp(value_exp, labels, register_map);
             ResolvedInst::Assign { target_reg, value }
         }
@@ -529,7 +548,7 @@ fn resolve_instruction(
         Inst::Branch(label_name) => {
             let destination = *labels
                 .get(&label_name)
-                .unwrap_or_else(|| panic!("Undefined label: {}", label_name));
+                .unwrap_or_else(|| panic!("정의되지 않은 라벨 (Undefined label): {}", label_name));
             ResolvedInst::Branch { destination }
         }
         Inst::Goto(dest) => {
@@ -537,13 +556,13 @@ fn resolve_instruction(
                 GotoDest::Label(label_name) => {
                     let ip = *labels
                         .get(&label_name)
-                        .unwrap_or_else(|| panic!("Undefined label: {}", label_name));
+                        .unwrap_or_else(|| panic!("정의되지 않은 라벨 (Undefined label): {}", label_name));
                     GotoDestResolved::Label(ip)
                 }
                 GotoDest::Reg(reg_name) => {
                     let idx = *register_map
                         .get(&reg_name)
-                        .unwrap_or_else(|| panic!("Unknown register: {}", reg_name));
+                        .unwrap_or_else(|| panic!("알 수 없는 레지스터 (Unknown register): {}", reg_name));
                     GotoDestResolved::Reg(idx)
                 }
             };
@@ -552,13 +571,13 @@ fn resolve_instruction(
         Inst::Save(reg_name) => {
             let reg = *register_map
                 .get(&reg_name)
-                .unwrap_or_else(|| panic!("Unknown register: {}", reg_name));
+                .unwrap_or_else(|| panic!("알 수 없는 레지스터 (Unknown register): {}", reg_name));
             ResolvedInst::Save { reg }
         }
         Inst::Restore(reg_name) => {
             let reg = *register_map
                 .get(&reg_name)
-                .unwrap_or_else(|| panic!("Unknown register: {}", reg_name));
+                .unwrap_or_else(|| panic!("알 수 없는 레지스터 (Unknown register): {}", reg_name));
             ResolvedInst::Restore { reg }
         }
         Inst::Perform(op_exp) => {
@@ -569,7 +588,7 @@ fn resolve_instruction(
     }
 }
 
-/// Resolve a value expression
+/// 값 표현식 해석 (Resolve a value expression)
 fn resolve_value_exp(
     exp: VExp,
     labels: &HashMap<String, usize>,
@@ -580,20 +599,20 @@ fn resolve_value_exp(
         VExp::Reg(name) => {
             let idx = *register_map
                 .get(&name)
-                .unwrap_or_else(|| panic!("Unknown register: {}", name));
+                .unwrap_or_else(|| panic!("알 수 없는 레지스터 (Unknown register): {}", name));
             ResolvedVExp::Reg(idx)
         }
         VExp::Label(name) => {
             let ip = *labels
                 .get(&name)
-                .unwrap_or_else(|| panic!("Undefined label: {}", name));
+                .unwrap_or_else(|| panic!("정의되지 않은 라벨 (Undefined label): {}", name));
             ResolvedVExp::Label(ip)
         }
         VExp::Op(op_exp) => resolve_op_exp(op_exp, labels, register_map),
     }
 }
 
-/// Resolve an operation expression
+/// 연산 표현식 해석 (Resolve an operation expression)
 fn resolve_op_exp(
     op_exp: OpExp,
     labels: &HashMap<String, usize>,
@@ -608,10 +627,10 @@ fn resolve_op_exp(
 }
 
 // ============================================================================
-// Machine Builder
+// 기계 빌더 (Machine Builder)
 // ============================================================================
 
-/// Builder for constructing machines
+/// 기계 구축용 빌더 (Builder for constructing machines)
 pub struct MachineBuilder {
     register_names: Vec<String>,
     operations: HashMap<String, OpFn>,
@@ -619,7 +638,7 @@ pub struct MachineBuilder {
 }
 
 impl MachineBuilder {
-    /// Create a new machine builder
+    /// 새 기계 빌더 생성 (Create a new machine builder)
     pub fn new() -> Self {
         MachineBuilder {
             register_names: vec!["pc".to_string(), "flag".to_string()],
@@ -628,13 +647,13 @@ impl MachineBuilder {
         }
     }
 
-    /// Add a register
+    /// 레지스터 추가 (Add a register)
     pub fn register(mut self, name: &str) -> Self {
         self.register_names.push(name.to_string());
         self
     }
 
-    /// Add an operation
+    /// 연산 추가 (Add an operation)
     pub fn operation<F>(mut self, name: &str, op: F) -> Self
     where
         F: Fn(&[Value]) -> Value + 'static,
@@ -643,33 +662,35 @@ impl MachineBuilder {
         self
     }
 
-    /// Set controller
+    /// 컨트롤러 설정 (Set controller)
     pub fn controller(mut self, controller: Vec<Inst>) -> Self {
         self.controller = Some(controller);
         self
     }
 
-    /// Build the machine
+    /// 기계 생성 (Build the machine)
     pub fn build(self) -> Machine {
-        let controller = self.controller.expect("Controller not set");
+        let controller = self
+            .controller
+            .expect("컨트롤러가 설정되지 않음 (Controller not set)");
 
-        // Build register map
+        // 레지스터 맵 구축 (Build register map)
         let mut register_map = HashMap::new();
         for (idx, name) in self.register_names.iter().enumerate() {
             register_map.insert(name.clone(), idx);
         }
 
-        // Initialize registers
+        // 레지스터 초기화 (Initialize registers)
         let registers = vec![Value::Unassigned; self.register_names.len()];
 
-        // Add built-in operations
+        // 내장 연산 추가 (Add built-in operations)
         let mut operations = self.operations;
         operations.insert(
             "initialize-stack".to_string(),
             Box::new(|_| Value::Unassigned),
         );
 
-        // Assemble instructions
+        // 명령 어셈블 (Assemble instructions)
         let instructions = assemble(controller, &register_map, &operations);
 
         Machine {
@@ -692,10 +713,11 @@ impl Default for MachineBuilder {
 }
 
 // ============================================================================
-// Convenience Functions
+// 편의 함수 (Convenience Functions)
 // ============================================================================
 
-/// Create a machine with the given specification
+/// 주어진 명세로 기계를 생성
+/// (Create a machine with the given specification)
 pub fn make_machine(
     register_names: &[&str],
     operations: Vec<(&str, OpFn)>,
@@ -736,7 +758,7 @@ mod tests {
         assert_eq!(stack.depth(), 1);
 
         stack.push(Value::Number(4));
-        assert_eq!(stack.maximum_depth(), 3); // Max remains 3
+        assert_eq!(stack.maximum_depth(), 3); // 최대값은 3 유지 (Max remains 3)
 
         stack.initialize();
         assert!(stack.is_empty());
@@ -755,7 +777,7 @@ mod tests {
                 if let (Value::Number(a), Value::Number(b)) = (&args[0], &args[1]) {
                     Value::Number(a % b)
                 } else {
-                    panic!("rem requires numbers")
+                    panic!("rem 은 숫자가 필요함 (rem requires numbers)")
                 }
             })
             .controller(vec![
@@ -840,13 +862,14 @@ mod tests {
             ])
             .build();
 
-        // Test factorial of 5
+        // 5! 테스트 (Test factorial of 5)
         machine.set_register("n", Value::Number(5));
         machine.start();
         assert_eq!(machine.get_register("val"), Value::Number(120));
 
         let (pushes, max_depth) = machine.stack_statistics();
-        // For n=5: pushes should be 2*(n-1) = 8, max_depth should be 2*(n-1) = 8
+        // n=5: pushes는 2*(n-1)=8, max_depth도 2*(n-1)=8
+        // (For n=5: pushes should be 2*(n-1) = 8, max_depth should be 2*(n-1) = 8)
         assert_eq!(pushes, 8);
         assert_eq!(max_depth, 8);
     }
@@ -921,21 +944,21 @@ mod tests {
             ])
             .build();
 
-        // Test fibonacci of 5 (should be 5)
+        // 피보나치 5 테스트 (결과 5) (Test fibonacci of 5 (should be 5))
         machine.set_register("n", Value::Number(5));
         machine.start();
         assert_eq!(machine.get_register("val"), Value::Number(5));
     }
 
     #[test]
-    #[should_panic(expected = "Multiply defined label")]
+    #[should_panic(expected = "중복 정의된 라벨 (Multiply defined label)")]
     fn test_duplicate_label_detection() {
         MachineBuilder::new()
             .register("a")
             .controller(vec![
                 Inst::Label("start".to_string()),
                 Inst::Assign("a".to_string(), VExp::Const(Value::Number(3))),
-                Inst::Label("start".to_string()), // Duplicate!
+                Inst::Label("start".to_string()), // 중복! (Duplicate!)
             ])
             .build();
     }

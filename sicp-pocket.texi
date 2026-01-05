@@ -1,107 +1,162 @@
 \input texinfo
-@comment  To crop page margins:
-@comment  @input marginless
+@comment  페이지 여백을 자르려면 (To crop page margins):
+@comment  @input marginless  (marginless 입력)
 @comment
 @comment             **********************************************************
 @setfilename         html
 @settitle            컴퓨터 프로그램의 구조와 해석, 제2판
 @documentlanguage    ko
-@comment             Unofficial Texinfo Format
+@comment             비공식 텍스인포 형식 (Unofficial Texinfo Format)
 @comment
 @set utfversion      2.andresraba6.6
 @set utfversiondate  September 16, 2015
 @comment
-@comment             This file is licensed under a Creative Commons
-@comment             Attribution-ShareAlike 4.0 International License
+@comment             이 파일은 크리에이티브 커먼즈
+@comment             저작자표시-동일조건변경허락 4.0 국제 라이선스로 제공됨
+@comment             (This file is licensed under a Creative Commons
+@comment             Attribution-ShareAlike 4.0 International License)
 @comment             http://creativecommons.org/licenses/by-sa/4.0/
 @comment             
-@comment             This is a Texinfo file.  To convert it to Info hypertext
+@comment             이 파일은 Texinfo 파일이다. Info 하이퍼텍스트 형식으로
+@comment             변환하려면 GNU Texinfo 패키지의 `makeinfo' 프로그램이 필요하다.
+@comment             PDF를 만들려면 texi2pdf를 사용한다.
+@comment             이 파일에 대한 더 많은 정보는
+@comment             아래 `@node UTF' 항목의 텍스트를 참조하라.
+@comment             (This is a Texinfo file.  To convert it to Info hypertext
 @comment             format, you will need the `makeinfo' program from the GNU
 @comment             Texinfo package.  To produce a PDF, use texi2pdf.
 @comment             For more information about this file,
-@comment             see the text under `@node UTF' below.
+@comment             see the text under `@node UTF' below.)
 @comment             
-@comment             Various versions of sicp.texi and preformatted sicp.info
-@comment             can be found at the following Web pages:
+@comment             다양한 sicp.texi 버전과 사전 생성된 sicp.info는
+@comment             다음 웹페이지에서 찾을 수 있다:
+@comment             (Various versions of sicp.texi and preformatted sicp.info
+@comment             can be found at the following Web pages:)
 @comment             
 @comment                 http://www.neilvandyke.org/sicp-texi/
 @comment                 http://sicpebook.wordpress.com/
-@comment                 [add your own here]
+@comment                 [여기에 추가] ([add your own here])
 @comment             
 @comment             **********************************************************
 
-@comment HISTORY:
+@comment 변경 이력 (HISTORY):
 @comment
-@comment * Version 1 (April, 2001) by Lytha Ayth.
+@comment * 버전 1 (2001년 4월) - Lytha Ayth. (Version 1 (April, 2001) by Lytha Ayth.)
 @comment
-@comment * Version 2 (April 20, 2001) by Lytha Ayth.
+@comment * 버전 2 (2001년 4월 20일) - Lytha Ayth. (Version 2 (April 20, 2001) by Lytha Ayth.)
 @comment
-@comment * Version 2.nwv1 (March 11, 2002) by Neil W. Van Dyke.
-@comment   Cosmetic change to heading in Info format, and comment changes.
+@comment * 버전 2.nwv1 (2002년 3월 11일) - Neil W. Van Dyke.
+@comment   Info 형식 머리말의 외형 변경 및 주석 변경.
+@comment   (Version 2.nwv1 (March 11, 2002) by Neil W. Van Dyke.)
+@comment   (Cosmetic change to heading in Info format, and comment changes.)
 @comment 
-@comment * Version 2.neilvandyke1 (February 10, 2003) by Neil W. Van Dyke
-@comment   Correction to Exercise 1.39 formula, spotted by Steve VanDevender.
-@comment   Added URL of Abelson and Sussman video lectures.
+@comment * 버전 2.neilvandyke1 (2003년 2월 10일) - Neil W. Van Dyke
+@comment   연습문제 1.39의 공식 수정 (Steve VanDevender가 발견).
+@comment   Abelson과 Sussman 강의 영상 URL 추가.
+@comment   (Version 2.neilvandyke1 (February 10, 2003) by Neil W. Van Dyke)
+@comment   (Correction to Exercise 1.39 formula, spotted by Steve VanDevender.)
+@comment   (Added URL of Abelson and Sussman video lectures.)
 @comment
-@comment * Version 2.neilvandyke2 (unreleased)
+@comment * 버전 2.neilvandyke2 (미공개) (Version 2.neilvandyke2 (unreleased))
 @comment
-@comment * Version 2.neilvandyke3 (April 20, 2006) by Neil W. Van Dyke
-@comment   Pedro Kr@"oger patch to add missing Lisp example.
+@comment * 버전 2.neilvandyke3 (2006년 4월 20일) - Neil W. Van Dyke
+@comment   누락된 Lisp 예제를 추가하는 Pedro Kr@"oger 패치.
+@comment   (Version 2.neilvandyke3 (April 20, 2006) by Neil W. Van Dyke)
+@comment   (Pedro Kr@"oger patch to add missing Lisp example.)
 @comment
-@comment * Version 2.neilvandyke4 (January 10, 2007) by Neil W. Van Dyke
-@comment   Brad Walker patch to add @code{@@dircategory} and @code{@@direntry}.
+@comment * 버전 2.neilvandyke4 (2007년 1월 10일) - Neil W. Van Dyke
+@comment   @code{@@dircategory} 및 @code{@@direntry}를 추가하는 Brad Walker 패치.
+@comment   (Version 2.neilvandyke4 (January 10, 2007) by Neil W. Van Dyke)
+@comment   (Brad Walker patch to add @code{@@dircategory} and @code{@@direntry}.)
 @comment
-@comment * Version 2.andresraba1 (May 23, 2011) by Andres Raba.
-@comment   Mathematics typeset in TeX, figures redrawn in vector graphics,
+@comment * 버전 2.andresraba1 (2011년 5월 23일) - Andres Raba.
+@comment   수식 TeX 조판, 도형 벡터 그래픽 재작성,
+@comment   서체 변경, 교차 참조 개선, 하이퍼링크 추가,
+@comment   알려진 오류 및 오타 수정.
+@comment   (Version 2.andresraba1 (May 23, 2011) by Andres Raba.)
+@comment   (Mathematics typeset in TeX, figures redrawn in vector graphics,
 @comment   typeface changed, cross-references improved, hyperlinks added,
-@comment   known errors and typos corrected.
+@comment   known errors and typos corrected.)
 @comment
-@comment * Version 2.andresraba2 (November 21, 2011) by Andres Raba.
-@comment   Minor change to the appearance of diagrams. Adjusted page layout.
-@comment   Fixed some typos. License changed from CC BY-NC to CC BY-SA.
+@comment * 버전 2.andresraba2 (2011년 11월 21일) - Andres Raba.
+@comment   도표 모양 소폭 변경, 페이지 레이아웃 조정.
+@comment   일부 오타 수정. 라이선스 CC BY-NC에서 CC BY-SA로 변경.
+@comment   (Version 2.andresraba2 (November 21, 2011) by Andres Raba.)
+@comment   (Minor change to the appearance of diagrams. Adjusted page layout.
+@comment   Fixed some typos. License changed from CC BY-NC to CC BY-SA.)
 @comment
-@comment * Version 2.gavrie1 (November 21, 2011) by Gavrie Philipson.
-@comment   Added @kindle (defined in texinfo.tex), and removed page numbers.
-@comment   Page layout and text size adapted to Kindle-like devices.
+@comment * 버전 2.gavrie1 (2011년 11월 21일) - Gavrie Philipson.
+@comment   @kindle 추가(texinfo.tex에 정의) 및 페이지 번호 제거.
+@comment   페이지 레이아웃과 텍스트 크기를 킨들형 기기에 맞춤.
+@comment   (Version 2.gavrie1 (November 21, 2011) by Gavrie Philipson.)
+@comment   (Added @kindle (defined in texinfo.tex), and removed page numbers.
+@comment   Page layout and text size adapted to Kindle-like devices.)
 @comment
-@comment * Version 2.araba1p-a2.1 (March 19, 2012) by Andres Raba.
-@comment   Two chapters reformatted to pocket format. Page geometry
-@comment   defined by @pocket (previously @kindle) in texinfo.tex.
+@comment * 버전 2.araba1p-a2.1 (2012년 3월 19일) - Andres Raba.
+@comment   두 장을 포켓 형식으로 재서식화. 페이지 지오메트리는
+@comment   texinfo.tex의 @pocket(이전 @kindle)로 정의됨.
+@comment   (Version 2.araba1p-a2.1 (March 19, 2012) by Andres Raba.)
+@comment   (Two chapters reformatted to pocket format. Page geometry
+@comment   defined by @pocket (previously @kindle) in texinfo.tex.)
 @comment
-@comment * Version 2.andresraba4 (November 23, 2012) by Andres Raba.
-@comment   Conversion to pocket format completed. The whole book 
-@comment   is now typeset to be read on 6-inch e-reader screen (PDF).
+@comment * 버전 2.andresraba4 (2012년 11월 23일) - Andres Raba.
+@comment   포켓 형식 변환 완료. 전체 책이 6인치 전자책 화면(PDF)에서
+@comment   읽히도록 조판됨.
+@comment   (Version 2.andresraba4 (November 23, 2012) by Andres Raba.)
+@comment   (Conversion to pocket format completed. The whole book 
+@comment   is now typeset to be read on 6-inch e-reader screen (PDF).)
 @comment
-@comment * (Version 2.andresraba5 is the LaTeX version, described in
+@comment * (버전 2.andresraba5는 LaTeX 버전이며 sicp-pdf 저장소에 설명됨.)
+@comment   (Version 2.andresraba5 is the LaTeX version, described in
 @comment   sicp-pdf repository.)
 @comment
-@comment * Version 2.andresraba6 (January 7, 2014) by Andres Raba.
-@comment   Book converted to HTML5 and EPUB3. Mathematics is typeset 
-@comment   with MathML and MathJax.
+@comment * 버전 2.andresraba6 (2014년 1월 7일) - Andres Raba.
+@comment   책을 HTML5와 EPUB3로 변환. 수식은 MathML과 MathJax로 조판.
+@comment   (Version 2.andresraba6 (January 7, 2014) by Andres Raba.)
+@comment   (Book converted to HTML5 and EPUB3. Mathematics is typeset 
+@comment   with MathML and MathJax.)
 @comment
-@comment * Version 2.andresraba6.1 (February 15, 2014) by Andres Raba.
-@comment   Raised the splitting threshold from subsection to section.
+@comment * 버전 2.andresraba6.1 (2014년 2월 15일) - Andres Raba.
+@comment   분할 임계값을 subsection에서 section으로 상향.
+@comment   (Version 2.andresraba6.1 (February 15, 2014) by Andres Raba.)
+@comment   (Raised the splitting threshold from subsection to section.)
 @comment
-@comment * Version 2.andresraba6.2 (February 23, 2014) by Andres Raba.
-@comment   Fixed the SVG files to pass epubcheck validation.
+@comment * 버전 2.andresraba6.2 (2014년 2월 23일) - Andres Raba.
+@comment   epubcheck 검증을 통과하도록 SVG 파일 수정.
+@comment   (Version 2.andresraba6.2 (February 23, 2014) by Andres Raba.)
+@comment   (Fixed the SVG files to pass epubcheck validation.)
 @comment
-@comment * Version 2.andresraba6.3 (June 9, 2014) by Andres Raba.
-@comment   Improved the pretty-printing of some Scheme code.
-@comment   Decreased the default font size of epub from 170% to 100%.
+@comment * 버전 2.andresraba6.3 (2014년 6월 9일) - Andres Raba.
+@comment   일부 Scheme 코드의 보기 좋은 출력 개선.
+@comment   epub 기본 글꼴 크기를 170%에서 100%로 감소.
+@comment   (Version 2.andresraba6.3 (June 9, 2014) by Andres Raba.)
+@comment   (Improved the pretty-printing of some Scheme code.
+@comment   Decreased the default font size of epub from 170% to 100%.)
 @comment
-@comment * Version 2.andresraba6.4 (June 24, 2014) by Andres Raba.
-@comment   Switched on hyphenation for all viewports, made text column
+@comment * 버전 2.andresraba6.4 (2014년 6월 24일) - Andres Raba.
+@comment   모든 뷰포트에서 하이픈 분할 사용, 텍스트 열 폭 확대,
+@comment   일부 Scheme 코드 재배치, Mathjax 프로토콜을
+@comment   http에서 https로 변경.
+@comment   (Version 2.andresraba6.4 (June 24, 2014) by Andres Raba.)
+@comment   (Switched on hyphenation for all viewports, made text column
 @comment   wider, re-arranged some Scheme code, changed Mathjax
-@comment   protocol from http to https.
+@comment   protocol from http to https.)
 @comment
-@comment * Version 2.andresraba6.5 (January 29, 2015) by Andres Raba.
-@comment   Added noncommercial clause to license, fixed broken links,
+@comment * 버전 2.andresraba6.5 (2015년 1월 29일) - Andres Raba.
+@comment   라이선스에 비상업 조항 추가, 끊어진 링크 수정,
+@comment   전체 텍스트 링크 추가, MathML의 고정폭 글꼴을 로만체로 교체
+@comment   (Android 렌더링 버그), 수식 타이포그래피 조정.
+@comment   (Version 2.andresraba6.5 (January 29, 2015) by Andres Raba.)
+@comment   (Added noncommercial clause to license, fixed broken links,
 @comment   added more fulltext links, replaced monospace with roman in
-@comment   MathML (Android rendering bug), adjusted math typography.
+@comment   MathML (Android rendering bug), adjusted math typography.)
 @comment
-@comment * Version 2.andresraba6.6 (September 16, 2015) by Andres Raba.
-@comment   Fixed broken links. Tinted chapter and section numbers.
-@comment   License updated to CC BY-SA 4.0.
+@comment * 버전 2.andresraba6.6 (2015년 9월 16일) - Andres Raba.
+@comment   끊어진 링크 수정. 장/절 번호에 색상 적용.
+@comment   라이선스를 CC BY-SA 4.0으로 업데이트.
+@comment   (Version 2.andresraba6.6 (September 16, 2015) by Andres Raba.)
+@comment   (Fixed broken links. Tinted chapter and section numbers.
+@comment   License updated to CC BY-SA 4.0.)
 
 @documentencoding UTF-8
 
@@ -128,7 +183,7 @@
 @page
 @vskip 0pt plus 1filll
 @noindent
-@copyright{}1996 by The Massachusetts Institute of Technology
+@copyright{}1996 매사추세츠 공과대학교 (The Massachusetts Institute of Technology)
 
 @noindent
 @image{fig/icons/cc, 6mm,,,.std.svg}
@@ -140,18 +195,18 @@
 @url{http://mitpress.mit.edu/sicp/, mitpress.mit.edu}의 저작물을 바탕으로 합니다.
 
 @noindent
-The @abbr{MIT} Press@*
-Cambridge, Massachusetts@* 
-London, England
+매사추세츠 공과대학교 출판부 (The @abbr{MIT} Press)@*
+케임브리지, 매사추세츠 (Cambridge, Massachusetts)@*
+런던, 잉글랜드 (London, England)
 
 @noindent
-McGraw-Hill Book Company@*
-New York, St. Louis, San Francisco,@*
-Montreal, Toronto
+맥그로힐 도서회사 (McGraw-Hill Book Company)@*
+뉴욕, 세인트루이스, 샌프란시스코 (New York, St. Louis, San Francisco)@*
+몬트리올, 토론토 (Montreal, Toronto)
 
 @noindent
-이 책은 매사추세츠 공과대학교(MIT) 전기공학 및 컴퓨터 과학과 교수진이 집필한 일련의 교재 중 하나입니다.
-McGraw-Hill Book Company와의 공동 제작 및 유통 협약에 따라 The @abbr{MIT} Press에서 편집 및 제작되었습니다.
+이 책은 매사추세츠 공과대학교(MIT) 전기공학 및 컴퓨터 과학과 (Department of Electrical Engineering and Computer Science) 교수진이 집필한 일련의 교재 중 하나입니다 (This book is one of a series of textbooks written by the faculty of the Department of Electrical Engineering and Computer Science at MIT).
+맥그로힐 도서회사 (McGraw-Hill Book Company)와의 공동 제작 및 유통 협약 (joint production and distribution agreement)에 따라 매사추세츠 공과대학교 출판부 (The @abbr{MIT} Press)에서 편집 및 제작되었습니다 (edited and manufactured).
 
 @noindent
 비공식 텍스인포 판 (Unofficial Texinfo Format) @url{http://sicpebook.wordpress.com, @value{utfversion}} (@value{utfversiondate}),
@@ -177,7 +232,7 @@ McGraw-Hill Book Company와의 공동 제작 및 유통 협약에 따라 The @ab
 제2판 (Second Edition)@*
 해럴드 에이벌슨, 제럴드 제이 서스먼 공저, 줄리 서스먼 기여@*
 앨런 J. 펄리스 서문@*
-@copyright{} 1996 Massachusetts Institute of Technology
+@copyright{} 1996 매사추세츠 공과대학교 (Massachusetts Institute of Technology)
 
 @noindent
 비공식 텍스인포 판 (Unofficial Texinfo Format) 버전 @value{utfversion} (@value{utfversiondate})
@@ -203,215 +258,215 @@ McGraw-Hill Book Company와의 공동 제작 및 유통 협약에 따라 The @ab
 * Colophon::         판권란
 
 @detailmenu
- --- 상세 노드 목록 ---
+ --- 상세 노드 목록 (Detailed Node Listing) ---
 
-Rust 프로그래밍
+Rust 프로그래밍 (Rust Programming)
 
-* 1.1::              프로그래밍의 요소
-* 1.2::              프로시저와 그들이 생성하는 프로세스
-* 1.3::              고차 프로시저를 이용한 추상화의 정식화
+* 1.1::              프로그래밍의 요소 (Elements of Programming)
+* 1.2::              프로시저와 그들이 생성하는 프로세스 (Procedures and the Processes They Generate)
+* 1.3::              고차 프로시저를 이용한 추상화의 정식화 (Formulating Abstractions with Higher-Order Procedures)
 
-프로그래밍의 요소
+프로그래밍의 요소 (Elements of Programming)
 
-* 1.1.1::            표현식
-* 1.1.2::            명명과 환경
-* 1.1.3::            조합의 평가
-* 1.1.4::            복합 프로시저
-* 1.1.5::            프로시저 적용의 치환 모델
-* 1.1.6::            조건식과 술어
-* 1.1.7::            예제: 뉴턴의 방법에 의한 제곱근
-* 1.1.8::            블랙박스 추상화로서의 프로시저
+* 1.1.1::            표현식 (Expressions)
+* 1.1.2::            명명과 환경 (Naming and the Environment)
+* 1.1.3::            조합의 평가 (The Evaluation of Combinations)
+* 1.1.4::            복합 프로시저 (Compound Procedures)
+* 1.1.5::            프로시저 적용의 치환 모델 (The Substitution Model for Procedure Application)
+* 1.1.6::            조건식과 술어 (Conditionals and Predicates)
+* 1.1.7::            예제: 뉴턴의 방법에 의한 제곱근 (Example: Square Roots by Newton's Method)
+* 1.1.8::            블랙박스 추상화로서의 프로시저 (Procedures as Black-Box Abstractions)
 
-프로시저와 그들이 생성하는 프로세스
+프로시저와 그들이 생성하는 프로세스 (Procedures and the Processes They Generate)
 
-* 1.2.1::            선형 재귀와 반복
-* 1.2.2::            트리 재귀
-* 1.2.3::            증가 차수
-* 1.2.4::            거듭제곱
-* 1.2.5::            최대공약수
-* 1.2.6::            예제: 소수성 판별
+* 1.2.1::            선형 재귀와 반복 (Linear Recursion and Iteration)
+* 1.2.2::            트리 재귀 (Tree Recursion)
+* 1.2.3::            증가 차수 (Orders of Growth)
+* 1.2.4::            거듭제곱 (Exponentiation)
+* 1.2.5::            최대공약수 (Greatest Common Divisors)
+* 1.2.6::            예제: 소수성 판별 (Example: Testing for Primality)
 
-고차 프로시저를 이용한 추상화의 정식화
+고차 프로시저를 이용한 추상화의 정식화 (Formulating Abstractions with Higher-Order Procedures)
 
-* 1.3.1::            인자로서의 프로시저
-* 1.3.2::            클로저를 이용한 프로시저 구축
-* 1.3.3::            일반적 방법으로서의 프로시저
-* 1.3.4::            반환값으로서의 프로시저
+* 1.3.1::            인자로서의 프로시저 (Procedures as Arguments)
+* 1.3.2::            클로저를 이용한 프로시저 구축 (Constructing Procedures Using Lambda)
+* 1.3.3::            일반적 방법으로서의 프로시저 (Procedures as General Methods)
+* 1.3.4::            반환값으로서의 프로시저 (Procedures as Returned Values)
 
-데이터를 이용한 추상화 구축
+데이터를 이용한 추상화 구축 (Building Abstractions with Data)
 
-* 2.1::              데이터 추상화 소개
-* 2.2::              계층적 데이터와 클로저 속성
-* 2.3::              기호 데이터
-* 2.4::              추상 데이터의 다중 표현
-* 2.5::              제네릭 연산을 사용하는 시스템
+* 2.1::              데이터 추상화 소개 (Introduction to Data Abstraction)
+* 2.2::              계층적 데이터와 클로저 속성 (Hierarchical Data and the Closure Property)
+* 2.3::              기호 데이터 (Symbolic Data)
+* 2.4::              추상 데이터의 다중 표현 (Multiple Representations for Abstract Data)
+* 2.5::              제네릭 연산을 사용하는 시스템 (Systems with Generic Operations)
 
-데이터 추상화 소개
+데이터 추상화 소개 (Introduction to Data Abstraction)
 
-* 2.1.1::            예제: 유리수 산술 연산
-* 2.1.2::            추상화 장벽
-* 2.1.3::            데이터란 무엇인가?
-* 2.1.4::            심화 연습 문제: 구간 산술
+* 2.1.1::            예제: 유리수 산술 연산 (Example: Arithmetic Operations for Rational Numbers)
+* 2.1.2::            추상화 장벽 (Abstraction Barriers)
+* 2.1.3::            데이터란 무엇인가? (What Is Meant by Data?)
+* 2.1.4::            심화 연습 문제: 구간 산술 (Extended Exercise: Interval Arithmetic)
 
-계층적 데이터와 클로저 속성
+계층적 데이터와 클로저 속성 (Hierarchical Data and the Closure Property)
 
-* 2.2.1::            시퀀스 표현
-* 2.2.2::            계층적 구조
-* 2.2.3::            관습적인 인터페이스로서의 시퀀스
-* 2.2.4::            예제: 그림 언어
+* 2.2.1::            시퀀스 표현 (Representing Sequences)
+* 2.2.2::            계층적 구조 (Hierarchical Structures)
+* 2.2.3::            관습적인 인터페이스로서의 시퀀스 (Sequences as Conventional Interfaces)
+* 2.2.4::            예제: 그림 언어 (Example: A Picture Language)
 
-기호 데이터
+기호 데이터 (Symbolic Data)
 
-* 2.3.1::            인용
-* 2.3.2::            예제: 기호 미분
-* 2.3.3::            예제: 집합 표현
-* 2.3.4::            예제: 허프만 인코딩 트리
+* 2.3.1::            인용 (Quotation)
+* 2.3.2::            예제: 기호 미분 (Example: Symbolic Differentiation)
+* 2.3.3::            예제: 집합 표현 (Example: Representing Sets)
+* 2.3.4::            예제: 허프만 인코딩 트리 (Example: Huffman Encoding Trees)
 
-추상 데이터의 다중 표현
+추상 데이터의 다중 표현 (Multiple Representations for Abstract Data)
 
-* 2.4.1::            복소수 표현
-* 2.4.2::            태그된 데이터
-* 2.4.3::            데이터 주도 프로그래밍과 가법성
+* 2.4.1::            복소수 표현 (Representations for Complex Numbers)
+* 2.4.2::            태그된 데이터 (Tagged Data)
+* 2.4.3::            데이터 주도 프로그래밍과 가법성 (Data-Directed Programming and Additivity)
 
-제네릭 연산을 사용하는 시스템
+제네릭 연산을 사용하는 시스템 (Systems with Generic Operations)
 
-* 2.5.1::            제네릭 산술 연산
-* 2.5.2::            서로 다른 타입의 데이터 결합
-* 2.5.3::            예제: 기호 대수
+* 2.5.1::            제네릭 산술 연산 (Generic Arithmetic Operations)
+* 2.5.2::            서로 다른 타입의 데이터 결합 (Combining Data of Different Types)
+* 2.5.3::            예제: 기호 대수 (Example: Symbolic Algebra)
 
-모듈성, 객체, 그리고 상태
+모듈성, 객체, 그리고 상태 (Modularity, Objects, and State)
 
-* 3.1::              할당과 지역 상태
-* 3.2::              평가의 환경 모델
-* 3.3::              가변 데이터를 이용한 모델링
-* 3.4::              동시성: 시간은 본질적인 요소이다
-* 3.5::              스트림
+* 3.1::              할당과 지역 상태 (Assignment and Local State)
+* 3.2::              평가의 환경 모델 (The Environment Model of Evaluation)
+* 3.3::              가변 데이터를 이용한 모델링 (Modeling with Mutable Data)
+* 3.4::              동시성: 시간은 본질적인 요소이다 (Concurrency: Time Is of the Essence)
+* 3.5::              스트림 (Streams)
 
-할당과 지역 상태
+할당과 지역 상태 (Assignment and Local State)
 
-* 3.1.1::            지역 상태 변수
-* 3.1.2::            할당 도입의 이점
-* 3.1.3::            할당 도입의 비용
+* 3.1.1::            지역 상태 변수 (Local State Variables)
+* 3.1.2::            할당 도입의 이점 (The Benefits of Introducing Assignment)
+* 3.1.3::            할당 도입의 비용 (The Costs of Introducing Assignment)
 
-평가의 환경 모델
+평가의 환경 모델 (The Environment Model of Evaluation)
 
-* 3.2.1::            평가 규칙
-* 3.2.2::            단순 프로시저의 적용
-* 3.2.3::            지역 상태의 저장소로서의 프레임
-* 3.2.4::            내부 정의
+* 3.2.1::            평가 규칙 (The Evaluation Rule)
+* 3.2.2::            단순 프로시저의 적용 (Applying Simple Procedures)
+* 3.2.3::            지역 상태의 저장소로서의 프레임 (Frames as the Repository of Local State)
+* 3.2.4::            내부 정의 (Internal Definitions)
 
-가변 데이터를 이용한 모델링
+가변 데이터를 이용한 모델링 (Modeling with Mutable Data)
 
-* 3.3.1::            가변 리스트 구조
-* 3.3.2::            큐 표현
-* 3.3.3::            테이블 표현
-* 3.3.4::            디지털 회로 시뮬레이터
-* 3.3.5::            제약 조건 전파
+* 3.3.1::            가변 리스트 구조 (Mutable List Structure)
+* 3.3.2::            큐 표현 (Representing Queues)
+* 3.3.3::            테이블 표현 (Representing Tables)
+* 3.3.4::            디지털 회로 시뮬레이터 (A Simulator for Digital Circuits)
+* 3.3.5::            제약 조건 전파 (Propagation of Constraints)
 
-동시성: 시간은 본질적인 요소이다
+동시성: 시간은 본질적인 요소이다 (Concurrency: Time Is of the Essence)
 
-* 3.4.1::            동시성 시스템에서 시간의 성질
-* 3.4.2::            동시성 제어 메커니즘
+* 3.4.1::            동시성 시스템에서 시간의 성질 (The Nature of Time in Concurrent Systems)
+* 3.4.2::            동시성 제어 메커니즘 (Mechanisms for Controlling Concurrency)
 
-스트림
+스트림 (Streams)
 
-* 3.5.1::            스트림은 지연 리스트이다
-* 3.5.2::            무한 스트림
-* 3.5.3::            스트림 패러다임 활용
-* 3.5.4::            스트림과 지연 평가
-* 3.5.5::            함수형 프로그램의 모듈성과 객체의 모듈성
+* 3.5.1::            스트림은 지연 리스트이다 (Streams Are Delayed Lists)
+* 3.5.2::            무한 스트림 (Infinite Streams)
+* 3.5.3::            스트림 패러다임 활용 (Exploiting the Stream Paradigm)
+* 3.5.4::            스트림과 지연 평가 (Streams and Delayed Evaluation)
+* 3.5.5::            함수형 프로그램의 모듈성과 객체의 모듈성 (Modularity of Functional Programs and Modularity of Objects)
 
 메타언어적 추상화
 
-* 4.1::              메타순환적 평가기
-* 4.2::              Scheme의 변형 -- 지연 평가
-* 4.3::              Scheme의 변형 -- 비결정론적 계산
-* 4.4::              논리 프로그래밍
+* 4.1::              메타순환적 평가기 (The Metacircular Evaluator)
+* 4.2::              Scheme의 변형 -- 지연 평가 (Variations on a Scheme -- Lazy Evaluation)
+* 4.3::              Scheme의 변형 -- 비결정론적 계산 (Variations on a Scheme -- Nondeterministic Computing)
+* 4.4::              논리 프로그래밍 (Logic Programming)
 
-메타순환적 평가기
+메타순환적 평가기 (The Metacircular Evaluator)
 
-* 4.1.1::            평가기의 핵심
-* 4.1.2::            표현식 표현
-* 4.1.3::            평가기 데이터 구조
-* 4.1.4::            평가기를 프로그램으로 실행하기
-* 4.1.5::            프로그램으로서의 데이터
-* 4.1.6::            내부 정의
-* 4.1.7::            실행에서 구문 분석 분리하기
+* 4.1.1::            평가기의 핵심 (The Core of the Evaluator)
+* 4.1.2::            표현식 표현 (Representing Expressions)
+* 4.1.3::            평가기 데이터 구조 (Evaluator Data Structures)
+* 4.1.4::            평가기를 프로그램으로 실행하기 (Running the Evaluator as a Program)
+* 4.1.5::            프로그램으로서의 데이터 (Data as Programs)
+* 4.1.6::            내부 정의 (Internal Definitions)
+* 4.1.7::            실행에서 구문 분석 분리하기 (Separating Syntactic Analysis from Execution)
 
-Scheme의 변형 -- 지연 평가
+Scheme의 변형 -- 지연 평가 (Variations on a Scheme -- Lazy Evaluation)
 
-* 4.2.1::            정규 순서와 적용 순서
-* 4.2.2::            지연 평가 인터프리터
-* 4.2.3::            지연 리스트로서의 스트림
+* 4.2.1::            정규 순서와 적용 순서 (Normal Order and Applicative Order)
+* 4.2.2::            지연 평가 인터프리터 (An Interpreter with Lazy Evaluation)
+* 4.2.3::            지연 리스트로서의 스트림 (Streams as Lazy Lists)
 
-Scheme의 변형 -- 비결정론적 계산
+Scheme의 변형 -- 비결정론적 계산 (Variations on a Scheme -- Nondeterministic Computing)
 
-* 4.3.1::            Amb와 탐색
-* 4.3.2::            비결정론적 프로그램의 예
-* 4.3.3::            @code{Amb} 평가기 구현
+* 4.3.1::            Amb와 탐색 (Amb and Search)
+* 4.3.2::            비결정론적 프로그램의 예 (Examples of Nondeterministic Programs)
+* 4.3.3::            @code{Amb} 평가기 구현 (Implementing the @code{Amb} Evaluator)
 
-논리 프로그래밍
+논리 프로그래밍 (Logic Programming)
 
-* 4.4.1::            연역적 정보 검색
-* 4.4.2::            질의 시스템의 작동 원리
-* 4.4.3::            논리 프로그래밍은 수리 논리학인가?
-* 4.4.4::            질의 시스템 구현
+* 4.4.1::            연역적 정보 검색 (Deductive Information Retrieval)
+* 4.4.2::            질의 시스템의 작동 원리 (How the Query System Works)
+* 4.4.3::            논리 프로그래밍은 수리 논리학인가? (Is Logic Programming Mathematical Logic?)
+* 4.4.4::            질의 시스템 구현 (Implementing the Query System)
 
-질의 시스템 구현
+질의 시스템 구현 (Implementing the Query System)
 
-* 4.4.4.1::          드라이버 루프와 인스턴스화
-* 4.4.4.2::          평가기
-* 4.4.4.3::          패턴 매칭에 의한 어설션 찾기
-* 4.4.4.4::          규칙과 단일화
-* 4.4.4.5::          데이터베이스 유지 관리
-* 4.4.4.6::          스트림 연산
-* 4.4.4.7::          질의 구문 프로시저
-* 4.4.4.8::          프레임과 바인딩
+* 4.4.4.1::          드라이버 루프와 인스턴스화 (The Driver Loop and Instantiation)
+* 4.4.4.2::          평가기 (The Evaluator)
+* 4.4.4.3::          패턴 매칭에 의한 어설션 찾기 (Finding Assertions by Pattern Matching)
+* 4.4.4.4::          규칙과 단일화 (Rules and Unification)
+* 4.4.4.5::          데이터베이스 유지 관리 (Maintaining the Data Base)
+* 4.4.4.6::          스트림 연산 (Stream Operations)
+* 4.4.4.7::          질의 구문 프로시저 (Query Syntax Procedures)
+* 4.4.4.8::          프레임과 바인딩 (Frames and Bindings)
 
-레지스터 기계를 이용한 계산
+레지스터 기계를 이용한 계산 (Computing with Register Machines)
 
-* 5.1::              레지스터 기계 설계
-* 5.2::              레지스터 기계 시뮬레이터
-* 5.3::              저장소 할당과 가비지 컬렉션
-* 5.4::              명시적 제어 평가기
-* 5.5::              컴파일
+* 5.1::              레지스터 기계 설계 (Designing Register Machines)
+* 5.2::              레지스터 기계 시뮬레이터 (A Register-Machine Simulator)
+* 5.3::              저장소 할당과 가비지 컬렉션 (Storage Allocation and Garbage Collection)
+* 5.4::              명시적 제어 평가기 (The Explicit-Control Evaluator)
+* 5.5::              컴파일 (Compilation)
 
-레지스터 기계 설계
+레지스터 기계 설계 (Designing Register Machines)
 
-* 5.1.1::            레지스터 기계 기술 언어
-* 5.1.2::            기계 설계의 추상화
-* 5.1.3::            서브루틴
-* 5.1.4::            스택을 이용한 재귀 구현
-* 5.1.5::            명령어 요약
+* 5.1.1::            레지스터 기계 기술 언어 (A Language for Describing Register Machines)
+* 5.1.2::            기계 설계의 추상화 (Abstraction in Machine Design)
+* 5.1.3::            서브루틴 (Subroutines)
+* 5.1.4::            스택을 이용한 재귀 구현 (Using a Stack to Implement Recursion)
+* 5.1.5::            명령어 요약 (Instruction Summary)
 
-레지스터 기계 시뮬레이터
+레지스터 기계 시뮬레이터 (A Register-Machine Simulator)
 
-* 5.2.1::            기계 모델
-* 5.2.2::            어셈블러
-* 5.2.3::            명령어 실행 프로시저 생성
-* 5.2.4::            기계 성능 모니터링
+* 5.2.1::            기계 모델 (The Machine Model)
+* 5.2.2::            어셈블러 (The Assembler)
+* 5.2.3::            명령어 실행 프로시저 생성 (Generating Execution Procedures for Instructions)
+* 5.2.4::            기계 성능 모니터링 (Monitoring Machine Performance)
 
-저장소 할당과 가비지 컬렉션
+저장소 할당과 가비지 컬렉션 (Storage Allocation and Garbage Collection)
 
-* 5.3.1::            벡터로서의 메모리
-* 5.3.2::            무한 메모리의 환상 유지하기
+* 5.3.1::            벡터로서의 메모리 (Memory as Vectors)
+* 5.3.2::            무한 메모리의 환상 유지하기 (Maintaining the Illusion of Infinite Memory)
 
-레지스터와 연산
+레지스터와 연산 (Registers and Operations)
 
-* 5.4.1::            명시적 제어 평가기의 핵심
-* 5.4.2::            시퀀스 평가와 꼬리 재귀
-* 5.4.3::            조건식, 할당, 그리고 정의
-* 5.4.4::            평가기 실행
+* 5.4.1::            명시적 제어 평가기의 핵심 (The Core of the Explicit-Control Evaluator)
+* 5.4.2::            시퀀스 평가와 꼬리 재귀 (Sequence Evaluation and Tail Recursion)
+* 5.4.3::            조건식, 할당, 그리고 정의 (Conditionals, Assignments, and Definitions)
+* 5.4.4::            평가기 실행 (Running the Evaluator)
 
-컴파일러 개요
+컴파일러 개요 (Compiler Overview)
 
-* 5.5.1::            컴파일러의 구조
-* 5.5.2::            표현식 컴파일
-* 5.5.3::            조합 컴파일
-* 5.5.4::            명령어 시퀀스 결합
-* 5.5.5::            컴파일된 코드의 예
-* 5.5.6::            어휘적 주소 지정
-* 5.5.7::            컴파일된 코드를 평가기에 연결하기
+* 5.5.1::            컴파일러의 구조 (Structure of the Compiler)
+* 5.5.2::            표현식 컴파일 (Compiling Expressions)
+* 5.5.3::            조합 컴파일 (Compiling Combinations)
+* 5.5.4::            명령어 시퀀스 결합 (Combining Instruction Sequences)
+* 5.5.5::            컴파일된 코드의 예 (An Example of Compiled Code)
+* 5.5.6::            어휘적 주소 지정 (Lexical Addressing)
+* 5.5.7::            컴파일된 코드를 평가기에 연결하기 (Interfacing Compiled Code to the Evaluator)
 
 @end detailmenu
 @end menu
@@ -487,7 +542,7 @@ JavaScript, @abbr{CSS3}, @abbr{SVG}, MathJax, MathML, 그리고 웹 폰트가 �
 @end quotation
 
 @node    Foreword, Preface, Dedication, Top
-@unnumbered Foreword
+@unnumbered 서문 (Foreword)
 
 교육자, 장군, 영양사, 심리학자, 그리고 부모들이 프로그래밍을 합니다. 군대, 학생, 그리고 일부 사회가 프로그래밍됩니다.
 거대한 문제에 대한 공격은 일련의 프로그램들을 고용하며, 그 대부분은 도중에 생겨납니다.
@@ -579,7 +634,7 @@ Lisp는 구문 분석이 기초적인 작업으로 취급될 수 있을 만큼 �
 코네티컷주 뉴헤이븐
 
 @node    Preface, Preface 1e, Foreword, Top
-@unnumbered Preface to the Second Edition
+@unnumbered 제2판 머리말 (Preface to the Second Edition)
 
 @quotation
 소프트웨어는 다른 어떤 것과도 같지 않으며, 버려지기 위해 만들어진다는 것이 가능한가: 요점은 항상 그것을 비눗방울로 보는 것인가?
@@ -613,15 +668,15 @@ Lisp는 구문 분석이 기초적인 작업으로 취급될 수 있을 만큼 �
 여기에는 책의 프로그램, 샘플 프로그래밍 과제, 보충 자료, 그리고 다운로드 가능한 Lisp의 Scheme 방언 구현체가 포함됩니다.
 
 @node    Preface 1e, Acknowledgments, Preface, Top
-@unnumbered Preface to the First Edition
+@unnumbered 초판 머리말 (Preface to the First Edition)
 
 @quotation
 컴퓨터는 바이올린과 같습니다. 초보자가 축음기를 먼저 시도해보고 나서 바이올린을 시도해보는 것을 상상할 수 있습니다.
 후자는 끔찍한 소리가 난다고 그는 말합니다. 그것이 우리가 인문학자들과 대부분의 컴퓨터 과학자들에게서 들은 주장입니다.
 컴퓨터 프로그램은 특정 목적에는 좋지만 유연하지 않다고 그들은 말합니다. 바이올린도, 타자기들도, 당신이 그것을 사용하는 법을 배울 때까지는 유연하지 않습니다.
 
----마빈 민스키, @cite{Why Programming Is a Good Medium for Expressing
-Poorly-Understood and Sloppily-Formulated Ideas}
+---마빈 민스키, @cite{이해가 부족하고 조잡하게 정식화된 아이디어를 표현하기 위한 좋은 매체로서의 프로그래밍 (Why Programming Is a Good Medium for Expressing
+Poorly-Understood and Sloppily-Formulated Ideas)}
 @end quotation
 
 
@@ -673,7 +728,7 @@ Algol로부터 우리는 어휘적 스코핑과 블록 구조를 가져오는데
 이 선구자들에는 알론조 처치, 바클리 로서, 스티븐 클리니, 그리고 하스켈 커리가 포함됩니다.
 
 @node       Acknowledgments, Chapter 1, Preface 1e, Top
-@unnumbered Acknowledgments
+@unnumbered 감사의 글 (Acknowledgments)
 
 우리는 이 책과 이 커리큘럼을 개발하는 데 도움을 준 많은 분들에게 감사하고 싶습니다.
 
@@ -2714,23 +2769,22 @@ fn fib_iter(a: u64, b: u64, count: u64) -> u64 @{
 
 따라서 우리는 거스름돈 만들기 문제를 더 적은 금액이나 더 적은 종류의 동전을 거슬러 주는 문제로 재귀적으로 축소할 수 있다.
 이 축소 규칙을 주의 깊게 살펴보고, 다음과 같은 퇴화된 사례(degenerate cases)를 지정하면 알고리즘을 기술하는 데 사용할 수 있다는 것을 스스로 확신해 보라:@footnote{예를 들어, 축소 규칙이 10센트를 5센트와 1센트 동전으로 거슬러 주는 문제에 어떻게 적용되는지 자세히 살펴보라.}
-of making change for 10 cents using pennies and nickels.}
 
 @itemize @bullet
 
 @item
-If @math{a} is exactly 0, we should count that as 1 way to make change.
+@math{a}가 정확히 0이면, 거스름돈을 만드는 방법을 1가지로 센다.
 
 @item
-If @math{a} is less than 0, we should count that as 0 ways to make change.
+@math{a}가 0보다 작으면, 거스름돈을 만드는 방법을 0가지로 센다.
 
 @item
-If @math{n} is 0, we should count that as 0 ways to make change.
+@math{n}이 0이면, 거스름돈을 만드는 방법을 0가지로 센다.
 
 @end itemize
 
 @noindent
-We can easily translate this description into a recursive procedure:
+이 설명은 쉽게 재귀 프로시저로 옮길 수 있다:
 
 @example
 fn count_change(amount: i64) -> u64 @{
@@ -2854,7 +2908,7 @@ count_change(100)
 
 @node   1.2.3, 1.2.4, 1.2.2, 1.2
 
-@subsection Orders of Growth
+@subsection 증가 차수 (Orders of Growth)
 
 
 
@@ -2866,9 +2920,7 @@ count_change(100)
 
 @math{n}을 문제의 크기를 나타내는 매개변수라고 하고, @math{{R(n)}}을 문제 크기가 @math{n}일 때 프로세스에 필요한 자원의 양이라고 하자.
 
-우리의 이전 예제들에서 우리는 @math{n}을 주어진 함수가 계산될 대상인 숫자로 잡았지만, 다른 가능성들도 있다. 예를 들어,
-instance, if our goal is to compute an approximation to the square root of a
-숫자의 제곱근 근사값을 구하는 것이 목표라면, 필요한 정확도(자리수)를 @math{n}으로 잡을 수 있을 것이다.
+우리의 이전 예제들에서 우리는 @math{n}을 주어진 함수가 계산될 대상인 숫자로 잡았지만, 다른 가능성들도 있다. 예를 들어, 숫자의 제곱근 근사값을 구하는 것이 목표라면, 필요한 정확도(자리수)를 @math{n}으로 잡을 수 있을 것이다.
 행렬 곱셈의 경우 행렬의 행 수를 @math{n}으로 잡을 수 있다.
 일반적으로 주어진 프로세스를 분석하는 데 바람직한 문제의 여러 속성이 있을 수 있다.
 마찬가지로, @math{{R(n)}}은 사용된 내부 저장 레지스터의 수, 수행된 기본 기계 명령어의 수 등을 측정할 수 있다.
@@ -3053,9 +3105,7 @@ fn expt_iter(b: u64, counter: u64, product: u64) -> u64 @{
 
 
 
-우리는 연속적인 제곱(successive squaring)을 사용하여 더 적은 단계로 거듭제곱을 계산할 수 있다. 예를 들어,
-instance, rather than computing @math{b^8} as
-@math{b^8}을 다음과 같이 계산하는 대신
+우리는 연속적인 제곱(successive squaring)을 사용하여 더 적은 단계로 거듭제곱을 계산할 수 있다. 예를 들어, @math{b^8}을 다음과 같이 계산하는 대신
 @ifinfo
 
 @example
@@ -3098,8 +3148,8 @@ b^8 = b^4 * b^4
 @ifinfo
 
 @example
-b^n = (b^(n/2))^2    if n is even
-b^n = b * b^(n - 1)  if n is odd
+b^n = (b^(n/2))^2    n이 짝수이면
+b^n = b * b^(n - 1)  n이 홀수이면
 @end example
 
 @end ifinfo
@@ -3108,8 +3158,8 @@ b^n = b * b^(n - 1)  if n is odd
 \[ % :16:
  
 \begin{array}{ll}
-  b^n \,=\, (b^{n / 2})^2   & \text{if} \; n \; \text{is even}, \\
-  b^n \,=\, b\cdot b^{n-1}  & \text{if} \; n \; \text{is odd}.
+  b^n \,=\, (b^{n / 2})^2   & \text{n이 짝수이면}, \\
+  b^n \,=\, b\cdot b^{n-1}  & \text{n이 홀수이면}.
 \end{array}
 \]
 
@@ -3169,35 +3219,17 @@ fn multiply(a: u64, b: u64) -> u64 @{
 @end example
 
 이 알고리즘은 @code{b}에 선형적인 수의 단계를 필요로 한다.
-이제 덧셈과 함께, 정수를 두 배로 만드는 @code{double} 연산과, (짝수) 정수를 2로 나누는 @code{halve} 연산이 포함되어 있다고 가정하자. 이것들을 사용하여,
-design a multiplication procedure analogous to @code{fast-expt} that uses a
-logarithmic number of steps.
+이제 덧셈과 함께, 정수를 두 배로 만드는 @code{double} 연산과, (짝수) 정수를 2로 나누는 @code{halve} 연산이 포함되어 있다고 가정하자. 이것들을 사용하여 @code{fast-expt}와 유사하게 로그형 단계 수를 사용하는 곱셈 프로시저를 설계하라.
 @end quotation
 
 @quotation
-@strong{@anchor{Exercise 1.18}Exercise 1.18:} Using the results of
-@ref{Exercise 1.16} and @ref{Exercise 1.17}, devise a procedure that generates
-an iterative process for multiplying two integers in terms of adding, doubling,
-and halving and uses a logarithmic number of steps.@footnote{This algorithm,
-which is sometimes known as the ``Russian peasant method'' of multiplication,
-is ancient.  Examples of its use are found in the Rhind Papyrus, one of the two
-oldest mathematical documents in existence, written about 1700 @abbr{B.C.}
-(and copied from an even older document) by an Egyptian scribe named A'h-mose.}
+@strong{@anchor{Exercise 1.18}연습문제 1.18:} @ref{Exercise 1.16}과 @ref{Exercise 1.17}의 결과를 사용하여, 더하기, 두 배, 절반 연산으로 두 정수를 곱하는 반복적 프로세스를 생성하고 로그형 단계 수를 사용하는 프로시저를 고안하라.@footnote{이 알고리즘은 때때로 ``러시아 농부 곱셈법''으로 알려져 있으며 매우 오래되었다. 그 사용 예는 가장 오래된 수학 문서 두 개 중 하나인 라인드 파피루스(Rhind Papyrus)에서 발견된다. 이 문서는 기원전 (B.C.) 약 1700년에 이집트 서기관 아흐모세(A'h-mose)가 (더 오래된 문서에서 베껴) 작성했다.}
 @end quotation
 
 @quotation
-@strong{@anchor{Exercise 1.19}Exercise 1.19:} There is a clever algorithm for
-computing the Fibonacci numbers in a logarithmic number of steps.  Recall the
-transformation of the state variables @math{a} and @math{b} in the @code{fib-iter}
-process of @ref{1.2.2}: @math{a \gets a + b} and @math{b \gets a}.
-Call this transformation @math{T}, and observe that applying @math{T} over and over
-again @math{n} times, starting with 1 and 0, produces the pair @math{{\text{Fib}(n+1)}} and 
-@math{{\text{Fib}(n)}}.  In other words, the Fibonacci numbers are produced
-by applying @math{T^n}, the @math{n^{\text{th}}} power of the transformation @math{T},
-starting with the pair (1, 0).  Now consider @math{T} to be the special case of
-@math{{p=0}} and @math{{q=1}} in a family of transformations @math{T_{pq}},
-where @math{T_{pq}} transforms the pair @math{{(a, b)}} according to 
-@math{a \gets {bq} + {aq} + {ap}} 그리고 @math{b \gets {bp} + {aq}}이다.
+@strong{@anchor{Exercise 1.19}연습문제 1.19:} 피보나치 수를 로그형 단계 수로 계산하는 영리한 알고리즘이 있다. @ref{1.2.2}의 @code{fib-iter} 프로세스에서 상태 변수 @math{a}와 @math{b}의 변환을 떠올려 보라: @math{a \gets a + b}, @math{b \gets a}이다.
+이 변환을 @math{T}라고 하자. 1과 0에서 시작하여 @math{T}를 @math{n}번 반복 적용하면 @math{{\text{Fib}(n+1)}}과 @math{{\text{Fib}(n)}}의 쌍이 생성됨을 관찰하라. 즉, 피보나치 수는 변환 @math{T}의 @math{n^{\text{th}}} 거듭제곱 @math{T^n}을 (1, 0) 쌍에 적용함으로써 생성된다.
+이제 변환 족 @math{T_{pq}}에서 @math{p=0}, @math{q=1}인 특별한 경우로서 @math{T}를 생각하라. 여기서 @math{T_{pq}}는 쌍 @math{{(a, b)}}를 @math{a \gets {bq} + {aq} + {ap}}, @math{b \gets {bp} + {aq}}에 따라 변환한다.
 이러한 변환 @math{T_{pq}}를 두 번 적용하는 효과가 동일한 형태의 단일 변환 @math{T_{p'q'}}를 사용하는 것과 같음을 보이고, @math{p'}와 @math{q'}를 @math{p}와 @math{q}에 대한 식으로 계산하라. 이것은 이러한 변환들을 제곱하는 명시적인 방법을 제공하며, 따라서 우리는 @code{fast-expt} 프로시저에서와 같이 연속적인 제곱을 사용하여 @math{T^n}을 계산할 수 있다. 이 모든 것을 종합하여 로그형의 단계 수로 실행되는 다음 프로시저를 완성하라:@footnote{이 연습 문제는 @ref{Kaldewaij 1990}의 예제를 바탕으로 Joe Stoy가 제안했다.}
 
 @example
@@ -3246,22 +3278,11 @@ const FACT_10: u64 = factorial(10); // Also at compile time
 @end example
 
 @noindent
-When we declare @code{FACT_5}, the compiler evaluates @code{factorial(5)}
-during compilation and replaces @code{FACT_5} with the literal value
-@code{120} in the generated code.  There is no function call at runtime, no
-stack frames, no computation---just the final value.  This is what we mean by
-@newterm{zero-cost abstraction}: we write high-level code (a factorial
-function), but pay no runtime cost for the abstraction.
+@code{FACT_5}를 선언하면 컴파일러는 컴파일 중에 @code{factorial(5)}를 평가하고 생성된 코드에서 @code{FACT_5}를 리터럴 값 @code{120}으로 치환한다. 런타임에는 함수 호출도, 스택 프레임도, 계산도 없다---결과 값만 남는다. 이것이 우리가 @newterm{제로-비용 추상화(zero-cost abstraction)}라고 말하는 것이다: 우리는 높은 수준의 코드(팩토리얼 함수)를 작성하지만 그 추상화에 대해 런타임 비용을 지불하지 않는다.
 
-The @code{const} keyword before @code{fn} indicates that this function can be
-evaluated at compile time.  However, this imposes certain restrictions: const
-functions cannot perform arbitrary operations.  They must be @newterm{pure
-functions}---functions that depend only on their arguments and have no side
-effects.  They cannot allocate heap memory, perform I/O, or call non-const
-functions.
+@code{fn} 앞의 @code{const} 키워드는 이 함수가 컴파일 타임에 평가될 수 있음을 나타낸다. 그러나 이는 몇 가지 제약을 부과한다: const 함수는 임의의 연산을 수행할 수 없다. 그것들은 오직 인자에만 의존하고 부수 효과가 없는 @newterm{순수 함수(pure functions)}여야 한다. 힙 메모리를 할당하거나 I/O를 수행하거나 const가 아닌 함수를 호출할 수 없다.
 
-Let's examine the difference between compile-time and runtime evaluation more
-closely by considering the Fibonacci sequence from @ref{1.2.2}:
+@ref{1.2.2}의 피보나치 수열을 고려하여 컴파일 타임 평가와 런타임 평가의 차이를 좀 더 자세히 살펴보자:
 
 @example
 const fn fib(n: u64) -> u64 @{
@@ -3272,24 +3293,19 @@ const fn fib(n: u64) -> u64 @{
     @}
 @}
 
-// Compile-time evaluation
+// 컴파일 타임 평가
 const FIB_10: u64 = fib(10);
 
-// Runtime evaluation
+// 런타임 평가
 fn compute_fib_at_runtime(n: u64) -> u64 @{
-    fib(n)  // Computed when program runs
+    fib(n)  // 프로그램 실행 시 계산됨
 @}
 @end example
 
 @noindent
-When we write @code{const FIB_10 = fib(10)}, the compiler must know the value
-before the program runs.  It evaluates the recursive calls during compilation,
-producing the value @code{55}.  The compiled program contains only this
-literal value.  In contrast, @code{compute_fib_at_runtime(10)} performs the
-computation every time it's called, even though the argument is the same.
+@code{const FIB_10 = fib(10)}을 작성하면 컴파일러는 프로그램이 실행되기 전에 그 값을 알아야 한다. 컴파일 중에 재귀 호출을 평가하여 @code{55}를 얻고, 컴파일된 프로그램에는 이 리터럴 값만 들어간다. 반대로 @code{compute_fib_at_runtime(10)}은 인자가 같더라도 호출될 때마다 계산을 수행한다.
 
-This distinction becomes critical for performance-sensitive code.  Consider
-computing powers of two for a lookup table:
+이 차이는 성능에 민감한 코드에서 중요해진다. 예를 들어 2의 거듭제곱을 조회 테이블로 계산해 보자:
 
 @example
 const fn pow2(n: u32) -> u64 @{
@@ -3308,40 +3324,31 @@ const POWERS_OF_TWO: [u64; 64] = @{
 @end example
 
 @noindent
-This example introduces @newterm{const blocks}---blocks of code that execute
-at compile time.  The @code{const} context allows us to use imperative loops
-and mutable bindings (within the block), but all computation happens during
-compilation.  The resulting array @code{POWERS_OF_TWO} is embedded directly in
-the program's data section, with all 64 values pre-computed.
+이 예제는 @newterm{const 블록(const blocks)}---컴파일 타임에 실행되는 코드 블록---을 소개한다. @code{const} 문맥에서는 (블록 안에서) 명령형 루프와 가변 바인딩을 사용할 수 있지만, 모든 계산은 컴파일 중에 일어난다. 결과 배열 @code{POWERS_OF_TWO}는 모든 64개 값이 미리 계산된 채로 프로그램의 데이터 섹션에 직접 포함된다.
 
-The compiler's const evaluation engine is quite sophisticated.  It can handle:
+컴파일러의 const 평가 엔진은 꽤 정교하다. 다음을 처리할 수 있다:
 
 @itemize @bullet
-@item Arithmetic operations and bitwise operations
-@item Conditionals (@code{if} expressions)
-@item Loops (@code{while} and @code{loop}, but not @code{for} in all contexts)
-@item Pattern matching
-@item Function calls to other const functions
-@item Tuple and array operations
+@item 산술 연산과 비트 연산
+@item 조건식 (@code{if} 표현식)
+@item 루프 (@code{while}와 @code{loop}; 모든 문맥에서 @code{for}는 아님)
+@item 패턴 매칭
+@item 다른 const 함수 호출
+@item 튜플과 배열 연산
 @end itemize
 
 @noindent
-However, the compiler must be able to determine when evaluation finishes.
-Infinite loops or unbounded recursion in const contexts will cause compilation
-to fail:
+그러나 컴파일러는 평가가 언제 끝나는지 결정할 수 있어야 한다. const 문맥에서 무한 루프나 무한 재귀는 컴파일 실패를 일으킨다:
 
 @example
 const fn infinite() -> u64 @{
-    infinite()  // Compilation error: infinite recursion
+    infinite()  // 컴파일 오류: 무한 재귀
 @}
 @end example
 
-@subheading Const Generics
+@subheading 상수 제네릭 (Const Generics)
 
-Const evaluation becomes even more powerful when combined with @newterm{const
-generics}---generic parameters that are values rather than types.  This allows
-us to write functions that are specialized for specific constant values at
-compile time.
+const 평가는 @newterm{상수 제네릭(const generics)}---타입이 아니라 값인 제네릭 매개변수---과 결합되면 더욱 강력해진다. 이를 통해 특정 상수 값에 특화된 함수를 컴파일 타임에 만들 수 있다.
 
 @example
 fn create_array<const N: usize>() -> [u64; N] @{
@@ -3392,37 +3399,29 @@ const fn create_power_table<const BASE: u64, const SIZE: usize>()
     table
 @}
 
-// Pre-compute powers of 2 from 2^0 to 2^10
+// 2^0부터 2^10까지의 2의 거듭제곱을 미리 계산
 const POWERS_OF_2: [u64; 11] = create_power_table::<2, 11>();
 
-// Pre-compute powers of 3 from 3^0 to 3^10
+// 3^0부터 3^10까지의 3의 거듭제곱을 미리 계산
 const POWERS_OF_3: [u64; 11] = create_power_table::<3, 11>();
 @end example
 
 @noindent
-The compiler generates all 11 powers for each base at compile time.  Looking
-up @code{POWERS_OF_2[5]} at runtime is a simple array indexing operation---no
-exponentiation computation occurs.
+컴파일러는 각 밑에 대해 11개의 거듭제곱을 컴파일 타임에 생성한다. 런타임에서 @code{POWERS_OF_2[5]}를 조회하는 것은 단순한 배열 인덱싱 연산일 뿐이며, 거듭제곱 계산은 발생하지 않는다.
 
-@subheading When Does the Compiler Evaluate?
+@subheading 컴파일러는 언제 평가하는가? (When Does the Compiler Evaluate?)
 
-Understanding when the compiler chooses to perform const evaluation versus
-deferring to runtime is crucial for writing efficient code.  The rules are:
+효율적인 코드를 작성하려면, 컴파일러가 const 평가를 수행할지 아니면 런타임으로 미룰지를 언제 선택하는지 이해하는 것이 중요하다. 규칙은 다음과 같다:
 
 @enumerate
 @item
-@strong{Must evaluate:} In const contexts (@code{const} items, array lengths,
-const generic arguments), the compiler must evaluate the expression at compile
-time.  If it cannot, compilation fails.
+@strong{반드시 평가:} const 문맥(@code{const} 항목, 배열 길이, 상수 제네릭 인자)에서는 컴파일러가 표현식을 컴파일 타임에 평가해야 한다. 불가능하면 컴파일이 실패한다.
 
 @item
-@strong{May evaluate:} When a const function is called with constant arguments
-in a non-const context, the compiler may evaluate it at compile time as an
-optimization, but is not required to.
+@strong{선택적 평가:} const 함수가 비-const 문맥에서 상수 인자로 호출되면, 컴파일러는 최적화로 컴파일 타임에 평가할 수도 있지만 반드시 그럴 필요는 없다.
 
 @item
-@strong{Cannot evaluate:} When a const function is called with runtime values,
-evaluation must happen at runtime.
+@strong{평가 불가:} const 함수가 런타임 값으로 호출되면, 평가는 반드시 런타임에 일어난다.
 @end enumerate
 
 @example
@@ -3430,32 +3429,23 @@ const fn square(x: u64) -> u64 @{
     x * x
 @}
 
-const A: u64 = square(5);           // Must evaluate at compile time
+const A: u64 = square(5);           // 컴파일 타임에 반드시 평가
 
 fn example() @{
-    let b = square(5);              // May evaluate at compile time
-    let n = read_input();           // Runtime value
-    let c = square(n);              // Must evaluate at runtime
+    let b = square(5);              // 컴파일 타임에 평가될 수도 있음
+    let n = read_input();           // 런타임 값
+    let c = square(n);              // 런타임에 반드시 평가
 @}
 @end example
 
 @noindent
-In this example, @code{A} is guaranteed to contain the value @code{25} with no
-runtime computation.  The value of @code{b} might be computed at compile time
-(an optimization), but @code{c} must be computed at runtime because @code{n}
-is not known until the program runs.
+이 예에서 @code{A}는 런타임 계산 없이 @code{25} 값을 포함함이 보장된다. @code{b}의 값은 컴파일 타임에 계산될 수도 있지만(최적화), @code{n}은 프로그램이 실행되기 전에는 알 수 없으므로 @code{c}는 런타임에 계산되어야 한다.
 
-Modern Rust compilers are quite aggressive about compile-time evaluation when
-possible.  Simple const functions called with literal arguments are almost
-always evaluated at compile time, even in non-const contexts.  This is part of
-the zero-cost abstraction philosophy: abstractions should impose no runtime
-penalty.
+현대 Rust 컴파일러는 가능할 때 컴파일 타임 평가에 매우 공격적이다. 리터럴 인자로 호출된 단순한 const 함수는 비-const 문맥에서도 거의 항상 컴파일 타임에 평가된다. 이는 제로-비용 추상화의 철학과 맞닿아 있다: 추상화는 런타임 페널티를 부과하지 않아야 한다.
 
-@subheading Limits of Const Evaluation
+@subheading const 평가의 한계 (Limits of Const Evaluation)
 
-While powerful, const evaluation has limitations rooted in the halting
-problem.  The compiler must determine whether evaluation will complete, which
-is undecidable in general.  Therefore, Rust imposes practical limits:
+강력하지만 const 평가는 정지 문제에서 비롯되는 한계를 가진다. 컴파일러는 평가가 완료되는지 판단해야 하는데, 일반적으로는 결정 불가능하다. 따라서 Rust는 실용적인 제한을 둔다:
 
 @itemize @bullet
 @item
@@ -3475,81 +3465,43 @@ or @code{Vec} is not allowed in const functions (as of Rust 1.83).
 @end itemize
 
 @noindent
-When these limits are exceeded, you'll receive a compilation error indicating
-that const evaluation failed.  The solution is typically to either reduce the
-complexity of the computation or perform it at runtime.
+이러한 제한을 넘어서면 const 평가가 실패했음을 알리는 컴파일 오류가 발생한다. 보통 해결책은 계산의 복잡도를 줄이거나 런타임에 수행하는 것이다.
 
-@subheading The Philosophy of Zero-Cost Abstraction
+@subheading 제로-비용 추상화의 철학 (The Philosophy of Zero-Cost Abstraction)
 
-Const evaluation exemplifies Rust's commitment to zero-cost abstraction.  We
-can write expressive, high-level code (recursive functions, loops, complex
-data structures) while maintaining the performance of hand-written, optimized
-machine code.  The abstraction cost is paid at compile time, not runtime.
+const 평가는 Rust의 제로-비용 추상화에 대한 헌신을 잘 보여준다. 우리는 재귀 함수, 루프, 복잡한 데이터 구조 같은 표현력 높은 고수준 코드를 작성하면서도 손으로 최적화한 기계 코드의 성능을 유지할 수 있다. 추상화 비용은 런타임이 아니라 컴파일 타임에 지불된다.
 
-This philosophy pervades Rust's design.  Later, we'll see how it extends to
-iterators (@ref{1.3.5}), generic functions, and trait implementations.  In
-each case, the goal is the same: write code that is easy to understand and
-maintain, while generating machine code as efficient as if you'd written
-low-level optimized code by hand.
+이 철학은 Rust 설계 전반에 스며들어 있다. 뒤에서 반복자(@ref{1.3.5}), 제네릭 함수, 트레이트 구현으로 어떻게 확장되는지 보게 될 것이다. 각 경우의 목표는 같다: 이해하고 유지보수하기 쉬운 코드를 작성하면서도 손으로 저수준 최적화를 한 것만큼 효율적인 기계 코드를 생성하는 것.
 
-The key insight is that many programs contain computations whose inputs are
-known at compile time.  Configuration values, mathematical constants, lookup
-tables---all can be pre-computed once during compilation rather than
-recomputed every execution.  Const evaluation makes this optimization
-automatic and transparent.
+핵심 통찰은 많은 프로그램이 입력이 컴파일 타임에 알려진 계산을 포함한다는 점이다. 구성 값, 수학 상수, 조회 테이블 등은 실행 때마다 다시 계산하는 대신 컴파일 중 한 번 미리 계산할 수 있다. const 평가는 이 최적화를 자동적이고 투명하게 만든다.
 
 @quotation
-@strong{@anchor{Exercise 1.24a}Exercise 1.24a:} The iterative factorial from
-@ref{1.2.1} can also be made const.  Define a const version of the iterative
-factorial procedure.  Then create a const array containing the factorials of
-numbers 0 through 12.  (Note: 13! exceeds @code{u64::MAX}, so stop at 12.)
+@strong{@anchor{Exercise 1.24a}연습문제 1.24a:} @ref{1.2.1}의 반복적 팩토리얼도 const로 만들 수 있다. 반복 팩토리얼 프로시저의 const 버전을 정의하라. 그런 다음 0부터 12까지의 팩토리얼을 담는 const 배열을 만들라. (주의: 13!은 @code{u64::MAX}를 넘으므로 12에서 멈춘다.)
 
-Verify that your array is correct by checking that @code{FACTORIALS[5]} equals
-120 and @code{FACTORIALS[12]} equals 479001600.
+@code{FACTORIALS[5]}가 120이고 @code{FACTORIALS[12]}가 479001600인지 확인하여 배열이 올바른지 검증하라.
 @end quotation
 
 @quotation
-@strong{@anchor{Exercise 1.24b}Exercise 1.24b:} Consider the @code{fast_expt}
-procedure from @ref{1.2.4}.  Make it a const function, then use it to compute
-@math{2^{64} - 1} at compile time (this is the maximum value representable in
-a @code{u64}, also available as @code{u64::MAX}).
+@strong{@anchor{Exercise 1.24b}연습문제 1.24b:} @ref{1.2.4}의 @code{fast_expt} 프로시저를 생각해 보라. 이를 const 함수로 만든 뒤 컴파일 타임에 @math{2^{64} - 1}을 계산하라 (이는 @code{u64}가 표현할 수 있는 최대 값이며 @code{u64::MAX}로도 제공된다).
 
-Explain why @code{const MAX: u64 = fast_expt(2, 64);} would cause a
-compilation error (hint: overflow), and show how to correctly compute
-@math{2^{64} - 1} using const evaluation.
+@code{const MAX: u64 = fast_expt(2, 64);}가 왜 컴파일 오류를 일으키는지(힌트: 오버플로) 설명하고, const 평가로 @math{2^{64} - 1}을 올바르게 계산하는 방법을 보여라.
 
-Now consider: if you call @code{fast_expt(2, 10)} in a regular function body
-(not a const context), can you guarantee it will be evaluated at compile time?
-Why or why not?
+이제 생각해 보자: 일반 함수 본문(const 문맥이 아님)에서 @code{fast_expt(2, 10)}을 호출하면 컴파일 타임에 평가된다고 보장할 수 있는가? 왜 그런가, 또는 왜 아닌가?
 @end quotation
 
 @node	1.2.5, 1.2.6, 1.2.4a, 1.2
-@subsection Greatest Common Divisors
+@subsection 최대공약수 (Greatest Common Divisors)
 
-The greatest common divisor (@abbr{GCD}) of two integers @math{a} and @math{b} is
-defined to be the largest integer that divides both @math{a} and @math{b} with no
-remainder.  For example, the @abbr{GCD} of 16 and 28 is 4.  In @ref{Chapter
-2}, when we investigate how to implement rational-number arithmetic, we will
-need to be able to compute @abbr{GCD}s in order to reduce rational numbers
-to lowest terms.  (To reduce a rational number to lowest terms, we must divide
-both the numerator and the denominator by their @abbr{GCD}.  For example,
-16/28 reduces to 4/7.)  One way to find the @abbr{GCD} of two integers is to
-factor them and search for common factors, but there is a famous algorithm that
-is much more efficient.
+두 정수 @math{a}와 @math{b}의 최대공약수(@abbr{GCD})는 @math{a}와 @math{b}를 나눌 때 나머지가 0이 되도록 하는 가장 큰 정수로 정의된다. 예를 들어 16과 28의 @abbr{GCD}는 4이다. @ref{Chapter 2}에서 유리수 산술을 구현하는 방법을 조사할 때 유리수를 기약분수로 만들기 위해 @abbr{GCD}를 계산할 수 있어야 한다. (유리수를 기약분수로 만들려면 분자와 분모를 @abbr{GCD}로 나눠야 한다. 예를 들어 16/28은 4/7로 줄어든다.) 두 정수의 @abbr{GCD}를 찾는 한 가지 방법은 인수분해 후 공통 인수를 찾는 것이지만, 훨씬 효율적인 유명한 알고리즘이 있다.
 
-The idea of the algorithm is based on the observation that, if @math{r} is the
-remainder when @math{a} is divided by @math{b}, then the common divisors of @math{a} and
-@math{b} are precisely the same as the common divisors of @math{b} and @math{r}.  Thus,
-we can use the equation
+이 알고리즘의 아이디어는 다음 관찰에 기반한다: @math{r}이 @math{a}를 @math{b}로 나눈 나머지라면, @math{a}와 @math{b}의 공약수는 @math{b}와 @math{r}의 공약수와 정확히 같다. 따라서 다음 식을 사용할 수 있다:
 
 @example
 GCD(a,b) = GCD(b,r)
 @end example
 
 @noindent
-to successively reduce the problem of computing a @abbr{GCD} to the problem
-of computing the @abbr{GCD} of smaller and smaller pairs of integers.  For
-example,
+이를 사용하여 @abbr{GCD} 계산 문제를 점점 더 작은 정수 쌍의 @abbr{GCD}를 계산하는 문제로 연속적으로 축소할 수 있다. 예를 들어,
 
 @example
 GCD(206,40) = GCD(40,6)
@@ -3565,14 +3517,11 @@ repeated reductions will always eventually produce a pair where the second
 number is 0.  Then the @abbr{GCD} is the other number in the pair.  This
 method for computing the @abbr{GCD} is known as 
 @newterm{Euclid's Algorithm}.@footnote{Euclid's Algorithm is so called because 
-it appears in Euclid's @cite{Elements} (Book 7, ca. 300 @abbr{B.C.}).  
-According to @ref{Knuth (1973)}, it can be considered the oldest known nontrivial 
-algorithm.  The ancient Egyptian method of multiplication (@ref{Exercise 1.18}) is 
-surely older, but, as Knuth explains, Euclid's algorithm is the oldest known to 
-have been presented as a general algorithm, rather than as a set of illustrative
-examples.}
+이는 유클리드의 @cite{Elements} (제7권, 기원전 (B.C.) 약 300년)에도 등장한다.
+@ref{Knuth (1973)}에 따르면, 이는 알려진 비자명 알고리즘 중 가장 오래된 것으로 볼 수 있다.
+고대 이집트의 곱셈 방법(@ref{Exercise 1.18})이 더 오래되었을 가능성이 높지만, Knuth가 설명하듯이 유클리드 알고리즘은 예시의 모음이 아니라 일반 알고리즘으로 제시된 것 중 가장 오래된 것으로 알려져 있다.}
 
-It is easy to express Euclid's Algorithm as a function:
+유클리드 알고리즘은 함수로 쉽게 표현할 수 있다:
 
 @example
 fn gcd(a: u64, b: u64) -> u64 @{
@@ -3585,82 +3534,29 @@ fn gcd(a: u64, b: u64) -> u64 @{
 @end example
 
 @noindent
-This generates an iterative process, whose number of steps grows as the
-logarithm of the numbers involved.
+이는 반복적 프로세스를 생성하며, 단계 수는 관련된 수의 로그에 비례해 증가한다.
 
-The fact that the number of steps required by Euclid's Algorithm has
-logarithmic growth bears an interesting relation to the Fibonacci numbers:
+유클리드 알고리즘에 필요한 단계 수가 로그형으로 증가한다는 사실은 피보나치 수와 흥미로운 관련이 있다:
 
 @quotation
-@strong{Lam@'e's Theorem:} If Euclid's Algorithm requires @math{k} steps to
-compute the @abbr{GCD} of some pair, then the smaller number in the pair
-must be greater than or equal to the @math{k^{\text{th}}} Fibonacci number.@footnote{This
-theorem was proved in 1845 by Gabriel Lam@'e, a French mathematician and
-engineer known chiefly for his contributions to mathematical physics.  To prove
-the theorem, we consider pairs @math{{(a_k, b_k)}}, where @math{{a_k \ge b_k}}, 
-for which Euclid's Algorithm terminates in @math{k} steps.  The proof
-is based on the claim that, if @math{{(a_{k+1}, b_{k+1})} \to {(a_k, b_k)} \to {(a_{k-1}, b_{k-1})}} 
-are three successive pairs 
-in the reduction process, then we must have @math{b_{k+1} \ge b_k + b_{k-1}}.  
-To verify the claim, consider that a reduction step is defined by applying the 
-transformation @math{{a_{k-1} = b_k}}, @math{{b_{k-1} =}} remainder of @math{a_k} 
-divided by @math{b_k}.  The second equation means that @math{a_k = {qb_k} + {b_{k-1}}} 
-for some positive integer @math{q}.  And since @math{q} must be at least 1 we have 
-@math{a_k = {qb_k} + b_{k-1} \ge b_k + b_{k-1}}.  But in the previous reduction 
-step we have @math{b_{k+1} = a_k}.  Therefore, @math{b_{k+1} = a_k \ge b_k + b_{k-1}}.
-This verifies the claim.  Now we can prove the theorem by induction on @math{k}, 
-the number of steps that the algorithm requires to terminate.  The result is true for 
-@math{{k = 1}}, since this merely requires that @math{b} be at least as large as @math{{\text{Fib}(1) = 1}}.  
-Now, assume that the result is true for all integers less than or equal
-to @math{k} and establish the result for @math{{k + 1}}.  
-Let @math{{(a_{k+1}, b_{k+1})} \to {(a_k, b_k)} \to {(a_{k-1}, b_{k-1})}} 
-be successive pairs in the reduction 
-process.  By our induction hypotheses, we have @math{b_{k-1} \ge {\text{Fib}(k - 1)}} 
-and @math{b_k \ge {\text{Fib}(k)}}.  Thus, applying the claim we just proved together with 
-the definition of the Fibonacci numbers gives 
-@math{b_{k+1} \ge b_k + b_{k-1} \ge {\text{Fib}(k)} + {\text{Fib}(k-1)} = {\text{Fib}(k+1)}}, 
-which completes the proof of Lam@'e's Theorem.}
+@strong{라메 정리(Lam@'e's Theorem):} 유클리드 알고리즘이 어떤 쌍의 @abbr{GCD}를 계산하는 데 @math{k}단계를 필요로 한다면, 그 쌍에서 더 작은 수는 @math{k^{\text{th}}} 피보나치 수보다 크거나 같다.@footnote{이 정리는 프랑스의 수학자이자 공학자인 가브리엘 라메(Gabriel Lam@'e)가 1845년에 증명했으며, 그는 수리 물리학에 대한 기여로 널리 알려져 있다. 정리를 증명하기 위해, 유클리드 알고리즘이 @math{k}단계에서 끝나는 @math{{(a_k, b_k)}} 쌍(@math{{a_k \ge b_k}})을 고려한다. 증명은 다음 주장에 기반한다: 축소 과정에서 @math{{(a_{k+1}, b_{k+1})} \to {(a_k, b_k)} \to {(a_{k-1}, b_{k-1})}}가 연속한 세 쌍이라면, @math{b_{k+1} \ge b_k + b_{k-1}}가 성립한다. 이 주장을 확인하려면, 축소 단계가 변환 @math{{a_{k-1} = b_k}}, @math{{b_{k-1} =}} (@math{a_k}를 @math{b_k}로 나눈 나머지)로 정의됨을 고려하라. 두 번째 식은 어떤 양의 정수 @math{q}에 대해 @math{a_k = {qb_k} + {b_{k-1}}}임을 뜻한다. @math{q}는 최소 1이므로 @math{a_k = {qb_k} + b_{k-1} \ge b_k + b_{k-1}}가 된다. 그런데 이전 축소 단계에서 @math{b_{k+1} = a_k}이므로, @math{b_{k+1} = a_k \ge b_k + b_{k-1}}이다. 이는 주장을 확인한다. 이제 알고리즘이 종료하는 데 필요한 단계 수 @math{k}에 대해 귀납법으로 정리를 증명할 수 있다. 결과는 @math{{k = 1}}에서 참인데, 이는 @math{b}가 @math{{\text{Fib}(1) = 1}} 이상이면 충분하기 때문이다. 이제 @math{k} 이하의 모든 정수에 대해 결과가 참이라고 가정하고 @math{{k + 1}}에 대해 성립함을 보이자. 축소 과정에서 연속한 쌍 @math{{(a_{k+1}, b_{k+1})} \to {(a_k, b_k)} \to {(a_{k-1}, b_{k-1})}}를 취하라. 귀납 가정에 의해 @math{b_{k-1} \ge {\text{Fib}(k - 1)}}이고 @math{b_k \ge {\text{Fib}(k)}}이다. 따라서 방금 증명한 주장과 피보나치 수의 정의를 함께 적용하면 @math{b_{k+1} \ge b_k + b_{k-1} \ge {\text{Fib}(k)} + {\text{Fib}(k-1)} = {\text{Fib}(k+1)}}가 된다. 이것으로 라메 정리의 증명이 완성된다.}
 @end quotation
 
 @noindent
-We can use this theorem to get an order-of-growth estimate for Euclid's
-Algorithm.  Let @math{n} be the smaller of the two inputs to the procedure.  If
-the process takes @math{k} steps, then we must have 
-@math{n \ge {\text{Fib}(k)} \approx {\varphi^k / \sqrt{5}}}.  Therefore the number of steps @math{k}
-grows as the logarithm (to the base @math{\varphi}) of @math{n}.  Hence, the order of
-growth is @math{{\Theta(\log n)}}.
+이 정리를 사용하면 유클리드 알고리즘의 증가 차수를 추정할 수 있다. @math{n}을 두 입력 중 작은 수라고 하자. 프로세스가 @math{k}단계를 필요로 한다면 @math{n \ge {\text{Fib}(k)} \approx {\varphi^k / \sqrt{5}}}여야 한다. 따라서 단계 수 @math{k}는 @math{n}의 로그(@math{\varphi}를 밑으로)로 증가한다. 그러므로 증가 차수는 @math{{\Theta(\log n)}}이다.
 
 @quotation
-@strong{@anchor{Exercise 1.20}Exercise 1.20:} The process that a procedure
-generates is of course dependent on the rules used by the interpreter.  As an
-example, consider the iterative @code{gcd} procedure given above.  Suppose we
-were to interpret this procedure using normal-order evaluation, as discussed in
-@ref{1.1.5}.  (The normal-order-evaluation rule for @code{if} is
-described in @ref{Exercise 1.5}.)  Using the substitution method (for normal
-order), illustrate the process generated in evaluating @code{gcd(206, 40)} and
-indicate the @code{remainder} operations that are actually performed.  How many
-@code{remainder} operations are actually performed in the normal-order
-evaluation of @code{gcd(206, 40)}?  In the applicative-order evaluation?
+@strong{@anchor{Exercise 1.20}연습문제 1.20:} 프로시저가 생성하는 프로세스는 물론 인터프리터가 사용하는 규칙에 의존한다. 예로, 위의 반복적 @code{gcd} 프로시저를 생각하라. @ref{1.1.5}에서 논의한 정규 순서 평가로 이 프로시저를 해석한다고 가정하자. (@code{if}에 대한 정규 순서 평가 규칙은 @ref{Exercise 1.5}에 설명되어 있다.) 치환 방법(정규 순서용)을 사용하여 @code{gcd(206, 40)}을 평가할 때 생성되는 프로세스를 보여주고, 실제로 수행되는 @code{remainder} 연산을 표시하라. 정규 순서 평가에서 @code{gcd(206, 40)}을 계산할 때 실제로 수행되는 @code{remainder} 연산은 몇 번인가? 적용 순서 평가에서는?
 @end quotation
 
 @node	1.2.6, 1.3, 1.1, 1.2
-@subsection Example: Testing for Primality
+@subsection 예제: 소수성 판별 (Example: Testing for Primality)
 
-This section describes two methods for checking the primality of an integer
-@math{n}, one with order of growth @math{{\Theta(\sqrt{n})}}, and a
-``probabilistic'' algorithm with order of growth @math{{\Theta(\log n)}}.
-The exercises at the end of this section suggest programming projects based on
-these algorithms.
+이 절은 정수 @math{n}의 소수성을 확인하는 두 가지 방법을 설명한다. 하나는 증가 차수가 @math{{\Theta(\sqrt{n})}}이고, 다른 하나는 증가 차수가 @math{{\Theta(\log n)}}인 ``확률적'' 알고리즘이다. 이 절 끝의 연습 문제들은 이러한 알고리즘을 바탕으로 한 프로그래밍 프로젝트를 제안한다.
 
-@subsubheading Searching for divisors
+@subsubheading 약수 찾기 (Searching for divisors)
 
-Since ancient times, mathematicians have been fascinated by problems concerning
-prime numbers, and many people have worked on the problem of determining ways
-to test if numbers are prime.  One way to test if a number is prime is to find
-the number's divisors.  The following program finds the smallest integral
-divisor (greater than 1) of a given number @math{n}.  It does this in a
-straightforward way, by testing @math{n} for divisibility by successive integers
-starting with 2.
+고대부터 수학자들은 소수에 관한 문제에 매혹되어 왔고, 많은 사람들이 수가 소수인지 검사하는 방법을 찾는 문제에 몰두해 왔다. 어떤 수가 소수인지 시험하는 한 가지 방법은 그 수의 약수를 찾는 것이다. 다음 프로그램은 주어진 수 @math{n}의 (1보다 큰) 가장 작은 정수 약수를 찾는다. 2부터 시작하여 연속된 정수로 @math{n}이 나누어지는지 검사하는 단순한 방법을 사용한다.
 
 @example
 fn smallest_divisor(n: u64) -> u64 @{
@@ -3726,24 +3622,11 @@ congruent to @math{a} modulo @math{n}.
 @end quotation
 
 @noindent
-(Two numbers are said to be @newterm{congruent modulo} @math{n} if they both have
-the same remainder when divided by @math{n}.  The remainder of a number @math{a} when
-divided by @math{n} is also referred to as the @newterm{remainder of} @math{a}
-@newterm{modulo} @math{n}, or simply as @math{a} @newterm{modulo} @math{n}.)
+(두 수가 @math{n}으로 나누었을 때 같은 나머지를 가지면 @math{n}에 대해 @newterm{모듈러 합동(congruent modulo)}이라고 한다. 수 @math{a}를 @math{n}으로 나눈 나머지는 @math{a}의 @newterm{모듈러 나머지(remainder of)} @math{n}이라고도 부르며, 간단히 @math{a} @newterm{모듈러(modulo)} @math{n}이라고도 한다.)
 
-If @math{n} is not prime, then, in general, most of the numbers @math{{a < n}} will
-not satisfy the above relation.  This leads to the following algorithm for
-testing primality: Given a number @math{n}, pick a random number @math{{a < n}} and
-compute the remainder of @math{a^n} modulo @math{n}.  If the result is not equal
-to @math{a}, then @math{n} is certainly not prime.  If it is @math{a}, then chances are
-good that @math{n} is prime.  Now pick another random number @math{a} and test it
-with the same method.  If it also satisfies the equation, then we can be even
-more confident that @math{n} is prime.  By trying more and more values of @math{a},
-we can increase our confidence in the result.  This algorithm is known as the
-Fermat test.
+@math{n}이 소수가 아니면, 일반적으로 @math{{a < n}}인 대부분의 수는 위의 관계를 만족하지 않는다. 이는 다음과 같은 소수성 판별 알고리즘으로 이어진다: 수 @math{n}이 주어지면 @math{{a < n}}인 임의의 수 @math{a}를 고르고, @math{a^n}을 @math{n}으로 나눈 나머지를 계산한다. 결과가 @math{a}와 다르면 @math{n}은 확실히 소수가 아니다. 결과가 @math{a}라면 @math{n}이 소수일 가능성이 높다. 이제 다른 임의의 @math{a}를 골라 같은 방법으로 시험하라. 역시 식을 만족하면 @math{n}이 소수일 것이라는 신뢰도가 더 높아진다. 더 많은 @math{a} 값을 시험할수록 결과에 대한 신뢰는 증가한다. 이 알고리즘은 페르마 테스트(Fermat test)로 알려져 있다.
 
-To implement the Fermat test, we need a procedure that computes the exponential
-of a number modulo another number:
+페르마 테스트를 구현하려면 어떤 수의 거듭제곱을 다른 수로 모듈러 계산하는 프로시저가 필요하다:
 
 @example
 fn expmod(base: u64, exp: u64, m: u64) -> u64 @{
@@ -3758,43 +3641,25 @@ fn expmod(base: u64, exp: u64, m: u64) -> u64 @{
 @end example
 
 @noindent
-This is very similar to the @code{fast-expt} procedure of @ref{1.2.4}.
-It uses successive squaring, so that the number of steps grows logarithmically
-with the exponent.@footnote{The reduction steps in the cases where the exponent
-@math{e} is greater than 1 are based on the fact that, for any integers @math{x},
-@math{y}, and @math{m}, we can find the remainder of @math{x} times @math{y} modulo @math{m}
-by computing separately the remainders of @math{x} modulo @math{m} and @math{y} modulo
-@math{m}, multiplying these, and then taking the remainder of the result modulo
-@math{m}.  For instance, in the case where @math{e} is even, we compute the remainder
-of @math{b^{e / 2}} modulo @math{m}, square this, and take the remainder modulo
-@math{m}.  This technique is useful because it means we can perform our
-computation without ever having to deal with numbers much larger than @math{m}.
-(Compare @ref{Exercise 1.25}.)}
+이는 @ref{1.2.4}의 @code{fast-expt} 프로시저와 매우 유사하다. 연속적인 제곱을 사용하므로 단계 수는 지수에 대해 로그형으로 증가한다.@footnote{지수 @math{e}가 1보다 큰 경우의 축소 단계는 다음 사실에 기반한다: 임의의 정수 @math{x}, @math{y}, @math{m}에 대해 @math{x}와 @math{y}를 각각 @math{m}으로 나눈 나머지를 구하고 이를 곱한 뒤, 그 결과를 다시 @math{m}으로 나눈 나머지를 취하면 @math{x}와 @math{y}를 곱한 값을 @math{m}으로 나눈 나머지를 얻을 수 있다. 예를 들어 @math{e}가 짝수인 경우, @math{b^{e / 2}}를 @math{m}으로 나눈 나머지를 계산하고 이를 제곱한 뒤, 다시 @math{m}으로 나눈 나머지를 취한다. 이 기법은 @math{m}보다 훨씬 큰 수를 다루지 않고도 계산을 수행할 수 있게 해 주므로 유용하다. (@ref{Exercise 1.25} 참조.)}
 
-The Fermat test is performed by choosing at random a number @math{a} between 1 and
-@math{{n-1}} inclusive and checking whether the remainder modulo @math{n} of the
-@math{n^{\text{th}}} power of @math{a} is equal to @math{a}.  The random number @math{a} is chosen
-using a procedure @code{random}, which we assume is available in our environment
-(in Rust, this would typically come from the @code{rand} crate).
-@code{Random} returns a nonnegative integer less than its integer input.  Hence, to obtain a random number between 1 and @math{{n-1}}, we call
-@code{random} with an input of @math{{n-1}} and add 1 to the result:
+페르마 테스트는 1과 @math{{n-1}} 사이의 임의의 수 @math{a}를 선택한 다음, @math{a}의 @math{n^{\text{th}}} 거듭제곱을 @math{n}으로 나눈 나머지가 @math{a}와 같은지 확인하는 방식으로 수행된다. 임의의 수 @math{a}는 환경에 제공되는 @code{random} 프로시저로 선택한다고 가정한다( Rust에서는 보통 @code{rand} 크레이트에서 제공한다).
+@code{Random}은 입력 정수보다 작은 음이 아닌 정수를 반환한다. 따라서 1과 @math{{n-1}} 사이의 임의의 수를 얻기 위해 @code{random}에 @math{{n-1}}을 입력하고 결과에 1을 더한다:
 
 @example
 fn fermat_test(n: u64) -> bool @{
     fn try_it(a: u64, n: u64) -> bool @{
         expmod(a, n, n) == a
     @}
-    // Note: Using rand crate's random() function
-    // In Rust: use rand::Rng; let a = rand::thread_rng().gen_range(1..n);
+    // 참고: rand 크레이트의 random() 함수 사용
+    // Rust: use rand::Rng; let a = rand::thread_rng().gen_range(1..n);
     let a = 1 + (rand::random::<u64>() % (n - 1));
     try_it(a, n)
 @}
 @end example
 
 @noindent
-The following procedure runs the test a given number of times, as specified by
-a parameter.  Its value is true if the test succeeds every time, and false
-otherwise.
+다음 프로시저는 매개변수로 지정된 횟수만큼 테스트를 수행한다. 매번 테스트가 성공하면 true이고, 그렇지 않으면 false이다.
 
 @example
 fn fast_prime(n: u64, times: u64) -> bool @{
@@ -3837,47 +3702,17 @@ difference between mathematics and engineering.}
 
 There are variations of the Fermat test that cannot be fooled.  In these tests,
 as with the Fermat method, one tests the primality of an integer @math{n} by
-choosing a random integer @math{{a < n}} and checking some condition that depends
-upon @math{n} and @math{a}.  (See @ref{Exercise 1.28} for an example of such a test.)
-On the other hand, in contrast to the Fermat test, one can prove that, for any
-@math{n}, the condition does not hold for most of the integers @math{{a < n}} unless
-@math{n} is prime.  Thus, if @math{n} passes the test for some random choice of
-@math{a}, the chances are better than even that @math{n} is prime.  If @math{n} passes
-the test for two random choices of @math{a}, the chances are better than 3 out of
-4 that @math{n} is prime. By running the test with more and more randomly chosen
-values of @math{a} we can make the probability of error as small as we like.
+@math{{a < n}}인 임의의 정수를 선택하고 @math{n}과 @math{a}에 의존하는 어떤 조건을 검사한다. (그런 테스트의 예는 @ref{Exercise 1.28}을 보라.)
+반면 페르마 테스트와 달리, 어떤 @math{n}에 대해서도 @math{n}이 소수가 아니면 @math{{a < n}}인 대부분의 정수는 그 조건을 만족하지 않음을 증명할 수 있다. 따라서 임의의 @math{a} 선택에서 @math{n}이 테스트를 통과하면, @math{n}이 소수일 가능성은 절반보다 높다. 임의의 @math{a} 두 번의 선택에서 테스트를 통과하면, @math{n}이 소수일 가능성은 4분의 3보다 높다. 더 많은 임의의 @math{a} 값으로 테스트를 반복할수록 오류 확률을 원하는 만큼 작게 만들 수 있다.
 
-The existence of tests for which one can prove that the chance of error becomes
-arbitrarily small has sparked interest in algorithms of this type, which have
-come to be known as @newterm{probabilistic algorithms}.  There is a great deal
-of research activity in this area, and probabilistic algorithms have been
-fruitfully applied to many fields.@footnote{One of the most striking
-applications of probabilistic prime testing has been to the field of
-cryptography.  Although it is now computationally infeasible to factor an
-arbitrary 200-digit number, the primality of such a number can be checked in a
-few seconds with the Fermat test.  This fact forms the basis of a technique for
-constructing ``unbreakable codes'' suggested by @ref{Rivest et al. (1977)}.  
-The resulting @newterm{RSA algorithm} has become a widely used
-technique for enhancing the security of electronic communications.  Because of
-this and related developments, the study of prime numbers, once considered the
-epitome of a topic in ``pure'' mathematics to be studied only for its own sake,
-now turns out to have important practical applications to cryptography,
-electronic funds transfer, and information retrieval.}
+오류 확률이 임의로 작아짐을 증명할 수 있는 테스트의 존재는 이러한 유형의 알고리즘에 대한 관심을 불러일으켰고, 이들은 @newterm{확률적 알고리즘(probabilistic algorithms)}으로 알려지게 되었다. 이 분야에는 많은 연구가 진행되고 있으며, 확률적 알고리즘은 여러 분야에 유익하게 적용되어 왔다.@footnote{확률적 소수 판별의 가장 인상적인 응용 중 하나는 암호학이다. 임의의 200자리 수를 인수분해하는 것은 이제 계산적으로 불가능하지만, 그 수의 소수성은 페르마 테스트로 몇 초 만에 확인할 수 있다. 이 사실은 @ref{Rivest et al. (1977)}이 제안한 ``깨지지 않는 코드''를 구성하는 기법의 기반을 이룬다. 그 결과인 @newterm{RSA 알고리즘(RSA algorithm)}은 전자 통신 보안을 강화하는 데 널리 사용되는 기법이 되었다. 이와 관련된 발전 때문에, 한때 ``순수'' 수학에서 그 자체로만 연구되는 주제의 전형으로 여겨졌던 소수 연구가 이제 암호학, 전자 자금 이체, 정보 검색에 중요한 실용적 응용을 갖는 것으로 드러났다.}
 
 @quotation
-@strong{@anchor{Exercise 1.21}Exercise 1.21:} Use the @code{smallest_divisor}
-procedure to find the smallest divisor of each of the following numbers: 199,
-1999, 19999.
+@strong{@anchor{Exercise 1.21}연습문제 1.21:} @code{smallest_divisor} 프로시저를 사용하여 다음 수들의 가장 작은 약수를 찾아라: 199, 1999, 19999.
 @end quotation
 
 @quotation
-@strong{@anchor{Exercise 1.22}Exercise 1.22:} Most Lisp implementations include
-a primitive called @code{runtime} that returns an integer that specifies the
-amount of time the system has been running (measured, for example, in
-microseconds).  The following @code{timed_prime_test} procedure, when called
-with an integer @math{n}, prints @math{n} and checks to see if @math{n} is prime.  If
-@math{n} is prime, the procedure prints three asterisks followed by the amount of
-time used in performing the test.
+@strong{@anchor{Exercise 1.22}연습문제 1.22:} 대부분의 Lisp 구현은 @code{runtime}이라는 기본 프로시저를 포함하고 있는데, 이는 시스템이 실행된 시간을 나타내는 정수를 반환한다(예: 마이크로초 단위). 다음 @code{timed_prime_test} 프로시저는 정수 @math{n}으로 호출되면 @math{n}을 출력하고 @math{n}이 소수인지 검사한다. @math{n}이 소수라면 프로시저는 별표 세 개와 테스트에 사용된 시간을 출력한다.
 
 @example
 fn timed_prime_test(n: u64) @{
@@ -3902,22 +3737,11 @@ fn report_prime(elapsed_time: Duration) @{
 @}
 @end example
 
-Using this procedure, write a procedure @code{search_for_primes} that checks
-the primality of consecutive odd integers in a specified range.  Use your
-procedure to find the three smallest primes larger than 1000; larger than
-10,000; larger than 100,000; larger than 1,000,000.  Note the time needed to
-test each prime.  Since the testing algorithm has order of growth of
-@math{{\Theta(\sqrt{n})}}, you should expect that testing for primes
-around 10,000 should take about @math{\sqrt{10}} times as long as testing for
-primes around 1000.  Do your timing data bear this out?  How well do the data
-for 100,000 and 1,000,000 support the @math{{\Theta(\sqrt{n})}} prediction?  Is your
-result compatible with the notion that programs on your machine run in time
-proportional to the number of steps required for the computation?
+이 프로시저를 사용하여 지정된 범위의 연속된 홀수를 검사하는 @code{search_for_primes} 프로시저를 작성하라. 이 프로시저로 1000보다 큰 가장 작은 소수 3개, 10,000보다 큰 가장 작은 소수 3개, 100,000보다 큰 가장 작은 소수 3개, 1,000,000보다 큰 가장 작은 소수 3개를 찾아라. 각 소수를 테스트하는 데 걸리는 시간을 기록하라. 테스트 알고리즘의 증가 차수는 @math{{\Theta(\sqrt{n})}}이므로, 10,000 근처의 소수를 검사하는 데 걸리는 시간은 1000 근처를 검사하는 시간의 약 @math{\sqrt{10}}배가 될 것으로 예상해야 한다. 시간 측정 데이터가 이를 뒷받침하는가? 100,000과 1,000,000에 대한 데이터는 @math{{\Theta(\sqrt{n})}} 예측을 얼마나 잘 지지하는가? 여러분의 결과는 여러분의 기계에서 프로그램이 계산에 필요한 단계 수에 비례하는 시간에 실행된다는 관념과 양립하는가?
 @end quotation
 
 @quotation
-@strong{@anchor{Exercise 1.23}Exercise 1.23:} The @code{smallest_divisor}
-procedure shown at the start of this section does lots of needless testing:
+@strong{@anchor{Exercise 1.23}연습문제 1.23:} 이 절의 시작에서 보인 @code{smallest_divisor} 프로시저는 불필요한 테스트를 많이 수행한다:
 After it checks to see if the number is divisible by 2 there is no point in
 checking to see if it is divisible by any larger even numbers.  This suggests
 that the values used for @code{test-divisor} should not be 2, 3, 4, 5, 6,
@@ -3959,12 +3783,7 @@ Explain.
 @end quotation
 
 @quotation
-@strong{@anchor{Exercise 1.26}Exercise 1.26:} Louis Reasoner is having great
-difficulty doing @ref{Exercise 1.24}.  His @code{fast_prime} test seems to run
-more slowly than his @code{is_prime} test.  Louis calls his friend Eva Lu Ator
-over to help.  When they examine Louis's code, they find that he has rewritten
-the @code{expmod} procedure to use an explicit multiplication, rather than
-calling @code{square}:
+@strong{@anchor{Exercise 1.26}연습문제 1.26:} 루이스 리즈너(Louis Reasoner)는 @ref{Exercise 1.24}를 하는 데 큰 어려움을 겪고 있다. 그의 @code{fast_prime} 테스트가 @code{is_prime} 테스트보다 더 느리게 실행되는 것처럼 보인다. 루이스는 친구 에바 루 에이터(Eva Lu Ator)를 불러 도움을 청한다. 두 사람이 루이스의 코드를 살펴보니, 그는 @code{square}를 호출하는 대신 명시적인 곱셈을 사용하도록 @code{expmod} 프로시저를 다시 작성했다:
 
 @example
 fn expmod(base: u64, exp: u64, m: u64) -> u64 @{
@@ -3978,50 +3797,21 @@ fn expmod(base: u64, exp: u64, m: u64) -> u64 @{
 @}
 @end example
 
-``I don't see what difference that could make,'' says Louis.  @w{``I do.''}  says
-Eva.  ``By writing the procedure like that, you have transformed the
-@math{{\Theta(\log n)}} process into a @math{{\Theta(n)}} process.''
-Explain.
+``그게 무슨 차이를 만들지 모르겠어.''라고 루이스가 말한다. @w{``난 알아.''}라고 에바가 말한다. ``그렇게 프로시저를 작성하면 @math{{\Theta(\log n)}} 프로세스를 @math{{\Theta(n)}} 프로세스로 바꿔버린 거야.'' 설명하라.
 @end quotation
 
 @quotation
-@strong{@anchor{Exercise 1.27}Exercise 1.27:} Demonstrate that the Carmichael
-numbers listed in @ref{Footnote 47} really do fool the Fermat test.  That is,
-write a procedure that takes an integer @math{n} and tests whether @math{a^n} is
-congruent to @math{a} modulo @math{n} for every @math{{a < n}}, and try your procedure
-on the given Carmichael numbers.
+@strong{@anchor{Exercise 1.27}연습문제 1.27:} @ref{Footnote 47}에 나열된 카마이클 수(Carmichael numbers)가 실제로 페르마 테스트를 속인다는 것을 보여라. 즉, 정수 @math{n}을 입력으로 받아 모든 @math{{a < n}}에 대해 @math{a^n}이 @math{a}와 @math{n}에 대해 합동인지 검사하는 프로시저를 작성하고, 주어진 카마이클 수에 대해 그 프로시저를 실행해 보라.
 @end quotation
 
 @quotation
-@strong{@anchor{Exercise 1.28}Exercise 1.28:} One variant of the Fermat test
-that cannot be fooled is called the @newterm{Miller-Rabin test} (@ref{Miller 1976};
-@ref{Rabin 1980}).  This starts from an alternate form of Fermat's Little Theorem,
-which states that if @math{n} is a prime number and @math{a} is any positive integer
-less than @math{n}, then @math{a} raised to the @math{{(n-1)}}-st power is congruent to 1
-modulo @math{n}.  To test the primality of a number @math{n} by the Miller-Rabin
-test, we pick a random number @math{{a < n}} and raise @math{a} to the @math{{(n-1)}}-st
-power modulo @math{n} using the @code{expmod} procedure.  However, whenever we
-perform the squaring step in @code{expmod}, we check to see if we have
-discovered a ``nontrivial square root of 1 modulo @math{n},'' that is, a number
-not equal to 1 or @math{{n-1}} whose square is equal to 1 modulo @math{n}.  It is
-possible to prove that if such a nontrivial square root of 1 exists, then @math{n}
-is not prime.  It is also possible to prove that if @math{n} is an odd number that
-is not prime, then, for at least half the numbers @math{{a < n}}, computing
-@math{a^{n-1}} in this way will reveal a nontrivial square root of 1 modulo
-@math{n}.  (This is why the Miller-Rabin test cannot be fooled.)  Modify the
-@code{expmod} procedure to signal if it discovers a nontrivial square root of
-1, and use this to implement the Miller-Rabin test with a procedure analogous
-to @code{fermat-test}.  Check your procedure by testing various known primes
-and non-primes.  Hint: One convenient way to make @code{expmod} signal is to
-have it return 0.
+@strong{@anchor{Exercise 1.28}연습문제 1.28:} 페르마 테스트의 변형 중 속일 수 없는 것으로 알려진 것이 @newterm{밀러-라빈 테스트(Miller-Rabin test)}이다(@ref{Miller 1976}; @ref{Rabin 1980}). 이는 페르마의 소정리의 다른 형태에서 시작한다. 즉, @math{n}이 소수이고 @math{a}가 @math{n}보다 작은 양의 정수라면, @math{a}의 @math{{(n-1)}}제곱은 @math{n}에 대해 1과 합동이라는 것이다. 밀러-라빈 테스트로 @math{n}의 소수성을 검사하려면 @math{{a < n}}인 임의의 수를 고르고 @code{expmod} 프로시저로 @math{a}의 @math{{(n-1)}}제곱을 @math{n}으로 모듈러 계산한다. 그런데 @code{expmod}에서 제곱 단계마다 ``@math{n}에 대한 1의 비자명한 제곱근''을 발견했는지 확인한다. 즉, 1이나 @math{{n-1}}이 아니면서 제곱이 @math{n}에 대해 1과 합동인 수다. 이런 비자명한 제곱근이 존재하면 @math{n}은 소수가 아님을 증명할 수 있다. 또한 @math{n}이 홀수이면서 소수가 아니라면, 적어도 절반의 @math{{a < n}}에 대해 이 방법으로 @math{a^{n-1}}을 계산하면 @math{n}에 대한 1의 비자명한 제곱근이 드러난다는 것도 증명할 수 있다. (이 때문에 밀러-라빈 테스트는 속일 수 없다.) @code{expmod} 프로시저를 수정하여 비자명한 제곱근을 발견하면 신호하도록 만들고, 이를 사용해 @code{fermat-test}와 유사한 프로시저로 밀러-라빈 테스트를 구현하라. 알려진 소수와 합성수에 대해 테스트하여 프로시저를 확인하라. 힌트: @code{expmod}가 신호를 보내게 하는 편리한 방법 중 하나는 0을 반환하게 만드는 것이다.
 @end quotation
 
 @node	1.3, Chapter 2, 1.2, Chapter 1
-@section Formulating Abstractions with Higher-Order Procedures
+@section 고차 프로시저를 이용한 추상화의 정식화 (Formulating Abstractions with Higher-Order Procedures)
 
-We have seen that procedures are, in effect, abstractions that describe
-compound operations on numbers independent of the particular numbers.  For
-example, when we
+우리는 프로시저가 실제로 특정 숫자와는 독립적으로 숫자에 대한 복합 연산을 설명하는 추상화임을 보았다. 예를 들어, 우리가 다음과 같이 쓸 때
 
 @example
 fn cube(x: i64) -> i64 @{
@@ -4030,9 +3820,7 @@ fn cube(x: i64) -> i64 @{
 @end example
 
 @noindent
-we are not talking about the cube of a particular number, but rather about a
-method for obtaining the cube of any number.  Of course we could get along
-without ever defining this procedure, by always writing expressions such as
+우리는 특정한 수의 세제곱을 말하는 것이 아니라, 어떤 수든 세제곱을 구하는 방법을 말하고 있다. 물론 이 프로시저를 정의하지 않고도 다음과 같은 표현식을 매번 직접 써서 지낼 수도 있다:
 
 @example
 3 * 3 * 3
@@ -4074,7 +3862,7 @@ expressive power of our language.
 @subsection Procedures as Arguments
 
 Consider the following three procedures.  The first computes the sum of the
-integers from @code{a} through @code{b}:
+@code{a}부터 @code{b}까지의 정수 합을 계산한다:
 
 @example
 fn sum_integers(a: i64, b: i64) -> i64 @{
@@ -4087,7 +3875,7 @@ fn sum_integers(a: i64, b: i64) -> i64 @{
 @end example
 
 @noindent
-The second computes the sum of the cubes of the integers in the given range:
+두 번째는 주어진 범위의 정수 세제곱의 합을 계산한다:
 
 @example
 fn sum_cubes(a: i64, b: i64) -> i64 @{
@@ -4100,7 +3888,7 @@ fn sum_cubes(a: i64, b: i64) -> i64 @{
 @end example
 
 @noindent
-The third computes the sum of a sequence of terms in the series
+세 번째는 다음 급수의 항들의 합을 계산한다:
 @ifinfo
 
 @example
@@ -4119,11 +3907,8 @@ The third computes the sum of a sequence of terms in the series
 
 @end tex
 @noindent
-which converges to @math{{\pi / 8}} (very slowly):@footnote{This series, usually
-written in the equivalent form 
-@math{{\pi\over4} = {1 - {1\over3} + {1\over5}} - {{1\over7} + \dots}}, 
-is due to Leibniz.  We'll see how to use this as the basis for some
-fancy numerical tricks in @ref{3.5.3}.}
+이 급수는 @math{{\pi / 8}}로 (매우 느리게) 수렴한다:@footnote{이 급수는 보통 동치 형태인 
+@math{{\pi\over4} = {1 - {1\over3} + {1\over5}} - {{1\over7} + \dots}}로 쓰이며, 라이프니츠(Leibniz)가 제안했다. @ref{3.5.3}에서 이를 바탕으로 한 흥미로운 수치 기법을 보게 될 것이다.}
 
 @example
 fn pi_sum(a: i64, b: i64) -> f64 @{
@@ -4136,11 +3921,7 @@ fn pi_sum(a: i64, b: i64) -> f64 @{
 @end example
 
 @noindent
-These three procedures clearly share a common underlying pattern.  They are for
-the most part identical, differing only in the name of the procedure, the
-function of @code{a} used to compute the term to be added, and the function
-that provides the next value of @code{a}.  We could generate each of the
-procedures by filling in slots in the same template:
+이 세 프로시저는 공통된 바탕 패턴을 분명히 공유한다. 대부분이 동일하며, 프로시저의 이름, 더할 항을 계산하는 @code{a}의 함수, 그리고 다음 @code{a} 값을 제공하는 함수만 다르다. 같은 템플릿의 빈칸을 채우면 각각의 프로시저를 생성할 수 있다:
 
 @example
 fn ⟨@var{name}⟩(a: i64, b: i64) -> i64 @{
@@ -4153,10 +3934,7 @@ fn ⟨@var{name}⟩(a: i64, b: i64) -> i64 @{
 @end example
 
 @noindent
-The presence of such a common pattern is strong evidence that there is a useful
-abstraction waiting to be brought to the surface.  Indeed, mathematicians long
-ago identified the abstraction of @newterm{summation of a series} and invented
-``sigma notation,'' for example
+이러한 공통 패턴의 존재는 유용한 추상화가 표면 위로 드러나기를 기다리고 있다는 강력한 증거다. 실제로 수학자들은 오래전에 @newterm{급수의 합(summation of a series)}이라는 추상화를 식별하고 ``시그마 표기법(sigma notation)''을 고안했다. 예를 들어:
 @ifinfo
 
 @example

@@ -1,32 +1,37 @@
-//! Section 4.1: The Metacircular Evaluator
+//! 4.1절: 메타순환 평가기 (The Metacircular Evaluator)
 //!
-//! A Scheme interpreter written in idiomatic Rust using persistent environments.
+//! 영속적 환경을 사용해 관용적인 러스트로 작성한 Scheme 인터프리터
+//! (A Scheme interpreter written in idiomatic Rust using persistent environments).
 //!
-//! ## Key Design Changes from SICP Scheme:
+//! ## SICP Scheme 대비 핵심 설계 변경 (Key Design Changes from SICP Scheme):
 //!
-//! - **Persistent environments**: Using `im::HashMap` for O(1) clone with structural sharing
-//! - **Owned closures**: Closures capture their environment by clone (not shared reference)
-//! - **Functional state threading**: `eval` returns `(Value, Environment)` for mutations
-//! - **No Rc<RefCell<>>**: All ownership is explicit through the type system
+//! - **영속적 환경 (Persistent environments)**: 구조적 공유로 O(1) 복제를 위한 `im::HashMap` 사용
+//! - **소유 클로저 (Owned closures)**: 클로저가 환경을 복제해 캡처 (공유 참조 아님)
+//! - **함수형 상태 스레딩 (Functional state threading)**: `eval`이 `(Value, Environment)`를 반환
+//! - **Rc<RefCell<>> 없음 (No Rc<RefCell<>>)**: 타입 시스템을 통한 명시적 소유권
 //!
-//! ## Rust vs Scheme Semantics:
+//! ## 러스트 vs 스킴 의미론 (Rust vs Scheme Semantics):
 //!
-//! In Scheme, `set!` mutates a shared environment visible to all closures.
+//! Scheme에서는 `set!`가 모든 클로저가 보는 공유 환경을 변이한다.
+//! 이 순수 함수형 구현에서는 `set!`가 새 환경을 반환하므로
+//! 이전 환경을 캡처한 클로저는 변경을 보지 못한다.
+//! 이는 순수 함수형 의미론에 부합하며 러스트의 소유권 모델을 보여준다
+//! (In Scheme, `set!` mutates a shared environment visible to all closures.
 //! In this pure functional implementation, `set!` returns a new environment,
 //! so closures that captured the old environment won't see the change.
-//! This matches pure functional semantics and demonstrates Rust's ownership model.
+//! This matches pure functional semantics and demonstrates Rust's ownership model).
 //!
-//! ## Architecture:
+//! ## 아키텍처 (Architecture):
 //!
 //! ```text
 //! eval(expr, env) → (Value, Environment)
 //!   ↓
 //!   match expr {
-//!     Number/String → (self-evaluating, env)
-//!     Symbol → (env.lookup(name), env)
-//!     Lambda → (Closure { env: env.clone() }, env)
-//!     Define → env' = env.define(name, value); (Void, env')
-//!     Application → apply(procedure, args)
+//!     Number/String → (자기 평가 (self-evaluating), env)
+//!     Symbol → (env.lookup(name), env)  // 변수 조회 (variable lookup)
+//!     Lambda → (Closure { env: env.clone() }, env)  // 클로저 생성 (closure creation)
+//!     Define → env' = env.define(name, value); (Void, env')  // 정의 (definition)
+//!     Application → apply(procedure, args)  // 적용 (application)
 //!   }
 //! ```
 
@@ -34,54 +39,54 @@ use sicp_common::Environment;
 use std::fmt;
 
 // =============================================================================
-// Expression Types (AST)
+// 식 타입 (AST) (Expression Types)
 // =============================================================================
 
-/// Expression type - represents the abstract syntax tree.
+/// 식 타입 - 추상 구문 트리를 나타낸다 (Expression type - represents the abstract syntax tree).
 #[derive(Debug, Clone, PartialEq)]
 pub enum Expr {
-    /// Self-evaluating numbers
+    /// 자기 평가 숫자 (Self-evaluating numbers)
     Number(i64),
-    /// Self-evaluating strings
+    /// 자기 평가 문자열 (Self-evaluating strings)
     String(String),
-    /// Variable reference
+    /// 변수 참조 (Variable reference)
     Symbol(String),
-    /// Quoted expression: (quote expr)
+    /// 인용 표현식 (Quoted expression): (quote expr)
     Quote(Box<Expr>),
-    /// Conditional: (if predicate consequent alternative)
+    /// 조건식 (Conditional): (if predicate consequent alternative)
     If {
         predicate: Box<Expr>,
         consequent: Box<Expr>,
         alternative: Box<Expr>,
     },
-    /// Lambda abstraction: (lambda (params...) body...)
+    /// 람다 추상화 (Lambda abstraction): (lambda (params...) body...)
     Lambda {
         params: Vec<String>,
         body: Vec<Expr>,
     },
-    /// Variable definition: (define var expr)
+    /// 변수 정의 (Variable definition): (define var expr)
     Define { name: String, value: Box<Expr> },
-    /// Sequence: (begin expr...)
+    /// 순차 실행 (Sequence): (begin expr...)
     Begin(Vec<Expr>),
-    /// Conditional with multiple clauses: (cond (pred expr)... (else expr))
+    /// 다중 절 조건식 (Conditional with multiple clauses): (cond (pred expr)... (else expr))
     Cond(Vec<CondClause>),
-    /// Let binding: (let ((var expr)...) body...)
+    /// let 바인딩 (Let binding): (let ((var expr)...) body...)
     Let {
         bindings: Vec<(String, Expr)>,
         body: Vec<Expr>,
     },
-    /// Procedure application: (operator operand...)
+    /// 프로시저 적용 (Procedure application): (operator operand...)
     Application {
         operator: Box<Expr>,
         operands: Vec<Expr>,
     },
-    /// Empty list - used in quote
+    /// 빈 리스트 - quote에서 사용 (Empty list - used in quote)
     Nil,
-    /// Cons pair for quoted lists
+    /// 인용 리스트용 cons 쌍 (Cons pair for quoted lists)
     Cons(Box<Expr>, Box<Expr>),
 }
 
-/// Cond clause: predicate and actions.
+/// cond 절: 술어와 동작 (Cond clause: predicate and actions).
 #[derive(Debug, Clone, PartialEq)]
 pub struct CondClause {
     pub predicate: Expr,
@@ -89,33 +94,36 @@ pub struct CondClause {
 }
 
 // =============================================================================
-// Runtime Values
+// 런타임 값 (Runtime Values)
 // =============================================================================
 
-/// Runtime values produced by evaluation.
+/// 평가로 생성되는 런타임 값 (Runtime values produced by evaluation).
 ///
-/// Closures own their environment (no Rc<RefCell<>>).
+/// 클로저는 환경을 소유한다 (Rc<RefCell<>> 없음)
+/// (Closures own their environment (no Rc<RefCell<>>)).
 #[derive(Debug, Clone)]
 pub enum Value {
     Number(i64),
     Bool(bool),
     String(String),
     Symbol(String),
-    /// Compound procedure - closure OWNS its captured environment
+    /// 복합 프로시저 - 클로저가 캡처한 환경을 소유한다
+    /// (Compound procedure - closure OWNS its captured environment)
     Closure {
         params: Vec<String>,
         body: Vec<Expr>,
         env: Environment<Value>,
-        /// Optional self-name for recursive binding at call time
+        /// 호출 시 재귀 바인딩을 위한 선택적 self 이름
+        /// (Optional self-name for recursive binding at call time)
         self_name: Option<String>,
     },
-    /// Primitive procedure
+    /// 기본 프로시저 (Primitive procedure)
     Primitive(String, PrimitiveFn),
-    /// Cons pair
+    /// cons 쌍 (Cons pair)
     Pair(Box<Value>, Box<Value>),
-    /// Empty list
+    /// 빈 리스트 (Empty list)
     Nil,
-    /// Void (returned by define)
+    /// void (define의 반환값) (Void (returned by define))
     Void,
 }
 
@@ -142,11 +150,11 @@ impl fmt::Display for Value {
             Value::String(s) => write!(f, "\"{}\"", s),
             Value::Symbol(s) => write!(f, "{}", s),
             Value::Closure { params, .. } => {
-                write!(f, "#<procedure ({})>", params.join(" "))
+                write!(f, "#<프로시저 (procedure) ({})>", params.join(" "))
             }
-            Value::Primitive(name, _) => write!(f, "#<primitive:{}>", name),
+            Value::Primitive(name, _) => write!(f, "#<기본-프로시저 (primitive):{}>", name),
             Value::Nil => write!(f, "()"),
-            Value::Void => write!(f, "#<void>"),
+            Value::Void => write!(f, "#<무효 (void)>"),
             Value::Pair(car, cdr) => {
                 write!(f, "(")?;
                 write!(f, "{}", car)?;
@@ -170,14 +178,14 @@ impl fmt::Display for Value {
     }
 }
 
-/// Primitive function type.
+/// 기본 함수 타입 (Primitive function type).
 pub type PrimitiveFn = fn(&[Value]) -> Result<Value, EvalError>;
 
 // =============================================================================
-// Errors
+// 오류 (Errors)
 // =============================================================================
 
-/// Evaluation errors.
+/// 평가 오류 (Evaluation errors).
 #[derive(Debug, Clone, PartialEq)]
 pub enum EvalError {
     UnboundVariable(String),
@@ -191,14 +199,20 @@ pub enum EvalError {
 impl fmt::Display for EvalError {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
-            EvalError::UnboundVariable(var) => write!(f, "Unbound variable: {}", var),
-            EvalError::TypeError(msg) => write!(f, "Type error: {}", msg),
-            EvalError::ArityMismatch { expected, got } => {
-                write!(f, "Arity mismatch: expected {}, got {}", expected, got)
+            EvalError::UnboundVariable(var) => {
+                write!(f, "바인딩되지 않은 변수 (Unbound variable): {}", var)
             }
-            EvalError::DivisionByZero => write!(f, "Division by zero"),
-            EvalError::InvalidSyntax(msg) => write!(f, "Invalid syntax: {}", msg),
-            EvalError::RuntimeError(msg) => write!(f, "Runtime error: {}", msg),
+            EvalError::TypeError(msg) => write!(f, "타입 오류 (Type error): {}", msg),
+            EvalError::ArityMismatch { expected, got } => {
+                write!(
+                    f,
+                    "인자 수 불일치 (Arity mismatch): expected {}, got {}",
+                    expected, got
+                )
+            }
+            EvalError::DivisionByZero => write!(f, "0으로 나눔 (Division by zero)"),
+            EvalError::InvalidSyntax(msg) => write!(f, "잘못된 문법 (Invalid syntax): {}", msg),
+            EvalError::RuntimeError(msg) => write!(f, "런타임 오류 (Runtime error): {}", msg),
         }
     }
 }
@@ -206,24 +220,26 @@ impl fmt::Display for EvalError {
 impl std::error::Error for EvalError {}
 
 // =============================================================================
-// Evaluator Core
+// 평가기 핵심 (Evaluator Core)
 // =============================================================================
 
-/// Evaluate an expression in an environment.
+/// 환경에서 식을 평가한다 (Evaluate an expression in an environment).
 ///
-/// Returns `(Value, Environment)` - the new environment may have new bindings
-/// from `define` expressions. This functional approach threads state through
-/// the evaluator without mutation.
+/// `(Value, Environment)`를 반환하며, 새 환경은 `define`에서 생긴 새 바인딩을 포함할 수 있다
+/// (Returns `(Value, Environment)` - the new environment may have new bindings
+/// from `define` expressions).
+/// 이 함수형 접근은 변이 없이 상태를 평가기 내부로 스레딩한다
+/// (This functional approach threads state through the evaluator without mutation).
 pub fn eval(
     expr: &Expr,
     env: Environment<Value>,
 ) -> Result<(Value, Environment<Value>), EvalError> {
     match expr {
-        // Self-evaluating expressions
+        // 자기 평가 식 (Self-evaluating expressions)
         Expr::Number(n) => Ok((Value::Number(*n), env)),
         Expr::String(s) => Ok((Value::String(s.clone()), env)),
 
-        // Variable lookup
+        // 변수 조회 (Variable lookup)
         Expr::Symbol(name) => {
             let value = env
                 .lookup(name)
@@ -232,13 +248,14 @@ pub fn eval(
             Ok((value, env))
         }
 
-        // Quote: return the expression unevaluated
+        // 인용: 식을 평가하지 않고 반환 (Quote: return the expression unevaluated)
         Expr::Quote(quoted) => {
             let value = expr_to_value(quoted)?;
             Ok((value, env))
         }
 
-        // If: evaluate predicate, then consequent or alternative
+        // if: 술어를 평가하고, 결과에 따라 분기
+        // (If: evaluate predicate, then consequent or alternative)
         Expr::If {
             predicate,
             consequent,
@@ -252,33 +269,38 @@ pub fn eval(
             }
         }
 
-        // Lambda: create a closure capturing the current environment
+        // 람다: 현재 환경을 캡처하는 클로저 생성
+        // (Lambda: create a closure capturing the current environment)
         Expr::Lambda { params, body } => {
             let closure = Value::Closure {
                 params: params.clone(),
                 body: body.clone(),
-                env: env.clone(), // Closure OWNS a copy (O(1) due to structural sharing)
-                self_name: None,  // Anonymous lambda
+                env: env.clone(), // 클로저는 복제본을 소유 (구조적 공유로 O(1)) (Closure OWNS a copy (O(1) due to structural sharing))
+                self_name: None,  // 익명 람다 (Anonymous lambda)
             };
             Ok((closure, env))
         }
 
-        // Define: evaluate value and bind in a new environment
-        // Special handling for lambda to enable recursion via self_name
+        // define: 값을 평가하고 새 환경에 바인딩
+        // (Define: evaluate value and bind in a new environment)
+        // 람다는 self_name으로 재귀가 가능하도록 특별 처리
+        // (Special handling for lambda to enable recursion via self_name)
         Expr::Define { name, value } => {
             match value.as_ref() {
-                // For lambda definitions, set self_name for recursive binding
+                // 람다 정의는 self_name을 설정해 재귀 바인딩 가능
+                // (For lambda definitions, set self_name for recursive binding)
                 Expr::Lambda { params, body } => {
                     let closure = Value::Closure {
                         params: params.clone(),
                         body: body.clone(),
                         env: env.clone(),
-                        self_name: Some(name.clone()), // Enable recursive self-reference
+                        self_name: Some(name.clone()), // 재귀 자기 참조 허용 (Enable recursive self-reference)
                     };
                     let new_env = env.define(name.clone(), closure);
                     Ok((Value::Void, new_env))
                 }
-                // Non-lambda values: evaluate normally
+                // 람다가 아닌 값: 일반 평가
+                // (Non-lambda values: evaluate normally)
                 _ => {
                     let (val, env) = eval(value, env)?;
                     let new_env = env.define(name.clone(), val);
@@ -287,22 +309,26 @@ pub fn eval(
             }
         }
 
-        // Begin: evaluate sequence, return last value
+        // begin: 순차 평가 후 마지막 값을 반환
+        // (Begin: evaluate sequence, return last value)
         Expr::Begin(exprs) => eval_sequence(exprs, env),
 
-        // Cond: transform to nested if and evaluate
+        // cond: 중첩 if로 변환 후 평가
+        // (Cond: transform to nested if and evaluate)
         Expr::Cond(clauses) => {
             let if_expr = cond_to_if(clauses)?;
             eval(&if_expr, env)
         }
 
-        // Let: transform to lambda application
+        // let: 람다 적용으로 변환
+        // (Let: transform to lambda application)
         Expr::Let { bindings, body } => {
             let let_expr = let_to_application(bindings, body);
             eval(&let_expr, env)
         }
 
-        // Application: evaluate operator and operands, then apply
+        // 적용: 연산자와 피연산자를 평가하고 적용
+        // (Application: evaluate operator and operands, then apply)
         Expr::Application { operator, operands } => {
             let (proc, env) = eval(operator, env)?;
             let (args, env) = eval_list(operands, env)?;
@@ -310,10 +336,10 @@ pub fn eval(
             Ok((result, env))
         }
 
-        // Empty list
+        // 빈 리스트 (Empty list)
         Expr::Nil => Ok((Value::Nil, env)),
 
-        // Cons (only in quoted expressions)
+        // cons (인용된 표현식에서만) (Cons (only in quoted expressions))
         Expr::Cons(car, cdr) => {
             let car_val = expr_to_value(car)?;
             let cdr_val = expr_to_value(cdr)?;
@@ -322,13 +348,15 @@ pub fn eval(
     }
 }
 
-/// Apply a procedure to arguments.
+/// 프로시저에 인자를 적용한다 (Apply a procedure to arguments).
 pub fn apply(procedure: Value, args: Vec<Value>) -> Result<Value, EvalError> {
     match procedure.clone() {
-        // Primitive procedure: call the Rust function
+        // 기본 프로시저: 러스트 함수를 호출
+        // (Primitive procedure: call the Rust function)
         Value::Primitive(_, func) => func(&args),
 
-        // Compound procedure: evaluate body in extended environment
+        // 복합 프로시저: 확장된 환경에서 본문 평가
+        // (Compound procedure: evaluate body in extended environment)
         Value::Closure {
             params,
             body,
@@ -342,31 +370,35 @@ pub fn apply(procedure: Value, args: Vec<Value>) -> Result<Value, EvalError> {
                 });
             }
 
-            // Start with the closure's captured environment
+            // 클로저가 캡처한 환경에서 시작
+            // (Start with the closure's captured environment)
             let mut new_env = env;
 
-            // Bind self-name for recursive calls (the key fix for recursion!)
+            // 재귀 호출을 위해 self-name을 바인딩 (재귀의 핵심 수정)
+            // (Bind self-name for recursive calls (the key fix for recursion!))
             if let Some(name) = self_name {
                 new_env = new_env.define(name, procedure);
             }
 
-            // Extend with parameter bindings
+            // 매개변수 바인딩으로 확장 (Extend with parameter bindings)
             let bindings: Vec<(String, Value)> = params.into_iter().zip(args).collect();
             new_env = new_env.extend(bindings);
 
-            // Evaluate body and return just the value (ignore final environment)
+            // 본문을 평가하고 값만 반환 (최종 환경은 무시)
+            // (Evaluate body and return just the value (ignore final environment))
             let (result, _) = eval_sequence(&body, new_env)?;
             Ok(result)
         }
 
         _ => Err(EvalError::TypeError(format!(
-            "Cannot apply non-procedure: {}",
+            "프로시저가 아닌 값에 적용 불가 (Cannot apply non-procedure): {}",
             procedure
         ))),
     }
 }
 
-/// Evaluate a sequence of expressions, returning the last value.
+/// 식의 시퀀스를 평가하고 마지막 값을 반환한다
+/// (Evaluate a sequence of expressions, returning the last value).
 fn eval_sequence(
     exprs: &[Expr],
     mut env: Environment<Value>,
@@ -384,7 +416,8 @@ fn eval_sequence(
     Ok((result, env))
 }
 
-/// Evaluate a list of expressions, returning a vector of values.
+/// 식 리스트를 평가하고 값 벡터를 반환한다
+/// (Evaluate a list of expressions, returning a vector of values).
 fn eval_list(
     exprs: &[Expr],
     mut env: Environment<Value>,
@@ -398,7 +431,8 @@ fn eval_list(
     Ok((values, env))
 }
 
-/// Convert an Expr to a Value (for quoted expressions).
+/// Expr를 Value로 변환한다 (인용 표현식용)
+/// (Convert an Expr to a Value (for quoted expressions)).
 fn expr_to_value(expr: &Expr) -> Result<Value, EvalError> {
     match expr {
         Expr::Number(n) => Ok(Value::Number(*n)),
@@ -411,17 +445,18 @@ fn expr_to_value(expr: &Expr) -> Result<Value, EvalError> {
             Ok(Value::Pair(Box::new(car_val), Box::new(cdr_val)))
         }
         _ => Err(EvalError::InvalidSyntax(
-            "Cannot quote complex expression".to_string(),
+            "복잡한 표현식은 인용할 수 없음 (Cannot quote complex expression)".to_string(),
         )),
     }
 }
 
-/// Test if a value is true (everything except #f is true).
+/// 값이 참인지 확인 (#f만 거짓)
+/// (Test if a value is true (everything except #f is true)).
 fn is_true(value: &Value) -> bool {
     !matches!(value, Value::Bool(false))
 }
 
-/// Transform cond to nested if.
+/// cond를 중첩 if로 변환한다 (Transform cond to nested if).
 fn cond_to_if(clauses: &[CondClause]) -> Result<Expr, EvalError> {
     if clauses.is_empty() {
         return Ok(Expr::Quote(Box::new(Expr::Symbol("false".to_string()))));
@@ -430,13 +465,13 @@ fn cond_to_if(clauses: &[CondClause]) -> Result<Expr, EvalError> {
     let first = &clauses[0];
     let rest = &clauses[1..];
 
-    // Check for else clause
+    // else 절 확인 (Check for else clause)
     if let Expr::Symbol(s) = &first.predicate
         && s == "else"
     {
         if !rest.is_empty() {
             return Err(EvalError::InvalidSyntax(
-                "else clause must be last".to_string(),
+                "else 절은 마지막이어야 함 (else clause must be last)".to_string(),
             ));
         }
         return Ok(if first.actions.len() == 1 {
@@ -461,7 +496,7 @@ fn cond_to_if(clauses: &[CondClause]) -> Result<Expr, EvalError> {
     })
 }
 
-/// Transform let to lambda application.
+/// let을 람다 적용으로 변환한다 (Transform let to lambda application).
 fn let_to_application(bindings: &[(String, Expr)], body: &[Expr]) -> Expr {
     let params: Vec<String> = bindings.iter().map(|(name, _)| name.clone()).collect();
     let args: Vec<Expr> = bindings.iter().map(|(_, expr)| expr.clone()).collect();
@@ -476,20 +511,21 @@ fn let_to_application(bindings: &[(String, Expr)], body: &[Expr]) -> Expr {
 }
 
 // =============================================================================
-// Primitive Procedures
+// 기본 프로시저 (Primitive Procedures)
 // =============================================================================
 
-/// Create a global environment with primitive procedures.
+/// 기본 프로시저가 들어 있는 전역 환경을 만든다
+/// (Create a global environment with primitive procedures).
 pub fn setup_environment() -> Environment<Value> {
     let env = Environment::new();
 
-    // Arithmetic
+    // 산술 (Arithmetic)
     let env = env.define("+".to_string(), Value::Primitive("+".to_string(), prim_add));
     let env = env.define("-".to_string(), Value::Primitive("-".to_string(), prim_sub));
     let env = env.define("*".to_string(), Value::Primitive("*".to_string(), prim_mul));
     let env = env.define("/".to_string(), Value::Primitive("/".to_string(), prim_div));
 
-    // Comparison
+    // 비교 (Comparison)
     let env = env.define("=".to_string(), Value::Primitive("=".to_string(), prim_eq));
     let env = env.define("<".to_string(), Value::Primitive("<".to_string(), prim_lt));
     let env = env.define(">".to_string(), Value::Primitive(">".to_string(), prim_gt));
@@ -502,7 +538,7 @@ pub fn setup_environment() -> Environment<Value> {
         Value::Primitive(">=".to_string(), prim_gte),
     );
 
-    // List operations
+    // 리스트 연산 (List operations)
     let env = env.define(
         "cons".to_string(),
         Value::Primitive("cons".to_string(), prim_cons),
@@ -524,7 +560,7 @@ pub fn setup_environment() -> Environment<Value> {
         Value::Primitive("list".to_string(), prim_list),
     );
 
-    // Type predicates
+    // 타입 판정 (Type predicates)
     let env = env.define(
         "number?".to_string(),
         Value::Primitive("number?".to_string(), prim_number_p),
@@ -538,23 +574,25 @@ pub fn setup_environment() -> Environment<Value> {
         Value::Primitive("pair?".to_string(), prim_pair_p),
     );
 
-    // Display
+    // 표시 (Display)
     let env = env.define(
         "display".to_string(),
         Value::Primitive("display".to_string(), prim_display),
     );
 
-    // Boolean constants
+    // 불리언 상수 (Boolean constants)
     let env = env.define("true".to_string(), Value::Bool(true));
 
     env.define("false".to_string(), Value::Bool(false))
 }
 
-// Arithmetic primitives
+// 산술 기본 프로시저 (Arithmetic primitives)
 fn prim_add(args: &[Value]) -> Result<Value, EvalError> {
     let sum = args.iter().try_fold(0i64, |acc, v| match v {
         Value::Number(n) => Ok(acc + n),
-        _ => Err(EvalError::TypeError("+ requires numbers".to_string())),
+        _ => Err(EvalError::TypeError(
+            "+ 는 숫자가 필요함 (+ requires numbers)".to_string(),
+        )),
     })?;
     Ok(Value::Number(sum))
 }
@@ -573,19 +611,25 @@ fn prim_sub(args: &[Value]) -> Result<Value, EvalError> {
             } else {
                 let result = args[1..].iter().try_fold(*first, |acc, v| match v {
                     Value::Number(n) => Ok(acc - n),
-                    _ => Err(EvalError::TypeError("- requires numbers".to_string())),
+                    _ => Err(EvalError::TypeError(
+                        "- 는 숫자가 필요함 (- requires numbers)".to_string(),
+                    )),
                 })?;
                 Ok(Value::Number(result))
             }
         }
-        _ => Err(EvalError::TypeError("- requires numbers".to_string())),
+        _ => Err(EvalError::TypeError(
+            "- 는 숫자가 필요함 (- requires numbers)".to_string(),
+        )),
     }
 }
 
 fn prim_mul(args: &[Value]) -> Result<Value, EvalError> {
     let product = args.iter().try_fold(1i64, |acc, v| match v {
         Value::Number(n) => Ok(acc * n),
-        _ => Err(EvalError::TypeError("* requires numbers".to_string())),
+        _ => Err(EvalError::TypeError(
+            "* 는 숫자가 필요함 (* requires numbers)".to_string(),
+        )),
     })?;
     Ok(Value::Number(product))
 }
@@ -607,15 +651,19 @@ fn prim_div(args: &[Value]) -> Result<Value, EvalError> {
                         Ok(acc / n)
                     }
                 }
-                _ => Err(EvalError::TypeError("/ requires numbers".to_string())),
+                _ => Err(EvalError::TypeError(
+                    "/ 는 숫자가 필요함 (/ requires numbers)".to_string(),
+                )),
             })?;
             Ok(Value::Number(result))
         }
-        _ => Err(EvalError::TypeError("/ requires numbers".to_string())),
+        _ => Err(EvalError::TypeError(
+            "/ 는 숫자가 필요함 (/ requires numbers)".to_string(),
+        )),
     }
 }
 
-// Comparison primitives
+// 비교 기본 프로시저 (Comparison primitives)
 fn prim_eq(args: &[Value]) -> Result<Value, EvalError> {
     if args.len() < 2 {
         return Err(EvalError::ArityMismatch {
@@ -625,7 +673,9 @@ fn prim_eq(args: &[Value]) -> Result<Value, EvalError> {
     }
     match (&args[0], &args[1]) {
         (Value::Number(a), Value::Number(b)) => Ok(Value::Bool(a == b)),
-        _ => Err(EvalError::TypeError("= requires numbers".to_string())),
+        _ => Err(EvalError::TypeError(
+            "= 는 숫자가 필요함 (= requires numbers)".to_string(),
+        )),
     }
 }
 
@@ -638,7 +688,9 @@ fn prim_lt(args: &[Value]) -> Result<Value, EvalError> {
     }
     match (&args[0], &args[1]) {
         (Value::Number(a), Value::Number(b)) => Ok(Value::Bool(a < b)),
-        _ => Err(EvalError::TypeError("< requires numbers".to_string())),
+        _ => Err(EvalError::TypeError(
+            "< 는 숫자가 필요함 (< requires numbers)".to_string(),
+        )),
     }
 }
 
@@ -651,7 +703,9 @@ fn prim_gt(args: &[Value]) -> Result<Value, EvalError> {
     }
     match (&args[0], &args[1]) {
         (Value::Number(a), Value::Number(b)) => Ok(Value::Bool(a > b)),
-        _ => Err(EvalError::TypeError("> requires numbers".to_string())),
+        _ => Err(EvalError::TypeError(
+            "> 는 숫자가 필요함 (> requires numbers)".to_string(),
+        )),
     }
 }
 
@@ -664,7 +718,9 @@ fn prim_lte(args: &[Value]) -> Result<Value, EvalError> {
     }
     match (&args[0], &args[1]) {
         (Value::Number(a), Value::Number(b)) => Ok(Value::Bool(a <= b)),
-        _ => Err(EvalError::TypeError("<= requires numbers".to_string())),
+        _ => Err(EvalError::TypeError(
+            "<= 는 숫자가 필요함 (<= requires numbers)".to_string(),
+        )),
     }
 }
 
@@ -677,11 +733,13 @@ fn prim_gte(args: &[Value]) -> Result<Value, EvalError> {
     }
     match (&args[0], &args[1]) {
         (Value::Number(a), Value::Number(b)) => Ok(Value::Bool(a >= b)),
-        _ => Err(EvalError::TypeError(">= requires numbers".to_string())),
+        _ => Err(EvalError::TypeError(
+            ">= 는 숫자가 필요함 (>= requires numbers)".to_string(),
+        )),
     }
 }
 
-// List primitives
+// 리스트 기본 프로시저 (List primitives)
 fn prim_cons(args: &[Value]) -> Result<Value, EvalError> {
     if args.len() != 2 {
         return Err(EvalError::ArityMismatch {
@@ -704,7 +762,9 @@ fn prim_car(args: &[Value]) -> Result<Value, EvalError> {
     }
     match &args[0] {
         Value::Pair(car, _) => Ok((**car).clone()),
-        _ => Err(EvalError::TypeError("car requires a pair".to_string())),
+        _ => Err(EvalError::TypeError(
+            "car 는 쌍이 필요함 (car requires a pair)".to_string(),
+        )),
     }
 }
 
@@ -717,7 +777,9 @@ fn prim_cdr(args: &[Value]) -> Result<Value, EvalError> {
     }
     match &args[0] {
         Value::Pair(_, cdr) => Ok((**cdr).clone()),
-        _ => Err(EvalError::TypeError("cdr requires a pair".to_string())),
+        _ => Err(EvalError::TypeError(
+            "cdr 는 쌍이 필요함 (cdr requires a pair)".to_string(),
+        )),
     }
 }
 
@@ -735,7 +797,7 @@ fn prim_list(args: &[Value]) -> Result<Value, EvalError> {
     Ok(list_from_vec(args.to_vec()))
 }
 
-// Type predicates
+// 타입 판정 (Type predicates)
 fn prim_number_p(args: &[Value]) -> Result<Value, EvalError> {
     if args.len() != 1 {
         return Err(EvalError::ArityMismatch {
@@ -773,7 +835,8 @@ fn prim_display(args: &[Value]) -> Result<Value, EvalError> {
     Ok(Value::Void)
 }
 
-// Helper: convert Vec<Value> to proper list
+// 헬퍼: Vec<Value>를 올바른 리스트로 변환
+// (Helper: convert Vec<Value> to proper list)
 fn list_from_vec(values: Vec<Value>) -> Value {
     values
         .into_iter()
@@ -782,14 +845,15 @@ fn list_from_vec(values: Vec<Value>) -> Value {
 }
 
 // =============================================================================
-// Tests
+// 테스트 (Tests)
 // =============================================================================
 
 #[cfg(test)]
 mod tests {
     use super::*;
 
-    /// Helper to evaluate an expression in a fresh environment
+    /// 새 환경에서 식을 평가하는 헬퍼
+    /// (Helper to evaluate an expression in a fresh environment)
     fn eval_expr(expr: Expr) -> Result<Value, EvalError> {
         let env = setup_environment();
         let (value, _) = eval(&expr, env)?;
@@ -800,35 +864,35 @@ mod tests {
     fn test_self_evaluating() {
         assert_eq!(eval_expr(Expr::Number(42)).unwrap(), Value::Number(42));
         assert_eq!(
-            eval_expr(Expr::String("hello".to_string())).unwrap(),
-            Value::String("hello".to_string())
+            eval_expr(Expr::String("안녕 (hello)".to_string())).unwrap(),
+            Value::String("안녕 (hello)".to_string())
         );
     }
 
     #[test]
     fn test_arithmetic() {
-        // (+ 1 2 3)
+        // (+ 1 2 3) - 덧셈 예시 (addition example)
         let expr = Expr::Application {
             operator: Box::new(Expr::Symbol("+".to_string())),
             operands: vec![Expr::Number(1), Expr::Number(2), Expr::Number(3)],
         };
         assert_eq!(eval_expr(expr).unwrap(), Value::Number(6));
 
-        // (* 2 3 4)
+        // (* 2 3 4) - 곱셈 예시 (multiplication example)
         let expr = Expr::Application {
             operator: Box::new(Expr::Symbol("*".to_string())),
             operands: vec![Expr::Number(2), Expr::Number(3), Expr::Number(4)],
         };
         assert_eq!(eval_expr(expr).unwrap(), Value::Number(24));
 
-        // (- 10 3)
+        // (- 10 3) - 뺄셈 예시 (subtraction example)
         let expr = Expr::Application {
             operator: Box::new(Expr::Symbol("-".to_string())),
             operands: vec![Expr::Number(10), Expr::Number(3)],
         };
         assert_eq!(eval_expr(expr).unwrap(), Value::Number(7));
 
-        // (/ 20 4)
+        // (/ 20 4) - 나눗셈 예시 (division example)
         let expr = Expr::Application {
             operator: Box::new(Expr::Symbol("/".to_string())),
             operands: vec![Expr::Number(20), Expr::Number(4)],
@@ -838,21 +902,21 @@ mod tests {
 
     #[test]
     fn test_comparison() {
-        // (= 5 5)
+        // (= 5 5) - 동등 비교 예시 (equality example)
         let expr = Expr::Application {
             operator: Box::new(Expr::Symbol("=".to_string())),
             operands: vec![Expr::Number(5), Expr::Number(5)],
         };
         assert_eq!(eval_expr(expr).unwrap(), Value::Bool(true));
 
-        // (< 3 5)
+        // (< 3 5) - 크기 비교 예시 (less-than example)
         let expr = Expr::Application {
             operator: Box::new(Expr::Symbol("<".to_string())),
             operands: vec![Expr::Number(3), Expr::Number(5)],
         };
         assert_eq!(eval_expr(expr).unwrap(), Value::Bool(true));
 
-        // (> 3 5)
+        // (> 3 5) - 크기 비교 예시 (greater-than example)
         let expr = Expr::Application {
             operator: Box::new(Expr::Symbol(">".to_string())),
             operands: vec![Expr::Number(3), Expr::Number(5)],
@@ -862,14 +926,14 @@ mod tests {
 
     #[test]
     fn test_quote() {
-        // (quote x)
+        // (quote x) - 인용 예시 (quote example)
         let expr = Expr::Quote(Box::new(Expr::Symbol("x".to_string())));
         assert_eq!(eval_expr(expr).unwrap(), Value::Symbol("x".to_string()));
     }
 
     #[test]
     fn test_if() {
-        // (if true 1 2)
+        // (if true 1 2) - if 예시 (if example)
         let expr = Expr::If {
             predicate: Box::new(Expr::Symbol("true".to_string())),
             consequent: Box::new(Expr::Number(1)),
@@ -877,7 +941,7 @@ mod tests {
         };
         assert_eq!(eval_expr(expr).unwrap(), Value::Number(1));
 
-        // (if false 1 2)
+        // (if false 1 2) - if 예시 (if example)
         let expr = Expr::If {
             predicate: Box::new(Expr::Symbol("false".to_string())),
             consequent: Box::new(Expr::Number(1)),
@@ -885,7 +949,7 @@ mod tests {
         };
         assert_eq!(eval_expr(expr).unwrap(), Value::Number(2));
 
-        // (if (< 3 5) 10 20)
+        // (if (< 3 5) 10 20) - if 예시 (if example)
         let expr = Expr::If {
             predicate: Box::new(Expr::Application {
                 operator: Box::new(Expr::Symbol("<".to_string())),
@@ -901,14 +965,14 @@ mod tests {
     fn test_define_and_lookup() {
         let env = setup_environment();
 
-        // (define x 42)
+        // (define x 42) - x를 42로 정의 (define x as 42)
         let define_expr = Expr::Define {
             name: "x".to_string(),
             value: Box::new(Expr::Number(42)),
         };
         let (_, env) = eval(&define_expr, env).unwrap();
 
-        // x
+        // x - 변수 조회 (variable lookup)
         let lookup_expr = Expr::Symbol("x".to_string());
         let (value, _) = eval(&lookup_expr, env).unwrap();
         assert_eq!(value, Value::Number(42));
@@ -918,7 +982,7 @@ mod tests {
     fn test_lambda_and_application() {
         let env = setup_environment();
 
-        // (define square (lambda (x) (* x x)))
+        // (define square (lambda (x) (* x x))) - 제곱 함수 정의 (square definition)
         let define_expr = Expr::Define {
             name: "square".to_string(),
             value: Box::new(Expr::Lambda {
@@ -931,7 +995,7 @@ mod tests {
         };
         let (_, env) = eval(&define_expr, env).unwrap();
 
-        // (square 5)
+        // (square 5) - 함수 호출 예시 (function call example)
         let app_expr = Expr::Application {
             operator: Box::new(Expr::Symbol("square".to_string())),
             operands: vec![Expr::Number(5)],
@@ -944,7 +1008,7 @@ mod tests {
     fn test_begin() {
         let env = setup_environment();
 
-        // (begin (define x 10) (define y 20) (+ x y))
+        // (begin (define x 10) (define y 20) (+ x y)) - begin 예시 (begin example)
         let expr = Expr::Begin(vec![
             Expr::Define {
                 name: "x".to_string(),
@@ -965,7 +1029,7 @@ mod tests {
 
     #[test]
     fn test_cond() {
-        // (cond ((< 5 3) 1) ((> 5 3) 2) (else 3))
+        // (cond ((< 5 3) 1) ((> 5 3) 2) (else 3)) - cond 예시 (cond example)
         let expr = Expr::Cond(vec![
             CondClause {
                 predicate: Expr::Application {
@@ -991,7 +1055,7 @@ mod tests {
 
     #[test]
     fn test_let() {
-        // (let ((x 10) (y 20)) (+ x y))
+        // (let ((x 10) (y 20)) (+ x y)) - let 예시 (let example)
         let expr = Expr::Let {
             bindings: vec![
                 ("x".to_string(), Expr::Number(10)),
@@ -1009,6 +1073,7 @@ mod tests {
     fn test_factorial() {
         let env = setup_environment();
 
+        // 팩토리얼 정의 예시 (factorial definition example)
         // (define factorial
         //   (lambda (n)
         //     (if (= n 0)
@@ -1042,7 +1107,7 @@ mod tests {
         };
         let (_, env) = eval(&define_expr, env).unwrap();
 
-        // (factorial 5)
+        // (factorial 5) - 호출 예시 (call example)
         let app_expr = Expr::Application {
             operator: Box::new(Expr::Symbol("factorial".to_string())),
             operands: vec![Expr::Number(5)],
@@ -1055,7 +1120,7 @@ mod tests {
     fn test_list_operations() {
         let env = setup_environment();
 
-        // (define lst (list 1 2 3))
+        // (define lst (list 1 2 3)) - 리스트 정의 (list definition)
         let define_expr = Expr::Define {
             name: "lst".to_string(),
             value: Box::new(Expr::Application {
@@ -1065,7 +1130,7 @@ mod tests {
         };
         let (_, env) = eval(&define_expr, env).unwrap();
 
-        // (car lst)
+        // (car lst) - 리스트 첫 요소 (first element)
         let car_expr = Expr::Application {
             operator: Box::new(Expr::Symbol("car".to_string())),
             operands: vec![Expr::Symbol("lst".to_string())],
@@ -1073,7 +1138,7 @@ mod tests {
         let (value, env) = eval(&car_expr, env).unwrap();
         assert_eq!(value, Value::Number(1));
 
-        // (car (cdr lst))
+        // (car (cdr lst)) - 두 번째 요소 (second element)
         let cadr_expr = Expr::Application {
             operator: Box::new(Expr::Symbol("car".to_string())),
             operands: vec![Expr::Application {
@@ -1089,6 +1154,7 @@ mod tests {
     fn test_closure_captures_environment() {
         let env = setup_environment();
 
+        // 클로저 캡처 예시 (closure capture example)
         // (define make-adder
         //   (lambda (x)
         //     (lambda (y) (+ x y))))
@@ -1110,7 +1176,7 @@ mod tests {
         };
         let (_, env) = eval(&define_expr, env).unwrap();
 
-        // (define add5 (make-adder 5))
+        // (define add5 (make-adder 5)) - 부분 적용 (partial application)
         let define_add5 = Expr::Define {
             name: "add5".to_string(),
             value: Box::new(Expr::Application {
@@ -1120,7 +1186,7 @@ mod tests {
         };
         let (_, env) = eval(&define_add5, env).unwrap();
 
-        // (add5 10)
+        // (add5 10) - 클로저 호출 (closure call)
         let app_expr = Expr::Application {
             operator: Box::new(Expr::Symbol("add5".to_string())),
             operands: vec![Expr::Number(10)],
@@ -1139,7 +1205,7 @@ mod tests {
     fn test_error_arity_mismatch() {
         let env = setup_environment();
 
-        // (define f (lambda (x y) (+ x y)))
+        // (define f (lambda (x y) (+ x y))) - 2인자 함수 정의 (two-arg function)
         let define_expr = Expr::Define {
             name: "f".to_string(),
             value: Box::new(Expr::Lambda {
@@ -1152,7 +1218,7 @@ mod tests {
         };
         let (_, env) = eval(&define_expr, env).unwrap();
 
-        // (f 1) - wrong arity
+        // (f 1) - 인자 수 오류 (wrong arity)
         let app_expr = Expr::Application {
             operator: Box::new(Expr::Symbol("f".to_string())),
             operands: vec![Expr::Number(1)],
@@ -1173,6 +1239,7 @@ mod tests {
 
     #[test]
     fn test_nested_let() {
+        // 중첩 let 예시 (nested let example)
         // (let ((x 10))
         //   (let ((y 20))
         //     (+ x y)))

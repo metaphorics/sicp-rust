@@ -23,21 +23,19 @@ use std::cell::Cell;
 use std::fmt;
 
 // =============================================================================
-// PART 1: 런타임 표현을 위한 값 타입 (VALUE TYPE FOR RUNTIME REPRESENTATION)
+// 파트 1 (Part 1): 런타임 표현을 위한 값 타입 (Value type for runtime representation)
 // =============================================================================
 
-/// 환경 모델을 보여주기 위한 런타임 값 타입
-/// (Runtime value type for demonstrating the environment model).
+/// 환경 모델을 보여주기 위한 런타임 값 타입 (Runtime value type for demonstrating the environment model).
 /// 프로시저는 캡처한 환경을 소유한다(`Rc<RefCell<>>` 없음)
-/// (Procedures own their captured environment (no Rc<RefCell<>>)).
+/// (Procedures own their captured environment (no `Rc<RefCell<>>`)).
 #[derive(Clone)]
 pub enum Value {
     Number(f64),
     String(String),
-    /// (code, environment)로 표현된 프로시저
-    /// (A procedure represented as (code, environment))
+    /// (code, environment)로 표현된 프로시저 (A procedure represented as (code, environment))
     /// 환경은 Rc<RefCell<>>로 공유되지 않고 소유된다
-    /// (The environment is OWNED, not shared via Rc<RefCell<>>)
+    /// (The environment is owned, not shared via Rc<RefCell<>>)
     Procedure {
         params: Vec<String>,
         body: String,
@@ -64,7 +62,7 @@ impl fmt::Debug for Value {
 }
 
 // =============================================================================
-// PART 2: 환경 예시 (ENVIRONMENT EXAMPLES)
+// 파트 2 (Part 2): 환경 예시 (Environment examples)
 // =============================================================================
 
 /// 영속적 환경 모델을 시연한다 (Demonstrates the persistent environment model).
@@ -88,25 +86,27 @@ pub fn env_demo() -> (Option<i64>, Option<i64>, Option<i64>) {
     // 외부를 확장한 내부 환경 생성(x를 섀도잉) (Create inner environment extending outer (shadows x))
     let inner = outer.extend([("z".to_string(), 6), ("x".to_string(), 7)]);
 
-    // Lookups
-    let x = inner.lookup("x").copied(); // 7 (shadowed)
-    let y = inner.lookup("y").copied(); // 5 (from outer)
-    let z = inner.lookup("z").copied(); // 6 (from inner)
+    // 조회 (Lookups)
+    let x = inner.lookup("x").copied(); // 7 (섀도잉됨 (shadowed))
+    let y = inner.lookup("y").copied(); // 5 (외부에서 옴 (from outer))
+    let z = inner.lookup("z").copied(); // 6 (내부에서 옴 (from inner))
 
     (x, y, z)
 }
 
 // =============================================================================
-// PART 3: RUST CLOSURE SEMANTICS (Native Implementation)
+// 파트 3 (Part 3): 러스트 클로저 의미론 (Rust closure semantics, native implementation)
 // =============================================================================
 
-/// Demonstrates how Rust closures naturally implement the environment model.
-/// The closure captures its environment, similar to SICP's (code, environment) pairs.
+/// 러스트 클로저가 환경 모델을 자연스럽게 구현하는 방식을 보여준다
+/// (Demonstrates how Rust closures naturally implement the environment model).
+/// 클로저는 환경을 캡처하며, SICP의 (code, environment) 쌍과 유사하다
+/// (The closure captures its environment, similar to SICP's (code, environment) pairs).
 pub fn square(x: i64) -> i64 {
     x * x
 }
 
-/// Figure 3.4: Three procedures in the global frame.
+/// 그림 3.4 (Figure 3.4): 전역 프레임의 세 프로시저 (Three procedures in the global frame).
 pub fn sum_of_squares(x: i64, y: i64) -> i64 {
     square(x) + square(y)
 }
@@ -116,13 +116,16 @@ pub fn f(a: i64) -> i64 {
 }
 
 // =============================================================================
-// PART 4: LOCAL STATE - FUNCTIONAL APPROACH
+// 파트 4 (Part 4): 지역 상태 - 함수형 접근 (Local state - functional approach)
 // =============================================================================
 
-/// A withdraw function using functional state (returns new state).
+/// 함수형 상태를 사용하는 출금 함수 (새 상태를 반환)
+/// (A withdraw function using functional state (returns new state)).
 ///
-/// Instead of mutating internal state, returns (new_balance, result).
-/// This is the idiomatic Rust/functional approach.
+/// 내부 상태를 변경하는 대신 (new_balance, result)를 반환한다
+/// (Instead of mutating internal state, returns (new_balance, result)).
+/// 이는 관용적인 러스트/함수형 접근이다
+/// (This is the idiomatic Rust/functional approach).
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub struct Wallet {
     balance: f64,
@@ -139,7 +142,7 @@ impl Wallet {
         self.balance
     }
 
-    /// Withdraw returns (new_wallet, result)
+    /// 출금은 (new_wallet, result)를 반환한다 (Withdraw returns (new_wallet, result))
     pub fn withdraw(&self, amount: f64) -> (Self, Result<f64, &'static str>) {
         if self.balance >= amount {
             let new_balance = self.balance - amount;
@@ -150,11 +153,11 @@ impl Wallet {
                 Ok(new_balance),
             )
         } else {
-            (*self, Err("Insufficient funds"))
+            (*self, Err("잔액 부족 (Insufficient funds)"))
         }
     }
 
-    /// Deposit returns (new_wallet, new_balance)
+    /// 입금은 (new_wallet, new_balance)를 반환한다 (Deposit returns (new_wallet, new_balance))
     #[must_use]
     pub fn deposit(&self, amount: f64) -> (Self, f64) {
         let new_balance = self.balance + amount;
@@ -167,9 +170,11 @@ impl Wallet {
     }
 }
 
-/// Creates a withdraw closure using Cell<f64> for interior mutability.
+/// 내부 가변성을 위해 Cell<f64>를 사용해 출금 클로저를 만든다
+/// (Creates a withdraw closure using Cell<f64> for interior mutability).
 ///
-/// This is simpler than RefCell for Copy types.
+/// `Copy` 타입에는 RefCell보다 단순하다
+/// (This is simpler than RefCell for `Copy` types).
 pub fn make_withdraw(initial_balance: f64) -> impl FnMut(f64) -> Result<f64, &'static str> {
     let balance = Cell::new(initial_balance);
 
@@ -180,12 +185,13 @@ pub fn make_withdraw(initial_balance: f64) -> impl FnMut(f64) -> Result<f64, &'s
             balance.set(new_balance);
             Ok(new_balance)
         } else {
-            Err("Insufficient funds")
+            Err("잔액 부족 (Insufficient funds)")
         }
     }
 }
 
-/// Struct-based withdraw processor using Cell<f64>.
+/// Cell<f64>를 사용하는 구조체 기반 출금 처리기
+/// (Struct-based withdraw processor using Cell<f64>).
 pub struct WithdrawProcessor {
     balance: Cell<f64>,
 }
@@ -204,7 +210,7 @@ impl WithdrawProcessor {
             self.balance.set(new_balance);
             Ok(new_balance)
         } else {
-            Err("Insufficient funds")
+            Err("잔액 부족 (Insufficient funds)")
         }
     }
 
@@ -214,10 +220,11 @@ impl WithdrawProcessor {
 }
 
 // =============================================================================
-// PART 5: EXERCISE 3.9 - FACTORIAL ENVIRONMENTS
+// 파트 5 (Part 5): 연습문제 3.9 (Exercise 3.9) - 팩토리얼 환경 (Factorial environments)
 // =============================================================================
 
-/// Recursive factorial (corresponds to SICP Exercise 3.9 first version)
+/// 재귀 팩토리얼 (SICP 연습문제 3.9 첫 번째 버전에 해당)
+/// (Recursive factorial (corresponds to SICP Exercise 3.9 first version))
 pub fn factorial_recursive(n: i64) -> i64 {
     if n == 1 {
         1
@@ -226,7 +233,8 @@ pub fn factorial_recursive(n: i64) -> i64 {
     }
 }
 
-/// Iterative factorial using an internal helper (Exercise 3.9 second version)
+/// 내부 헬퍼를 쓰는 반복 팩토리얼 (연습문제 3.9 두 번째 버전)
+/// (Iterative factorial using an internal helper (Exercise 3.9 second version))
 pub fn factorial_iterative(n: i64) -> i64 {
     fn fact_iter(product: i64, counter: i64, max_count: i64) -> i64 {
         if counter > max_count {
@@ -239,10 +247,11 @@ pub fn factorial_iterative(n: i64) -> i64 {
 }
 
 // =============================================================================
-// PART 6: EXERCISE 3.11 - MESSAGE-PASSING ACCOUNT
+// 파트 6 (Part 6): 연습문제 3.11 (Exercise 3.11) - 메시지 전달 계좌 (Message-passing account)
 // =============================================================================
 
-/// A bank account using functional state pattern.
+/// 함수형 상태 패턴을 사용하는 은행 계좌
+/// (A bank account using functional state pattern).
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub struct Account {
     balance: f64,
@@ -269,7 +278,7 @@ impl Account {
                 Ok(new_balance),
             )
         } else {
-            (*self, Err("Insufficient funds"))
+            (*self, Err("잔액 부족 (Insufficient funds)"))
         }
     }
 
@@ -285,7 +294,8 @@ impl Account {
     }
 }
 
-/// Message-passing account using Cell for interior mutability.
+/// 내부 가변성에 Cell을 사용하는 메시지 전달 계좌
+/// (Message-passing account using Cell for interior mutability).
 pub struct MutableAccount {
     balance: Cell<f64>,
 }
@@ -308,7 +318,7 @@ impl MutableAccount {
             self.balance.set(new_balance);
             Ok(new_balance)
         } else {
-            Err("Insufficient funds")
+            Err("잔액 부족 (Insufficient funds)")
         }
     }
 
@@ -320,7 +330,7 @@ impl MutableAccount {
 }
 
 // =============================================================================
-// TESTS
+// 테스트 (Tests)
 // =============================================================================
 
 #[cfg(test)]
@@ -330,19 +340,19 @@ mod tests {
     #[test]
     fn test_env_demo() {
         let (x, y, z) = env_demo();
-        assert_eq!(x, Some(7)); // Shadowed
-        assert_eq!(y, Some(5)); // From outer
-        assert_eq!(z, Some(6)); // From inner
+        assert_eq!(x, Some(7)); // 섀도잉됨 (Shadowed)
+        assert_eq!(y, Some(5)); // 외부에서 옴 (From outer)
+        assert_eq!(z, Some(6)); // 내부에서 옴 (From inner)
     }
 
     #[test]
     fn test_persistent_environment() {
         let env1 = Environment::<i64>::new().define("x".to_string(), 10);
 
-        // Functional update creates new environment
+        // 함수형 갱신은 새 환경을 만든다 (Functional update creates new environment)
         let env2 = env1.define("x".to_string(), 20);
 
-        // Original unchanged (persistent)
+        // 원본은 변하지 않음 (영속적) (Original unchanged (persistent))
         assert_eq!(env1.lookup("x"), Some(&10));
         assert_eq!(env2.lookup("x"), Some(&20));
     }
@@ -355,13 +365,13 @@ mod tests {
 
         let inner = outer.extend([
             ("c".to_string(), 3),
-            ("a".to_string(), 100), // Shadows a
+            ("a".to_string(), 100), // a를 섀도잉함 (Shadows a)
         ]);
 
-        assert_eq!(inner.lookup("a"), Some(&100)); // Shadowed
-        assert_eq!(inner.lookup("b"), Some(&2)); // From parent
-        assert_eq!(inner.lookup("c"), Some(&3)); // Local
-        assert_eq!(outer.lookup("a"), Some(&1)); // Unchanged
+        assert_eq!(inner.lookup("a"), Some(&100)); // 섀도잉됨 (Shadowed)
+        assert_eq!(inner.lookup("b"), Some(&2)); // 부모에서 옴 (From parent)
+        assert_eq!(inner.lookup("c"), Some(&3)); // 지역 (Local)
+        assert_eq!(outer.lookup("a"), Some(&1)); // 변하지 않음 (Unchanged)
     }
 
     #[test]
@@ -386,7 +396,7 @@ mod tests {
         assert_eq!(result, Ok(20.0));
 
         let (_, result) = w.withdraw(25.0);
-        assert_eq!(result, Err("Insufficient funds"));
+        assert_eq!(result, Err("잔액 부족 (Insufficient funds)"));
     }
 
     #[test]
@@ -395,7 +405,7 @@ mod tests {
 
         assert_eq!(w1(50.0), Ok(50.0));
         assert_eq!(w1(30.0), Ok(20.0));
-        assert_eq!(w1(25.0), Err("Insufficient funds"));
+        assert_eq!(w1(25.0), Err("잔액 부족 (Insufficient funds)"));
         assert_eq!(w1(10.0), Ok(10.0));
     }
 
