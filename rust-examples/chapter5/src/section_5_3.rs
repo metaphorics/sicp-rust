@@ -584,7 +584,10 @@ pub mod ownership_examples {
         fn drop(&mut self) {
             // 자동 정리 - GC 불필요
             // (Cleanup happens automatically - no GC needed)
-            println!("리소스 {} 정리됨 (Resource {} cleaned up)", self.id, self.id);
+            println!(
+                "리소스 {} 정리됨 (Resource {} cleaned up)",
+                self.id, self.id
+            );
         }
     }
 

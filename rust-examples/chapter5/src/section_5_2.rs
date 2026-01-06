@@ -110,7 +110,10 @@ impl Value {
     pub fn as_number(&self) -> i64 {
         match self {
             Value::Number(n) => *n,
-            _ => panic!("숫자를 기대했지만 {:?}를 받음 (Expected number, got {:?})", self, self),
+            _ => panic!(
+                "숫자를 기대했지만 {:?}를 받음 (Expected number, got {:?})",
+                self, self
+            ),
         }
     }
 }
@@ -387,7 +390,9 @@ impl Machine {
                     if let Value::InstructionPointer(ip) = self.registers[reg] {
                         self.pc = ip;
                     } else {
-                        panic!("Goto 레지스터에는 명령 포인터가 있어야 함 (Goto register must contain instruction pointer)");
+                        panic!(
+                            "Goto 레지스터에는 명령 포인터가 있어야 함 (Goto register must contain instruction pointer)"
+                        );
                     }
                 }
             },
@@ -554,15 +559,15 @@ fn resolve_instruction(
         Inst::Goto(dest) => {
             let destination = match dest {
                 GotoDest::Label(label_name) => {
-                    let ip = *labels
-                        .get(&label_name)
-                        .unwrap_or_else(|| panic!("정의되지 않은 라벨 (Undefined label): {}", label_name));
+                    let ip = *labels.get(&label_name).unwrap_or_else(|| {
+                        panic!("정의되지 않은 라벨 (Undefined label): {}", label_name)
+                    });
                     GotoDestResolved::Label(ip)
                 }
                 GotoDest::Reg(reg_name) => {
-                    let idx = *register_map
-                        .get(&reg_name)
-                        .unwrap_or_else(|| panic!("알 수 없는 레지스터 (Unknown register): {}", reg_name));
+                    let idx = *register_map.get(&reg_name).unwrap_or_else(|| {
+                        panic!("알 수 없는 레지스터 (Unknown register): {}", reg_name)
+                    });
                     GotoDestResolved::Reg(idx)
                 }
             };

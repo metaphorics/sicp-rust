@@ -1087,7 +1087,9 @@ fn compile_proc_appl(target: Register, linkage: &Linkage) -> InstructionSeq {
             )
         }
         (_, Linkage::Return) => {
-            panic!("target != val 인 Return linkage는 지원하지 않음 (Return linkage with target != val not supported)");
+            panic!(
+                "target != val 인 Return linkage는 지원하지 않음 (Return linkage with target != val not supported)"
+            );
         }
         (_, _) => {
             // label linkage와 val이 아닌 target
@@ -1362,8 +1364,14 @@ mod tests {
             .any(|inst| matches!(inst, Instruction::Branch { .. }));
 
         assert!(has_label, "라벨이 있어야 함 (Should have labels)");
-        assert!(has_test, "테스트 명령이 있어야 함 (Should have test instructions)");
-        assert!(has_branch, "분기 명령이 있어야 함 (Should have branch instructions)");
+        assert!(
+            has_test,
+            "테스트 명령이 있어야 함 (Should have test instructions)"
+        );
+        assert!(
+            has_branch,
+            "분기 명령이 있어야 함 (Should have branch instructions)"
+        );
     }
 
     #[test]

@@ -294,7 +294,8 @@ impl Machine {
                 *self
                     .labels
                     .get(label)
-                    .unwrap_or_else(|| panic!("알 수 없는 라벨 (Unknown label): {}", label)) as Value
+                    .unwrap_or_else(|| panic!("알 수 없는 라벨 (Unknown label): {}", label))
+                    as Value
             }
         }
     }

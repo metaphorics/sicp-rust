@@ -1,5 +1,5 @@
 //! SICP 3장: 모듈성, 객체, 그리고 상태 (Modularity, Objects, and State)
-//! 
+//!
 //! 이 장에서는 상태와 변경을 탐구합니다:
 //! - 할당과 지역 상태 (RefCell, Mutex) (Assignment and local state)
 //! - 환경 모델 (소유권, 수명) (The environment model)

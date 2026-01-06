@@ -652,11 +652,7 @@ pub mod monte_carlo {
     /// 유클리드 알고리즘으로 최대공약수 계산
     /// (GCD using Euclid's algorithm).
     fn gcd(a: u64, b: u64) -> u64 {
-        if b == 0 {
-            a
-        } else {
-            gcd(b, a % b)
-        }
+        if b == 0 { a } else { gcd(b, a % b) }
     }
 
     /// 몬테카를로 방법으로 파이를 추정한다

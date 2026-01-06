@@ -21,8 +21,12 @@ fn main() {
 
     // 지연 평가의 효율성 데모 (Lazy evaluation efficiency demo)
     println!("[10,000 - 11,000] 범위에서 두 번째 소수 찾기 (Find the 2nd prime in range):");
-    println!("  지연 평가는 답을 찾을 때까지만 계산한다 (Lazy only computes until it finds the answer).");
-    println!("  즉시 평가는 먼저 전체 소수 리스트를 구축한다 (Eager builds the whole prime list first).\n");
+    println!(
+        "  지연 평가는 답을 찾을 때까지만 계산한다 (Lazy only computes until it finds the answer)."
+    );
+    println!(
+        "  즉시 평가는 먼저 전체 소수 리스트를 구축한다 (Eager builds the whole prime list first).\n"
+    );
 
     let lazy_result = delayed_lists::second_prime_lazy(10_000, 11_000);
     println!("  결과: {:?}", lazy_result);
@@ -96,9 +100,14 @@ fn main() {
     println!("  실제 sqrt(2) (Actual): {:.10}", 2.0_f64.sqrt());
 
     // 스트림 극한 (Stream limit)
-    println!("\nstream_limit을 사용해 근사치가 충분히 정확할 때 찾기 (Find when approximation is within tolerance):");
+    println!(
+        "\nstream_limit을 사용해 근사치가 충분히 정확할 때 찾기 (Find when approximation is within tolerance):"
+    );
     let sqrt2_limited = stream_limit(SqrtStream::new(2.0), 0.0001);
-    println!("  허용 오차 0.0001 내의 결과 (Result within tolerance 0.0001): {:?}", sqrt2_limited);
+    println!(
+        "  허용 오차 0.0001 내의 결과 (Result within tolerance 0.0001): {:?}",
+        sqrt2_limited
+    );
 
     // 부분 합 (Partial sums)
     println!("\n정수 1-10의 부분 합 (Partial sums of 1-10):");
@@ -204,11 +213,7 @@ fn main() {
         .collect();
 
     let y_at_1 = solve(|y| y, 1.0, 0.001).nth(1000).unwrap();
-    println!(
-        "  y(1.0) ≈ {:.6} (e ≈ {:.6})",
-        y_at_1,
-        std::f64::consts::E
-    );
+    println!("  y(1.0) ≈ {:.6} (e ≈ {:.6})", y_at_1, std::f64::consts::E);
 
     // =========================================================================
     // 3.5.5절: 몬테카를로 추정 (Monte Carlo Estimation)

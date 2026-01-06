@@ -889,7 +889,9 @@ mod tests {
 
     #[test]
     fn test_parse_complex_sentence() {
-        let tree = parse("그(the) 학생(student) 함께(with) 그(the) 고양이(cat) 잔다(sleeps) 안에(in) 그(the) 수업(class)");
+        let tree = parse(
+            "그(the) 학생(student) 함께(with) 그(the) 고양이(cat) 잔다(sleeps) 안에(in) 그(the) 수업(class)",
+        );
         assert!(tree.is_some());
     }
 
@@ -1024,7 +1026,9 @@ mod tests {
 
     #[test]
     fn test_parse_complex_sentence() {
-        let tree = parse("그(the) 학생(student) 함께(with) 그(the) 고양이(cat) 잔다(sleeps) 안에(in) 그(the) 수업(class)");
+        let tree = parse(
+            "그(the) 학생(student) 함께(with) 그(the) 고양이(cat) 잔다(sleeps) 안에(in) 그(the) 수업(class)",
+        );
         assert!(tree.is_some());
     }
 

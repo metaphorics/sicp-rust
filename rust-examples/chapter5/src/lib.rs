@@ -1,5 +1,5 @@
 //! SICP 5장: 레지스터 기계를 이용한 계산 (Computing with Register Machines)
-//! 
+//!
 //! 이 장에서는 저수준 계산 (low-level computation)을 탐구합니다:
 //! - 레지스터 기계 설계 (Register machine design)
 //! - 레지스터 기계 시뮬레이터 (Register machine simulator)

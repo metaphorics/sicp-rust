@@ -466,10 +466,7 @@ impl EvaluatorMachine {
 
     /// 자기평가 표현식 평가 (Evaluate self-evaluating expression)
     fn ev_self_eval(&mut self) -> Result<(), String> {
-        let exp = self
-            .exp
-            .clone()
-            .ok_or("표현식이 없음 (No expression)")?;
+        let exp = self.exp.clone().ok_or("표현식이 없음 (No expression)")?;
         self.val = Some(match exp {
             Expr::Number(n) => Value::Number(n),
             Expr::Bool(b) => Value::Bool(b),
@@ -569,11 +566,7 @@ impl EvaluatorMachine {
         self.restore_env()?;
         self.restore_exp()?;
 
-        let is_true = self
-            .val
-            .as_ref()
-            .ok_or("값이 없음 (No value)")?
-            .is_true();
+        let is_true = self.val.as_ref().ok_or("값이 없음 (No value)")?.is_true();
 
         if is_true {
             self.current_label = Label::EvIfConsequent;
@@ -657,10 +650,7 @@ impl EvaluatorMachine {
             _ => return Err("심볼이 필요함 (Expected symbol)".to_string()),
         };
 
-        let mut val = self
-            .val
-            .clone()
-            .ok_or("값이 없음 (No value)")?;
+        let mut val = self.val.clone().ok_or("값이 없음 (No value)")?;
 
         // 프로시저라면 재귀 바인딩을 위해 self_name 설정
         // (If this is a procedure, set its self_name for recursive binding)
@@ -775,10 +765,7 @@ impl EvaluatorMachine {
 
     /// 인자를 프로시저에 적용 (Apply procedure to arguments)
     fn apply_dispatch(&mut self) -> Result<(), String> {
-        let proc = self
-            .proc
-            .clone()
-            .ok_or("프로시저가 없음 (No procedure)")?;
+        let proc = self.proc.clone().ok_or("프로시저가 없음 (No procedure)")?;
 
         match proc {
             Value::Primitive(_) => {
@@ -788,10 +775,7 @@ impl EvaluatorMachine {
                 self.current_label = Label::CompoundApply;
             }
             _ => {
-                self.error = Some(format!(
-                    "프로시저가 아님: {:?} (Not a procedure)",
-                    proc
-                ));
+                self.error = Some(format!("프로시저가 아님: {:?} (Not a procedure)", proc));
                 self.current_label = Label::Error;
             }
         }
@@ -913,7 +897,10 @@ impl EvaluatorMachine {
             }
             "-" => {
                 if args.is_empty() {
-                    return Err("-는 최소 한 개의 인자가 필요함 (- requires at least one argument)".to_string());
+                    return Err(
+                        "-는 최소 한 개의 인자가 필요함 (- requires at least one argument)"
+                            .to_string(),
+                    );
                 }
                 let first = match &args[0] {
                     Value::Number(n) => *n,
@@ -944,7 +931,10 @@ impl EvaluatorMachine {
             }
             "/" => {
                 if args.len() < 2 {
-                    return Err("/는 최소 두 개의 인자가 필요함 (/ requires at least two arguments)".to_string());
+                    return Err(
+                        "/는 최소 두 개의 인자가 필요함 (/ requires at least two arguments)"
+                            .to_string(),
+                    );
                 }
                 let first = match &args[0] {
                     Value::Number(n) => *n,
@@ -964,13 +954,19 @@ impl EvaluatorMachine {
             }
             "=" => {
                 if args.len() != 2 {
-                    return Err("=는 정확히 두 개의 인자가 필요함 (= requires exactly two arguments)".to_string());
+                    return Err(
+                        "=는 정확히 두 개의 인자가 필요함 (= requires exactly two arguments)"
+                            .to_string(),
+                    );
                 }
                 Ok(Value::Bool(args[0] == args[1]))
             }
             "<" => {
                 if args.len() != 2 {
-                    return Err("<는 정확히 두 개의 인자가 필요함 (< requires exactly two arguments)".to_string());
+                    return Err(
+                        "<는 정확히 두 개의 인자가 필요함 (< requires exactly two arguments)"
+                            .to_string(),
+                    );
                 }
                 match (&args[0], &args[1]) {
                     (Value::Number(a), Value::Number(b)) => Ok(Value::Bool(a < b)),
@@ -979,7 +975,10 @@ impl EvaluatorMachine {
             }
             ">" => {
                 if args.len() != 2 {
-                    return Err(">는 정확히 두 개의 인자가 필요함 (> requires exactly two arguments)".to_string());
+                    return Err(
+                        ">는 정확히 두 개의 인자가 필요함 (> requires exactly two arguments)"
+                            .to_string(),
+                    );
                 }
                 match (&args[0], &args[1]) {
                     (Value::Number(a), Value::Number(b)) => Ok(Value::Bool(a > b)),
@@ -988,7 +987,10 @@ impl EvaluatorMachine {
             }
             "<=" => {
                 if args.len() != 2 {
-                    return Err("<=는 정확히 두 개의 인자가 필요함 (<= requires exactly two arguments)".to_string());
+                    return Err(
+                        "<=는 정확히 두 개의 인자가 필요함 (<= requires exactly two arguments)"
+                            .to_string(),
+                    );
                 }
                 match (&args[0], &args[1]) {
                     (Value::Number(a), Value::Number(b)) => Ok(Value::Bool(a <= b)),
@@ -997,7 +999,10 @@ impl EvaluatorMachine {
             }
             ">=" => {
                 if args.len() != 2 {
-                    return Err(">=는 정확히 두 개의 인자가 필요함 (>= requires exactly two arguments)".to_string());
+                    return Err(
+                        ">=는 정확히 두 개의 인자가 필요함 (>= requires exactly two arguments)"
+                            .to_string(),
+                    );
                 }
                 match (&args[0], &args[1]) {
                     (Value::Number(a), Value::Number(b)) => Ok(Value::Bool(a >= b)),
@@ -1059,7 +1064,10 @@ impl EvaluatorMachine {
             }
             "새줄(newline)" => {
                 if !args.is_empty() {
-                    return Err("새줄(newline)은 인자가 필요 없음 (newline requires no arguments)".to_string());
+                    return Err(
+                        "새줄(newline)은 인자가 필요 없음 (newline requires no arguments)"
+                            .to_string(),
+                    );
                 }
                 println!();
                 Ok(Value::Ok)

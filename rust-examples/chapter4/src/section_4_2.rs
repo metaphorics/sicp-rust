@@ -266,7 +266,7 @@ fn prim_add(args: &[Value]) -> Result<Value, EvalError> {
             _ => {
                 return Err(EvalError::TypeError(
                     "+ 는 숫자가 필요함 (+ expects numbers)".to_string(),
-                ))
+                ));
             }
         }
     }
@@ -292,7 +292,7 @@ fn prim_sub(args: &[Value]) -> Result<Value, EvalError> {
                     _ => {
                         return Err(EvalError::TypeError(
                             "- 는 숫자가 필요함 (- expects numbers)".to_string(),
-                        ))
+                        ));
                     }
                 }
             }
@@ -312,7 +312,7 @@ fn prim_mul(args: &[Value]) -> Result<Value, EvalError> {
             _ => {
                 return Err(EvalError::TypeError(
                     "* 는 숫자가 필요함 (* expects numbers)".to_string(),
-                ))
+                ));
             }
         }
     }

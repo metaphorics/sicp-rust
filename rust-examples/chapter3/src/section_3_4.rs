@@ -154,9 +154,7 @@ pub fn demonstrate_race_condition_prevention() {
     // 러스트 타입 시스템이 레이스 컨디션을 방지함을 보여준다
     // (This demonstrates that Rust's type system prevents the race condition)
     println!("\n=== 레이스 컨디션 방지 (Race Condition Prevention) ===");
-    println!(
-        "Scheme에서는 공유 상태의 동시 접근에 수동 직렬화가 필요하다."
-    );
+    println!("Scheme에서는 공유 상태의 동시 접근에 수동 직렬화가 필요하다.");
     println!("Rust에서는 타입 시스템이 컴파일 타임에 이를 강제한다!\n");
 
     let account = Arc::new(Mutex::new(Account::new(100)));
@@ -192,7 +190,10 @@ pub fn demonstrate_race_condition_prevention() {
         "\n최종 잔액: ${} (정상값: $65) (Final balance: ${} (correct: $65))",
         final_balance, final_balance
     );
-    assert_eq!(final_balance, 65, "Mutex로 레이스 컨디션 방지! (Race condition prevented by Mutex!)");
+    assert_eq!(
+        final_balance, 65,
+        "Mutex로 레이스 컨디션 방지! (Race condition prevented by Mutex!)"
+    );
 }
 
 // ==============================================================================

@@ -177,7 +177,9 @@ fn main() {
     }
 
     println!("=== 주요 Rust 개념 데모 (Key Rust concepts) ===");
-    println!("1. 대수적 데이터 타입(ADT): 철저한 매칭(exhaustive matching)이 가능한 Expr/Value 열거형");
+    println!(
+        "1. 대수적 데이터 타입(ADT): 철저한 매칭(exhaustive matching)이 가능한 Expr/Value 열거형"
+    );
     println!("2. 영속적 데이터 구조: O(1) 클론 환경을 위한 im::HashMap");
     println!("3. 함수형 상태 전달: eval은 (Value, Environment)를 반환");
     println!("4. 소유된 클로저: 람다는 참조가 아닌 복제로 환경을 캡처");

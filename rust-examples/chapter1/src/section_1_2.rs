@@ -122,7 +122,8 @@ pub fn is_prime(n: u64) -> bool {
     fn find_divisor(n: u64, test_divisor: u64) -> u64 {
         if test_divisor * test_divisor > n {
             n
-        } else if n % test_divisor == 0 { // Rust에서는 is_multiple_of 대신 % 연산자가 더 일반적입니다 (In Rust, the % operator is more common than is_multiple_of).
+        } else if n % test_divisor == 0 {
+            // Rust에서는 is_multiple_of 대신 % 연산자가 더 일반적입니다 (In Rust, the % operator is more common than is_multiple_of).
             test_divisor
         } else {
             find_divisor(n, test_divisor + 1)

@@ -18,7 +18,10 @@ pub struct Rational {
 impl Rational {
     /// 새로운 유리수를 생성하고, 기약분수로 약분합니다 (Creates a new rational number and reduces it to lowest terms).
     pub fn new(n: i64, d: i64) -> Self {
-        assert!(d != 0, "분모는 0이 될 수 없습니다 (Denominator cannot be zero)");
+        assert!(
+            d != 0,
+            "분모는 0이 될 수 없습니다 (Denominator cannot be zero)"
+        );
         let g = gcd(n, d);
         // 부호 정규화: 분모는 항상 양수
         let (num, denom) = if d < 0 {

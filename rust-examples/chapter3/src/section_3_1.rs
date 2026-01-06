@@ -662,7 +662,10 @@ mod tests {
 
         assert_eq!(global_state::withdraw(25), Ok(75));
         assert_eq!(global_state::withdraw(25), Ok(50));
-        assert_eq!(global_state::withdraw(60), Err("잔액 부족 (Insufficient funds)"));
+        assert_eq!(
+            global_state::withdraw(60),
+            Err("잔액 부족 (Insufficient funds)")
+        );
         assert_eq!(global_state::withdraw(15), Ok(35));
     }
 

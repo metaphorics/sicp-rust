@@ -1,5 +1,5 @@
 //! SICP 4장: 메타언어적 추상화 (Metalinguistic Abstraction)
-//! 
+//!
 //! 이 장에서는 인터프리터 (interpreter)를 구축합니다:
 //! - 메타순환적 평가기 (AST + 패턴 매칭) (Metacircular evaluator)
 //! - 지연 평가 (thunk, 메모이제이션) (Lazy evaluation)
